@@ -1,0 +1,39 @@
+trigger: none
+pr:
+  branches:
+    include:
+      - '*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - checkout: self
+    persistCredentials: true
+
+  - task: PowerShell@2
+    displayName: 'Scan normalize (multi-root scan)'
+    inputs:
+      pwsh: true
+      workingDirectory: '$(Build.SourcesDirectory)'
+      targetType: 'inline'
+      script: |
+        Write-Host "Running normalize-project scan..."
+        . ./scripts/normalize-project.ps1 -Root '.' -Mode scan -ReportPath "$(Build.SourcesDirectory)/logs/reports/normalize-$(Build.BuildId).md"
+
+  - task: PowerShell@2
+    displayName: 'Run atomicity lint'
+    inputs:
+      pwsh: true
+      workingDirectory: '$(Build.SourcesDirectory)'
+      targetType: 'inline'
+      script: |
+        . ./scripts/lint-atomicity.ps1 -Root '.'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish reports artifact'
+    inputs:
+      pathToPublish: '$(Build.SourcesDirectory)/logs/reports'
+      artifactName: 'reports'
+      publishLocation: 'Container'
+

@@ -1,0 +1,214 @@
+# Dizionario entità (semplice). Serve per nomi chiari e ricerca AI.
+# Ogni entità ha: id (stabile), nome, tipo, percorso wiki, alias, descrizione breve.
+
+version: 2
+updated: '2025-10-18'
+
+endpoints:
+  - id: api-config
+    name: GET /api-config
+    kind: endpoint
+    path: EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001-get-api-config.md
+    aliases: [api-config, configuration-endpoint]
+    description: Ritorna configurazioni del portale (lettura da DB).
+
+  - id: api-branding
+    name: GET /api-branding
+    kind: endpoint
+    path: EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md
+    aliases: [api-branding, branding]
+    description: Ritorna impostazioni di branding (logo, colori, testi).
+
+  - id: api-users
+    name: CRUD /api/users
+    kind: endpoint
+    path: EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md
+    aliases: [api-users, users]
+    description: Operazioni utenti (elenco, dettaglio, creazione, update, delete).
+
+db_storeprocedures:
+  - id: sp-portal-configuration
+    name: PORTAL.stored-procedure.configuration
+    kind: stored-procedure
+    path: EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/configuration.md
+    aliases: [configuration-sp]
+    description: Gestione configurazione portale (parametri globali/tenant).
+
+  - id: sp-portal-profile-domains
+    name: PORTAL.stored-procedure.profile-domains
+    kind: stored-procedure
+    path: EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/profile-domains.md
+    aliases: [profile-domains-sp]
+    description: Profili e domini accesso (ACL) per utenti.
+
+  - id: sp-portal-section-access
+    name: PORTAL.stored-procedure.section-access
+    kind: stored-procedure
+    path: EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/section-access.md
+    aliases: [section-access-sp]
+    description: Gestione accesso alle sezioni del portale.
+
+  - id: sp-portal-stats-execution-log
+    name: PORTAL.stored-procedure.stats-execution-log
+    kind: stored-procedure
+    path: EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md
+    aliases: [stats-execution-log-sp]
+    description: Log esecuzioni per statistiche e audit.
+
+  - id: sp-portal-subscription
+    name: PORTAL.stored-procedure.subscription
+    kind: stored-procedure
+    path: EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/subscription.md
+    aliases: [subscription-sp]
+    description: Gestione abbonamenti/tenant.
+
+  - id: sp-portal-tenant
+    name: PORTAL.stored-procedure.tenant
+    kind: stored-procedure
+    path: EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/tenant.md
+    aliases: [tenant-sp]
+    description: Anagrafica tenant (cliente) e settaggi.
+
+  - id: sp-portal-user-notification-settings
+    name: PORTAL.stored-procedure.user-notification-settings
+    kind: stored-procedure
+    path: EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/user-notification-settings.md
+    aliases: [user-notification-settings-sp]
+    description: Preferenze di notifica per utente.
+
+  - id: sp-portal-users
+    name: PORTAL.stored-procedure.users
+    kind: stored-procedure
+    path: EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/users.md
+    aliases: [users-sp]
+    description: Operazioni utenti lato DB.
+
+db_sequences:
+  - id: seq-portal
+    name: SEQUENCE (PORTAL)
+    kind: sequence
+    path: EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md
+    aliases: [sequence-portal]
+    description: Sequenze per chiavi/identificativi.
+
+policies:
+  - id: policy-api-store-procedure
+    name: Policy API ↔ Store Procedure
+    kind: policy
+    path: EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md
+    aliases: [api-sp-policy]
+    description: Regole di integrazione tra API e store procedure.
+
+  - id: policy-logging-sensitive
+    name: Gestione Log & Dati Sensibili
+    kind: policy
+    path: EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md
+    aliases: [logging-policy]
+    description: Logging, mascheramento PII, export su datalake.
+
+  - id: policy-microservices-gateway
+    name: Policy di Configurazione & Sicurezza — Microservizi e API Gateway
+    kind: policy
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md
+    aliases: [microservices-gateway-policy]
+    description: Policy di configurazione e sicurezza per microservizi e API Gateway.
+
+flows:
+  - id: flow-login-onboarding
+    name: Login & Onboarding
+    kind: flow
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/login-flussi-onboarding.md
+    aliases: [onboarding, login]
+    description: Flussi di accesso e onboarding utente.
+
+  - id: flow-notifiche
+    name: Notifiche – Gestione
+    kind: flow
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/notifiche-gestione.md
+    aliases: [notifications]
+    description: Invio, template e gestione notifiche.
+
+  - id: flow-external-apis
+    name: API Esterne – Integrazione
+    kind: flow
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione.md
+    aliases: [integrazione-esterna]
+    description: Convenzioni e guide per integrazioni esterne.
+
+data:
+  - id: datalake-naming-standard
+    name: Standard Accesso Storage e Datalake (IAM & Naming)
+    kind: standard
+    path: EasyWayData.wiki/EasyWay_WebApp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md
+    aliases: [datalake-standard]
+    description: Regole IAM e naming per datalake/storage.
+
+standards:
+  - id: std-rest-naming
+    name: Convenzioni REST e naming
+    kind: standard
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md
+    aliases: [rest-naming]
+    description: Convenzioni per URL, metodi, payload e naming coerente.
+
+  - id: std-best-practice-naming
+    name: Best Practice Naming & Scalabilità
+    kind: standard
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/best-practice-naming-and-scalability.md
+    aliases: [naming-best-practice]
+    description: Linee guida per naming e scalabilità orientate ad AI/LLM.
+
+guides:
+  - id: guide-logging-audit
+    name: Logging & Audit
+    kind: guide
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/logging-and-audit.md
+    aliases: [logging, audit]
+    description: Indicazioni operative su logging e audit.
+
+  - id: guide-api-onboarding
+    name: API – Onboarding
+    kind: guide
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md
+    aliases: [api-onboarding]
+    description: Guida onboarding API esterne.
+
+  - id: guide-api-notifiche
+    name: API – Notifiche
+    kind: guide
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md
+    aliases: [api-notifiche]
+    description: Guida API per gestione notifiche.
+
+  - id: guide-api-invio-notifica
+    name: API – Invio Notifica
+    kind: guide
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md
+    aliases: [api-invio-notifica]
+    description: Esempi invio notifica e validazioni.
+
+  - id: guide-api-checklist-test
+    name: Checklist di test API
+    kind: guide
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md
+    aliases: [api-test-checklist]
+    description: Checklist test per endpoint API.
+
+  - id: guide-integrazione-shopify
+    name: Esempio – Integrazione Shopify
+    kind: guide
+    path: EasyWayData.wiki/EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md
+    aliases: [shopify-integration]
+    description: Esempio pratico d’integrazione esterna.
+
+architectures:
+  - id: arch-frontend
+    name: Frontend Architecture & Integration
+    kind: architecture
+    path: EasyWayData.wiki/EasyWay_WebApp/06-frontend-architecture.md
+    aliases: [frontend-architecture]
+    description: Architettura frontend, integrazione e sicurezza.
+
+
+db_tables:
+

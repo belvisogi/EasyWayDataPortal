@@ -1,0 +1,5 @@
+Path,Id,Title,Tags,Owner,Summary
+"EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/endpoint.md","ew-endpoint-overview","Endpoint – Introduzione","layer/how-to","team-api","Introduzione agli endpoint del portale"
+"EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione.md","ew-api-ext","API Esterne – Integrazione","layer/reference","team-api","Linee guida per integrazioni esterne"
+"EasyWay_WebApp/03_datalake_dev/03-datalake-dev.md","ew-datalake-dev","Datalake – Dev","layer/how-to","team-data","Attività e pratiche operative per il datalake"
+
