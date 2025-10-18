@@ -1,0 +1,39 @@
+### Healthcheck
+GET http://localhost:3000/api/health
+
+###
+
+### Onboarding Tenant+User (Conversational/Agent-Aware)
+POST http://localhost:3000/api/onboarding
+Content-Type: application/json
+X-Origin: agent
+X-Agent-Id: agent.upload
+X-Conversation-Id: convo-1234
+
+{
+  "tenant_name": "Nuovo Cliente Srl",
+  "user_email": "admin@nuovocliente.it",
+  "display_name": "Mario Rossi",
+  "profile_id": "ADMIN",
+  "ext_attributes": { "source": "restclient", "ip": "1.2.3.4" }
+}
+
+###
+
+### Lista utenti (esempio GET base)
+GET http://localhost:3000/api/users
+
+###
+
+### Iscrizione notifica (esempio, se implementato)
+POST http://localhost:3000/api/notifications/subscribe
+Content-Type: application/json
+X-Tenant-Id: tenant01
+
+{
+  "user_id": "USR000001",
+  "category": "BILLING",
+  "channel": "EMAIL"
+}
+
+###

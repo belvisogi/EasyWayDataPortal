@@ -1,0 +1,30 @@
+// easyway-portal-api/src/utils/logger.ts
+import winston from "winston";
+
+// Livello di log parametrico via env: 'debug', 'info', 'warn', 'error'
+const logLevel = process.env.LOG_LEVEL || "info";
+
+const logger = winston.createLogger({
+  level: logLevel,
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.simple(), // Per ambiente dev/test
+    }),
+    // Log business/errore su file in formato JSON (facile upload su Datalake o forward)
+    new winston.transports.File({
+      filename: "logs/business.log.json",
+      level: "info", // Solo info/warn/error, non debug
+      maxsize: 10485760, // 10MB
+      maxFiles: 7
+    }),
+    new winston.transports.File({
+      filename: "logs/error.log.json",
+      level: "error",
+      maxsize: 10485760, // 10MB
+      maxFiles: 7
+    }),
+  ]
+});
+
+export { logger };

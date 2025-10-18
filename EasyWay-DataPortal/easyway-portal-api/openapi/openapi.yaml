@@ -1,0 +1,157 @@
+openapi: 3.0.3
+info:
+  title: EasyWay Data Portal API
+  version: 0.1.0
+  description: |
+    API contrattuale iniziale per EasyWay Data Portal.
+    Include convenzioni errori e primi endpoint (health, users, onboarding).
+servers:
+  - url: http://localhost:3000
+    description: Local dev
+tags:
+  - name: health
+  - name: users
+  - name: onboarding
+paths:
+  /api/health:
+    get:
+      tags: [health]
+      summary: Health check
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+  /api/users:
+    get:
+      tags: [users]
+      summary: Lista utenti
+      responses:
+        '200':
+          description: Elenco utenti
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      tags: [users]
+      summary: Crea utente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          description: Creato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          description: Conflitto (email già esistente)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/onboarding:
+    post:
+      tags: [onboarding]
+      summary: Avvia onboarding per un tenant/utente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tenantId:
+                  type: string
+                email:
+                  type: string
+                  format: email
+              required: [tenantId, email]
+      responses:
+        '202':
+          description: Accettato
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId:
+                    type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Invalid payload
+        traceId:
+          type: string
+          example: 8f9c2c0a8d254b0b9b30e9b0c9d2e3f4
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+        tenantId:
+          type: string
+        profileId:
+          type: string
+        email:
+          type: string
+          format: email
+        isActive:
+          type: boolean
+        isNotifyEnabled:
+          type: boolean
+    UserCreate:
+      type: object
+      required: [tenantId, email]
+      properties:
+        tenantId:
+          type: string
+        profileId:
+          type: string
+        email:
+          type: string
+          format: email
+  responses:
+    BadRequest:
+      description: Richiesta non valida
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Errore generico
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+

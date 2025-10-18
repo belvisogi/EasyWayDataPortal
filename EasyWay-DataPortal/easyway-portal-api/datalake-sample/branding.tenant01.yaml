@@ -1,0 +1,16 @@
+branding:
+  primary_color: "#009FE3"
+  secondary_color: "#FFD900"
+  background_image: "/portal-assets/img/tenant01_bg.jpg"
+  logo: "/portal-assets/img/logo_tenant01.svg"
+  font: "Inter, Arial, sans-serif"
+
+labels:
+  portal_title: "EasyWay Data Portal"
+  login_button: "Accedi"
+  welcome_message: "Benvenuto su EasyWay!"
+
+paths:
+  official_data: "/official/tenant01/"
+  staging_data: "/staging/tenant01/"
+  portal_assets: "/portal-assets/"
