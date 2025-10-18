@@ -1,8 +1,14 @@
 // easyway-portal-api/src/utils/logger.ts
 import winston from "winston";
+import fs from "fs";
+import path from "path";
 
 // Livello di log parametrico via env: 'debug', 'info', 'warn', 'error'
 const logLevel = process.env.LOG_LEVEL || "info";
+
+// Assicurati che la cartella di log esista
+const logsDir = path.resolve(process.cwd(), "logs");
+try { if (!fs.existsSync(logsDir)) fs.mkdirSync(logsDir, { recursive: true }); } catch {}
 
 const logger = winston.createLogger({
   level: logLevel,

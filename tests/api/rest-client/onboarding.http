@@ -1,10 +1,10 @@
 @baseUrl = http://localhost:3000/api
-@tenant = tenant01
+@token = REPLACE_WITH_BEARER_JWT
 
 ### ONBOARDING tenant + user (via SP debug)
 POST {{baseUrl}}/onboarding
 Content-Type: application/json
-X-Tenant-Id: {{tenant}}
+Authorization: Bearer {{token}}
 X-Origin: api
 
 {
@@ -14,4 +14,3 @@ X-Origin: api
   "profile_id": "TENANT_ADMIN",
   "ext_attributes": { "source": "rest-client" }
 }
-

@@ -1,6 +1,6 @@
 ---
-id: ew-step-3-—-gestione-configurazioni-(yaml-+-db)
-title: STEP 3 — Gestione configurazioni (YAML + DB)
+id: ew-step-3---gestione-configurazioni-(yaml-+-db)
+title: STEP 3 - Gestione configurazioni (YAML + DB)
 summary: 
 owner: 
 tags:
@@ -15,25 +15,19 @@ llm:
 entities: []
 ---
 **Perché lo facciamo:**
-*   Vogliamo che **ogni parametro** (branding, label, path, preferenze) sia **parametrico, centralizzato e modificabile senza deploy**.
-    
-*   Serve poter cambiare “skin” e regole di business per ogni tenant,  
-    senza toccare il codice ma solo modificando un file YAML (branding) o una riga di DB (configurazione runtime).
-    
+* Vogliamo che ogni parametro (branding, label, path, preferenze) sia parametrico, centralizzato e modificabile senza deploy.
+* Serve poter cambiare "skin" e regole di business per ogni tenant senza toccare il codice, ma solo modificando un file YAML (branding) o una riga di DB (configurazione runtime).
+
 **A cosa serve:**
-*   `/config/brandingLoader.ts` → carica la configurazione branding/label/path da YAML (su Datalake o sample locale)
-    
-*   `/config/dbConfigLoader.ts` → carica parametri runtime dal database SQL Server
-    
-*   `/types/config.d.ts` → assicura che tutte le configurazioni abbiano sempre la stessa forma e tipo
-    
-**Risultato:**  
-**Qualsiasi nuovo tenant può avere la sua UI, label, logica e preferenze**  
-– basta creare un nuovo file YAML o un record in tabella, senza scrivere o deployare nuovo codice.
+* `/config/brandingLoader.ts` — carica la configurazione branding/label/path da YAML (Blob/Datalake) con fallback al sample locale
+* `/config/dbConfigLoader.ts` — carica parametri runtime dal database SQL Server
+* `/types/config.d.ts` — tipizza le configurazioni, garantendo forma coerente nel codice
 
+**Risultato:**
+Qualsiasi nuovo tenant può avere UI, label, logica e preferenze dedicate creando un file YAML o record in tabella, senza scrivere o deployare nuovo codice.
 
-**Questa sezione ti permette di leggere dinamicamente le configurazioni sia da YAML (Datalake) sia da DB, a runtime, in base al tenant.**
-NB: L’accesso al Datalake qui è simulato (sample locale). L’integrazione reale la aggiungeremo in seguito (con Azure Blob SDK/credentials, etc).
+**Questa sezione legge dinamicamente le configurazioni da YAML (Datalake) e da DB, a runtime, in base al tenant.**
+Nota: l’accesso al Datalake è implementato via Azure Blob SDK con fallback su sample locale. Richiede env: `AZURE_STORAGE_CONNECTION_STRING` oppure Managed Identity con `AZURE_STORAGE_ACCOUNT`, oltre a `BRANDING_CONTAINER` e `BRANDING_PREFIX` (default `config`).
 
 **3.1 `src/config/brandingLoader.ts`**
 --------------------------------------
@@ -43,30 +37,54 @@ NB: L’accesso al Datalake qui è simulato (sample locale). L’integrazione re
 import fs from "fs";
 import path from "path";
 import YAML from "yaml";
+import { BlobServiceClient } from "@azure/storage-blob";
 import { TenantConfig } from "../types/config";
 
 /**
  * Carica configurazione branding YAML per un tenant.
- * @param tenantId Tenant identificativo
- * @returns TenantConfig oggetto configurazione branding/label/path
+ * Precede da Blob (container: BRANDING_CONTAINER, prefix: BRANDING_PREFIX, default "config/")
+ * e fa fallback su sample locale.
  */
-export function loadBrandingConfig(tenantId: string): TenantConfig {
-  // In produzione: monta qui il path del file su Datalake/Blob
-  const filePath = path.join(__dirname, "../../datalake-sample", `branding.${tenantId}.yaml`);
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Branding YAML for tenant "${tenantId}" not found`);
+export async function loadBrandingConfig(tenantId: string): Promise<TenantConfig> {
+  const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
+  const containerName = process.env.BRANDING_CONTAINER;
+  const prefix = process.env.BRANDING_PREFIX || "config";
+
+  if (connectionString && containerName) {
+    try {
+      const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+      const containerClient = blobServiceClient.getContainerClient(containerName);
+      const blobName = `${prefix}/branding.${tenantId}.yaml`;
+      const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+      if (await blockBlobClient.exists()) {
+        const download = await blockBlobClient.download();
+        const text = await streamToString(download.readableStreamBody as NodeJS.ReadableStream);
+        return YAML.parse(text) as TenantConfig;
+      }
+    } catch { /* fallback */ }
   }
+
+  const filePath = path.join(__dirname, "../../datalake-sample", `branding.${tenantId}.yaml`);
+  if (!fs.existsSync(filePath)) throw new Error(`Branding YAML for tenant "${tenantId}" not found`);
   const fileContent = fs.readFileSync(filePath, "utf-8");
-  const config = YAML.parse(fileContent);
-  return config as TenantConfig;
+  return YAML.parse(fileContent) as TenantConfig;
 }
 
-```sql
+async function streamToString(stream: NodeJS.ReadableStream): Promise<string> {
+  const chunks: Buffer[] = [];
+  return await new Promise((resolve, reject) => {
+    stream.on("data", (d: Buffer) => chunks.push(d));
+    stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf-8")));
+    stream.on("error", reject);
+  });
+}
+
+```
 
 **Dove va:**  
 `easyway-portal-api/src/config/brandingLoader.ts`
 **A cosa serve:**  
-Legge il file di branding YAML (per ora locale), restituisce la configurazione tipizzata per il tenant richiesto.
+Legge il file di branding YAML prima da Blob (`BRANDING_CONTAINER`/`BRANDING_PREFIX` → `branding.{tenantId}.yaml`), altrimenti da sample locale; restituisce la configurazione tipizzata per il tenant richiesto.
 
 * * *
 
@@ -86,7 +104,6 @@ export async function loadDbConfig(
   tenantId: string,
   section?: string
 ): Promise<Record<string, string>> {
-  // Connessione DB (parametri da .env)
   const pool = await sql.connect({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
@@ -109,7 +126,7 @@ export async function loadDbConfig(
   return config;
 }
 
-```sql
+```
 
 **Dove va:**  
 `easyway-portal-api/src/config/dbConfigLoader.ts`
@@ -122,14 +139,12 @@ Legge parametri runtime (feature toggle, limiti, preferenze, ecc.) dal DB SQL Se
 -----------------------------
 
 ```typescript
-
 // easyway-portal-api/src/config/index.ts
 import { loadBrandingConfig } from "./brandingLoader";
 import { loadDbConfig } from "./dbConfigLoader";
 
 export { loadBrandingConfig, loadDbConfig };
-
-```sql
+```
 
 **Dove va:**  
 `easyway-portal-api/src/config/index.ts`
@@ -138,17 +153,12 @@ Espone i loader di configurazione come modulo centralizzato.
 
 * * *
 
-* * *
+Con questa struttura puoi già:
+- Leggere branding e parametri UI dal file YAML per ogni tenant.
+- Leggere parametri runtime dal DB.
+- Integrare tutto nei controller/endpoint in modo atomico e parametrico.
 
-**Con questa struttura puoi già**:
-*   Leggere branding e parametri UI dal file YAML per ogni tenant
-    
-*   Leggere parametri runtime dal DB
-    
-*   Integrare tutto nei controller/endpoint in modo atomico e parametrico
-    
 * * *
-
 
 ## Domande a cui risponde
 - Cosa fa questa pagina?
@@ -156,4 +166,3 @@ Espone i loader di configurazione come modulo centralizzato.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
-

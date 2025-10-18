@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import sql from "mssql";
+import { getPool } from "../utils/db";
 import { logger } from "../utils/logger";
 
 export async function onboarding(req: Request, res: Response) {
   const startTime = Date.now();
-  const pool = await sql.connect(process.env.DB_CONN_STRING!);
+  const pool = await getPool();
 
   // Recupero header conversational/agent-aware
   const origin = req.headers["x-origin"] || "api"; // user, agent, ams, api...

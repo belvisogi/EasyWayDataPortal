@@ -205,11 +205,36 @@ portal-audit/
 
 
 
+?? Provisioning con Terraform
+----------------------------------------
+Il layout dello Storage (ADLS Gen2) può essere creato via Terraform (vedi `infra/terraform`):
+
+- Storage Account con HNS attivo
+- Filesystem `datalake` e `portal-assets`
+- Directory per tenant: `tenant-xxxx/{landing,staging,official,invalidrows,technical}`
+- Directory `portal-assets/config/` per i file YAML di branding
+
+Output Terraform → variabili API:
+- `storage_connection_string` → `AZURE_STORAGE_CONNECTION_STRING`
+- `branding_container_name` → `BRANDING_CONTAINER` (tipicamente `portal-assets`)
+- `branding_prefix` → `BRANDING_PREFIX` (default `config`)
+
+Esempio comandi:
+```
+cd infra/terraform
+terraform init
+terraform plan -var "project_name=easyway" -var "resource_group_name=rg-easyway-dev" -var "storage_account_name=ewdlkdev123" -var "tenants=[\"tenant01\"]"
+terraform apply
+```
+
+Integra poi gli output in Azure DevOps (Variable Group) o Key Vault.
+
 ## Domande a cui risponde
 - Cosa fa questa pagina?
 - Quali sono i prerequisiti?
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 

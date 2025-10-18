@@ -1,10 +1,10 @@
 openapi: 3.0.3
 info:
   title: EasyWay Data Portal API
-  version: 0.1.0
+  version: 0.2.0
   description: |
-    API contrattuale iniziale per EasyWay Data Portal.
-    Include convenzioni errori e primi endpoint (health, users, onboarding).
+    API per EasyWay Data Portal.
+    Include convenzioni errori, security headers e endpoint: health, users, onboarding, notifications.
 servers:
   - url: http://localhost:3000
     description: Local dev
@@ -12,6 +12,9 @@ tags:
   - name: health
   - name: users
   - name: onboarding
+  - name: notifications
+security:
+  - BearerAuth: []
 paths:
   /api/health:
     get:
@@ -28,6 +31,10 @@ paths:
                   status:
                     type: string
                     example: ok
+                  service:
+                    type: string
+                  tenant:
+                    type: string
   /api/users:
     get:
       tags: [users]
@@ -61,12 +68,45 @@ paths:
                 $ref: '#/components/schemas/User'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '409':
-          description: Conflitto (email già esistente)
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/users/{user_id}:
+    put:
+      tags: [users]
+      summary: Aggiorna utente
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: Aggiornato
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    delete:
+      tags: [users]
+      summary: Disattiva utente
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '204':
+          description: Nessun contenuto
         '500':
           $ref: '#/components/responses/ServerError'
   /api/onboarding:
@@ -78,24 +118,31 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                tenantId:
-                  type: string
-                email:
-                  type: string
-                  format: email
-              required: [tenantId, email]
+              $ref: '#/components/schemas/OnboardingPayload'
       responses:
-        '202':
-          description: Accettato
+        '201':
+          description: Creato
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  jobId:
-                    type: string
+                $ref: '#/components/schemas/OnboardingResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/notifications/send:
+    post:
+      tags: [notifications]
+      summary: Invia una notifica a utenti del tenant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendNotification'
+      responses:
+        '200':
+          description: Inviata
         '400':
           $ref: '#/components/responses/BadRequest'
         '500':
@@ -117,30 +164,77 @@ components:
     User:
       type: object
       properties:
-        userId:
+        user_id:
           type: string
-        tenantId:
+        tenant_id:
           type: string
-        profileId:
+        display_name:
+          type: string
+        profile_id:
           type: string
         email:
           type: string
           format: email
-        isActive:
-          type: boolean
-        isNotifyEnabled:
+        is_active:
           type: boolean
     UserCreate:
       type: object
-      required: [tenantId, email]
+      required: [email]
       properties:
-        tenantId:
+        display_name:
           type: string
-        profileId:
+        profile_id:
           type: string
         email:
           type: string
           format: email
+    UserUpdate:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        display_name:
+          type: string
+        profile_id:
+          type: string
+        is_active:
+          type: boolean
+        status:
+          type: string
+          enum: [ACTIVE, INACTIVE]
+    OnboardingPayload:
+      type: object
+      required: [tenant_name, user_email, display_name, profile_id]
+      properties:
+        tenant_name: { type: string }
+        user_email: { type: string, format: email }
+        display_name: { type: string }
+        profile_id: { type: string }
+        ext_attributes: { type: object, additionalProperties: true }
+    OnboardingResponse:
+      type: object
+      properties:
+        status: { type: string }
+        message: { type: string }
+        data:
+          type: array
+          items: { type: object }
+        intent: { type: string }
+        esito: { type: string }
+        conversation_id: { type: string }
+        origin: { type: string }
+    SendNotification:
+      type: object
+      required: [recipients, category, channel, message]
+      properties:
+        recipients:
+          type: array
+          items: { type: string }
+        category: { type: string }
+        channel: { type: string }
+        message: { type: string }
+        ext_attributes: { type: object, additionalProperties: true }
   responses:
     BadRequest:
       description: Richiesta non valida
@@ -154,4 +248,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

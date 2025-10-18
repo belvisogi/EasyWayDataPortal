@@ -1,4 +1,7 @@
-### Health
-GET http://localhost:3000/api/health
-Accept: application/json
+@baseUrl = http://localhost:3000/api
+@token = REPLACE_WITH_BEARER_JWT
 
+### Health (richiede Bearer JWT)
+GET {{baseUrl}}/health
+Accept: application/json
+Authorization: Bearer {{token}}

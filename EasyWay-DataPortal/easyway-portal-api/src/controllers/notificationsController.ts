@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import sql from "mssql";
+import { getPool } from "../utils/db";
 import { logger } from "../utils/logger";
-import { subscribeNotification } from "../controllers/notificationsController";
 
 
 export async function subscribeNotification(req: Request, res: Response) {
@@ -10,7 +10,7 @@ export async function subscribeNotification(req: Request, res: Response) {
 }
 
 export async function sendNotification(req: Request, res: Response) {
-  const pool = await sql.connect(process.env.DB_CONN_STRING!);
+  const pool = await getPool();
   const tenantId = (req as any).tenantId;
   const { recipients, category, channel, message, ext_attributes = {} } = req.body;
 

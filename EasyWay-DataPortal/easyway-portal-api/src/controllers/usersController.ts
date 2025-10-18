@@ -1,5 +1,6 @@
 import { loadQueryWithFallback } from "../queries/queryLoader";
 import sql from "mssql";
+import { getPool } from "../utils/db";
 import { Request, Response } from "express";
 
 // Utility per tenant
@@ -7,27 +8,25 @@ function getTenantId(req: Request): string {
   return (req as any).tenantId;
 }
 
-
-
+// CREATE: POST /api/users
 export async function createUser(req: Request, res: Response) {
   try {
     const tenantId = (req as any).tenantId;
     const { email } = req.body;
 
-    // Mapping compatibilità legacy: display_name/profile_id → name/surname/profile_code
-    const name = req.body.name ?? req.body.display_name ?? null;
-    const surname = req.body.surname ?? null;
-    const profile_code = req.body.profile_code ?? req.body.profile_id ?? null;
+    // Normalizza ai parametri DB: display_name, profile_id
+    const display_name: string | null = req.body.display_name ?? req.body.name ?? null;
+    const profile_id: string | null = req.body.profile_id ?? req.body.profile_code ?? null;
 
-    const pool = await sql.connect(process.env.DB_CONN_STRING!);
+    const pool = await getPool();
     const sqlQuery = await loadQueryWithFallback("users_insert.sql");
 
-    const result = await pool.request()
+    const result = await pool
+      .request()
       .input("tenant_id", sql.NVarChar, tenantId)
       .input("email", sql.NVarChar, email)
-      .input("name", sql.NVarChar, name)
-      .input("surname", sql.NVarChar, surname)
-      .input("profile_code", sql.NVarChar, profile_code)
+      .input("display_name", sql.NVarChar, display_name)
+      .input("profile_id", sql.NVarChar, profile_id)
       .query(sqlQuery);
 
     res.status(201).json(result.recordset?.[0] ?? { status: "ok" });
@@ -40,12 +39,10 @@ export async function createUser(req: Request, res: Response) {
 export async function getUsers(req: Request, res: Response) {
   try {
     const tenantId = getTenantId(req);
-    const pool = await sql.connect(process.env.DB_CONN_STRING!);
+    const pool = await getPool();
     const sqlQuery = await loadQueryWithFallback("users_select_by_tenant.sql");
 
-    const result = await pool.request()
-      .input("tenant_id", sql.NVarChar, tenantId)
-      .query(sqlQuery);
+    const result = await pool.request().input("tenant_id", sql.NVarChar, tenantId).query(sqlQuery);
 
     res.json(result.recordset);
   } catch (err: any) {
@@ -53,29 +50,37 @@ export async function getUsers(req: Request, res: Response) {
   }
 }
 
-
 // UPDATE: PUT /api/users/:user_id
 export async function updateUser(req: Request, res: Response) {
   try {
     const tenantId = getTenantId(req);
     const { user_id } = req.params;
-    const { email, status } = req.body;
-    // Mapping compat
-    const name = req.body.name ?? req.body.display_name ?? null;
-    const surname = req.body.surname ?? null;
-    const profile_code = req.body.profile_code ?? req.body.profile_id ?? null;
+    const { email } = req.body;
 
-    const pool = await sql.connect(process.env.DB_CONN_STRING!);
+    // Normalizza ai parametri DB
+    const display_name: string | null = req.body.display_name ?? req.body.name ?? null;
+    const profile_id: string | null = req.body.profile_id ?? req.body.profile_code ?? null;
+
+    // Supporta sia is_active (boolean) sia status (ACTIVE/INACTIVE)
+    let is_active: boolean | null | undefined = req.body.is_active;
+    if (is_active === undefined && typeof req.body.status === "string") {
+      const s = (req.body.status as string).toLowerCase();
+      if (s === "active") is_active = true;
+      else if (s === "inactive") is_active = false;
+    }
+    if (is_active === undefined) is_active = null;
+
+    const pool = await getPool();
     const sqlQuery = await loadQueryWithFallback("users_update.sql");
 
-    const result = await pool.request()
+    const result = await pool
+      .request()
       .input("user_id", sql.NVarChar, user_id)
       .input("tenant_id", sql.NVarChar, tenantId)
-      .input("email", sql.NVarChar, email)
-      .input("name", sql.NVarChar, name)
-      .input("surname", sql.NVarChar, surname)
-      .input("profile_code", sql.NVarChar, profile_code)
-      .input("status", sql.NVarChar, status ?? null)
+      .input("email", sql.NVarChar, email ?? null)
+      .input("display_name", sql.NVarChar, display_name)
+      .input("profile_id", sql.NVarChar, profile_id)
+      .input("is_active", sql.Bit, is_active as any)
       .query(sqlQuery);
 
     res.json(result.recordset[0]);
@@ -84,7 +89,7 @@ export async function updateUser(req: Request, res: Response) {
   }
 }
 
-// #### Soft delete: endpoint "DELETE /api/users/:user_id"
+// DELETE (soft): DELETE /api/users/:user_id
 export async function deleteUser(req: Request, res: Response) {
   try {
     const tenantId = getTenantId(req);
@@ -93,7 +98,8 @@ export async function deleteUser(req: Request, res: Response) {
     const pool = await sql.connect(process.env.DB_CONN_STRING!);
     const sqlQuery = await loadQueryWithFallback("users_deactive.sql");
 
-    await pool.request()
+    await pool
+      .request()
       .input("user_id", sql.NVarChar, user_id)
       .input("tenant_id", sql.NVarChar, tenantId)
       .query(sqlQuery);

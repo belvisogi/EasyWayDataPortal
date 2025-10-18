@@ -2,7 +2,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
+import helmet from "helmet";
+import cors from "cors";
+import compression from "compression";
+import rateLimit from "express-rate-limit";
+import { v4 as uuidv4 } from "uuid";
 import { logger } from "./utils/logger";
+import { authenticateJwt } from "./middleware/auth";
 import { extractTenantId } from "./middleware/tenant";
 import healthRoutes from "./routes/health";
 import brandingRoutes from "./routes/branding";
@@ -17,15 +23,45 @@ dotenv.config();
 dotenv.config({ path: path.resolve(__dirname, "../.env.local"), override: false });
 
 const app = express();
-app.use(express.json());
+// Trust proxy if behind load balancer
+if ((process.env.TRUST_PROXY || "").toLowerCase() === "true") {
+  app.set("trust proxy", 1);
+}
 
-// Logging di ogni richiesta base
+// Security & performance middleware
+app.use(helmet());
+
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:3000").split(",").map(o => o.trim());
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true);
+    return allowedOrigins.includes(origin) ? cb(null, true) : cb(new Error("CORS not allowed"));
+  },
+  credentials: true
+}));
+
+app.use(compression());
+
+const windowMs = parseInt(process.env.RATE_LIMIT_WINDOW_MS || "60000", 10);
+const maxReq = parseInt(process.env.RATE_LIMIT_MAX || "600", 10);
+app.use(rateLimit({ windowMs, max: maxReq, standardHeaders: true, legacyHeaders: false }));
+
+app.use(express.json({ limit: process.env.BODY_LIMIT || "1mb" }));
+
+// Request/Correlation IDs + logging baseline
 app.use((req, res, next) => {
+  const reqId = (req.header("x-request-id") || uuidv4()).toString();
+  const corrId = (req.header("x-correlation-id") || reqId).toString();
+  (req as any).requestId = reqId;
+  (req as any).correlationId = corrId;
+  res.setHeader("X-Request-Id", reqId);
+  res.setHeader("X-Correlation-Id", corrId);
   logger.info(`[${req.method}] ${req.originalUrl}`);
   next();
 });
 
-// Middleware per estrarre tenant_id da header/JWT (customizza a piacere)
+// Auth + Tenant extraction from token claims
+app.use(authenticateJwt);
 app.use(extractTenantId);
 
 // Rotte API

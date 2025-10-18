@@ -1,14 +1,14 @@
 @baseUrl = http://localhost:3000/api
-@tenant = tenant01
+@token = REPLACE_WITH_BEARER_JWT
 
 ### LIST users (tenant)
 GET {{baseUrl}}/users
-X-Tenant-Id: {{tenant}}
+Authorization: Bearer {{token}}
 
 ### CREATE user (schema corrente API: email/display_name/profile_id)
 POST {{baseUrl}}/users
 Content-Type: application/json
-X-Tenant-Id: {{tenant}}
+Authorization: Bearer {{token}}
 
 {
   "email": "test.user@example.com",
@@ -19,7 +19,7 @@ X-Tenant-Id: {{tenant}}
 ### UPDATE user
 PUT {{baseUrl}}/users/CDI000000001
 Content-Type: application/json
-X-Tenant-Id: {{tenant}}
+Authorization: Bearer {{token}}
 
 {
   "email": "updated.user@example.com",
@@ -30,5 +30,4 @@ X-Tenant-Id: {{tenant}}
 
 ### DELETE (soft) user
 DELETE {{baseUrl}}/users/CDI000000001
-X-Tenant-Id: {{tenant}}
-
+Authorization: Bearer {{token}}
