@@ -1,0 +1,34 @@
+@baseUrl = http://localhost:3000/api
+@tenant = tenant01
+
+### LIST users (tenant)
+GET {{baseUrl}}/users
+X-Tenant-Id: {{tenant}}
+
+### CREATE user (schema corrente API: email/display_name/profile_id)
+POST {{baseUrl}}/users
+Content-Type: application/json
+X-Tenant-Id: {{tenant}}
+
+{
+  "email": "test.user@example.com",
+  "display_name": "Test User",
+  "profile_id": "TENANT_ADMIN"
+}
+
+### UPDATE user
+PUT {{baseUrl}}/users/CDI000000001
+Content-Type: application/json
+X-Tenant-Id: {{tenant}}
+
+{
+  "email": "updated.user@example.com",
+  "display_name": "Updated User",
+  "profile_id": "TENANT_ADMIN",
+  "is_active": true
+}
+
+### DELETE (soft) user
+DELETE {{baseUrl}}/users/CDI000000001
+X-Tenant-Id: {{tenant}}
+

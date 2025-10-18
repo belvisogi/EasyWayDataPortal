@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:3000/api
+@tenant = tenant01
+
+### ONBOARDING tenant + user (via SP debug)
+POST {{baseUrl}}/onboarding
+Content-Type: application/json
+X-Tenant-Id: {{tenant}}
+X-Origin: api
+
+{
+  "tenant_name": "Tenant Test",
+  "user_email": "debug@easyway.it",
+  "display_name": "Debug User",
+  "profile_id": "TENANT_ADMIN",
+  "ext_attributes": { "source": "rest-client" }
+}
+

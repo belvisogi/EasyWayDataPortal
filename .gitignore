@@ -1,0 +1,23 @@
+node_modules
+dist
+coverage
+.DS_Store
+
+# Env files
+.env
+*.env
+*.env.*
+**/.env
+**/*.env
+**/*.env.*
+
+# Editors/OS
+.vscode/
+.idea/
+
+# Wiki tooling/cache
+Wiki/**/.obsidian/
+Wiki/**/.vscode/
+Wiki/**/logs/
+Wiki/**/logs/**
+

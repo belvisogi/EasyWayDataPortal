@@ -1,0 +1,86 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  node_version: '20.x'
+  workingDirectory: 'EasyWay-DataPortal/easyway-portal-api'
+  - group: EasyWay-Secrets  # Define this Variable Group in ADO (contains AZURE_STORAGE_* and DB creds if needed)
+
+stages:
+  - stage: BuildAndTest
+    displayName: Build, Lint, Test
+    jobs:
+      - job: NodeBuild
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '$(node_version)'
+            displayName: 'Use Node.js $(node_version)'
+
+          - script: |
+              cd $(workingDirectory)
+              npm ci
+              npm run build
+            displayName: 'Install & Build'
+
+          - script: |
+              cd $(workingDirectory)
+              npm run lint
+            displayName: 'Lint'
+
+          - script: |
+              cd $(workingDirectory)
+              npm test -- --ci --reporters=default
+            displayName: 'Test'
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: api-dist'
+            inputs:
+              PathtoPublish: '$(workingDirectory)/dist'
+              ArtifactName: 'api-dist'
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: openapi'
+            inputs:
+              PathtoPublish: '$(workingDirectory)/openapi'
+              ArtifactName: 'openapi'
+
+      - job: WikiLint
+        displayName: 'Wiki Normalize & Lint'
+        steps:
+          - task: PowerShell@2
+            displayName: 'Normalize & Review Wiki (if scripts exist)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                Write-Host "Running Wiki normalize/lint if available..."
+                $scripts = "Wiki/EasyWayData.wiki/scripts"
+                if (Test-Path $scripts) {
+                  if (Test-Path "$scripts/normalize-project.ps1") {
+                    pwsh "$scripts/normalize-project.ps1" -Root "Wiki/EasyWayData.wiki"
+                  }
+                  if (Test-Path "$scripts/review-run.ps1") {
+                    pwsh "$scripts/review-run.ps1" -Root "Wiki/EasyWayData.wiki"
+                  }
+                } else {
+                  Write-Host "Wiki scripts folder not found, skipping."
+                }
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: wiki-logs'
+            inputs:
+              PathtoPublish: 'Wiki/EasyWayData.wiki/logs'
+              ArtifactName: 'wiki-logs'
+            condition: and(succeeded(), exists('Wiki/EasyWayData.wiki/logs'))
+
+  # Future: add Deploy stage(s) with environments, approvals, and secret handling
+  # - stage: Deploy
+  #   dependsOn: BuildAndTest
+  #   jobs:
+  #     - job: DeployToDev
+  #       steps: []
