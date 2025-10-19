@@ -1,41 +1,19 @@
----
-id: index
-title: Indice Globale
-summary: Breve descrizione del documento.
-status: draft
-owner: team-docs
-created: '2025-01-01'
-updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
----
 # Indice Globale
-
-## Domande a cui risponde
-- Dove trovo rapidamente i contenuti principali della wiki?
-- Qual è la struttura degli indici (globali e per cartella)?
-- Come navigare verso endpoint, DB, policy e guide correlate?
-- Dove verifico stato naming, anchor e manifest generati?
-
 
 - [ACTIVITY_LOG.md](./ACTIVITY_LOG.md) - Activity Log – CSV friendly (delimiter: ¦)
   - H2: Domande a cui risponde
+  - H2: API – Eventi approvati
 - [agent-manifest-and-indexing-best-practices.md](./agent-manifest-and-indexing-best-practices.md) - Agent Manifest & Indexing - Best Practices
   - H2: Obiettivo
   - H2: Manifest JSONL (consumo per agenti)
   - H2: Anchors CSV (richiami di sezione)
+- [agents-governance.md](./agents-governance.md) - agents-governance
 - [best-practices-token-tuning-roadmap.md](./best-practices-token-tuning-roadmap.md) - Best Practices & Roadmap – Token Tuning, AI-Readiness e Governance Universale
   - H2: Obiettivo
   - H2: 1. Best Practices per la Riduzione Token e l’AI-Readiness
   - H2: 2. Applicazione alle Principali Varianti di Formato
+- [blueprints/replicate-easyway-dataportal.md](./blueprints/replicate-easyway-dataportal.md) - Variabili Pipeline (ADO) – Esempio
+- [deploy-app-service.md](./deploy-app-service.md) - deploy-app-service
 - [docs-conventions.md](./docs-conventions.md) - EasyWayData Portal – Regole Semplici (La Nostra Bibbia)
   - H2: 1) Nomi di file e cartelle (semplici)
   - H2: 1.1) Convenzione di Nomenclatura – kebab-case vs snake_case
@@ -62,7 +40,7 @@ entities: []
   - H2: ✅ Scopo del file
   - H2: 1️⃣ Sequence PRODUZIONE (NDG reali)
   - H2: 2️⃣ Sequence DEBUG/TEST (codici demo)
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md) - EasyWay Data Portal – STORE PROCEDURE: Linee Guida, Best Practice e Template
+- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md) - EasyWay Data Portal - STORE PROCEDURE: Linee Guida, Best Practice e Template
   - H2: ✅ Scopo del documento
   - H2: **Template** ##
   - H2: Template standard EasyWay (produzione)
@@ -102,8 +80,14 @@ entities: []
   - H2: Schema/DDL
 - [EasyWay_WebApp/01_database_architecture/01b-schema-structure.md](./EasyWay_WebApp/01_database_architecture/01b-schema-structure.md) - Domande a cui risponde
   - H2: Domande a cui risponde
+- [EasyWay_WebApp/01_database_architecture/best-practices-checklist.md](./EasyWay_WebApp/01_database_architecture/best-practices-checklist.md) - best-practices-checklist
+- [EasyWay_WebApp/01_database_architecture/db-studio.md](./EasyWay_WebApp/01_database_architecture/db-studio.md) - db-studio
+- [EasyWay_WebApp/01_database_architecture/flyway.md](./EasyWay_WebApp/01_database_architecture/flyway.md) - Le credenziali (URL/USER/PASSWORD) si passano come env nel runner
 - [EasyWay_WebApp/01_database_architecture/index.md](./EasyWay_WebApp/01_database_architecture/index.md) - Indice
   - H2: Domande a cui risponde
+- [EasyWay_WebApp/01_database_architecture/portal.md](./EasyWay_WebApp/01_database_architecture/portal.md) - portal
+- [EasyWay_WebApp/01_database_architecture/sequence.md](./EasyWay_WebApp/01_database_architecture/sequence.md) - sequence
+- [EasyWay_WebApp/01_database_architecture/storeprocess.md](./EasyWay_WebApp/01_database_architecture/storeprocess.md) - storeprocess
 - [EasyWay_WebApp/01-database-architecture.md](./EasyWay_WebApp/01-database-architecture.md) - EasyWay Data Portal – Database Architecture Master
   - H2: ✅ Scopo del Documento
   - H2: 👾 Conversational Intelligence & AMS Ready — Principi Base
@@ -186,7 +170,13 @@ entities: []
   - H2: 1️⃣ Obiettivo
   - H2: 2️⃣ Flusso Registrazione e Accesso Utente
   - H2: 3️⃣ Architettura Generale del Portale (Microservizi / Container)
-- [EasyWay_WebApp/05_codice_easyway_portale/docs.md](./EasyWay_WebApp/05_codice_easyway_portale/docs.md) - docs
+- [EasyWay_WebApp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md](./EasyWay_WebApp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md) - apim-jwt-tenant-claim-policy
+- [EasyWay_WebApp/05_codice_easyway_portale/docs.md](./EasyWay_WebApp/05_codice_easyway_portale/docs.md) - Domande a cui risponde
+  - H2: Domande a cui risponde
+- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md) - Agentic Readiness & Esempi (Users/Onboarding)
+  - H2: Scopo
+  - H2: Linee guida agentiche
+  - H2: Esempio 1 — USERS (CRUD via SP)
 - [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md) - Capitolo – Dinamiche di Manutenzione
   - H2: Architettura delle Cartelle — Dinamiche di Manutenzione
   - H2: Domande a cui risponde
@@ -204,7 +194,7 @@ entities: []
 - [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md) - Indice
 - [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md) - ENDPOINT: [HTTP_VERB] `/api/your-endpoint`
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint/come-si-testa.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint/come-si-testa.md) - Domande a cui risponde
+- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md) - Domande a cui risponde
   - H2: Domande a cui risponde
 - [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md) - Gestione Log — EasyWay Data Portal
   - H2: **Principi guida**
@@ -217,14 +207,11 @@ entities: []
 - [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/logging-conversational-ready-agent-aware.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/logging-conversational-ready-agent-aware.md) - Logging conversational-ready (agent-aware)
   - H2: Domande a cui risponde
 - [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/index.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/index.md) - Indice
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md) - Policy API/Store Procedure - EasyWay Data Portal
+  - H2: Domande a cui risponde
+- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md) - Policy API/Store Procedure — EasyWay Data Portal
   - H2: Principio Guida
   - H2: Vantaggi del modello
   - H2: Pattern operativo
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md) - Agentic Readiness & Esempi (Users/Onboarding)
-  - H2: Linee guida agentiche e template
-  - H2: Esempio Users (CRUD via SP)
-  - H2: Esempio Onboarding (SP + DEBUG)
 - [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md) - EasyWay Data Portal API — Starter Kit
   - H2: Comandi principali
   - H2: Struttura file configurazione
@@ -241,15 +228,19 @@ entities: []
   - H2: Scelte Architetturali e Motivazioni
 - [EasyWay_WebApp/05_codice_easyway_portale/easyway-portal-frontend.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway-portal-frontend.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/iac.md](./EasyWay_WebApp/05_codice_easyway_portale/iac.md) - iac
+- [EasyWay_WebApp/05_codice_easyway_portale/iac.md](./EasyWay_WebApp/05_codice_easyway_portale/iac.md) - Domande a cui risponde
+  - H2: Domande a cui risponde
 - [EasyWay_WebApp/05_codice_easyway_portale/index.md](./EasyWay_WebApp/05_codice_easyway_portale/index.md) - Indice
   - H2: Domande a cui risponde
 - [EasyWay_WebApp/05_codice_easyway_portale/qa-setup-and-test-locale.md](./EasyWay_WebApp/05_codice_easyway_portale/qa-setup-and-test-locale.md) - EasyWay Data Portal — Q&A Setup & Test Locale
   - H2: Aggiornamenti dal 2025-07-28 al 2025-07-29
   - H2: **Note generali**
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/readme.md](./EasyWay_WebApp/05_codice_easyway_portale/readme.md) - readme
-- [EasyWay_WebApp/05_codice_easyway_portale/scripts.md](./EasyWay_WebApp/05_codice_easyway_portale/scripts.md) - scripts
+- [EasyWay_WebApp/05_codice_easyway_portale/readme.md](./EasyWay_WebApp/05_codice_easyway_portale/readme.md) - Domande a cui risponde
+  - H2: Domande a cui risponde
+- [EasyWay_WebApp/05_codice_easyway_portale/scripts.md](./EasyWay_WebApp/05_codice_easyway_portale/scripts.md) - Domande a cui risponde
+  - H2: Domande a cui risponde
+- [EasyWay_WebApp/05_codice_easyway_portale/security-and-observability.md](./EasyWay_WebApp/05_codice_easyway_portale/security-and-observability.md) - security-and-observability
 - [EasyWay_WebApp/05-codice-easyway-portale.md](./EasyWay_WebApp/05-codice-easyway-portale.md) - Domande a cui risponde
   - H2: Domande a cui risponde
 - [EasyWay_WebApp/06-frontend-architecture.md](./EasyWay_WebApp/06-frontend-architecture.md) - EasyWay Data Portal – Frontend Architecture & Integration
@@ -273,7 +264,6 @@ entities: []
   - H2: DB Stored Procedures
   - H2: DB Sequences
 - [INDEX.md](./INDEX.md) - Indice Globale
-  - H2: Domande a cui risponde
 - [LLM_READINESS_CHECKLIST.md](./LLM_READINESS_CHECKLIST.md) - LLM Readiness – Lista Semplice (Per Persone e AI)
   - H2: Checklist per OGNI pagina (.md)
   - H2: Checklist NOMI (file e cartelle)
@@ -294,6 +284,9 @@ entities: []
 - [logs/reports/anchors-20251018124502.md](./logs/reports/anchors-20251018124502.md) - Anchor Check (20251018124502)
 - [logs/reports/anchors-20251018125020.md](./logs/reports/anchors-20251018125020.md) - Anchor Check (20251018125020)
 - [logs/reports/anchors-20251018132417.md](./logs/reports/anchors-20251018132417.md) - Anchor Check (20251018132417)
+- [logs/reports/anchors-20251018134027.md](./logs/reports/anchors-20251018134027.md) - Anchor Check (20251018134027)
+- [logs/reports/anchors-20251019203154.md](./logs/reports/anchors-20251019203154.md) - Anchor Check (20251019203154)
+- [logs/reports/anchors-20251019203554.md](./logs/reports/anchors-20251019203554.md) - Anchor Check (20251019203554)
 - [logs/reports/atomicity-20251018151337.md](./logs/reports/atomicity-20251018151337.md) - Atomicity Lint
 - [logs/reports/atomicity-20251018151922.md](./logs/reports/atomicity-20251018151922.md) - Atomicity Lint
 - [logs/reports/atomicity-20251018152434.md](./logs/reports/atomicity-20251018152434.md) - Atomicity Lint
@@ -301,13 +294,32 @@ entities: []
 - [logs/reports/atomicity-20251018153046.md](./logs/reports/atomicity-20251018153046.md) - Atomicity Lint
 - [logs/reports/atomicity-20251018153234.md](./logs/reports/atomicity-20251018153234.md) - Atomicity Lint
 - [logs/reports/atomicity-20251018153342.md](./logs/reports/atomicity-20251018153342.md) - Atomicity Lint
+- [logs/reports/atomicity-20251018154041.md](./logs/reports/atomicity-20251018154041.md) - Atomicity Lint
+- [logs/reports/atomicity-20251018154437.md](./logs/reports/atomicity-20251018154437.md) - Atomicity Lint
+- [logs/reports/atomicity-20251018160012.md](./logs/reports/atomicity-20251018160012.md) - Atomicity Lint
+- [logs/reports/atomicity-20251018160206.md](./logs/reports/atomicity-20251018160206.md) - Atomicity Lint
+- [logs/reports/atomicity-20251018160726.md](./logs/reports/atomicity-20251018160726.md) - Atomicity Lint
+- [logs/reports/atomicity-20251018161142.md](./logs/reports/atomicity-20251018161142.md) - Atomicity Lint
+- [logs/reports/atomicity-20251018163121.md](./logs/reports/atomicity-20251018163121.md) - Atomicity Lint
+- [logs/reports/atomicity-20251018163339.md](./logs/reports/atomicity-20251018163339.md) - Atomicity Lint
+- [logs/reports/atomicity-20251018163431.md](./logs/reports/atomicity-20251018163431.md) - Atomicity Lint
 - [logs/reports/llm-readiness-20251018103206.md](./logs/reports/llm-readiness-20251018103206.md) - LLM Readiness Mini-Report (20251018103206)  | File | Missing | |---|---|
 - [logs/reports/naming-20251018061858-analysis.md](./logs/reports/naming-20251018061858-analysis.md) - Naming Report Analysis (20251018061858)
   - H2: Domande a cui risponde
-- [scripts/scripts.md](./scripts/scripts.md) - Scripts - One‑shot e routine frequenti
-  - H2: One‑shot: rigenera tutto (root corrente)
-  - H2: Multi‑root: aggrega più progetti
-  - H2: Utility: aggiungi front matter mancante
+- [logs/reports/normalize-20251018161054.md](./logs/reports/normalize-20251018161054.md) - Normalize Scan Report
+- [logs/reports/normalize-20251018161055.md](./logs/reports/normalize-20251018161055.md) - Normalize Scan Report
+- [logs/reports/normalize-20251018161134.md](./logs/reports/normalize-20251018161134.md) - Normalize Scan Report
+- [logs/reports/normalize-20251018161530-EasyWayData.wiki.md](./logs/reports/normalize-20251018161530-EasyWayData.wiki.md) - Normalize Scan Report
+- [logs/reports/normalize-20251018161531-EasyWayData.wiki.md](./logs/reports/normalize-20251018161531-EasyWayData.wiki.md) - Normalize Scan Report
+- [parametrization-best-practices.md](./parametrization-best-practices.md) - parametrization-best-practices
+- [roadmap.md](./roadmap.md) - Roadmap & Qualità Documentazione
+  - H2: Obiettivi
+  - H2: Comandi locali (riassunto)
+  - H2: Pipeline CI (Azure DevOps)
+- [scripts/scripts.md](./scripts/scripts.md) - Scripts - One-shot e routine frequenti
+  - H2: One-shot: rigenera tutto (root corrente)
+  - H2: Multi-root: aggrega più progetti
+  - H2: Multi-root: normalizzazione (scan/apply) e report
 - [TODO_CHECKLIST.md](./TODO_CHECKLIST.md) - TODO – Razionalizzazione Wiki (Semplice)
   - H2: Convenzioni e struttura
   - H2: Rinomine e pulizia nomi
@@ -316,4 +328,3 @@ entities: []
   - H2: Obiettivi
   - H2: Fasi e Sequenza
   - H2: Per‑Cartella (linee guida)
-

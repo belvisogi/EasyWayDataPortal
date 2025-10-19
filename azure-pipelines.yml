@@ -8,13 +8,36 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
+  - template: ci/versions.yml
   - group: EasyWay-Secrets  # Variable Group in ADO with AZURE_STORAGE_* and DB creds
-  - name: node_version
-    value: '20.x'
   - name: workingDirectory
     value: 'EasyWay-DataPortal/easyway-portal-api'
   - name: FLYWAY_ENABLED
     value: 'false'   # set to 'true' to run Flyway migrate in Dev/Test
+  - name: ENABLE_CHECKLIST
+    value: 'true'
+  - name: ENABLE_DB_DRIFT
+    value: 'true'
+  - name: ENABLE_KB_CONSISTENCY
+    value: 'true'
+  - name: ENABLE_DEPLOY
+    value: 'false'
+  - name: ENABLE_SWAP
+    value: 'false'
+  - name: AZURE_SERVICE_CONNECTION
+    value: ''
+  - name: WEBAPP_NAME
+    value: ''
+  - name: RESOURCE_GROUP
+    value: ''
+  - name: WEBAPP_SLOT
+    value: ''
+  - name: ENABLE_SYNC_APPSETTINGS
+    value: 'false'
+  - name: ENVIRONMENT
+    value: 'dev'
+  - name: GOV_APPROVED
+    value: 'false'
   # Expected (in Variable Group or pipeline vars): FLYWAY_URL, FLYWAY_USER, FLYWAY_PASSWORD
 
 stages:
@@ -73,9 +96,77 @@ stages:
               terraform apply -input=false -auto-approve tfplan || echo "Provide manual apply if needed"
             displayName: 'Terraform apply'
 
+  - stage: DB
+    displayName: Database (Validate/Migrate)
+    dependsOn: Infra
+    jobs:
+      - job: FlywayMigrateDev
+        displayName: 'Flyway Migrate (Dev/Test)'
+        condition: and(succeeded(), eq(variables['FLYWAY_ENABLED'], 'true'))
+        steps:
+          - script: |
+              set -e
+              FLYWAY_VERSION=$(flyway_version)
+              curl -L -o /tmp/flyway.tar.gz https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
+              tar -xzf /tmp/flyway.tar.gz -C /tmp
+              echo "##vso[task.prependpath]/tmp/flyway-${FLYWAY_VERSION}"
+            displayName: 'Install Flyway CLI'
+          - script: |
+              cd db/flyway
+              echo "Flyway URL: $(FLYWAY_URL)"
+              export FLYWAY_URL="$(FLYWAY_URL)"
+              export FLYWAY_USER="$(FLYWAY_USER)"
+              export FLYWAY_PASSWORD="$(FLYWAY_PASSWORD)"
+              flyway -configFiles=flyway.conf validate
+              flyway -configFiles=flyway.conf migrate
+            displayName: 'Run Flyway validate/migrate'
+
   - stage: BuildAndTest
     displayName: Build, Lint, Test
+    dependsOn: DB
     jobs:
+      - job: VersionsReport
+        displayName: 'Versions Report (Node/Flyway/Terraform)'
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '$(node_version)'
+            displayName: 'Use Node.js $(node_version)'
+          - script: |
+              set -e
+              REPORT_FILE="$(Build.SourcesDirectory)/versions-report.txt"
+              echo "Configured versions (from ci/versions.yml):"           | tee "$REPORT_FILE"
+              echo "  node_version=$(node_version)"                        | tee -a "$REPORT_FILE"
+              echo "  flyway_version=$(flyway_version)"                    | tee -a "$REPORT_FILE"
+              echo "  terraform_version=$(terraform_version)"              | tee -a "$REPORT_FILE"
+              echo ""                                                      | tee -a "$REPORT_FILE"
+              echo "Detected Node & npm versions:"                         | tee -a "$REPORT_FILE"
+              node -v                                                       | tee -a "$REPORT_FILE"
+              npm -v                                                        | tee -a "$REPORT_FILE"
+            displayName: 'Report Node/npm versions'
+          - script: |
+              set -e
+              FLYWAY_VERSION=$(flyway_version)
+              echo "Installing Flyway ${FLYWAY_VERSION} for version check..."
+              curl -sSL -o /tmp/flyway.tar.gz https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
+              tar -xzf /tmp/flyway.tar.gz -C /tmp >/dev/null 2>&1 || true
+              echo "##vso[task.prependpath]/tmp/flyway-${FLYWAY_VERSION}"
+              flyway -v || true | tee -a "$(Build.SourcesDirectory)/versions-report.txt"
+            displayName: 'Report Flyway version'
+          - script: |
+              set -e
+              TF_VERSION=$(terraform_version)
+              echo "Installing Terraform ${TF_VERSION} for version check..."
+              curl -sSL -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+              unzip -o /tmp/terraform.zip -d /tmp >/dev/null 2>&1 || true
+              echo "##vso[task.prependpath]/tmp"
+              terraform version || true | tee -a "$(Build.SourcesDirectory)/versions-report.txt"
+            displayName: 'Report Terraform version'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: versions-report'
+            inputs:
+              PathtoPublish: '$(Build.SourcesDirectory)/versions-report.txt'
+              ArtifactName: 'versions-report'
       - job: NodeBuild
         steps:
           - task: NodeTool@0
@@ -146,6 +237,7 @@ stages:
 
       - job: PreDeployChecklist
         displayName: 'Pre-Deploy Checklist (Gate)'
+        condition: and(succeeded(), eq(variables['ENABLE_CHECKLIST'], 'true'))
         dependsOn:
           - NodeBuild
           - WikiLint
@@ -177,6 +269,7 @@ stages:
 
       - job: KBConsistency
         displayName: 'KB Consistency (Gate)'
+        condition: and(succeeded(), eq(variables['ENABLE_KB_CONSISTENCY'], 'true'))
         dependsOn:
           - NodeBuild
         steps:
@@ -213,6 +306,7 @@ stages:
 
       - job: DBDriftCheck
         displayName: 'DB Drift Check (Gate)'
+        condition: and(succeeded(), eq(variables['ENABLE_DB_DRIFT'], 'true'))
         dependsOn:
           - NodeBuild
         steps:
@@ -259,38 +353,150 @@ stages:
                 $artifacts = @()
                 if (Test-Path "$(workingDirectory)/checklist.json") { $artifacts += 'checklist.json' }
                 if (Test-Path "$(workingDirectory)/drift.json") { $artifacts += 'drift.json' }
+                if (Test-Path "$(Build.SourcesDirectory)/versions-report.txt") { $artifacts += 'versions-report.txt' }
                 pwsh scripts/activity-log.ps1 -Intent $intent -Actor $actor -Env $env -Outcome $outcome -Refs $refs -Artifacts $artifacts -Notes "CI run"
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: activity-log'
             inputs:
               PathtoPublish: 'agents/logs'
               ArtifactName: 'activity-log'
-      - job: FlywayMigrateDev
-        displayName: 'Flyway Migrate (Dev/Test)'
+
+      - job: GatesReport
+        displayName: 'Gates Report (aggregate)'
         dependsOn:
-          - Infra
-        condition: and(succeeded(), eq(variables['FLYWAY_ENABLED'], 'true'))
+          - PreDeployChecklist
+          - KBConsistency
+          - DBDriftCheck
+        condition: succeededOrFailed()
         steps:
-          - script: |
-              set -e
-              FLYWAY_VERSION=9.22.3
-              curl -L -o /tmp/flyway.tar.gz https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
-              tar -xzf /tmp/flyway.tar.gz -C /tmp
-              echo "##vso[task.prependpath]/tmp/flyway-${FLYWAY_VERSION}"
-            displayName: 'Install Flyway CLI'
-          - script: |
-              cd db/flyway
-              echo "Flyway URL: $(FLYWAY_URL)"
-              export FLYWAY_URL="$(FLYWAY_URL)"
-              export FLYWAY_USER="$(FLYWAY_USER)"
-              export FLYWAY_PASSWORD="$(FLYWAY_PASSWORD)"
-              flyway -configFiles=flyway.conf validate
-              flyway -configFiles=flyway.conf migrate
-            displayName: 'Run Flyway validate/migrate'
+          - task: PowerShell@2
+            displayName: 'Generate gates-report.json'
+            inputs:
+              targetType: 'inline'
+              script: |
+                git config --global --add safe.directory $(Build.SourcesDirectory)
+                cd $(Build.SourcesDirectory)
+                $report = [ordered]@{
+                  checklistEnabled = '$(ENABLE_CHECKLIST)';
+                  kbConsistencyEnabled = '$(ENABLE_KB_CONSISTENCY)';
+                  dbDriftEnabled = '$(ENABLE_DB_DRIFT)';
+                  checklistOk = (Test-Path "$(workingDirectory)/checklist.json");
+                  dbDriftOk = (Test-Path "$(workingDirectory)/drift.json");
+                }
+                $json = ($report | ConvertTo-Json -Depth 4)
+                $out = Join-Path '$(Build.SourcesDirectory)' 'gates-report.json'
+                $json | Set-Content -Encoding UTF8 $out
+                Write-Host "Wrote $out"
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: gates-report'
+            inputs:
+              PathtoPublish: '$(Build.SourcesDirectory)/gates-report.json'
+              ArtifactName: 'gates-report'
 
   # Future: add Deploy stage(s) with environments, approvals, and secret handling
-  # - stage: Deploy
-  #   dependsOn: BuildAndTest
-  #   jobs:
-  #     - job: DeployToDev
-  #       steps: []
+  - stage: Deploy
+    displayName: Deploy App Service
+    dependsOn: BuildAndTest
+    condition: and(succeeded(), eq(variables['ENABLE_DEPLOY'], 'true'))
+    jobs:
+      - job: DeployToDev
+        displayName: 'Deploy to Azure Web App'
+        steps:
+          - task: DownloadBuildArtifacts@0
+            displayName: 'Download artifact: api-dist'
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactName: 'api-dist'
+              downloadPath: '$(Pipeline.Workspace)'
+
+          - task: ArchiveFiles@2
+            displayName: 'Archive api-dist to zip'
+            inputs:
+              rootFolderOrFile: '$(Pipeline.Workspace)/api-dist'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Pipeline.Workspace)/api-dist.zip'
+              replaceExistingArchive: true
+
+          - task: AzureWebApp@1
+            displayName: 'Deploy package to WebApp'
+            inputs:
+              azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+              appName: '$(WEBAPP_NAME)'
+              package: '$(Pipeline.Workspace)/api-dist.zip'
+              resourceGroupName: '$(RESOURCE_GROUP)'
+              slotName: '$(WEBAPP_SLOT)'
+
+          - task: AzureAppServiceSettings@1
+            displayName: 'Configure App Settings'
+            inputs:
+              azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+              appName: '$(WEBAPP_NAME)'
+              resourceGroupName: '$(RESOURCE_GROUP)'
+              slotName: '$(WEBAPP_SLOT)'
+              appSettings: |
+                [
+                  {"name":"AUTH_ISSUER","value":"$(AUTH_ISSUER)","slotSetting":false},
+                  {"name":"AUTH_JWKS_URI","value":"$(AUTH_JWKS_URI)","slotSetting":false},
+                  {"name":"AUTH_AUDIENCE","value":"$(AUTH_AUDIENCE)","slotSetting":false},
+                  {"name":"AUTH_CLIENT_ID","value":"$(AUTH_CLIENT_ID)","slotSetting":false},
+                  {"name":"AUTH_TENANT_ID","value":"$(AUTH_TENANT_ID)","slotSetting":false},
+                  {"name":"TENANT_CLAIM","value":"$(TENANT_CLAIM)","slotSetting":false},
+                  {"name":"DB_CONN_STRING","value":"$(DB_CONN_STRING)","slotSetting":false},
+                  {"name":"AZURE_STORAGE_CONNECTION_STRING","value":"$(AZURE_STORAGE_CONNECTION_STRING)","slotSetting":false},
+                  {"name":"AZURE_STORAGE_ACCOUNT","value":"$(AZURE_STORAGE_ACCOUNT)","slotSetting":false},
+                  {"name":"BRANDING_CONTAINER","value":"$(BRANDING_CONTAINER)","slotSetting":false},
+                  {"name":"BRANDING_PREFIX","value":"$(BRANDING_PREFIX)","slotSetting":false},
+                  {"name":"DEFAULT_TENANT_ID","value":"$(DEFAULT_TENANT_ID)","slotSetting":false},
+                  {"name":"RLS_CONTEXT_ENABLED","value":"$(RLS_CONTEXT_ENABLED)","slotSetting":false},
+                  {"name":"LOG_LEVEL","value":"$(LOG_LEVEL)","slotSetting":false},
+                  {"name":"LOG_DIR","value":"$(LOG_DIR)","slotSetting":false},
+                  {"name":"APPLICATIONINSIGHTS_CONNECTION_STRING","value":"$(APPLICATIONINSIGHTS_CONNECTION_STRING)","slotSetting":false},
+                  {"name":"OTEL_ENABLED","value":"$(OTEL_ENABLED)","slotSetting":false},
+                  {"name":"OTEL_TRACES_SAMPLER","value":"$(OTEL_TRACES_SAMPLER)","slotSetting":false},
+                  {"name":"OTEL_TRACES_SAMPLER_ARG","value":"$(OTEL_TRACES_SAMPLER_ARG)","slotSetting":false},
+                  {"name":"PORTAL_BASE_PATH","value":"$(PORTAL_BASE_PATH)","slotSetting":false},
+                  {"name":"RATE_LIMIT_WINDOW_MS","value":"$(RATE_LIMIT_WINDOW_MS)","slotSetting":false},
+                  {"name":"RATE_LIMIT_MAX","value":"$(RATE_LIMIT_MAX)","slotSetting":false},
+                  {"name":"BODY_LIMIT","value":"$(BODY_LIMIT)","slotSetting":false}
+                ]
+          - task: AzureAppServiceManage@0
+            displayName: 'Swap Slots'
+            condition: and(succeeded(), eq(variables['ENABLE_SWAP'], 'true'))
+            inputs:
+              azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+              Action: 'Swap Slots'
+              WebAppName: '$(WEBAPP_NAME)'
+              ResourceGroupName: '$(RESOURCE_GROUP)'
+              SourceSlot: '$(WEBAPP_SLOT)'
+
+      - job: SyncAppSettingsDev
+        displayName: 'Sync App Settings from .env.local (Dev Slot)'
+        condition: and(
+          succeeded(),
+          eq(variables['ENABLE_SYNC_APPSETTINGS'], 'true'),
+          or(ne(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['GOV_APPROVED'], 'true')),
+          or(ne(variables['ENVIRONMENT'], 'prod'), eq(variables['GOV_APPROVED'], 'true'))
+        )
+        steps:
+          - task: PowerShell@2
+            displayName: 'Generate appsettings from .env.local'
+            inputs:
+              targetType: 'inline'
+              script: |
+                pwsh scripts/generate-appsettings.ps1 -ApiPath EasyWay-DataPortal/easyway-portal-api -OutDir ./out
+                Get-Content ./out/appsettings.cli.json | Write-Host
+          - task: AzureCLI@2
+            displayName: 'Apply appsettings (Azure CLI)'
+            inputs:
+              azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+              scriptType: 'pscore'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                if (-not (Test-Path './out/appsettings.cli.json')) { Write-Error 'Missing ./out/appsettings.cli.json'; exit 1 }
+                if ([string]::IsNullOrWhiteSpace('$(WEBAPP_SLOT)')) {
+                  az webapp config appsettings set -g "$(RESOURCE_GROUP)" -n "$(WEBAPP_NAME)" --settings @./out/appsettings.cli.json
+                } else {
+                  az webapp config appsettings set -g "$(RESOURCE_GROUP)" -n "$(WEBAPP_NAME)" --slot "$(WEBAPP_SLOT)" --settings @./out/appsettings.cli.json
+                }

@@ -1,0 +1,7 @@
+variables:
+  - name: node_version
+    value: '22.x'
+  - name: flyway_version
+    value: '9.22.3'
+  - name: terraform_version
+    value: '1.9.5'

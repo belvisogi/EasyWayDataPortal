@@ -1,0 +1,60 @@
+20251018063315Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018063315.txt, dry-run=False, global-index=False
+20251018064203Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018064200.txt, anchors=0, dry-run=False, global-index=True
+20251018064511Z¦DOC¦checklist¦success¦team-docs¦Integrato controllo ancore in LLM_READINESS_CHECKLIST.md (con comando di esecuzione)
+20251018064604Z¦DOC¦top-level¦success¦team-docs¦Front matter aggiunto ai file top-level mancanti
+20251018065008Z¦UPDATE¦entities¦success¦team-docs¦Esteso entities.yaml: paths normalizzati + standards, guides, architectures
+20251018065131Z¦INDEX¦entities¦success¦team-docs¦Creato ENTITIES_INDEX.md da entities.yaml
+20251018091452Z¦UPDATE¦index¦success¦team-docs¦Aggiunti link a ENTITIES_INDEX.md in DOCS_CONVENTIONS e INDEX.md
+20251018093206Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=1, fm=0, links=0, indices=8, report=naming-20251018093204.txt, anchors=0, dry-run=False, global-index=True
+20251018102953Z¦RENAME¦entities¦success¦team-docs¦ENTITIES_INDEX.md → entities_index.md
+20251018103020Z¦UPDATE¦index¦success¦team-docs¦Aggiornato INDEX.md per nuovo nome entities_index.md
+20251018103044Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=1, fm=0, links=0, indices=8, report=naming-20251018103043.txt, anchors=0, dry-run=False, global-index=False
+20251018103124Z¦RENAME¦entities¦success¦team-docs¦entities_index.md → entities-index.md
+20251018103138Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018103138.txt, anchors=0, dry-run=False, global-index=False
+20251018103206Z¦ANALYZE¦llm-readiness¦success¦team-docs¦Generato mini-report LLM readiness (20251018103206)
+20251018103742Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018103741.txt, anchors=91, dry-run=False, global-index=False
+20251018103742Z¦DOC¦sprint-1-wrapup¦success¦team-docs¦FM/Q&A aggiornati secondo mini-report; estese entities (db_tables); anchor check eseguito
+20251018104125Z¦UPDATE¦index¦success¦team-docs¦Rigenerato INDEX.md con link relativi puliti (GetRelativePath)
+20251018104140Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018104139.txt, anchors=5, dry-run=False, global-index=False
+20251018104418Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018104417.txt, anchors=3, dry-run=False, global-index=False
+20251018104748Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018104747.txt, anchors=0, dry-run=False, global-index=False
+20251018105948Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018105947.txt, anchors=11, dry-run=False, global-index=False
+20251018110026Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018110025.txt, anchors=11, dry-run=False, global-index=False
+20251018110253Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018110252.txt, anchors=0, dry-run=False, global-index=False
+20251018124247Z¦DOC¦wiki¦success¦team-docs¦Aggiunta roadmap uniformamento wiki; link in INDEX.md
+20251018124451Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018124450.txt, anchors=0, dry-run=False, global-index=True
+20251018124502Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018124458.txt, anchors=0, dry-run=False, global-index=True
+20251018124707Z¦DOC¦wiki¦success¦team-docs¦Corretto link a docs-conventions in INDEX.md; naming+anchors=0; INDEX rigenerato
+
+20251018124927Z¦DOC¦front-matter¦success¦team-docs¦Front matter aggiunto dove mancante
+20251018125004Z¦INDEX¦entities¦success¦team-docs¦Rigenerato entities-index.md da entities.yaml
+20251018125020Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018125018.txt, anchors=0, dry-run=False, global-index=True
+20251018125409Z¦INDEX¦master¦success¦team-docs¦Generato index_master.csv per EasyWayData.wiki
+20251018130019Z¦INDEX¦master¦success¦team-docs¦Rigenerati index_master.csv, index_master.jsonl, anchors_master.csv
+20251018130156Z¦DOC¦agents¦success¦team-docs¦Aggiunta guida agenti e aggiornata roadmap con manifest JSONL/CSV e anchors
+20251018130542Z¦EXPORT¦chunks¦success¦team-docs¦Generato chunks_master.jsonl (H2/H3, 1600-2400 chars)
+20251018130632Z¦EXPORT¦chunks¦success¦team-docs¦Rigenerato chunks_master.jsonl dopo fix Trim()
+20251018130715Z¦EXPORT¦chunks¦success¦team-docs¦Rigenerato chunks_master.jsonl con parser sezioni robusto
+20251018131339Z¦LINT¦atomicity¦success¦team-docs¦Atomicity lint eseguito: front matter, Q&A, code fences
+20251018131426Z¦INDEX¦multi-root¦success¦team-docs¦Generati index_master_all.csv/jsonl e anchors_master_all.csv via aggregazione
+20251018131956Z¦INDEX¦multi-root¦success¦team-docs¦Aggiunta OtherWiki e rigenerati artefatti aggregati
+20251018132404Z¦LINT¦normalize¦success¦team-docs¦Normalizzati code fence senza lingua in docs-conventions.md -> text
+20251018132417Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018132416.txt, anchors=0, dry-run=False, global-index=True
+20251018132436Z¦REVIEW¦full-rebuild¦success¦team-docs¦Full rebuild + lint (min Q&A >=3, lang allowed: sql, sh, powershell, json, text)
+
+## Domande a cui risponde
+- Come è strutturato il log attività del progetto?
+- Qual è il formato esatto delle righe e il timestamp?
+- Dove trovo log aggregati per mese o per ambito?
+
+20251018134028Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251018134026.txt, anchors=0, dry-run=False, global-index=True
+20251018135945Z¦LINT¦programmability¦success¦team-docs¦Normalize code fences in programmability subtree (default sql)
+20251018140712Z¦LINT¦normalize-project¦success¦team-docs¦Normalize project (fences sql via glob fallback)
+20251018141055Z¦LINT¦normalize-project¦success¦team-docs¦Scan only: report=normalize-20251018161054.md
+20251018141142Z¦LINT¦normalize-project¦success¦team-docs¦Apply done; scan report=normalize-20251018161134.md
+20251018141531Z¦LINT¦normalize-project¦success¦team-docs¦Scan only: report=normalize-20251018161530-EasyWayData.wiki.md
+20251018141531Z¦LINT¦normalize-project¦success¦team-docs¦Scan only: report=normalize-20251018141531Z-OtherWiki.md
+20251018141531Z¦LINT¦normalize-project¦success¦team-docs¦Multi-root scan: normalize-all-20251018161530.md
+20251018141538Z¦LINT¦normalize-project¦success¦team-docs¦Apply done; scan report=normalize-20251018161531-EasyWayData.wiki.md
+20251018141538Z¦LINT¦normalize-project¦success¦team-docs¦Apply done; scan report=normalize-20251018141538Z-OtherWiki.md
+20251018141538Z¦LINT¦normalize-project¦success¦team-docs¦Multi-root apply: normalize-all-20251018161531.md

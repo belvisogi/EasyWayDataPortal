@@ -78,6 +78,7 @@ function Get-NameCompliance {
     if ($name -eq '.gitignore') { return }
     if ($name -eq '.order') { return }
     if ($rel -like '.attachments/*') { return }
+    if ($rel -match '^logs/reports/') { return }
     if ($rel -match '^EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/STEP-') { return }
     if ($rel -in @('ACTIVITY_LOG.md','DOCS_CONVENTIONS.md','LLM_READINESS_CHECKLIST.md','TODO_CHECKLIST.md','INDEX.md')) { return }
     $issues = [System.Collections.Generic.List[string]]::new()

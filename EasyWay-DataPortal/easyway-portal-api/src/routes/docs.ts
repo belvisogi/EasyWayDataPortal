@@ -62,3 +62,19 @@ router.get("/activity.json", (_req, res) => {
     res.status(500).json({ error: err?.message || "Activity read error" });
   }
 });
+
+router.get("/activity/approved", (_req, res) => {
+  try {
+    if (!fs.existsSync(activityPath)) return res.status(404).json({ message: "Activity log not found" });
+    const text = fs.readFileSync(activityPath, "utf-8");
+    const lines = text.split(/\r?\n/).filter(Boolean);
+    const items = lines.map((l) => JSON.parse(l));
+    const approved = items.filter((e: any) => {
+      const v = ("" + (e.govApproved ?? "")).toLowerCase();
+      return v === "true";
+    });
+    res.json(approved);
+  } catch (err: any) {
+    res.status(500).json({ error: err?.message || "Activity read error" });
+  }
+});

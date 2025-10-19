@@ -30,6 +30,25 @@ Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anch
 - [ ] Rimuovere backtick/quote nei nomi file (`quotes/backticks`)
 - [ ] Uniformare maiuscole/minuscole (tutto minuscolo per file/cartelle)
 
+### Rinomine puntuali (20251019)
+- [x] EasyWayData.wiki/agents-governance.md → agents-governance.md
+- [x] EasyWayData.wiki/deploy-app-service.md → deploy-app-service.md
+- [x] EasyWayData.wiki/parametrization-best-practices.md → parametrization-best-practices.md
+- [x] EasyWayData.wiki/roadmap.md → roadmap.md
+- [x] EasyWay_WebApp/01_database_architecture/best-practices-checklist.md → best-practices-checklist.md
+- [x] EasyWay_WebApp/01_database_architecture/db-studio.md → db-studio.md
+- [x] EasyWay_WebApp/01_database_architecture/flyway.md → flyway.md
+- [x] EasyWay_WebApp/01_database_architecture/portal.md → portal.md
+- [x] EasyWay_WebApp/01_database_architecture/sequence.md → sequence.md
+- [x] EasyWay_WebApp/01_database_architecture/storeprocess.md → storeprocess.md
+- [x] EasyWay_WebApp/01_database_architecture/01b_schema_structure/portal.md → portal.md
+- [x] EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md → dinamiche-di-manutenzione.md
+- [x] EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/endpoint.md → endpoint.md
+- [x] EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md → index.md
+- [x] EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md → template-endpoint.md
+- [x] EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md → come-si-testa.md
+- [ ] Valutare esclusione dal linter dei report generati: Wiki/EasyWayData.wiki/logs/reports/normalize-*.md
+
 ## Metadati e front matter
 - [ ] Aggiungere front matter YAML minimo alle pagine chiave (owner, summary, tags, llm)
 - [x] 02_logiche_easyway: front matter minimale aggiunto a tutti i `.md`

@@ -40,6 +40,10 @@ Obbligatorie per branding su Blob:
 - `BRANDING_CONTAINER` – es. `portal-assets`
 - `BRANDING_PREFIX` – default `config` (il file viene cercato come `config/branding.{tenantId}.yaml`)
 - `RLS_CONTEXT_ENABLED` – default `true`; se `false` non imposta `SESSION_CONTEXT('tenant_id')` (utile per debug)
+- `PORTAL_BASE_PATH` – default `/portal`; base path per il mini‑portale
+- `RATE_LIMIT_WINDOW_MS`, `RATE_LIMIT_MAX` – rate limiting (default 60000ms/600 req)
+- `BODY_LIMIT` – limite dimensione JSON body (default `1mb`)
+- `LOG_DIR` – directory log (default `logs`)
 
 Opzionali/consigliate:
 - `LOG_LEVEL` – default `info`

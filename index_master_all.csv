@@ -1,4 +1,4 @@
-"path","id","title","summary","owner","tag_groups","tags","llm_include","llm_pii","entities"
+path,id,title,summary,owner,tag_groups,tags,llm_include,llm_pii,entities
 "ACTIVITY_LOG.md","activity-log","Activity Log – CSV friendly (delimiter: ¦)","Breve descrizione del documento.","team-docs","language;privacy;layer","layer/reference;privacy/internal;language/it","","",""
 "agent-manifest-and-indexing-best-practices.md","agent-manifest-indexing-best-practices","Agent Manifest & Indexing - Best Practices universali","Guida per agenti su come usare manifest JSONL/CSV e ancore per cercare e aprire documenti in modo minimale e token‑friendly, indipendentemente dal progetto o dal formato.","team-docs","language;layer","best-practices;ai-readiness;layer/reference;universal;language/it","","",""
 "agents-governance.md","ew-agents-governance","Multi‑Agent & Governance – EasyWay","Struttura di agenti specializzati + control plane (gates/policy) con ADO","team-platform","","","","",""
@@ -102,3 +102,4 @@
 "scripts/scripts.md","ew-scripts","Scripts - One-shot e routine frequenti","Comandi ricorrenti per rigenerare indici, manifest, ancore e chunk, eseguire lint e review, e loggare le attività.","team-docs","language;layer","layer/how-to;automation;language/it","","",""
 "TODO_CHECKLIST.md","ew-todo_checklist","TODO CHECKLIST","","","language;privacy",";privacy/internal;language/it","","",""
 "wiki-uniformamento-roadmap.md","wiki-uniformamento-roadmap","Roadmap Uniformamento Wiki secondo docs-conventions","Piano pratico e incrementale per riscrivere e uniformare l'intera wiki secondo le convenzioni, con fasi, strumenti, responsabilità e criteri di accettazione.","team-docs","language","roadmap;quality;documentation;governance;ai-readiness;language/it","","",""
+"README.md","other-readme","OtherWiki - Readme","Esempio di root secondaria per test multi‑root e manifest.","team-docs","layer;language","layer/reference;language/it","","",""

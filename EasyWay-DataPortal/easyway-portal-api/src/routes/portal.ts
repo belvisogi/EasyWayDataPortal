@@ -8,6 +8,7 @@ const router = Router();
 
 // Calcola la root del repo a runtime (dist -> api -> EasyWay-DataPortal -> repo root)
 const repoRoot = path.resolve(__dirname, "../../../");
+const basePath = process.env.PORTAL_BASE_PATH || '/portal';
 
 function sendIfExists(res: any, p: string, contentType?: string) {
   if (!fs.existsSync(p)) {
@@ -82,7 +83,7 @@ router.get("/tenant/:tenantId", async (req, res) => {
       </head>
       <body>
         <header>
-          <img src="${logo}" alt="logo" onerror="this.src='/portal/logo.png'" />
+          <img src="${logo}" alt="logo" onerror="this.src='${basePath}/logo.png'" />
           <div>
             <div class="badge">Tenant: ${tenantId}</div>
             <h1 style="margin:4px 0 0">${title}</h1>
@@ -92,14 +93,14 @@ router.get("/tenant/:tenantId", async (req, res) => {
           <p>${welcome}</p>
           <div class="links">
             <a href="/api/docs">API Docs</a>
-            <a href="/portal/home">Home (static)</a>
-            <a href="/portal/palette">Palette (static)</a>
+            <a href="${basePath}/home">Home (static)</a>
+            <a href="${basePath}/palette">Palette (static)</a>
           </div>
           <section class="card">
             <h3>Manifesto & Wiki</h3>
             <ul>
-              <li><a href="/portal/home">Manifesto visivo</a></li>
-              <li><a href="/portal/palette">Palette & Branding</a></li>
+              <li><a href="${basePath}/home">Manifesto visivo</a></li>
+              <li><a href="${basePath}/palette">Palette & Branding</a></li>
             </ul>
           </section>
           <section class="card">
@@ -166,7 +167,7 @@ router.get("/app", (_req, res) => {
         <pre id="listOut"></pre>
       </div>
       <script>
-        const cfgUrl = location.origin + '/portal/app/config';
+        const cfgUrl = location.origin + '${basePath}/app/config';
         let msalApp, account, accessToken;
         let apiBase = location.origin;
         const statusEl = document.getElementById('status');
@@ -187,7 +188,7 @@ router.get("/app", (_req, res) => {
             auth: {
               clientId: cfg.clientId,
               authority: 'https://login.microsoftonline.com/' + cfg.tenant,
-              redirectUri: window.location.origin + '/portal/app'
+              redirectUri: window.location.origin + '${basePath}/app'
             },
             cache: { cacheLocation: 'sessionStorage' }
           };
@@ -246,7 +247,8 @@ router.get("/app/config", (_req, res) => {
   const cfg = {
     clientId: process.env.AUTH_CLIENT_ID || "YOUR_MSAL_CLIENT_ID",
     tenant: (process.env.AUTH_TENANT_ID || (process.env.AUTH_ISSUER||'').split('/')[3] || "common"),
-    apiBase: process.env.PORT ? `${_req.protocol}://${_req.get('host')}` : (process.env.API_BASE || '')
+    apiBase: process.env.PORT ? `${_req.protocol}://${_req.get('host')}` : (process.env.API_BASE || ''),
+    scopes: (process.env.AUTH_SCOPES || 'api://default/.default').split(',').map(s => s.trim())
   };
   res.json(cfg);
 });

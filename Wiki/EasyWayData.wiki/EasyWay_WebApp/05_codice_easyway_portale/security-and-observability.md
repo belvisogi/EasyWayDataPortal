@@ -31,6 +31,16 @@ Implementazione (backend)
   - `withTenantContext(tenantId, fn)` imposta `SESSION_CONTEXT('tenant_id')` su SQL (RLS); flag `RLS_CONTEXT_ENABLED=false` per disattivare in debug
   - helper `runTenantQuery(tenantId, fn)` per route GOLD/REPORTING future
 
+Osservabilità (OTel + App Insights)
+- Imposta in `.env.local`:
+  - `APPLICATIONINSIGHTS_CONNECTION_STRING` (da Azure Portal)
+  - `OTEL_ENABLED=true`
+  - (Opzionale) `OTEL_RESOURCE_ATTRIBUTES=service.name=easyway-portal-api,service.namespace=easyway,deployment.environment=dev`
+- Avvio: l’SDK OTel viene attivato automaticamente (auto‑instrumentations HTTP/SQL/Blob)
+- Verifica in App Insights:
+  - `requests | order by timestamp desc`
+  - `dependencies | where type in ('SQL','http') | order by timestamp desc`
+
 Propagazione
 - Logger allega implicitamente gli ID (tramite middleware di logging); gli handler possono accedere a `req.requestId` e `req.correlationId`.
 - In futuro: OpenTelemetry per tracing distribuito (span DB/Blob) e Application Insights.
@@ -40,6 +50,7 @@ Configurazione
 - `RATE_LIMIT_WINDOW_MS`: finestra (ms). Default: `60000`.
 - `RATE_LIMIT_MAX`: richieste per finestra. Default: `600`.
 - `BODY_LIMIT`: default `1mb`.
+- `PORTAL_BASE_PATH`: default `/portal`.
 
 Note
 - Per ambienti dietro LB, impostare `TRUST_PROXY=true` per X-Forwarded-*.
@@ -53,3 +64,6 @@ Uso consigliato (GOLD/REPORTING)
 - Per debug locale senza RLS: imposta `RLS_CONTEXT_ENABLED=false` in `.env.local`.
 - `AUTH_ISSUER`, `AUTH_JWKS_URI`, `AUTH_AUDIENCE` (opzionale), `TENANT_CLAIM` (default `ew_tenant_id`)
 - `RLS_CONTEXT_ENABLED` (default `true`): se `false`, non imposta il contesto RLS a DB (debug)
+
+Approfondimenti
+- Parametrizzazione completa: vedi `Wiki/EasyWayData.wiki/parametrization-best-practices.md`

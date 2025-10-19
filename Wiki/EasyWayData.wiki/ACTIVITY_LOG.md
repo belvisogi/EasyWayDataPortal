@@ -142,3 +142,19 @@ Notes: timestamp in UTC (yyyyMMddHHmmssZ). One action per line.
 20251018141538Z¦LINT¦normalize-project¦success¦team-docs¦Apply done; scan report=normalize-20251018161531-EasyWayData.wiki.md
 20251018141538Z¦LINT¦normalize-project¦success¦team-docs¦Apply done; scan report=normalize-20251018141538Z-OtherWiki.md
 20251018141538Z¦LINT¦normalize-project¦success¦team-docs¦Multi-root apply: normalize-all-20251018161531.md
+
+## API – Eventi approvati
+- Rotta diretta: `/api/docs/activity/approved`
+- Esempi rapidi:
+
+```sh
+curl -s http://localhost:3000/api/docs/activity/approved
+```
+
+```powershell
+Invoke-RestMethod -Uri 'http://localhost:3000/api/docs/activity/approved' | ConvertTo-Json -Depth 5
+```
+20251019203154Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=18, fm=0, links=0, indices=3, report=naming-20251019203153.txt, anchors=0, dry-run=False, global-index=True
+20251019203555Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=2, fm=0, links=0, indices=3, report=naming-20251019203554.txt, anchors=0, dry-run=False, global-index=True
+20251019204016Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251019204015.txt, anchors=0, dry-run=False, global-index=True
+20251019204227Z¦INDEX¦multi-root¦success¦team-docs¦Rigenerati index_master_all.csv/jsonl e anchors_master_all.csv

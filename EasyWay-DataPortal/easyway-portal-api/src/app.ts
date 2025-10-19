@@ -29,8 +29,9 @@ if ((process.env.TRUST_PROXY || "").toLowerCase() === "true") {
   app.set("trust proxy", 1);
 }
 
-// Public Portal (static-like) before auth
-app.use("/portal", portalRoutes);
+// Public Portal (static-like) before auth (parametrized base path)
+const PORTAL_BASE_PATH = process.env.PORTAL_BASE_PATH || "/portal";
+app.use(PORTAL_BASE_PATH, portalRoutes);
 
 // Security & performance middleware
 app.use(helmet());
