@@ -1,0 +1,60 @@
+/* V3 — Core tables in PORTAL schema (tenancy, users, configuration) */
+
+/* TENANT */
+IF OBJECT_ID('PORTAL.TENANT','U') IS NULL
+BEGIN
+  CREATE TABLE PORTAL.TENANT (
+    id            INT IDENTITY(1,1) PRIMARY KEY,
+    tenant_id     NVARCHAR(50) NOT NULL,
+    tenant_name   NVARCHAR(255) NOT NULL,
+    plan_code     NVARCHAR(50) NULL,
+    status        NVARCHAR(50) NULL,
+    ext_attributes NVARCHAR(MAX) NULL,
+    created_by    NVARCHAR(255) NOT NULL CONSTRAINT DF_PORTAL_TENANT_created_by DEFAULT ('MANUAL'),
+    created_at    DATETIME2      NOT NULL CONSTRAINT DF_PORTAL_TENANT_created_at DEFAULT (SYSUTCDATETIME()),
+    updated_at    DATETIME2      NOT NULL CONSTRAINT DF_PORTAL_TENANT_updated_at DEFAULT (SYSUTCDATETIME())
+  );
+  CREATE UNIQUE INDEX UX_PORTAL_TENANT_tenant_id ON PORTAL.TENANT(tenant_id);
+END;
+
+/* USERS */
+IF OBJECT_ID('PORTAL.USERS','U') IS NULL
+BEGIN
+  CREATE TABLE PORTAL.USERS (
+    id            INT IDENTITY(1,1) PRIMARY KEY,
+    user_id       NVARCHAR(50) NOT NULL,
+    tenant_id     NVARCHAR(50) NOT NULL,
+    email         NVARCHAR(320) NOT NULL,
+    display_name  NVARCHAR(100) NULL,
+    profile_id    NVARCHAR(64) NULL,
+    is_active     BIT NOT NULL CONSTRAINT DF_PORTAL_USERS_is_active DEFAULT (1),
+    status        NVARCHAR(50) NULL,
+    ext_attributes NVARCHAR(MAX) NULL,
+    created_by    NVARCHAR(255) NOT NULL CONSTRAINT DF_PORTAL_USERS_created_by DEFAULT ('MANUAL'),
+    created_at    DATETIME2      NOT NULL CONSTRAINT DF_PORTAL_USERS_created_at DEFAULT (SYSUTCDATETIME()),
+    updated_at    DATETIME2      NOT NULL CONSTRAINT DF_PORTAL_USERS_updated_at DEFAULT (SYSUTCDATETIME())
+  );
+  CREATE UNIQUE INDEX UX_PORTAL_USERS_user ON PORTAL.USERS(tenant_id, user_id);
+  CREATE UNIQUE INDEX UX_PORTAL_USERS_email ON PORTAL.USERS(tenant_id, email);
+  CREATE INDEX IX_PORTAL_USERS_tenant ON PORTAL.USERS(tenant_id);
+END;
+
+/* CONFIGURATION */
+IF OBJECT_ID('PORTAL.CONFIGURATION','U') IS NULL
+BEGIN
+  CREATE TABLE PORTAL.CONFIGURATION (
+    id            INT IDENTITY(1,1) PRIMARY KEY,
+    tenant_id     NVARCHAR(50) NOT NULL,
+    section       NVARCHAR(64) NULL,
+    config_key    NVARCHAR(100) NOT NULL,
+    config_value  NVARCHAR(MAX) NULL,
+    enabled       BIT NOT NULL CONSTRAINT DF_PORTAL_CONFIGURATION_enabled DEFAULT (1),
+    created_by    NVARCHAR(255) NOT NULL CONSTRAINT DF_PORTAL_CONFIGURATION_created_by DEFAULT ('MANUAL'),
+    created_at    DATETIME2      NOT NULL CONSTRAINT DF_PORTAL_CONFIGURATION_created_at DEFAULT (SYSUTCDATETIME()),
+    updated_at    DATETIME2      NOT NULL CONSTRAINT DF_PORTAL_CONFIGURATION_updated_at DEFAULT (SYSUTCDATETIME())
+  );
+  CREATE UNIQUE INDEX UX_PORTAL_CONFIGURATION_key ON PORTAL.CONFIGURATION(tenant_id, ISNULL(section,''), config_key);
+END;
+
+/* FK logical enforcement left to application layer; future: add FK to TENANT(tenant_id) if modeled as table key */
+

@@ -11,6 +11,7 @@ import { logger } from "./utils/logger";
 import { authenticateJwt } from "./middleware/auth";
 import { extractTenantId } from "./middleware/tenant";
 import healthRoutes from "./routes/health";
+import portalRoutes from "./routes/portal";
 import brandingRoutes from "./routes/branding";
 import configRoutes from "./routes/config";
 import usersRoutes from "./routes/users";
@@ -27,6 +28,9 @@ const app = express();
 if ((process.env.TRUST_PROXY || "").toLowerCase() === "true") {
   app.set("trust proxy", 1);
 }
+
+// Public Portal (static-like) before auth
+app.use("/portal", portalRoutes);
 
 // Security & performance middleware
 app.use(helmet());

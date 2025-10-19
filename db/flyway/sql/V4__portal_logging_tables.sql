@@ -1,0 +1,55 @@
+/* V4 — Logging & Auditing tables */
+
+/* LOG_AUDIT */
+IF OBJECT_ID('PORTAL.LOG_AUDIT','U') IS NULL
+BEGIN
+  CREATE TABLE PORTAL.LOG_AUDIT (
+    id            BIGINT IDENTITY(1,1) PRIMARY KEY,
+    event_time    DATETIME2      NOT NULL CONSTRAINT DF_PORTAL_LOG_AUDIT_event_time DEFAULT (SYSUTCDATETIME()),
+    tenant_id     NVARCHAR(50)   NULL,
+    actor         NVARCHAR(255)  NULL,      -- user/chatbot/service
+    origin        NVARCHAR(64)   NULL,      -- api, agent, ams, job
+    category      NVARCHAR(64)   NULL,      -- security, notify, config, etc.
+    message       NVARCHAR(MAX)  NULL,
+    payload       NVARCHAR(MAX)  NULL,      -- JSON
+    status        NVARCHAR(32)   NULL
+  );
+  CREATE INDEX IX_PORTAL_LOG_AUDIT_tenant_time ON PORTAL.LOG_AUDIT(tenant_id, event_time);
+END;
+
+/* STATS_EXECUTION_LOG */
+IF OBJECT_ID('PORTAL.STATS_EXECUTION_LOG','U') IS NULL
+BEGIN
+  CREATE TABLE PORTAL.STATS_EXECUTION_LOG (
+    execution_id  UNIQUEIDENTIFIER NOT NULL CONSTRAINT DF_PORTAL_STATS_EXECUTION_LOG_id DEFAULT NEWSEQUENTIALID() PRIMARY KEY,
+    proc_name     NVARCHAR(255) NOT NULL,
+    tenant_id     NVARCHAR(50)  NULL,
+    start_time    DATETIME2     NOT NULL CONSTRAINT DF_PORTAL_STATS_EXECUTION_LOG_start DEFAULT (SYSUTCDATETIME()),
+    end_time      DATETIME2     NULL,
+    status        NVARCHAR(16)  NULL,       -- OK / ERROR
+    error_message NVARCHAR(MAX) NULL,
+    rows_inserted INT           NULL,
+    rows_updated  INT           NULL,
+    rows_deleted  INT           NULL,
+    created_by    NVARCHAR(255) NULL
+  );
+  CREATE INDEX IX_PORTAL_STATS_EXECUTION_LOG_time ON PORTAL.STATS_EXECUTION_LOG(start_time);
+  CREATE INDEX IX_PORTAL_STATS_EXECUTION_LOG_tenant ON PORTAL.STATS_EXECUTION_LOG(tenant_id);
+END;
+
+/* STATS_EXECUTION_TABLE_LOG */
+IF OBJECT_ID('PORTAL.STATS_EXECUTION_TABLE_LOG','U') IS NULL
+BEGIN
+  CREATE TABLE PORTAL.STATS_EXECUTION_TABLE_LOG (
+    id            BIGINT IDENTITY(1,1) PRIMARY KEY,
+    execution_id  UNIQUEIDENTIFIER NOT NULL,
+    table_name    NVARCHAR(256) NOT NULL,   -- schema.table
+    operation_types NVARCHAR(64) NULL,      -- INSERT, UPDATE, DELETE
+    rows_affected INT          NULL
+  );
+  CREATE INDEX IX_PORTAL_STATS_EXECUTION_TABLE_LOG_exec ON PORTAL.STATS_EXECUTION_TABLE_LOG(execution_id);
+  ALTER TABLE PORTAL.STATS_EXECUTION_TABLE_LOG
+    ADD CONSTRAINT FK_STATS_TABLE_EXEC FOREIGN KEY (execution_id)
+    REFERENCES PORTAL.STATS_EXECUTION_LOG(execution_id) ON DELETE CASCADE;
+END;
+

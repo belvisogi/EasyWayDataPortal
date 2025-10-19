@@ -55,3 +55,30 @@ export async function getPool(): Promise<sql.ConnectionPool> {
   return poolPromise;
 }
 
+export async function withTenantContext<T>(tenantId: string, run: (tx: sql.Transaction) => Promise<T>): Promise<T> {
+  const pool = await getPool();
+  const tx = new sql.Transaction(pool);
+  await tx.begin();
+  try {
+    const rlsEnabled = (process.env.RLS_CONTEXT_ENABLED ?? 'true').toLowerCase() !== 'false';
+    if (rlsEnabled && tenantId) {
+      const setReq = new sql.Request(tx);
+      await setReq.input('tenant_id', sql.NVarChar, tenantId)
+        .query("EXEC sp_set_session_context @key=N'tenant_id', @value=@tenant_id;");
+    }
+    const result = await run(tx);
+    await tx.commit();
+    return result;
+  } catch (err) {
+    try { if (tx._aborted !== true) await tx.rollback(); } catch {}
+    throw err;
+  }
+}
+
+// Convenience helper for future GOLD/REPORTING routes: runs a single-request function
+export async function runTenantQuery<T>(tenantId: string, fn: (req: sql.Request) => Promise<T>): Promise<T> {
+  return await withTenantContext(tenantId, async (tx) => {
+    const req = new sql.Request(tx);
+    return await fn(req);
+  });
+}

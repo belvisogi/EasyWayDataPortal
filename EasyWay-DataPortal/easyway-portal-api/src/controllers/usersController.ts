@@ -1,6 +1,6 @@
 import { loadQueryWithFallback } from "../queries/queryLoader";
 import sql from "mssql";
-import { getPool } from "../utils/db";
+import { getPool, withTenantContext } from "../utils/db";
 import { Request, Response } from "express";
 
 // Utility per tenant
@@ -18,16 +18,15 @@ export async function createUser(req: Request, res: Response) {
     const display_name: string | null = req.body.display_name ?? req.body.name ?? null;
     const profile_id: string | null = req.body.profile_id ?? req.body.profile_code ?? null;
 
-    const pool = await getPool();
     const sqlQuery = await loadQueryWithFallback("users_insert.sql");
-
-    const result = await pool
-      .request()
-      .input("tenant_id", sql.NVarChar, tenantId)
-      .input("email", sql.NVarChar, email)
-      .input("display_name", sql.NVarChar, display_name)
-      .input("profile_id", sql.NVarChar, profile_id)
-      .query(sqlQuery);
+    const result = await withTenantContext(tenantId, async (tx) => {
+      return await new sql.Request(tx)
+        .input("tenant_id", sql.NVarChar, tenantId)
+        .input("email", sql.NVarChar, email)
+        .input("display_name", sql.NVarChar, display_name)
+        .input("profile_id", sql.NVarChar, profile_id)
+        .query(sqlQuery);
+    });
 
     res.status(201).json(result.recordset?.[0] ?? { status: "ok" });
   } catch (err: any) {
@@ -39,10 +38,10 @@ export async function createUser(req: Request, res: Response) {
 export async function getUsers(req: Request, res: Response) {
   try {
     const tenantId = getTenantId(req);
-    const pool = await getPool();
     const sqlQuery = await loadQueryWithFallback("users_select_by_tenant.sql");
-
-    const result = await pool.request().input("tenant_id", sql.NVarChar, tenantId).query(sqlQuery);
+    const result = await withTenantContext(tenantId, async (tx) => {
+      return await new sql.Request(tx).input("tenant_id", sql.NVarChar, tenantId).query(sqlQuery);
+    });
 
     res.json(result.recordset);
   } catch (err: any) {
@@ -70,18 +69,17 @@ export async function updateUser(req: Request, res: Response) {
     }
     if (is_active === undefined) is_active = null;
 
-    const pool = await getPool();
     const sqlQuery = await loadQueryWithFallback("users_update.sql");
-
-    const result = await pool
-      .request()
-      .input("user_id", sql.NVarChar, user_id)
-      .input("tenant_id", sql.NVarChar, tenantId)
-      .input("email", sql.NVarChar, email ?? null)
-      .input("display_name", sql.NVarChar, display_name)
-      .input("profile_id", sql.NVarChar, profile_id)
-      .input("is_active", sql.Bit, is_active as any)
-      .query(sqlQuery);
+    const result = await withTenantContext(tenantId, async (tx) => {
+      return await new sql.Request(tx)
+        .input("user_id", sql.NVarChar, user_id)
+        .input("tenant_id", sql.NVarChar, tenantId)
+        .input("email", sql.NVarChar, email ?? null)
+        .input("display_name", sql.NVarChar, display_name)
+        .input("profile_id", sql.NVarChar, profile_id)
+        .input("is_active", sql.Bit, is_active as any)
+        .query(sqlQuery);
+    });
 
     res.json(result.recordset[0]);
   } catch (err: any) {
@@ -95,14 +93,13 @@ export async function deleteUser(req: Request, res: Response) {
     const tenantId = getTenantId(req);
     const { user_id } = req.params;
 
-    const pool = await sql.connect(process.env.DB_CONN_STRING!);
     const sqlQuery = await loadQueryWithFallback("users_deactive.sql");
-
-    await pool
-      .request()
-      .input("user_id", sql.NVarChar, user_id)
-      .input("tenant_id", sql.NVarChar, tenantId)
-      .query(sqlQuery);
+    await withTenantContext(tenantId, async (tx) => {
+      await new sql.Request(tx)
+        .input("user_id", sql.NVarChar, user_id)
+        .input("tenant_id", sql.NVarChar, tenantId)
+        .query(sqlQuery);
+    });
 
     res.status(204).send();
   } catch (err: any) {

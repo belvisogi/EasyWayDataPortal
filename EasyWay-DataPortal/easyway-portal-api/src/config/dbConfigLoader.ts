@@ -10,14 +10,15 @@ import { getPool } from "../utils/db";
  */
 export async function loadDbConfig(
   tenantId: string,
-  section?: string
+  section?: string,
+  tx?: sql.Transaction
 ): Promise<Record<string, string>> {
   const pool = await getPool();
 
   let query = `SELECT config_key, config_value FROM PORTAL.CONFIGURATION WHERE tenant_id = @tenant_id AND enabled = 1`;
   if (section) query += ` AND section = @section`;
 
-  const request = pool.request().input("tenant_id", sql.NVarChar, tenantId);
+  const request = (tx ? new sql.Request(tx) : pool.request()).input("tenant_id", sql.NVarChar, tenantId);
   if (section) request.input("section", sql.NVarChar, section);
 
   const result = await request.query(query);

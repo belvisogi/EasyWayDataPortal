@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>EasyWay Data Portal</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    :root {
+      --ew-blue: #1587D6;
+      --ew-deepblue: #094067;
+      --ew-bluelight: #4FC3F7;
+      --ew-skyblue: #E4F3FB;
+      --ew-navy: #1A2633;
+      --ew-darkgray: #23272F;
+      --ew-gray1: #4F5B6E;
+      --ew-gray2: #8A99AF;
+      --ew-gray3: #CBD5E1;
+      --ew-lightgray: #F4F7FA;
+      --ew-white: #FFFFFF;
+      --ew-success: #31C48D;
+      --ew-warning: #FFC107;
+      --ew-error: #EF5350;
+      --ew-cyan: #00C2FF;
+    }
+    body {
+      background: var(--ew-blue);
+      margin: 0;
+      font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
+      color: var(--ew-deepblue);
+    }
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 38px 18px 22px;
+      background: var(--ew-lightgray);
+      border-bottom: 1.5px solid var(--ew-skyblue);
+      box-shadow: 0 2px 8px #e0e5ec13;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      margin-right: 14px;
+    }
+    .logo-area img {
+      width: 44px;
+      margin-right: 10px;
+      border-radius: 8px;
+    }
+    .logo-area span {
+      font-size: 1.16em;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--ew-blue);
+      line-height: 1.13;
+    }
+    .logo-area small {
+      display: block;
+      font-weight: 400;
+      color: var(--ew-gray2);
+      font-size: 0.85em;
+    }
+    .navlinks {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+    .navlinks a {
+      color: var(--ew-darkgray);
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 500;
+      transition: color 0.13s;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    .navlinks a:hover {
+      color: var(--ew-blue);
+      background: var(--ew-skyblue);
+    }
+    .nav-cta {
+      margin-left: 32px;
+    }
+    .getstarted-btn {
+      background: var(--ew-blue);
+      color: #fff;
+      border-radius: 22px;
+      padding: 8px 26px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 2px 8px #1587d61a;
+      border: none;
+      font-size: 1.06em;
+      transition: background 0.15s;
+      cursor: pointer;
+      outline: none;
+    }
+    .getstarted-btn:hover {
+      background: var(--ew-cyan);
+    }
+
+    /* HERO SECTION */
+    .hero-saascard {
+      margin: 48px auto 0 auto;
+      padding: 32px 0;
+      max-width: 1200px;
+      position: relative;
+    }
+    .hero-saascard-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 32px;
+      box-shadow: 0 10px 56px #4fc3f722;
+      background: #E4F3FB;
+      padding: 56px 48px 56px 72px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-saascard-left {
+      flex: 1.4;
+      text-align: left;
+    }
+    .hero-saascard-left h1 {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #23272F;
+      margin-bottom: 18px;
+    }
+    .hero-saascard-left h1 span {
+      color: #1587D6;
+    }
+    .hero-saascard-left p {
+      color: #23272F;
+      font-size: 1.18em;
+      margin-bottom: 38px;
+      max-width: 560px;
+      line-height: 1.45;
+    }
+    .hero-saascard-actions {
+      display: flex;
+      gap: 24px;
+    }
+    .hero-saascard-actions .cta {
+      background: #1587D6;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1.08em;
+      padding: 15px 40px;
+      box-shadow: 0 2px 12px #1587d625;
+      cursor: pointer;
+      transition: background 0.14s;
+    }
+    .hero-saascard-actions .cta:hover {
+      background: #00C2FF;
+    }
+    .hero-saascard-actions .sec {
+      background: #fff;
+      color: #1587D6;
+      border: 2px solid #1587D6;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1.08em;
+      padding: 15px 38px;
+      cursor: pointer;
+      transition: background 0.14s, color 0.14s;
+    }
+    .hero-saascard-actions .sec:hover {
+      background: #E4F3FB;
+      color: #094067;
+    }
+    .hero-saascard-right {
+      flex: 1.15;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 42px;
+    }
+    .dashboard-label {
+      margin-top: 12px;
+      color: #4F5B6E;
+      font-size: 1.01em;
+      text-align: center;
+    }
+    .geo-shape {
+      position: absolute;
+      width: 75px;
+      height: 75px;
+      background: #B8E2FA;
+      opacity: 0.19;
+      z-index: 1;
+      border-radius: 16px;
+    }
+    .geo1 { left: -38px; top: -32px; transform: rotate(16deg);}
+    .geo2 { right: -32px; bottom: -32px; transform: rotate(-10deg);}
+    @media (max-width: 1020px) {
+      .hero-saascard-content { flex-direction: column; padding: 38px 10vw; }
+      .hero-saascard-left, .hero-saascard-right { margin:0; width:100%; text-align:center; }
+      .hero-saascard-left p { margin-left:auto; margin-right:auto;}
+      .hero-saascard-right { margin-left:0; margin-top:32px;}
+    }
+    /* Footer */
+    footer {
+      margin:70px auto 0 auto;
+      max-width:1160px;
+      color:#4F5B6E;
+      font-size:0.99em;
+      text-align:center;
+      padding:30px 0 22px 0;
+    }
+    footer a {
+      margin:0 12px;
+      color:#1587D6;
+      text-decoration:none;
+    }
+    @media (max-width: 900px) {
+      .navbar { flex-direction: column; align-items: flex-start; padding: 12px 4vw; }
+      .nav-left { flex-direction: column; align-items: flex-start; gap: 12px;}
+      .nav-cta { margin: 18px 0 0 0;}
+    }
+    @media (max-width: 540px) {
+      .navbar { padding: 10px 2vw; }
+      .logo-area img { width: 34px;}
+      .logo-area span { font-size: 1em;}
+      .navlinks { gap: 16px;}
+      .getstarted-btn { padding: 7px 17px; font-size: 0.98em;}
+      .hero-saascard-content { padding: 18px 2vw; }
+      .geo-shape { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="logo-area">
+        <img src="https://imgur.com/a/UPrJLmB" width="44" alt="Logo">
+        <span>EasyWay <small>Data Portal</small></span>
+      </div>
+      <div class="navlinks">
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">Solutions</a>
+        <a href="#">Resources</a>
+        <a href="#">Pricing</a>
+      </div>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="getstarted-btn">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero-saascard">
+    <div class="hero-saascard-content">
+      <div class="hero-saascard-left">
+        <h1>
+          Analisi Finanziaria, <span>Semplificata</span>
+        </h1>
+        <p>
+          Scopri la dashboard finanziaria potenziata dall’AI: report immediati, dati chiari, insight personalizzati.<br>
+          Gestisci la tua crescita con facilità e sicurezza.
+        </p>
+        <div class="hero-saascard-actions">
+          <button class="cta">Get Started</button>
+          <button class="sec">Scopri di più</button>
+        </div>
+      </div>
+      <div class="hero-saascard-right">
+        <!-- SVG Placeholder: sostituisci con la tua dashboard reale -->
+        <svg width="300" height="300" viewBox="0 0 300 300" style="border-radius:24px; background:#fff; box-shadow:0 4px 24px #1587d633;">
+          <rect x="0" y="0" width="300" height="300" fill="#E4F3FB"/>
+          <text x="50%" y="55%" text-anchor="middle" fill="#1587D6" font-size="22" font-family="Segoe UI" dy=".3em">Dashboard Preview</text>
+        </svg>
+        <div class="dashboard-label">Preview Dashboard</div>
+      </div>
+    </div>
+    <div class="geo-shape geo1"></div>
+    <div class="geo-shape geo2"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="margin-bottom:8px;">
+      <a href="#">Privacy</a> | 
+      <a href="#">Contatti</a> | 
+      <a href="#">Termini di Servizio</a>
+    </div>
+    <div>© 2025 EasyWay Data Portal. Tutti i diritti riservati.</div>
+  </footer>
+</body>
+</html>

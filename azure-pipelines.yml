@@ -21,6 +21,24 @@ stages:
       - job: TerraformPlan
         displayName: Terraform Validate & Plan
         steps:
+          - task: PowerShell@2
+            displayName: 'Check Variable Group / Required Vars'
+            inputs:
+              targetType: 'inline'
+              script: |
+                $required = @('RESOURCE_GROUP_NAME','STORAGE_ACCOUNT_NAME','TENANTS')
+                $missing = @()
+                foreach ($k in $required) {
+                  $val = [Environment]::GetEnvironmentVariable($k)
+                  if ([string]::IsNullOrWhiteSpace($val)) { $missing += $k }
+                }
+                if ($missing.Count -gt 0) {
+                  Write-Error "Missing required pipeline variables: $($missing -join ', ')";
+                  Write-Host "Hint: link Variable Group 'EasyWay-Secrets' or define these variables at pipeline level.";
+                  exit 1
+                } else {
+                  Write-Host "Required variables found: $($required -join ', ')"
+                }
           - script: |
               cd infra/terraform
               terraform -version || true
@@ -116,6 +134,64 @@ stages:
               PathtoPublish: 'Wiki/EasyWayData.wiki/logs'
               ArtifactName: 'wiki-logs'
             condition: and(succeeded(), exists('Wiki/EasyWayData.wiki/logs'))
+
+      - job: PreDeployChecklist
+        displayName: 'Pre-Deploy Checklist (Gate)'
+        dependsOn:
+          - NodeBuild
+          - WikiLint
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run Checklist Bot'
+            inputs:
+              targetType: 'inline'
+              script: |
+                cd $(workingDirectory)
+                $env:CHECKLIST_OUTPUT = 'json'
+                Write-Host "Running checklist..."
+                $out = npm run -s check:predeploy
+                $out | Out-File -FilePath checklist.json -Encoding utf8
+                $json = Get-Content checklist.json -Raw | ConvertFrom-Json
+                if (-not $json.summary.ok) {
+                  Write-Host "Checklist FAILED"
+                  Write-Host ($json | ConvertTo-Json -Depth 10)
+                  throw "Checklist failed"
+                } else {
+                  Write-Host "Checklist OK"
+                  Write-Host ($json | ConvertTo-Json -Depth 10)
+                }
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: checklist'
+            inputs:
+              PathtoPublish: '$(workingDirectory)/checklist.json'
+              ArtifactName: 'checklist'
+
+      - job: DBDriftCheck
+        displayName: 'DB Drift Check (Gate)'
+        dependsOn:
+          - NodeBuild
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run DB Drift Check'
+            inputs:
+              targetType: 'inline'
+              script: |
+                cd $(workingDirectory)
+                Write-Host "Running DB drift check..."
+                $out = npm run -s db:drift
+                $out | Out-File -FilePath drift.json -Encoding utf8
+                $json = Get-Content drift.json -Raw | ConvertFrom-Json
+                if (-not $json.ok) {
+                  Write-Host ($json | ConvertTo-Json -Depth 10)
+                  throw "DB drift check failed (missing objects)"
+                } else {
+                  Write-Host "DB drift check OK"
+                }
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: db-drift'
+            inputs:
+              PathtoPublish: '$(workingDirectory)/drift.json'
+              ArtifactName: 'db-drift'
 
   # Future: add Deploy stage(s) with environments, approvals, and secret handling
   # - stage: Deploy

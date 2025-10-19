@@ -9,6 +9,15 @@ Node.js + TypeScript + Express, configurazione YAML su Datalake e tabella CONFIG
 - `npm run build` — compila TypeScript in `/dist`
 - `npm start` — avvia il backend dalla build
 
+## Mini Portal (demo)
+- Percorsi pubblici (senza auth) per integrare file forniti:
+  - `GET /portal` — indice del mini‑portale
+  - `GET /portal/home` — serve `home_easyway.html` dalla root del repo
+  - `GET /portal/palette` — serve `palette_EasyWay.html`
+  - `GET /portal/logo.png` — serve `logo.png`
+  - `GET /portal/tenant/{tenantId}` — pagina dinamica che applica il branding YAML del tenant (`DEFAULT_TENANT_ID` usato se non specificato)
+  - `GET /portal/app` — demo Login+Registrazione via MSAL (Entra ID); richiede configurazione `AUTH_CLIENT_ID`/`AUTH_TENANT_ID`
+
 ## Struttura file configurazione
 
 - `/datalake-sample/branding.tenant01.yaml` - esempio YAML branding
@@ -30,6 +39,7 @@ Obbligatorie per branding su Blob:
 - `AZURE_STORAGE_CONNECTION_STRING` – connection string dell'account di Storage
 - `BRANDING_CONTAINER` – es. `portal-assets`
 - `BRANDING_PREFIX` – default `config` (il file viene cercato come `config/branding.{tenantId}.yaml`)
+- `RLS_CONTEXT_ENABLED` – default `true`; se `false` non imposta `SESSION_CONTEXT('tenant_id')` (utile per debug)
 
 Opzionali/consigliate:
 - `LOG_LEVEL` – default `info`
@@ -74,3 +84,28 @@ La pipeline (`azure-pipelines.yml`) importa il Variable Group; le variabili sono
 - Da cartella API: `npm run check:predeploy`
 - Cosa verifica: env richieste (Auth/Branding), connessione SQL, accesso Storage (branding + queries), presenza e validità OpenAPI.
 - Output: JSON + riepilogo umano; exit code != 0 se falliscono check critici.
+
+## Variabili Pipeline (Azure DevOps) – Esempio
+- Imposta in una Variable Group (es. `EasyWay-Secrets`) o direttamente nella pipeline:
+  - `RESOURCE_GROUP_NAME=rg-easyway-dev`
+  - `STORAGE_ACCOUNT_NAME=ewdlkdev123` (univoco a livello globale)
+  - `TENANTS=["tenant01","tenant02"]` (lista JSON; anche una sola voce va tra [ ])
+- Queste variabili sono usate nello stage `Infra` per eseguire `terraform plan/apply`.
+- Ricorda di configurare anche le env dell’app (Auth/Storage/DB) nel Variable Group.
+
+### Creazione/aggiornamento Variable Group via script
+- File d’esempio variabili: `scripts/variables/easyway-secrets.sample.json`
+- Script PowerShell: `scripts/ado-set-variable-group.ps1`
+- Esempio:
+```
+pwsh ./scripts/ado-set-variable-group.ps1 \
+  -OrgUrl https://dev.azure.com/contoso \
+  -Project easyway \
+  -Pat <ADO_PAT> \
+  -GroupName EasyWay-Secrets \
+  -VariablesJsonPath scripts/variables/easyway-secrets.sample.json \
+  -SecretsKeys "AZURE_STORAGE_CONNECTION_STRING,DB_CONN_STRING"
+```
+Note:
+- `SecretsKeys` marca come segrete le chiavi elencate (valori non saranno mostrati in ADO UI).
+- Lo script crea o aggiorna il Variable Group se esiste già.

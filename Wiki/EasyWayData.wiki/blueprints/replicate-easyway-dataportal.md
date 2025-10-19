@@ -73,6 +73,30 @@ npm run dev
 - Pipeline multi‑stage (`azure-pipelines.yml`):
   - Stage Infra: `terraform init/validate/plan/apply` (apply solo su main con approvazione).
   - Stage App: build/lint/test, publish artifacts.
+  - Gate pre‑deploy: job "Pre-Deploy Checklist" che esegue il Checklist Bot e fallisce in caso di errori (pubblica l’output JSON come artifact).
+  - Check variabili: prima del plan, la pipeline verifica la presenza delle variabili richieste (`RESOURCE_GROUP_NAME`, `STORAGE_ACCOUNT_NAME`, `TENANTS`) e fallisce con messaggio chiaro se mancanti (ricorda di collegare il Variable Group).
+
+### Variabili Pipeline (ADO) – Esempio
+- Variable Group (es. `EasyWay-Secrets`) o variabili di pipeline:
+  - `RESOURCE_GROUP_NAME = rg-easyway-dev`
+  - `STORAGE_ACCOUNT_NAME = ewdlkdev123` (nome storage univoco globale)
+  - `TENANTS = ["tenant01","tenant02"]` (lista JSON; anche singolo tenant va tra [])
+- Queste variabili alimentano i parametri Terraform nello stage `Infra`.
+
+### Creare/aggiornare Variable Group via script (PowerShell)
+- File esempio: `scripts/variables/easyway-secrets.sample.json` (modifica i valori e salva una copia per il tuo progetto)
+- Script: `scripts/ado-set-variable-group.ps1`
+- Esempio esecuzione:
+```
+pwsh ./scripts/ado-set-variable-group.ps1 \
+  -OrgUrl https://dev.azure.com/contoso \
+  -Project easyway \
+  -Pat <ADO_PAT> \
+  -GroupName EasyWay-Secrets \
+  -VariablesJsonPath scripts/variables/easyway-secrets.sample.json \
+  -SecretsKeys "AZURE_STORAGE_CONNECTION_STRING,DB_CONN_STRING"
+```
+- Lo script crea/aggiorna il Variable Group con tutte le chiavi; quelle elencate in `SecretsKeys` sono marcate come segrete.
 - Variable Group: imposta `AZURE_STORAGE_CONNECTION_STRING` (o MI), `BRANDING_CONTAINER`, `BRANDING_PREFIX`, `AUTH_*`, DB.
 
 7) Test

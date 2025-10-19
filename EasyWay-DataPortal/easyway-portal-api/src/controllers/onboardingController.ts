@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import sql from "mssql";
-import { getPool } from "../utils/db";
+import { getPool, withTenantContext } from "../utils/db";
 import { logger } from "../utils/logger";
 
 export async function onboarding(req: Request, res: Response) {
@@ -22,13 +22,15 @@ export async function onboarding(req: Request, res: Response) {
     } = req.body;
 
     // Chiamata store procedure di onboarding
-    const result = await pool.request()
-      .input("tenant_name", sql.NVarChar, tenant_name)
-      .input("user_email", sql.NVarChar, user_email)
-      .input("display_name", sql.NVarChar, display_name)
-      .input("profile_id", sql.NVarChar, profile_id)
-      .input("ext_attributes", sql.NVarChar, JSON.stringify(ext_attributes))
-      .execute("PORTAL.sp_debug_register_tenant_and_user");
+    const result = await withTenantContext((req as any).tenantId ?? '', async (tx) => {
+      return await new sql.Request(tx)
+        .input("tenant_name", sql.NVarChar, tenant_name)
+        .input("user_email", sql.NVarChar, user_email)
+        .input("display_name", sql.NVarChar, display_name)
+        .input("profile_id", sql.NVarChar, profile_id)
+        .input("ext_attributes", sql.NVarChar, JSON.stringify(ext_attributes))
+        .query("EXEC PORTAL.sp_debug_register_tenant_and_user @tenant_name, @user_email, @display_name, @profile_id, @ext_attributes");
+    });
 
     const executionTime = Date.now() - startTime;
 

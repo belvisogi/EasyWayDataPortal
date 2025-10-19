@@ -9,7 +9,9 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "test": "jest",
-    "check:predeploy": "ts-node src/tools/checklist.ts"
+    "check:predeploy": "ts-node src/tools/checklist.ts",
+    "db:generate-docs": "ts-node src/tools/db/generate-docs.ts",
+    "db:drift": "ts-node src/tools/db/drift-check.ts"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.28.0",

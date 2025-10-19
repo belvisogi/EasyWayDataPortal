@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import sql from "mssql";
-import { getPool } from "../utils/db";
+import { getPool, withTenantContext } from "../utils/db";
 import { logger } from "../utils/logger";
 
 
@@ -10,22 +10,23 @@ export async function subscribeNotification(req: Request, res: Response) {
 }
 
 export async function sendNotification(req: Request, res: Response) {
-  const pool = await getPool();
   const tenantId = (req as any).tenantId;
   const { recipients, category, channel, message, ext_attributes = {} } = req.body;
 
   try {
     // Per ogni destinatario, chiama la SP (o batch, secondo design DB)
-    for (const user_id of recipients) {
-      await pool.request()
-        .input("tenant_id", sql.NVarChar, tenantId)
-        .input("user_id", sql.NVarChar, user_id)
-        .input("category", sql.NVarChar, category)
-        .input("channel", sql.NVarChar, channel)
-        .input("message", sql.NVarChar, message)
-        .input("ext_attributes", sql.NVarChar, JSON.stringify(ext_attributes))
-        .execute("PORTAL.sp_send_notification");
-    }
+    await withTenantContext(tenantId, async (tx) => {
+      for (const user_id of recipients) {
+        await new sql.Request(tx)
+          .input("tenant_id", sql.NVarChar, tenantId)
+          .input("user_id", sql.NVarChar, user_id)
+          .input("category", sql.NVarChar, category)
+          .input("channel", sql.NVarChar, channel)
+          .input("message", sql.NVarChar, message)
+          .input("ext_attributes", sql.NVarChar, JSON.stringify(ext_attributes))
+          .query("EXEC PORTAL.sp_send_notification @tenant_id, @user_id, @category, @channel, @message, @ext_attributes");
+      }
+    });
 
     logger.info("Notification sent", {
       tenantId,
