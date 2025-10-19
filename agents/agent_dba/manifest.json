@@ -1,0 +1,17 @@
+{
+  "role": "Agent_DBA",
+  "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
+  "allowed_paths": [
+    "db/flyway/**",
+    "EasyWay-DataPortal/easyway-portal-api/src/tools/db/**",
+    "scripts/variables/db-required-objects.sample.json",
+    "Wiki/EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/**",
+    "agents/kb/recipes.jsonl"
+  ],
+  "allowed_tools": ["flyway", "npm", "pwsh", "sqlcmd"],
+  "required_gates": ["Checklist", "DB_Drift", "KB_Consistency"],
+  "approvals": {
+    "prod": ["Human_Governance_Approval"]
+  }
+}
+

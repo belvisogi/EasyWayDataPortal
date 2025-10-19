@@ -13,6 +13,9 @@ variables:
     value: '20.x'
   - name: workingDirectory
     value: 'EasyWay-DataPortal/easyway-portal-api'
+  - name: FLYWAY_ENABLED
+    value: 'false'   # set to 'true' to run Flyway migrate in Dev/Test
+  # Expected (in Variable Group or pipeline vars): FLYWAY_URL, FLYWAY_USER, FLYWAY_PASSWORD
 
 stages:
   - stage: Infra
@@ -108,6 +111,12 @@ stages:
               PathtoPublish: '$(workingDirectory)/openapi'
               ArtifactName: 'openapi'
 
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: agent-kb'
+            inputs:
+              PathtoPublish: 'agents/kb'
+              ArtifactName: 'agent-kb'
+
       - job: WikiLint
         displayName: 'Wiki Normalize & Lint'
         steps:
@@ -166,6 +175,42 @@ stages:
               PathtoPublish: '$(workingDirectory)/checklist.json'
               ArtifactName: 'checklist'
 
+      - job: KBConsistency
+        displayName: 'KB Consistency (Gate)'
+        dependsOn:
+          - NodeBuild
+        steps:
+          - task: PowerShell@2
+            displayName: 'Verify KB/Wiki updated when DB/API changed'
+            inputs:
+              targetType: 'inline'
+              script: |
+                git config --global --add safe.directory $(Build.SourcesDirectory)
+                cd $(Build.SourcesDirectory)
+                try {
+                  $base = (git rev-parse HEAD~1)
+                } catch {
+                  Write-Host "Shallow repo; skipping KB Consistency check (first run)"
+                  exit 0
+                }
+                $changed = git diff --name-only $base HEAD
+                $needsKb = $false
+                foreach ($f in $changed) {
+                  if ($f -like 'db/*' -or $f -like 'EasyWay-DataPortal/easyway-portal-api/src/*') { $needsKb = $true }
+                }
+                if (-not $needsKb) { Write-Host "No DB/API changes; KB not required"; exit 0 }
+                $kbChanged = $false; $wikiChanged = $false
+                foreach ($f in $changed) {
+                  if ($f -eq 'agents/kb/recipes.jsonl') { $kbChanged = $true }
+                  if ($f -like 'Wiki/*') { $wikiChanged = $true }
+                }
+                if (-not $kbChanged -or -not $wikiChanged) {
+                  Write-Error "KB Consistency failed: when DB/API changes, update agents/kb/recipes.jsonl and at least one Wiki page."
+                  exit 1
+                } else {
+                  Write-Host "KB Consistency OK"
+                }
+
       - job: DBDriftCheck
         displayName: 'DB Drift Check (Gate)'
         dependsOn:
@@ -192,6 +237,56 @@ stages:
             inputs:
               PathtoPublish: '$(workingDirectory)/drift.json'
               ArtifactName: 'db-drift'
+
+      - job: ActivityLog
+        displayName: 'Activity Log (Append + Update Wiki)'
+        dependsOn:
+          - PreDeployChecklist
+          - KBConsistency
+          - DBDriftCheck
+        condition: succeededOrFailed()
+        steps:
+          - task: PowerShell@2
+            displayName: 'Append activity event'
+            inputs:
+              targetType: 'inline'
+              script: |
+                $intent = 'pipeline-run'
+                $actor = 'agent_governance'
+                $env = 'ci'
+                $outcome = '$(Agent.JobStatus)'
+                $refs = @("branch=$(Build.SourceBranch)", "commit=$(Build.SourceVersion)", "build=$(Build.BuildNumber)")
+                $artifacts = @()
+                if (Test-Path "$(workingDirectory)/checklist.json") { $artifacts += 'checklist.json' }
+                if (Test-Path "$(workingDirectory)/drift.json") { $artifacts += 'drift.json' }
+                pwsh scripts/activity-log.ps1 -Intent $intent -Actor $actor -Env $env -Outcome $outcome -Refs $refs -Artifacts $artifacts -Notes "CI run"
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: activity-log'
+            inputs:
+              PathtoPublish: 'agents/logs'
+              ArtifactName: 'activity-log'
+      - job: FlywayMigrateDev
+        displayName: 'Flyway Migrate (Dev/Test)'
+        dependsOn:
+          - Infra
+        condition: and(succeeded(), eq(variables['FLYWAY_ENABLED'], 'true'))
+        steps:
+          - script: |
+              set -e
+              FLYWAY_VERSION=9.22.3
+              curl -L -o /tmp/flyway.tar.gz https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
+              tar -xzf /tmp/flyway.tar.gz -C /tmp
+              echo "##vso[task.prependpath]/tmp/flyway-${FLYWAY_VERSION}"
+            displayName: 'Install Flyway CLI'
+          - script: |
+              cd db/flyway
+              echo "Flyway URL: $(FLYWAY_URL)"
+              export FLYWAY_URL="$(FLYWAY_URL)"
+              export FLYWAY_USER="$(FLYWAY_USER)"
+              export FLYWAY_PASSWORD="$(FLYWAY_PASSWORD)"
+              flyway -configFiles=flyway.conf validate
+              flyway -configFiles=flyway.conf migrate
+            displayName: 'Run Flyway validate/migrate'
 
   # Future: add Deploy stage(s) with environments, approvals, and secret handling
   # - stage: Deploy

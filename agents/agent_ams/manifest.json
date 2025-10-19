@@ -1,0 +1,14 @@
+{
+  "role": "Agent_AMS",
+  "description": "Automazione operativa conversazionale (Checklist, Variable Group, deploy helpers)",
+  "allowed_paths": [
+    "scripts/checklist.ps1",
+    "scripts/setup-env.ps1",
+    "scripts/ado-set-variable-group.ps1",
+    "agents/kb/recipes.jsonl"
+  ],
+  "allowed_tools": ["pwsh", "npm", "curl"],
+  "required_gates": ["KB_Consistency"],
+  "approvals": { "prod": ["Human_Governance_Approval"] }
+}
+

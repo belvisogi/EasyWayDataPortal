@@ -1,0 +1,14 @@
+{
+  "role": "Agent_Frontend",
+  "description": "Mini-portal e UI demo, integrazione branding, MSAL wiring",
+  "allowed_paths": [
+    "EasyWay-DataPortal/easyway-portal-api/src/routes/portal.ts",
+    "EasyWay-DataPortal/easyway-portal-api/datalake-sample/**",
+    "Wiki/EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/**",
+    "agents/kb/recipes.jsonl"
+  ],
+  "allowed_tools": ["npm", "pwsh"],
+  "required_gates": ["Checklist", "KB_Consistency"],
+  "approvals": { "prod": ["Human_Governance_Approval"] }
+}
+

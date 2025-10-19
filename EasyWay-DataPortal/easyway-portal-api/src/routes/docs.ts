@@ -7,6 +7,8 @@ import YAML from "yaml";
 const router = Router();
 
 const specPath = path.resolve(__dirname, "../../openapi/openapi.yaml");
+const kbPath = path.resolve(__dirname, "../../../agents/kb/recipes.jsonl");
+const activityPath = path.resolve(__dirname, "../../../agents/logs/events.jsonl");
 
 router.get(["/", ""], (_req, res) => {
   res.type("html").send(`<!doctype html>
@@ -36,5 +38,27 @@ router.get("/openapi.json", (_req, res) => {
   res.json(obj);
 });
 
-export default router;
+router.get("/kb.json", (_req, res) => {
+  try {
+    if (!fs.existsSync(kbPath)) return res.status(404).json({ message: "KB not found" });
+    const text = fs.readFileSync(kbPath, "utf-8");
+    const lines = text.split(/\r?\n/).filter(Boolean);
+    const items = lines.map((l) => JSON.parse(l));
+    res.json(items);
+  } catch (err: any) {
+    res.status(500).json({ error: err?.message || "KB read error" });
+  }
+});
 
+export default router;
+router.get("/activity.json", (_req, res) => {
+  try {
+    if (!fs.existsSync(activityPath)) return res.status(404).json({ message: "Activity log not found" });
+    const text = fs.readFileSync(activityPath, "utf-8");
+    const lines = text.split(/\r?\n/).filter(Boolean);
+    const items = lines.map((l) => JSON.parse(l));
+    res.json(items);
+  } catch (err: any) {
+    res.status(500).json({ error: err?.message || "Activity read error" });
+  }
+});
