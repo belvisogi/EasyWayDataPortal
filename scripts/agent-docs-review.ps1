@@ -1,0 +1,207 @@
+Param(
+  [switch]$Interactive = $true,
+  [switch]$All,
+  [switch]$Wiki,
+  [switch]$KbConsistency,
+  [switch]$AddKbRecipe,
+  [switch]$WhatIf,
+  [switch]$LogEvent
+)
+
+$ErrorActionPreference = 'Stop'
+
+# Remind agentic goals (if present)
+try {
+  $goalsPath = 'agents/goals.json'
+  if (Test-Path $goalsPath) {
+    $goals = Get-Content $goalsPath -Raw | ConvertFrom-Json
+    if ($goals.vision) { Write-Host ("[Goal] " + $goals.vision) -ForegroundColor Green }
+  }
+} catch {}
+
+$wikiRoot = 'Wiki/EasyWayData.wiki'
+$wikiScripts = Join-Path $wikiRoot 'scripts'
+$kbFile = 'agents/kb/recipes.jsonl'
+$kbAddScript = 'scripts/agent-kb-add.ps1'
+
+function Invoke-Task($task) {
+  Write-Host ("`n==> {0}" -f $task.Name) -ForegroundColor Cyan
+  Write-Host ($task.Description)
+  if ($WhatIf) { Write-Host 'WhatIf: skipped execution' -ForegroundColor Yellow; return }
+  & $task.Action
+}
+
+function Has-Git {
+  try { $null = git --version 2>$null; return $LASTEXITCODE -eq 0 } catch { return $false }
+}
+
+$hasWiki = Test-Path $wikiScripts
+$hasGit = Has-Git
+
+# Determine changes (for advisory KB consistency)
+$changedDbApi = $false; $changedAdoScripts = $false; $changedAgentsDocs = $false
+if ($hasGit) {
+  try {
+    $base = (git rev-parse HEAD~1 2>$null)
+    if ($LASTEXITCODE -eq 0 -and $base) {
+      $changed = git diff --name-only $base HEAD
+      foreach ($f in $changed) {
+        if ($f -like 'db/*' -or $f -like 'EasyWay-DataPortal/easyway-portal-api/src/*') { $changedDbApi = $true }
+        if ($f -like 'scripts/ado/*') { $changedAdoScripts = $true }
+        if ($f -like 'Wiki/EasyWayData.wiki/agents-*.md') { $changedAgentsDocs = $true }
+      }
+    }
+  } catch {}
+}
+
+$tasks = @()
+if ($hasWiki) {
+  $tasks += [pscustomobject]@{
+    Id = 1
+    Name = 'Wiki Normalize & Review'
+    Description = 'Normalizza la Wiki (naming/front‑matter/ancore) e rigenera indici/chunk.'
+    Recommended = $true
+    Enabled = $true
+    Action = {
+      if (Test-Path (Join-Path $wikiScripts 'normalize-project.ps1')) {
+        pwsh (Join-Path $wikiScripts 'normalize-project.ps1') -Root $wikiRoot -EnsureFrontMatter | Out-Host
+      }
+      if (Test-Path (Join-Path $wikiScripts 'review-run.ps1')) {
+        pwsh (Join-Path $wikiScripts 'review-run.ps1') -Root $wikiRoot -Mode kebab -CheckAnchors | Out-Host
+      }
+      if (Test-Path (Join-Path $wikiScripts 'generate-entities-index.ps1')) {
+        pwsh (Join-Path $wikiScripts 'generate-entities-index.ps1') -Root $wikiRoot | Out-Host
+      }
+      if (Test-Path (Join-Path $wikiScripts 'generate-master-index.ps1')) {
+        pwsh (Join-Path $wikiScripts 'generate-master-index.ps1') -Root $wikiRoot | Out-Host
+      }
+      if (Test-Path (Join-Path $wikiScripts 'export-chunks-jsonl.ps1')) {
+        pwsh (Join-Path $wikiScripts 'export-chunks-jsonl.ps1') -Root $wikiRoot | Out-Host
+      }
+      if (Test-Path (Join-Path $wikiScripts 'lint-atomicity.ps1')) {
+        pwsh (Join-Path $wikiScripts 'lint-atomicity.ps1') -Root $wikiRoot | Out-Host
+      }
+    }
+  }
+}
+
+$kbRecommended = ($changedDbApi -or $changedAdoScripts -or $changedAgentsDocs)
+$tasks += [pscustomobject]@{
+  Id = 2
+  Name = 'KB Consistency (advisory)'
+  Description = 'Suggerisce aggiornamento KB/Wiki quando cambiano DB/API/agents docs (controllo basato su git diff).'
+  Recommended = $kbRecommended
+  Enabled = $hasGit
+  Action = {
+    if (-not $hasGit) { Write-Warning 'git non disponibile, salto controllo'; return }
+    try { $base = (git rev-parse HEAD~1) } catch { Write-Host 'Repo shallow o prima commit: skip'; return }
+    $changed = git diff --name-only $base HEAD
+    $changedDbApi = $false; $changedAdoScripts = $false; $changedAgentsDocs = $false
+    foreach ($f in $changed) {
+      if ($f -like 'db/*' -or $f -like 'EasyWay-Data-Portal/easyway-portal-api/src/*' -or $f -like 'EasyWay-DataPortal/easyway-portal-api/src/*') { $changedDbApi = $true }
+      if ($f -like 'scripts/ado/*') { $changedAdoScripts = $true }
+      if ($f -like 'Wiki/EasyWayData.wiki/agents-*.md') { $changedAgentsDocs = $true }
+    }
+    $kbChanged = $false; $wikiChanged = $false
+    foreach ($f in $changed) {
+      if ($f -eq 'agents/kb/recipes.jsonl') { $kbChanged = $true }
+      if ($f -like 'Wiki/*') { $wikiChanged = $true }
+    }
+    if ($changedDbApi -and (-not $kbChanged -or -not $wikiChanged)) {
+      Write-Host 'KB Consistency: DA FARE -> aggiorna agents/kb/recipes.jsonl e almeno una pagina Wiki' -ForegroundColor Yellow
+    } elseif (($changedAdoScripts -or $changedAgentsDocs) -and (-not $kbChanged)) {
+      Write-Host 'KB Consistency: DA FARE -> aggiorna agents/kb/recipes.jsonl (cambi ADO/agents)' -ForegroundColor Yellow
+    } else {
+      Write-Host 'KB Consistency: OK o non rilevante'
+    }
+  }
+}
+
+if ((Test-Path $kbAddScript) -and (Test-Path $kbFile)) {
+  $tasks += [pscustomobject]@{
+    Id = 3
+    Name = 'Aggiungi Ricetta KB (guidata)'
+    Description = 'Aggiunge una nuova riga in agents/kb/recipes.jsonl con parametri minimi.'
+    Recommended = $false
+    Enabled = $true
+    Action = {
+      $id = Read-Host 'ID ricetta (es. kb-docs-001)'
+      if ([string]::IsNullOrWhiteSpace($id)) { Write-Warning 'ID richiesto'; return }
+      $intent = Read-Host 'Intent (es. wiki-normalize)'
+      if ([string]::IsNullOrWhiteSpace($intent)) { Write-Warning 'Intent richiesto'; return }
+      $question = Read-Host 'Domanda (es. Come normalizzare la wiki?)'
+      if ([string]::IsNullOrWhiteSpace($question)) { Write-Warning 'Domanda richiesta'; return }
+      $tags = Read-Host 'Tags (csv, opzionale es. docs,wiki)'
+      $steps = Read-Host 'Steps (csv, opzionale)'
+      $verify = Read-Host 'Verify (csv, opzionale)'
+      $refs = Read-Host 'References (csv, opzionale)'
+      $TagsArr = if ($tags) { $tags.Split(',').ForEach{ $_.Trim() } } else { @() }
+      $StepsArr = if ($steps) { $steps.Split(',').ForEach{ $_.Trim() } } else { @() }
+      $VerifyArr = if ($verify) { $verify.Split(',').ForEach{ $_.Trim() } } else { @() }
+      $RefsArr = if ($refs) { $refs.Split(',').ForEach{ $_.Trim() } } else { @() }
+      pwsh $kbAddScript -Id $id -Intent $intent -Question $question -Tags $TagsArr -Steps $StepsArr -Verify $VerifyArr -References $RefsArr
+      Write-Host 'KB aggiornata.' -ForegroundColor Green
+    }
+  }
+}
+
+function Select-Tasks($tasks) {
+  if ($All) { return $tasks | Where-Object Enabled }
+  $explicit = @()
+  if ($Wiki) { $explicit += 1 }
+  if ($KbConsistency) { $explicit += 2 }
+  if ($AddKbRecipe) { $explicit += 3 }
+  if ($explicit.Count -gt 0) { return $tasks | Where-Object { $_.Enabled -and ($explicit -contains $_.Id) } }
+  if (-not $Interactive) { return $tasks | Where-Object { $_.Enabled -and $_.Recommended } }
+
+  Write-Host 'Proposte agente documentazione:' -ForegroundColor Green
+  foreach ($t in $tasks) {
+    $flag = if ($t.Recommended) { '[R]' } else { '   ' }
+    $en = if ($t.Enabled) { '' } else { '(disabilitato)' }
+    Write-Host (" {0}) {1} {2} {3}" -f $t.Id, $flag, $t.Name, $en)
+    Write-Host ("     - {0}" -f $t.Description)
+  }
+  Write-Host ''
+  $ans = Read-Host "Seleziona attività (es: 1,3) — Invio = solo consigliate — 'all' = tutte"
+  if ([string]::IsNullOrWhiteSpace($ans)) { return $tasks | Where-Object { $_.Enabled -and $_.Recommended } }
+  if ($ans.Trim().ToLower() -in @('all','tutte','tutto')) { return $tasks | Where-Object Enabled }
+  $nums = $ans -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ -match '^\d+$' } | ForEach-Object { [int]$_ }
+  return $tasks | Where-Object { $_.Enabled -and ($nums -contains $_.Id) }
+}
+
+$selected = Select-Tasks $tasks
+if (-not $selected -or $selected.Count -eq 0) { Write-Host 'Nessuna attività selezionata/applicabile.'; exit 0 }
+
+# Esecuzione con raccolta esito
+$script:EW_TaskError = $false
+foreach ($t in $selected) {
+  try { Invoke-Task $t } catch { $script:EW_TaskError = $true; Write-Error $_ }
+}
+
+# Logging strutturato opzionale
+if ($LogEvent) {
+  try {
+    $artifacts = @()
+    $maybe = @(
+      'Wiki/EasyWayData.wiki/entities-index.md',
+      'Wiki/EasyWayData.wiki/index_master.csv',
+      'Wiki/EasyWayData.wiki/index_master.jsonl',
+      'Wiki/EasyWayData.wiki/anchors_master.csv',
+      'Wiki/EasyWayData.wiki/chunks_master.jsonl'
+    )
+    foreach ($p in $maybe) { if (Test-Path $p) { $artifacts += $p } }
+    $intent = 'docs-review'
+    $actor = 'agent_docs_review'
+    $envName = $env:ENVIRONMENT; if ([string]::IsNullOrWhiteSpace($envName)) { $envName = 'local' }
+    $outcome = 'success'; if ($script:EW_TaskError) { $outcome = 'error' }
+    $notes = 'Wiki Normalize & Review'
+    pwsh 'scripts/activity-log.ps1' -Intent $intent -Actor $actor -Env $envName -Outcome $outcome -Artifacts $artifacts -Notes $notes | Out-Host
+  } catch { Write-Warning "Activity log failed: $($_.Exception.Message)" }
+}
+
+Write-Host "`nDocumentazione: attività completate." -ForegroundColor Green
+
+
+
+
+

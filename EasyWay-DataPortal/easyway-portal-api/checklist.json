@@ -1,0 +1,83 @@
+{
+  "checks": [
+    {
+      "name": "env.required",
+      "ok": false,
+      "details": {
+        "missing": [
+          "AUTH_ISSUER",
+          "AUTH_JWKS_URI",
+          "TENANT_CLAIM",
+          "BRANDING_CONTAINER"
+        ]
+      }
+    },
+    {
+      "name": "openapi.exists_valid",
+      "ok": true,
+      "details": {
+        "path": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\EasyWay-DataPortal\\easyway-portal-api\\openapi\\openapi.yaml"
+      }
+    },
+    {
+      "name": "sql.connect",
+      "ok": false,
+      "details": {
+        "error": "The \"config.server\" property is required and must be of type string."
+      }
+    },
+    {
+      "name": "branding.storage",
+      "ok": false,
+      "details": {
+        "error": "Storage not configured"
+      }
+    },
+    {
+      "name": "queries.container",
+      "ok": true,
+      "details": {
+        "note": "not configured (optional)"
+      },
+      "warning": true
+    }
+  ],
+  "summary": {
+    "ok": false,
+    "warnings": [
+      "queries.container"
+    ],
+    "failed": [
+      {
+        "name": "env.required",
+        "details": {
+          "missing": [
+            "AUTH_ISSUER",
+            "AUTH_JWKS_URI",
+            "TENANT_CLAIM",
+            "BRANDING_CONTAINER"
+          ]
+        }
+      },
+      {
+        "name": "sql.connect",
+        "details": {
+          "error": "The \"config.server\" property is required and must be of type string."
+        }
+      },
+      {
+        "name": "branding.storage",
+        "details": {
+          "error": "Storage not configured"
+        }
+      }
+    ]
+  }
+}
+Checklist ÔÇô EasyWay API
+Status: FAIL
+- env.required: fail
+- openapi.exists_valid: ok
+- sql.connect: fail
+- branding.storage: fail
+- queries.container: ok (warn)

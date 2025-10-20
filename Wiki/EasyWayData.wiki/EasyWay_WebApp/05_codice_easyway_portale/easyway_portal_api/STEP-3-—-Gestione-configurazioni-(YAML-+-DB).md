@@ -79,7 +79,7 @@ async function streamToString(stream: NodeJS.ReadableStream): Promise<string> {
   });
 }
 
-```
+```sql
 
 **Dove va:**  
 `easyway-portal-api/src/config/brandingLoader.ts`
@@ -126,7 +126,7 @@ export async function loadDbConfig(
   return config;
 }
 
-```
+```sql
 
 **Dove va:**  
 `easyway-portal-api/src/config/dbConfigLoader.ts`
@@ -144,7 +144,7 @@ import { loadBrandingConfig } from "./brandingLoader";
 import { loadDbConfig } from "./dbConfigLoader";
 
 export { loadBrandingConfig, loadDbConfig };
-```
+```sql
 
 **Dove va:**  
 `easyway-portal-api/src/config/index.ts`

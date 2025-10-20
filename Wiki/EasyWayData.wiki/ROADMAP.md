@@ -39,7 +39,7 @@ entities: []
 . ./scripts/generate-master-index.ps1 -Root .
 . ./scripts/export-chunks-jsonl.ps1 -Root .
 . ./scripts/lint-atomicity.ps1 -Root .
-```
+```sql
 
 ## Pipeline CI (Azure DevOps)
 - La pipeline `azure-pipelines.yml` lancia la scansione normalizzatrice in modalità `scan` ad ogni PR e pubblica i report `logs/reports/*` come artifact.

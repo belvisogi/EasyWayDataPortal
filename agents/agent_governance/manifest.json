@@ -4,7 +4,8 @@
   "allowed_paths": [
     "azure-pipelines.yml",
     "Wiki/EasyWayData.wiki/**",
-    "agents/kb/**"
+    "agents/kb/**",
+    "scripts/agent-governance.ps1"
   ],
   "allowed_tools": ["pwsh", "node"],
   "required_gates": ["Checklist", "DB_Drift", "KB_Consistency"],

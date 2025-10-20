@@ -83,7 +83,7 @@ Troubleshooting
 Esempio App Settings (starter JSON)
 Puoi incollare questo JSON (adattando i valori) nel task AzureAppServiceSettings@1 o usarlo come riferimento per configurare manualmente gli App Settings nel portale Azure.
 
-```
+```sql
 [
   {"name":"AUTH_ISSUER","value":"https://login.microsoftonline.com/<TENANT_ID>/v2.0","slotSetting":false},
   {"name":"AUTH_JWKS_URI","value":"https://login.microsoftonline.com/<TENANT_ID>/discovery/v2.0/keys","slotSetting":false},
@@ -115,11 +115,11 @@ Puoi incollare questo JSON (adattando i valori) nel task AzureAppServiceSettings
   {"name":"OTEL_TRACES_SAMPLER","value":"parentbased_always_on","slotSetting":false},
   {"name":"OTEL_TRACES_SAMPLER_ARG","value":"","slotSetting":false}
 ]
-```
+```sql
 
 Snippet alternativi (riuso rapido)
 - Formato CLI (az webapp config appsettings set --settings @appsettings.cli.json)
-```
+```sql
 {
   "AUTH_ISSUER": "https://login.microsoftonline.com/<TENANT_ID>/v2.0",
   "AUTH_JWKS_URI": "https://login.microsoftonline.com/<TENANT_ID>/discovery/v2.0/keys",
@@ -146,13 +146,13 @@ Snippet alternativi (riuso rapido)
   "OTEL_TRACES_SAMPLER": "parentbased_always_on",
   "OTEL_TRACES_SAMPLER_ARG": ""
 }
-```
+```sql
 
 - Formato Task Azure DevOps (AzureAppServiceSettings@1) – appsettings.task.json
-```
+```sql
 [
   {"name":"AUTH_ISSUER","value":"...","slotSetting":false},
   {"name":"AUTH_JWKS_URI","value":"...","slotSetting":false}
   // ... (vedi starter JSON sopra)
 ]
-```
+```sql

@@ -15,7 +15,7 @@ Cos’è Flyway
 Come funziona
 - Crea `flyway_schema_history` nel DB e registra: versione, checksum, autore, timestamp, esito.
 - Legge script in ordine dalla cartella configurata (es. `db/flyway/sql/`):
-```
+```sql
 db/flyway/sql/
 ├─ V1__create_schemas.sql
 ├─ V2__core_sequences.sql
@@ -23,7 +23,7 @@ db/flyway/sql/
 ├─ V4__portal_logging_tables.sql
 ├─ V5__rls_and_masking.sql
 └─ V6__stored_procedures_core.sql
-```
+```sql
 - Esegue solo le migrazioni non ancora registrate; in caso di errore, si ferma e fallisce la pipeline.
 
 Naming (Flyway Standard)
@@ -43,16 +43,16 @@ Integrazione EasyWay
 - Cartella migrazioni: `db/flyway/sql/` (già presente nello skeleton)
 - Config: `db/flyway/flyway.conf` (locations, baselineOnMigrate, ecc.)
 - Esempio `flyway.conf` (DEV):
-```
+```sql
 locations=filesystem:./sql
 baselineOnMigrate=true
 sqlMigrationSuffixes=.sql
 connectRetries=5
 # Le credenziali (URL/USER/PASSWORD) si passano come env nel runner
-```
+```sql
 
 Esecuzione (CLI)
-```
+```sql
 # Env (esempio SQL Auth)
 $env:FLYWAY_URL = 'jdbc:sqlserver://<host>:1433;databaseName=<db>;encrypt=true'
 $env:FLYWAY_USER = '<user>'
@@ -61,17 +61,17 @@ $env:FLYWAY_PASSWORD = '<password>'
 flyway -configFiles=db/flyway/flyway.conf validate
 flyway -configFiles=db/flyway/flyway.conf baseline -baselineVersion=1   # solo su DB esistenti
 flyway -configFiles=db/flyway/flyway.conf migrate
-```
+```sql
 
 ChatOps/AMS – Query utili
-```
+```sql
 -- Ultima migrazione applicata
 SELECT TOP 1 version, description, installed_on, installed_by
 FROM flyway_schema_history ORDER BY installed_on DESC;
 
 -- Migrazioni fallite o pendenti
 SELECT * FROM flyway_schema_history WHERE success = 0;
-```
+```sql
 
 Stato nel repo
 - Skeleton già presente: `db/flyway/` con `sql/` e `flyway.conf`.

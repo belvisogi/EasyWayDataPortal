@@ -54,7 +54,7 @@ Obiettivo: eliminare DML diretti dalle API e passare a SP coerenti con il DDL st
     "debug":  {"name": "sp_debug_insert_user"}
   }
 }
-```
+```sql
 
 2) Output atteso (generato dai template)
 - SP produzione: `PORTAL.sp_insert_user`, `PORTAL.sp_update_user`, `PORTAL.sp_delete_user`
@@ -90,7 +90,7 @@ Obiettivo: confermare il pattern SP + variante DEBUG per onboarding.
     "user":   {"sequence": "SEQ_USER_ID",   "prefix": "CDI", "width": 9}
   }
 }
-```
+```sql
 
 3) Integrazione API
 - Controller: `easyway-portal-api/src/controllers/onboardingController.ts:1` già invoca la SP debug via `.execute("PORTAL.sp_debug_register_tenant_and_user")`.

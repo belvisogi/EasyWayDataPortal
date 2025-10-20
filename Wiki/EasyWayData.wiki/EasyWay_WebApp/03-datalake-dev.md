@@ -220,12 +220,12 @@ Output Terraform → variabili API:
 - `branding_prefix` → `BRANDING_PREFIX` (default `config`)
 
 Esempio comandi:
-```
+```sql
 cd infra/terraform
 terraform init
 terraform plan -var "project_name=easyway" -var "resource_group_name=rg-easyway-dev" -var "storage_account_name=ewdlkdev123" -var "tenants=[\"tenant01\"]"
 terraform apply
-```
+```sql
 
 Integra poi gli output in Azure DevOps (Variable Group) o Key Vault.
 

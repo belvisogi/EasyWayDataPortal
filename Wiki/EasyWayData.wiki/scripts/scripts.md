@@ -38,7 +38,7 @@ EasyWayData.wiki/scripts/review-run.ps1 -Root EasyWayData.wiki -Mode kebab -Chec
 
 # 6) Log
 . EasyWayData.wiki/scripts/add-log.ps1 -Type REVIEW -Scope full-rebuild -Status success -Owner team-docs -Message "Rigenerazione completa indici/manifest/chunk/lint" -Split monthly
-```
+```sql
 
 ## Multi-root: aggrega più progetti
 ```powershell
@@ -48,7 +48,7 @@ EasyWayData.wiki/scripts/review-run.ps1 -Root EasyWayData.wiki -Mode kebab -Chec
 
 # Aggregazione in file *_all (nella workspace root)
 . EasyWayData.wiki/scripts/generate-master-index-aggregate.ps1 -Roots @('EasyWayData.wiki','OtherWiki')
-```
+```sql
 
 ## Multi-root: normalizzazione (scan/apply) e report
 ```powershell
@@ -57,7 +57,7 @@ EasyWayData.wiki/scripts/review-run.ps1 -Root EasyWayData.wiki -Mode kebab -Chec
 
 # Applicazione con front matter minimo dove manca
 . EasyWayData.wiki/scripts/normalize-project-multi.ps1 -Roots @('EasyWayData.wiki','OtherWiki') -Mode apply -EnsureFrontMatter
-```
+```sql
 
 ## Job: Full‑pass multi‑root (normalize → rebuild → lint)
 ```powershell
@@ -78,17 +78,17 @@ foreach($r in $roots){
 
 # 3) Log finale
 . EasyWayData.wiki/scripts/add-log.ps1 -Type REVIEW -Scope full-pass-multi -Status success -Owner team-docs -Message "Full pass multi-root: normalize+rebuild+lint" -Split monthly
-```
+```sql
 
 ## Utility: aggiungi front matter mancante
 ```powershell
 . EasyWayData.wiki/scripts/bulk-frontmatter.ps1 -Root EasyWayData.wiki -DefaultTag 'layer/reference'
-```
+```sql
 
 ## Log attività (esempio)
 ```powershell
 . EasyWayData.wiki/scripts/add-log.ps1 -Type DOC -Scope wiki -Status success -Owner team-docs -Message "Aggiornata guida scripts"
-```
+```sql
 
 ## Domande a cui risponde
 - Quali script usare per normalizzare e ricostruire la wiki?

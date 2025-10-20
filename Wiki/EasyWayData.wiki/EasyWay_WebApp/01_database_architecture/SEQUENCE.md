@@ -1,4 +1,6 @@
 ---
+tags:
+  - artifact/sequence
 id: ew-db-sequence
 title: Sequence – NDG e convenzioni
 summary: Numeratori per codici business (TEN…, CDI…) e debug
@@ -14,4 +16,5 @@ Sequence principali (PORTAL)
 
 Regola
 - Le SP di insert formattano il codice finale (prefisso + padding) se non fornito in input.
+
 

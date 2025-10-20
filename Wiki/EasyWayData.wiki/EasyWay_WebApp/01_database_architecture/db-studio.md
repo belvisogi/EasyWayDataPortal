@@ -21,10 +21,10 @@ Output
 - `SP_CATALOG.md` – Catalogo Stored Procedure e parametri
 
 Come si esegue
-```
+```sql
 cd EasyWay-DataPortal/easyway-portal-api
 npm run db:generate-docs
-```
+```sql
 Env richieste (come per API): `DB_CONN_STRING` (o `DB_AAD=true` con `DB_HOST/DB_NAME`).
 
 Pipeline

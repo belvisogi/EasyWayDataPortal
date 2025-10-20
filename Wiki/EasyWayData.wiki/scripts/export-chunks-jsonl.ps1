@@ -191,7 +191,8 @@ foreach($f in $files){
         size_chars = $pc.Length
         tokens_estimate = [int][Math]::Round($pc.Length / 4.0)
       }
-      ($obj | ConvertTo-Json -Depth 6 -Compress) | Add-Content -LiteralPath $Output -Encoding UTF8
+      $line = ($obj | ConvertTo-Json -Depth 6 -Compress)
+      Add-Content -LiteralPath $Output -Value $line -Encoding UTF8
     }
   }
 }

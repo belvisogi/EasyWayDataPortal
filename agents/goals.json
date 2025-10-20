@@ -1,0 +1,18 @@
+{
+  "vision": "Portale totalmente agentico, governabile anche da umani non esperti",
+  "principles": [
+    "Human-in-the-loop: scelte importanti sempre confermabili",
+    "Trasparenza: piani, esiti e log strutturati, ricostruibili",
+    "Idempotenza: script/agent ripetibili e sicuri",
+    "Documentazione-viva: KB + Wiki aggiornate ad ogni cambio",
+    "Policy e gates: qualità automatica, facile da capire",
+    "Parametrizzazione: zero hardcode, tutto in env/manifest",
+    "Osservabilità: log/eventi e (opz.) OTel per metriche"
+  ],
+  "hints": {
+    "kb": "Aggiorna agents/kb/recipes.jsonl per ogni nuova procedura",
+    "wiki": "Aggiungi/rivedi pagina Wiki collegata alla modifica",
+    "gate": "Esegui Checklist, DB Drift, KB Consistency prima del merge"
+  }
+}
+

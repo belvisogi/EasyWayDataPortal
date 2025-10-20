@@ -18,7 +18,7 @@ Obiettivo
 - Opzionale: impostare un header interno per compatibilità con sistemi legacy o per auditing.
 
 Esempio di policy (inbound)
-```
+```sql
 <policies>
   <inbound>
     <base />
@@ -49,7 +49,7 @@ Esempio di policy (inbound)
     <base />
   </on-error>
 </policies>
-```
+```sql
 
 Note
 - Il backend EasyWay non richiede più `X-Tenant-Id` dal client; legge il tenant dai claim del token.

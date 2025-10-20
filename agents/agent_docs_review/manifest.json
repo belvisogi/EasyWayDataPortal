@@ -1,0 +1,17 @@
+{
+  "role": "Agent_Docs_Review",
+  "description": "Revisione documentazione: normalizzazione Wiki, indici/chunk, coerenza KB, supporto aggiunta ricette.",
+  "allowed_paths": [
+    "Wiki/EasyWayData.wiki/**",
+    "agents/kb/**",
+    "scripts/agent-docs-review.ps1"
+  ],
+  "allowed_tools": ["pwsh"],
+  "required_gates": ["KB_Consistency"],
+  "approvals": {},
+  "knowledge_sources": [
+    "agents/kb/recipes.jsonl",
+    "Wiki/EasyWayData.wiki/scripts/scripts.md"
+  ]
+}
+

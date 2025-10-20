@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Manifest",
+  "type": "object",
+  "required": ["role", "description", "allowed_paths", "allowed_tools"],
+  "properties": {
+    "role": { "type": "string" },
+    "description": { "type": "string" },
+    "allowed_paths": { "type": "array", "items": { "type": "string" } },
+    "allowed_tools": { "type": "array", "items": { "type": "string" } },
+    "required_gates": { "type": "array", "items": { "type": "string" } },
+    "approvals": { "type": "object" },
+    "knowledge_sources": { "type": "array", "items": { "type": "string" } }
+  }
+}
+

@@ -12,6 +12,12 @@ variables:
   - group: EasyWay-Secrets  # Variable Group in ADO with AZURE_STORAGE_* and DB creds
   - name: workingDirectory
     value: 'EasyWay-DataPortal/easyway-portal-api'
+  - name: ENABLE_ORCHESTRATOR
+    value: 'true'
+  - name: ORCHESTRATOR_INTENT
+    value: 'governance-predeploy'
+  - name: USE_EWCTL_GATES
+    value: 'false'
   - name: FLYWAY_ENABLED
     value: 'false'   # set to 'true' to run Flyway migrate in Dev/Test
   - name: ENABLE_CHECKLIST
@@ -125,6 +131,38 @@ stages:
     displayName: Build, Lint, Test
     dependsOn: DB
     jobs:
+      - job: GovernanceGatesEWCTL
+        displayName: 'Governance Gates via ewctl (Checklist/Drift/KB)'
+        condition: and(succeeded(), eq(variables['USE_EWCTL_GATES'], 'true'))
+        dependsOn:
+          - NodeBuild
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run ewctl gates (PS engine) + logevent'
+            inputs:
+              targetType: 'inline'
+              script: |
+                pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent
+      - job: Orchestrator
+        displayName: 'Orchestrator (Plan)'
+        condition: and(succeeded(), eq(variables['ENABLE_ORCHESTRATOR'], 'true'))
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '$(node_version)'
+            displayName: 'Use Node.js $(node_version)'
+          - task: PowerShell@2
+            displayName: 'Generate orchestrator plan (TS engine)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                pwsh scripts/ewctl.ps1 --engine ts --intent "$(ORCHESTRATOR_INTENT)" --noninteractive --logevent | Out-File -FilePath orchestrator-plan.json -Encoding utf8
+                Write-Host "Plan written to orchestrator-plan.json"
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: orchestrator-plan'
+            inputs:
+              PathtoPublish: 'orchestrator-plan.json'
+              ArtifactName: 'orchestrator-plan'
       - job: VersionsReport
         displayName: 'Versions Report (Node/Flyway/Terraform)'
         steps:
@@ -237,7 +275,7 @@ stages:
 
       - job: PreDeployChecklist
         displayName: 'Pre-Deploy Checklist (Gate)'
-        condition: and(succeeded(), eq(variables['ENABLE_CHECKLIST'], 'true'))
+        condition: and(succeeded(), eq(variables['ENABLE_CHECKLIST'], 'true'), ne(variables['USE_EWCTL_GATES'], 'true'))
         dependsOn:
           - NodeBuild
           - WikiLint
@@ -269,7 +307,7 @@ stages:
 
       - job: KBConsistency
         displayName: 'KB Consistency (Gate)'
-        condition: and(succeeded(), eq(variables['ENABLE_KB_CONSISTENCY'], 'true'))
+        condition: and(succeeded(), eq(variables['ENABLE_KB_CONSISTENCY'], 'true'), ne(variables['USE_EWCTL_GATES'], 'true'))
         dependsOn:
           - NodeBuild
         steps:
@@ -309,7 +347,7 @@ stages:
 
       - job: DBDriftCheck
         displayName: 'DB Drift Check (Gate)'
-        condition: and(succeeded(), eq(variables['ENABLE_DB_DRIFT'], 'true'))
+        condition: and(succeeded(), eq(variables['ENABLE_DB_DRIFT'], 'true'), ne(variables['USE_EWCTL_GATES'], 'true'))
         dependsOn:
           - NodeBuild
         steps:
@@ -357,6 +395,7 @@ stages:
                 if (Test-Path "$(workingDirectory)/checklist.json") { $artifacts += 'checklist.json' }
                 if (Test-Path "$(workingDirectory)/drift.json") { $artifacts += 'drift.json' }
                 if (Test-Path "$(Build.SourcesDirectory)/versions-report.txt") { $artifacts += 'versions-report.txt' }
+                if (Test-Path "$(Build.SourcesDirectory)/orchestrator-plan.json") { $artifacts += 'orchestrator-plan.json' }
                 pwsh scripts/activity-log.ps1 -Intent $intent -Actor $actor -Env $env -Outcome $outcome -Refs $refs -Artifacts $artifacts -Notes "CI run"
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: activity-log'

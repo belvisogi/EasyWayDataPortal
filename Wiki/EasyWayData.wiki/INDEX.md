@@ -7,6 +7,10 @@
   - H2: Obiettivo
   - H2: Manifest JSONL (consumo per agenti)
   - H2: Anchors CSV (richiami di sezione)
+- [agentic-portal-vision.md](./agentic-portal-vision.md) - Visione
+  - H2: Visione
+  - H2: Principi
+  - H2: Implementazione
 - [agents-governance.md](./agents-governance.md) - agents-governance
 - [agents-scrummaster.md](./agents-scrummaster.md) - agents-scrummaster
 - [best-practices-token-tuning-roadmap.md](./best-practices-token-tuning-roadmap.md) - Best Practices & Roadmap – Token Tuning, AI-Readiness e Governance Universale
@@ -265,6 +269,7 @@
   - H2: DB Stored Procedures
   - H2: DB Sequences
 - [INDEX.md](./INDEX.md) - Indice Globale
+  - H2: Domande a cui risponde
 - [LLM_READINESS_CHECKLIST.md](./LLM_READINESS_CHECKLIST.md) - LLM Readiness – Lista Semplice (Per Persone e AI)
   - H2: Checklist per OGNI pagina (.md)
   - H2: Checklist NOMI (file e cartelle)
@@ -290,6 +295,13 @@
 - [logs/reports/anchors-20251019203554.md](./logs/reports/anchors-20251019203554.md) - Anchor Check (20251019203554)
 - [logs/reports/anchors-20251019204016.md](./logs/reports/anchors-20251019204016.md) - Anchor Check (20251019204016)
 - [logs/reports/anchors-20251020065030.md](./logs/reports/anchors-20251020065030.md) - Anchor Check (20251020065030)
+- [logs/reports/anchors-20251020070131.md](./logs/reports/anchors-20251020070131.md) - Anchor Check (20251020070131)
+- [logs/reports/anchors-20251020094544.md](./logs/reports/anchors-20251020094544.md) - Anchor Check (20251020094544)
+- [logs/reports/anchors-20251020104226.md](./logs/reports/anchors-20251020104226.md) - Anchor Check (20251020104226)
+- [logs/reports/anchors-20251020110022.md](./logs/reports/anchors-20251020110022.md) - Anchor Check (20251020110022)
+- [logs/reports/anchors-20251020111226.md](./logs/reports/anchors-20251020111226.md) - Anchor Check (20251020111226)
+- [logs/reports/anchors-20251020112225.md](./logs/reports/anchors-20251020112225.md) - Anchor Check (20251020112225)
+- [logs/reports/anchors-20251020112408.md](./logs/reports/anchors-20251020112408.md) - Anchor Check (20251020112408)
 - [logs/reports/atomicity-20251018151337.md](./logs/reports/atomicity-20251018151337.md) - Atomicity Lint
 - [logs/reports/atomicity-20251018151922.md](./logs/reports/atomicity-20251018151922.md) - Atomicity Lint
 - [logs/reports/atomicity-20251018152434.md](./logs/reports/atomicity-20251018152434.md) - Atomicity Lint
@@ -306,6 +318,12 @@
 - [logs/reports/atomicity-20251018163121.md](./logs/reports/atomicity-20251018163121.md) - Atomicity Lint
 - [logs/reports/atomicity-20251018163339.md](./logs/reports/atomicity-20251018163339.md) - Atomicity Lint
 - [logs/reports/atomicity-20251018163431.md](./logs/reports/atomicity-20251018163431.md) - Atomicity Lint
+- [logs/reports/atomicity-20251020114614.md](./logs/reports/atomicity-20251020114614.md) - Atomicity Lint
+- [logs/reports/atomicity-20251020124245.md](./logs/reports/atomicity-20251020124245.md) - Atomicity Lint
+- [logs/reports/atomicity-20251020130041.md](./logs/reports/atomicity-20251020130041.md) - Atomicity Lint
+- [logs/reports/atomicity-20251020131245.md](./logs/reports/atomicity-20251020131245.md) - Atomicity Lint
+- [logs/reports/atomicity-20251020132242.md](./logs/reports/atomicity-20251020132242.md) - Atomicity Lint
+- [logs/reports/atomicity-20251020132426.md](./logs/reports/atomicity-20251020132426.md) - Atomicity Lint
 - [logs/reports/llm-readiness-20251018103206.md](./logs/reports/llm-readiness-20251018103206.md) - LLM Readiness Mini-Report (20251018103206)  | File | Missing | |---|---|
 - [logs/reports/naming-20251018061858-analysis.md](./logs/reports/naming-20251018061858-analysis.md) - Naming Report Analysis (20251018061858)
   - H2: Domande a cui risponde
@@ -314,6 +332,13 @@
 - [logs/reports/normalize-20251018161134.md](./logs/reports/normalize-20251018161134.md) - Normalize Scan Report
 - [logs/reports/normalize-20251018161530-EasyWayData.wiki.md](./logs/reports/normalize-20251018161530-EasyWayData.wiki.md) - Normalize Scan Report
 - [logs/reports/normalize-20251018161531-EasyWayData.wiki.md](./logs/reports/normalize-20251018161531-EasyWayData.wiki.md) - Normalize Scan Report
+- [logs/reports/normalize-20251020114526.md](./logs/reports/normalize-20251020114526.md) - Normalize Scan Report
+- [logs/reports/normalize-20251020124219.md](./logs/reports/normalize-20251020124219.md) - Normalize Scan Report
+- [logs/reports/normalize-20251020130014.md](./logs/reports/normalize-20251020130014.md) - Normalize Scan Report
+- [logs/reports/normalize-20251020131220.md](./logs/reports/normalize-20251020131220.md) - Normalize Scan Report
+- [logs/reports/normalize-20251020132221.md](./logs/reports/normalize-20251020132221.md) - Normalize Scan Report
+- [logs/reports/normalize-20251020132403.md](./logs/reports/normalize-20251020132403.md) - Normalize Scan Report
+- [logs/reports/normalize-20251020132605.md](./logs/reports/normalize-20251020132605.md) - Normalize Scan Report
 - [parametrization-best-practices.md](./parametrization-best-practices.md) - parametrization-best-practices
 - [roadmap.md](./roadmap.md) - Roadmap & Qualità Documentazione
   - H2: Obiettivi

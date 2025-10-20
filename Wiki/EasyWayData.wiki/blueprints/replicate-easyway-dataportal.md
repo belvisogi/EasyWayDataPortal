@@ -31,12 +31,12 @@ Prerequisiti
   - `branding_container_name` → `BRANDING_CONTAINER` (tipicamente `portal-assets`)
   - `branding_prefix` → `BRANDING_PREFIX` (default `config`)
 - Comandi:
-```
+```sql
 cd infra/terraform
 terraform init
 terraform plan -var "project_name=<name>" -var "resource_group_name=<rg>" -var "storage_account_name=<sa>" -var "tenants=[\"tenant01\"]"
 terraform apply
-```
+```sql
 
 2) Auth (Entra ID) e Claim Tenant
 - Registra un’app (app registration) “<project>-api”.
@@ -59,11 +59,11 @@ terraform apply
   - Storage: `AZURE_STORAGE_CONNECTION_STRING` o `AZURE_STORAGE_ACCOUNT`, `BRANDING_CONTAINER=portal-assets`, `BRANDING_PREFIX=config`
   - DB: `DB_CONN_STRING` (oppure `DB_AAD=true` + `DB_HOST`/`DB_NAME`)
 - Avvio:
-```
+```sql
 cd EasyWay-DataPortal/easyway-portal-api
 npm ci
 npm run dev
-```
+```sql
 
 5) OpenAPI e Sicurezza
 - Specifica aggiornata: `easyway-portal-api/openapi/openapi.yaml` con Bearer JWT e schemi reali.
@@ -87,7 +87,7 @@ npm run dev
 - File esempio: `scripts/variables/easyway-secrets.sample.json` (modifica i valori e salva una copia per il tuo progetto)
 - Script: `scripts/ado-set-variable-group.ps1`
 - Esempio esecuzione:
-```
+```sql
 pwsh ./scripts/ado-set-variable-group.ps1 \
   -OrgUrl https://dev.azure.com/contoso \
   -Project easyway \
@@ -95,7 +95,7 @@ pwsh ./scripts/ado-set-variable-group.ps1 \
   -GroupName EasyWay-Secrets \
   -VariablesJsonPath scripts/variables/easyway-secrets.sample.json \
   -SecretsKeys "AZURE_STORAGE_CONNECTION_STRING,DB_CONN_STRING"
-```
+```sql
 - Lo script crea/aggiorna il Variable Group con tutte le chiavi; quelle elencate in `SecretsKeys` sono marcate come segrete.
 - Variable Group: imposta `AZURE_STORAGE_CONNECTION_STRING` (o MI), `BRANDING_CONTAINER`, `BRANDING_PREFIX`, `AUTH_*`, DB.
 
