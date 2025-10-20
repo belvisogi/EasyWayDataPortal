@@ -17,9 +17,9 @@ variables:
   - name: ORCHESTRATOR_INTENT
     value: 'governance-predeploy'
   - name: USE_EWCTL_GATES
-    value: 'false'
+    value: 'true'
   - name: FLYWAY_ENABLED
-    value: 'false'   # set to 'true' to run Flyway migrate in Dev/Test
+    value: 'true'   # enable Flyway migrate in Dev/Test
   - name: ENABLE_CHECKLIST
     value: 'true'
   - name: ENABLE_DB_DRIFT
@@ -106,8 +106,8 @@ stages:
     displayName: Database (Validate/Migrate)
     dependsOn: Infra
     jobs:
-      - job: FlywayMigrateDev
-        displayName: 'Flyway Migrate (Dev/Test)'
+      - job: FlywayValidateAny
+        displayName: 'Flyway Validate (all branches)'
         condition: and(succeeded(), eq(variables['FLYWAY_ENABLED'], 'true'))
         steps:
           - script: |
@@ -124,8 +124,28 @@ stages:
               export FLYWAY_USER="$(FLYWAY_USER)"
               export FLYWAY_PASSWORD="$(FLYWAY_PASSWORD)"
               flyway -configFiles=flyway.conf validate
+            displayName: 'Run Flyway validate'
+
+      - job: FlywayMigrateDevelop
+        displayName: 'Flyway Migrate (develop only)'
+        dependsOn: FlywayValidateAny
+        condition: and(succeeded(), eq(variables['FLYWAY_ENABLED'], 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+        steps:
+          - script: |
+              set -e
+              FLYWAY_VERSION=$(flyway_version)
+              curl -L -o /tmp/flyway.tar.gz https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
+              tar -xzf /tmp/flyway.tar.gz -C /tmp
+              echo "##vso[task.prependpath]/tmp/flyway-${FLYWAY_VERSION}"
+            displayName: 'Install Flyway CLI'
+          - script: |
+              cd db/flyway
+              echo "Flyway URL: $(FLYWAY_URL)"
+              export FLYWAY_URL="$(FLYWAY_URL)"
+              export FLYWAY_USER="$(FLYWAY_USER)"
+              export FLYWAY_PASSWORD="$(FLYWAY_PASSWORD)"
               flyway -configFiles=flyway.conf migrate
-            displayName: 'Run Flyway validate/migrate'
+            displayName: 'Run Flyway migrate (develop)'
 
   - stage: BuildAndTest
     displayName: Build, Lint, Test
@@ -542,3 +562,33 @@ stages:
                 } else {
                   az webapp config appsettings set -g "$(RESOURCE_GROUP)" -n "$(WEBAPP_NAME)" --slot "$(WEBAPP_SLOT)" --settings @./out/appsettings.cli.json
                 }
+
+# Database Prod Migrate with approvals (main only)
+- stage: DBProd
+  displayName: Database (Prod Migrate with approvals)
+  dependsOn: BuildAndTest
+  condition: and(succeeded(), eq(variables['FLYWAY_ENABLED'], 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['GOV_APPROVED'], 'true'))
+  jobs:
+    - deployment: FlywayMigrateMain
+      displayName: 'Flyway Migrate (main, requires environment approval)'
+      environment: 'prod'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - script: |
+                  set -e
+                  FLYWAY_VERSION=$(flyway_version)
+                  curl -L -o /tmp/flyway.tar.gz https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
+                  tar -xzf /tmp/flyway.tar.gz -C /tmp
+                  echo "##vso[task.prependpath]/tmp/flyway-${FLYWAY_VERSION}"
+                displayName: 'Install Flyway CLI'
+              - script: |
+                  cd db/flyway
+                  echo "Flyway URL: $(FLYWAY_URL)"
+                  export FLYWAY_URL="$(FLYWAY_URL)"
+                  export FLYWAY_USER="$(FLYWAY_USER)"
+                  export FLYWAY_PASSWORD="$(FLYWAY_PASSWORD)"
+                  flyway -configFiles=flyway.conf validate
+                  flyway -configFiles=flyway.conf migrate
+                displayName: 'Run Flyway validate + migrate (prod)'
