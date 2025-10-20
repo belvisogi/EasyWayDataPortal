@@ -9,6 +9,7 @@ Param(
   [switch]$KbConsistency,
   [switch]$TerraformPlan,
   [switch]$GenAppSettings,
+  [switch]$PR,
   [switch]$NonInteractive,
   [switch]$WhatIf,
   [switch]$LogEvent
@@ -37,6 +38,10 @@ Examples:
 
 function Run-PSDocsReview {
   param([switch]$Interactive)
+  try {
+    pwsh scripts/enforcer.ps1 -Agent agent_docs_review -GitDiff -Quiet
+    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_docs_review'; exit 2 }
+  } catch { Write-Warning "Enforcer preflight (docs) non applicabile: $($_.Exception.Message)" }
   $argsList = @()
   if ($WhatIf) { $argsList += '-WhatIf' }
   if (-not $Interactive) { $argsList += '-Interactive:$false' }
@@ -49,6 +54,10 @@ function Run-PSDocsReview {
 
 function Run-PSGovernance {
   param([switch]$Interactive)
+  try {
+    pwsh scripts/enforcer.ps1 -Agent agent_governance -GitDiff -Quiet
+    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_governance'; exit 2 }
+  } catch { Write-Warning "Enforcer preflight (governance) non applicabile: $($_.Exception.Message)" }
   $argsList = @()
   if ($WhatIf) { $argsList += '-WhatIf' }
   if (-not $Interactive) { $argsList += '-Interactive:$false' }
@@ -60,6 +69,17 @@ function Run-PSGovernance {
   if ($GenAppSettings) { $argsList += '-GenAppSettings' }
   if ($LogEvent) { $argsList += '-LogEvent' }
   pwsh scripts/agent-governance.ps1 @argsList
+}
+
+function Run-PSPrManager {
+  try {
+    pwsh scripts/enforcer.ps1 -Agent agent_pr_manager -GitDiff -Quiet
+    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_pr_manager'; exit 2 }
+  } catch { Write-Warning "Enforcer preflight (pr) non applicabile: $($_.Exception.Message)" }
+  $argsList = @()
+  if ($WhatIf) { $argsList += '-WhatIf' } else { $argsList += '-WhatIf:$false' }
+  if ($LogEvent) { $argsList += '-LogEvent' }
+  pwsh scripts/agent-pr.ps1 @argsList
 }
 
 function Dispatch-Intent-PS($intent) {
@@ -91,6 +111,9 @@ if ($Engine -eq 'ps') {
   }
   if ($All -or $Checklist -or $DbDrift -or $KbConsistency -or $TerraformPlan -or $GenAppSettings) {
     Run-PSGovernance -Interactive:(!$NonInteractive); exit $LASTEXITCODE
+  }
+  if ($PR) {
+    Run-PSPrManager; exit $LASTEXITCODE
   }
   Show-Help; exit 0
 }

@@ -1,0 +1,25 @@
+{
+  "rules": [
+    {
+      "id": "example-mandatory-on-main-develop",
+      "description": "Esempio: mostra checklist su branch principali",
+      "severity": "mandatory",
+      "when": { "branch": ["main", "develop"] },
+      "checklist": [
+        "Punto 1 di verifica",
+        "Punto 2 di verifica"
+      ]
+    },
+    {
+      "id": "example-advisory-on-path-change",
+      "description": "Esempio: mostra checklist quando cambia una certa cartella",
+      "severity": "advisory",
+      "when": { "changedPaths": ["path/pattern/**"] },
+      "checklist": [
+        "Controllo A",
+        "Controllo B"
+      ]
+    }
+  ]
+}
+

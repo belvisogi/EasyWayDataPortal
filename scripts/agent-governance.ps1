@@ -83,6 +83,44 @@ if ($hasGit) {
 # Build task catalog
 $tasks = @()
 
+# Conditional governance checklist via priority rules
+try {
+  $prioJson = pwsh 'scripts/agent-priority.ps1' -Agent agent_governance -UseGitDiff -Env ($env:ENVIRONMENT ?? 'local') -Intent ($Intent ?? $null)
+  $prio = $null; try { $prio = $prioJson | ConvertFrom-Json } catch {}
+  if ($prio.showChecklist -eq $true) {
+    $label = if ($prio.severity -eq 'mandatory') { 'Governance Checklist (mandatory)' } else { 'Governance Checklist (advisory)' }
+    $desc = 'Checklist di governance generata da regole priority; l’utente rivede e approva.'
+    $items = @(); if ($prio.items) { $items = $prio.items } else {
+      $items = @(
+        'EnforcerCheck Required su develop/main',
+        'USE_EWCTL_GATES=true attivo',
+        'Strategia Flyway: validate sempre; migrate solo develop; DBProd con approvazioni',
+        "Variable Group 'EasyWay-Secrets' collegato",
+        'Environment prod con approvazioni',
+        'KB+Wiki aggiornate; Activity Log aggiornato'
+      )
+    }
+    $tasks += [pscustomobject]@{
+      Id = 0
+      Name = $label
+      Description = $desc
+      Recommended = $true
+      Enabled = $true
+      Action = {
+        Write-Host ""; Write-Host '== Governance Checklist ==' -ForegroundColor Cyan
+        foreach ($i in $items) { Write-Host ("- {0}" -f $i) }
+        if ($Interactive) {
+          $ans = Read-Host "Confermi la checklist? [Invio=SI / n=No]"
+          if ($ans.Trim().ToLower() -eq 'n') { Write-Host 'Checklist non approvata (rimandata dall’utente).'; return }
+          Write-Host 'Checklist approvata dall’utente.' -ForegroundColor Green
+        } else {
+          Write-Host 'Checklist proposta (modalità non interattiva): vedere i riferimenti per approvare.' -ForegroundColor Yellow
+        }
+      }
+    }
+  }
+} catch { Write-Warning ("Priority rules (governance) non applicabili: {0}" -f $_.Exception.Message) }
+
 if ($hasWiki) {
   $tasks += [pscustomobject]@{
     Id = 1
@@ -280,3 +318,9 @@ if ($LogEvent) {
 Write-Host "`nTutte le attività selezionate sono state elaborate." -ForegroundColor Green
 
 
+$enforcerApplied = $false
+try {
+  pwsh 'scripts/enforcer.ps1' -Agent agent_governance -GitDiff -Quiet | Out-Null
+  if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_governance'; exit 2 }
+  $enforcerApplied = $true
+} catch { Write-Warning ("Enforcer preflight (governance) non applicabile: {0}" -f $_.Exception.Message) }

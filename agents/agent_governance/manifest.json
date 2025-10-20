@@ -14,6 +14,8 @@
     "agents/kb/recipes.jsonl",
     "Wiki/EasyWayData.wiki/agents-governance.md",
     "Wiki/EasyWayData.wiki/agents-scrummaster.md",
-    "scripts/ado/README.md"
+    "scripts/ado/README.md",
+    "Wiki/EasyWayData.wiki/enforcer-guardrail.md",
+    "Wiki/EasyWayData.wiki/checklist-ado-required-job.md"
   ]
 }

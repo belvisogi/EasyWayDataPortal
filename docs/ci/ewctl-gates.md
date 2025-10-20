@@ -21,6 +21,13 @@ Uso locale
 - Stessi gate: `pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent`
 - Solo piano: `pwsh scripts/ewctl.ps1 --engine ts --intent governance-predeploy`
 
+Guardrail: EnforcerCheck (PR required)
+- Perché: Serve a bloccare azioni fuori scope in modo automatico e precoce. Verifica che i file toccati rientrino negli `allowed_paths` dell’agente responsabile.
+- Cosa fa: esegue `scripts/enforcer.ps1` su `git diff` per gli agenti chiave (`agent_governance`, `agent_docs_review`, `agent_pr_manager`). Fallisce il job su violazioni.
+- Posizione in pipeline: stage iniziale `PreChecks` → job `EnforcerCheck` (prima di build/test/gates).
+- Come renderlo obbligatorio: in Branch Policies di Azure Repos, aggiungere il job `EnforcerCheck` come `required` per PR verso `develop`/`main`.
+- Benefici: fail early in PR, coerenza con manifest, riduce rischio operativo, audit chiaro su violazioni.
+
 Verifica in branch non-main
 - Prerequisiti: `USE_EWCTL_GATES=true`, Variable Group collegato (EasyWay-Secrets), Node installato via job `NodeBuild`.
 - Passi:

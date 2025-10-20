@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "id": "docs-wiki-or-kb-changed",
+      "description": "Checklist documentazione quando cambiano Wiki o KB",
+      "severity": "advisory",
+      "when": { "changedPaths": ["Wiki/**", "agents/kb/recipes.jsonl"] },
+      "checklist": [
+        "Esegui normalize + review-run + indici",
+        "Aggiorna anchors_master, index_master, chunks jsonl",
+        "Convergenza: KB recipe e pagina Wiki pertinenti"
+      ]
+    }
+  ]
+}
+

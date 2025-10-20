@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "id": "ams-variable-group",
+      "description": "Checklist advisory quando si toccano script ADO/variable group",
+      "severity": "advisory",
+      "when": { "changedPaths": ["scripts/ado-set-variable-group.ps1", "scripts/variables/**"] },
+      "checklist": [
+        "Variable Group aggiornato (segreti presenti)",
+        "Doc aggiornata in Wiki (procedura ADO)",
+        "KB recipe aggiornata"
+      ]
+    }
+  ]
+}
+

@@ -47,6 +47,26 @@ variables:
   # Expected (in Variable Group or pipeline vars): FLYWAY_URL, FLYWAY_USER, FLYWAY_PASSWORD
 
 stages:
+  - stage: PreChecks
+    displayName: Pre-Checks (Guardrails)
+    jobs:
+      - job: EnforcerCheck
+        displayName: 'Allowed Paths Enforcer (agents)'
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run enforcer for agents (git diff)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                set -e
+                git config --global --add safe.directory $(Build.SourcesDirectory)
+                cd $(Build.SourcesDirectory)
+                echo "== Enforcer: agent_governance =="
+                pwsh scripts/enforcer.ps1 -Agent agent_governance -GitDiff
+                echo "== Enforcer: agent_docs_review =="
+                pwsh scripts/enforcer.ps1 -Agent agent_docs_review -GitDiff
+                echo "== Enforcer: agent_pr_manager =="
+                pwsh scripts/enforcer.ps1 -Agent agent_pr_manager -GitDiff
   - stage: Infra
     displayName: Terraform Plan/Apply
     jobs:

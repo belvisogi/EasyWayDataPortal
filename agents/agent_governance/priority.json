@@ -1,0 +1,40 @@
+{
+  "rules": [
+    {
+      "id": "gov-branch-main-develop",
+      "description": "Checklist governance su branch principali",
+      "severity": "mandatory",
+      "when": { "branch": ["main", "develop"], "env": ["ci", "local"] },
+      "checklist": [
+        "EnforcerCheck Required su develop/main (Branch Policies)",
+        "USE_EWCTL_GATES=true attivo in pipeline",
+        "Strategia Flyway: validate sempre; migrate solo develop; DBProd con approvazioni",
+        "Variable Group EasyWay-Secrets collegato (FLYWAY_URL/USER/PASSWORD)",
+        "Environment prod con approvazioni configurate",
+        "KB+Wiki aggiornate; Activity Log aggiornato"
+      ]
+    },
+    {
+      "id": "gov-changed-db-or-pipeline",
+      "description": "Se cambia DB o pipeline, checklist mandatory",
+      "severity": "mandatory",
+      "when": { "changedPaths": ["db/**", "azure-pipelines.yml"] },
+      "checklist": [
+        "Verifica Flyway validate/migrate e versionamento",
+        "Aggiorna recipes.jsonl e pagina Wiki pertinente",
+        "Esegui gates ewctl e controlla artifacts"
+      ]
+    },
+    {
+      "id": "gov-ewctl-disabled",
+      "description": "Se gates ewctl disabilitati in CI, ricordare di abilitarli",
+      "severity": "advisory",
+      "when": { "env": ["ci"], "varEquals": { "USE_EWCTL_GATES": "false" } },
+      "checklist": [
+        "Abilitare USE_EWCTL_GATES=true",
+        "Verificare job GovernanceGatesEWCTL in pipeline"
+      ]
+    }
+  ]
+}
+

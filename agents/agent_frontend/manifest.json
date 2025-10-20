@@ -9,6 +9,9 @@
   ],
   "allowed_tools": ["npm", "pwsh"],
   "required_gates": ["Checklist", "KB_Consistency"],
-  "approvals": { "prod": ["Human_Governance_Approval"] }
+  "approvals": { "prod": ["Human_Governance_Approval"] },
+  "knowledge_sources": [
+    "agents/kb/recipes.jsonl",
+    "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
+  ]
 }
-

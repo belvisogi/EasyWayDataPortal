@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "id": "scrum-pipeline-changes",
+      "description": "Checklist advisory quando cambia la pipeline o gli script ADO",
+      "severity": "advisory",
+      "when": { "changedPaths": ["azure-pipelines.yml", "scripts/ado/**"] },
+      "checklist": [
+        "Aggiorna roadmap/DoD/gates in Wiki",
+        "Allinea artefatti Boards (epic/feature/task)",
+        "Verifica policies PR e checks required"
+      ]
+    }
+  ]
+}
+

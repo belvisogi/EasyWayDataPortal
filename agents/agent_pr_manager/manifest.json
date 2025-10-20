@@ -1,0 +1,22 @@
+{
+  "role": "Agent_PR_Manager",
+  "description": "Crea e propone Pull Request agentiche con esiti gates e riferimenti artifact. Nessun merge autonomo.",
+  "allowed_paths": [
+    "azure-pipelines.yml",
+    "agents/kb/**",
+    "Wiki/EasyWayData.wiki/**",
+    "db/flyway/sql/**",
+    "scripts/agent-pr.ps1"
+  ],
+  "allowed_tools": ["pwsh", "git", "az"],
+  "required_gates": ["Checklist", "DB_Drift", "KB_Consistency"],
+  "approvals": {
+    "merge": "human-required"
+  },
+  "knowledge_sources": [
+    "docs/ci/ewctl-gates.md",
+    "AGENTS.md",
+    "agents/kb/recipes.jsonl",
+    "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
+  ]
+}

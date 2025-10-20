@@ -2,10 +2,13 @@
 /* Minimal orchestrator (JS) – scaffolding for TS version
    - Loads agent manifests and KB
    - Resolves simple intents
-   - Prints plan or delegates (future) */
+   - Prints plan or delegates (future)
+   - [2025-10-20] Esteso: legge priority.json per ogni agente e aggrega checklist advisory/mandatory nel plan
+*/
 
 const fs = require('fs');
 const path = require('path');
+const cp = require('child_process');
 
 function parseArgs(argv) {
   const out = { flags: {} };
@@ -51,6 +54,93 @@ function loadGoals() {
   try { return JSON.parse(fs.readFileSync(goalsPath, 'utf-8')); } catch { return null; }
 }
 
+function detectBranch() {
+  try {
+    const out = cp.execSync('git rev-parse --abbrev-ref HEAD', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+    return out || null;
+  } catch { return null; }
+}
+
+function gitChangedPaths() {
+  try { cp.execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' }); } catch { return []; }
+  try {
+    const base = cp.execSync('git rev-parse HEAD~1', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+    if (!base) throw new Error('no base');
+    const diff = cp.execSync(`git diff --name-only ${base} HEAD`, { stdio: ['ignore', 'pipe', 'ignore'] }).toString();
+    return diff.split(/\r?\n/).filter(Boolean);
+  } catch {
+    try {
+      const ls = cp.execSync('git ls-files -m -o --exclude-standard', { stdio: ['ignore', 'pipe', 'ignore'] }).toString();
+      return ls.split(/\r?\n/).filter(Boolean);
+    } catch { return []; }
+  }
+}
+
+function globToRegex(pattern) {
+  let p = String(pattern).replace(/\\/g, '/');
+  p = p.replace(/[.+^${}()|[\]\\]/g, '\\$&');
+  p = p.replace(/\*\*/g, '.*');
+  p = p.replace(/\*/g, '[^/]*');
+  return new RegExp('^' + p + '$');
+}
+
+function ruleMatches(rule, ctx) {
+  const w = rule.when || null;
+  if (!w) return true;
+  if (Array.isArray(w.intents) && ctx.intent) {
+    let ok = false;
+    for (const re of w.intents) {
+      try { if (new RegExp(re).test(ctx.intent)) { ok = true; break; } }
+      catch { if (String(ctx.intent).includes(String(re))) { ok = true; break; } }
+    }
+    if (!ok) return false;
+  }
+  if (Array.isArray(w.branch) && ctx.branch) {
+    if (!w.branch.includes(ctx.branch)) return false;
+  }
+  if (Array.isArray(w.env) && ctx.env) {
+    if (!w.env.includes(ctx.env)) return false;
+  }
+  if (Array.isArray(w.changedPaths) && Array.isArray(ctx.changedPaths)) {
+    let hit = false;
+    for (const pat of w.changedPaths) {
+      const rx = globToRegex(pat);
+      if (ctx.changedPaths.some(fp => rx.test(fp.replace(/\\/g, '/')))) { hit = true; break; }
+    }
+    if (!hit) return false;
+  }
+  if (w.varEquals && typeof w.varEquals === 'object') {
+    for (const [k, expected] of Object.entries(w.varEquals)) {
+      const actual = process.env[k] || '';
+      if (String(actual) !== String(expected)) return false;
+    }
+  }
+  return true;
+}
+
+function loadPriorityChecklists(agentDirs, ctx) {
+  // Restituisce: [{ agent, severity, items, matchedRules }]
+  const suggestions = [];
+  for (const agent of agentDirs) {
+    const priorityPath = path.join(agent.path, 'priority.json');
+    if (!fs.existsSync(priorityPath)) continue;
+    const priority = readJsonSafe(priorityPath);
+    if (!priority || !Array.isArray(priority.rules)) continue;
+    const matched = priority.rules.filter(r => ruleMatches(r, ctx));
+    if (matched.length === 0) continue;
+    const sevOrder = { mandatory: 2, advisory: 1 };
+    let top = 'advisory';
+    for (const r of matched) {
+      const s = (r.severity === 'mandatory') ? 'mandatory' : 'advisory';
+      if (sevOrder[s] > sevOrder[top]) top = s;
+    }
+    const items = Array.from(new Set(matched.flatMap(r => Array.isArray(r.checklist) ? r.checklist : [])));
+    const ids = matched.map(r => r.id).filter(Boolean);
+    if (items.length > 0) suggestions.push({ agent: agent.name, severity: top, items, matchedRules: ids });
+  }
+  return suggestions;
+}
+
 function suggestFromIntent(intent) {
   if (!intent) return null;
   const i = intent.toLowerCase();
@@ -76,12 +166,23 @@ function main() {
   const recipe = kb.find(r => r.id === intent || r.intent === intent) || null;
   const suggestion = suggestFromIntent(intent) || null;
 
+  // Nuova logica: aggrega checklist advisory/mandatory per agente con valutazione delle regole
+  const ctx = {
+    intent,
+    branch: detectBranch(),
+    env: process.env.ENVIRONMENT || 'local',
+    changedPaths: gitChangedPaths()
+  };
+  const checklistSuggestions = loadPriorityChecklists(manifests, ctx);
+
   const plan = {
     intent,
     recipeId: recipe?.id || null,
     suggestion,
     manifests: manifests.map(m => ({ name: m.name, role: m.manifest.role })),
-    goals
+    goals,
+    context: { branch: ctx.branch, env: ctx.env, changedPathsCount: ctx.changedPaths.length },
+    checklistSuggestions
   };
 
   // For now, just print the plan (the PS wrapper actually executes)

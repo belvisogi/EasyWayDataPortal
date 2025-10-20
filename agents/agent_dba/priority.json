@@ -1,0 +1,28 @@
+{
+  "rules": [
+    {
+      "id": "dba-db-changes",
+      "description": "Checklist mandatory quando cambiano migrazioni o strumenti DB",
+      "severity": "mandatory",
+      "when": { "changedPaths": ["db/**", "EasyWay-DataPortal/easyway-portal-api/src/tools/db/**"] },
+      "checklist": [
+        "Migrazioni idempotenti (IF NOT EXISTS / CREATE OR ALTER)",
+        "SP con logging su PORTAL.STATS_EXECUTION_LOG",
+        "flyway validate OK (local/CI)",
+        "KB + Wiki aggiornate (procedura/ERD)",
+        "Drift check OK"
+      ]
+    },
+    {
+      "id": "dba-develop-branch-migrate",
+      "description": "Advisory su develop: migrazione prevista",
+      "severity": "advisory",
+      "when": { "branch": ["develop"] },
+      "checklist": [
+        "Verifica ordine e naming versioni Flyway",
+        "Verifica rollback o piano di mitigazione"
+      ]
+    }
+  ]
+}
+

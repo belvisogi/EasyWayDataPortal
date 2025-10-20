@@ -55,6 +55,36 @@ if ($hasGit) {
 }
 
 $tasks = @()
+
+# Conditional documentation checklist via priority rules
+try {
+  $prioJson = pwsh 'scripts/agent-priority.ps1' -Agent agent_docs_review -UseGitDiff -Env ($env:ENVIRONMENT ?? 'local')
+  $prio = $null; try { $prio = $prioJson | ConvertFrom-Json } catch {}
+  if ($prio.showChecklist -eq $true) {
+    $label = if ($prio.severity -eq 'mandatory') { 'Docs Checklist (mandatory)' } else { 'Docs Checklist (advisory)' }
+    $items = @(); if ($prio.items) { $items = $prio.items } else {
+      $items = @('Normalize + Review + Indici', 'Anchors/index/chunks aggiornati', 'KB + pagina Wiki pertinenti aggiornate')
+    }
+    $tasks += [pscustomobject]@{
+      Id = 0
+      Name = $label
+      Description = 'Checklist documentazione generata da regole priority; l’utente approva.'
+      Recommended = $true
+      Enabled = $true
+      Action = {
+        Write-Host ""; Write-Host '== Docs Checklist ==' -ForegroundColor Cyan
+        foreach ($i in $items) { Write-Host ("- {0}" -f $i) }
+        if ($Interactive) {
+          $ans = Read-Host "Confermi la checklist? [Invio=SI / n=No]"
+          if ($ans.Trim().ToLower() -eq 'n') { Write-Host 'Checklist docs non approvata (rimandata).'; return }
+          Write-Host 'Checklist docs approvata.' -ForegroundColor Green
+        } else {
+          Write-Host 'Checklist proposta (modalità non interattiva)'
+        }
+      }
+    }
+  }
+} catch { Write-Warning ("Priority rules (docs) non applicabili: {0}" -f $_.Exception.Message) }
 if ($hasWiki) {
   $tasks += [pscustomobject]@{
     Id = 1
@@ -205,3 +235,9 @@ Write-Host "`nDocumentazione: attività completate." -ForegroundColor Green
 
 
 
+$enforcerApplied = $false
+try {
+  pwsh 'scripts/enforcer.ps1' -Agent agent_docs_review -GitDiff -Quiet | Out-Null
+  if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_docs_review'; exit 2 }
+  $enforcerApplied = $true
+} catch { Write-Warning ("Enforcer preflight (docs) non applicabile: {0}" -f $_.Exception.Message) }

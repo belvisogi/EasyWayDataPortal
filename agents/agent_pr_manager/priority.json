@@ -1,0 +1,28 @@
+{
+  "rules": [
+    {
+      "id": "pr-main-develop",
+      "description": "Checklist PR manager su branch principali",
+      "severity": "mandatory",
+      "when": { "branch": ["main", "develop"] },
+      "checklist": [
+        "PR descrizione completa (scopo, file, esiti attesi, rollback)",
+        "Link artifact gates: activity-log, gates-report, checklist/drift",
+        "Label e reviewers assegnati (platform/governance)",
+        "Branch policies soddisfatte (EnforcerCheck required)"
+      ]
+    },
+    {
+      "id": "pr-pipeline-or-governance-change",
+      "description": "Se cambia pipeline/governance, checklist PR",
+      "severity": "mandatory",
+      "when": { "changedPaths": ["azure-pipelines.yml", "AGENTS.md", "docs/ci/**", "Wiki/**/agents-*.md"] },
+      "checklist": [
+        "Evidenza motivazione del cambiamento governance",
+        "Aggiornata documentazione CI/Wiki",
+        "Gates verdi su branch di verifica"
+      ]
+    }
+  ]
+}
+
