@@ -8,6 +8,11 @@
   ],
   "allowed_tools": ["pwsh", "node"],
   "required_gates": ["Checklist", "DB_Drift", "KB_Consistency"],
-  "approvals": {}
+  "approvals": {},
+  "knowledge_sources": [
+    "agents/kb/recipes.jsonl",
+    "Wiki/EasyWayData.wiki/agents-governance.md",
+    "Wiki/EasyWayData.wiki/agents-scrummaster.md",
+    "scripts/ado/README.md"
+  ]
 }
-

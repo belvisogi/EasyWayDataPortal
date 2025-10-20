@@ -1,0 +1,23 @@
+{
+  "role": "Agent_ScrumMaster",
+  "description": "Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks.",
+  "allowed_paths": [
+    "scripts/ado/**",
+    "azure-pipelines.yml",
+    "agents/kb/**",
+    "Wiki/EasyWayData.wiki/**"
+  ],
+  "allowed_tools": ["pwsh", "az", "curl"],
+  "required_gates": ["KB_Consistency"],
+  "approvals": {
+    "boards": ["Human_ProductOwner_Approval"],
+    "prod": ["Human_Governance_Approval"]
+  },
+  "knowledge_sources": [
+    "agents/kb/recipes.jsonl",
+    "Wiki/EasyWayData.wiki/agents-governance.md",
+    "Wiki/EasyWayData.wiki/TODO_CHECKLIST.md",
+    "Wiki/EasyWayData.wiki/agents-scrummaster.md",
+    "scripts/ado/README.md"
+  ]
+}

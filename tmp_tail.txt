@@ -1,0 +1,10 @@
+- DB Drift Check: oggetti richiesti presenti
+- KB Consistency: se cambiano `db/**` o `src/**`, obbligo aggiornamento KB + Wiki
+- (Opz.) Flyway Migrate Dev/Test: esegue validate/migrate con variabili Flyway
+
+ChatOps (opzionali)
+- Teams/Logic Apps per comandi semplici; l’agente usa la KB e pubblica artifact (checklist.json/drift.json)
+
+Audit & Osservabilità
+- `PORTAL.LOG_AUDIT` per eventi agent; Application Insights/OTel per tracing e KPI (in roadmap)
+

@@ -158,3 +158,6 @@ Invoke-RestMethod -Uri 'http://localhost:3000/api/docs/activity/approved' | Conv
 20251019203555Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=2, fm=0, links=0, indices=3, report=naming-20251019203554.txt, anchors=0, dry-run=False, global-index=True
 20251019204016Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251019204015.txt, anchors=0, dry-run=False, global-index=True
 20251019204227Z¦INDEX¦multi-root¦success¦team-docs¦Rigenerati index_master_all.csv/jsonl e anchors_master_all.csv
+20251020065030Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251020065029.txt, anchors=0, dry-run=False, global-index=True
+20251020070131Z¦REVIEW¦wiki¦success¦team-docs¦review-run: issues=0, fm=0, links=0, indices=3, report=naming-20251020070130.txt, anchors=0, dry-run=False, global-index=True
+20251020070132Z¦DOC¦governance¦success¦team-docs¦Aggiornati manifest (governance/scrummaster) e KB Consistency gate in pipeline

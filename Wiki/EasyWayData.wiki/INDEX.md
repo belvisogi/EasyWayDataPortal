@@ -8,6 +8,7 @@
   - H2: Manifest JSONL (consumo per agenti)
   - H2: Anchors CSV (richiami di sezione)
 - [agents-governance.md](./agents-governance.md) - agents-governance
+- [agents-scrummaster.md](./agents-scrummaster.md) - agents-scrummaster
 - [best-practices-token-tuning-roadmap.md](./best-practices-token-tuning-roadmap.md) - Best Practices & Roadmap – Token Tuning, AI-Readiness e Governance Universale
   - H2: Obiettivo
   - H2: 1. Best Practices per la Riduzione Token e l’AI-Readiness
@@ -287,6 +288,8 @@
 - [logs/reports/anchors-20251018134027.md](./logs/reports/anchors-20251018134027.md) - Anchor Check (20251018134027)
 - [logs/reports/anchors-20251019203154.md](./logs/reports/anchors-20251019203154.md) - Anchor Check (20251019203154)
 - [logs/reports/anchors-20251019203554.md](./logs/reports/anchors-20251019203554.md) - Anchor Check (20251019203554)
+- [logs/reports/anchors-20251019204016.md](./logs/reports/anchors-20251019204016.md) - Anchor Check (20251019204016)
+- [logs/reports/anchors-20251020065030.md](./logs/reports/anchors-20251020065030.md) - Anchor Check (20251020065030)
 - [logs/reports/atomicity-20251018151337.md](./logs/reports/atomicity-20251018151337.md) - Atomicity Lint
 - [logs/reports/atomicity-20251018151922.md](./logs/reports/atomicity-20251018151922.md) - Atomicity Lint
 - [logs/reports/atomicity-20251018152434.md](./logs/reports/atomicity-20251018152434.md) - Atomicity Lint

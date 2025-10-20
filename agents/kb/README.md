@@ -3,6 +3,7 @@
 Scopo
 - Raccogliere, in formato machine‑readable, ricette di comandi e procedure operative che un agente può eseguire senza ambiguità.
 - Aggiornare la KB man mano che eseguiamo test/prove, così da non farlo più “alla fine”.
+  - Best practice: per QUALSIASI nuova funzionalità/procedura introdotta nel progetto, aggiungere o aggiornare SEMPRE una ricetta KB (con precondizioni, passi, verifica, riferimenti). Questo rende l’agente eseguibile e la governance ripetibile.
 
 Formato
 - File: `agents/kb/recipes.jsonl` (JSON Lines)
@@ -33,4 +34,3 @@ Script helper
 Pubblicazione
 - La pipeline pubblica `agents/kb` come artifact `agent-kb`.
 - L’endpoint API `/api/docs/kb.json` restituisce la KB in JSON (un array di ricette) per consumo programmatico.
-

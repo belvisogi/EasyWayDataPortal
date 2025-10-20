@@ -274,35 +274,38 @@ stages:
           - NodeBuild
         steps:
           - task: PowerShell@2
-            displayName: 'Verify KB/Wiki updated when DB/API changed'
+            displayName: 'Verify KB/Wiki updated (DB/API + ADO scripts + agents docs)'
             inputs:
               targetType: 'inline'
               script: |
                 git config --global --add safe.directory $(Build.SourcesDirectory)
                 cd $(Build.SourcesDirectory)
-                try {
-                  $base = (git rev-parse HEAD~1)
-                } catch {
-                  Write-Host "Shallow repo; skipping KB Consistency check (first run)"
-                  exit 0
-                }
+                try { $base = (git rev-parse HEAD~1) } catch { Write-Host "Shallow repo; skipping KB Consistency check (first run)"; exit 0 }
                 $changed = git diff --name-only $base HEAD
-                $needsKb = $false
+                $changedDbApi = $false
+                $changedAdoScripts = $false
+                $changedAgentsDocs = $false
                 foreach ($f in $changed) {
-                  if ($f -like 'db/*' -or $f -like 'EasyWay-DataPortal/easyway-portal-api/src/*') { $needsKb = $true }
+                  if ($f -like 'db/*' -or $f -like 'EasyWay-DataPortal/easyway-portal-api/src/*') { $changedDbApi = $true }
+                  if ($f -like 'scripts/ado/*') { $changedAdoScripts = $true }
+                  if ($f -like 'Wiki/EasyWayData.wiki/agents-*.md') { $changedAgentsDocs = $true }
                 }
-                if (-not $needsKb) { Write-Host "No DB/API changes; KB not required"; exit 0 }
+                if (-not ($changedDbApi -or $changedAdoScripts -or $changedAgentsDocs)) {
+                  Write-Host "No relevant changes (DB/API/ADO scripts/agents docs); KB not required"; exit 0 }
                 $kbChanged = $false; $wikiChanged = $false
                 foreach ($f in $changed) {
                   if ($f -eq 'agents/kb/recipes.jsonl') { $kbChanged = $true }
                   if ($f -like 'Wiki/*') { $wikiChanged = $true }
                 }
-                if (-not $kbChanged -or -not $wikiChanged) {
+                if ($changedDbApi -and (-not $kbChanged -or -not $wikiChanged)) {
                   Write-Error "KB Consistency failed: when DB/API changes, update agents/kb/recipes.jsonl and at least one Wiki page."
                   exit 1
-                } else {
-                  Write-Host "KB Consistency OK"
                 }
+                if (($changedAdoScripts -or $changedAgentsDocs) -and (-not $kbChanged)) {
+                  Write-Error "KB Consistency failed: changes in scripts/ado/** or Wiki/agents-*.md require updating agents/kb/recipes.jsonl (add/adjust a recipe)."
+                  exit 1
+                }
+                Write-Host "KB Consistency OK"
 
       - job: DBDriftCheck
         displayName: 'DB Drift Check (Gate)'
