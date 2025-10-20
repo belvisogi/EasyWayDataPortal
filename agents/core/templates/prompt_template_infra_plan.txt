@@ -1,0 +1,35 @@
+Vision: EasyWay Data Portal — goal: infra-plan / terraform (see agents/goals.json)
+Purpose: Genera un plan JSON che descriva i passi di provisioning/infrastruttura (terraform plan/apply), checklist per agenti e output utili per pipeline.
+Input: Fornisci l'Intent JSON (schema minimo) come oggetto. Esempio minimo:
+{
+  "intent": "infra-plan",
+  "module": "terraform/main.tf",
+  "variables": { "project_name": "easyway", "resource_group_name": "rg-easyway-dev", "storage_account_name": "stgeasyway" },
+  "tags": ["infra","terraform","plan"],
+  "metadata": {"env":"dev","owner":"team-infra"}
+}
+
+Task: Genera SOLO output JSON valido che rispetti lo schema plan.schema.json. Struttura richiesta:
+{
+  "plan": {
+    "id": "<string>",
+    "intent": "<string>",
+    "recipeId": "<optional string>",
+    "suggestion": { "agent": "<agent_name>", "action": "<action>", "args": [ ... ] },
+    "manifests": [ { "name": "<agent>", "role": "<role>" } ],
+    "goals": { /* optional goals snapshot */ },
+    "checklistSuggestions": {
+      "<agent>": { "mandatory": ["[rule-id] text", ...], "advisory": ["[rule-id] text", ...] },
+      ...
+    },
+    "preview": { "planOutput": "<terraform plan text or summary>", "runlog": [ { "step", "outcome", "details" } ] },
+    "timestamp": "<ISO8601>",
+    "author": "<string>"
+  }
+}
+
+Constraints:
+- Output JSON only, no prose.
+- Includere prefissi [rule-id] nelle checklist.
+- Per infra, includere suggerimenti di governance (agent_governance) come mandatory se branch è main o metadata.env=prod.
+- Version: v1

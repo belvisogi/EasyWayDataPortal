@@ -1,28 +1,58 @@
 {
   "rules": [
     {
-      "id": "dba-db-changes",
-      "description": "Checklist mandatory quando cambiano migrazioni o strumenti DB",
+      "id": "seq-ndg-check",
+      "description": "Verifica che sia presente una sequence/NDG per le nuove entità e che rispetti il prefisso aziendale",
       "severity": "mandatory",
-      "when": { "changedPaths": ["db/**", "EasyWay-DataPortal/easyway-portal-api/src/tools/db/**"] },
+      "when": { "intentContains": ["create_table", "add_entity"] },
       "checklist": [
-        "Migrazioni idempotenti (IF NOT EXISTS / CREATE OR ALTER)",
-        "SP con logging su PORTAL.STATS_EXECUTION_LOG",
-        "flyway validate OK (local/CI)",
-        "KB + Wiki aggiornate (procedura/ERD)",
-        "Drift check OK"
+        "Verificare presenza sequence PORTAL.SEQ_<ENTITY>_ID",
+        "Verificare che il prefisso NDG sia conforme alla policy aziendale",
+        "Se mancante, generare sequence usando template PORTAL.SEQ_<ENTITY>_ID"
       ]
     },
     {
-      "id": "dba-develop-branch-migrate",
-      "description": "Advisory su develop: migrazione prevista",
-      "severity": "advisory",
-      "when": { "branch": ["develop"] },
+      "id": "naming-check",
+      "description": "Controlli di naming e prefissi schema/tabelle/oggetti",
+      "severity": "mandatory",
+      "when": { "intentContains": ["create_table", "rename_table", "add_column"] },
       "checklist": [
-        "Verifica ordine e naming versioni Flyway",
-        "Verifica rollback o piano di mitigazione"
+        "Assicurarsi che lo schema sia PORTAL.* per oggetti del portale",
+        "Verificare prefissi e nomi oggetto (no spazi, usare underscore)",
+        "Aggiornare extended properties con descrizione e proprietario"
+      ]
+    },
+    {
+      "id": "backup-check",
+      "description": "Verifica azioni di safety su branch principali",
+      "severity": "mandatory",
+      "when": { "branch": ["main", "develop", "release/*"] },
+      "checklist": [
+        "Verificare che sia presente piano di rollback nella PR",
+        "Assicurarsi che le migrazioni siano idempotenti e testate in staging"
+      ]
+    },
+    {
+      "id": "perf-index-suggest",
+      "description": "Suggerimenti di performance quando compaiono colonne tipiche",
+      "severity": "advisory",
+      "when": { "columnsContain": ["tenant_id", "email", "created_at"] },
+      "checklist": [
+        "Valutare l'aggiunta di index su tenant_id",
+        "Valutare index su email se usata per lookup frequenti",
+        "Considerare partizionamento o clustering per tabelle grandi"
+      ]
+    },
+    {
+      "id": "sp-audit-check",
+      "description": "Verifica che le stored procedure includano auditing/logging",
+      "severity": "advisory",
+      "when": { "intentContains": ["create_sp", "update_sp"] },
+      "checklist": [
+        "Verificare che la SP scriva su PORTAL.STATS_EXECUTION_LOG",
+        "Verificare presenza TRY/CATCH e rollback su errori",
+        "Verificare versione _DEBUG disponibile per test"
       ]
     }
   ]
 }
-

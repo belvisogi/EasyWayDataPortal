@@ -1,0 +1,42 @@
+Vision: EasyWay Data Portal — goal: create_table (see agents/goals.json)
+Purpose: Genera un plan JSON per la creazione di una tabella, checklist per agenti e preview SQL.
+Input: Fornisci l'Intent JSON (schema minimo) come oggetto. Esempio minimo:
+{
+  "intent": "create_table",
+  "entity": "USERS",
+  "schema": "PORTAL",
+  "columns": [
+    {"name":"user_id","type":"NVARCHAR(50)","constraints":["NOT NULL","UNIQUE"]},
+    {"name":"tenant_id","type":"NVARCHAR(50)","constraints":["NOT NULL"]},
+    {"name":"email","type":"NVARCHAR(255)","constraints":["NOT NULL"]}
+  ],
+  "ndg": {"sequence":"SEQ_USER_ID","prefix":"CDI","width":9},
+  "tags": ["onboarding"],
+  "metadata": {"env":"staging","owner":"team-a"}
+}
+
+Task: Genera SOLO output JSON valido che rispetti lo schema plan.schema.json. Struttura richiesta:
+{
+  "plan": {
+    "id": "<string>",
+    "intent": "<string>",
+    "recipeId": "<optional string>",
+    "suggestion": { "agent": "<agent_name>", "action": "<action>", "args": [ ... ] },
+    "manifests": [ { "name": "<agent>", "role": "<role>" } ],
+    "goals": { /* optional goals snapshot */ },
+    "checklistSuggestions": {
+      "<agent>": { "mandatory": ["[rule-id] text", ...], "advisory": ["[rule-id] text", ...] },
+      ...
+    },
+    "preview": { "sql": "<ddl/sql>", "diff": "<diff text>", "runlog": [ { "step", "outcome", "details" } ] },
+    "timestamp": "<ISO8601>",
+    "author": "<string>"
+  }
+}
+
+Constraints:
+- Non includere alcuna spiegazione in linguaggio naturale fuori dal JSON.
+- Le checklist devono includere il prefisso [rule-id] per ogni voce.
+- Preferire regole mandatory quando esistono in priority.json.
+
+Version: v1

@@ -10,8 +10,15 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "__tests__",
+    "**/__tests__",
+    "tests",
+    "**/tests"
   ]
 }

@@ -78,3 +78,42 @@ flowchart TD
     F --> G[Deploy + Logging]
     G --> H[Human-in-the-loop: verifica e conferma]
 ```
+
+---
+
+## Esperienza utente per non esperti: proposte e spunti
+
+Per rendere il portale davvero accessibile anche a chi non ha background tecnico, senza sacrificare la potenza agentica, si propongono i seguenti spunti:
+
+- **Wizard e interfacce guidate:**  
+  Step-by-step per le operazioni complesse, con spiegazioni in linguaggio naturale, domande a risposta multipla, tooltips e validazioni in tempo reale.
+
+- **Assistente AI conversazionale:**  
+  Un assistente che traduca richieste in intent agentici, spieghi i piani generati e aiuti l’utente a capire le implicazioni delle scelte, con possibilità di chiedere spiegazioni su ogni step.
+
+- **Preview e simulazione (WhatIf):**  
+  Mostrare sempre una preview delle azioni, simulando le conseguenze e permettendo di annullare o modificare prima dell’esecuzione reale. Evidenziare chiaramente le azioni rischiose.
+
+- **Dashboard visuali e feedback immediato:**  
+  Stato degli agenti, piani in corso, gates superati/falliti e log eventi mostrati in modo visuale (timeline, semafori, badge). Notifiche chiare in caso di errori o azioni richieste.
+
+- **Template e suggerimenti contestuali:**  
+  Template precompilati per le operazioni più comuni, con parametri già impostati e spiegazioni inline. Checklist e best practice suggerite in base al contesto.
+
+- **Documentazione integrata e ricerca semantica:**  
+  Ogni schermata con link diretto alla documentazione, FAQ e video tutorial. Ricerca semantica nella knowledge base accessibile dalla UI.
+
+- **Ruoli e permessi semplificati:**  
+  Ruoli utente mappati su set di azioni agentiche predefinite, con modalità “base” e “avanzata” per adattare la UI al livello di esperienza.
+
+Questi spunti possono guidare la progettazione di nuove funzionalità e interfacce, mantenendo l’equilibrio tra accessibilità e potenza agentica.
+
+Nota organizzativa sulla collocazione della documentazione UX
+- Capisco la tua preoccupazione: idealmente la documentazione UX e le linee guida operative dovrebbero essere facilmente reperibili all'interno della Wiki principale del progetto (Wiki/EasyWayData.wiki) perché è lì che la maggior parte degli agenti e dei lettori cerca il contesto e le istruzioni operative.
+- Attualmente abbiamo creato le pagine in Wiki/UX/ per mantenere separate le bozze e i materiali di lavoro; questo non è un errore, ma solo una scelta temporanea per iterare più rapidamente. Tuttavia, per chiarezza operativa e per l'allenamento futuro degli LLM, è consigliabile avere:
+  1. Un link diretto nella pagina di visione (questa stessa pagina) verso le guide UX.
+  2. Una copia stabilizzata o una versione canonica delle linee guida UX collocata dentro Wiki/EasyWayData.wiki/UX/ (oppure spostare i file da Wiki/UX/ nella EasyWayData.wiki) affinché gli agenti trovino tutto in un unico posto.
+- Se vuoi, posso:
+  - aggiungere qui i link diretti alle pagine UX già create (Wiki/UX/agentic-ux.md e Wiki/UX/agentic-ux-guidelines.md), e
+  - creare una copia/trasferimento dei file nella directory Wiki/EasyWayData.wiki/UX/ per rendere il contenuto parte integrante della Wiki del progetto.
+- Raccomandazione pratica: per l'allenamento degli LLM mantieni una versione "canonica" nella Wiki principale e usa le copie di lavoro per bozze; versiona e marca la pagina canonica come "LLM‑readable" (es. aggiungendo meta JSON all'inizio del file) in modo che gli agenti sappiano quale file usare come fonte primaria.

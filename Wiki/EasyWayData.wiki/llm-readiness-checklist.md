@@ -1,0 +1,84 @@
+---
+id: ew-llm_readiness_checklist
+title: LLM READINESS CHECKLIST
+summary: 
+owner: 
+tags:
+  - 
+  - privacy/internal
+  - language/it
+llm:
+  include: true
+  pii: 
+  chunk_hint: 400-600
+  redaction: [email, phone]
+entities: []
+---
+# LLM Readiness – Lista Semplice (Per Persone e AI)
+
+Scopo: controllare che ogni pagina sia pronta per essere letta da un’AI Conversational Intelligence (Q&A, RAG) e da persone.
+
+## Checklist per OGNI pagina (.md)
+- [ ] Ha il front matter YAML completo (id, title, summary, status, owner, tags, llm, entities)?
+- [ ] Titolo chiaro (H1) e sezioni in ordine: Scopo, Prerequisiti, Passi, Esempi, Errori comuni, Domande, Collegamenti.
+- [ ] Frasi brevi, niente “vedi sopra/sotto”, sigle spiegate la prima volta.
+- [ ] Esempi di codice/payload in blocchi ``` ben formattati.
+- [ ] Niente dati sensibili (PII). Se presenti: `llm.pii: contains-pii` e indicare redazione.
+- [ ] Link relativi funzionanti a 2–5 pagine correlate.
+- [ ] Domande a cui risponde (3–7) presenti.
+- [ ] `tags` e `entities` valorizzati (minimo: dominio, layer, audience, privacy, lingua).
+
+## Checklist NOMI (file e cartelle)
+- [ ] Solo minuscole, `-`, numeri (kebab-case). Nessuno `%2D`, quote/backtick, spazi.
+- [ ] Niente caratteri strani (�). Niente & (usa `and`). Niente accenti.
+- [ ] Nomi corti e chiari. Se serve ordine locale: prefissi `01-`, `02-`.
+
+## Checklist CONTENUTI (per tipo)
+DBA (tabelle, procedure):
+- [ ] DDL idempotente (crea solo se non esiste) + rollback.
+- [ ] PK `<table>_id`, indici e FK nominati, default UTC per `created_at`.
+- [ ] Esempi query base e note di performance.
+
+API (endpoint):
+- [ ] Metodo, path, input/validazioni, output, errori (codici e messaggi).
+- [ ] Esempi `curl`/JSON e schema degli oggetti (se serve).
+
+ETL (pipeline):
+- [ ] Sorgente → destinazione, mapping colonne, qualità dati, schedule.
+- [ ] Monitoraggio e fallback (cosa fare in caso di errore).
+
+AMS/Operazioni (runbook):
+- [ ] Avvio/stop, health-check, log e dashboard utili.
+- [ ] Allarmi: causa, destinazione, come si risolve.
+
+Analista/BI (metriche, dashboard):
+- [ ] Definizione metrica (nome, formula, fonte, filtro).
+- [ ] Scopo dashboard, utenti target, viste chiave.
+
+## Repository: controlli periodici
+- [ ] Indice auto (per cartella) con titoli e link (`INDEX.md`).
+- [ ] Link checker (nessun link rotto, nessuna anchor duplicata). Anchor checker: i link con #ancora puntano a H1/H2/H3 esistenti (slug coerente).
+- [ ] Report nomi (niente `%2D`, backtick, maiuscole dove non servono).
+- [ ] Stima pezzi per AI (chunk 400–600 token): pagine molto lunghe → sezioni più piccole.
+- [ ] Privacy e `llm.include`: file sensibili esclusi o ridatti.
+
+## Suggerimenti pratici
+- Pagine corte vincono. Molte pagine piccole > una enorme.
+- Ogni pagina risponde a poche domande specifiche.
+- Usa esempi reali (funzionanti). Evita immagini con testo.
+
+
+Esecuzione rapida (con anchor check)
+`
+EasyWayData.wiki/scripts/review-run.ps1 -Root EasyWayData.wiki -Mode kebab -CheckAnchors
+`
+Il report ancore è in EasyWayData.wiki/logs/reports/anchors-*.md.
+
+
+## Domande a cui risponde
+- Cosa fa questa pagina?
+- Quali sono i prerequisiti?
+- Quali passi devo seguire?
+- Quali sono gli errori comuni?
+- Dove approfondire?
+

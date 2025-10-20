@@ -1,0 +1,7 @@
+# Indice
+- [endp-001-get-api-config.md](./endp-001-get-api-config.md) - ENDPOINT: GET `/api/config`
+- [endp-001a-get-api-config-da-db.md](./endp-001a-get-api-config-da-db.md) - A. Codice - File da creare/aggiornare
+- [endp-002-get-api-branding.md](./endp-002-get-api-branding.md) - **1. `src/routes/branding.ts`**
+- [endp-003-get-crud-api-users.md](./endp-003-get-crud-api-users.md) - ENDPOINT: CRUD `/api/users`
+- [index.md](./index.md) - Indice
+- [template-endpoint.md](./template-endpoint.md) - ENDPOINT: [HTTP_VERB] `/api/your-endpoint`

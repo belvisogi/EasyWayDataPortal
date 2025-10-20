@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Plan",
+  "type": "object",
+  "required": ["plan"],
+  "properties": {
+    "plan": {
+      "type": "object",
+      "required": ["id", "intent", "timestamp"],
+      "properties": {
+        "id": { "type": "string" },
+        "intent": { "type": "string" },
+        "recipeId": { "type": ["string", "null"] },
+        "suggestion": {
+          "type": "object",
+          "required": ["agent", "action"],
+          "properties": {
+            "agent": { "type": "string" },
+            "action": { "type": "string" },
+            "args": {
+              "type": "array",
+              "items": { "type": "string" },
+              "default": []
+            }
+          },
+          "additionalProperties": false
+        },
+        "manifests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string" },
+              "role": { "type": "string" }
+            },
+            "additionalProperties": true
+          },
+          "default": []
+        },
+        "goals": {
+          "type": ["object", "null"],
+          "default": {}
+        },
+        "checklistSuggestions": {
+          "type": "object",
+          "description": "Map agente -> { mandatory: [], advisory: [] }",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "mandatory": {
+                "type": "array",
+                "items": { "type": "string" },
+                "default": []
+              },
+              "advisory": {
+                "type": "array",
+                "items": { "type": "string" },
+                "default": []
+              }
+            },
+            "additionalProperties": false
+          },
+          "default": {}
+        },
+        "preview": {
+          "type": "object",
+          "properties": {
+            "sql": { "type": "string" },
+            "diff": { "type": "string" },
+            "runlog": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "step": { "type": "string" },
+                  "outcome": { "type": "string" },
+                  "details": { "type": ["string", "object", "null"] }
+                },
+                "required": ["step", "outcome"],
+                "additionalProperties": true
+              },
+              "default": []
+            },
+            "planOutput": { "type": "string" },
+            "simulatedDiff": { "type": "string" }
+          },
+          "additionalProperties": true
+        },
+        "context": {
+          "type": "object",
+          "properties": {
+            "intent": { "type": ["string", "null"] },
+            "branch": { "type": ["string", "null"] },
+            "changedPaths": {
+              "type": "array",
+              "items": { "type": "string" },
+              "default": []
+            },
+            "columns": {
+              "type": "array",
+              "items": { "type": "string" },
+              "default": []
+            },
+            "tags": {
+              "type": "array",
+              "items": { "type": "string" },
+              "default": []
+            },
+            "recipeMetadata": {
+              "type": "object",
+              "additionalProperties": true,
+              "default": {}
+            }
+          },
+          "additionalProperties": true
+        },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "author": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

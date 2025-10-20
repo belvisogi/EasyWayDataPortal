@@ -1,16 +1,48 @@
 {
   "rules": [
     {
-      "id": "docs-wiki-or-kb-changed",
-      "description": "Checklist documentazione quando cambiano Wiki o KB",
-      "severity": "advisory",
-      "when": { "changedPaths": ["Wiki/**", "agents/kb/recipes.jsonl"] },
+      "id": "doc-update-required",
+      "description": "Assicurare che le modifiche funzionali siano accompagnate da aggiornamenti della KB/Wiki",
+      "severity": "mandatory",
+      "when": { "intentContains": ["create_table", "update_api", "add_feature", "modify_schema"] },
       "checklist": [
-        "Esegui normalize + review-run + indici",
-        "Aggiorna anchors_master, index_master, chunks jsonl",
-        "Convergenza: KB recipe e pagina Wiki pertinenti"
+        "Aggiornare la pagina Wiki pertinente (link nella PR)",
+        "Aggiungere/aggiornare la ricetta KB corrispondente in agents/kb/recipes.jsonl",
+        "Verificare che i changelog e le note di rilascio siano presenti"
+      ]
+    },
+    {
+      "id": "doc-links-check",
+      "description": "Verificare link e riferimenti nella documentazione",
+      "severity": "mandatory",
+      "when": { "intentContains": ["update_docs", "create_doc_page"] },
+      "checklist": [
+        "Controllare che tutti i link interni siano validi",
+        "Verificare la presenza di esempi pratici / snippet",
+        "Aggiungere tag e categorie per facilitare la ricerca"
+      ]
+    },
+    {
+      "id": "kb-consistency-suggest",
+      "description": "Suggerimenti per coerenza e qualità della KB",
+      "severity": "advisory",
+      "when": { "intentContains": ["create_table", "add_entity", "update_api"] },
+      "checklist": [
+        "Usare template KB standard per nuove ricette",
+        "Includere snippet di esempio (input/output) nella ricetta",
+        "Aggiungere riferimenti a requisiti infra se necessari"
+      ]
+    },
+    {
+      "id": "spell-and-style",
+      "description": "Controlli formali sulla qualità della documentazione",
+      "severity": "advisory",
+      "when": { "intentContains": ["create_doc_page", "update_docs"] },
+      "checklist": [
+        "Eseguire controllo ortografico e grammaticale",
+        "Verificare coerenza terminologica con la glossary del progetto",
+        "Assicurarsi che gli esempi siano aggiornati e funzionanti"
       ]
     }
   ]
 }
-

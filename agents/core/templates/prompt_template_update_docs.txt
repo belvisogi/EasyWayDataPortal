@@ -1,0 +1,37 @@
+Vision: EasyWay Data Portal — goal: update_docs (see agents/goals.json)
+Purpose: Genera un plan JSON per l'aggiornamento della documentazione (Wiki/KB), checklist per agenti e preview di modifiche proposte.
+Input: Fornisci l'Intent JSON (schema minimo) come oggetto. Esempio minimo:
+{
+  "intent": "update_docs",
+  "doc_path": "Wiki/EasyWayData.wiki/USAGE/USERS.md",
+  "change_summary": "Aggiunta sezione su NDG e naming",
+  "examples": ["snippet di esempio 1", "snippet di esempio 2"],
+  "tags": ["docs","kb","onboarding"],
+  "metadata": {"owner":"team-docs","priority":"medium"}
+}
+
+Task: Genera SOLO output JSON valido che rispetti lo schema plan.schema.json. Struttura richiesta:
+{
+  "plan": {
+    "id": "<string>",
+    "intent": "<string>",
+    "recipeId": "<optional string>",
+    "suggestion": { "agent": "<agent_name>", "action": "<action>", "args": [ ... ] },
+    "manifests": [ { "name": "<agent>", "role": "<role>" } ],
+    "goals": { /* optional goals snapshot */ },
+    "checklistSuggestions": {
+      "<agent>": { "mandatory": ["[rule-id] text", ...], "advisory": ["[rule-id] text", ...] },
+      ...
+    },
+    "preview": { "diff": "<unified diff of doc changes>", "runlog": [ { "step", "outcome", "details" } ] },
+    "timestamp": "<ISO8601>",
+    "author": "<string>"
+  }
+}
+
+Constraints:
+- Output JSON only, no prose.
+- Include [rule-id] prefixes in checklist entries.
+- Prefer mandatory rules from priority.json when applicable.
+
+Version: v1
