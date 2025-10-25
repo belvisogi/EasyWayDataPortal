@@ -1,0 +1,62 @@
+### EasyWay Data Portal API - Requests (mock | sql)
+### Usage: VS Code REST Client / IntelliJ HTTP, set @token and run.
+
+@host = http://localhost:3000
+@base = {{host}}
+@token = Bearer REPLACE_WITH_YOUR_TOKEN
+
+### Health (requires JWT)
+GET {{base}}/api/health
+Authorization: {{token}}
+
+### Users - List (DB_MODE=mock|sql)
+GET {{base}}/api/users
+Authorization: {{token}}
+
+### Users - Create (DB_MODE=mock|sql)
+POST {{base}}/api/users
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "email": "user{{timestamp}}@example.com",
+  "display_name": "Mario Rossi",
+  "profile_id": "TENANT_ADMIN"
+}
+
+### Users - Update (toggle active)
+PUT {{base}}/api/users/{{user_id}}
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "is_active": true,
+  "display_name": "Mario R."
+}
+
+### Users - Delete (soft)
+DELETE {{base}}/api/users/{{user_id}}
+Authorization: {{token}}
+
+### Onboarding (mock: file; sql: SP PORTAL.sp_debug_register_tenant_and_user)
+POST {{base}}/api/onboarding
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "tenant_name": "Tenant Demo",
+  "user_email": "demo{{timestamp}}@example.com",
+  "display_name": "Demo User",
+  "profile_id": "TENANT_ADMIN",
+  "ext_attributes": { "source": "requests.http" }
+}
+
+### Docs
+GET {{base}}/api/docs
+
+### OpenAPI YAML
+GET {{base}}/api/docs/openapi.yaml
+
+### KB Recipes
+GET {{base}}/api/docs/kb.json
+

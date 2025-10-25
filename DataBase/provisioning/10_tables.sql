@@ -7,10 +7,25 @@ BEGIN
       [tenant_id]             NVARCHAR(255) NULL,
       [profile_id]            NVARCHAR(255) NULL,
       [email]                 NVARCHAR(255) UNIQUE NOT NULL,
+      [display_name]          NVARCHAR(255) NULL,
       [password]              NVARCHAR(255) NULL,
       [is_active]             BIT NOT NULL CONSTRAINT DF_users_is_active DEFAULT (1),
-      [is_notify_enabled]     BIT NOT NULL CONSTRAINT DF_users_is_notify_enabled DEFAULT (1)
+      [is_notify_enabled]     BIT NOT NULL CONSTRAINT DF_users_is_notify_enabled DEFAULT (1),
+      [updated_at]            DATETIME2 NULL
     );
+END
+GO
+
+-- Align existing table with expected columns (idempotent ALTERs)
+IF COL_LENGTH('PORTAL.users', 'display_name') IS NULL
+BEGIN
+    ALTER TABLE [PORTAL].[users] ADD [display_name] NVARCHAR(255) NULL;
+END
+GO
+
+IF COL_LENGTH('PORTAL.users', 'updated_at') IS NULL
+BEGIN
+    ALTER TABLE [PORTAL].[users] ADD [updated_at] DATETIME2 NULL;
 END
 GO
 
@@ -69,4 +84,3 @@ BEGIN
     );
 END
 GO
-

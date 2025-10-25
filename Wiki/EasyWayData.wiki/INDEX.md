@@ -1,4 +1,9 @@
-# Indice Globale
+---
+title: Indice Globale Wiki
+summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo, deploy e governance.
+---
+
+# Indice Globale Wiki
 
 - [ACTIVITY_LOG.md](./ACTIVITY_LOG.md) - Activity Log – CSV friendly (delimiter: ¦)
   - H2: Domande a cui risponde
@@ -19,6 +24,7 @@
   - H2: 2. Applicazione alle Principali Varianti di Formato
 - [blueprints/replicate-easyway-dataportal.md](./blueprints/replicate-easyway-dataportal.md) - Variabili Pipeline (ADO) – Esempio
 - [deploy-app-service.md](./deploy-app-service.md) - deploy-app-service
+- [dev-dual-mode.md](./dev-dual-mode.md) - Sviluppo Locale Dual‑Mode (DB mock | SQL)
 - [docs-conventions.md](./docs-conventions.md) - EasyWayData Portal – Regole Semplici (La Nostra Bibbia)
   - H2: 1) Nomi di file e cartelle (semplici)
   - H2: 1.1) Convenzione di Nomenclatura – kebab-case vs snake_case

@@ -1,4 +1,5 @@
 # Indice
+Breadcrumb: Home / EasyWay WebApp / Logiche EasyWay
 - [api-esterne-integrazione.md](./api-esterne-integrazione.md) - Integrazione API Esterne – EasyWay Data Portal
 - [best-practice-naming-and-scalability.md](./best-practice-naming-and-scalability.md) - Lookup – Best Practice Naming & Scalabilità
 - [index.md](./index.md) - Indice

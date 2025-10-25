@@ -1,0 +1,48 @@
+{
+  "rules": [
+    {
+      "id": "naming-check",
+      "description": "Verifica naming e struttura cartelle Datalake",
+      "severity": "mandatory",
+      "when": { "intentContains": ["create_folder", "provision_datalake"] },
+      "checklist": [
+        "Verificare che le directory siano landing/, staging/, official/, invalidrows/, technical/",
+        "Assicurarsi che i nomi tenant seguano la convenzione",
+        "Aggiornare la documentazione di provisioning"
+      ]
+    },
+    {
+      "id": "acl-check",
+      "description": "Controllo ACL e RBAC su Datalake",
+      "severity": "mandatory",
+      "when": { "intentContains": ["set_acl", "update_permissions"] },
+      "checklist": [
+        "Verificare che i gruppi IAM siano corretti (grp.portal.datalake.*)",
+        "Assicurarsi che nessun utente umano abbia accesso diretto in produzione",
+        "Audit attivo su permessi e accessi"
+      ]
+    },
+    {
+      "id": "retention-policy",
+      "description": "Verifica policy di retention e compliance",
+      "severity": "mandatory",
+      "when": { "intentContains": ["set_retention", "compliance_check"] },
+      "checklist": [
+        "landing/: 180 giorni, staging/: 360 giorni, official/: nessuna, invalidrows/: 360 giorni, portal-audit/: 36 mesi",
+        "Verificare che le policy siano attive su Azure",
+        "Documentare eventuali eccezioni"
+      ]
+    },
+    {
+      "id": "export-log",
+      "description": "Automazione export log su Datalake",
+      "severity": "advisory",
+      "when": { "intentContains": ["export_log"] },
+      "checklist": [
+        "Pipeline DevOps/azcopy schedulata",
+        "Log mascherati, no dati sensibili",
+        "Audit trail delle operazioni"
+      ]
+    }
+  ]
+}

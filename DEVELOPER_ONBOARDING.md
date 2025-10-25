@@ -16,19 +16,23 @@ Questo progetto è pensato per essere mantenuto al 100% in modo agentico. Di seg
     `pwsh ./scripts/bootstrap.ps1 -Server repos-easyway-dev.database.windows.net,1433 -Database easyway-admin -User <user> -Password "<pwd>"`
   - Esempio locale:
     `pwsh ./scripts/bootstrap.ps1 -Server localhost,1433 -Database EasyWayDataPortal -User sa -Password "..." -TrustServerCertificate`
-- Avvio backend API
+- Avvio backend API (dual‑mode)
   - `cd EasyWay-DataPortal/easyway-portal-api`
-  - `npm ci && npm run dev`
+  - Sviluppo low‑cost: imposta `DB_MODE=mock` in `.env.local` e genera JWKS/token con `npm run dev:jwt` (valorizza `AUTH_TEST_JWKS`)
+  - Avvio: `npm ci && npm run dev`
  - Smoke test
   - Apri `tests/api/rest-client/health.http`, `tests/api/rest-client/users.http`, `tests/api/rest-client/onboarding.http`
   - Imposta `@token` (Bearer JWT) con claim tenant; senza token gli endpoint rispondono 401
 - Documentazione contrattuale API
   - `GET http://localhost:3000/api/docs` (yaml/json)
 
-Documentazione “replicabile”
+Documentazione "replicabile"
 - Blueprint completo: `Wiki/EasyWayData.wiki/blueprints/replicate-easyway-dataportal.md`
 - Security & Observability: `Wiki/EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/security-and-observability.md`
 - APIM JWT policy (opzionale): `Wiki/EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md`
+
+Dual‑mode (approfondimento)
+- Guida: `Wiki/EasyWayData.wiki/dev-dual-mode.md`
 
 Note agentiche
 - Tutte le decisioni sono codificate in file sotto version control (OpenAPI, SQL, pipeline).

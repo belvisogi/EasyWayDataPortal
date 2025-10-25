@@ -517,6 +517,9 @@ stages:
               appName: '$(WEBAPP_NAME)'
               resourceGroupName: '$(RESOURCE_GROUP)'
               slotName: '$(WEBAPP_SLOT)'
+              # Note: DB_MODE can be set to 'sql' (default) or 'mock' for low-cost dev slots.
+              # If you want to run the API against file-backed mock in a dev slot, add:
+              # {"name":"DB_MODE","value":"mock","slotSetting":false}
               appSettings: |
                 [
                   {"name":"AUTH_ISSUER","value":"$(AUTH_ISSUER)","slotSetting":false},

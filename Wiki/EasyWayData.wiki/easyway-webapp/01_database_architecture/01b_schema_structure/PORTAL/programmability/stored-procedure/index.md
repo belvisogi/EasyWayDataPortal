@@ -19,6 +19,7 @@ llm:
 entities: []
 ---
 # Indice
+Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Stored Procedure
 - [configuration.md](./configuration.md) - a) **sp_insert_configuration**
 - [index.md](./index.md) - Indice
 - [profile-domains.md](./profile-domains.md) - a) **sp_insert_profile_domain**
@@ -34,4 +35,3 @@ entities: []
 - Dove trovare la firma, gli input/output e gli esempi di invocazione?
 - Come sono gestiti idempotenza, indici/FK/check e rollback?
 - Dove verificare policy, logging e collegamenti a entità correlate?
-

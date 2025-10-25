@@ -16,7 +16,7 @@ Node.js + TypeScript + Express, configurazione YAML su Datalake e tabella CONFIG
   - `GET /portal/palette` — serve `palette_EasyWay.html`
   - `GET /portal/logo.png` — serve `logo.png`
   - `GET /portal/tenant/{tenantId}` — pagina dinamica che applica il branding YAML del tenant (`DEFAULT_TENANT_ID` usato se non specificato)
-  - `GET /portal/app` — demo Login+Registrazione via MSAL (Entra ID); richiede configurazione `AUTH_CLIENT_ID`/`AUTH_TENANT_ID`
+- `GET /portal/app` - demo Login+Registrazione via MSAL (Entra ID); richiede configurazione `AUTH_CLIENT_ID`/`AUTH_TENANT_ID`
 
 ## Struttura file configurazione
 
@@ -33,7 +33,13 @@ Obbligatorie per Auth (JWT Entra ID):
 - `AUTH_ISSUER` – es. `https://login.microsoftonline.com/<TENANT_ID>/v2.0`
 - `AUTH_JWKS_URI` – es. `https://login.microsoftonline.com/<TENANT_ID>/discovery/v2.0/keys`
 - `AUTH_AUDIENCE` – opzionale (valida `aud` se impostato)
-- `TENANT_CLAIM` – default `ew_tenant_id`
+- `TENANT_CLAIM` - default `ew_tenant_id`
+
+Sviluppo locale (Auth mock):
+- `AUTH_TEST_JWKS` - JWKS locale per validare token firmati in locale (usa `npm run dev:jwt` per generarlo)
+
+DB dual-mode:
+- `DB_MODE=mock|sql` - `mock` salva i dati in `data/dev-users.json`; `sql` usa Azure SQL
 
 Obbligatorie per branding su Blob:
 - `AZURE_STORAGE_CONNECTION_STRING` – connection string dell'account di Storage
@@ -53,11 +59,16 @@ Opzionali/consigliate:
 ### Esempio DEV (`.env.local`)
 ```
 LOG_LEVEL=debug
-DB_CONN_STRING=Server=tcp:localhost,1433;Database=EASYWAY_DEV;User Id=sa;Password=YourStrong!Passw0rd;Encrypt=false
-# Auth (uso di un tenant di test)
-AUTH_ISSUER=https://login.microsoftonline.com/YOUR_TENANT_ID/v2.0
-AUTH_JWKS_URI=https://login.microsoftonline.com/YOUR_TENANT_ID/discovery/v2.0/keys
+DB_MODE=mock
+DEFAULT_TENANT_ID=tenant01
+# Auth mock locale
+AUTH_ISSUER=https://test-issuer/
+AUTH_AUDIENCE=api://test
 TENANT_CLAIM=ew_tenant_id
+# Valorizza dopo aver eseguito `npm run dev:jwt`
+# AUTH_TEST_JWKS={"keys":[{...}]}
+
+# (opzionale) Branding locale / Azurite
 AZURE_STORAGE_CONNECTION_STRING=UseDevelopmentStorage=true
 BRANDING_CONTAINER=portal-assets
 BRANDING_PREFIX=config
@@ -82,6 +93,16 @@ La pipeline (`azure-pipelines.yml`) importa il Variable Group; le variabili sono
 ## Test
 - Jest è configurato. Gli endpoint sono protetti: senza `Authorization: Bearer <token>` i test/requests otterranno 401.
 - Puoi eseguire uno smoke test: `npm test` (il test health verifica 401 senza token).
+
+## Modalità DB (Dual-Mode)
+
+- `DB_MODE=mock`: persistenza locale a costo zero in `data/dev-users.json` (stesse API)
+- `DB_MODE=sql`: Azure SQL usando `DB_CONN_STRING` oppure `DB_HOST/DB_NAME/DB_USER/DB_PASS` o `DB_AAD=true`
+
+## Autenticazione locale (token dev)
+
+- Esegui `npm run dev:jwt` per generare JWKS+token.
+- Esporta `AUTH_TEST_JWKS` e usa il token come Bearer nelle chiamate o negli strumenti (VS Code REST, Postman).
 
 ### Checklist Bot (Agent-Ready)
 - Da root repo: `pwsh ./scripts/checklist.ps1`

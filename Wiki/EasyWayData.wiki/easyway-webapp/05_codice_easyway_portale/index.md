@@ -15,6 +15,7 @@ llm:
 entities: []
 ---
 # Indice
+Breadcrumb: Home / EasyWay WebApp / Codice Portale
 - [docs.md](./docs.md) — docs
 - [easyway-portal-api.md](./easyway-portal-api.md) — EasyWay Data Portal — Manifesto Tecnologico & Analitico
 - [easyway-portal-frontend.md](./easyway-portal-frontend.md) — easyway-portal-frontend

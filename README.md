@@ -22,8 +22,9 @@ Questa repository contiene il portale EasyWay Data Portal, progettato per essere
    - Node.js 18+, npm install in `EasyWay-DataPortal/easyway-portal-api/`
    - Variabili ambiente: vedi [deployment-decision-mvp.md](Wiki/EasyWayData.wiki/deployment-decision-mvp.md)
    - DB: Azure SQL, provisioning via script in `DataBase/provisioning/`
-3. **Avvio locale**  
-   - `cd EasyWay-DataPortal/easyway-portal-api/ && npm run dev`
+3. **Avvio locale (dual‑mode)**  
+   - Sviluppo low‑cost: imposta `DB_MODE=mock` e usa `npm run dev:jwt` per generare token locali; dettagli in [Sviluppo Locale Dual‑Mode](Wiki/EasyWayData.wiki/dev-dual-mode.md)
+   - Avvio: `cd EasyWay-DataPortal/easyway-portal-api/ && npm run dev`
    - Test API: vedi collezioni Postman in `tests/postman/`
 4. **Deploy cloud**  
    - Pipeline Azure DevOps (vedi [roadmap.md](Wiki/EasyWayData.wiki/roadmap.md) e [deployment-decision-mvp.md](Wiki/EasyWayData.wiki/deployment-decision-mvp.md))
@@ -35,6 +36,12 @@ Questa repository contiene il portale EasyWay Data Portal, progettato per essere
 
 - **Cloud**: Azure App Service, SQL, Blob, Key Vault, App Insights, Entra ID (roadmap)
 - **Principi agentici**: orchestratore, manifest.json, goals.json, template SQL/SP, gates CI/CD, human-in-the-loop
+- **Principali agent disponibili**:
+  - **agent_datalake**: gestione operativa e compliance del Datalake (naming, ACL, retention, export log, audit)
+  - **agent_dba**: gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout
+  - **agent_docs_review**: normalizzazione Wiki, indici/chunk, coerenza KB, supporto ricette
+  - **agent_governance**: quality gates, checklist pre-deploy, DB drift, KB consistency, generazione appsettings
+  - *(vedi cartella agents/ per l’elenco completo e dettagli)*
 - **Sicurezza**: segreti solo in Key Vault, rate limiting, validazione input, audit log
 - **Documentazione**: Wiki ricca, template, checklist, roadmap, TODO pubblici
 
@@ -57,13 +64,13 @@ Per dettagli:
 
 - Segui le convenzioni di naming e i template agentici (vedi Wiki)
 - Proponi PR incrementali, con test e documentazione aggiornata
-- Consulta la [Wiki](Wiki/EasyWayData.wiki/INDEX.md) per ogni dettaglio
+- Consulta la [Wiki](Wiki/EasyWayData.wiki/index.md) per ogni dettaglio
 
 ---
 
 ## 6. Link utili
 
-- [Wiki — Indice Globale](Wiki/EasyWayData.wiki/INDEX.md)
+- [Wiki - Indice Globale](Wiki/EasyWayData.wiki/index.md)
 - [Onboarding API](EasyWay-DataPortal/easyway-portal-api/README.md)
 - [Provisioning DB](DataBase/provisioning/README.md)
 - [Test & QA](tests/README.md)

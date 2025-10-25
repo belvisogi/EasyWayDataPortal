@@ -18,6 +18,7 @@ llm:
 entities: []
 ---
 # Indice
+Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Programmability
 - [function.md](./function.md) - Domande a cui risponde
 - [index.md](./index.md) - Indice
 - [sequence.md](./sequence.md) - EasyWay Data Portal – SEQUENCE

@@ -1,7 +1,5 @@
-import { loadQueryWithFallback } from "../queries/queryLoader";
-import sql from "mssql";
-import { getPool, withTenantContext } from "../utils/db";
 import { Request, Response } from "express";
+import { getUsersRepo } from "../repositories";
 
 // Utility per tenant
 function getTenantId(req: Request): string {
@@ -13,22 +11,11 @@ export async function createUser(req: Request, res: Response) {
   try {
     const tenantId = (req as any).tenantId;
     const { email } = req.body;
-
-    // Normalizza ai parametri DB: display_name, profile_id
     const display_name: string | null = req.body.display_name ?? req.body.name ?? null;
     const profile_id: string | null = req.body.profile_id ?? req.body.profile_code ?? null;
-
-    const sqlQuery = await loadQueryWithFallback("users_insert.sql");
-    const result = await withTenantContext(tenantId, async (tx) => {
-      return await new sql.Request(tx)
-        .input("tenant_id", sql.NVarChar, tenantId)
-        .input("email", sql.NVarChar, email)
-        .input("display_name", sql.NVarChar, display_name)
-        .input("profile_id", sql.NVarChar, profile_id)
-        .query(sqlQuery);
-    });
-
-    res.status(201).json(result.recordset?.[0] ?? { status: "ok" });
+    const repo = getUsersRepo();
+    const created = await repo.create(tenantId, { email, display_name, profile_id });
+    res.status(201).json(created);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -38,12 +25,9 @@ export async function createUser(req: Request, res: Response) {
 export async function getUsers(req: Request, res: Response) {
   try {
     const tenantId = getTenantId(req);
-    const sqlQuery = await loadQueryWithFallback("users_select_by_tenant.sql");
-    const result = await withTenantContext(tenantId, async (tx) => {
-      return await new sql.Request(tx).input("tenant_id", sql.NVarChar, tenantId).query(sqlQuery);
-    });
-
-    res.json(result.recordset);
+    const repo = getUsersRepo();
+    const users = await repo.list(tenantId);
+    res.json(users);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -55,12 +39,8 @@ export async function updateUser(req: Request, res: Response) {
     const tenantId = getTenantId(req);
     const { user_id } = req.params;
     const { email } = req.body;
-
-    // Normalizza ai parametri DB
     const display_name: string | null = req.body.display_name ?? req.body.name ?? null;
     const profile_id: string | null = req.body.profile_id ?? req.body.profile_code ?? null;
-
-    // Supporta sia is_active (boolean) sia status (ACTIVE/INACTIVE)
     let is_active: boolean | null | undefined = req.body.is_active;
     if (is_active === undefined && typeof req.body.status === "string") {
       const s = (req.body.status as string).toLowerCase();
@@ -69,19 +49,9 @@ export async function updateUser(req: Request, res: Response) {
     }
     if (is_active === undefined) is_active = null;
 
-    const sqlQuery = await loadQueryWithFallback("users_update.sql");
-    const result = await withTenantContext(tenantId, async (tx) => {
-      return await new sql.Request(tx)
-        .input("user_id", sql.NVarChar, user_id)
-        .input("tenant_id", sql.NVarChar, tenantId)
-        .input("email", sql.NVarChar, email ?? null)
-        .input("display_name", sql.NVarChar, display_name)
-        .input("profile_id", sql.NVarChar, profile_id)
-        .input("is_active", sql.Bit, is_active as any)
-        .query(sqlQuery);
-    });
-
-    res.json(result.recordset[0]);
+    const repo = getUsersRepo();
+    const updated = await repo.update(tenantId, user_id, { email, display_name, profile_id, is_active });
+    res.json(updated);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -92,15 +62,8 @@ export async function deleteUser(req: Request, res: Response) {
   try {
     const tenantId = getTenantId(req);
     const { user_id } = req.params;
-
-    const sqlQuery = await loadQueryWithFallback("users_deactive.sql");
-    await withTenantContext(tenantId, async (tx) => {
-      await new sql.Request(tx)
-        .input("user_id", sql.NVarChar, user_id)
-        .input("tenant_id", sql.NVarChar, tenantId)
-        .query(sqlQuery);
-    });
-
+    const repo = getUsersRepo();
+    await repo.softDelete(tenantId, user_id);
     res.status(204).send();
   } catch (err: any) {
     res.status(500).json({ error: err.message });

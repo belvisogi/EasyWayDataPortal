@@ -9,6 +9,7 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "test": "jest",
+    "dev:jwt": "ts-node --transpile-only src/tools/dev-jwt.ts",
     "check:predeploy": "ts-node --transpile-only src/tools/checklist.ts",
     "db:generate-docs": "ts-node src/tools/db/generate-docs.ts",
     "db:drift": "ts-node --transpile-only src/tools/db/drift-check.ts"

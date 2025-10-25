@@ -1,0 +1,17 @@
+{
+  "role": "Agent_Datalake",
+  "description": "Gestione operativa e compliance del Datalake: naming, ACL, audit, retention, export log, policy.",
+  "allowed_paths": [
+    "EasyWay_WebApp/03_datalake_dev/**",
+    "infra/terraform/**",
+    "scripts/agent-datalake.ps1",
+    "agents/kb/recipes.jsonl"
+  ],
+  "allowed_tools": ["pwsh", "azcopy", "terraform"],
+  "required_gates": ["Datalake_Compliance", "KB_Consistency"],
+  "approvals": {},
+  "knowledge_sources": [
+    "EasyWay_WebApp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md",
+    "agents/kb/recipes.jsonl"
+  ]
+}

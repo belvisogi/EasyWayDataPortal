@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
-import sql from "mssql";
-import { getPool, withTenantContext } from "../utils/db";
+import { getOnboardingRepo } from "../repositories";
 import { logger } from "../utils/logger";
 
 export async function onboarding(req: Request, res: Response) {
   const startTime = Date.now();
-  const pool = await getPool();
 
   // Recupero header conversational/agent-aware
   const origin = req.headers["x-origin"] || "api"; // user, agent, ams, api...
@@ -21,15 +19,13 @@ export async function onboarding(req: Request, res: Response) {
       ext_attributes = {}
     } = req.body;
 
-    // Chiamata store procedure di onboarding
-    const result = await withTenantContext((req as any).tenantId ?? '', async (tx) => {
-      return await new sql.Request(tx)
-        .input("tenant_name", sql.NVarChar, tenant_name)
-        .input("user_email", sql.NVarChar, user_email)
-        .input("display_name", sql.NVarChar, display_name)
-        .input("profile_id", sql.NVarChar, profile_id)
-        .input("ext_attributes", sql.NVarChar, JSON.stringify(ext_attributes))
-        .query("EXEC PORTAL.sp_debug_register_tenant_and_user @tenant_name, @user_email, @display_name, @profile_id, @ext_attributes");
+    const repo = getOnboardingRepo();
+    const result = await repo.registerTenantAndUser((req as any).tenantId ?? '', {
+      tenant_name,
+      user_email,
+      display_name,
+      profile_id,
+      ext_attributes
     });
 
     const executionTime = Date.now() - startTime;
@@ -39,8 +35,8 @@ export async function onboarding(req: Request, res: Response) {
       intent: "ONBOARDING_TENANT_USER",
       origin,
       agent_id,
-      user_id: result.recordset[0]?.user_id || null,
-      tenant_id: result.recordset[0]?.tenant_id || null,
+      user_id: (result?.[0]?.user_id) || null,
+      tenant_id: (result?.[0]?.tenant_id) || null,
       conversation_id,
       esito: "success",
       executionTime,
@@ -51,7 +47,7 @@ export async function onboarding(req: Request, res: Response) {
     res.status(201).json({
       status: "success",
       message: "Onboarding completato",
-      data: result.recordset,
+      data: result,
       intent: "ONBOARDING_TENANT_USER",
       esito: "success",
       conversation_id,

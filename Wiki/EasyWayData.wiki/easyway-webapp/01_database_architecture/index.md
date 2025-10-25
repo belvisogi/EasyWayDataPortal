@@ -15,6 +15,7 @@ llm:
 entities: []
 ---
 # Indice
+Breadcrumb: Home / EasyWay WebApp / Database Architecture
 - [01a-db-setup.md](./01a-db-setup.md) — EasyWay Data Portal – Database SETUP
 - [01b-schema-structure.md](./01b-schema-structure.md) — 01b-schema-structure
 - [index.md](./index.md) — Indice

@@ -18,6 +18,7 @@ llm:
 entities: []
 ---
 # Indice
+Breadcrumb: Home / EasyWay WebApp / Codice Portale / API
 - [dinamiche-di-manutenzione.md](./dinamiche-di-manutenzione.md) - Capitolo – Dinamiche di Manutenzione
 - [endpoint.md](./endpoint.md) - Domande a cui risponde
 - [gestione-log-and-policy-dati-sensibili.md](./gestione-log-and-policy-dati-sensibili.md) - Gestione Log — EasyWay Data Portal
@@ -30,4 +31,3 @@ entities: []
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
-

@@ -1,4 +1,5 @@
 # Indice
+Breadcrumb: Home / EasyWay WebApp / Codice Portale / API / Endpoint
 - [endp-001-get-api-config.md](./endp-001-get-api-config.md) - ENDPOINT: GET `/api/config`
 - [endp-001a-get-api-config-da-db.md](./endp-001a-get-api-config-da-db.md) - A. Codice - File da creare/aggiornare
 - [endp-002-get-api-branding.md](./endp-002-get-api-branding.md) - **1. `src/routes/branding.ts`**
