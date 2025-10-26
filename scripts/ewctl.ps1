@@ -82,6 +82,55 @@ function Run-PSPrManager {
   pwsh scripts/agent-pr.ps1 @argsList
 }
 
+function Run-PSTemplateAgent {
+  param([string]$IntentPath, [switch]$Interactive)
+  try {
+    pwsh scripts/enforcer.ps1 -Agent agent_template -GitDiff -Quiet
+    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_template'; exit 2 }
+  } catch { Write-Warning "Enforcer preflight (template) non applicabile: $($_.Exception.Message)" }
+  $argsList = @('-Action','sample:echo')
+  if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
+  if ($WhatIf) { $argsList += '-WhatIf' }
+  if ($LogEvent) { $argsList += '-LogEvent' }
+  if (-not $Interactive) { $argsList += '-NonInteractive' }
+  $json = pwsh scripts/agent-template.ps1 @argsList
+  if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
+}
+
+function Run-PSDBA {
+  param([string]$IntentPath, [switch]$Interactive)
+  try {
+    pwsh scripts/enforcer.ps1 -Agent agent_dba -GitDiff -Quiet
+    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_dba'; exit 2 }
+  } catch { Write-Warning "Enforcer preflight (dba) non applicabile: $($_.Exception.Message)" }
+  $argsList = @('-Action','db-user:create')
+  if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
+  if ($WhatIf) { $argsList += '-WhatIf' }
+  if ($LogEvent) { $argsList += '-LogEvent' }
+  if (-not $Interactive) { $argsList += '-NonInteractive' }
+  $json = pwsh scripts/agent-dba.ps1 @argsList
+  if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
+}
+
+function Run-PSDatalake {
+  param([string]$Action, [string]$IntentPath, [switch]$Interactive)
+  try {
+    pwsh scripts/enforcer.ps1 -Agent agent_datalake -GitDiff -Quiet
+    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_datalake'; exit 2 }
+  } catch { Write-Warning "Enforcer preflight (datalake) non applicabile: $($_.Exception.Message)" }
+  $argsList = @()
+  if ($Action -eq 'dlk-ensure-structure') { $argsList += '-Naming' }
+  elseif ($Action -eq 'dlk-apply-acl') { $argsList += '-ACL' }
+  elseif ($Action -eq 'dlk-set-retention') { $argsList += '-Retention' }
+  elseif ($Action -eq 'dlk-export-log') { $argsList += '-ExportLog' }
+  if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
+  if ($WhatIf) { $argsList += '-WhatIf' }
+  if ($LogEvent) { $argsList += '-LogEvent' }
+  if (-not $Interactive) { $argsList += '-NonInteractive' }
+  $json = pwsh scripts/agent-datalake.ps1 @argsList
+  if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
+}
+
 function Dispatch-Intent-PS($intent) {
   switch -Regex ($intent) {
     '^(wiki|docs)' {
@@ -94,6 +143,50 @@ function Dispatch-Intent-PS($intent) {
     '^(infra|terraform)' {
       $script:TerraformPlan = $true
       return Run-PSGovernance -Interactive:(!$NonInteractive)
+    }
+    '^(sample|template|echo)' {
+      $defaultIntent = 'agents/agent_template/templates/intent.sample.json'
+      return Run-PSTemplateAgent -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
+    '^(db-user-create|dbuser|dba)$' {
+      $defaultIntent = 'agents/agent_dba/templates/intent.db-user-create.sample.json'
+      return Run-PSDBA -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
+    '^(db-user-rotate)$' {
+      $defaultIntent = 'agents/agent_dba/templates/intent.db-user-rotate.sample.json'
+      $json = (pwsh scripts/agent-dba.ps1 -Action 'db-user:rotate' -IntentPath $defaultIntent -NonInteractive:($NonInteractive) -WhatIf:($WhatIf) -LogEvent:($LogEvent))
+      if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ', ')) } } catch {}; Write-Output $json }
+      return
+    }
+    '^(db-user-revoke)$' {
+      $defaultIntent = 'agents/agent_dba/templates/intent.db-user-revoke.sample.json'
+      $json = (pwsh scripts/agent-dba.ps1 -Action 'db-user:revoke' -IntentPath $defaultIntent -NonInteractive:($NonInteractive) -WhatIf:($WhatIf) -LogEvent:($LogEvent))
+      if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ', ')) } } catch {}; Write-Output $json }
+      return
+    }
+    '^(dlk-ensure-structure)$' {
+      $defaultIntent = 'agents/agent_datalake/templates/intent.dlk-ensure-structure.sample.json'
+      return Run-PSDatalake -Action 'dlk-ensure-structure' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
+    '^(dlk-apply-acl)$' {
+      $defaultIntent = 'agents/agent_datalake/templates/intent.dlk-apply-acl.sample.json'
+      return Run-PSDatalake -Action 'dlk-apply-acl' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
+    '^(dlk-set-retention)$' {
+      $defaultIntent = 'agents/agent_datalake/templates/intent.dlk-set-retention.sample.json'
+      return Run-PSDatalake -Action 'dlk-set-retention' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
+    '^(dlk-export-log)$' {
+      $defaultIntent = 'agents/agent_datalake/templates/intent.dlk-export-log.sample.json'
+      return Run-PSDatalake -Action 'dlk-export-log' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
+    '^(etl-slo-validate)$' {
+      $defaultIntent = 'agents/agent_datalake/templates/intent.etl-slo-validate.sample.json'
+      return Run-PSDatalake -Action 'etl-slo:validate' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
+    '^(doc-alignment|docs-gate)$' {
+      $json = (pwsh scripts/doc-alignment-check.ps1)
+      Write-Output $json; return
     }
     default {
       Write-Warning "Intent sconosciuto: $intent. Uso PS governance interattivo."; return Run-PSGovernance -Interactive:(!$NonInteractive)
@@ -135,3 +228,6 @@ if ($Engine -eq 'ts') {
   node "agents/core/orchestrator.js" @argv
   exit $LASTEXITCODE
 }
+
+
+

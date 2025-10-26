@@ -1,0 +1,30 @@
+{
+  "id": "agent_template",
+  "name": "Agent Template (Skeleton)",
+  "description": "Scheletro di agente agent-first: intent JSON, azioni idempotenti, output strutturato, allowed_paths.",
+  "owner": "team-platform",
+  "version": "0.1.0",
+  "actions": [
+    {
+      "name": "sample:echo",
+      "description": "Esegue un'azione di esempio: legge un intent JSON e produce un output strutturato (eco + timestamp)",
+      "params": {
+        "message": { "type": "string", "required": false },
+        "workdir": { "type": "string", "required": false }
+      }
+    }
+  ],
+  "allowed_paths": {
+    "read": [
+      "agents/",
+      "Wiki/",
+      "EasyWay-DataPortal/easyway-portal-api/",
+      "DataBase/"
+    ],
+    "write": [
+      "agents/logs/",
+      "Wiki/EasyWayData.wiki/"
+    ]
+  }
+}
+

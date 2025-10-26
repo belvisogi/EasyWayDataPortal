@@ -13,5 +13,67 @@
   "knowledge_sources": [
     "EasyWay_WebApp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md",
     "agents/kb/recipes.jsonl"
+  ],
+  "actions": [
+    {
+      "name": "dlk-ensure-structure",
+      "description": "Verifica e applica struttura/naming del Datalake (WhatIf di default)",
+      "params": {
+        "subscriptionId": { "type": "string", "required": true },
+        "resourceGroup": { "type": "string", "required": true },
+        "storageAccount": { "type": "string", "required": true },
+        "filesystem": { "type": "string", "required": true },
+        "tenantId": { "type": "string", "required": true },
+        "dryRun": { "type": "boolean", "required": false }
+      }
+    },
+    {
+      "name": "dlk-apply-acl",
+      "description": "Calcola e applica ACL su path del Datalake (WhatIf di default)",
+      "params": {
+        "subscriptionId": { "type": "string", "required": true },
+        "resourceGroup": { "type": "string", "required": true },
+        "storageAccount": { "type": "string", "required": true },
+        "filesystem": { "type": "string", "required": true },
+        "path": { "type": "string", "required": true },
+        "acl": { "type": "array", "items": { "type": "object" }, "required": true },
+        "dryRun": { "type": "boolean", "required": false }
+      }
+    }
+    ,
+    {
+      "name": "dlk-set-retention",
+      "description": "Imposta/verifica policy di retention su filesystem/path (WhatIf di default)",
+      "params": {
+        "subscriptionId": { "type": "string", "required": true },
+        "resourceGroup": { "type": "string", "required": true },
+        "storageAccount": { "type": "string", "required": true },
+        "filesystem": { "type": "string", "required": true },
+        "rules": { "type": "array", "items": { "type": "object" }, "required": true },
+        "dryRun": { "type": "boolean", "required": false }
+      }
+    },
+    {
+      "name": "dlk-export-log",
+      "description": "Esporta log su Datalake/Storage con naming/retention (WhatIf di default)",
+      "params": {
+        "subscriptionId": { "type": "string", "required": true },
+        "resourceGroup": { "type": "string", "required": true },
+        "storageAccount": { "type": "string", "required": true },
+        "filesystem": { "type": "string", "required": true },
+        "source": { "type": "string", "required": true },
+        "targetPath": { "type": "string", "required": true },
+        "schedule": { "type": "string", "required": false },
+        "dryRun": { "type": "boolean", "required": false }
+      }
+    }
+    ,
+    {
+      "name": "etl-slo:validate",
+      "description": "Valida la presenza e i campi minimi della SLO spec per una pipeline (stub, WhatIf)",
+      "params": {
+        "specPath": { "type": "string", "required": true }
+      }
+    }
   ]
 }

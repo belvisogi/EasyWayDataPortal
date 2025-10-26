@@ -1,0 +1,51 @@
+---
+title: Datalake - Ensure Structure (Stub)
+summary: Verifica e applica (in WhatIf di default) la struttura del Datalake per tenant/ambienti, con anteprima cambi.
+tags: [datalake, governance, whatif]
+---
+
+# Datalake - Ensure Structure (Agent Datalake)
+Breadcrumb: Home / Datalake / Ensure Structure
+Badge: WhatIf‑Ready ✅ (stub)
+
+Scopo
+- Validare in anticipo e poi applicare naming/strutture minime (container, path, policy) secondo standard.
+
+Stato (WhatIf)
+- L’azione deve mostrare anteprima: oggetti mancanti/da creare, ACL suggerite, differenze di naming.
+ - Supporta provider locale: `params.currentPaths` inline oppure `params.currentPathsFile` (JSON con `paths[]` o `currentPaths[]`, o file di testo con un path per riga).
+
+Esecuzione (orchestratore, quando disponibile)
+- `pwsh scripts/ewctl.ps1 --engine ps --intent dlk-ensure-structure`
+
+Intent sample
+- `agents/agent_datalake/templates/intent.dlk-ensure-structure.sample.json`
+ - Esempio provider file: `agents/agent_datalake/templates/currentPaths.sample.json`
+
+Quick Test
+- Modifica l’intent sample aggiungendo `"currentPathsFile": "agents/agent_datalake/templates/currentPaths.sample.json"` nei `params`.
+- Esegui: `pwsh scripts/ewctl.ps1 --engine ps --intent dlk-ensure-structure`
+- Atteso: output JSON con `expectedPaths` e `changesPreview` (in WhatIf, nessuna azione su Azure).
+
+## Parsing Output (JSON)
+- Chiavi `output`:
+  - `filesystem` (string), `tenantId` (string)
+  - `expectedPaths`: array di path attesi per il tenant
+  - `changesPreview`: array di oggetti differenze, es. `{ "type":"create-path", "path":"landing/tenant01/" }`
+- In WhatIf non viene applicata alcuna modifica; `changesPreview` rappresenta l’anteprima.
+
+## Parse Cheatsheet
+- jq
+  - Riepilogo: `jq -r '.output.summary' out.json`
+  - Conteggio attesi/mancanti: `jq '{expected: (.output.expectedPaths|length), missing: (.output.changesPreview|length)}' out.json`
+  - Elenco cambi: `jq -r '.output.changesPreview[] | "\(.type): \(.path)"' out.json`
+- PowerShell
+  - `$o = Get-Content out.json | ConvertFrom-Json`
+  - `$o.output.summary`
+  - `@{ expected = $o.output.expectedPaths.Count; missing = $o.output.changesPreview.Count }`
+
+KB ricette correlate
+- Ricetta example_output: `agents/kb/recipes.jsonl` (id: `kb-agent-dlk-ensure-structure-080`)
+
+Note
+- Questa pagina definisce il modus operandi; l’implementazione dell’agente seguirà gli stessi guardrail (WhatIf-by-default).

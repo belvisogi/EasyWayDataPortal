@@ -1,0 +1,18 @@
+pipeline_key: sales_excel_ingestion
+tier: "2"
+slos:
+  - sli: punctuality_t+60m
+    target: 0.995
+    window: 30d
+  - sli: success_rate
+    target: 0.995
+    window: 30d
+  - sli: dq_reject_rate
+    target: "<=0.02"
+    window: 30d
+alerts:
+  sev1: { when: tier1_breach, channel: on-call }
+  sev2: { when: tier2_breach, channel: "#data-alerts" }
+  sev3: { when: digest_daily, channel: email }
+runbook_url: Wiki/EasyWayData.wiki/runbooks/etl-sales-excel.md
+

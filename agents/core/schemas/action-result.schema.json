@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://easywaydataportal/schemas/action-result.schema.json",
+  "title": "Action Result",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "action": { "type": "string" },
+    "ok": { "type": "boolean" },
+    "whatIf": { "type": "boolean" },
+    "nonInteractive": { "type": "boolean" },
+    "correlationId": { "type": ["string", "null"] },
+    "startedAt": { "type": "string" },
+    "finishedAt": { "type": "string" },
+    "output": { "type": "object", "additionalProperties": true },
+    "error": { "type": ["string", "null"] }
+  },
+  "required": ["action", "ok", "whatIf", "output"]
+}
+

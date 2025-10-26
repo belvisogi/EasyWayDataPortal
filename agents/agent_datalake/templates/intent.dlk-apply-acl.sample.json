@@ -1,0 +1,19 @@
+{
+  "action": "dlk-apply-acl",
+  "params": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroup": "rg-easyway-dev",
+    "storageAccount": "stgeasywaydev",
+    "filesystem": "dlk",
+    "path": "raw/tenant01",
+    "acl": [
+      { "principal": "grp.portal.datalake.tenant01.reader", "permissions": "r-x" },
+      { "principal": "grp.portal.datalake.tenant01.writer", "permissions": "rwx" }
+    ],
+    "dryRun": true
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "dlk-apply-acl-001"
+}
+

@@ -1,0 +1,37 @@
+---
+id: ew-value-proposition
+title: Visione & Value Proposition
+summary: Perché EasyWay Data Portal e cosa fa. Messaggio chiaro per persone e agenti.
+status: draft
+owner: team-platform
+tags: [vision, value, onboarding, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 300-500
+  redaction: [email, phone]
+entities: []
+---
+
+# Visione & Value Proposition
+Breadcrumb: Home / Visione & Value
+
+Perché EasyWay Data Portal
+- Crediamo che la gestione dei dati debba essere semplice, accessibile e sicura per tutti: dalla piccola impresa al grande gruppo. Vogliamo abbattere le barriere tecniche e democratizzare l’accesso a strumenti avanzati, permettendo a chiunque di ottenere valore dai propri dati senza complessità, costi nascosti o dipendenza da specialisti.
+
+Cosa fa EasyWay Data Portal
+- Piattaforma intuitiva: anche senza competenze tecniche, gestisci e valorizzi i dati in modo sicuro e automatizzato.
+- Automazione agentica: gli agenti eliminano attività ripetitive e complesse.
+- Sicurezza e compliance by design: tracciabilità, policy, audit.
+- Due rubinetti: locale low‑cost (mock) e cloud pronto (sql/kv) — senza rework.
+- Per chi usa e per chi costruisce: servizi pronti e framework modulare.
+
+Stato: Preview in evoluzione
+- Stiamo costruendo un portale per tutti. Le fondamenta sono già operative (agent‑first, dual‑mode, WhatIf, gates, Doc Alignment). La roadmap accompagna i prossimi mesi fino al rilascio pubblico.
+
+Riferimenti
+- README (sezione “Perché e Cosa Fa”)
+- agentic‑portal‑vision.md
+- dev‑dual‑mode.md
+- roadmap.md
+

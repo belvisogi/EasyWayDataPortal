@@ -1,0 +1,7 @@
+{
+  "id": "agent_template",
+  "priority": [
+    { "action": "sample:echo", "weight": 1.0 }
+  ]
+}
+

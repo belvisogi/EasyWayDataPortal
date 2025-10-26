@@ -1,0 +1,10 @@
+{
+  "action": "etl-slo:validate",
+  "params": {
+    "specPath": "agents/agent_datalake/templates/slo/slo.sample.json"
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "etl-slo-validate-001"
+}
+

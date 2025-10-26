@@ -1,0 +1,13 @@
+{
+  "action": "db-user:revoke",
+  "params": {
+    "adminAuth": "aad",
+    "server": "tcp:your-sql-server.database.windows.net,1433",
+    "database": "EasyWayDataPortal",
+    "username": "svc_tenant01_writer"
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "db-user-revoke-001"
+}
+

@@ -1,0 +1,8 @@
+{
+  "paths": [
+    "landing/tenant01/",
+    "staging/tenant01/",
+    "official/tenant01/"
+  ]
+}
+

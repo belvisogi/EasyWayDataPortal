@@ -25,6 +25,22 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
 - [blueprints/replicate-easyway-dataportal.md](./blueprints/replicate-easyway-dataportal.md) - Variabili Pipeline (ADO) – Esempio
 - [deploy-app-service.md](./deploy-app-service.md) - deploy-app-service
 - [dev-dual-mode.md](./dev-dual-mode.md) - Sviluppo Locale Dual‑Mode (DB mock | SQL)
+- [agent-first-method.md](./agent-first-method.md) - Metodo di Lavoro Agent‑First
+- [value-proposition.md](./value-proposition.md) - Visione & Value Proposition
+- [intent-contract.md](./intent-contract.md) - Contratto Intent (Mini‑DSL)
+- [output-contract.md](./output-contract.md) - Output Contract (JSON)
+- [agents/agent_template/README.md](../agents/agent_template/README.md) - Template Agente (Skeleton)
+- [db-user-access-management.md](./db-user-access-management.md) - Gestione Accessi DB (Agent DBA)
+- [datalake-ensure-structure.md](./datalake-ensure-structure.md) - Datalake Ensure Structure (Stub)
+- [datalake-apply-acl.md](./datalake-apply-acl.md) - Datalake Apply ACL (Stub)
+- [datalake-set-retention.md](./datalake-set-retention.md) - Datalake Set Retention (Stub)
+- [etl-elt-playbook.md](./etl-elt-playbook.md) - ETL/ELT Playbook (Scheletro)
+- [etl-elt-template.md](./etl-elt-template.md) - ETL/ELT Template (Per-Pipeline)
+- [etl-elt-technology-choices.md](./etl-elt-technology-choices.md) - ETL/ELT Scelte Tecnologiche
+- [etl-inspirations.md](./etl-inspirations.md) - ETL/ELT Inspirations (ADA Framework)
+- [etl-dq-framework.md](./etl-dq-framework.md) - ETL – Data Quality Framework
+- [etl-table-log-model.md](./etl-table-log-model.md) - ETL – Table Log Model
+- [etl-governance-sla.md](./etl-governance-sla.md) - ETL – Governance & SLA
 - [docs-conventions.md](./docs-conventions.md) - EasyWayData Portal – Regole Semplici (La Nostra Bibbia)
   - H2: 1) Nomi di file e cartelle (semplici)
   - H2: 1.1) Convenzione di Nomenclatura – kebab-case vs snake_case

@@ -1,0 +1,15 @@
+{
+  "action": "db-user:rotate",
+  "params": {
+    "adminAuth": "aad",
+    "server": "tcp:your-sql-server.database.windows.net,1433",
+    "database": "EasyWayDataPortal",
+    "username": "svc_tenant01_writer",
+    "storeInKeyVault": false,
+    "keyvault": { "name": "kv-easyway-dev", "secretName": "sql-user-svc_tenant01_writer" }
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "db-user-rotate-001"
+}
+

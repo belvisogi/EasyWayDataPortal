@@ -1,0 +1,17 @@
+{
+  "action": "db-user:create",
+  "params": {
+    "mode": "sql-contained",
+    "server": "tcp:your-sql-server.database.windows.net,1433",
+    "database": "EasyWayDataPortal",
+    "username": "svc_tenant01_writer",
+    "roles": ["portal_reader", "portal_writer"],
+    "expires_hours": 72,
+    "storeInKeyVault": false,
+    "keyvault": { "name": "kv-easyway-dev", "secretName": "sql-user-svc_tenant01_writer" }
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "db-user-create-001"
+}
+

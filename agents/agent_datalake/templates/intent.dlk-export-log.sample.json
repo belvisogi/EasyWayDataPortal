@@ -1,0 +1,17 @@
+{
+  "action": "dlk-export-log",
+  "params": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroup": "rg-easyway-dev",
+    "storageAccount": "stgeasywaydev",
+    "filesystem": "dlk",
+    "source": "appinsights://queries/requests",
+    "targetPath": "portal-audit/{{yyyy}}/{{MM}}/{{dd}}/",
+    "schedule": "0 */6 * * *", 
+    "dryRun": true
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "dlk-export-log-001"
+}
+

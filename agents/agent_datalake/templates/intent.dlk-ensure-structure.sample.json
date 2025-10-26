@@ -1,0 +1,15 @@
+{
+  "action": "dlk-ensure-structure",
+  "params": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroup": "rg-easyway-dev",
+    "storageAccount": "stgeasywaydev",
+    "filesystem": "dlk",
+    "tenantId": "tenant01",
+    "dryRun": true
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "dlk-ensure-structure-001"
+}
+

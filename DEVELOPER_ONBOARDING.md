@@ -31,10 +31,14 @@ Documentazione "replicabile"
 - Security & Observability: `Wiki/EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/security-and-observability.md`
 - APIM JWT policy (opzionale): `Wiki/EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md`
 
-Dual‑mode (approfondimento)
+Metodo (Agent‑First)
+- Leggi `Wiki/EasyWayData.wiki/agent-first-method.md` e `Wiki/EasyWayData.wiki/intent-contract.md`
+- Orchestrazione: `scripts/ewctl.ps1` (PS/TS engine). Aggiorna sempre KB (`agents/kb/recipes.jsonl`) e Wiki con il codice.
+
+Dual-mode (approfondimento)
 - Guida: `Wiki/EasyWayData.wiki/dev-dual-mode.md`
 
 Note agentiche
 - Tutte le decisioni sono codificate in file sotto version control (OpenAPI, SQL, pipeline).
-- Gli script sono idempotenti e ri‑eseguibili senza frizioni.
+- Gli script sono idempotenti e ri-eseguibili senza frizioni.
 

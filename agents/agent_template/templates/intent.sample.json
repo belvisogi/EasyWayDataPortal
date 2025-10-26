@@ -1,0 +1,11 @@
+{
+  "action": "sample:echo",
+  "params": {
+    "message": "Ciao dal template agent!",
+    "workdir": "."
+  },
+  "whatIf": false,
+  "nonInteractive": true,
+  "correlationId": "sample-echo-001"
+}
+

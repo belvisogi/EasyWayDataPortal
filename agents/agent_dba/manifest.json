@@ -8,7 +8,46 @@
     "Wiki/EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/**",
     "agents/kb/recipes.jsonl"
   ],
-  "allowed_tools": ["flyway", "npm", "pwsh", "sqlcmd"],
+  "allowed_tools": ["flyway", "npm", "pwsh", "sqlcmd", "az"],
+  "actions": [
+    {
+      "name": "db-user:create",
+      "description": "Crea utente contained in Azure SQL, assegna ruoli PORTAL_*, opz. salva segreto in Key Vault",
+      "params": {
+        "mode": { "type": "string", "enum": ["sql-contained"], "required": true },
+        "adminAuth": { "type": "string", "enum": ["sql","aad"], "required": false },
+        "server": { "type": "string", "required": false },
+        "database": { "type": "string", "required": true },
+        "username": { "type": "string", "required": true },
+        "roles": { "type": "array", "items": {"type":"string"}, "required": true },
+        "expires_hours": { "type": "number", "required": false },
+        "storeInKeyVault": { "type": "boolean", "required": false },
+        "keyvault": { "type": "object", "required": false }
+      }
+    },
+    {
+      "name": "db-user:rotate",
+      "description": "Ruota la password di un utente contained e aggiorna (opz.) Key Vault",
+      "params": {
+        "adminAuth": { "type": "string", "enum": ["sql","aad"], "required": false },
+        "server": { "type": "string", "required": false },
+        "database": { "type": "string", "required": true },
+        "username": { "type": "string", "required": true },
+        "storeInKeyVault": { "type": "boolean", "required": false },
+        "keyvault": { "type": "object", "required": false }
+      }
+    },
+    {
+      "name": "db-user:revoke",
+      "description": "Revoca accesso: rimuove membership ruoli PORTAL_* e DROP USER (idempotente)",
+      "params": {
+        "adminAuth": { "type": "string", "enum": ["sql","aad"], "required": false },
+        "server": { "type": "string", "required": false },
+        "database": { "type": "string", "required": true },
+        "username": { "type": "string", "required": true }
+      }
+    }
+  ],
   "required_gates": ["Checklist", "DB_Drift", "KB_Consistency"],
   "approvals": {
     "prod": ["Human_Governance_Approval"]

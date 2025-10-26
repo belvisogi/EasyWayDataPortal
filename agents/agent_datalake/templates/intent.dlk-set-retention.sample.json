@@ -1,0 +1,21 @@
+{
+  "action": "dlk-set-retention",
+  "params": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroup": "rg-easyway-dev",
+    "storageAccount": "stgeasywaydev",
+    "filesystem": "dlk",
+    "rules": [
+      { "path": "landing/", "days": 180 },
+      { "path": "staging/", "days": 360 },
+      { "path": "official/", "days": null },
+      { "path": "invalidrows/", "days": 360 },
+      { "path": "portal-audit/", "days": 1095 }
+    ],
+    "dryRun": true
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "dlk-set-retention-001"
+}
+

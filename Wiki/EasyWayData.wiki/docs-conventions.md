@@ -265,6 +265,7 @@ Checklist DBA (rapida): nomi ok, idempotenza ok, default UTC, indici, FK, commen
 ### 5.3 ETL / Datalake
 - Descrivi: sorgente, mapping, regole qualità, schedule, output.
 - Formati chiari: schema colonne (nome, tipo, null, note).
+- Riferimento: ETL/ELT Playbook e Template per pipeline (vedi Wiki: etl-elt-playbook, etl-elt-template).
 
 ### 5.4 AMS / Operazioni
 - Runbook semplici: come avviare/fermare, verifiche salute, log utili.

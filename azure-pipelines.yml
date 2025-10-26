@@ -67,6 +67,26 @@ stages:
                 pwsh scripts/enforcer.ps1 -Agent agent_docs_review -GitDiff
                 echo "== Enforcer: agent_pr_manager =="
                 pwsh scripts/enforcer.ps1 -Agent agent_pr_manager -GitDiff
+      - job: DocAlignmentCheck
+        displayName: 'Doc Alignment Gate (manifests ↔ intent ↔ KB ↔ Wiki)'
+        condition: and(succeeded(), eq(variables['ENABLE_DOC_ALIGNMENT'], 'true'))
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run doc-alignment-check (mandatory only fails)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                set -e
+                git config --global --add safe.directory $(Build.SourcesDirectory)
+                cd $(Build.SourcesDirectory)
+                $res = pwsh scripts/doc-alignment-check.ps1 -FailOnError
+                Write-Host $res
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: doc-alignment-report'
+            condition: succeededOrFailed()
+            inputs:
+              PathtoPublish: '$(Build.SourcesDirectory)/agents/kb/recipes.jsonl'
+              ArtifactName: 'doc-alignment-context'
   - stage: Infra
     displayName: Terraform Plan/Apply
     jobs:

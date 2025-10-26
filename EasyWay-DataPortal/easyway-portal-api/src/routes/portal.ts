@@ -79,6 +79,7 @@ router.get("/tenant/:tenantId", async (req, res) => {
           .badge { display:inline-block; padding:4px 8px; border-radius:12px; background: var(--secondary); color:#000; font-weight:600; }
           .links a { display:inline-block; margin-right:16px; color: var(--primary); text-decoration:none; font-weight:600; }
           .card { border:1px solid #ddd; border-radius:8px; padding:16px; margin:8px 0; background:#fff; }
+          .banner { border:1px dashed var(--primary); background:#f8fbff; padding:12px 16px; border-radius:8px; margin-bottom:16px; }
         </style>
       </head>
       <body>
@@ -90,6 +91,12 @@ router.get("/tenant/:tenantId", async (req, res) => {
           </div>
         </header>
         <main>
+          <div class="banner">
+            <strong>Preview — Stiamo costruendo EasyWay, la gestione dati per tutti.</strong>
+            <div style="margin-top:4px;">
+              Questa è una preview tecnica agent‑first. Le fondamenta (sicurezza, WhatIf, gates) sono già operative; nei prossimi mesi apriremo le funzionalità per tutti.
+            </div>
+          </div>
           <p>${welcome}</p>
           <div class="links">
             <a href="/api/docs">API Docs</a>
@@ -100,6 +107,8 @@ router.get("/tenant/:tenantId", async (req, res) => {
             <h3>Manifesto & Wiki</h3>
             <ul>
               <li><a href="${basePath}/home">Manifesto visivo</a></li>
+              <li><a href="/Wiki/EasyWayData.wiki/value-proposition.md">Visione & Value Proposition</a></li>
+              <li><a href="/Wiki/EasyWayData.wiki/roadmap.md">Roadmap</a></li>
               <li><a href="${basePath}/palette">Palette & Branding</a></li>
             </ul>
           </section>
