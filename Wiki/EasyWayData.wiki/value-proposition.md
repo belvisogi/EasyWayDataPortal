@@ -35,3 +35,21 @@ Riferimenti
 - dev‑dual‑mode.md
 - roadmap.md
 
+## Start With Why (S. Sinek)
+
+Tagline
+- Inclusività digitale: dar voce ai tuoi dati.
+
+Why (Perché)
+- EasyWay Data Portal nasce dalla convinzione che la gestione dei dati debba essere semplice, accessibile e sicura per tutti. Il nostro scopo è abbattere le barriere tecniche e democratizzare l’accesso a strumenti avanzati, affinché chiunque possa ottenere valore dai propri dati senza complessità, costi nascosti o dipendenze da specialisti.
+
+How (Come)
+- Piattaforma agent‑first, cloud‑native, automatizzata e sicura.
+- Agenti che rendono semplici e automatizzati i processi complessi (WhatIf, gates, doc alignment).
+- Sicurezza, compliance e tracciabilità by design.
+- Framework modulare, estendibile, per chi vuole “usare” e per chi vuole “costruire”.
+
+What (Cosa)
+- Portale dati multi‑tenant e API‑first con automazione avanzata e agenti specializzati.
+- Gestione, analisi e valorizzazione dei dati tramite interfaccia intuitiva e API.
+- Automazione di processi ripetitivi, sicurezza e auditing centralizzati, onboarding e documentazione facilitati.

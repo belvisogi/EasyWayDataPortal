@@ -1,5 +1,7 @@
 # EasyWay Data Portal - Onboarding & Architettura
 
+Inclusività digitale: dar voce ai tuoi dati.
+
 Benvenuto!
 Questa repository contiene il portale EasyWay Data Portal, progettato per essere agentic‑ready, cloud‑native e facilmente estendibile.
 **Questa pagina è la porta di ingresso: qui trovi tutto ciò che serve per capire, avviare e contribuire al progetto.**
@@ -98,4 +100,3 @@ Per dettagli:
 ---
 
 **Per ogni dubbio, consulta la Wiki o apri una issue!**
-

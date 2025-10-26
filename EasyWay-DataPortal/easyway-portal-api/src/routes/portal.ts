@@ -21,15 +21,27 @@ function sendIfExists(res: any, p: string, contentType?: string) {
 router.get(["/", ""], (_req, res) => {
   const defTenant = process.env.DEFAULT_TENANT_ID || 'tenant01';
   res.type("html").send(`<!doctype html>
-  <html><head><meta charset="utf-8"><title>EasyWay Portal</title></head>
-  <body style="font-family: Arial, sans-serif; padding: 16px;">
+  <html><head><meta charset=\"utf-8\"><title>EasyWay Portal</title>
+  <style> .banner{border:1px dashed #0b5fff;background:#f8fbff;padding:12px 16px;border-radius:8px;margin:12px 0} </style>
+  </head>
+  <body style=\"font-family: Arial, sans-serif; padding: 16px;\">
     <h1>EasyWay Portal</h1>
+    <div class=\"banner\"> 
+      <strong>Preview — stiamo costruendo un portale per tutti.</strong><br/>
+      Inclusività digitale: dar voce ai tuoi dati. 
+      <div style=\"margin-top:6px\">
+        <a href=\"/Wiki/EasyWayData.wiki/value-proposition.md\">Visione & Value Proposition</a> · 
+        <a href=\"/Wiki/EasyWayData.wiki/roadmap.md\">Roadmap</a>
+      </div>
+    </div>
     <ul>
       <li><a href="./home">Home EasyWay (static)</a></li>
       <li><a href="./palette">Palette EasyWay (static)</a></li>
       <li><a href="./logo.png">Logo (static)</a></li>
       <li><a href="./app">Login & Registrazione (demo MSAL)</a></li>
-      <li><a href="./tenant/${defTenant}">Portal dinamico (branding) — tenant: ${defTenant}</a></li>
+      <li><a href="./tenant/${defTenant}">Portal dinamico (branding) - tenant: ${defTenant}</a></li>
+      <li><a href="/Wiki/EasyWayData.wiki/value-proposition.md">Visione & Value Proposition</a></li>
+      <li><a href="/Wiki/EasyWayData.wiki/roadmap.md">Roadmap</a></li>
       <li><a href="/api/docs">API Docs</a></li>
     </ul>
   </body></html>`);
@@ -92,7 +104,8 @@ router.get("/tenant/:tenantId", async (req, res) => {
         </header>
         <main>
           <div class="banner">
-            <strong>Preview — Stiamo costruendo EasyWay, la gestione dati per tutti.</strong>
+            <strong>Preview - Stiamo costruendo EasyWay, la gestione dati per tutti.</strong>
+            <div style="margin-top:4px;">Inclusività digitale: dar voce ai tuoi dati.</div>
             <div style="margin-top:4px;">
               Questa è una preview tecnica agent‑first. Le fondamenta (sicurezza, WhatIf, gates) sono già operative; nei prossimi mesi apriremo le funzionalità per tutti.
             </div>
@@ -261,3 +274,4 @@ router.get("/app/config", (_req, res) => {
   };
   res.json(cfg);
 });
+
