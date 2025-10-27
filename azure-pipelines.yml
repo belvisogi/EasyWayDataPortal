@@ -240,19 +240,8 @@ stages:
             displayName: 'Use Node.js $(node_version)'
           - script: |
               set -e
-              cd docs/agentic/templates/events
-              npx -y ajv-cli@5 validate \
-                -r schemas/common.schema.json \
-                -s schemas/argos.run.completed.schema.json \
-                -s schemas/argos.gate.decision.schema.json \
-                -s schemas/argos.profile.drift.schema.json \
-                -s schemas/argos.coach.nudge.sent.schema.json \
-                -s schemas/argos.policy.proposal.schema.json \
-                -s schemas/argos.contract.proposal.schema.json \
-                -s schemas/argos.ticket.opened.schema.json \
-                -d samples/*.json \
-                --spec=draft2020 --strict=false | tee ../../../../event-schema-validate.log
-            displayName: 'Validate ARGOS event samples against schemas'
+              node scripts/validate-event-schemas.mjs | tee event-schema-validate.log
+            displayName: 'Validate event schemas (1:1 schema↔sample)'
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: event-schema-validate'
             inputs:

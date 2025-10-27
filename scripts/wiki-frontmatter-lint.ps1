@@ -18,17 +18,19 @@ function Test-FrontMatter {
   $fm = $text.Substring(4, $end - 4)
   $lines = $fm -split "`r?`n"
   $req = @{ id=$false; title=$false; summary=$false; status=$false; owner=$false; tags=$false; llm_include=$false; llm_chunk=$false }
+  $inLlm = $false
   foreach ($l in $lines) {
     $t = $l.Trim()
-    if ($t -match '^id\s*:\s*.+') { $req.id = $true }
-    elseif ($t -match '^title\s*:\s*.+') { $req.title = $true }
-    elseif ($t -match '^summary\s*:\s*.+') { $req.summary = $true }
-    elseif ($t -match '^status\s*:\s*.+') { $req.status = $true }
-    elseif ($t -match '^owner\s*:\s*.+') { $req.owner = $true }
-    elseif ($t -match '^tags\s*:\s*\[') { $req.tags = $true }
-    elseif ($t -match '^llm\s*:\s*$') { $script:seenLlm = $true }
-    elseif ($t -match '^include\s*:\s*(true|false)$' -and $script:seenLlm) { $req.llm_include = $true }
-    elseif ($t -match '^chunk_hint\s*:\s*\d+') { $req.llm_chunk = $true }
+    if ($t -match '^id\s*:\s*.+') { $req.id = $true; continue }
+    if ($t -match '^title\s*:\s*.+') { $req.title = $true; continue }
+    if ($t -match '^summary\s*:\s*.+') { $req.summary = $true; continue }
+    if ($t -match '^status\s*:\s*.+') { $req.status = $true; continue }
+    if ($t -match '^owner\s*:\s*.+') { $req.owner = $true; continue }
+    if ($t -match '^tags\s*:\s*\[') { $req.tags = $true; continue }
+    if ($t -match '^llm\s*:\s*$') { $inLlm = $true; continue }
+    if ($inLlm -and $t -match '^include\s*:\s*(true|false)\s*$') { $req.llm_include = $true; continue }
+    # Accept numeric or numeric range for chunk_hint (e.g., 300 or 250-400)
+    if ($t -match '^chunk_hint\s*:\s*\d+(-\d+)?\s*$') { $req.llm_chunk = $true; continue }
   }
   $missing = @()
   foreach ($k in $req.Keys) { if (-not $req[$k]) { $missing += $k } }
