@@ -17,6 +17,7 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
   - H2: Principi
   - H2: Implementazione
 - [agents-governance.md](./agents-governance.md) - agents-governance
+- [agents/agent-dq-blueprint.md](./agents/agent-dq-blueprint.md) - Agent – DQ Blueprint (Spec v0)
 - [agents-scrummaster.md](./agents-scrummaster.md) - agents-scrummaster
 - [best-practices-token-tuning-roadmap.md](./best-practices-token-tuning-roadmap.md) - Best Practices & Roadmap – Token Tuning, AI-Readiness e Governance Universale
   - H2: Obiettivo
@@ -39,8 +40,22 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
 - [etl-elt-technology-choices.md](./etl-elt-technology-choices.md) - ETL/ELT Scelte Tecnologiche
 - [etl-inspirations.md](./etl-inspirations.md) - ETL/ELT Inspirations (ADA Framework)
 - [etl-dq-framework.md](./etl-dq-framework.md) - ETL – Data Quality Framework
+  - ARGOS: vedi nuova sezione “ARGOS Data Quality”
 - [etl-table-log-model.md](./etl-table-log-model.md) - ETL – Table Log Model
 - [etl-governance-sla.md](./etl-governance-sla.md) - ETL – Governance & SLA
+## ARGOS Data Quality
+- [argos/argos-overview.md](./argos/argos-overview.md) - ARGOS – Overview e Integrazione
+- [argos/argos-quality-gates.md](./argos/argos-quality-gates.md) - ARGOS – Quality Gates (v1.1)
+- [argos/argos-policy-dsl.md](./argos/argos-policy-dsl.md) - ARGOS – Policy DSL & Registry (v1.1)
+- [argos/argos-alerting.md](./argos/argos-alerting.md) - ARGOS – Alerting & Notifications (v1.1)
+- [argos/argos-playbook-catalog.md](./argos/argos-playbook-catalog.md) - ARGOS – Playbook Catalog (v1)
+- [argos/argos-tech-profiling.md](./argos/argos-tech-profiling.md) - ARGOS – Tech Profiling & Reliability (v1)
+- [argos/argos-coach-agent.md](./argos/argos-coach-agent.md) - ARGOS – Coach Agent (v1)
+- [argos/argos-modular-interop.md](./argos/argos-modular-interop.md) - ARGOS – Modular Architecture & Interop (v1)
+- [argos/argos-event-schema.md](./argos/argos-event-schema.md) - ARGOS – Event Schema Addendum (v1)
+- [argos/argos-change-versioning.md](./argos/argos-change-versioning.md) - ARGOS – Change & Versioning (v1)
+- [argos/argos-glossario.md](./argos/argos-glossario.md) - ARGOS – Glossario (v1)
+ - [governance-dq.md](./governance-dq.md) - Governance DQ – RACI, Processi e Checklist
 - [docs-conventions.md](./docs-conventions.md) - EasyWayData Portal – Regole Semplici (La Nostra Bibbia)
   - H2: 1) Nomi di file e cartelle (semplici)
   - H2: 1.1) Convenzione di Nomenclatura – kebab-case vs snake_case

@@ -1,0 +1,62 @@
+# Template – Flow Onboarding (ARGOS / EasyWay)
+# Scopo: censire rapidamente un flusso/istanza, gli owner e i parametri minimi per attivare i Gates
+
+flow_onboarding:
+  domain_id: "<dominio>"
+  flow_id: "<flusso>"
+  instance_id: "<istanza>"     # es: ord_v2_daily
+  description: "<breve descrizione del flusso>"
+
+  owners:
+    product_team: "team-prodotto"
+    business_owner: "owner-business"
+    data_steward: "steward"
+    contacts:
+      email: "<lista@dominio>"
+      chatops_channel: "#canale"
+
+  schedule:
+    cron: "0 3 * * *"
+    window_utc: "03:00-05:00"
+
+  sla:
+    freshness_hours: 24
+    availability_pct: 99.5
+
+  impact_score_default: 0.5     # 0..1
+
+  budgets:
+    error_budget: 0.20          # frazione residua accettabile
+    noise_budget: 0.05
+
+  feature_flags:
+    enable_decision_trace: true
+    enable_dynamic_severity: false
+    enable_profiling_gate_soft: true
+    coach_mode: ASSIST          # SUGGEST | ASSIST | AUTOPILOT
+
+  policy_set_ref:
+    id: "<policy-set-id>"       # oppure: to_generate (via export DB)
+    version: "<semver>"
+
+  alerting:
+    incident_project: "<Jira/ServiceNow>"
+    severity_mapping: { PASS: INFO, DEFER: WARN, FAIL: CRITICAL }
+
+  privacy:
+    pii_classification: "none|low|medium|high"
+    data_sensitivity: "<string>"
+
+  retention_days: 365
+
+  references:
+    wiki: "Wiki/EasyWayData.wiki/argos/argos-overview.md"
+    lineage: "<link tool lineage>"
+
+  checklist:
+    - "Owners definiti e contatti attivi"
+    - "Policy Set referenziato o pronto all'export dal DB"
+    - "Gates abilitati su pipeline (ewctl)"
+    - "Alerting canali/config mapping completato"
+    - "Profiling Gate soft attivo (se richiesto)"
+

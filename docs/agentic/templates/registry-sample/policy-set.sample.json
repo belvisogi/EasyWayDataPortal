@@ -1,0 +1,20 @@
+{
+  "policy_sets": [
+    {
+      "id": "customer-orders-v2",
+      "version": "2.1.0",
+      "scope": {
+        "domain_id": "customer",
+        "flow_id": "orders",
+        "instance_id": "ord_v2_daily"
+      },
+      "rules": [
+        { "rule_id": "R_DOM_CUSTOMER", "rule_version": "2.1.0", "severity_base": "ALERT_WITH_DISCARD", "impact_score": 0.8 },
+        { "rule_id": "R_UNIQ_ORDER",   "rule_version": "1.4.2", "severity_base": "BLOCKING",            "impact_score": 0.9 },
+        { "rule_id": "R_DRIFT_AMOUNT",  "rule_version": "1.0.0", "severity_base": "ALERT_WITHOUT_DISCARD", "impact_score": 0.6 }
+      ],
+      "metadata": { "owner": "dq-team", "tags": ["dq", "production"] }
+    }
+  ]
+}
+

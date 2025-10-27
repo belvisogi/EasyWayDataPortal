@@ -1,0 +1,46 @@
+{
+  "playbook": {
+    "pb_id": "PB-UNIQ-04",
+    "title": "Dedup controllato su chiave natural/business",
+    "version": "1.0.0",
+    "owner": "ops-dq",
+    "mode": "AUTO_SAFE_CONDITIONAL",
+    "scope": "INSTANCE",
+    "tags": ["uniqueness", "remediation"],
+    "triggers": [
+      { "event": "argos.gate.decision", "when": { "rule_id": "R_UNIQ_ORDER", "outcome": "FAIL" } }
+    ],
+    "guardrail": {
+      "impact_score_max": 0.5,
+      "error_budget_min": 0.2,
+      "max_rows_affected_pct": 0.2,
+      "can_run_in_quiet_hours": false,
+      "privacy": "samples_sanitized"
+    },
+    "procedure": {
+      "diagnosis": [
+        "Identifica cluster duplicati per key=(order_id, reference_date)",
+        "Stima impatto (% righe coinvolte, Δ KPI)"
+      ],
+      "action": [
+        "Seleziona record vincente (timestamp più recente)",
+        "Marca gli altri come scarto controllato",
+        "Ricostruisci indici e verifica unicità"
+      ],
+      "verify": [
+        "Univocità rispettata; Decision Trace aggiornata"
+      ],
+      "backout": [
+        "Ripristina cluster originari da snapshot"
+      ]
+    },
+    "telemetry": {
+      "auto_safe_applied": false,
+      "kpi": [
+        { "name": "blocking_rate", "target_delta": "<= -20%" },
+        { "name": "mttr_hours", "target": "<= 4" }
+      ]
+    }
+  }
+}
+

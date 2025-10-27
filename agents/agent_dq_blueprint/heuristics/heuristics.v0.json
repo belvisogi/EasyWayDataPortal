@@ -1,0 +1,18 @@
+{
+  "patterns": {
+    "email": { "regex": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", "category": "FORMAT" },
+    "iban": { "regex": "^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$", "category": "FORMAT" },
+    "phone": { "regex": "^[+0-9 ()-]{6,}$", "category": "FORMAT" },
+    "zip": { "regex": "^[0-9]{4,10}$", "category": "FORMAT" }
+  },
+  "keywords": {
+    "id": { "suggest": ["UNIQUENESS"], "blocking": true },
+    "code": { "suggest": ["UNIQUENESS"], "blocking": true },
+    "email": { "suggest": ["FORMAT"], "blocking": false },
+    "date": { "suggest": ["FRESHNESS"], "blocking": false }
+  },
+  "domain_cardinality_threshold": 50,
+  "probabilistic_defaults": { "mostly": 0.9 },
+  "deterministic_defaults": { "mostly": 1.0 }
+}
+

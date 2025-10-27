@@ -1,0 +1,30 @@
+{
+  "name": "agent_dq_blueprint",
+  "version": "0.1.0",
+  "description": "Genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX/schema, integrato con ARGOS.",
+  "allowed_paths": [
+    "agents/agent_dq_blueprint/*",
+    "docs/agentic/templates/*",
+    "out/blueprint/*"
+  ],
+  "actions": [
+    {
+      "id": "blueprint-from-file",
+      "description": "Crea blueprint da CSV/XLSX",
+      "input": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "format": { "type": "string", "enum": ["csv", "xlsx"] },
+          "domain_id": { "type": "string" },
+          "flow_id": { "type": "string" },
+          "instance_id": { "type": "string" },
+          "impact_default": { "type": "number" }
+        },
+        "required": ["path", "domain_id", "flow_id", "instance_id"]
+      },
+      "output": { "type": "object" }
+    }
+  ]
+}
+

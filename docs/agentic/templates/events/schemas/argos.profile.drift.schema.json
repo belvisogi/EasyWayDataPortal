@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "argos.profile.drift.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": { "$ref": "common.schema.json#/$defs/envelope" },
+    "correlation": { "$ref": "common.schema.json#/$defs/correlationKeys" },
+    "role_dates": { "$ref": "common.schema.json#/$defs/roleDates" },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "event_id": { "type": "string" },
+        "element_id": { "type": "string" },
+        "drift_type": { "$ref": "common.schema.json#/$defs/driftType" },
+        "severity": { "type": "string", "enum": ["LOW", "MED", "HIGH"] },
+        "statistic": { "$ref": "common.schema.json#/$defs/statistic" },
+        "stat_value": { "type": "number" },
+        "threshold": { "type": "number" },
+        "decision": { "$ref": "common.schema.json#/$defs/alertSeverity" },
+        "trace_ref": { "type": "string" }
+      },
+      "required": ["event_id", "element_id", "drift_type", "severity", "statistic", "stat_value"]
+    }
+  },
+  "required": ["envelope", "correlation", "data"]
+}
+

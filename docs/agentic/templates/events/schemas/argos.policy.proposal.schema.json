@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "argos.policy.proposal.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": { "$ref": "common.schema.json#/$defs/envelope" },
+    "correlation": { "$ref": "common.schema.json#/$defs/correlationKeys" },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rule_id": { "type": "string" },
+        "change_type": { "$ref": "common.schema.json#/$defs/changeType" },
+        "experiment": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": { "$ref": "common.schema.json#/$defs/experimentType" },
+            "min_runs": { "type": "integer", "minimum": 1 },
+            "success_criteria": { "type": "object" },
+            "backout_plan_ref": { "type": "string" }
+          },
+          "required": ["type", "min_runs"]
+        }
+      },
+      "required": ["rule_id", "change_type"]
+    }
+  },
+  "required": ["envelope", "correlation", "data"]
+}
+

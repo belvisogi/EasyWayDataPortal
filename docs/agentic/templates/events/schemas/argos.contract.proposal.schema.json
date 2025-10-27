@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "argos.contract.proposal.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": { "$ref": "common.schema.json#/$defs/envelope" },
+    "correlation": { "$ref": "common.schema.json#/$defs/correlationKeys" },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "element_ref": { "type": "array", "items": { "type": "string" } },
+        "proposal": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": { "type": "string", "enum": ["TYPE", "DOMAIN", "PATTERN", "CONSTRAINT"] },
+            "details": { "type": "object" },
+            "ttl_days": { "type": "integer", "minimum": 0 }
+          },
+          "required": ["type"]
+        }
+      },
+      "required": ["element_ref", "proposal"]
+    }
+  },
+  "required": ["envelope", "correlation", "data"]
+}
+

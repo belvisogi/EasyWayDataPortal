@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "argos.run.completed.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": { "$ref": "common.schema.json#/$defs/envelope" },
+    "correlation": { "$ref": "common.schema.json#/$defs/correlationKeys" },
+    "role_dates": { "$ref": "common.schema.json#/$defs/roleDates" },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": { "type": "string", "enum": ["SUCCESS", "FAILED", "DEFERRED"] },
+        "counters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "rows_ok": { "type": "integer", "minimum": 0 },
+            "rows_warn": { "type": "integer", "minimum": 0 },
+            "rows_ko": { "type": "integer", "minimum": 0 }
+          },
+          "required": ["rows_ok", "rows_warn", "rows_ko"]
+        }
+      },
+      "required": ["status", "counters"]
+    }
+  },
+  "required": ["envelope", "correlation", "data"]
+}
+

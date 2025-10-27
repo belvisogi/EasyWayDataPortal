@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "argos.coach.nudge.sent.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": { "$ref": "common.schema.json#/$defs/envelope" },
+    "correlation": { "$ref": "common.schema.json#/$defs/correlationKeys" },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "producer_id": { "type": "string" },
+        "cause_code": { "type": "string" },
+        "mode": { "type": "string", "enum": ["SUGGEST", "ASSIST", "AUTOPILOT"] },
+        "follow_up_at": { "type": "string", "format": "date-time" },
+        "decision_trace_id": { "type": "string" }
+      },
+      "required": ["producer_id", "cause_code", "mode"]
+    }
+  },
+  "required": ["envelope", "correlation", "data"]
+}
+

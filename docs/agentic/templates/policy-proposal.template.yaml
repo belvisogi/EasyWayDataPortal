@@ -1,0 +1,45 @@
+# Template – Policy Proposal (ARGOS / EasyWay)
+# Scopo: proposta minima e standardizzata per una nuova policy o modifica (PATCH/MINOR/MAJOR)
+
+policy_proposal:
+  rule_id: R_<NAMESPACE>_<NAME>
+  change_type: PATCH   # PATCH | MINOR | MAJOR
+  title: "<titolo sintetico>"
+  description: "<scopo e contesto>"
+
+  category: DOMAIN     # FORMAT | DOMAIN | COMPLETENESS | FRESHNESS | UNIQUENESS | REFERENTIAL | CONSISTENCY | PROBABILISTIC
+  scope: ELEMENT       # DOMAIN | FLOW | INSTANCE | ELEMENT
+  element_ref: [ ]     # se scope=ELEMENT
+
+  policy_type: DETERMINISTIC   # DETERMINISTIC | PROBABILISTIC
+  check: "<espressione DSL>"   # es: element in {ALLOWED_VALUES} | psi(element) <= 0.25 over WINDOW=30d
+  mostly: 1.0                  # 1.0 deterministic; 0.90..0.95 probabilistiche
+  severity_base: ALERT_WITH_DISCARD   # BLOCKING | ALERT_WITH_DISCARD | ALERT_WITHOUT_DISCARD
+  discard_mode: ROW            # ROW | FILE | NONE (se applicabile)
+  impact_score: 0.5            # 0..1 (peso business)
+  noise_budget_hint: 0.02      # opzionale
+  where: ""                    # filtro opzionale (country in ['IT','ES'])
+
+  experiment:                  # opzionale per rollout controllato
+    type: CANARY               # CANARY | AB
+    min_runs: 6
+    success_criteria:
+      noise_reduction_pct: ">=10"
+      conformity_wo_delta: ">=0"
+    backout_plan_ref: "ADR-xxx-rollback"
+
+  registry:
+    state: PROPOSED            # DRAFT | PROPOSED | APPROVED | DEPRECATED | RETIRED
+    owner: dq-governance
+    tags: [dq, argos]
+
+  privacy:
+    pii_in_examples: false
+    notes: "samples/values sanificati"
+
+  references:
+    wiki: "Wiki/EasyWayData.wiki/argos/argos-policy-dsl.md"
+    decision_trace_required: true
+
+  rationale: "<motivazione e impatto atteso (KPI/SLO)>"
+

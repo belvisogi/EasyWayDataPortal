@@ -1,0 +1,25 @@
+{
+  "envelope": {
+    "event": "argos.policy.proposal",
+    "version": "1.0.0",
+    "created_at": "2025-10-27T10:05:00Z",
+    "producer": "argos.m2.coach"
+  },
+  "correlation": {
+    "run_id": "run-20251027-001",
+    "instance_id": "ord_v2_daily",
+    "flow_id": "orders",
+    "domain_id": "customer"
+  },
+  "data": {
+    "rule_id": "R_DRIFT_AMOUNT",
+    "change_type": "MINOR",
+    "experiment": {
+      "type": "CANARY",
+      "min_runs": 6,
+      "success_criteria": { "noise_reduction_pct": ">=10", "conformity_wo_delta": ">=0" },
+      "backout_plan_ref": "ADR-042-rollback"
+    }
+  }
+}
+

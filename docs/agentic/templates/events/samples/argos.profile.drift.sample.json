@@ -1,0 +1,25 @@
+{
+  "envelope": {
+    "event": "argos.profile.drift",
+    "version": "1.0.0",
+    "created_at": "2025-10-27T07:50:00Z",
+    "producer": "argos.m3.profiling"
+  },
+  "correlation": {
+    "run_id": "run-20251027-001",
+    "instance_id": "ord_v2_daily",
+    "flow_id": "orders",
+    "domain_id": "customer"
+  },
+  "data": {
+    "event_id": "drift-evt-001",
+    "element_id": "amount",
+    "drift_type": "DISTRIBUTION",
+    "severity": "HIGH",
+    "statistic": "PSI",
+    "stat_value": 0.31,
+    "threshold": 0.25,
+    "decision": "WARN"
+  }
+}
+

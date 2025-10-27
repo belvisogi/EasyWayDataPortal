@@ -1,0 +1,22 @@
+{
+  "envelope": {
+    "event": "argos.ticket.opened",
+    "version": "1.0.0",
+    "created_at": "2025-10-27T10:10:00Z",
+    "producer": "argos.m1.gates"
+  },
+  "correlation": {
+    "run_id": "run-20251027-001",
+    "instance_id": "ord_v2_daily",
+    "flow_id": "orders",
+    "domain_id": "customer",
+    "decision_trace_id": "trace-abc-123"
+  },
+  "data": {
+    "ticket_id": "INC-1001",
+    "severity": "CRITICAL",
+    "playbook_id": "PB-UNIQ-04",
+    "decision_trace_id": "trace-abc-123"
+  }
+}
+

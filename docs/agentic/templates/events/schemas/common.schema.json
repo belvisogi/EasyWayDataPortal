@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "common.schema.json",
+  "$defs": {
+    "envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "event": { "type": "string", "pattern": "^argos\\." },
+        "version": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "producer": { "type": "string" },
+        "security_scope": { "type": "string" },
+        "retention_hint": { "type": "string" }
+      },
+      "required": ["event", "version", "created_at", "producer"]
+    },
+    "correlationKeys": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "run_id": { "type": "string" },
+        "instance_id": { "type": "string" },
+        "flow_id": { "type": "string" },
+        "domain_id": { "type": "string" },
+        "decision_trace_id": { "type": "string" }
+      },
+      "required": ["run_id", "instance_id", "flow_id", "domain_id"]
+    },
+    "roleDates": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "run_date": { "type": "string", "format": "date" },
+        "reference_date": { "type": "string", "format": "date" },
+        "load_date": { "type": "string", "format": "date" }
+      }
+    },
+    "gateOutcome": { "type": "string", "enum": ["PASS", "DEFER", "FAIL"] },
+    "alertSeverity": { "type": "string", "enum": ["INFO", "WARN", "CRITICAL"] },
+    "gateType": { "type": "string", "enum": ["INGRESS", "DQ", "ROLLOUT", "PROFILING"] },
+    "driftType": { "type": "string", "enum": ["SCHEMA", "DISTRIBUTION", "PATTERN", "VOLUME", "SPARSITY"] },
+    "statistic": { "type": "string", "enum": ["PSI", "KS", "Z", "IQR", "KL"] },
+    "changeType": { "type": "string", "enum": ["PATCH", "MINOR", "MAJOR"] },
+    "experimentType": { "type": "string", "enum": ["CANARY", "AB"] }
+  }
+}
+

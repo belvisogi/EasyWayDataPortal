@@ -1,0 +1,32 @@
+{
+  "envelope": {
+    "event": "argos.gate.decision",
+    "version": "1.1.0",
+    "created_at": "2025-10-27T08:05:00Z",
+    "producer": "argos.m1.gates"
+  },
+  "correlation": {
+    "run_id": "run-20251027-001",
+    "instance_id": "ord_v2_daily",
+    "flow_id": "orders",
+    "domain_id": "customer",
+    "decision_trace_id": "trace-abc-123"
+  },
+  "role_dates": {
+    "run_date": "2025-10-27",
+    "reference_date": "2025-10-26"
+  },
+  "data": {
+    "gate_type": "DQ",
+    "outcome": "DEFER",
+    "decision_trace_id": "trace-abc-123",
+    "severity_after_weighting": 0.7,
+    "policy_version_set": [
+      { "rule_id": "R_DOM_CUSTOMER", "rule_version": "2.1.0" },
+      { "rule_id": "R_UNIQ_ORDER", "rule_version": "1.4.2" }
+    ],
+    "budget_before": { "error": 0.75, "noise": 0.10 },
+    "budget_after": { "error": 0.70, "noise": 0.09 }
+  }
+}
+

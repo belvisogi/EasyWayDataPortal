@@ -472,3 +472,21 @@ Entities Index
 - Usa sempre il linguaggio nei blocchi: `sql, `sh/`ash, `powershell, `json, `yaml, `js/`	s/`	sx, `python, `	ext.
 - Default per SQL/DDL/DML: `sql. Per testo puro: `	ext.
 - Evita fence senza lingua (aumentano l ambiguità per lAI e i tool di evidenziazione).
+- LLM Front‑Matter (OBBLIGATORIO per le pagine Wiki)
+  - Ogni pagina deve iniziare con front‑matter YAML con i campi: `id`, `title`, `summary`, `status`, `owner`, `tags`, `llm.include`, `llm.chunk_hint`, `llm.pii`, `llm.redaction`, `entities`.
+  - Esempio:
+    ---
+    id: ew-argos-overview
+    title: ARGOS – Overview e Integrazione
+    summary: Integrazione ARGOS (gates, DSL, playbook, eventi)
+    status: active
+    owner: team-platform
+    tags: [argos, dq, agents, language/it]
+    llm:
+      include: true
+      pii: none
+      chunk_hint: 250-400
+      redaction: [email, phone]
+    entities: []
+    ---
+  - Enforcement: il job di pipeline “Wiki LLM Front‑Matter Lint” fallisce se mancano i campi richiesti.

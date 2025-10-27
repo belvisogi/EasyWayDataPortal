@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "argos.ticket.opened.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": { "$ref": "common.schema.json#/$defs/envelope" },
+    "correlation": { "$ref": "common.schema.json#/$defs/correlationKeys" },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ticket_id": { "type": "string" },
+        "severity": { "$ref": "common.schema.json#/$defs/alertSeverity" },
+        "playbook_id": { "type": "string" },
+        "decision_trace_id": { "type": "string" }
+      },
+      "required": ["ticket_id", "severity"]
+    }
+  },
+  "required": ["envelope", "correlation", "data"]
+}
+

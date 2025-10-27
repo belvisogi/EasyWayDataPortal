@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "argos.gate.decision.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": { "$ref": "common.schema.json#/$defs/envelope" },
+    "correlation": { "$ref": "common.schema.json#/$defs/correlationKeys" },
+    "role_dates": { "$ref": "common.schema.json#/$defs/roleDates" },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gate_type": { "$ref": "common.schema.json#/$defs/gateType" },
+        "outcome": { "$ref": "common.schema.json#/$defs/gateOutcome" },
+        "decision_trace_id": { "type": "string" },
+        "severity_after_weighting": { "type": "number", "minimum": 0, "maximum": 1 },
+        "policy_version_set": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "rule_id": { "type": "string" },
+              "rule_version": { "type": "string" }
+            },
+            "required": ["rule_id", "rule_version"]
+          }
+        },
+        "budget_before": { "type": "object", "additionalProperties": { "type": "number" } },
+        "budget_after": { "type": "object", "additionalProperties": { "type": "number" } },
+        "override_ref": { "type": "string" },
+        "experiment_ref": { "type": "string" }
+      },
+      "required": ["gate_type", "outcome", "decision_trace_id"]
+    }
+  },
+  "required": ["envelope", "correlation", "data"]
+}
+

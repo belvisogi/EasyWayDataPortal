@@ -1,0 +1,23 @@
+{
+  "envelope": {
+    "event": "argos.run.completed",
+    "version": "1.0.0",
+    "created_at": "2025-10-27T08:00:00Z",
+    "producer": "argos.m1.runner"
+  },
+  "correlation": {
+    "run_id": "run-20251027-001",
+    "instance_id": "ord_v2_daily",
+    "flow_id": "orders",
+    "domain_id": "customer"
+  },
+  "role_dates": {
+    "run_date": "2025-10-27",
+    "reference_date": "2025-10-26"
+  },
+  "data": {
+    "status": "SUCCESS",
+    "counters": { "rows_ok": 100000, "rows_warn": 250, "rows_ko": 20 }
+  }
+}
+

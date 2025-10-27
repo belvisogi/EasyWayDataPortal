@@ -19,6 +19,9 @@ Breadcrumb: Home / Datalake / ETL DQ Framework
 Scopo
 - Definire classi di regole (completezza, formato, dominio, range, unicità, referenziale), severità e modalità di applicazione in pipeline.
 
+Argos in EasyWay
+- Per il framework completo ARGOS (Gates, DSL, Playbook, Profiling, Coach) vedi `argos/argos-overview.md` e le relative pagine.
+
 Classi & Severità (bozza)
 - Completezza (required) – mandatory
 - Formato (pattern) – mandatory/advisory
@@ -47,4 +50,4 @@ Integrazione agentica
 Riferimenti
 - ETL/ELT Inspirations (ADA Framework)
 - ETL/ELT Playbook
-
+ - ARGOS – Overview: `argos/argos-overview.md`
