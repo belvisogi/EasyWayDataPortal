@@ -7,6 +7,11 @@
 - [ ] KB: aggiornata una ricetta se la modifica introduce un nuovo flusso/procedura
 - [ ] CI: gates `ewctl` verdi (Checklist/DB Drift/KB Consistency) su branch di PR
 
+Sezione WHAT‑first (obbligatoria per nuovi workflow/use case)
+- [ ] Orchestrazione (manifest JSON) presente in `docs/agentic/templates/orchestrations/`
+- [ ] Intents (WHAT JSON) presenti in `docs/agentic/templates/intents/`
+- [ ] UX prompts localizzati in `docs/agentic/templates/orchestrations/ux_prompts.it.json|en.json`
+- [ ] Pagina Wiki di orchestrazione/Use Case aggiunta/aggiornata
+
 Note:
 - Per applicare gli autofix direttamente ai file: aggiungi `-Apply` (e opzionale `-ForceReplace` per sovrascrivere front‑matter esistenti).
-

@@ -1,5 +1,9 @@
 # EasyWay Data Portal - Onboarding & Architettura
 
+Start Here: [Wiki](Wiki/EasyWayData.wiki/start-here.md)
+
+KB veloci: [WHAT-first Lint](agents/kb/recipes.jsonl) · [Stubs E2E](agents/kb/recipes.jsonl) · [DQ Blueprint](agents/kb/recipes.jsonl) · [HOWTO WHAT-first](Wiki/EasyWayData.wiki/howto-what-first-team.md)
+
 Inclusività digitale: dar voce ai tuoi dati.
 
 Benvenuto!
@@ -93,6 +97,10 @@ Per dettagli:
 ## 6. Link utili
 
 - [Wiki - Indice Globale](Wiki/EasyWayData.wiki/index.md)
+- [KB – WHAT-first Lint](agents/kb/recipes.jsonl) — ids: kb-whatfirst-lint-401, kb-howto-what-first-team-402
+- [KB – Stubs Workflow E2E](agents/kb/recipes.jsonl) — id: kb-orch-intents-stubs-301
+- [KB – DQ Blueprint Agent](agents/kb/recipes.jsonl) — id: kb-agent-dq-blueprint-201
+- [HOWTO – WHAT‑first + Diario di Bordo](Wiki/EasyWayData.wiki/howto-what-first-team.md)
 - [Onboarding API](EasyWay-DataPortal/easyway-portal-api/README.md)
 - [Provisioning DB](DataBase/provisioning/README.md)
 - [Test & QA](tests/README.md)

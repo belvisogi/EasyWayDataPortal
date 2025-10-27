@@ -59,6 +59,10 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
 - [use-cases/entrate-uscite.md](./use-cases/entrate-uscite.md) - Use Case – Entrate/Uscite (One‑Button UX)
 ## Quest Board
 - [quest-board-excel-csv.md](./quest-board-excel-csv.md) - Quest Board – Excel/CSV Upload (L1→L5)
+## HOWTO
+- [howto-what-first-team.md](./howto-what-first-team.md) - HOWTO – WHAT‑first + Diario di Bordo (Team)
+## Start Here
+- [start-here.md](./start-here.md) - Start Here – 5 Link Essenziali
 ## Orchestrations
 - [orchestrations/wf-excel-csv-upload.md](./orchestrations/wf-excel-csv-upload.md) - Orchestrazione – wf.excel-csv-upload (WHAT)
 - [orchestrations/intents-catalog.md](./orchestrations/intents-catalog.md) - Orchestrations – Intents Catalog (Use Case Excel/CSV)

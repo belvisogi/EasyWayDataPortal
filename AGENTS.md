@@ -80,3 +80,21 @@ Definizione di Fatto (agent‑aware)
 Sicurezza
 - Rispettare `allowed_paths` nei manifest degli agent.
 - Usare `WhatIf` per azioni potenzialmente distruttive.
+
+## Metodo WHAT‑first + Diario di Bordo (Obbligatorio)
+
+Per ogni nuovo workflow o use case:
+
+- WHAT‑first (prima del HOW)
+  - Orchestrazione: aggiungere un manifest JSON in `docs/agentic/templates/orchestrations/<wf>.manifest.json` con scopo, trigger, stati, transizioni, contratti I/O, osservabilità e `ux_prompts` key.
+  - Intents: aggiungere gli schemi WHAT di input/output in `docs/agentic/templates/intents/*.intent.json` (uno per agente/step).
+  - UX Copy: mantenere i copioni localizzati in `docs/agentic/templates/orchestrations/ux_prompts.it.json` e `ux_prompts.en.json`.
+  - Wiki: pagina di orchestrazione (WHAT) sotto `Wiki/EasyWayData.wiki/orchestrations/` e, se utile, un Use Case e un Quest Board.
+
+- Diario di Bordo (output minimo)
+  - Ogni esecuzione deve poter produrre un log strutturato (timeline) con i campi: `timestamp, stage, outcome, reason, next, decision_trace_id, artifacts[]`.
+  - I messaggi UI devono derivare dai `ux_prompts` (localizzati IT/EN).
+
+- Enforcement CI (gates)
+  - Il job `WhatFirstLint` verifica la presenza dei manifest WHAT (orchestrazioni, intents) e dei copioni UX.
+  - Il job fallisce se mancano i file minimi richiesti o se i JSON non sono parse‑abili.

@@ -30,6 +30,8 @@ variables:
     value: 'true'
   - name: WIKI_LLM_LINT_PATH
     value: 'Wiki/EasyWayData.wiki'
+  - name: ENABLE_WHATFIRST_LINT
+    value: 'true'
   - name: ENABLE_DEPLOY
     value: 'false'
   - name: ENABLE_SWAP
@@ -88,6 +90,23 @@ stages:
             inputs:
               PathtoPublish: '$(Build.SourcesDirectory)/wiki-frontmatter-lint.json'
               ArtifactName: 'wiki-frontmatter-lint'
+      - job: WhatFirstLint
+        displayName: 'WHAT-first + Diary Lint (manifests/intents/ux_prompts)'
+        condition: and(succeeded(), eq(variables['ENABLE_WHATFIRST_LINT'], 'true'))
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run whatfirst-lint (fail on error)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                set -e
+                pwsh scripts/whatfirst-lint.ps1 -FailOnError -SummaryOut 'whatfirst-lint.json'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: whatfirst-lint'
+            condition: succeededOrFailed()
+            inputs:
+              PathtoPublish: '$(Build.SourcesDirectory)/whatfirst-lint.json'
+              ArtifactName: 'whatfirst-lint'
       - job: DocAlignmentCheck
         displayName: 'Doc Alignment Gate (manifests ↔ intent ↔ KB ↔ Wiki)'
         condition: and(succeeded(), eq(variables['ENABLE_DOC_ALIGNMENT'], 'true'))
