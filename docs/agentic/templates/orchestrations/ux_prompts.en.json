@@ -1,0 +1,48 @@
+{
+  "uploaded": {
+    "ok": "File received. Analyzing…",
+    "error": "Unsupported format or file too large."
+  },
+  "parsed": {
+    "ok": "Read headers and a preview.",
+    "error": "I can't read the file. Try our template or export as CSV."
+  },
+  "dq": {
+    "pass": "Quality checks passed.",
+    "defer": "Some warnings. Proceeding safely.",
+    "fail": "Missing fields or wrong types. I’ll show you how to fix."
+  },
+  "mapping": {
+    "ok": "Mapped columns automatically.",
+    "warn": "Some fields are missing: here’s how to complete them."
+  },
+  "staging": {
+    "ok": "Loaded into staging.",
+    "error": "Staging load failed."
+  },
+  "merge": {
+    "ok": "Aligned data to target tables.",
+    "error": "Key or constraint issues."
+  },
+  "views": {
+    "ok": "Views and KPIs updated.",
+    "error": "Materialization failed."
+  },
+  "done": {
+    "ok": "Dashboard ready. Want to ask a question?"
+  },
+  "actions": {
+    "continue": "Continue",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "open_dashboard": "Open Dashboard",
+    "ask_question": "Ask a question",
+    "download_template": "Download CSV template",
+    "choose_column": "Choose column",
+    "see_details": "See details",
+    "apply_mapping": "Apply mapping",
+    "save_template": "Save as template",
+    "open_log": "Open log"
+  }
+}
+

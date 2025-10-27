@@ -1,0 +1,19 @@
+{
+  "id": "schema.map-apply",
+  "what": {
+    "purpose": "Applicare un mapping e opzionalmente salvarlo come template riutilizzabile",
+    "inputs": {
+      "run_id": { "type": "string" },
+      "mapping": { "type": "object" },
+      "save_template": { "type": "boolean", "default": false },
+      "template_name": { "type": "string", "nullable": true }
+    },
+    "outputs": {
+      "mapping_template_id": { "type": "string" },
+      "mapping_applied": { "type": "boolean" }
+    },
+    "success_criteria": ["Mapping applicato", "Template salvato se richiesto"],
+    "failure_criteria": ["Conflitti di mapping"]
+  }
+}
+

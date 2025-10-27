@@ -1,0 +1,10 @@
+{
+  "transaction_date": ["Data", "Date", "Giorno", "Data operazione"],
+  "description": ["Descrizione", "Description", "Causale", "Nota"],
+  "category_name": ["Categoria", "Category"],
+  "account_name": ["Conto", "Account", "IBAN"],
+  "currency_code": ["Valuta", "Currency", "ISO"],
+  "amount": ["Importo", "Amount", "Totale"],
+  "type": ["Tipo", "Type"]
+}
+

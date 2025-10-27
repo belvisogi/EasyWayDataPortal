@@ -1,0 +1,48 @@
+{
+  "uploaded": {
+    "ok": "File ricevuto. Analizzo…",
+    "error": "Formato non supportato o file troppo grande."
+  },
+  "parsed": {
+    "ok": "Ho letto l'intestazione e un'anteprima.",
+    "error": "Non riesco a leggere il file. Prova il nostro modello oppure esporta in CSV."
+  },
+  "dq": {
+    "pass": "Controlli qualità superati.",
+    "defer": "Qualche avviso. Procedo in sicurezza.",
+    "fail": "Dati mancanti o tipi errati. Ti mostro come correggere."
+  },
+  "mapping": {
+    "ok": "Ho mappato le colonne automaticamente.",
+    "warn": "Manca qualche campo: ti propongo come completarlo."
+  },
+  "staging": {
+    "ok": "Caricato in staging.",
+    "error": "Caricamento non riuscito."
+  },
+  "merge": {
+    "ok": "Dati allineati alle tabelle target.",
+    "error": "Problemi di chiavi o vincoli."
+  },
+  "views": {
+    "ok": "Viste e KPI aggiornati.",
+    "error": "Materializzazione non riuscita."
+  },
+  "done": {
+    "ok": "Dashboard pronta. Vuoi fare una domanda?"
+  },
+  "actions": {
+    "continue": "Continua",
+    "retry": "Riprova",
+    "cancel": "Annulla",
+    "open_dashboard": "Apri Dashboard",
+    "ask_question": "Fai una domanda",
+    "download_template": "Scarica modello CSV",
+    "choose_column": "Scegli colonna",
+    "see_details": "Vedi dettagli",
+    "apply_mapping": "Applica mapping",
+    "save_template": "Salva come template",
+    "open_log": "Apri log"
+  }
+}
+

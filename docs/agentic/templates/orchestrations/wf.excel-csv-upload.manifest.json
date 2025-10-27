@@ -1,0 +1,186 @@
+{
+  "id": "wf.excel-csv-upload",
+  "version": "0.1.0",
+  "principle": "WHAT-first orchestration manifest: define cosa fare (obiettivi, stati, esiti, contratti) prima del come",
+  "intent": {
+    "name": "wf.excel-csv-upload",
+    "description": "Da un file Excel/CSV di movimenti mensili a una dashboard pronta con tracciabilità e decision trace",
+    "trigger": "portal.file.uploaded"
+  },
+  "scope": {
+    "tenant": "<tenant>",
+    "domain_id": "customer", 
+    "flow_id": "personal_finance",
+    "instance_id": "pf_tx_monthly",
+    "user_id": "<user>"
+  },
+  "roles": {
+    "business_user": "Carica file, conferma mapping (opzionale), usa dashboard/chat",
+    "orchestrator": "Sequenzia step e stati, propaga decision_trace_id",
+    "agent_ingestion": "Parsing, anteprima, metadata, landing path",
+    "agent_dq": "Valida qualità (ARGOS), emette gate decision",
+    "agent_mapper": "Suggerisce e applica mapping schema",
+    "agent_etl": "Staging, conformazione, merge target, idempotenza",
+    "agent_analytics": "Materializza viste e attiva dashboard",
+    "steward_governance": "Human-in-the-loop su mapping irrisolto/override"
+  },
+  "feature_flags": {
+    "guided_mode": "BASE|PRO",
+    "enable_decision_trace": true,
+    "enable_dynamic_severity": false,
+    "enable_profiling_gate_soft": true
+  },
+  "preconditions": [
+    "Utente autenticato e autorizzato all'upload",
+    "File .xlsx o .csv disponibile",
+    "Storage/DB raggiungibili"
+  ],
+  "postconditions": [
+    "Se success: dati in tabelle target, dashboard disponibile, chat attiva",
+    "Se fail: errori chiari e suggerimenti di correzione + retry guidato"
+  ],
+  "stages": [
+    {
+      "name": "uploaded",
+      "purpose": "Ricevere file, validare input contract base e generare job/run",
+      "entry_criteria": ["Evento portal.file.uploaded"],
+      "inputs": ["file_path", "mime", "size", "user_id", "tenant"],
+      "outputs": ["run_id", "job_id", "landing_path", "file_hash"],
+      "success_criteria": ["File salvato in landing con hash"],
+      "failure_criteria": ["Formato/size non ammessi"],
+      "events_emitted": ["argos.run.completed"],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 1 },
+      "ux_prompts": "uploaded"
+    },
+    {
+      "name": "parsed",
+      "purpose": "Autodetect formato/separatore, leggere header e sample",
+      "entry_criteria": ["uploaded.success"],
+      "inputs": ["landing_path"],
+      "outputs": ["headers", "sample_preview", "parse_notes"],
+      "success_criteria": ["Header letto, sample disponibile"],
+      "failure_criteria": ["File illeggibile/foglio mancante"],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 30000 },
+      "retries": { "max": 1 },
+      "ux_prompts": "parsed"
+    },
+    {
+      "name": "dq_evaluated",
+      "purpose": "Applicare DQ minime (ARGOS) e determinare PASS/DEFER/FAIL",
+      "entry_criteria": ["parsed.success"],
+      "inputs": ["headers", "sample_preview", "policy_set_hint"],
+      "outputs": ["dq_summary", "decision_trace_id", "gate_outcome"],
+      "success_criteria": ["Decision Trace emessa", "Evento argos.gate.decision inviato"],
+      "failure_criteria": ["Gate FAIL"],
+      "events_emitted": ["argos.gate.decision"],
+      "human_checkpoints": ["Override opzionale su FAIL"],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "dq"
+    },
+    {
+      "name": "mapped",
+      "purpose": "Proporre e applicare mapping headers→schema target (template riusabile)",
+      "entry_criteria": ["dq_evaluated.PASS", "dq_evaluated.DEFER"],
+      "inputs": ["headers", "mapping_template_ref?"],
+      "outputs": ["mapping_applied", "mapping_template_id"],
+      "success_criteria": ["Tutti i campi target risolti o default sicuri"],
+      "failure_criteria": ["Campi obbligatori non mappabili"],
+      "events_emitted": [],
+      "human_checkpoints": ["Conferma mapping in guided_mode=PRO"],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 1 },
+      "ux_prompts": "mapping"
+    },
+    {
+      "name": "staged",
+      "purpose": "Caricare in staging con audit (job_id, source, timestamp)",
+      "entry_criteria": ["mapped.success"],
+      "inputs": ["landing_path", "mapping_template_id"],
+      "outputs": ["staging_table", "row_counts"],
+      "success_criteria": ["Staging popolato"],
+      "failure_criteria": ["Errori di load"],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 120000 },
+      "retries": { "max": 1 },
+      "ux_prompts": "staging"
+    },
+    {
+      "name": "merged",
+      "purpose": "Normalizzare tipi, dedup condizionale, inserire/merge su target",
+      "entry_criteria": ["staged.success"],
+      "inputs": ["staging_table"],
+      "outputs": ["target_table", "merge_stats"],
+      "success_criteria": ["Target aggiornato senza violazioni"],
+      "failure_criteria": ["Violazioni chiavi/constraint"],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 180000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "merge"
+    },
+    {
+      "name": "materialized",
+      "purpose": "Creare viste/materializzazioni per KPI e dashboard standard",
+      "entry_criteria": ["merged.success"],
+      "inputs": ["target_table"],
+      "outputs": ["views", "kpi"],
+      "success_criteria": ["Viste aggiornate"],
+      "failure_criteria": ["Errore creazione viste"],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "views"
+    },
+    {
+      "name": "completed",
+      "purpose": "Notificare esito, mostrare dashboard e attivare chat",
+      "entry_criteria": ["materialized.success"],
+      "inputs": ["kpi", "views"],
+      "outputs": ["dashboard_url", "chat_enabled"],
+      "success_criteria": ["Dashboard accessibile"],
+      "failure_criteria": [],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 1 },
+      "retries": { "max": 0 },
+      "ux_prompts": "done"
+    }
+  ],
+  "transitions": [
+    { "from": "uploaded", "to": "parsed", "condition": "uploaded.success" },
+    { "from": "parsed", "to": "dq_evaluated", "condition": "parsed.success" },
+    { "from": "dq_evaluated", "to": "mapped", "condition": "gate_outcome in [PASS, DEFER]" },
+    { "from": "dq_evaluated", "to": "failed", "condition": "gate_outcome == FAIL" },
+    { "from": "mapped", "to": "staged", "condition": "mapping_applied" },
+    { "from": "staged", "to": "merged", "condition": "staging_table ready" },
+    { "from": "merged", "to": "materialized", "condition": "merge_stats.ok" },
+    { "from": "materialized", "to": "completed", "condition": "views ready" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare decision_trace_id dal DQ Gate a tutte le note del diario",
+    "kpi_counters": ["time_to_dashboard_ms", "first_try_success", "gpr", "warnings_count"]
+  },
+  "policies_ref": {
+    "policy_set_hint": "personal-finance-light",
+    "mapping_template_ref": "docs/agentic/templates/mapping.entrate-uscite.template.yaml"
+  },
+  "ux_prompts": {
+    "uploaded": { "ok": "File ricevuto. Analizzo…", "error": "Formato non supportato o file troppo grande." },
+    "parsed": { "ok": "Ho letto l'intestazione e un'anteprima.", "error": "Non riesco a leggere il file. Prova il modello CSV." },
+    "dq": { "pass": "Controlli qualità superati.", "defer": "Qualche avviso. Procedo in sicurezza.", "fail": "Dati mancanti o tipi errati. Ti mostro come correggere." },
+    "mapping": { "ok": "Ho mappato le colonne automaticamente.", "warn": "Manca qualche campo: ti propongo come completarlo." },
+    "staging": { "ok": "Caricato in staging.", "error": "Caricamento non riuscito." },
+    "merge": { "ok": "Dati allineati alle tabelle target.", "error": "Problemi di chiavi o vincoli." },
+    "views": { "ok": "Viste e KPI aggiornati.", "error": "Materializzazione non riuscita." },
+    "done": { "ok": "Dashboard pronta. Vuoi fare una domanda?" }
+  }
+}
+

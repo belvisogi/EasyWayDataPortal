@@ -1,0 +1,18 @@
+{
+  "id": "etl.load-staging",
+  "what": {
+    "purpose": "Caricare i dati in staging con audit e schema coerente",
+    "inputs": {
+      "run_id": { "type": "string" },
+      "landing_path": { "type": "string" },
+      "mapping_template_id": { "type": "string" }
+    },
+    "outputs": {
+      "staging_table": { "type": "string" },
+      "row_counts": { "type": "object" }
+    },
+    "success_criteria": ["Staging popolato"],
+    "failure_criteria": ["Errori di load o tipo"]
+  }
+}
+

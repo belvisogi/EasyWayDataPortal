@@ -1,0 +1,63 @@
+# Template Mapping – Entrate/Uscite (WHAT)
+# Scopo: definire il mapping tra intestazioni file (xlsx/csv) e schema target del data mart personale,
+# senza vincoli di implementazione. Usato dal Mapper per proporre allineamenti/valori sicuri.
+
+mapping_template:
+  id: mapping-entrate-uscite-v1
+  version: 1.0.0
+  target:
+    fact_table: dm.fact_transactions
+    dimensions:
+      - dm.dim_date
+      - dm.dim_category
+      - dm.dim_account
+      - dm.dim_currency
+  fields:
+    transaction_date:
+      required: true
+      type: date
+      source_candidates: [Data, Date, Giorno, Data operazione]
+      parse:
+        accepted_formats: ["YYYY-MM-DD", "DD/MM/YYYY"]
+    description:
+      required: true
+      type: string
+      source_candidates: [Descrizione, Description, Causale, Nota]
+      sanitize: trim
+    category_name:
+      required: true
+      type: string
+      source_candidates: [Categoria, Category]
+      fallback: "Altro"
+    account_name:
+      required: true
+      type: string
+      source_candidates: [Conto, Account, IBAN]
+    currency_code:
+      required: true
+      type: string
+      source_candidates: [Valuta, Currency, ISO]
+      constraints: { iso_4217: true }
+    amount:
+      required: true
+      type: number
+      source_candidates: [Importo, Amount, Totale]
+      normalize:
+        decimal_separator_autodetect: true
+    type:
+      required: true
+      type: enum
+      source_candidates: [Tipo, Type]
+      mapping:
+        Entrata: income
+        Spesa: expense
+        Income: income
+        Expense: expense
+  defaults:
+    category_name: "Altro"
+  keys:
+    dedup_candidate: [transaction_date, amount, description, account_name]
+  notes:
+    - "Il segno non è usato: la direzione è determinata da type (income/expense)."
+    - "Le valute devono essere codici ISO 4217."
+
