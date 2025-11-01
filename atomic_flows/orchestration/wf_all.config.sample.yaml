@@ -1,0 +1,28 @@
+landing:
+  container: landing-container
+  prefix: landing/path/
+  poke_interval: 60
+  timeout: 1800
+
+children:
+  lnd_to_dq:
+    dag_id: lnd_to_dq_template
+    conf:
+      batch_date: "{{ ds }}"
+  dq_to_stg:
+    dag_id: dq_to_stg_template
+    conf:
+      batch_date: "{{ ds }}"
+  stg_to_ref:
+    dag_id: stg_to_ref_template
+    conf:
+      batch_date: "{{ ds }}"
+
+# Estensioni opzionali (es. override email/log/proc):
+# options:
+#   notify_to: ["ops@example.org", "owner@example.org"]
+#   log_table: "dbo.etl_logs"
+#   procedures:
+#     dq_check: "dq.usp_validate_batch"
+#     stg_load: "stg.usp_load_from_dq"
+#     ref_merge: "ref.usp_merge_from_stg"
