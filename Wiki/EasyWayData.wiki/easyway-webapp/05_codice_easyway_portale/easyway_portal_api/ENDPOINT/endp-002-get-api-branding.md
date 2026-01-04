@@ -6,25 +6,14 @@ status: draft
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - domain/webapp
-  - layer/reference
-  - artifact/endpoint
-  - audience/dev
-  - privacy/internal
-  - language/it
-intents:
-  - ottenere impostazioni di branding del tenant
+tags: [artifact-endpoint, domain/frontend, layer/reference, audience/dev, privacy/internal, language/it]
+title: endp 002 get api branding
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: [api-branding]
-id: ew-endp-002-get-api-branding
-title: endp 002 get api branding
-summary: 
-owner: 
+entities: []
 ---
 ### **1. `src/routes/branding.ts`**
 
@@ -130,4 +119,11 @@ export default app;
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
+
 

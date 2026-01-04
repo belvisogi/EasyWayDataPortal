@@ -1,16 +1,14 @@
 ---
 id: ew-docs
 title: docs
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
+tags: [privacy/internal, language/it]
+owner: team-platform
+summary: TODO - aggiungere un sommario breve.
+status: draft
 llm:
   include: true
-  pii: 
-  chunk_hint: 400-600
+  pii: none
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
 ---
@@ -20,3 +18,9 @@ entities: []
 - Dove trovare API, frontend, policy e script di supporto?
 - Quali sono gli step consigliati per leggere e contribuire al codice?
 - Come verificare naming, anchor e manifest per questa sezione?
+
+
+
+
+
+

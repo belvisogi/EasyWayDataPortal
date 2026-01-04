@@ -6,16 +6,13 @@ status: draft
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
+tags: [domain/frontend, layer/index, audience/dev, privacy/internal, language/it]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
 ---
 # Indice
 Breadcrumb: Home / EasyWay WebApp / Codice Portale / API
@@ -31,3 +28,8 @@ Breadcrumb: Home / EasyWay WebApp / Codice Portale / API
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
+
+
+
+

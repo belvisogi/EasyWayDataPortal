@@ -5,6 +5,12 @@ summary: Tabelle core multi-tenant (tenant, users, configuration, audit, stats)
 status: draft
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Obiettivo
@@ -27,4 +33,8 @@ Indice & performance
 
 Note
 - RLS e funzioni predicate verranno aggiunte in una migrazione dedicata.
+
+
+
+
 

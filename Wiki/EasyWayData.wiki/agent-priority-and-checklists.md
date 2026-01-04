@@ -1,7 +1,16 @@
 ---
 title: Agent Priority Rules e Checklists (human-in-the-loop)
-tags: [agents, governance, docs]
+tags: [agents, governance, docs, domain/control-plane, layer/reference, audience/dev, privacy/internal, language/it]
 status: active
+id: ew-agent-priority-and-checklists
+summary: TODO - aggiungere un sommario breve.
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Obiettivo
@@ -31,7 +40,7 @@ Estensione
 - Mantieni le checklists concise e orientate all’approvazione umana.
 
 Best Practice
-- Ogni nuovo agente nel repo deve includere: `manifest.json`, `priority.json` e riferimenti alla pagina presente in `knowledge_sources` del manifest.
+- Ogni nuovo agente nel repo deve includere: `agents/<agent>/manifest.json`, `agents/<agent>/priority.json` e riferimenti alla pagina presente in `knowledge_sources` del manifest.
 - Gli script agent devono invocare `scripts/agent-priority.ps1` e mostrare la checklist solo quando le regole lo richiedono.
 
 Riferimenti
@@ -39,3 +48,6 @@ Riferimenti
 - `scripts/agent-priority.ps1`
 - `agents/agent_governance/priority.json`
 - `agents/agent_docs_review/priority.json`
+
+
+

@@ -6,21 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - artifact/stored-procedure
-  - privacy/internal
-  - language/it
+tags: [artifact-stored-procedure, domain/db, layer/reference, audience/dba, privacy/internal, language/it]
+title: stats execution log
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: [sp-portal-stats-execution-log]
-id: ew-stats-execution-log
-title: stats execution log
-summary: 
-owner: 
+entities: []
 ---
 * Abbiamo definito una SP,  `sp_log_stats_execution`, con tutti i parametri necessari (proc_name, rows, status, etc).
     
@@ -793,6 +786,13 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
+
+
+
+
+
+
 
 
 

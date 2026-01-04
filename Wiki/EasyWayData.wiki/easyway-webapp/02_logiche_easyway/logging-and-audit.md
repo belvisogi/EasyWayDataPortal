@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - policy/logging
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-logging-and-audit
-title: logging and audit
-summary: 
-owner: 
----
+tags: [policy-logging, domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, logging, audit]
+title: logging and audit---
 # Logging & Audit – EasyWay Data Portal
 
 ## Lookup Logging & Audit – Microservizi & API Gateway
@@ -32,6 +19,12 @@ owner:
 | Best practice monitoring    | Dammi best practice monitoring     | Dammi il .md best practice monitoring | IN BOZZA |
 | Esempio flusso log/audit    | Dammi esempio flusso audit         | Dammi il .md esempio flusso audit     | IN BOZZA |
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Tabella Eventi/Audit da Tracciare
@@ -85,4 +78,10 @@ v
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

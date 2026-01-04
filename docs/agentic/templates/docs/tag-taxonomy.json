@@ -1,0 +1,60 @@
+{
+  "required_facets": [
+    "domain",
+    "layer",
+    "audience",
+    "privacy",
+    "language"
+  ],
+  "facet_cardinality": {
+    "language": "one",
+    "audience": "oneOrMore",
+    "layer": "one",
+    "domain": "one",
+    "privacy": "one"
+  },
+  "version": "1.0",
+  "free_tag_regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+  "facets": {
+    "language": [
+      "it",
+      "en"
+    ],
+    "audience": [
+      "non-expert",
+      "dev",
+      "dba",
+      "ops"
+    ],
+    "layer": [
+      "howto",
+      "reference",
+      "runbook",
+      "spec",
+      "orchestration",
+      "intent",
+      "gate",
+      "index",
+      "blueprint"
+    ],
+    "domain": [
+      "db",
+      "datalake",
+      "frontend",
+      "docs",
+      "control-plane",
+      "ux"
+    ],
+    "privacy": [
+      "internal",
+      "public",
+      "restricted"
+    ]
+  },
+  "summary": "Controlled tag taxonomy for EasyWayDataPortal documentation (agent-ready).",
+  "notes": [
+    "Facet tags MUST use the format <facet>/<value>, e.g. domain/docs.",
+    "Free tags are allowed (kebab-case), but avoid synonyms/duplicates.",
+    "Prefer canonical tags to reduce ambiguity and token usage."
+  ]
+}

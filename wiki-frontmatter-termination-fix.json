@@ -1,0 +1,711 @@
+{
+  "results": [
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\ACTIVITY_LOG.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\activity-log.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\agent-first-method.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\agent-manifest-and-indexing-best-practices.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\agent-output-validation-ci.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\agent-priority-and-checklists.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\agentic-portal-vision.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\agents-governance.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\agents-scrummaster.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\best-practices-token-tuning-roadmap.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\checklist-ado-required-job.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\ci-verifica-ewctl-gates-e-flyway.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\datalake-apply-acl.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\datalake-ensure-structure.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\datalake-set-retention.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\db-generate-artifacts-dsl.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\db-user-access-management.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\deploy-app-service.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\deployment-decision-mvp.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\dev-dual-mode.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\doc-alignment-gate.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\DOCS_CONVENTIONS.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\docs-agentic-audit.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\docs-conventions.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\docs-tag-taxonomy.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\dr-gaps-vs-ada.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\dr-inventory-matrix.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\enforcer-guardrail.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\entities-index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\etl-dq-framework.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\etl-elt-playbook.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\etl-elt-technology-choices.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\etl-elt-template.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\etl-governance-sla.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\etl-inspirations.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\etl-table-log-model.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\governance-dq.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\howto-what-first-team.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\intent-contract.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\LLM_READINESS_CHECKLIST.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\llm-readiness-checklist.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\onboarding-architettura.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\output-contract.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\parametrization-best-practices.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\quest-board-excel-csv.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\roadmap.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\start-here.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\TODO_CHECKLIST.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\todo-checklist.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\value-proposition.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\wiki-uniformamento-roadmap.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\agents\\agent-dq-blueprint.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-alerting.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-change-versioning.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-coach-agent.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-event-schema.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-glossario.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-modular-interop.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-overview.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-playbook-catalog.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-policy-dsl.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-quality-gates.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\argos\\argos-tech-profiling.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\blueprints\\legacy-reference-material.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\blueprints\\replicate-easyway-dataportal.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\control-plane\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\domains\\datalake.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\domains\\db.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\domains\\docs-governance.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\domains\\frontend.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\domains\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01-database-architecture.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02-logiche-easyway.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\03-datalake-dev.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\04-accesso-registrazione-notifiche.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05-codice-easyway-portale.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\06-frontend-architecture.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\07-iam-naming-utenti-gruppi.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\10-ai-agents.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01a-db-setup.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b-schema-structure.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\best-practices-checklist.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\db-studio.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\flyway.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\portal.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\sequence.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\storeprocess.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\portal.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\function.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\sequence.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\stored-procedure.md"
+    },
+    {
+      "changed": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\stored-procedure\\configuration.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\stored-procedure\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\stored-procedure\\profile-domains.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\stored-procedure\\section-access.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\stored-procedure\\stats-execution-log.md"
+    },
+    {
+      "changed": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\stored-procedure\\subscription.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\stored-procedure\\tenant.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\stored-procedure\\user-notification-settings.md"
+    },
+    {
+      "changed": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\01_database_architecture\\01b_schema_structure\\PORTAL\\programmability\\stored-procedure\\users.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\api-esterne-integrazione.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\best-practice-naming-and-scalability.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\integrate-ada-best-practices.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\logging-and-audit.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\login-flussi-onboarding.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\notifiche-gestione.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\raccomandazione-architetturale-easyway-data-portal.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\api-esterne-integrazione\\api-invio-notifica.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\api-esterne-integrazione\\api-notifiche.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\api-esterne-integrazione\\api-onboarding.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\api-esterne-integrazione\\checklist-di-test-api.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\api-esterne-integrazione\\convenzioni-rest-e-naming.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\api-esterne-integrazione\\esempio-integrazione-shopify.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\logging-and-audit\\readme.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\login-flussi-onboarding\\esempi-flussi-avanzati-onboarding-login.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\login-flussi-onboarding\\esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\login-flussi-onboarding\\readme.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\02_logiche_easyway\\notifiche-gestione\\esempi-notifiche-and-template-email-configurabili.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\03_datalake_dev\\easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\03_datalake_dev\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\apim-jwt-tenant-claim-policy.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\docs.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway-portal-api.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway-portal-frontend.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\iac.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\qa-setup-and-test-locale.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\readme.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\scripts.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\security-and-observability.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\agentic-readiness-and-examples.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\dinamiche-di-manutenzione.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\endpoint.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\gestione-log-and-policy-dati-sensibili.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\policy-api-store-procedure-easyway-data-portal.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\step-1-setup-ambiente.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\STEP-2-—-Struttura-src-e-primi-file.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\step-4-query-dinamiche-locale-datalake.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\step-5-validazione-avanzata-dati-in-ingresso.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\ENDPOINT\\endp-001-get-api-config.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\ENDPOINT\\endp-001a-get-api-config-da-db.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\ENDPOINT\\endp-002-get-api-branding.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\ENDPOINT\\endp-003-get-crud-api-users.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\ENDPOINT\\index.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\ENDPOINT\\template-endpoint.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\ENDPOINT\\Template-ENDPOINT\\come-si-testa.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\gestione-log-and-policy-dati-sensibili\\automazione-export-log-su-datalake-e-compliance.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\gestione-log-and-policy-dati-sensibili\\logging-conversational-ready-agent-aware.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\step-1-setup-ambiente\\create-json.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\step-2-struttura-src-e-primi-file\\conversational-and-agent-aware-ready.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\step-4-query-dinamiche-locale-datalake\\query-in-src-queries.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\easyway-webapp\\05_codice_easyway_portale\\easyway_portal_api\\step-5-validazione-avanzata-dati-in-ingresso\\validazione-avanzata.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\etl\\atomic-flows-agentic.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\orchestrations\\intents-catalog-global.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\orchestrations\\intents-catalog.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\orchestrations\\mapping-matrix.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\orchestrations\\orchestrator-n8n.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\orchestrations\\wf-excel-csv-upload.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\Runbooks\\instructions_collect_azure_inventory.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\Runbooks\\what_is_inventory_and_missing_items.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\scripts\\scripts.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\use-cases\\entrate-uscite.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\UX\\agentic-ux.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\UX\\branding-assets.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\UX\\diary-mock-wf-excel-csv-upload.md"
+    },
+    {
+      "changed": false,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki\\UX\\usability-checklist.md"
+    }
+  ],
+  "changed": 3,
+  "excluded": [
+    "logs/reports"
+  ],
+  "applied": true,
+  "scanLines": 120,
+  "files": 175
+}

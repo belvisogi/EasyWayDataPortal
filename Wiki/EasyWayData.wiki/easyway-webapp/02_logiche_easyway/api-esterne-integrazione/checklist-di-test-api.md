@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-checklist-di-test-api
-title: checklist di test api
-summary: 
-owner: 
----
+tags: [domain/control-plane, layer/howto, audience/dev, audience/ops, privacy/internal, language/it, checklist]
+title: checklist di test api---
 ## Checklist di test API (EasyWay Data Portal)
 
 1. **Validazione input**
@@ -58,6 +45,12 @@ owner:
    - ❑ Endpoint, input/output, errori, logica sempre documentati nella Wiki
    - ❑ Eventuali deviazioni, workaround, edge case riportati subito in doc
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 
@@ -68,4 +61,10 @@ owner:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

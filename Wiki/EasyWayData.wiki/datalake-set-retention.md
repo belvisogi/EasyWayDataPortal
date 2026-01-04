@@ -1,7 +1,16 @@
 ---
 title: Datalake - Set Retention (Stub)
 summary: Imposta/verifica policy di retention per filesystem/path. WhatIf di default con anteprima.
-tags: [datalake, retention, whatif]
+tags: [datalake, retention, whatif, domain/datalake, layer/howto, audience/ops, audience/dev, privacy/internal, language/it]
+id: ew-datalake-set-retention
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Datalake - Set Retention (Agent Datalake)
@@ -38,3 +47,5 @@ Quick Test
   - `$o = Get-Content out.json | ConvertFrom-Json`
   - `$o.output.summary`
   - `$o.output.policies | ? { $_.change -ne 'noop' } | % { "$($_.path): $($_.days)" }`
+
+

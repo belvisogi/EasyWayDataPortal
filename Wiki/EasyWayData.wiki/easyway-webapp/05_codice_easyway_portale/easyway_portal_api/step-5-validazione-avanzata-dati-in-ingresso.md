@@ -1,16 +1,14 @@
 ---
 id: ew-step-5-validazione-avanzata-dati-in-ingresso
 title: step 5 validazione avanzata dati in ingresso
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
+tags: [domain/frontend, layer/howto, audience/dev, privacy/internal, language/it]
+owner: team-platform
+summary: TODO - aggiungere un sommario breve.
+status: draft
 llm:
   include: true
-  pii: 
-  chunk_hint: 400-600
+  pii: none
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
 ---
@@ -120,4 +118,11 @@ export default router;
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
+
 

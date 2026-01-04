@@ -1,3 +1,17 @@
+---
+id: ew-runbooks-instructions-collect-azure-inventory
+title: instructions collect azure inventory
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [docs, domain/control-plane, layer/runbook, audience/ops, privacy/internal, language/it, inventory]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 Istruzioni passo‑passo — esecuzione scripts/collect_azure_inventory.ps1 e invio azure_inventory.json
 Scopo
 - Raccogliere automaticamente l’inventory Azure utile per la Fase 0 (inventory → RTO/RPO) e incollare qui il JSON di output.
@@ -48,3 +62,9 @@ Consegna
   3) segnalare eventuali gap informativi e richiedere solo i dettagli mancanti.
 
 Se preferisci, posso anche generare una versione equivalente in bash/Az CLI: dimmi se la vuoi.
+
+
+
+
+
+

@@ -1,19 +1,8 @@
 ---
 id: ew-template-endpoint
 title: template endpoint
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: 
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
----
+tags: [domain/frontend, layer/spec, audience/dev, privacy/internal, language/it]
+owner: team-platform---
 Di seguito il **template standard** per documentare ogni endpoint parametrico in EasyWay Data Portal,  
 **pronto da incollare in Wiki/README** e da seguire per ogni API “vera”.
 
@@ -24,6 +13,14 @@ Di seguito il **template standard** per documentare ogni endpoint parametrico in
 > [Breve descrizione della funzione dell’endpoint.  
 Esempio: “Restituisce la configurazione di branding (colori, etichette, immagini, path) per il tenant corrente.”]
 
+summary: TODO - aggiungere un sommario breve.
+status: draft
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 **Best Practice**
@@ -78,4 +75,10 @@ Pronto a produrre subito il prossimo endpoint (es: GET `/api/config` da DB)?**
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/how-to
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-notifiche-gestione
-title: notifiche gestione
-summary: 
-owner: 
----
+tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, notifications]
+title: notifiche gestione---
 # Lookup – Gestione Notifiche
 
 | Cosa vuoi                              | Cosa devi scrivere                     | Dammi il .md                                 | Stato    |
@@ -48,6 +35,12 @@ Gestione Notifiche – EasyWay Data Portal
 | Reminder scadenze       | Token/API in scadenza, task da completare| Email      | Sì                     | Alert automatico, scheduling            |
 | Notifiche personalizzate| Eventi business, comunicazioni custom | Email, Teams  | Sì                     | Gestite da admin tenant/prodotto        |
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Gestione Preferenze Notifica Utente
@@ -106,4 +99,10 @@ Gestione Notifiche – EasyWay Data Portal
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

@@ -1,25 +1,22 @@
 ---
 id: ew-qa-setup-and-test-locale
 title: qa setup and test locale
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: 
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
----
+tags: [privacy/internal, language/it]
+owner: team-platform---
 # EasyWay Data Portal — Q&A Setup & Test Locale
 
 “Esportami la Q&A aggiornata dal 2025-07-28 al 2025-07-29”
 
 ## Aggiornamenti dal 2025-07-28 al 2025-07-29
 
+summary: TODO - aggiungere un sommario breve.
+status: draft
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ### Errore: “npm: command not found” / “node: command not found”
@@ -140,4 +137,9 @@ per mantenere sempre questa chat come “bibbia” di setup e debug EasyWay!**
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

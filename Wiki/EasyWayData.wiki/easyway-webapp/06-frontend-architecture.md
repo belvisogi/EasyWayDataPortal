@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/architecture
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-06-frontend-architecture
-title: 06 frontend architecture
-summary: 
-owner: 
----
+tags: [layer/spec, privacy/internal, language/it]
+title: 06 frontend architecture---
 # EasyWay Data Portal – Frontend Architecture & Integration
 
 ## 🎯 Obiettivo
@@ -30,6 +17,12 @@ Definire l’architettura frontend di EasyWay Data Portal in modo coerente con:
 - le tabelle logiche e fisiche del database (`EasyWay DataPortal - DB`)
 - la roadmap AI e self-service dell’utente finale
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## 📁 Struttura Progetto Frontend (Next.js)
@@ -117,4 +110,9 @@ La sezione `/workspace` integra:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

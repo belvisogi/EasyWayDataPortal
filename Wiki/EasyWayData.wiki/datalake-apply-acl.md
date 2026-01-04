@@ -1,7 +1,16 @@
 ---
 title: Datalake - Apply ACL (Stub)
 summary: Calcola e applica (in WhatIf di default) ACL suggerite su container/cartelle, con anteprima differenze.
-tags: [datalake, security, whatif]
+tags: [datalake, security, whatif, domain/datalake, layer/howto, audience/ops, audience/dev, privacy/internal, language/it]
+id: ew-datalake-apply-acl
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Datalake - Apply ACL (Agent Datalake)
@@ -47,3 +56,5 @@ Quick Test
 
 Note
 - Questa pagina definisce il modus operandi; l’implementazione dell’agente seguirà gli stessi guardrail (WhatIf-by-default).
+
+

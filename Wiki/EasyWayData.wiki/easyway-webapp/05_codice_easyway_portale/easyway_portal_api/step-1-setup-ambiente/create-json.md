@@ -1,16 +1,14 @@
 ---
 id: ew-create-json
 title: create json
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
+tags: [privacy/internal, language/it]
+owner: team-platform
+summary: TODO - aggiungere un sommario breve.
+status: draft
 llm:
   include: true
-  pii: 
-  chunk_hint: 400-600
+  pii: none
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
 ---
@@ -166,4 +164,10 @@ Script SQL **solo nella chat DB**:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

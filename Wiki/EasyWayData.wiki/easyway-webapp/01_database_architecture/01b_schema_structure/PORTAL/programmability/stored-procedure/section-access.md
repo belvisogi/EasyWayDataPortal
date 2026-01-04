@@ -6,21 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - artifact/stored-procedure
-  - privacy/internal
-  - language/it
+tags: [layer/reference, artifact-stored-procedure, privacy/internal, language/it]
+title: section access
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: [sp-portal-section-access]
-id: ew-section-access
-title: section access
-summary: 
-owner: 
+entities: []
 ---
 ### a) **sp_insert_section_access**
 
@@ -1909,6 +1902,12 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
+
+
+
+
+
 
 
 

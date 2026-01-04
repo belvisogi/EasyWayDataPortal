@@ -6,20 +6,14 @@ status: draft
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/architecture
-  - privacy/internal
-  - language/it
+tags: [domain/frontend, layer/reference, audience/dev, privacy/internal, language/it]
+title: easyway portal frontend
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-id: ew-easyway-portal-frontend
-title: easyway portal frontend
-summary: 
-owner: 
 ---
 
 
@@ -29,4 +23,11 @@ owner:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
+
 

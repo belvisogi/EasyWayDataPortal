@@ -30,6 +30,8 @@ variables:
     value: 'true'
   - name: WIKI_LLM_LINT_PATH
     value: 'Wiki/EasyWayData.wiki'
+  - name: ENABLE_WIKI_TAGS_LINT
+    value: 'true'
   - name: ENABLE_WHATFIRST_LINT
     value: 'true'
   - name: ENABLE_DEPLOY
@@ -83,13 +85,35 @@ stages:
               targetType: 'inline'
               script: |
                 set -e
-                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -FailOnError -SummaryOut 'wiki-frontmatter-lint.json'
+                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -FailOnError -SummaryOut 'wiki-frontmatter-lint.json'
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: wiki-frontmatter-lint'
             condition: succeededOrFailed()
             inputs:
               PathtoPublish: '$(Build.SourcesDirectory)/wiki-frontmatter-lint.json'
               ArtifactName: 'wiki-frontmatter-lint'
+      - job: WikiTagsLintPhased
+        displayName: 'Wiki Tag Taxonomy Lint (Phased scopes)'
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_TAGS_LINT'], 'true'))
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run wiki-tags-lint (phased, fail on error)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                set -e
+                # Enforce the controlled tag taxonomy on curated scopes (phased rollout)
+                pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName db-datalake-20 -FailOnError -SummaryOut 'wiki-tags-lint.db-datalake-20.json'
+                pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName portal-api-frontend-20 -FailOnError -SummaryOut 'wiki-tags-lint.portal-api-frontend-20.json'
+                pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName controlplane-governance-20 -FailOnError -SummaryOut 'wiki-tags-lint.controlplane-governance-20.json'
+                pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName argos-dq-20 -FailOnError -SummaryOut 'wiki-tags-lint.argos-dq-20.json'
+                pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName ops-runbooks-20 -FailOnError -SummaryOut 'wiki-tags-lint.ops-runbooks-20.json'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: wiki-tags-lint'
+            condition: succeededOrFailed()
+            inputs:
+              PathtoPublish: '$(Build.SourcesDirectory)'
+              ArtifactName: 'wiki-tags-lint'
       - job: WhatFirstLint
         displayName: 'WHAT-first + Diary Lint (manifests/intents/ux_prompts)'
         condition: and(succeeded(), eq(variables['ENABLE_WHATFIRST_LINT'], 'true'))

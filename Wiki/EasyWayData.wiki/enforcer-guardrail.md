@@ -1,11 +1,20 @@
 ---
 title: EnforcerCheck – Guardrail allowed_paths in CI
-tags: [ci, guardrail, governance]
+tags: [ci, guardrail, governance, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
 status: active
+id: ew-enforcer-guardrail
+summary: TODO - aggiungere un sommario breve.
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Perché
-- Serve a bloccare azioni “fuori scope” in modo automatico e precoce. In pratica, verifica che i file toccati da una PR rientrino negli `allowed_paths` dell’agente responsabile (da `manifest.json`).
+- Serve a bloccare azioni “fuori scope” in modo automatico e precoce. In pratica, verifica che i file toccati da una PR rientrino negli `allowed_paths` dell’agente responsabile (da `agents/<agent>/manifest.json`).
 
 Cosa fa
 - Esegue `scripts/enforcer.ps1` su `git diff` per gli agenti chiave: `agent_governance`, `agent_docs_review`, `agent_pr_manager`.
@@ -28,4 +37,8 @@ Riferimenti
 - `azure-pipelines.yml` (stage `PreChecks` → job `EnforcerCheck`)
 - `scripts/enforcer.ps1`
 - `agents/agent_*/manifest.json`
+
+
+
+
 

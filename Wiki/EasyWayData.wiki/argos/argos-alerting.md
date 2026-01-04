@@ -4,14 +4,13 @@ title: ARGOS – Alerting & Notifications (v1.1)
 summary: Canali, severità, dedup/suppression, digest e integrazione con EasyWay (coach/profiling/gates).
 status: active
 owner: team-platform
-tags: [argos, dq, agents, language/it]
+tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/ops, audience/dev, privacy/internal, language/it, alerting]
 llm:
   include: true
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
----
+entities: []---
 
 # ARGOS – Alerting & Notifications Guide (v1.1)
 
@@ -21,7 +20,6 @@ Integrazione EasyWay
 - Canali: Email/ChatOps/Incident e Digest integrati con i job ADO; mantenere template messaggi in repo e linkarli dai ticket.
 - Pipeline: mappare `FAIL→CRITICAL`, `DEFER→WARN`, `PASS→INFO` nei notifier del portale; usare digest giornalieri per governance.
 - Privacy: nessuna PII; allegati sanificati; RBAC sugli endpoint dell’API del portale.
-
 ---
 
 ## 1) Principi
@@ -105,3 +103,7 @@ Run={run_id} | DecisionTrace={decision_trace_id}
 
 ## 10) Definition of Done (v1.1)
 - Severità e mapping completi; dedup/suppression/quiet hours; payload standard; digest; integrazione Coach/Profiling; KPI definiti.
+
+
+
+

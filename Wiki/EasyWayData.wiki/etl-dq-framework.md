@@ -4,7 +4,7 @@ title: ETL – Data Quality Framework
 summary: Struttura di regole DQ (classi, severità, applicazione) e integrazione con pipeline e audit.
 status: draft
 owner: team-data
-tags: [etl, dq, quality, language/it]
+tags: [etl, dq, quality, domain/datalake, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, data-quality]
 llm:
   include: true
   pii: none
@@ -51,3 +51,8 @@ Riferimenti
 - ETL/ELT Inspirations (ADA Framework)
 - ETL/ELT Playbook
  - ARGOS – Overview: `argos/argos-overview.md`
+
+
+
+
+

@@ -27,7 +27,7 @@ Architettura (sintesi)
 Repository e Path
 - Package: `atomic_flows` (codice nel repo EasyWayDataPortal)
   - `atomic_flows/templates/` – DAG figli atomici
-  - `atomic_flows/orchestration/` – DAG padre e scheduler, esempio YAML `wf_all.config.sample.yaml`
+  - `atomic_flows/orchestration/` – DAG padre e scheduler, esempio YAML `atomic_flows/orchestration/wf_all.config.sample.yaml`
   - `atomic_flows/common/` – operator/sensor/utils (Blob, MSSQL, Databricks, config)
 
 Workflow YAML (wf_all)
@@ -72,4 +72,8 @@ Onboarding Nuovo Flusso (checklist)
 
 Appendice – Connessioni Airflow
 - `wasb_default`, `mssql_default`, `databricks_default` (opzionale), SMTP.
+
+
+
+
 

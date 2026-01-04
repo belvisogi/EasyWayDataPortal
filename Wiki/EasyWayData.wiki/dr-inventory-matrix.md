@@ -1,3 +1,17 @@
+---
+id: ew-dr-inventory-matrix
+title: DR — Inventory & matrice componente → RTO / RPO
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [docs, domain/docs, layer/blueprint, audience/ops, audience/dev, privacy/internal, language/it, dr]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # DR — Inventory & matrice componente → RTO / RPO
 
 Scopo
@@ -45,3 +59,9 @@ Prossimi passi consigliati (azione)
 - Oppure: scarica il CSV con intestazione e compila manualmente le righe principali (DB, Storage, Ingress, KeyVault).
 
 Se vuoi, genero subito il file CSV fisico nella wiki (Wiki/EasyWayData.wiki/DR_Inventory_Matrix.csv) con l'intestazione: dimmi se preferisci che lo crei ora.
+
+
+
+
+
+

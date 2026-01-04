@@ -1,7 +1,16 @@
 ---
 title: Metodo di Lavoro Agent‑First
 summary: Regole operative chiare per umani e agenti. Come si lavora in EasyWayDataPortal (intenti, manifest, ewctl, KB/Wiki, gates).
-tags: [agents, governance, onboarding, language/it]
+tags: [agents, governance, onboarding, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
+id: ew-agent-first-method
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Metodo di Lavoro (Agent‑First)
@@ -43,7 +52,7 @@ Come creare/estendere una sezione
 
 Per nuovi tool/agent (es. Cursor)
 - Leggi `AGENTS.md`, questa pagina e la “Contratto Intent”
-- Usa `ewctl.ps1` come front‑door
+- Usa `scripts/ewctl.ps1` come front‑door
 - Rispetta `allowed_paths` dei manifest
 - Scrivi output strutturato (JSON) e aggiorna KB/Wiki insieme al codice
 
@@ -60,3 +69,9 @@ Riferimenti
 ## Badges & Guardrail
 - WhatIf‑Ready: l’azione implementa pre‑check a secco e mostra `stateBefore` (e `stateAfter` dopo l’applicazione). È la modalità predefinita consigliata.
 - Guardrail: gli agenti devono anticipare gli errori (validazioni, limiti, anteprime), riducendo i rischi prima di eseguire modifiche.
+
+
+
+
+
+

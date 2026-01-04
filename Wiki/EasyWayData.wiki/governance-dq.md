@@ -4,7 +4,7 @@ title: Governance DQ – RACI, Processi e Checklist
 summary: Modello operativo per definire, validare e rilasciare regole DQ (proposal → linter → rollout) in EasyWayDataPortal.
 status: active
 owner: team-platform
-tags: [dq, governance, argos, agents, language/it]
+tags: [dq, governance, argos, agents, domain/control-plane, layer/spec, audience/ops, audience/dev, privacy/internal, language/it, data-quality]
 llm:
   include: true
   pii: none
@@ -86,4 +86,9 @@ Riferimenti
 - Tech Profiling: `argos/argos-tech-profiling.md`
 - Coach Agent: `argos/argos-coach-agent.md`
 - Event Schema: `argos/argos-event-schema.md`
+
+
+
+
+
 

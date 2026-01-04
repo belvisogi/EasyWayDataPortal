@@ -6,21 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - artifact/stored-procedure
-  - privacy/internal
-  - language/it
+tags: [artifact-stored-procedure, domain/db, layer/reference, audience/dba, privacy/internal, language/it]
+title: tenant
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: [sp-portal-tenant]
-id: ew-tenant
-title: tenant
-summary: 
-owner: 
+entities: []
 ---
 **Di seguito troverai:**
 ----------------------------
@@ -2377,6 +2370,13 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
+
+
+
+
+
+
 
 
 

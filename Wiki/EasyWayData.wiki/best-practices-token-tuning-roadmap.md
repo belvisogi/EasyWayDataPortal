@@ -6,30 +6,19 @@ status: draft
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'
-tags:
-  - best-practices
-  - roadmap
-  - token-tuning
-  - ai-readiness
-  - quality
-  - documentation
-  - universal
-  - governance
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
----
+tags: [best-practices, roadmap, token-tuning, ai-readiness, quality, documentation, universal, governance, privacy/internal, language/it]
+entities: []---
 
 # Best Practices & Roadmap – Token Tuning, AI-Readiness e Governance Universale
 
 ## Obiettivo
 Fornire linee guida e una roadmap universale per ottimizzare qualsiasi knowledge base o documentazione tecnica (di progetto, aziendale, open source, ecc.) in ottica di riduzione token, modularità, chunking, AI-readiness e governance, a prescindere dal formato (Markdown, Wiki, Confluence, Notion, Google Docs, HTML, ecc.).
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 ## 1. Best Practices per la Riduzione Token e l’AI-Readiness
@@ -131,7 +120,7 @@ Fornire linee guida e una roadmap universale per ottimizzare qualsiasi knowledge
 
 ### Monitoraggio e Aggiornamento
 - La roadmap va rivista periodicamente (es. ogni trimestre).
-- Ogni milestone completata va loggata in un registro attività (es. ACTIVITY_LOG.md o tool equivalente).
+- Ogni milestone completata va loggata in un registro attività (es. activity-log.md o tool equivalente).
 - I report di automazione e i feedback AI vanno usati per aggiornare le priorità.
 
 ---
@@ -143,3 +132,8 @@ Fornire linee guida e una roadmap universale per ottimizzare qualsiasi knowledge
 - Come si garantisce la qualità, la governance e l’AI-readiness nel tempo?
 - Chi è responsabile di ogni fase?
 - Come si monitora l’avanzamento?
+
+
+
+
+

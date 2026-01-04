@@ -1,16 +1,14 @@
 ---
 id: ew-scripts
 title: scripts
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
+tags: [privacy/internal, language/it]
+owner: team-platform
+summary: TODO - aggiungere un sommario breve.
+status: draft
 llm:
   include: true
-  pii: 
-  chunk_hint: 400-600
+  pii: none
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
 ---
@@ -20,3 +18,9 @@ entities: []
 - Come eseguire build, test, lint e normalizzazione documentale?
 - Come generare manifest, anchors e chunk per gli agenti?
 - Dove consultare i report e come interpretarli?
+
+
+
+
+
+

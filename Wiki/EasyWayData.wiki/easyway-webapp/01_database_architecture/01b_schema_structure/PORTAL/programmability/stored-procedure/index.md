@@ -6,17 +6,13 @@ status: draft
 owner: team-data
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - artifact/stored-procedure
-  - layer/reference
-  - privacy/internal
-  - language/it
+tags: [artifact-stored-procedure, domain/db, layer/index, audience/dba, audience/dev, privacy/internal, language/it]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
 ---
 # Indice
 Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Stored Procedure
@@ -35,3 +31,8 @@ Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Stored Proc
 - Dove trovare la firma, gli input/output e gli esempi di invocazione?
 - Come sono gestiti idempotenza, indici/FK/check e rollback?
 - Dove verificare policy, logging e collegamenti a entità correlate?
+
+
+
+
+

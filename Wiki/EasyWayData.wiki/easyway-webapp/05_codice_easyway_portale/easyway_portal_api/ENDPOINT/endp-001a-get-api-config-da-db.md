@@ -6,25 +6,14 @@ status: draft
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - domain/webapp
-  - layer/how-to
-  - artifact/endpoint
-  - audience/dev
-  - privacy/internal
-  - language/it
-intents:
-  - implementare lettura configurazioni da DB per /api/config
+tags: [artifact-endpoint, domain/frontend, layer/reference, audience/dev, privacy/internal, language/it]
+title: endp 001a get api config da db
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: [api-config]
-id: ew-endp-001a-get-api-config-da-db
-title: endp 001a get api config da db
-summary: 
-owner: 
+entities: []
 ---
 **Obiettivo:**  
 Fornire un endpoint che restituisce la configurazione dinamica (parametri da DB) per il tenant corrente, esattamente come per il branding,  
@@ -90,4 +79,11 @@ app.use("/api/config", configRoutes);
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
+
 

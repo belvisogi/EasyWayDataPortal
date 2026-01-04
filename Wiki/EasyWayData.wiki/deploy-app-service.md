@@ -4,7 +4,13 @@ title: Deploy su Azure App Service – Pipeline & Variabili
 summary: Guida operativa per il deploy dell’API su App Service con slot e swap controllato
 status: draft
 owner: team-platform
-tags: [deploy, azure, pipeline, privacy/internal, language/it]
+tags: [deploy, azure, pipeline, domain/control-plane, layer/runbook, audience/ops, audience/dev, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Obiettivo
@@ -71,7 +77,7 @@ Sicurezza & Governance
 - Branch protection + approvazioni per abilitare `ENABLE_DEPLOY`/`ENABLE_SWAP` in ambienti critici
 - Gates (Checklist/Drift/KB) come prerequisiti qualitativi
 - Guardrail Sync App Settings: il job di sincronizzazione da `.env.local` è condizionato da `ENABLE_SYNC_APPSETTINGS=true` e richiede `GOV_APPROVED=true` se il branch è `main` o l'ambiente è `prod` (variabili: `ENVIRONMENT`, `GOV_APPROVED`).
-  - Nelle esecuzioni approvate comparirà un badge ✅ nella colonna "Gov" del diario di bordo (Wiki/EasyWayData.wiki/ACTIVITY_LOG.md).
+  - Nelle esecuzioni approvate comparirà un badge ✅ nella colonna "Gov" del diario di bordo (Wiki/EasyWayData.wiki/activity-log.md).
 
 Esempio (screenshot)
 ![Activity Log – Esempio](.attachments/activity-log-example.svg)
@@ -156,3 +162,10 @@ Snippet alternativi (riuso rapido)
   // ... (vedi starter JSON sopra)
 ]
 ```sql
+
+
+
+
+
+
+

@@ -1,7 +1,16 @@
 ---
 title: Validazione Output Agenti in CI
 summary: Come validare rapidamente gli output JSON degli agenti in pipeline usando lo script PowerShell dedicato.
-tags: [ci, gates, agents]
+tags: [ci, gates, agents, domain/control-plane, layer/gate, audience/dev, audience/ops, privacy/internal, language/it]
+id: ew-agent-output-validation-ci
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Validazione Output Agenti in CI
@@ -30,4 +39,6 @@ Integrazione (Azure DevOps) – esempio
 Note
 - Il contratto base è descritto in `Wiki/EasyWayData.wiki/output-contract.md` e nello schema `agents/core/schemas/action-result.schema.json`.
 - Mantieni gli output concisi per ridurre costi/token e favorire parsing da LLM.
+
+
 

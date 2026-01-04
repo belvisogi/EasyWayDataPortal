@@ -6,20 +6,14 @@ status: draft
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/how-to
-  - privacy/internal
-  - language/it
+tags: [domain/frontend, layer/reference, audience/dev, privacy/internal, language/it]
+title: endpoint
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-id: ew-endpoint
-title: endpoint
-summary: 
-owner: 
 ---
 È il **primo vero endpoint parametrico** del backend EasyWay.  
 Mette insieme TUTTO quello che hai preparato finora (multi-tenant, lettura YAML, API REST) e lo espone come servizio.
@@ -43,4 +37,11 @@ Mette insieme TUTTO quello che hai preparato finora (multi-tenant, lettura YAML,
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
+
 

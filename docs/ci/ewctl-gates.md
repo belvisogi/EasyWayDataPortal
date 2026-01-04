@@ -11,7 +11,7 @@ Toggle pipeline
 Comandi usati da ewctl (PS engine)
 - `pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent`
   - Esegue: Checklist (API), DB Drift, KB Consistency
-  - Registra evento strutturato (JSONL) e aggiorna `Wiki/EasyWayData.wiki/ACTIVITY_LOG.md`
+  - Registra evento strutturato (JSONL) e aggiorna `Wiki/EasyWayData.wiki/activity-log.md`
 
 Altre variabili utili
 - `ENABLE_CHECKLIST`, `ENABLE_DB_DRIFT`, `ENABLE_KB_CONSISTENCY` (continuano a valere per i job legacy)
@@ -35,7 +35,7 @@ Verifica in branch non-main
   - Attendi il job `GovernanceGatesEWCTL` e verifica che esegua `ewctl` con `--logevent`.
   - Controlla gli artifact pubblicati: `activity-log` (contenente `agents/logs/*.jsonl`), eventuali `checklist.json`/`drift.json`, e `gates-report`.
 - Esito atteso:
-  - Log evento aggiunto a `agents/logs/events.jsonl` e, se configurato, aggiornamento Wiki/ACTIVITY_LOG.md.
+  - Log evento aggiunto a `agents/logs/events.jsonl` e, se configurato, aggiornamento Wiki/EasyWayData.wiki/activity-log.md.
   - Gate checklist/drift OK o diagnostica chiara in caso di KO.
 - Troubleshooting:
   - Se mancano variabili DB, il drift/checklist può fallire: verificare Variable Group e `.env.local` in locale.
@@ -49,3 +49,5 @@ Strategia Flyway consigliata
 Note
 - Il job `GovernanceGatesEWCTL` dipende da `NodeBuild` per garantire `node_modules` disponibili (ts-node usato nei tool TypeScript).
 - Se necessario, disabilita completamente i gate impostando i rispettivi `ENABLE_*` a `false`.
+
+

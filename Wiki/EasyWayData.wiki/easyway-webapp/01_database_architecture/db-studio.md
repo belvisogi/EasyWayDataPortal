@@ -17,8 +17,8 @@ Obiettivo
 - Generare documentazione aggiornata dal DB (schema attuale) in pochi secondi, pronta per wiki e agenti.
 
 Output
-- `ERD.md` – ER diagram (Mermaid) generato automaticamente
-- `SP_CATALOG.md` – Catalogo Stored Procedure e parametri
+- `out/db-docs/ERD.md` – ER diagram (Mermaid) generato automaticamente
+- `out/db-docs/SP_CATALOG.md` – Catalogo Stored Procedure e parametri
 
 Come si esegue
 ```sql
@@ -33,4 +33,8 @@ Pipeline
 Note
 - Gli script leggono INFORMATION_SCHEMA/sys.* e producono output idempotente.
 - Estensioni future: relazioni by columns, extended properties come descrizioni.
+
+
+
+
 

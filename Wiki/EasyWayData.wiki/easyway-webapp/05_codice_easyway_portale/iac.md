@@ -1,16 +1,14 @@
 ---
 id: ew-iac
 title: iac
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
+tags: [privacy/internal, language/it]
+owner: team-platform
+summary: TODO - aggiungere un sommario breve.
+status: draft
 llm:
   include: true
-  pii: 
-  chunk_hint: 400-600
+  pii: none
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
 ---
@@ -20,3 +18,9 @@ entities: []
 - Come si struttura il deploy (ambiente, variabili, segreti)?
 - Dove trovare policy e naming per componenti cloud?
 - Come validare naming/ancore e tracciare i cambiamenti?
+
+
+
+
+
+

@@ -1,3 +1,17 @@
+---
+id: ew-deployment-decision-mvp
+title: Deployment decision (MVP) — EasyWay Data Portal
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [docs, domain/control-plane, layer/spec, audience/ops, audience/dev, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Deployment decision (MVP) — EasyWay Data Portal
 
 Sintesi breve
@@ -11,7 +25,7 @@ Cosa significa nella pratica
 Documentazione di riferimento (link interni)
 - Guida operativa deploy su App Service: Wiki/EasyWayData.wiki/deploy-app-service.md
 - Architettura infra: docs/infra/azure-architecture.md
-- Raccomandazione architetturale (App Service vs Container Apps vs AKS): EasyWay_WebApp/02_logiche_easyway/raccomandazione-architetturale-easyway-data-portal.md
+- Raccomandazione architetturale (App Service vs Container Apps vs AKS): easyway-webapp/02_logiche_easyway/raccomandazione-architetturale-easyway-data-portal.md
 - Pipeline & toggles: azure-pipelines.yml (root) e relative note in Wiki/EasyWayData.wiki/blueprints/replicate-easyway-dataportal.md
 - Esempi/appsettings: scripts/generate-appsettings.ps1 e Wiki/EasyWayData.wiki/kb-starter-appsettings-026 (KB)
 
@@ -38,3 +52,9 @@ Prossimi step raccomandati
 
 Note finali
 - La scelta App Service è già documentata nel repo; questo file rende esplicita la decisione MVP e centralizza i link utili per dev/ops.
+
+
+
+
+
+

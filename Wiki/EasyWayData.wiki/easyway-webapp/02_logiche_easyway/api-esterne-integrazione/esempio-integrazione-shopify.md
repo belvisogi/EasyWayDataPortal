@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-esempio-integrazione-shopify
-title: esempio integrazione shopify
-summary: 
-owner: 
----
+tags: [layer/reference, privacy/internal, language/it]
+title: esempio integrazione shopify---
 # Integrazione Shopify – Dettaglio & Esempio Pratico
 
 ## Overview
@@ -30,6 +17,12 @@ L’integrazione Shopify permette di:
 - Automatizzare workflow (import dati, notifiche, arricchimento profili)
 - Supportare più negozi/tenant, mantenendo separazione logica tra clienti
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Tabella Integrazione Shopify
@@ -167,4 +160,9 @@ Nota operativa
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

@@ -4,14 +4,13 @@ title: ARGOS – Quality Gates (v1.1)
 summary: Esiti, matrici decisionali, severity dinamica, hysteresis, trace e quarantine, con note CI ewctl.
 status: active
 owner: team-platform
-tags: [argos, dq, agents, language/it]
+tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, data-quality]
 llm:
   include: true
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
----
+entities: []---
 
 # ARGOS – Quality Gates Specification (v1.1)
 
@@ -21,7 +20,6 @@ Integrazione EasyWay
 - CI/CD: impostare `USE_EWCTL_GATES=true` e usare `pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent` per i gates di governance.
 - Decision Trace: salvare l’ID trace e linkarlo in ticket/digest/scorecard del portale; coverage ≥ 99%.
 - Feature flags: `enable_dynamic_severity`, `enable_decision_trace`, `enable_profiling_gate_soft` configurati per dominio.
-
 ---
 
 ## 0) Principi
@@ -101,3 +99,7 @@ Quarantine con TTL e retention; re‑processing programmato; safe-actions solo c
 
 ## 10) KPI dei Gates
 GPR, Blocking Rate, False PASS sample rate, Quarantine Dwell Time, Decision Trace coverage, override/backout rate, Time‑to‑decision p95.
+
+
+
+

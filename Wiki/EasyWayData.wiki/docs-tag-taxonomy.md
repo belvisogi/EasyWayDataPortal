@@ -1,0 +1,77 @@
+---
+id: ew-docs-tag-taxonomy
+title: Tag Taxonomy (Controllata)
+summary: Vocabolario controllato per tag (domain/layer/audience/privacy/language) per migliorare ricerca, ridurre token e ridurre allucinazioni.
+status: active
+owner: team-platform
+tags: [domain/docs, layer/spec, audience/dev, privacy/internal, language/it, taxonomy]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 300-450
+  redaction: [email, phone]
+entities: []
+---
+
+# Tag Taxonomy (Controllata)
+
+Scopo: usare tag **coerenti e machine-readable** per migliorare retrieval e clustering, riducendo token e ambiguità.
+
+Fonte machine-readable (source of truth):
+- `docs/agentic/templates/docs/tag-taxonomy.json`
+
+## Formato
+- Tag di facet: `<facet>/<value>` (es: `domain/docs`)
+- Tag liberi: `kebab-case` (es: `n8n`, `ewctl`, `flyway`, `data-quality`)
+
+## Facet obbligatorie
+Ogni pagina canonica dovrebbe avere:
+- `domain/<...>`
+- `layer/<...>`
+- `audience/<...>` (una o più)
+- `privacy/<...>`
+- `language/<it|en>`
+
+## Valori ammessi (v1)
+### domain
+- `domain/db`, `domain/datalake`, `domain/frontend`, `domain/docs`, `domain/control-plane`, `domain/ux`
+
+### layer
+- `layer/howto`, `layer/reference`, `layer/runbook`, `layer/spec`, `layer/orchestration`, `layer/intent`, `layer/gate`, `layer/index`, `layer/blueprint`
+
+### audience
+- `audience/non-expert`, `audience/dev`, `audience/dba`, `audience/ops`
+
+### privacy
+- `privacy/internal`, `privacy/public`, `privacy/restricted`
+
+### language
+- `language/it`, `language/en`
+
+## Regole anti-ambiguità
+- Evitare sinonimi duplicati: scegliere una forma (`data-quality` oppure `dq`).
+- Evitare tag troppo generici se non necessari (es. `misc`).
+- Preferire i tag facet ai tag liberi quando servono filtri affidabili.
+
+## Lint
+- Dry-run (non blocca per facet mancanti):
+  - `pwsh scripts/wiki-tags-lint.ps1 -Path "Wiki/EasyWayData.wiki" -ExcludePaths logs/reports`
+- Strict (core first):
+  - `pwsh scripts/wiki-tags-lint.ps1 -Path "Wiki/EasyWayData.wiki" -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -FailOnError`
+- Strict (all):
+  - `pwsh scripts/wiki-tags-lint.ps1 -Path "Wiki/EasyWayData.wiki" -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope all -FailOnError`
+
+
+### Scope (enforcement a fasi)
+Gli scope sono definiti in `docs/agentic/templates/docs/tag-taxonomy.scopes.json`.
+Esempio: enforcement su 20 pagine DB+Datalake:
+- `pwsh scripts/wiki-tags-lint.ps1 -Path "Wiki/EasyWayData.wiki" -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName db-datalake-20 -FailOnError`
+
+
+Esempi scope disponibili (casistiche):
+- `db-datalake-20`
+- `ops-runbooks-20`
+- `argos-dq-20`
+- `portal-api-frontend-20`
+- `controlplane-governance-20`
+

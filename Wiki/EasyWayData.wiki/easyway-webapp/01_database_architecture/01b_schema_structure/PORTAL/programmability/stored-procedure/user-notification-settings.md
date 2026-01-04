@@ -6,21 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - artifact/stored-procedure
-  - privacy/internal
-  - language/it
+tags: [layer/reference, artifact-stored-procedure, privacy/internal, language/it]
+title: user notification settings
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: [sp-portal-user-notification-settings]
-id: ew-user-notification-settings
-title: user notification settings
-summary: 
-owner: 
+entities: []
 ---
 ### a) **sp_insert_user_notification_settings**
 
@@ -2251,6 +2244,12 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
+
+
+
+
+
 
 
 

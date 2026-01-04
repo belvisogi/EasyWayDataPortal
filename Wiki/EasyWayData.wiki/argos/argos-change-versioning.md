@@ -4,7 +4,7 @@ title: ARGOS – Change & Versioning (v1)
 summary: SemVer, rollout (shadow/canary/A‑B), backout e audit con best practice di pipeline.
 status: draft
 owner: team-platform
-tags: [argos, dq, agents, language/it]
+tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, versioning]
 llm:
   include: true
   pii: none
@@ -24,3 +24,7 @@ Best practice EasyWay
 
 Da dettagliare
 - Workflow di promozione, freeze window, pattern compatibilità, checklist e RACI.
+
+
+
+

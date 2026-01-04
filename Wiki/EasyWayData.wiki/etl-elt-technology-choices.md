@@ -4,18 +4,13 @@ title: ETL/ELT – Scelte Tecnologiche
 summary: Opzioni di orchestrazione/esecuzione (Airflow, Databricks, ADF) e linee guida di adozione in EasyWayDataPortal.
 status: draft
 owner: team-data
-tags:
-  - domain/data
-  - layer/architecture
-  - etl
-  - datalake
-  - language/it
+tags: [etl, datalake, domain/datalake, layer/spec, audience/dev, privacy/internal, language/it]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
 ---
 
 # ETL/ELT – Scelte Tecnologiche
@@ -60,3 +55,8 @@ Riferimenti
 - Intent pipeline (spec): `etl-spec:create`, `etl-spec:validate`, `etl:dry-run`, `etl:deploy` (stub).
 - Logging comune: `portal-audit/etl-execution-logs/` con chiavi minime (workflow_key, status, started_at, ended_at, rows_*).
 - Ogni azione agente produce Output Contract (JSON) con `summary` + `changesPreview` (WhatIf) o `stateAfter` (apply).
+
+
+
+
+

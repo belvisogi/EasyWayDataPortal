@@ -6,17 +6,13 @@ status: draft
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'
-tags:
-  - best-practices
-  - ai-readiness
-  - layer/reference
-  - universal
-  - language/it
+tags: [best-practices, ai-readiness, universal, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 300-500
-entities: []
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # Agent Manifest & Indexing - Best Practices
@@ -62,4 +58,10 @@ Strategia d’uso:
 - Come può un agente sapere “cosa aprire” senza leggere tutto?
 - Come ridurre i token usando ancore e manifest?
 - Come uniformare l’accesso ai contenuti tra progetti/formati diversi?
+
+
+
+
+
+
 

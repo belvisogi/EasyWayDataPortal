@@ -1,10 +1,10 @@
 ---
 id: ew-start-here
-title: Start Here – 5 Link Essenziali
-summary: Punti di ingresso per nuovi contributor: manifest, intents, UX prompts, HOWTO e KB.
+title: Start Here - Link Essenziali
+summary: Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB.
 status: active
 owner: team-platform
-tags: [start-here, onboarding, agents, argos, language/it]
+tags: [start-here, onboarding, agents, argos, language/it, domain/docs, layer/index, audience/non-expert, audience/dev, privacy/internal]
 llm:
   include: true
   pii: none
@@ -13,22 +13,39 @@ llm:
 entities: []
 ---
 
-# Start Here – 5 Link Essenziali
+# Start Here - Link Essenziali
 
-1) Orchestrazione (WHAT)
-- wf Excel/CSV → Dashboard: orchestrations/wf-excel-csv-upload.md
+1) Orchestrazioni (WHAT)
+- wf Excel/CSV → Dashboard: `orchestrations/wf-excel-csv-upload.md`
+- Orchestratore n8n: `orchestrations/orchestrator-n8n.md`
 
 2) Intents Catalog (WHAT)
-- Tutti gli intent del workflow: orchestrations/intents-catalog.md
+- Use case Excel/CSV: `orchestrations/intents-catalog.md`
+- Globale (cross-domain): `orchestrations/intents-catalog-global.md`
 
-3) UX Prompts (IT/EN)
-- Copioni UI localizzati: docs/agentic/templates/orchestrations/ux_prompts.it.json, docs/agentic/templates/orchestrations/ux_prompts.en.json
+3) Control Plane + Domini (skeleton)
+- Control Plane: `control-plane/index.md`
+- Domini: `domains/index.md`
 
-4) HOWTO – Metodo WHAT‑first + Diario
-- Guida per team (DoR/DoD, lint, stub→HOW): howto-what-first-team.md
+4) UX Prompts (IT/EN)
+- Copioni UI: `docs/agentic/templates/orchestrations/ux_prompts.it.json`, `docs/agentic/templates/orchestrations/ux_prompts.en.json`
 
-5) KB Ricette (comandi rapidi)
-- WHAT-first Lint: agents/kb/recipes.jsonl (id: kb-whatfirst-lint-401, kb-howto-what-first-team-402)
-- Stubs E2E: agents/kb/recipes.jsonl (id: kb-orch-intents-stubs-301)
-- DQ Blueprint: agents/kb/recipes.jsonl (id: kb-agent-dq-blueprint-201)
+5) HOWTO - WHAT-first + Diario
+- Guida team: `howto-what-first-team.md`
+- Audit doc agentica: `docs-agentic-audit.md`
+
+
+5b) Tag taxonomy (controllata)
+- Tag taxonomy: `docs-tag-taxonomy.md`
+6) KB Ricette (comandi rapidi)
+- Skeleton: `agents/kb/recipes.jsonl` (id: `kb-docs-skeleton-601`)
+- Lint: `agents/kb/recipes.jsonl` (id: `kb-lint-whatfirst-602`)
+
+7) Materiale legacy / asset
+- Contesto: `blueprints/legacy-reference-material.md`
+- Branding: `UX/branding-assets.md`
+
+
+
+
 

@@ -108,3 +108,11 @@ Per dettagli:
 ---
 
 **Per ogni dubbio, consulta la Wiki o apri una issue!**
+
+## Documenti di contesto
+- `DEVELOPER_ONBOARDING.md`
+- `Sintesi_EasyWayDataPortal.md`
+- `VALUTAZIONE_EasyWayDataPortal.md`
+- `Wiki/EasyWayData.wiki/blueprints/legacy-reference-material.md`
+- Asset UX: `Wiki/EasyWayData.wiki/UX/branding-assets.md`
+

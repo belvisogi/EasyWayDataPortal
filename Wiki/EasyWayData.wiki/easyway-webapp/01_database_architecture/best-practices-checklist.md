@@ -5,6 +5,12 @@ summary: Tabella di controllo rapida per governance, sicurezza e DevOps
 status: draft
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Obiettivo
@@ -45,4 +51,8 @@ Note operative
 - RLS: abilita la security policy solo dopo aver verificato che l’app imposti `SESSION_CONTEXT('tenant_id')` (vedi `withTenantContext`).
 - Migrazioni: 1 file = 1 scopo; commento/header con scopo e ticket.
 - Documentazione: genera/aggiorna ERD & SP Catalog con `npm run db:generate-docs` dopo modifiche strutturali.
+
+
+
+
 

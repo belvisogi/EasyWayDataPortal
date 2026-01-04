@@ -6,18 +6,13 @@ status: draft
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'
-tags:
-  - roadmap
-  - quality
-  - documentation
-  - governance
-  - ai-readiness
-  - language/it
+tags: [roadmap, quality, documentation, governance, ai-readiness, language/it]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
-entities: []
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # Roadmap Uniformamento Wiki secondo docs-conventions
@@ -31,7 +26,7 @@ entities: []
 ## Fasi e Sequenza
 
 ### Fase 0 — Baseline e strumenti
-- Confermare regole in `docs-conventions.md` e `LLM_READINESS_CHECKLIST.md`.
+- Confermare regole in `docs-conventions.md` e `llm-readiness-checklist.md`.
 - Usare `scripts/review-run.ps1` e `scripts/review-examples.ps1`; tenere aggiornati `entities.yaml` e `entities-index.md`.
 
 ### Fase 1 — Naming e indici
@@ -64,7 +59,7 @@ entities: []
 
 ### 01_database_architecture
 - `programmability/` (function.md, sequence.md, stored-procedure/*.md): front matter con `artifact/*`, check esempi DDL idempotenti; `index.md` a livello cartella e sottocartella.
-- `01a-db-setup.md`, `01b-schema-structure.md`: sezioni standard, Q&A, collegamenti a entità DB.
+- `easyway-webapp/01_database_architecture/01a-db-setup.md`, `easyway-webapp/01_database_architecture/01b-schema-structure.md`: sezioni standard, Q&A, collegamenti a entità DB.
 
 ### 02_logiche_easyway
 - Sotto‑cartelle (`api-esterne-integrazione`, `logging-and-audit`, `login-flussi-onboarding`, `notifiche-gestione`): front matter completo, esempi CURL/JSON, schemi input/output, Q&A.
@@ -154,7 +149,7 @@ Tag base:
 - `logs/reports/naming-*.txt` (naming issues)
 - `logs/reports/anchors-*.md` (anchor issues)
 - `entities-index.md` rigenerato
-- `ACTIVITY_LOG.md` aggiornato per ogni step (CSV-friendly)
+- `activity-log.md` aggiornato per ogni step (CSV-friendly)
 - `index_master.csv` e `index_master.jsonl` per agenti e filtri rapidi
 - `anchors_master.csv` per richiami di sezione H2/H3
 
@@ -163,3 +158,10 @@ Tag base:
 - Quali strumenti/script usare e quando?
 - Quali sono i criteri di accettazione misurabili?
 - Come assegnare owner/tag e tracciare l’avanzamento?
+
+
+
+
+
+
+

@@ -1,16 +1,14 @@
 ---
 id: ew-01b-schema-structure
 title: 01b schema structure
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
+tags: [privacy/internal, language/it]
+owner: team-platform
+summary: TODO - aggiungere un sommario breve.
+status: draft
 llm:
   include: true
-  pii: 
-  chunk_hint: 400-600
+  pii: none
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
 ---
@@ -21,4 +19,10 @@ entities: []
 - Dove sono le convenzioni di naming e i collegamenti a programmability?
 - Quali passi minimi per aggiornare struttura e indici?
 - Dove trovare le entità correlate nel dizionario?
+
+
+
+
+
+
 

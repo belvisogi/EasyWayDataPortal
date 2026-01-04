@@ -1,20 +1,17 @@
 ---
 id: ew-logging-conversational-ready-agent-aware
 title: logging conversational ready agent aware
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
+tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it]
+owner: team-platform---
+#### Logging conversational-ready (agent-aware)
+summary: TODO - aggiungere un sommario breve.
+status: draft
 llm:
   include: true
-  pii: 
-  chunk_hint: 400-600
+  pii: none
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
----
-#### Logging conversational-ready (agent-aware)
 ---
 Questa sezione integra e amplia le policy dati sensibili:  
 - ogni log non è solo tracciato per sicurezza/compliance,  
@@ -62,4 +59,10 @@ Ogni endpoint risponde sempre con:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

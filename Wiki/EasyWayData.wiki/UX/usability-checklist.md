@@ -33,3 +33,6 @@ Checklist (rapida)
 Come usarla
 - Applicare la checklist ad ogni PR che modifica UI/UX e allegare evidenze (screenshot/wireframe) nel diario.
 
+
+
+

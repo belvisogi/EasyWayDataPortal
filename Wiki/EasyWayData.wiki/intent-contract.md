@@ -1,7 +1,16 @@
 ---
 title: Contratto Intent (Mini‑DSL)
 summary: Schema JSON degli intent che gli agenti accettano. Esempi e campi comuni.
-tags: [agents, governance, contracts, language/it]
+tags: [agents, governance, contracts, domain/docs, layer/reference, audience/dev, privacy/internal, language/it]
+id: ew-intent-contract
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Contratto Intent (Mini‑DSL)
@@ -50,4 +59,10 @@ Esempio — Creazione utente DB
 Note
 - Ogni azione documenta i propri params nella pagina Wiki dedicata.
 - I manifest degli agent elencano le azioni supportate.
+
+
+
+
+
+
 

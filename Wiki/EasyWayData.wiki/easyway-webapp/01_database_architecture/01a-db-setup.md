@@ -1,23 +1,20 @@
 ---
 id: ew-01a-db-setup
 title: 01a db setup
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: 
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
----
+tags: [privacy/internal, language/it]
+owner: team-platform---
 # EasyWay Data Portal – Database SETUP
 
 > **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
 
+summary: TODO - aggiungere un sommario breve.
+status: draft
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## ✅ Scopo del file
@@ -119,4 +116,9 @@ GRANT CONTROL ON SCHEMA::WORK      TO EWPORTAL_ADMIN_ROLE;
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

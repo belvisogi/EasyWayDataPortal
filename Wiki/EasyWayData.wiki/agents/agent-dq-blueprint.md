@@ -4,7 +4,7 @@ title: Agent – DQ Blueprint (Spec v0)
 summary: Agente che genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX o schema, integrato con ARGOS.
 status: active
 owner: team-platform
-tags: [agents, argos, dq, language/it]
+tags: [agents, argos, dq, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
 llm:
   include: true
   pii: none
@@ -23,8 +23,8 @@ Input
 - Meta (opz.): `domain_id`, `flow_id`, `instance_id`, chiavi candidate, IMPACT di default, mapping referenziali noti.
 
 Output
-- `policy_proposals.json`: elenco di proposte conformi alla DSL (categoria, check, mostly, severity_base, descrizione).
-- `policy_set.json`: set minimale con `RULE_VERSION` placeholder e mapping allo scope.
+- `out/blueprint/policy_proposals.json`: elenco di proposte conformi alla DSL (categoria, check, mostly, severity_base, descrizione).
+- `out/blueprint/policy_set.json`: set minimale con `RULE_VERSION` placeholder e mapping allo scope.
 - Facoltativo: YAML generati on‑the‑fly (via generator) come artifact CI.
 
 Intent (mini‑DSL)
@@ -79,4 +79,9 @@ Riferimenti
 - ARGOS – Policy DSL: `argos/argos-policy-dsl.md`
 - Quality Gates: `argos/argos-quality-gates.md`
 - Governance DQ: `governance-dq.md`
+
+
+
+
+
 

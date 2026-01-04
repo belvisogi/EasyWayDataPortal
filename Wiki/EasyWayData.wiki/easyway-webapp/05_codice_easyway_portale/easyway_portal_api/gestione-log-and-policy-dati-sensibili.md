@@ -1,19 +1,8 @@
 ---
 id: ew-gestione-log-and-policy-dati-sensibili
 title: gestione log and policy dati sensibili
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: 
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
----
+tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it]
+owner: team-platform---
 # Gestione Log — EasyWay Data Portal
 
 
@@ -29,6 +18,14 @@ entities: []
 - **Documenta la policy**: scrivi sempre cosa si può loggare e come si mascherano i dati.
 - Tutti i log business/audit sono in formato JSON e pronti per essere esportati su Datalake.
 
+summary: TODO - aggiungere un sommario breve.
+status: draft
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## **Tipi di log gestiti**
@@ -105,4 +102,10 @@ entities: []
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

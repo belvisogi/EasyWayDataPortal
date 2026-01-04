@@ -4,19 +4,13 @@ title: ETL/ELT Playbook
 summary: Schema guida per pipeline dati (sorgenti, mapping, DQ, naming file, schedule, monitoraggio, audit) in EasyWayDataPortal.
 status: draft
 owner: team-data
-tags:
-  - domain/data
-  - layer/how-to
-  - artifact/pipeline
-  - etl
-  - datalake
-  - language/it
+tags: [artifact-pipeline, etl, datalake, domain/datalake, layer/howto, audience/dev, audience/ops, privacy/internal, language/it]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
 ---
 
 # ETL/ELT Playbook
@@ -93,4 +87,9 @@ Riferimenti
 - Datalake – Set Retention
 - Docs: “5.3 ETL / Datalake” in docs-conventions.md
 - Output Contract (JSON)
+
+
+
+
+
 

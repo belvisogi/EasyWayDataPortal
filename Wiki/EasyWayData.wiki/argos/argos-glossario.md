@@ -4,7 +4,7 @@ title: ARGOS – Glossario Unificato (v1)
 summary: Glossario condiviso per ARGOS (termini chiave, enum, abbreviazioni) allineato con EasyWay.
 status: draft
 owner: team-platform
-tags: [argos, dq, agents, language/it]
+tags: [argos, dq, agents, domain/control-plane, layer/reference, audience/non-expert, audience/dev, privacy/internal, language/it]
 llm:
   include: true
   pii: none
@@ -26,3 +26,7 @@ Voci iniziali (selezione)
 
 Riferimenti
 - Quality Gates, Policy DSL, Tech Profiling, Playbook, Event Schema, Coach Agent.
+
+
+
+

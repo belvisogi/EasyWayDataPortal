@@ -1,7 +1,16 @@
 ---
 title: Sviluppo Locale Dual-Mode (DB mock | SQL)
 summary: Riduci i costi in locale con DB mock basato su file e passa a SQL senza refactor.
-tags: [dev, db, costs]
+tags: [dev, db, costs, domain/control-plane, layer/howto, audience/dev, privacy/internal, language/it]
+id: ew-dev-dual-mode
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Obiettivo
@@ -27,4 +36,6 @@ Dettagli implementativi
 Migrazione a cloud
 - Cambia `.env` su App Service: `DB_MODE=sql`, parametri DB/AAD, `AUTH_ISSUER`/`AUTH_JWKS_URI`.
 - Le stesse rotte funzionano senza modifiche client.
+
+
 

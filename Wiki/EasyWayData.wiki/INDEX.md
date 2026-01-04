@@ -1,11 +1,21 @@
 ---
 title: Indice Globale Wiki
 summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo, deploy e governance.
+id: ew-index
+status: draft
+owner: team-platform
+tags: [docs, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Indice Globale Wiki
 
-- [ACTIVITY_LOG.md](./ACTIVITY_LOG.md) - Activity Log – CSV friendly (delimiter: ¦)
+- [activity-log.md](./activity-log.md) - Activity Log – CSV friendly (delimiter: ¦)
   - H2: Domande a cui risponde
   - H2: API – Eventi approvati
 - [agent-manifest-and-indexing-best-practices.md](./agent-manifest-and-indexing-best-practices.md) - Agent Manifest & Indexing - Best Practices
@@ -30,7 +40,7 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
 - [value-proposition.md](./value-proposition.md) - Visione & Value Proposition
 - [intent-contract.md](./intent-contract.md) - Contratto Intent (Mini‑DSL)
 - [output-contract.md](./output-contract.md) - Output Contract (JSON)
-- [agents/agent_template/README.md](../agents/agent_template/README.md) - Template Agente (Skeleton)
+- [agents/agent_template/README.md](../../agents/agent_template/README.md) - Template Agente (Skeleton)
 - [db-user-access-management.md](./db-user-access-management.md) - Gestione Accessi DB (Agent DBA)
 - [datalake-ensure-structure.md](./datalake-ensure-structure.md) - Datalake Ensure Structure (Stub)
 - [datalake-apply-acl.md](./datalake-apply-acl.md) - Datalake Apply ACL (Stub)
@@ -61,9 +71,10 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
 - [quest-board-excel-csv.md](./quest-board-excel-csv.md) - Quest Board – Excel/CSV Upload (L1→L5)
 ## HOWTO
 - [howto-what-first-team.md](./howto-what-first-team.md) - HOWTO – WHAT‑first + Diario di Bordo (Team)
-## Start Here
+- [control-plane/index.md](./control-plane/index.md) - Control Plane - Panoramica
+- [domains/index.md](./domains/index.md) - Domini - Panoramica
 - [start-here.md](./start-here.md) - Start Here – 5 Link Essenziali
-## Orchestrations
+- [orchestrations/orchestrator-n8n.md](./orchestrations/orchestrator-n8n.md) - Orchestratore n8n (WHAT)
 - [orchestrations/wf-excel-csv-upload.md](./orchestrations/wf-excel-csv-upload.md) - Orchestrazione – wf.excel-csv-upload (WHAT)
 - [orchestrations/intents-catalog.md](./orchestrations/intents-catalog.md) - Orchestrations – Intents Catalog (Use Case Excel/CSV)
 ## UX
@@ -74,240 +85,240 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
   - H2: 1) Nomi di file e cartelle (semplici)
   - H2: 1.1) Convenzione di Nomenclatura – kebab-case vs snake_case
   - H2: Uso di kebab-case e snake_case per AI, DB e API
-- [EasyWay_WebApp/01_database_architecture/01a-db-setup.md](./EasyWay_WebApp/01_database_architecture/01a-db-setup.md) - EasyWay Data Portal – Database SETUP
+- [easyway-webapp/01_database_architecture/01a-db-setup.md](./easyway-webapp/01_database_architecture/01a-db-setup.md) - EasyWay Data Portal – Database SETUP
   - H2: ✅ Scopo del file
   - H2: 1️⃣ **Login SQL Server (da creare su MASTER)**
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/portal.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/portal.md) - EasyWay Data Portal – PORTAL.md
+- [easyway-webapp/01_database_architecture/01b_schema_structure/portal.md](./easyway-webapp/01_database_architecture/01b_schema_structure/portal.md) - EasyWay Data Portal – PORTAL.md
   - H2: ✅ Scopo del file
   - H2: 📋 **Riepilogo tabelle principali schema PORTAL**
   - H2: 5️⃣ **Accesso sezioni Portale** (Policy Section Access custom)
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability.md) - Domande a cui risponde
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability.md) - Domande a cui risponde
   - H2: Domande a cui risponde
   - H2: Scopo
   - H2: Schema/DDL
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/function.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/function.md) - Domande a cui risponde
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/function.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/function.md) - Domande a cui risponde
   - H2: Domande a cui risponde
   - H2: Scopo
   - H2: Schema/DDL
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md) - Indice
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md) - Indice
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md) - EasyWay Data Portal – SEQUENCE
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md) - EasyWay Data Portal – SEQUENCE
   - H2: ✅ Scopo del file
   - H2: 1️⃣ Sequence PRODUZIONE (NDG reali)
   - H2: 2️⃣ Sequence DEBUG/TEST (codici demo)
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md) - EasyWay Data Portal - STORE PROCEDURE: Linee Guida, Best Practice e Template
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md) - EasyWay Data Portal - STORE PROCEDURE: Linee Guida, Best Practice e Template
   - H2: ✅ Scopo del documento
   - H2: **Template** ##
   - H2: Template standard EasyWay (produzione)
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/configuration.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/configuration.md) - a) **sp_insert_configuration**
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/configuration.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/configuration.md) - a) **sp_insert_configuration**
   - H2: Domande a cui risponde
   - H2: Scopo
   - H2: Schema/DDL
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md) - Indice
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md) - Indice
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/profile-domains.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/profile-domains.md) - a) **sp_insert_profile_domain**
-  - H2: Domande a cui risponde
-  - H2: Scopo
-  - H2: Schema/DDL
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/section-access.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/section-access.md) - a) **sp_insert_section_access**
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/profile-domains.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/profile-domains.md) - a) **sp_insert_profile_domain**
   - H2: Domande a cui risponde
   - H2: Scopo
   - H2: Schema/DDL
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md) - Domande a cui risponde
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/section-access.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/section-access.md) - a) **sp_insert_section_access**
   - H2: Domande a cui risponde
   - H2: Scopo
   - H2: Schema/DDL
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/subscription.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/subscription.md) - a) **sp_insert_subscription**
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md) - Domande a cui risponde
   - H2: Domande a cui risponde
   - H2: Scopo
   - H2: Schema/DDL
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/tenant.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/tenant.md) - sp_insert_tenant
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/subscription.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/subscription.md) - a) **sp_insert_subscription**
   - H2: Domande a cui risponde
   - H2: Scopo
   - H2: Schema/DDL
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/user-notification-settings.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/user-notification-settings.md) - a) **sp_insert_user_notification_settings**
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/tenant.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/tenant.md) - sp_insert_tenant
   - H2: Domande a cui risponde
   - H2: Scopo
   - H2: Schema/DDL
-- [EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/users.md](./EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/users.md) - Domande a cui risponde
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/user-notification-settings.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/user-notification-settings.md) - a) **sp_insert_user_notification_settings**
   - H2: Domande a cui risponde
   - H2: Scopo
   - H2: Schema/DDL
-- [EasyWay_WebApp/01_database_architecture/01b-schema-structure.md](./EasyWay_WebApp/01_database_architecture/01b-schema-structure.md) - Domande a cui risponde
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/users.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/users.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/01_database_architecture/best-practices-checklist.md](./EasyWay_WebApp/01_database_architecture/best-practices-checklist.md) - best-practices-checklist
-- [EasyWay_WebApp/01_database_architecture/db-studio.md](./EasyWay_WebApp/01_database_architecture/db-studio.md) - db-studio
-- [EasyWay_WebApp/01_database_architecture/flyway.md](./EasyWay_WebApp/01_database_architecture/flyway.md) - Le credenziali (URL/USER/PASSWORD) si passano come env nel runner
-- [EasyWay_WebApp/01_database_architecture/index.md](./EasyWay_WebApp/01_database_architecture/index.md) - Indice
+  - H2: Scopo
+  - H2: Schema/DDL
+- [easyway-webapp/01_database_architecture/01b-schema-structure.md](./easyway-webapp/01_database_architecture/01b-schema-structure.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/01_database_architecture/portal.md](./EasyWay_WebApp/01_database_architecture/portal.md) - portal
-- [EasyWay_WebApp/01_database_architecture/sequence.md](./EasyWay_WebApp/01_database_architecture/sequence.md) - sequence
-- [EasyWay_WebApp/01_database_architecture/storeprocess.md](./EasyWay_WebApp/01_database_architecture/storeprocess.md) - storeprocess
-- [EasyWay_WebApp/01-database-architecture.md](./EasyWay_WebApp/01-database-architecture.md) - EasyWay Data Portal – Database Architecture Master
+- [easyway-webapp/01_database_architecture/best-practices-checklist.md](./easyway-webapp/01_database_architecture/best-practices-checklist.md) - best-practices-checklist
+- [easyway-webapp/01_database_architecture/db-studio.md](./easyway-webapp/01_database_architecture/db-studio.md) - db-studio
+- [easyway-webapp/01_database_architecture/flyway.md](./easyway-webapp/01_database_architecture/flyway.md) - Le credenziali (URL/USER/PASSWORD) si passano come env nel runner
+- [easyway-webapp/01_database_architecture/index.md](./easyway-webapp/01_database_architecture/index.md) - Indice
+  - H2: Domande a cui risponde
+- [easyway-webapp/01_database_architecture/portal.md](./easyway-webapp/01_database_architecture/portal.md) - portal
+- [easyway-webapp/01_database_architecture/sequence.md](./easyway-webapp/01_database_architecture/sequence.md) - sequence
+- [easyway-webapp/01_database_architecture/storeprocess.md](./easyway-webapp/01_database_architecture/storeprocess.md) - storeprocess
+- [easyway-webapp/01-database-architecture.md](./easyway-webapp/01-database-architecture.md) - EasyWay Data Portal – Database Architecture Master
   - H2: ✅ Scopo del Documento
   - H2: 👾 Conversational Intelligence & AMS Ready — Principi Base
   - H2: 📂 Schemi Database Principali
-- [EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione.md](./EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione.md) - Integrazione API Esterne – EasyWay Data Portal
+- [easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md) - Integrazione API Esterne – EasyWay Data Portal
   - H2: Lookup – Integrazione API Esterne
   - H2: Tabella Integrazioni API Esterne
   - H2: Policy Sicurezza & Gestione Key/API
-- [EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md](./EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md) - **1. Schema di validazione**
+- [easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md) - **1. Schema di validazione**
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md](./EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md) - **1. Schema di validazione**
+- [easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md) - **1. Schema di validazione**
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md](./EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md) - ENDPOINT: POST `/api/onboarding`
+- [easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md) - ENDPOINT: POST `/api/onboarding`
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md](./EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md) - Checklist di test API (EasyWay Data Portal)
+- [easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md) - Checklist di test API (EasyWay Data Portal)
   - H2: Checklist di test API (EasyWay Data Portal)
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md](./EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md) - Convenzioni REST EasyWay
+- [easyway-webapp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md) - Convenzioni REST EasyWay
   - H2: Convenzioni REST EasyWay
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md](./EasyWay_WebApp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md) - Integrazione Shopify – Dettaglio & Esempio Pratico
+- [easyway-webapp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md) - Integrazione Shopify – Dettaglio & Esempio Pratico
   - H2: Overview
   - H2: Tabella Integrazione Shopify
   - H2: Esempio Pratico – Recupero Ordini (API)
-- [EasyWay_WebApp/02_logiche_easyway/best-practice-naming-and-scalability.md](./EasyWay_WebApp/02_logiche_easyway/best-practice-naming-and-scalability.md) - Lookup – Best Practice Naming & Scalabilità
+- [easyway-webapp/02_logiche_easyway/best-practice-naming-and-scalability.md](./easyway-webapp/02_logiche_easyway/best-practice-naming-and-scalability.md) - Lookup – Best Practice Naming & Scalabilità
   - H2: Tabella Naming Convention (macro overview)
   - H2: Best Practice Scalabilità
   - H2: Checklist Naming & Scalabilità
-- [EasyWay_WebApp/02_logiche_easyway/index.md](./EasyWay_WebApp/02_logiche_easyway/index.md) - Indice
-- [EasyWay_WebApp/02_logiche_easyway/logging-and-audit.md](./EasyWay_WebApp/02_logiche_easyway/logging-and-audit.md) - Logging & Audit – EasyWay Data Portal
+- [easyway-webapp/02_logiche_easyway/index.md](./easyway-webapp/02_logiche_easyway/index.md) - Indice
+- [easyway-webapp/02_logiche_easyway/logging-and-audit.md](./easyway-webapp/02_logiche_easyway/logging-and-audit.md) - Logging & Audit – EasyWay Data Portal
   - H2: Lookup Logging & Audit – Microservizi & API Gateway
   - H2: Tabella Eventi/Audit da Tracciare
   - H2: Best Practice Monitoring & Audit
-- [EasyWay_WebApp/02_logiche_easyway/logging-and-audit/readme.md](./EasyWay_WebApp/02_logiche_easyway/logging-and-audit/readme.md) - Checklist Operativa – Logging & Audit
+- [easyway-webapp/02_logiche_easyway/logging-and-audit/readme.md](./easyway-webapp/02_logiche_easyway/logging-and-audit/readme.md) - Checklist Operativa – Logging & Audit
   - H2: Obiettivo
   - H2: Checklist Logging & Audit
   - H2: Template di commento/README da includere in ogni script/codice
-- [EasyWay_WebApp/02_logiche_easyway/login-flussi-onboarding.md](./EasyWay_WebApp/02_logiche_easyway/login-flussi-onboarding.md) - Lookup – Flussi Onboarding/Login
+- [easyway-webapp/02_logiche_easyway/login-flussi-onboarding.md](./easyway-webapp/02_logiche_easyway/login-flussi-onboarding.md) - Lookup – Flussi Onboarding/Login
   - H2: Tabella Flussi Utente
   - H2: Best Practice Onboarding/Login
   - H2: Esempio Flusso Step-by-Step – Onboarding Locale
-- [EasyWay_WebApp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md](./EasyWay_WebApp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md) - Esempi Flussi Avanzati Onboarding/Login
+- [easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md](./easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md) - Esempi Flussi Avanzati Onboarding/Login
   - H2: Esempi Flussi Avanzati Onboarding/Login
   - H2: Dettaglio Esempio – SSO Aziendale Custom (Entra ID/SAML/OIDC)
   - H2: Dettaglio Esempio – Gestione Consensi Privacy
-- [EasyWay_WebApp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md](./EasyWay_WebApp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md) - Esempi Flussi Verticali PA – Accesso tramite SPID e CIE
+- [easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md](./easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md) - Esempi Flussi Verticali PA – Accesso tramite SPID e CIE
   - H2: Esempio Dettagliato – Accesso tramite SPID
   - H2: Esempio Dettagliato – Accesso tramite CIE
   - H2: Esempio Onboarding Integrato SPID/CIE
-- [EasyWay_WebApp/02_logiche_easyway/login-flussi-onboarding/readme.md](./EasyWay_WebApp/02_logiche_easyway/login-flussi-onboarding/readme.md) - Flussi Onboarding/Login – Dettagli & Variazioni
+- [easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md](./easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md) - Flussi Onboarding/Login – Dettagli & Variazioni
   - H2: Tabella Flussi Aggiuntivi e Variazioni
   - H2: Dettaglio Pratiche Operative
   - H2: Esempio Flusso “Upgrade prospect → cliente reale”
-- [EasyWay_WebApp/02_logiche_easyway/notifiche-gestione.md](./EasyWay_WebApp/02_logiche_easyway/notifiche-gestione.md) - Lookup – Gestione Notifiche
+- [easyway-webapp/02_logiche_easyway/notifiche-gestione.md](./easyway-webapp/02_logiche_easyway/notifiche-gestione.md) - Lookup – Gestione Notifiche
   - H2: Tabella Tipologia Notifiche
   - H2: Gestione Preferenze Notifica Utente
   - H2: Flusso Invio Notifiche (step-by-step)
-- [EasyWay_WebApp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md](./EasyWay_WebApp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md) - Esempi Notifiche & Template Email Configurabili (Excel su Storage)
+- [easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md](./easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md) - Esempi Notifiche & Template Email Configurabili (Excel su Storage)
   - H2: 1. Flusso Gestione Template Email
   - H2: 2. Struttura file Excel `email_templates.xlsx`
   - H2: 3. Esempio di codice (pseudo, architettura agnostica)
-- [EasyWay_WebApp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md](./EasyWay_WebApp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md) - Policy di Configurazione & Sicurezza – Microservizi e API Gateway
+- [easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md](./easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md) - Policy di Configurazione & Sicurezza – Microservizi e API Gateway
   - H2: Dettaglio Implementativo Policy Chiave
   - H2: **Best Practice Operativa**
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/02_logiche_easyway/raccomandazione-architetturale-easyway-data-portal.md](./EasyWay_WebApp/02_logiche_easyway/raccomandazione-architetturale-easyway-data-portal.md) - **Dalle chat emerge chiaramente che:**
+- [easyway-webapp/02_logiche_easyway/raccomandazione-architetturale-easyway-data-portal.md](./easyway-webapp/02_logiche_easyway/raccomandazione-architetturale-easyway-data-portal.md) - **Dalle chat emerge chiaramente che:**
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/02-logiche-easyway.md](./EasyWay_WebApp/02-logiche-easyway.md) - Prefazione – EasyWay Data Portal  
+- [easyway-webapp/02-logiche-easyway.md](./easyway-webapp/02-logiche-easyway.md) - Prefazione – EasyWay Data Portal  
   - H2: Guida alla Documentazione Funzionale e Architetturale
   - H2: Macro-sezioni documentate
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md](./EasyWay_WebApp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md) - 🗂️ EasyWay DataPortal - Standard Accesso Storage e Datalake (IAM & Naming)
+- [easyway-webapp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md](./easyway-webapp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md) - 🗂️ EasyWay DataPortal - Standard Accesso Storage e Datalake (IAM & Naming)
   - H2: 🎯 Scopo del Documento
   - H2: 🔎 Differenza tra Blob Storage e Datalake HNS
   - H2: 🏷️ Naming Convention - Utenze di Servizio
-- [EasyWay_WebApp/03_datalake_dev/index.md](./EasyWay_WebApp/03_datalake_dev/index.md) - Indice
-- [EasyWay_WebApp/03-datalake-dev.md](./EasyWay_WebApp/03-datalake-dev.md) - `landing/`
+- [easyway-webapp/03_datalake_dev/index.md](./easyway-webapp/03_datalake_dev/index.md) - Indice
+- [easyway-webapp/03-datalake-dev.md](./easyway-webapp/03-datalake-dev.md) - `landing/`
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/04-accesso-registrazione-notifiche.md](./EasyWay_WebApp/04-accesso-registrazione-notifiche.md) - EasyWay Data Portal - Documentazione Funzionale Completa
+- [easyway-webapp/04-accesso-registrazione-notifiche.md](./easyway-webapp/04-accesso-registrazione-notifiche.md) - EasyWay Data Portal - Documentazione Funzionale Completa
   - H2: 1️⃣ Obiettivo
   - H2: 2️⃣ Flusso Registrazione e Accesso Utente
   - H2: 3️⃣ Architettura Generale del Portale (Microservizi / Container)
-- [EasyWay_WebApp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md](./EasyWay_WebApp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md) - apim-jwt-tenant-claim-policy
-- [EasyWay_WebApp/05_codice_easyway_portale/docs.md](./EasyWay_WebApp/05_codice_easyway_portale/docs.md) - Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md](./easyway-webapp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md) - apim-jwt-tenant-claim-policy
+- [easyway-webapp/05_codice_easyway_portale/docs.md](./easyway-webapp/05_codice_easyway_portale/docs.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md) - Agentic Readiness & Esempi (Users/Onboarding)
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md) - Agentic Readiness & Esempi (Users/Onboarding)
   - H2: Scopo
   - H2: Linee guida agentiche
   - H2: Esempio 1 — USERS (CRUD via SP)
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md) - Capitolo – Dinamiche di Manutenzione
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md) - Capitolo – Dinamiche di Manutenzione
   - H2: Architettura delle Cartelle — Dinamiche di Manutenzione
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/endpoint.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/endpoint.md) - Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/endpoint.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/endpoint.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001-get-api-config.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001-get-api-config.md) - ENDPOINT: GET `/api/config`
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001-get-api-config.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001-get-api-config.md) - ENDPOINT: GET `/api/config`
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001a-get-api-config-da-db.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001a-get-api-config-da-db.md) - A. Codice - File da creare/aggiornare
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001a-get-api-config-da-db.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001a-get-api-config-da-db.md) - A. Codice - File da creare/aggiornare
   - H2: A. Codice - File da creare/aggiornare
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md) - **1. `src/routes/branding.ts`**
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md) - **1. `src/routes/branding.ts`**
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md) - ENDPOINT: CRUD `/api/users`
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md) - ENDPOINT: CRUD `/api/users`
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md) - Indice
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md) - ENDPOINT: [HTTP_VERB] `/api/your-endpoint`
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md) - Indice
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md) - ENDPOINT: [HTTP_VERB] `/api/your-endpoint`
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md) - Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md) - Gestione Log — EasyWay Data Portal
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md) - Gestione Log — EasyWay Data Portal
   - H2: **Principi guida**
   - H2: **Tipi di log gestiti**
   - H2: **Policy dati sensibili**
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/automazione-export-log-su-datalake-e-compliance.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/automazione-export-log-su-datalake-e-compliance.md) - Automazione export log su Datalake & Compliance
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/automazione-export-log-su-datalake-e-compliance.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/automazione-export-log-su-datalake-e-compliance.md) - Automazione export log su Datalake & Compliance
   - H2: Obiettivo
   - H2: Soluzione consigliata (EasyWay Data Portal)
   - H2: Flusso tecnico
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/logging-conversational-ready-agent-aware.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/logging-conversational-ready-agent-aware.md) - Logging conversational-ready (agent-aware)
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/logging-conversational-ready-agent-aware.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/logging-conversational-ready-agent-aware.md) - Logging conversational-ready (agent-aware)
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/index.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/index.md) - Indice
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/index.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/index.md) - Indice
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md) - Policy API/Store Procedure — EasyWay Data Portal
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md) - Policy API/Store Procedure — EasyWay Data Portal
   - H2: Principio Guida
   - H2: Vantaggi del modello
   - H2: Pattern operativo
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md) - EasyWay Data Portal API — Starter Kit
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md) - EasyWay Data Portal API — Starter Kit
   - H2: Comandi principali
   - H2: Struttura file configurazione
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file/conversational-and-agent-aware-ready.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file/conversational-and-agent-aware-ready.md) - **. Controller**
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file/conversational-and-agent-aware-ready.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file/conversational-and-agent-aware-ready.md) - **. Controller**
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md) - Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md) - **A. Middleware di validazione per parametri e querystring**
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md) - **A. Middleware di validazione per parametri e querystring**
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway-portal-api.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway-portal-api.md) - EasyWay Data Portal — Manifesto Tecnologico & Analitico
+- [easyway-webapp/05_codice_easyway_portale/easyway-portal-api.md](./easyway-webapp/05_codice_easyway_portale/easyway-portal-api.md) - EasyWay Data Portal — Manifesto Tecnologico & Analitico
   - H2: Codice
   - H2: Premessa e Visione
   - H2: Scelte Architetturali e Motivazioni
-- [EasyWay_WebApp/05_codice_easyway_portale/easyway-portal-frontend.md](./EasyWay_WebApp/05_codice_easyway_portale/easyway-portal-frontend.md) - Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/easyway-portal-frontend.md](./easyway-webapp/05_codice_easyway_portale/easyway-portal-frontend.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/iac.md](./EasyWay_WebApp/05_codice_easyway_portale/iac.md) - Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/iac.md](./easyway-webapp/05_codice_easyway_portale/iac.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/index.md](./EasyWay_WebApp/05_codice_easyway_portale/index.md) - Indice
+- [easyway-webapp/05_codice_easyway_portale/index.md](./easyway-webapp/05_codice_easyway_portale/index.md) - Indice
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/qa-setup-and-test-locale.md](./EasyWay_WebApp/05_codice_easyway_portale/qa-setup-and-test-locale.md) - EasyWay Data Portal — Q&A Setup & Test Locale
+- [easyway-webapp/05_codice_easyway_portale/qa-setup-and-test-locale.md](./easyway-webapp/05_codice_easyway_portale/qa-setup-and-test-locale.md) - EasyWay Data Portal — Q&A Setup & Test Locale
   - H2: Aggiornamenti dal 2025-07-28 al 2025-07-29
   - H2: **Note generali**
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/readme.md](./EasyWay_WebApp/05_codice_easyway_portale/readme.md) - Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/readme.md](./easyway-webapp/05_codice_easyway_portale/readme.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/scripts.md](./EasyWay_WebApp/05_codice_easyway_portale/scripts.md) - Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/scripts.md](./easyway-webapp/05_codice_easyway_portale/scripts.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/05_codice_easyway_portale/security-and-observability.md](./EasyWay_WebApp/05_codice_easyway_portale/security-and-observability.md) - security-and-observability
-- [EasyWay_WebApp/05-codice-easyway-portale.md](./EasyWay_WebApp/05-codice-easyway-portale.md) - Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/security-and-observability.md](./easyway-webapp/05_codice_easyway_portale/security-and-observability.md) - security-and-observability
+- [easyway-webapp/05-codice-easyway-portale.md](./easyway-webapp/05-codice-easyway-portale.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [EasyWay_WebApp/06-frontend-architecture.md](./EasyWay_WebApp/06-frontend-architecture.md) - EasyWay Data Portal – Frontend Architecture & Integration
+- [easyway-webapp/06-frontend-architecture.md](./easyway-webapp/06-frontend-architecture.md) - EasyWay Data Portal – Frontend Architecture & Integration
   - H2: 🎯 Obiettivo
   - H2: 📁 Struttura Progetto Frontend (Next.js)
   - H2: 🔄 Mappatura Controller Backend ⇄ Frontend UI
-- [EasyWay_WebApp/07-iam-naming-utenti-gruppi.md](./EasyWay_WebApp/07-iam-naming-utenti-gruppi.md) - 📂 Wiki IAM - Naming Convention Utenze Tecniche e Gruppi  
+- [easyway-webapp/07-iam-naming-utenti-gruppi.md](./easyway-webapp/07-iam-naming-utenti-gruppi.md) - 📂 Wiki IAM - Naming Convention Utenze Tecniche e Gruppi  
   - H2: 🎯 Scopo del Documento  
   - H2: 🔑 Naming Convention - Utenze Tecniche di Servizio  
   - H2: 🔑 Naming Convention - Gruppi IAM (RBAC)  
-- [EasyWay_WebApp/10-ai-agents.md](./EasyWay_WebApp/10-ai-agents.md) - EasyWay DataPortal – Conversational Intelligence & AMS
+- [easyway-webapp/10-ai-agents.md](./easyway-webapp/10-ai-agents.md) - EasyWay DataPortal – Conversational Intelligence & AMS
   - H2: Obiettivo
   - H2: Sommario
   - H2: 1. Introduzione
@@ -321,7 +332,7 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
   - H2: DB Sequences
 - [INDEX.md](./INDEX.md) - Indice Globale
   - H2: Domande a cui risponde
-- [LLM_READINESS_CHECKLIST.md](./LLM_READINESS_CHECKLIST.md) - LLM Readiness – Lista Semplice (Per Persone e AI)
+- [llm-readiness-checklist.md](./llm-readiness-checklist.md) - LLM Readiness – Lista Semplice (Per Persone e AI)
   - H2: Checklist per OGNI pagina (.md)
   - H2: Checklist NOMI (file e cartelle)
   - H2: Checklist CONTENUTI (per tipo)
@@ -399,7 +410,7 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
   - H2: One-shot: rigenera tutto (root corrente)
   - H2: Multi-root: aggrega più progetti
   - H2: Multi-root: normalizzazione (scan/apply) e report
-- [TODO_CHECKLIST.md](./TODO_CHECKLIST.md) - TODO – Razionalizzazione Wiki (Semplice)
+- [todo-checklist.md](./todo-checklist.md) - TODO – Razionalizzazione Wiki (Semplice)
   - H2: Convenzioni e struttura
   - H2: Rinomine e pulizia nomi
   - H2: Metadati e front matter
@@ -407,3 +418,11 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
   - H2: Obiettivi
   - H2: Fasi e Sequenza
   - H2: Per‑Cartella (linee guida)
+
+
+
+
+
+
+
+

@@ -6,15 +6,13 @@ status: draft
 owner: team-api
 created: '2025-10-18'
 updated: '2025-10-18'
-tags:
-  - layer/reference
-  - artifact/agentic
-  - language/it
+tags: [artifact-agentic, domain/frontend, layer/spec, audience/dev, privacy/internal, language/it]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 400-700
-entities: []
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 # Agentic Readiness & Esempi (Users/Onboarding)
 
@@ -73,7 +71,7 @@ Obiettivo: eliminare DML diretti dalle API e passare a SP coerenti con il DDL st
 Obiettivo: confermare il pattern SP + variante DEBUG per onboarding.
 
 1) SP di riferimento (Wiki)
-- Produzione: `PORTAL.sp_register_tenant_and_user` (vedi `EasyWay_WebApp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md:2798`)
+- Produzione: `PORTAL.sp_register_tenant_and_user` (vedi `easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md:2798`)
 - Debug: `PORTAL.sp_debug_register_tenant_and_user` (`.../stored-procedure.md:2901`)
 
 2) Mini‑DSL JSON (per generare/aggiornare le SP da template)
@@ -106,4 +104,11 @@ Obiettivo: confermare il pattern SP + variante DEBUG per onboarding.
 3. Aggiornare la Wiki (questa pagina) con i riferimenti a nuove SP/tabelle.
 4. Pipeline: applica migrazioni in `test`, esegue smoke test (`tests/api/rest-client/...`).
 5. Approvazione e promozione verso UAT/PROD.
+
+
+
+
+
+
+
 

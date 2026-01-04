@@ -4,7 +4,13 @@ title: Multi‑Agent & Governance – EasyWay
 summary: Struttura di agenti specializzati + control plane (gates/policy) con ADO
 status: draft
 owner: team-platform
-tags: [agents, governance, privacy/internal, language/it]
+tags: [agents, governance, domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Visione
@@ -31,4 +37,9 @@ ChatOps (opzionali)
 
 Audit & Osservabilità
 - `PORTAL.LOG_AUDIT` per eventi agent; Application Insights/OTel per tracing e KPI (in roadmap)
+
+
+
+
+
 

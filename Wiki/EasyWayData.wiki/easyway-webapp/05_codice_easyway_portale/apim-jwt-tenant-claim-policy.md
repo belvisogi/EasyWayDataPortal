@@ -4,7 +4,7 @@ title: APIM – JWT Validate & Tenant Claim
 summary: Esempio di policy APIM per validazione JWT e mappatura tenant
 status: draft
 owner: team-platform
-tags: [domain/webapp, layer/reference, audience/dev, privacy/internal, language/it]
+tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it]
 llm:
   include: true
   pii: none
@@ -55,4 +55,8 @@ Note
 - Il backend EasyWay non richiede più `X-Tenant-Id` dal client; legge il tenant dai claim del token.
 - L’header impostato da APIM può servire per audit/troubleshooting, ma non è necessario.
 - Usa prodotti/policy APIM per rate‑limit multi‑tenant, IP allowlist e mTLS secondo necessità.
+
+
+
+
 

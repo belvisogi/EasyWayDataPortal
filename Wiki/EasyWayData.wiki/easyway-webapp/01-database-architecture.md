@@ -1,24 +1,23 @@
 ---
 title: Database Architecture Master
 chapter: 01
-tags: [database, architettura, multi-tenant, ams, chatbot, conversational, portal, gold, bronze, rls, masking, store procedure, ndg, sequence]
-source: EasyWay_WebApp/01-database-architecture.md
+tags: [database, architettura, multi-tenant, ams, chatbot, conversational, portal, gold, bronze, rls, masking, stored-procedure, ndg, sequence, domain/db, layer/spec, audience/dev, audience/dba, privacy/internal, language/it]
+source: easyway-webapp/01-database-architecture.md
 id: ew-01-database-architecture
 title: 01 database architecture
-summary: 
-owner: 
 llm:
+  pii: none
   include: true
-  pii: 
   chunk_hint: 400-600
   redaction: [email, phone]
 entities: []
----
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform---
 # EasyWay Data Portal – Database Architecture Master
 
 > **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
 > **Conversational Intelligence & AMS ready**: tutte le procedure, tabelle, funzioni e documentazione sono progettate per essere governate anche via chatbot, automation, agent e AMS.
-
 ---
 
 ## ✅ Scopo del Documento
@@ -147,5 +146,11 @@ Per ogni oggetto:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 
 

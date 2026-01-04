@@ -4,7 +4,7 @@ title: Security Middleware & Observability
 summary: Best practice di sicurezza, request id e correlazione
 status: draft
 owner: team-api
-tags: [domain/webapp, layer/reference, audience/dev, privacy/internal, language/it]
+tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it]
 llm:
   include: true
   pii: none
@@ -67,3 +67,7 @@ Uso consigliato (GOLD/REPORTING)
 
 Approfondimenti
 - Parametrizzazione completa: vedi `Wiki/EasyWayData.wiki/parametrization-best-practices.md`
+
+
+
+

@@ -6,26 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'
-tags:
-  - vision
-  - why
-  - how
-  - what
-  - presentazione
-  - overview
-  - multi-tenant
-  - ai
-  - ams
-  - conversational
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
----
+tags: [vision, why, how, what, presentazione, overview, multi-tenant, ai, ams, conversational, privacy/internal, language/it]
+entities: []---
 
 # 🎯 EasyWay Data Portal – Start With Why
 
@@ -37,6 +19,11 @@ Perché **il dato è una risorsa**, ma solo se sai come leggerlo.
 
 EasyWay Data Portal è una piattaforma SaaS multi-tenant che consente a ciascun cliente/tenant di gestire in autonomia dati, utenti, configurazioni e servizi, con isolamento e sicurezza a livello enterprise.
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 ## 🛠 How – Come lo facciamo
@@ -67,3 +54,7 @@ Tutto questo in un ecosistema **scalabile**, **containerizzato** (Docker), e **p
 - Quali sono i benefici chiave per i tenant e gli utenti?
 - Come è organizzata l’architettura a livello alto?
 - In che modo l’AI/AMS si integra nei flussi del portale?
+
+
+
+

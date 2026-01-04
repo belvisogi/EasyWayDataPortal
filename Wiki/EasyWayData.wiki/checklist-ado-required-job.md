@@ -1,7 +1,16 @@
 ---
 title: ADO – Segnare un job come Required nelle PR
-tags: [ado, branch-policies, governance]
+tags: [ado, branch-policies, governance, domain/control-plane, layer/gate, audience/dev, audience/ops, privacy/internal, language/it, ci]
 status: active
+id: ew-checklist-ado-required-job
+summary: TODO - aggiungere un sommario breve.
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Obiettivo
@@ -29,4 +38,7 @@ Riferimenti
 - `Wiki/EasyWayData.wiki/enforcer-guardrail.md`
 - `docs/ci/ewctl-gates.md`
 - `scripts/enforcer.ps1`
+
+
+
 

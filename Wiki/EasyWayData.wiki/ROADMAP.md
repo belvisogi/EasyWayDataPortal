@@ -6,16 +6,13 @@ status: draft
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'
-tags:
-  - roadmap
-  - quality
-  - automation
-  - language/it
+tags: [roadmap, quality, automation, domain/docs, layer/reference, audience/non-expert, audience/dev, privacy/internal, language/it]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 300-500
-entities: []
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # Roadmap & Qualità Documentazione
@@ -49,3 +46,9 @@ entities: []
 - Lint atomicità: nessun file con Q&A < 3 (fuori whitelist) e nessun code fence senza linguaggio.
 - Naming/Anchor check: 0 issue.
 - Manifest/Anchors/Chunks aggiornati.
+
+
+
+
+
+

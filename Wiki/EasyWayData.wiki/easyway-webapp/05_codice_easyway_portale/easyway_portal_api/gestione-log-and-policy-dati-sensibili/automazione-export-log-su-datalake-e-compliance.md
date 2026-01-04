@@ -1,25 +1,22 @@
 ---
 id: ew-automazione-export-log-su-datalake-e-compliance
 title: automazione export log su datalake e compliance
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: 
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
----
+tags: [domain/control-plane, layer/howto, audience/ops, audience/dev, privacy/internal, language/it]
+owner: team-platform---
 # Automazione export log su Datalake & Compliance
 
 ## Obiettivo
 Centralizzare e storicizzare i log business/audit esportandoli su Azure Datalake  
 in modo automatizzato, sicuro e compliant con policy GDPR, SOC2, DORA.
 
+summary: TODO - aggiungere un sommario breve.
+status: draft
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Soluzione consigliata (EasyWay Data Portal)
@@ -115,4 +112,10 @@ Compliance
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

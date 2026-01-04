@@ -1,16 +1,14 @@
 ---
 id: ew-step-2-—-struttura-src-e-primi-file
 title: STEP 2 — Struttura src e primi file
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
+tags: [privacy/internal, language/it]
+owner: team-platform
+summary: TODO - aggiungere un sommario breve.
+status: draft
 llm:
   include: true
-  pii: 
-  chunk_hint: 400-600
+  pii: none
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
 ---
@@ -245,4 +243,10 @@ Tipizzazione per i parametri di configurazione YAML letti da Datalake.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

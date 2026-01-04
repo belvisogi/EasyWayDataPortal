@@ -4,6 +4,13 @@ summary: Bozza operativa con wireframe testuali, specifica API, esempi JSON e in
 owner: team-platform
 status: draft
 tags: [ux, api, agentic, wizard, plan]
+id: ew-ux-agentic-ux
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Scopo
@@ -204,3 +211,4 @@ Se vuoi, procedo ora a:
 - creare uno scaffold API in EasyWay-DataPortal/easyway-portal-api/src/routes/plan.ts.
 
 Indica quale di questi vuoi che generi immediatamente.
+

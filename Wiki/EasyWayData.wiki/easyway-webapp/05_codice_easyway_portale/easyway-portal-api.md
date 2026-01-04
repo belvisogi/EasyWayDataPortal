@@ -6,21 +6,8 @@ status: draft
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-easyway-portal-api
-title: easyway portal api
-summary: 
-owner: 
----
+tags: [domain/frontend, layer/reference, audience/dev, privacy/internal, language/it]
+title: easyway portal api---
 # EasyWay Data Portal — Manifesto Tecnologico & Analitico
 
 ## Codice
@@ -40,6 +27,12 @@ ma come piattaforma **enterprise-ready**: **scalabile**, **multi-tenant**, confi
 
 > **Non costruiamo Hello World. Costruiamo un’infrastruttura pronta a crescere, evolvere, parlare.**
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Scelte Architetturali e Motivazioni
@@ -254,4 +247,10 @@ perché qui aggiungi/migliori endpoint, logica e parametrizzazione.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

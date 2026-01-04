@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-02-logiche-easyway
-title: 02 logiche easyway
-summary: 
-owner: 
----
+tags: [layer/reference, privacy/internal, language/it]
+title: 02 logiche easyway---
 # Prefazione – EasyWay Data Portal  
 ## Guida alla Documentazione Funzionale e Architetturale
 
@@ -61,6 +48,12 @@ La struttura e le macro-sezioni sono state definite in modo da coprire tutti gli
 - **Gestione Template Email via Excel su Storage**  
   Modello per template email/configurabili, versionabili, caricati su Storage, con logica di merge variabili, supporto multilingua e audit.
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 **Tutte le scelte qui documentate sono alla base dello sviluppo della piattaforma e saranno mantenute allineate a ogni evoluzione del progetto.**  
@@ -78,4 +71,9 @@ La struttura e le macro-sezioni sono state definite in modo da coprire tutti gli
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

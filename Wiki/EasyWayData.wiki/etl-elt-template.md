@@ -4,19 +4,13 @@ title: ETL/ELT Template (Per-Pipeline)
 summary: Template standard per documentare una pipeline ETL/ELT: sorgente, mapping, DQ, naming, schedule, monitoraggio e audit.
 status: draft
 owner: team-data
-tags:
-  - domain/data
-  - layer/how-to
-  - artifact/pipeline
-  - etl
-  - datalake
-  - language/it
+tags: [artifact-pipeline, etl, datalake, domain/datalake, layer/spec, audience/dev, privacy/internal, language/it]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
 ---
 
 # ETL/ELT – [nome-pipeline]
@@ -77,4 +71,9 @@ Quick Checklist
 - [ ] Retention/ACL allineati
 - [ ] Schedule/allarmi configurati
 - [ ] Audit/log attivi
+
+
+
+
+
 

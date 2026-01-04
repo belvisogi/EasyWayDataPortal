@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie
-title: esempi flussi verticali pa accesso tramite spid e cie
-summary: 
-owner: 
----
+tags: [layer/reference, privacy/internal, language/it]
+title: esempi flussi verticali pa accesso tramite spid e cie---
 # Esempi Flussi Verticali PA – Accesso tramite SPID e CIE
 
 | Flusso/Variante                        | Attori            | Step Principali                                                        | Security/ACL                | Note Operative                                  |
@@ -31,6 +18,12 @@ owner:
 | Profilazione utente da attributi SPID/CIE | Utente PA       | Lettura attributi (CF, nome, ente, ruolo), mapping su ruoli e permessi | Policy SPID/CIE, ACL        | Attributi verificati legalmente, audit trail completo           |
 | Cambio autenticazione (es. upgrade da SPID a CIE) | Utente PA  | Accesso con un metodo, upgrade sicurezza con l’altro                  | Policy MFA, logging         | Migliora sicurezza, tracciato audit                                 |
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Esempio Dettagliato – Accesso tramite SPID
@@ -92,4 +85,9 @@ owner:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

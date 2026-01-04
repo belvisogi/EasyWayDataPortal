@@ -1,3 +1,17 @@
+---
+id: ew-easyway-webapp-02-logiche-easyway-integrate-ada-best-practices
+title: Integrare le best-practice ADA in EasyWayDataPortal
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [docs, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Integrare le best-practice ADA in EasyWayDataPortal
 
 Sommario
@@ -55,3 +69,7 @@ Sommario
 
 Note finali
 - Ho già integrato in wiki i contenuti ADA rilevanti in forma adattata e operativa. Se vuoi, procedo ora con la Phase 0 (inventory dettagliata) oppure creo subito il template SQL SID + runbook minimo.
+
+
+
+

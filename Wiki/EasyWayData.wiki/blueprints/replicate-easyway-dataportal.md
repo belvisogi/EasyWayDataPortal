@@ -116,3 +116,6 @@ Checklist finale
 - [ ] OpenAPI allineata, sicurezza Bearer documentata
 - [ ] Pipeline con Variable Group impostato
 - [ ] Smoke test REST/Jest passano (401 atteso senza token)
+
+
+

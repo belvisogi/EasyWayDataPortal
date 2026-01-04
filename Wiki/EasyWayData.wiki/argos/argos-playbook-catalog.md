@@ -4,14 +4,13 @@ title: ARGOS – Playbook Catalog (v1)
 summary: Catalogo playbook di remediation/prevenzione con MODE/guardrail/backout/KPI e integrazione EasyWay.
 status: active
 owner: team-platform
-tags: [argos, dq, agents, language/it]
+tags: [argos, dq, agents, domain/control-plane, layer/reference, audience/ops, audience/dev, privacy/internal, language/it]
 llm:
   include: true
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
----
+entities: []---
 
 # ARGOS – Playbook Catalog (v1)
 
@@ -21,7 +20,6 @@ Integrazione EasyWay
 - Repository: serializzare le schede in YAML (`argos/pb/*.yaml`) con MODE/guardrail/backout/KPI e versionarle.
 - ChatOps: comandi `/argos pb list|open` integrati con i ticket del portale e con Decision Trace.
 - CI: validazione schema YAML dei PB e verifica campi minimi (owner, backout, privacy, guardrail).
-
 ---
 
 ## Principi essenziali
@@ -48,3 +46,7 @@ OWNER chiaro; manutenzione trimestrale; AUTO_SAFE solo per PB certificati.
 
 ## DoD (v1)
 Schede minime pubblicate, integrazione Alerting/Gates, KPI raccolti, flag AUTO_SAFE/guardrail/backout definiti, privacy rispettata.
+
+
+
+

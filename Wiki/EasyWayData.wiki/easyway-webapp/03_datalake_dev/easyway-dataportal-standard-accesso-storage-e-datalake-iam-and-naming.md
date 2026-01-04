@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - policy/security
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming
-title: easyway dataportal standard accesso storage e datalake iam and naming
-summary: 
-owner: 
----
+tags: [policy-security, privacy/internal, language/it]
+title: easyway dataportal standard accesso storage e datalake iam and naming---
 # 🗂️ EasyWay DataPortal - Standard Accesso Storage e Datalake (IAM & Naming)
 
 ## 🎯 Scopo del Documento
@@ -30,6 +17,12 @@ Definire le **linee guida ufficiali** per la gestione ordinata, sicura e scalabi
 - Naming convention
 - Best practice operative
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## 🔎 Differenza tra Blob Storage e Datalake HNS
@@ -154,4 +147,9 @@ az ad group create --display-name "grp.portal.datalake.read" --mail-nickname "gr
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

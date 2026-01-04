@@ -6,20 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
+tags: [layer/reference, privacy/internal, language/it]
+title: api notifiche
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-id: ew-api-notifiche
-title: api notifiche
-summary: 
-owner: 
 ---
 **A. Obiettivo**
 ----------------
@@ -153,4 +147,10 @@ app.use("/api/notifications", notificationsRoutes);
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

@@ -6,25 +6,18 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - artifact/stored-procedure
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-stored-procedure
-title: stored procedure
-summary: 
-owner: 
----
+tags: [artifact-stored-procedure, domain/db, layer/reference, audience/dba, audience/dev, privacy/internal, language/it]
+title: stored procedure---
 # EasyWay Data Portal - STORE PROCEDURE: Linee Guida, Best Practice e Template
 
 > **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG, ext_attributes, auditing, logging automatico).
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## ✅ Scopo del documento
@@ -60,7 +53,7 @@ Obiettivo: **nessun dato chiave inserito manualmente**, **tutto tracciato**, mas
 Per supportare la creazione automatizzata da agenti (LLM/tooling) di DDL/SP conformi agli standard EasyWay:
 - Linee guida agentiche: vedere `docs/agentic/AGENTIC_READINESS.md:1`
 - Template SQL pronti: `docs/agentic/templates/ddl/template_table.sql:1` e `docs/agentic/templates/sp/*.sql:1`
-- Esempi concreti (Users/Onboarding): `EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md:1`
+- Esempi concreti (Users/Onboarding): `easyway-webapp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md:1`
 
 Gli agenti devono usare template idempotenti (CREATE OR ALTER, IF NOT EXISTS), prevedere variante `_DEBUG`, e garantire logging su `PORTAL.STATS_EXECUTION_LOG` in ogni SP.
 
@@ -3026,6 +3019,13 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../entities-index.md)
+
+
+
+
+
+
+
 
 
 

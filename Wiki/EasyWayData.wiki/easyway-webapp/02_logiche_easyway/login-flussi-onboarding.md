@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/how-to
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-login-flussi-onboarding
-title: login flussi onboarding
-summary: 
-owner: 
----
+tags: [layer/howto, privacy/internal, language/it]
+title: login flussi onboarding---
 # Lookup – Flussi Onboarding/Login
 
 | Cosa vuoi                   | Cosa devi scrivere                | Dammi il .md                                 | Stato    |
@@ -44,6 +31,12 @@ Flussi Onboarding/Login – EasyWay Data Portal
 | Login federato             | Utente azienda      | SSO redirect, validazione token, mapping ruoli                   | Token Entra ID, ACL mapping  | Timeout/session management           |
 | Recupero credenziali       | Utente finale       | Reset password, verifica identità, set nuova password            | Link one-time, scadenza      | Alert admin su troppi reset          |
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Best Practice Onboarding/Login
@@ -80,4 +73,9 @@ Flussi Onboarding/Login – EasyWay Data Portal
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

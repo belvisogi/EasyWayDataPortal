@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-best-practice-naming-and-scalability
-title: best practice naming and scalability
-summary: 
-owner: 
----
+tags: [layer/reference, privacy/internal, language/it]
+title: best practice naming and scalability---
 # Lookup – Best Practice Naming & Scalabilità
 
 | Cosa vuoi                      | Cosa devi scrivere                 | Dammi il .md                              | Stato    |
@@ -52,6 +39,12 @@ Best Practice Naming & Scalabilità – EasyWay Data Portal
 | Service Principal   | portal.datalake.read                  | [modulo].[ambito].[permesso]                  | Come da policy sicurezza                  |
 | Slot Azure          | ew-app-portal-dev-slot                | ew-app-[modulo]-[env]-slot                    | Usare solo per test/blue-green            |
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Best Practice Scalabilità
@@ -101,4 +94,9 @@ Best Practice Naming & Scalabilità – EasyWay Data Portal
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

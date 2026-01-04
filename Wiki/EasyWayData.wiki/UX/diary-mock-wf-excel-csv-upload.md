@@ -31,7 +31,7 @@ Schema pagina (generale)
 Asset & collegamenti (screenshot/wireframe)
 - Cartella asset: `Wiki/EasyWayData.wiki/.attachments/ux/`
 - Convenzioni nome: `wf-excel-step-<N>-<state>-<lang>.png` (es. `wf-excel-step-3-defer-it.png`)
-- Quando disponibili, inserire link a ciascuna card con `![alt](../.attachments/ux/<file>)`
+- Quando disponibili, inserire link a ciascuna card con `! [alt] (../.attachments/ux/wf-excel-step-<N>-<state>-<lang>.png)`
 
 Stato 1 – Uploaded (OK)
 Mock (testo)
@@ -148,3 +148,7 @@ Note
 - Tutti i messaggi UX sono allineati ai `ux_prompts` del manifest (WHAT) e vanno localizzati.
 - Il diario deve essere leggibile “a colpo d’occhio”, con pulsanti chiari e un aiuto contestuale semplice.
  - Copioni localizzati: vedere `docs/agentic/templates/orchestrations/ux_prompts.it.json` e `ux_prompts.en.json`.
+
+
+
+

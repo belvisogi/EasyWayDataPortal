@@ -6,15 +6,13 @@ status: draft
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'
-tags:
-  - layer/how-to
-  - automation
-  - language/it
+tags: [automation, domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, scripts]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 300-500
-entities: []
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # Scripts - One-shot e routine frequenti
@@ -95,3 +93,10 @@ foreach($r in $roots){
 - Come eseguire le routine multi-root e generare report?
 - Dove trovare esempi one-shot e job completi?
 - Come tracciare i risultati nei log?
+
+
+
+
+
+
+

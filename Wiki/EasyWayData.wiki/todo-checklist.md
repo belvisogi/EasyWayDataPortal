@@ -1,23 +1,20 @@
 ---
 id: ew-todo_checklist
 title: TODO CHECKLIST
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: 
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
----
+tags: [privacy/internal, language/it]
+owner: team-platform---
 # TODO – Razionalizzazione Wiki (Semplice)
 
 Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anche AI).
 
+summary: TODO - aggiungere un sommario breve.
+status: draft
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Gap e aree di miglioramento (cosa manca)
@@ -25,19 +22,19 @@ Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anch
 - **Pipeline CI/CD:** da rafforzare con test automatici, validazione drift DB, gates agentici sempre attivi e report periodici.
 - **Sicurezza avanzata:** Entra ID/AD B2C, RLS/masking su DB, export log su Datalake sono in roadmap ma non ancora pienamente implementati.
 - **Automazione export AI:** export JSONL, tagging PII, e dataset per AI sono previsti ma non ancora completi.
-- **Uniformamento naming e struttura:** ancora presenti file/cartelle con encoding, maiuscole, quote/backtick, e naming non uniforme (vedi TODO_CHECKLIST.md).
+- **Uniformamento naming e struttura:** ancora presenti file/cartelle con encoding, maiuscole, quote/backtick, e naming non uniforme (vedi todo-checklist.md).
 - **Onboarding e quickstart:** ora razionalizzati, ma serve mantenere sempre aggiornati README e Wiki per evitare dispersione futura.
 - **Documentazione ruoli:** mancano guide rapide per DBA, AMS/Ops, ETL, Analisti/BI (roadmap).
 - **Automazione documentale:** la documentazione è ricca ma serve maggiore uniformità (front matter, summary, indici, link checker, export AI).
 - **Test e QA:** la struttura test è presente, ma va ampliata con smoke/integration test automatici e collezioni Postman/Jest complete.
 
 ## Convenzioni e struttura
-- [ ] Integrare la guida “kebab-case vs snake_case” in `DOCS_CONVENTIONS.md` (con regex ed esempi buoni/cattivi)
+- [ ] Integrare la guida “kebab-case vs snake_case” in `docs-conventions.md` (con regex ed esempi buoni/cattivi)
 - [ ] Aggiungere “Quick Check” con regex di verifica naming
 - [ ] Creare sezioni “Ricette” per AI: `create-table`, `create-endpoint`, `create-job-etl`
 
 ## Best practice: Uniformamento naming e struttura
-- Uniformare naming e struttura: ancora presenti file/cartelle con encoding, maiuscole, quote/backtick, e naming non uniforme (vedi TODO_CHECKLIST.md).
+- Uniformare naming e struttura: ancora presenti file/cartelle con encoding, maiuscole, quote/backtick, e naming non uniforme (vedi todo-checklist.md).
 
 ## Sicurezza avanzata (roadmap, non ancora pienamente implementata)
 - Entra ID/AD B2C: autenticazione/identità non ancora integrata nelle API e nei flussi di onboarding.
@@ -73,13 +70,13 @@ Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anch
 - [x] easyway-webapp/01_database_architecture/flyway.md → flyway.md
 - [x] easyway-webapp/01_database_architecture/portal.md → portal.md
 - [x] easyway-webapp/01_database_architecture/sequence.md → sequence.md
-- [x] EasyWay_WebApp/01_database_architecture/storeprocess.md → storeprocess.md
-- [x] EasyWay_WebApp/01_database_architecture/01b_schema_structure/portal.md → portal.md
-- [x] EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md → dinamiche-di-manutenzione.md
-- [x] EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/endpoint.md → endpoint.md
-- [x] EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md → index.md
-- [x] EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md → template-endpoint.md
-- [x] EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md → come-si-testa.md
+- [x] easyway-webapp/01_database_architecture/storeprocess.md → storeprocess.md
+- [x] easyway-webapp/01_database_architecture/01b_schema_structure/portal.md → portal.md
+- [x] easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md → dinamiche-di-manutenzione.md
+- [x] easyway-webapp/05_codice_easyway_portale/easyway_portal_api/endpoint.md → endpoint.md
+- [x] easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md → index.md
+- [x] easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md → template-endpoint.md
+- [x] easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md → come-si-testa.md
 - [ ] Valutare esclusione dal linter dei report generati: Wiki/EasyWayData.wiki/logs/reports/normalize-*.md
 
 ## Metadati e front matter
@@ -89,7 +86,7 @@ Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anch
 - [ ] Aggiungere sezione “Questions Answered” (3–7 Q&A) nei documenti lunghi
 
 ## Indici e link
-- [ ] Generare `EasyWayData.wiki/INDEX.md` con H1/H2 e link
+- [ ] Generare `Wiki/EasyWayData.wiki/index.md` con H1/H2 e link
 - [ ] Aggiungere `INDEX.md` per le principali sottocartelle (DB, API, flussi)
 - [ ] Eseguire link checker markdown e correggere link rotti/anchor mancanti
 - [x] 02_logiche_easyway: creati `INDEX.md` per cartella e sottocartelle principali
@@ -130,3 +127,10 @@ Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anch
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
+

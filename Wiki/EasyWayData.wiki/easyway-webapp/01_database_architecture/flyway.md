@@ -5,6 +5,12 @@ summary: Strumento migration‑based per portare DDL/SP/sequence/RLS in un fluss
 status: draft
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Cos’è Flyway
@@ -82,4 +88,8 @@ Nota su DataBase/ vs db/
 - `db/` è il nuovo “source of truth” per migrazioni (DevOps‑ready).
 - `DataBase/` contiene SQL storici: mantenerla come archivio finché non confluisce in migrazioni Flyway.
 - Obiettivo: migrare i DDL storici in `db/flyway/sql/` (V1..Vn) e deprecare gradualmente `DataBase/`.
+
+
+
+
 

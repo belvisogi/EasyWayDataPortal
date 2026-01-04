@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-esempi-notifiche-and-template-email-configurabili
-title: esempi notifiche and template email configurabili
-summary: 
-owner: 
----
+tags: [layer/reference, privacy/internal, language/it]
+title: esempi notifiche and template email configurabili---
 # Esempi Notifiche & Template Email Configurabili (Excel su Storage)
 
 ## 1. Flusso Gestione Template Email
@@ -34,6 +21,12 @@ owner:
 3. Il sistema può aggiornare i template **senza deployare codice**, solo sostituendo il file Excel.
 4. Tutte le modifiche e gli invii sono loggati (tabella `notification_log`).
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## 2. Struttura file Excel `email_templates.xlsx`
@@ -131,4 +124,9 @@ Corpo:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

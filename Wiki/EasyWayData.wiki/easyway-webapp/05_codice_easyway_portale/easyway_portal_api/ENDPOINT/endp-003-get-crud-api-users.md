@@ -6,25 +6,14 @@ status: draft
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - domain/webapp
-  - layer/reference
-  - artifact/endpoint
-  - audience/dev
-  - privacy/internal
-  - language/it
-intents:
-  - gestire utenti del tenant via API
+tags: [artifact-endpoint, domain/frontend, layer/reference, audience/dev, privacy/internal, language/it]
+title: endp 003 get crud api users
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: [api-users]
-id: ew-endp-003-get-crud-api-users
-title: endp 003 get crud api users
-summary: 
-owner: 
+entities: []
 ---
 ### ENDPOINT: CRUD `/api/users`
 
@@ -257,4 +246,11 @@ app.use("/api/users", usersRoutes);
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
+
 

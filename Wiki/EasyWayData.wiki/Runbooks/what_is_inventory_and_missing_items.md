@@ -1,3 +1,17 @@
+---
+id: ew-runbooks-what-is-inventory-and-missing-items
+title: what is inventory and missing items
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [docs, domain/control-plane, layer/reference, audience/ops, privacy/internal, language/it, inventory]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 Che cos'è l'"inventory" e a cosa serve (breve guida operativa)
 
 1) Cos'è l'inventory
@@ -45,3 +59,9 @@ Che cos'è l'"inventory" e a cosa serve (breve guida operativa)
 - D) Preparare lista gap dettagliata ordinata per priorità (deliverable + effort stimato).
 
 Indica quale azione vuoi che esegua subito (A, B, C o D) oppure conferma "procedi con A" se vuoi che inizi da inventory e matrice.
+
+
+
+
+
+

@@ -6,20 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - artifact/function
-  - privacy/internal
-  - language/it
+tags: [artifact-function, domain/db, layer/reference, audience/dba, privacy/internal, language/it]
+title: function
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-id: ew-function
-title: function
-summary: 
-owner: 
 ---
 -- Modello in uso: Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
 -- Queste funzioni sono da creare nello schema PORTAL.
@@ -693,6 +687,13 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../entities-index.md)
+
+
+
+
+
+
+
 
 
 

@@ -4,7 +4,7 @@ title: ETL – Table Log Model
 summary: Modello log tabellare per esecuzioni pipeline (run logs, task logs, metriche, allarmi) e query operative.
 status: draft
 owner: team-data
-tags: [etl, logging, audit, language/it]
+tags: [etl, logging, audit, domain/datalake, layer/reference, audience/dev, audience/ops, privacy/internal, language/it]
 llm:
   include: true
   pii: none
@@ -36,4 +36,8 @@ Integrazione con agenti
 Riferimenti
 - ETL/ELT Inspirations (Table Log)
 - Datalake – Ensure Structure / portal-audit
+
+
+
+
 

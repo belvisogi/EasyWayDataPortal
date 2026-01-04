@@ -53,3 +53,6 @@ What (Cosa)
 - Portale dati multi‑tenant e API‑first con automazione avanzata e agenti specializzati.
 - Gestione, analisi e valorizzazione dei dati tramite interfaccia intuitiva e API.
 - Automazione di processi ripetitivi, sicurezza e auditing centralizzati, onboarding e documentazione facilitati.
+
+
+

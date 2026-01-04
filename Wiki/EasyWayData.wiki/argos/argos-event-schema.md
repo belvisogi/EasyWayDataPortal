@@ -4,7 +4,7 @@ title: ARGOS – Event Schema Addendum (v1)
 summary: Elenco eventi canonici argos.* e note per pubblicare JSON Schema e validarli in CI.
 status: draft
 owner: team-platform
-tags: [argos, dq, agents, language/it]
+tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, event]
 llm:
   include: true
   pii: none
@@ -30,3 +30,7 @@ Integrazione EasyWay
 - Repository: pubblicare gli schema JSON in `docs/agentic/templates/events/` e validare in CI.
 - QoS/Delivery: DLQ e retry policy allineate al bus eventi del portale.
 - Privacy/Retention: campi PII esclusi o sanificati; retention hint per topic.
+
+
+
+

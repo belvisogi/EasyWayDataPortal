@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-readme
-title: readme
-summary: 
-owner: 
----
+tags: [layer/reference, privacy/internal, language/it]
+title: readme---
 # Flussi Onboarding/Login – Dettagli & Variazioni
 
 ## Tabella Flussi Aggiuntivi e Variazioni
@@ -37,6 +24,12 @@ owner:
 | Gestione accessi “invito scaduto” | Utente finale  | Tenta accesso con link vecchio/scaduto, riceve nuovo invito/reset    | Token scadenza, retry limit   | Log tentativi, alert su abuso                |
 | Flusso disiscrizione definitiva | Utente finale    | Richiesta cancellazione, doppia conferma, revoca e anonimizzazione   | GDPR compliant, audit         | Mascheramento/anonymizzazione in DB/log      |
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Dettaglio Pratiche Operative
@@ -82,4 +75,9 @@ owner:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 

@@ -6,21 +6,8 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
-id: ew-policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway
-title: policy di configurazione and sicurezza microservizi e api gateway
-summary: 
-owner: 
----
+tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, security]
+title: policy di configurazione and sicurezza microservizi e api gateway---
 # Policy di Configurazione & Sicurezza – Microservizi e API Gateway
 EasyWay Data Portal
 
@@ -36,6 +23,12 @@ EasyWay Data Portal
 | Audit & logging security     | Tracciare tutte le azioni rilevanti per sicurezza, compliance e troubleshooting                    | API Gateway, microservizi      | Log Analytics, Storage Audit      | Logging centralizzato, retention policy attiva, alert su anomalie        |
 | Compliance GDPR/SOC2/DORA    | Aderire alle policy di mascheramento, tracciamento, protezione dati sensibili                     | Storage, API, DB               | Masking metadata, audit DB        | Uso tabella masking e audit trail per ogni accesso ai dati personali     |
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Dettaglio Implementativo Policy Chiave
@@ -94,4 +87,10 @@ Oppure proseguiamo con la prossima sezione (es: “Gestione logging & audit”, 
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

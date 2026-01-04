@@ -1,0 +1,43 @@
+---
+id: ew-start-here
+title: Start Here - Link Essenziali
+summary: Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB.
+status: active
+owner: team-platform
+tags: [start-here, onboarding, agents, argos, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 200-300
+  redaction: [email, phone]
+entities: []
+---
+
+# Start Here - Link Essenziali
+
+1) Orchestrazioni (WHAT)
+- wf Excel/CSV → Dashboard: `orchestrations/wf-excel-csv-upload.md`
+- Orchestratore n8n: `orchestrations/orchestrator-n8n.md`
+
+2) Intents Catalog (WHAT)
+- Use case Excel/CSV: `orchestrations/intents-catalog.md`
+- Globale (cross-domain): `orchestrations/intents-catalog-global.md`
+
+3) Control Plane + Domini (skeleton)
+- Control Plane: `control-plane/index.md`
+- Domini: `domains/index.md`
+
+4) UX Prompts (IT/EN)
+- Copioni UI: `docs/agentic/templates/orchestrations/ux_prompts.it.json`, `docs/agentic/templates/orchestrations/ux_prompts.en.json`
+
+5) HOWTO - WHAT-first + Diario
+- Guida team: `howto-what-first-team.md`
+
+6) KB Ricette (comandi rapidi)
+- Skeleton: `agents/kb/recipes.jsonl` (id: `kb-docs-skeleton-601`)
+- Lint: `agents/kb/recipes.jsonl` (id: `kb-lint-whatfirst-602`)
+
+7) Materiale legacy / asset
+- Contesto: lueprints/legacy-reference-material.md`r
+- Branding: UX/branding-assets.md`r
+

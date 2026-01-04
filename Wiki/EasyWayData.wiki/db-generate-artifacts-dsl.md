@@ -1,7 +1,16 @@
 ---
 title: Generare DDL+SP da mini-DSL (agent-aware)
-tags: [db, dsl, generator, flyway]
+tags: [db, dsl, generator, flyway, domain/db, layer/howto, audience/dev, audience/dba, privacy/internal, language/it]
 status: draft
+id: ew-db-generate-artifacts-dsl
+summary: TODO - aggiungere un sommario breve.
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Obiettivo
@@ -49,4 +58,6 @@ Riferimenti
 - `docs/agentic/templates/ddl/template_table.sql`
 - `docs/agentic/templates/sp/...`
 - `docs/agentic/AGENTIC_READINESS.md`
+
+
 

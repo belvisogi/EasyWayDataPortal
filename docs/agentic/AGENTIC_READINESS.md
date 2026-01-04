@@ -19,7 +19,7 @@ Obiettivo: permettere ad agenti (LLM/tooling) di creare e aggiornare, in modo si
 
 ## Template pronti all’uso
 - DDL tabella: `docs/agentic/templates/ddl/template_table.sql`
-- SP INSERT/UPDATE/DELETE: `docs/agentic/templates/sp/template_sp_insert.sql`, `template_sp_update.sql`, `template_sp_delete.sql`
+- SP INSERT/UPDATE/DELETE: `docs/agentic/templates/sp/template_sp_insert.sql`, `docs/agentic/templates/sp/template_sp_update.sql`, `docs/agentic/templates/sp/template_sp_delete.sql`
 - SP DEBUG: `docs/agentic/templates/sp/template_sp_debug_insert.sql`
 
 I template includono segnaposto (`{{...}}`) che gli agenti devono sostituire. Ogni SP include struttura TRY/CATCH, TRANSACTION, auditing, logging.
@@ -110,3 +110,4 @@ flowchart TD
     F --> G[Deploy + Logging]
     G --> H[Human-in-the-loop: verifica e conferma]
 ```
+

@@ -26,7 +26,7 @@ elseif (-not (Test-Json -Path $PromptsEn)) { $ok = $false; $results += @{ file=$
 
 if (-not (Test-Path -LiteralPath $OrchDir)) { $ok = $false; $results += @{ file=$OrchDir; ok=$false; error='missing_dir' } }
 else {
-  $manifests = Get-ChildItem -LiteralPath $OrchDir -Filter *.manifest.json -File -Recurse
+  $manifests = @(Get-ChildItem -LiteralPath $OrchDir -Filter *.manifest.json -File -Recurse)
   if ($manifests.Count -eq 0) { $ok = $false; $results += @{ file=$OrchDir; ok=$false; error='no_manifests' } }
   foreach ($m in $manifests) {
     if (-not (Test-Json -Path $m.FullName)) { $ok = $false; $results += @{ file=$m.FullName; ok=$false; error='invalid_json' } } else { $results += @{ file=$m.FullName; ok=$true } }
@@ -35,7 +35,7 @@ else {
 
 if (-not (Test-Path -LiteralPath $IntentsDir)) { $ok = $false; $results += @{ file=$IntentsDir; ok=$false; error='missing_dir' } }
 else {
-  $intents = Get-ChildItem -LiteralPath $IntentsDir -Filter *.intent.json -File -Recurse
+  $intents = @(Get-ChildItem -LiteralPath $IntentsDir -Filter *.intent.json -File -Recurse)
   if ($intents.Count -eq 0) { $ok = $false; $results += @{ file=$IntentsDir; ok=$false; error='no_intents' } }
   foreach ($i in $intents) {
     if (-not (Test-Json -Path $i.FullName)) { $ok = $false; $results += @{ file=$i.FullName; ok=$false; error='invalid_json' } } else { $results += @{ file=$i.FullName; ok=$true } }
@@ -47,4 +47,3 @@ $json = $summary | ConvertTo-Json -Depth 6
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json
 if ($FailOnError -and -not $ok) { exit 1 }
-

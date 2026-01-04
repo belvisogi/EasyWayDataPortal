@@ -38,3 +38,6 @@ Prossimi passi
 - Compilare le pagine “ETL – DQ Framework” e “ETL – Table Log Model” con le decisioni derivate.
 - Allineare ricette KB per bootstrap DQ e logging.
 
+
+
+

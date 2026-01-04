@@ -1,8 +1,20 @@
+---
+id: ew-onboarding-architettura
+title: EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [docs, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []---
 # EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata)
 
 Questa pagina razionalizza e centralizza tutte le informazioni essenziali per capire, avviare e contribuire al progetto EasyWay Data Portal.  
 **Per ogni dettaglio operativo, consulta i file canonici linkati in fondo.**
-
 ---
 
 ## 1. Stato attuale & gap principali
@@ -12,7 +24,7 @@ Questa pagina razionalizza e centralizza tutte le informazioni essenziali per ca
   - README root e onboarding: ora razionalizzati (vedi questa pagina e README.md)
   - Alcune API non usano solo SP e c’è mismatch tra nomi colonne e DDL standard (Users, Config)
   - Documentazione ricca ma dispersa: ora centralizzata qui e nella Wiki
-  - Naming e struttura: attività di pulizia in corso (vedi [TODO_CHECKLIST.md](TODO_CHECKLIST.md))
+  - Naming e struttura: attività di pulizia in corso (vedi [todo-checklist.md](todo-checklist.md))
   - Pipeline CI/CD e automazione documentale: da rafforzare
   - Sicurezza avanzata (Entra ID, RLS/masking, export log su Datalake): in roadmap
 
@@ -48,7 +60,7 @@ Per dettagli: [docs/agentic/AGENTIC_READINESS.md](../../docs/agentic/AGENTIC_REA
 ## 4. Roadmap & TODO
 
 - Roadmap evolutiva: [roadmap.md](roadmap.md)
-- Razionalizzazione e uniformamento: [TODO_CHECKLIST.md](TODO_CHECKLIST.md)
+- Razionalizzazione e uniformamento: [todo-checklist.md](todo-checklist.md)
 - Decisione deploy MVP: [deployment-decision-mvp.md](deployment-decision-mvp.md)
 
 ---
@@ -72,9 +84,14 @@ Per dettagli: [docs/agentic/AGENTIC_READINESS.md](../../docs/agentic/AGENTIC_REA
 - [docs/agentic/AGENTIC_READINESS.md](../../docs/agentic/AGENTIC_READINESS.md) — Principi agentici
 - [deployment-decision-mvp.md](deployment-decision-mvp.md) — Decisione deploy MVP
 - [roadmap.md](roadmap.md) — Roadmap evolutiva
-- [TODO_CHECKLIST.md](TODO_CHECKLIST.md) — Razionalizzazione e uniformamento
+- [todo-checklist.md](todo-checklist.md) — Razionalizzazione e uniformamento
 
 **Nota:**  
 Questa pagina centralizza e razionalizza le informazioni chiave.  
 Le informazioni ridondanti sono state eliminate o rimandate ai file canonici sopra elencati.  
 Per ogni dettaglio operativo, consulta sempre questi riferimenti.
+
+
+
+
+

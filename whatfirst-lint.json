@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "results": [
+    {
+      "ok": true,
+      "file": "docs/agentic/templates/orchestrations/ux_prompts.it.json"
+    },
+    {
+      "ok": true,
+      "file": "docs/agentic/templates/orchestrations/ux_prompts.en.json"
+    },
+    {
+      "ok": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\docs\\agentic\\templates\\orchestrations\\wf.excel-csv-upload.manifest.json"
+    },
+    {
+      "ok": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\docs\\agentic\\templates\\intents\\analytics.materialize-defaults.intent.json"
+    },
+    {
+      "ok": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\docs\\agentic\\templates\\intents\\dq.validate.intent.json"
+    },
+    {
+      "ok": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\docs\\agentic\\templates\\intents\\etl.load-staging.intent.json"
+    },
+    {
+      "ok": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\docs\\agentic\\templates\\intents\\etl.merge-target.intent.json"
+    },
+    {
+      "ok": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\docs\\agentic\\templates\\intents\\ingest.upload-file.intent.json"
+    },
+    {
+      "ok": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\docs\\agentic\\templates\\intents\\orchestrator.n8n.dispatch.intent.json"
+    },
+    {
+      "ok": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\docs\\agentic\\templates\\intents\\schema.map-apply.intent.json"
+    },
+    {
+      "ok": true,
+      "file": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal\\docs\\agentic\\templates\\intents\\schema.map-suggest.intent.json"
+    }
+  ]
+}

@@ -4,14 +4,13 @@ title: ARGOS – Tech Profiling & Reliability (v1)
 summary: Profiling tecnico, drift e IT health con viste/gate soft e KPI/SLO, integrato con EasyWay.
 status: active
 owner: team-platform
-tags: [argos, dq, agents, language/it]
+tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, profiling]
 llm:
   include: true
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
----
+entities: []---
 
 # ARGOS – Tech Profiling & Reliability (Spec v1)
 
@@ -21,7 +20,6 @@ Integrazione EasyWay
 - DB: creare entità/viste RUN_PROFILE_RESULT, PROFILE_BASELINE, PROFILE_DRIFT_EVENT, FILE_HEALTH, PARTITION_HEALTH, PROCESS_METRICS + viste VW_*.
 - Gate soft: collegare segnali di drift/health ai DQ Gates (severity dinamica, DEFER) e tracciare in Decision Trace.
 - Privacy: profili con valori hash/sanitizzati e RBAC per viste IT.
-
 ---
 
 ## Estensioni LDM (estratto)
@@ -40,3 +38,7 @@ Warn/Defer su drift severo o small‑files rate elevato; routing verso RCA/Coach
 
 ## KPI & SLO IT (indicativi)
 Schema Stability ≥ 99,5%; Small Files Rate ≤ 5%; Late Partition Rate ≤ 1%; Job Success ≥ 99,9%; Throughput p95 ≥ baseline−10%.
+
+
+
+

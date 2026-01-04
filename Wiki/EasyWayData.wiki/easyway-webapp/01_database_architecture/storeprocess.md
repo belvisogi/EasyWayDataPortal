@@ -5,6 +5,12 @@ summary: Struttura TRY/CATCH + TRAN, logging e output uniformato
 status: draft
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Standard SP
@@ -19,4 +25,8 @@ Categorie principali
 
 Prossimi passi
 - Migrazioni dedicate per SP core e versioni debug
+
+
+
+
 

@@ -4,7 +4,13 @@ title: Parametrizzazione – Best Practices
 summary: Evitare hardcoded; usare env/variabili YAML e gates condizionati
 status: draft
 owner: team-platform
-tags: [best-practice, config, privacy/internal, language/it]
+tags: [best-practice, config, domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Principi
@@ -33,4 +39,10 @@ Flyway & Terraform
 Esempi
 - Pipeline: `- template: ci/versions.yml` per versioni; `condition: eq(variables['ENABLE_*'],'true')` per gates.
 - API: `app.use(process.env.PORTAL_BASE_PATH || '/portal', portalRoutes)`; `withTenantContext` usa `RLS_CONTEXT_ENABLED`.
+
+
+
+
+
+
 

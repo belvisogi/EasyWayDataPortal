@@ -1,3 +1,17 @@
+---
+id: ew-easyway-webapp-02-logiche-easyway-index
+title: Indice
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [docs, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Indice
 Breadcrumb: Home / EasyWay WebApp / Logiche EasyWay
 - [api-esterne-integrazione.md](./api-esterne-integrazione.md) - Integrazione API Esterne – EasyWay Data Portal
@@ -8,3 +22,7 @@ Breadcrumb: Home / EasyWay WebApp / Logiche EasyWay
 - [notifiche-gestione.md](./notifiche-gestione.md) - Lookup – Gestione Notifiche
 - [policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md](./policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md) - Policy di Configurazione & Sicurezza – Microservizi e API Gateway
 - [raccomandazione-architetturale-easyway-data-portal.md](./raccomandazione-architetturale-easyway-data-portal.md) - **Dalle chat emerge chiaramente che:**
+
+
+
+

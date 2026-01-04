@@ -6,21 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - artifact/stored-procedure
-  - privacy/internal
-  - language/it
+tags: [artifact-stored-procedure, domain/db, layer/reference, audience/dba, privacy/internal, language/it]
+title: users
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: [sp-portal-users]
-id: ew-users
-title: users
-summary: 
-owner: 
+entities: []
 ---
 a) **sp_insert_user**
 ---------------------
@@ -288,6 +281,12 @@ GO
 GO
 
 ```sql
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 👾 Conversational Intelligence Ready
 ---
@@ -2719,6 +2718,14 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
+
+
+
+
+
+
+
 
 
 

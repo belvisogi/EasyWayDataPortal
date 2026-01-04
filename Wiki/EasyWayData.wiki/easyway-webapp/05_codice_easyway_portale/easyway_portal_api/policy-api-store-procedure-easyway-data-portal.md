@@ -1,19 +1,8 @@
 ---
 id: ew-policy-api-store-procedure-easyway-data-portal
 title: policy api store procedure easyway data portal
-summary: 
-owner: 
-tags:
-  - 
-  - privacy/internal
-  - language/it
-llm:
-  include: true
-  pii: 
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: []
----
+tags: [privacy/internal, language/it]
+owner: team-platform---
 # Policy API/Store Procedure — EasyWay Data Portal
 
 ## Principio Guida
@@ -22,6 +11,14 @@ Tutta la business logic principale di EasyWay Data Portal risiede **nelle Store 
 Le API backend **non contengono regole o logiche complesse**:  
 si limitano a **orchestrare le chiamate alle SP**, validare l’input, gestire autenticazione e logging conversazionale.
 
+summary: TODO - aggiungere un sommario breve.
+status: draft
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 ## Vantaggi del modello
@@ -91,5 +88,10 @@ Best Practice
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
 
 

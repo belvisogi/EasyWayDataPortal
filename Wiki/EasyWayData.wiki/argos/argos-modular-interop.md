@@ -4,14 +4,13 @@ title: ARGOS – Modular Architecture & Interop (v1)
 summary: Tre moduli (M1/M2/M3) con Correlation Fabric, eventi canonici e feature flags per EasyWay.
 status: active
 owner: team-platform
-tags: [argos, dq, agents, language/it]
+tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
 llm:
   include: true
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
----
+entities: []---
 
 # ARGOS – Modular Architecture & Interop (v1)
 
@@ -21,7 +20,6 @@ Integrazione EasyWay
 - Correlation Fabric: usare chiavi canoniche (RUN_ID, INSTANCE_ID, FLOW_ID, DOMAIN_ID, RULE_VERSION_ID, PRODUCER_ID, DECISION_TRACE_ID) in DB/API/Events.
 - Eventi canonici: `argos.run.completed`, `argos.gate.decision`, `argos.profile.drift`, `argos.coach.nudge.sent`, `argos.policy.proposal`, `argos.contract.proposal`, `argos.ticket.opened`.
 - Feature flags: attivazione graduale moduli e funzioni in pipeline/portal.
-
 ---
 
 ## Principi di modularità
@@ -43,3 +41,7 @@ Solo M1; M1+M3; M1+M2; Full. Feature flags e NFR (latency, backpressure, RBAC & 
 
 ## RACI e roadmap modulare
 Attivazione progressiva 1) M1 2) M3 3) M2 4) Full.
+
+
+
+

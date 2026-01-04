@@ -5,11 +5,17 @@ summary: Coordinamento backlog/roadmap (Azure Boards), DoD/gates, sincronizzazio
 status: draft
 owner: team-platform
 tags: [agents, governance, privacy/internal, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Modello Operativo
 - Single‑owner + multi‑agent: un unico owner umano approva; gli agenti eseguono e tracciano.
-- Azioni su Boards/Prod richiedono approvazioni esplicite e sono loggate in ACTIVITY_LOG.md.
+- Azioni su Boards/Prod richiedono approvazioni esplicite e sono loggate in activity-log.md.
 
 Responsabilità
 - Backlog su Azure Boards (Epics/Features) con Definition of Done e gates.
@@ -26,4 +32,9 @@ Strumenti
 
 Note
 - Questo documento integra agents-governance.md con il focus ScrumMaster.
+
+
+
+
+
 

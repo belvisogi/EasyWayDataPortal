@@ -4,18 +4,13 @@ title: ETL – Governance & SLA
 summary: Policy di SLA/SLO/SLI per pipeline ETL/ELT, error budget, alerting, fallback ed escalation, in stile agent‑first.
 status: draft
 owner: team-data
-tags:
-  - domain/data
-  - layer/governance
-  - etl
-  - sla
-  - language/it
+tags: [etl, sla, domain/datalake, layer/spec, audience/ops, audience/dev, privacy/internal, language/it]
+entities: []
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
 ---
 
 # ETL – Governance & SLA
@@ -90,3 +85,8 @@ Riferimenti
 - ETL/ELT Playbook; ETL/ELT Template
 - ETL – Table Log Model; ETL – DQ Framework
 - Doc Alignment Gate; Output Contract
+
+
+
+
+

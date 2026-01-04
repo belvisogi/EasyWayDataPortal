@@ -6,32 +6,20 @@ status: draft
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - domain/webapp
-  - layer/reference
-  - artifact/endpoint
-  - audience/dev
-  - privacy/internal
-  - language/it
-intents:
-  - ottenere configurazione portale del tenant
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
-entities: [api-config]
-id: ew-endp-001-get-api-config
-title: endp 001 get api config
-summary: 
-owner: 
----
+tags: [artifact-endpoint, domain/frontend, layer/reference, audience/dev, privacy/internal, language/it]
+title: endp 001 get api config---
 ### ENDPOINT: GET `/api/config`
 
 **Descrizione**
 > Restituisce la configurazione dinamica per il tenant corrente, leggendo dalla tabella `PORTAL.CONFIGURATION`.  
 > Permette di ottenere tutti i parametri o filtrarli per sezione (`?section=nome_sezione`).
 
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 **Best Practice**
@@ -89,4 +77,10 @@ owner:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

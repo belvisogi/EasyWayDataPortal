@@ -6,20 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
+tags: [layer/reference, privacy/internal, language/it]
+title: convenzioni rest e naming
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-id: ew-convenzioni-rest-e-naming
-title: convenzioni rest e naming
-summary: 
-owner: 
 ---
 ## Convenzioni REST EasyWay
 
@@ -58,4 +52,10 @@ owner:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
+
+
+
+
+
 

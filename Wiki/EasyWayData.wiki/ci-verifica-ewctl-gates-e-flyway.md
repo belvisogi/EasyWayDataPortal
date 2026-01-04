@@ -1,7 +1,16 @@
 ---
 title: Verifica CI – ewctl gates e Flyway (branch non-main)
-tags: [ci, gates, ewctl, flyway]
+tags: [ci, gates, ewctl, flyway, domain/control-plane, layer/gate, audience/dev, audience/ops, privacy/internal, language/it]
 status: draft
+id: ew-ci-verifica-ewctl-gates-e-flyway
+summary: TODO - aggiungere un sommario breve.
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Obiettivo
@@ -42,3 +51,6 @@ Riferimenti
 - `azure-pipelines.yml`
 - `docs/ci/ewctl-gates.md`
 - `agents/kb/recipes.jsonl` (ricetta `ci-verify-ewctl-flyway`)
+
+
+

@@ -29,9 +29,9 @@ Passi consigliati (Step‑by‑Step)
    - Aggiungi pagina Wiki: `Wiki/EasyWayData.wiki/orchestrations/<wf>.md` (WHAT)
 2) Definisci gli Intents (WHAT)
    - Per ogni step/agent: `docs/agentic/templates/intents/<name>.intent.json` con input/output e criteri di esito
-   - Aggiorna il Catalogo: `Wiki/.../orchestrations/intents-catalog.md`
+   - Aggiorna il Catalogo: `Wiki/EasyWayData.wiki/orchestrations/intents-catalog.md`
 3) Scrivi i copioni UX (locale IT/EN)
-   - `docs/agentic/templates/orchestrations/ux_prompts.it.json` e `ux_prompts.en.json`
+   - `docs/agentic/templates/orchestrations/ux_prompts.it.json` e `docs/agentic/templates/orchestrations/ux_prompts.en.json`
    - Verifica coerenza con i messaggi del manifest e i mock
 4) Esegui i lint (Docs + WHAT‑first)
    - Front‑matter Wiki: `pwsh scripts/wiki-frontmatter-lint.ps1 -FailOnError`
@@ -62,7 +62,7 @@ Checklist veloce
 
 Troubleshooting
 - Lint fallisce → apri i report artifact: `wiki-frontmatter-lint.json`, `whatfirst-lint.json`, `event-schema-validate.log`
-- UX incoerente → riallinea `ux_prompts.*.json` e i mock
+- UX incoerente → riallinea `docs/agentic/templates/orchestrations/ux_prompts.*.json` e i mock
 - Output mismatch → confronta con gli schemi degli intents
 
 Riferimenti
@@ -72,4 +72,8 @@ Riferimenti
 - UX Mock (diario): `UX/diary-mock-wf-excel-csv-upload.md`
 - UX Checklist: `UX/usability-checklist.md`
 - Quest Board: `quest-board-excel-csv.md`
+
+
+
+
 
