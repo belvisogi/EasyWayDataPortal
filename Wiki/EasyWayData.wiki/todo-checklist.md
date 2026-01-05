@@ -30,7 +30,7 @@ Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anch
 - **Test e QA:** la struttura test è presente, ma va ampliata con smoke/integration test automatici e collezioni Postman/Jest complete.
 
 ## Convenzioni e struttura
-- [ ] Integrare la guida “kebab-case vs snake_case” in `docs-conventions.md` (con regex ed esempi buoni/cattivi)
+- [ ] Integrare la guida "kebab-case vs snake_case" in `docs-conventions.md` (con regex ed esempi buoni/cattivi)
 - [ ] Aggiungere “Quick Check” con regex di verifica naming
 - [ ] Creare sezioni “Ricette” per AI: `create-table`, `create-endpoint`, `create-job-etl`
 

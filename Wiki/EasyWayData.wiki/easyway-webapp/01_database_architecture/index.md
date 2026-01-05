@@ -22,6 +22,7 @@ Breadcrumb: Home / EasyWay WebApp / Database Architecture
 - [01a-db-setup.md](./01a-db-setup.md) - Setup DB (prerequisiti, ruoli, connessioni).
 - [01b-schema-structure.md](./01b-schema-structure.md) - Struttura schema e naming.
 - [ddl-inventory.md](./ddl-inventory.md) - Inventario tabelle/SP (source-of-truth: `DataBase/`).
+- [howto-create-table.md](./howto-create-table.md) - HowTo: creare una tabella (agentico, WHAT-first).
 
 ## Domande a cui risponde
 - Quali documenti devo leggere per installare e configurare il DB?

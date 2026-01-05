@@ -80,7 +80,7 @@ function Get-NameCompliance {
     if ($rel -like '.attachments/*') { return }
     if ($rel -match '^logs/reports/') { return }
     if ($rel -match '^EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/STEP-') { return }
-    if ($rel -in @('ACTIVITY_LOG.md','DOCS_CONVENTIONS.md','LLM_READINESS_CHECKLIST.md','TODO_CHECKLIST.md','index.md')) { return }
+    if ($rel -in @('index.md')) { return }
     $issues = [System.Collections.Generic.List[string]]::new()
     if ($name -cmatch '[A-Z]') { $issues.Add('uppercase') }
     if ($name -match '%[0-9A-Fa-f]{2}') { $issues.Add('percent-encoded') }

@@ -13,7 +13,7 @@ $root = Split-Path -Parent $MyInvocation.MyCommand.Path | Split-Path -Parent
 $logsDir = Join-Path $root 'agents/logs'
 $monthTag = (Get-Date).ToUniversalTime().ToString('yyyyMM')
 $eventsPath = Join-Path $logsDir ("events-" + $monthTag + ".jsonl")
-$wikiLogPath = Join-Path $root 'Wiki/EasyWayData.wiki/ACTIVITY_LOG.md'
+$wikiLogPath = Join-Path $root 'Wiki/EasyWayData.wiki/activity-log.md'
 
 if (-not (Test-Path $eventsPath)) { New-Item -ItemType Directory -Force -Path $logsDir | Out-Null; New-Item -ItemType File -Force -Path $eventsPath | Out-Null }
 

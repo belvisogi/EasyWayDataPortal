@@ -2,7 +2,7 @@
 id: ew-obsidian-example-readme
 title: Obsidian Vault Template (README)
 summary: Istruzioni per usare .obsidian.example come template locale senza committare configurazioni personali.
-status: draft
+status: active
 owner: team-platform
 tags: [domain/docs, layer/reference, audience/dev, privacy/internal, language/it, obsidian]
 llm:
@@ -12,7 +12,7 @@ llm:
   redaction: [email, phone]
 entities: []
 updated: '2026-01-05'
-next: TODO - definire next step.
+next: Aggiornare se cambiano i path da escludere o le impostazioni Obsidian.
 ---
 
 # .obsidian.example
@@ -25,4 +25,5 @@ Uso:
 
 Nota:
 - In repo teniamo `.obsidian.example` per evitare di committare configurazioni personali.
+- Le esclusioni consigliate (es. `logs/`, `old/`) servono a ridurre rumore nel file explorer Obsidian.
 

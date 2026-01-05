@@ -1,0 +1,12 @@
+{
+  "action": "db-doc:ddl-inventory",
+  "params": {
+    "dbDir": "DataBase",
+    "writeWiki": true,
+    "summaryOut": "db-ddl-inventory.json"
+  },
+  "whatIf": false,
+  "nonInteractive": true,
+  "correlationId": "db-ddl-inventory-001"
+}
+

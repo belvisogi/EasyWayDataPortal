@@ -138,7 +138,7 @@ if (Test-Path -LiteralPath $Output) { Remove-Item -LiteralPath $Output -Force }
 $files = Get-ChildItem -Path $Root -Recurse -File -Filter *.md
 foreach($f in $files){
   if ($f.FullName -match '\\logs\\reports\\' -or $f.FullName -match '\\.attachments\\') { continue }
-  if ($f.Name -eq 'ACTIVITY_LOG.md') { continue }
+  if ($f.Name -eq 'activity-log.md') { continue }
   $content = Get-Content -LiteralPath $f.FullName -Raw -Encoding UTF8
   $fm = Parse-FrontMatter -Text $content
   $title = Get-DocTitle -Path $f.FullName

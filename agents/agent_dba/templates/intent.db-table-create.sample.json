@@ -1,0 +1,34 @@
+{
+  "action": "db-table:create",
+  "params": {
+    "schema": "PORTAL",
+    "table": "sample_feature_flag",
+    "columns": [
+      { "name": "sample_feature_flag_id", "sql_type": "int", "identity": true, "pk": true, "nullable": false, "pii": "none" },
+      { "name": "tenant_id", "sql_type": "int", "nullable": false, "pii": "none", "description": "Tenant FK" },
+      { "name": "flag_key", "sql_type": "nvarchar(200)", "nullable": false, "pii": "none" },
+      { "name": "flag_value", "sql_type": "nvarchar(200)", "nullable": true, "pii": "none" },
+      { "name": "created_at", "sql_type": "datetime2(3)", "nullable": false, "default": "sysutcdatetime()", "pii": "none" }
+    ],
+    "indexes": [
+      { "columns": ["tenant_id", "flag_key"], "unique": true }
+    ],
+    "tenanting": {
+      "tenant_column": "tenant_id",
+      "rls_required": false
+    },
+    "documentation": {
+      "owner": "team-data",
+      "summary": "Tabella di esempio per feature flags per tenant (sample).",
+      "tags": ["artifact/table"]
+    },
+    "writeWiki": true,
+    "writeFlyway": true,
+    "writeDatabaseSnapshot": false,
+    "summaryOut": "db-table-create.sample_feature_flag.json"
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "db-table-create-001"
+}
+

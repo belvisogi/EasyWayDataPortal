@@ -77,7 +77,7 @@ foreach($f in $files){
   $cf = CodeFences-Checks -Text $text -Allowed $allowed
   # Whitelist Q&A/front matter for index/log files
   if ($rel -match '^(INDEX\.md|EasyWay_WebApp/.+/index\.md)$') { $qa = $true }
-  if ($rel -eq 'ACTIVITY_LOG.md') { $qa = $true }
+  if ($rel -eq 'activity-log.md') { $qa = $true }
   # Allow missing front matter for generated indices
   if ($rel -match '^(INDEX\.md|EasyWay_WebApp/.+/index\.md)$') { $fm = $true }
   $hasMissing = ($cf.missing -and $cf.missing.Count -gt 0)

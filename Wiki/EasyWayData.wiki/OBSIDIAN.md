@@ -31,6 +31,13 @@ Aprire la Wiki come vault Obsidian in modo che:
      - `Automatically update internal links` = ON
    - Files & Links / Attachment folder path:
      - `.attachments`
+   - Files & Links / Excluded files:
+     - `logs/` (include report come `anchors-YYYYMMDDHHMMSS*.csv`)
+     - (esempi di report rumorosi) `anchors-*`, `atomicity-*`
+     - `old/`
+     - facoltativo: `*.bak` e `*.tmp`
+
+Nota: se apri come vault la cartella `Wiki/` (non `Wiki/EasyWayData.wiki`), usa gli exclude con prefisso `EasyWayData.wiki/` (es. `EasyWayData.wiki/logs/`, `EasyWayData.wiki/old/`).
 
 ## Convenzioni repository (da rispettare)
 - Non rimuovere/alterare il front matter YAML (`--- ... ---`) introdotto per agent-readiness.

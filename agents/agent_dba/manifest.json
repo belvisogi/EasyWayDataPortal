@@ -3,9 +3,14 @@
   "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
   "allowed_paths": [
     "db/flyway/**",
+    "DataBase/**",
     "EasyWay-DataPortal/easyway-portal-api/src/tools/db/**",
+    "scripts/db-ddl-inventory.ps1",
+    "scripts/db-generate-table-artifacts.ps1",
     "scripts/variables/db-required-objects.sample.json",
+    "Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/**",
     "Wiki/EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/**",
+    "docs/agentic/templates/intents/**",
     "agents/kb/recipes.jsonl"
   ],
   "allowed_tools": ["flyway", "npm", "pwsh", "sqlcmd", "az"],
@@ -45,6 +50,31 @@
         "server": { "type": "string", "required": false },
         "database": { "type": "string", "required": true },
         "username": { "type": "string", "required": true }
+      }
+    },
+    {
+      "name": "db-doc:ddl-inventory",
+      "description": "Rigenera inventario DB (tabelle/SP) da DataBase/ e aggiorna la pagina Wiki ddl-inventory (idempotente).",
+      "params": {
+        "dbDir": { "type": "string", "required": false },
+        "writeWiki": { "type": "boolean", "required": false },
+        "summaryOut": { "type": "string", "required": false }
+      }
+    },
+    {
+      "name": "db-table:create",
+      "description": "Genera artefatti per una nuova tabella (Flyway migration + pagina Wiki tabella) da spec WHAT (idempotente lato file; apply su DB è step separato).",
+      "params": {
+        "schema": { "type": "string", "required": true },
+        "table": { "type": "string", "required": true },
+        "columns": { "type": "array", "required": true },
+        "indexes": { "type": "array", "required": false },
+        "tenanting": { "type": "object", "required": false },
+        "documentation": { "type": "object", "required": false },
+        "writeWiki": { "type": "boolean", "required": false },
+        "writeFlyway": { "type": "boolean", "required": false },
+        "writeDatabaseSnapshot": { "type": "boolean", "required": false },
+        "summaryOut": { "type": "string", "required": false }
       }
     }
   ],

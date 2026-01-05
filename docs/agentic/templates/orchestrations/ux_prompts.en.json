@@ -31,6 +31,24 @@
   "done": {
     "ok": "Dashboard ready. Want to ask a question?"
   },
+  "db_table_create_received": {
+    "ok": "Request received. Validating the table spec."
+  },
+  "db_table_create_validated": {
+    "ok": "Spec valid. Generating DDL and documentation.",
+    "error": "Invalid spec: check schema, table and columns."
+  },
+  "db_table_create_artifacts": {
+    "ok": "Artifacts generated (migration + Wiki page). Want to review before apply?",
+    "error": "Artifact generation failed. Check details."
+  },
+  "db_table_create_apply": {
+    "ok": "Apply completed.",
+    "error": "Apply failed. Check logs and retry after fixing."
+  },
+  "db_table_create_done": {
+    "ok": "Completed. Want to create another table or apply the migration?"
+  },
   "actions": {
     "continue": "Continue",
     "retry": "Retry",
@@ -45,4 +63,3 @@
     "open_log": "Open log"
   }
 }
-

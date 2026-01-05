@@ -1,5 +1,5 @@
 Param(
-  [ValidateSet('db-user:create','db-user:rotate','db-user:revoke')]
+  [ValidateSet('db-user:create','db-user:rotate','db-user:revoke','db-doc:ddl-inventory','db-table:create')]
   [string]$Action,
   [string]$IntentPath,
   [switch]$NonInteractive,
@@ -110,6 +110,91 @@ $intent = Read-Intent $IntentPath
 $now = (Get-Date).ToUniversalTime().ToString('o')
 
 switch ($Action) {
+  'db-table:create' {
+    $p = $intent.params
+    $summaryOut = if ($p.summaryOut) { [string]$p.summaryOut } else { 'db-table-create.json' }
+
+    $genArgs = @('-IntentPath', $IntentPath, '-SummaryOut', $summaryOut)
+    if ($WhatIf) { $genArgs += '-WhatIf' }
+
+    $executed = $false
+    $errorMsg = $null
+    $raw = $null
+    try {
+      $raw = & pwsh @('scripts/db-generate-table-artifacts.ps1') @genArgs 2>&1 | Out-String
+      $executed = $true
+    } catch { $errorMsg = $_.Exception.Message }
+
+    $result = [ordered]@{
+      action = $Action
+      ok = ($errorMsg -eq $null)
+      whatIf = [bool]$WhatIf
+      nonInteractive = [bool]$NonInteractive
+      correlationId = $intent?.correlationId
+      startedAt = $now
+      finishedAt = (Get-Date).ToUniversalTime().ToString('o')
+      output = [ordered]@{
+        executed = $executed
+        summaryOut = $summaryOut
+        hint = 'Questo step genera artefatti (Flyway + Wiki) ma non applica sul DB. Per apply su DB serve gate + approvazione.'
+        raw = ($raw?.Trim())
+      }
+      error = $errorMsg
+    }
+    $result.contractId = 'action-result'
+    $result.contractVersion = '1.0'
+    if ($LogEvent) { Write-Event ($result + @{ event='agent-dba'; govApproved=$false }) }
+    Out-Result $result
+  }
+  'db-doc:ddl-inventory' {
+    $p = $intent.params
+    $dbDir = if ($p.dbDir) { [string]$p.dbDir } else { 'DataBase' }
+    $writeWiki = if ($null -ne $p.writeWiki) { [bool]$p.writeWiki } else { $true }
+    $summaryOut = if ($p.summaryOut) { [string]$p.summaryOut } else { 'db-ddl-inventory.json' }
+
+    $args = @('-DbDir', $dbDir, '-SummaryOut', $summaryOut)
+    if ($writeWiki) { $args += '-WriteWiki' }
+
+    $executed = $false
+    $errorMsg = $null
+    $outJson = $null
+    if ($WhatIf) {
+      # WhatIf per questo step: non applica -WriteWiki
+      $argsWhatIf = @('-DbDir', $dbDir, '-SummaryOut', $summaryOut)
+      try {
+        $outJson = & pwsh @('scripts/db-ddl-inventory.ps1') @argsWhatIf 2>&1 | Out-String
+        $executed = $true
+      } catch { $errorMsg = $_.Exception.Message }
+    } else {
+      try {
+        $outJson = & pwsh @('scripts/db-ddl-inventory.ps1') @args 2>&1 | Out-String
+        $executed = $true
+      } catch { $errorMsg = $_.Exception.Message }
+    }
+
+    $result = [ordered]@{
+      action = $Action
+      ok = ($errorMsg -eq $null)
+      whatIf = [bool]$WhatIf
+      nonInteractive = [bool]$NonInteractive
+      correlationId = $intent?.correlationId
+      startedAt = $now
+      finishedAt = (Get-Date).ToUniversalTime().ToString('o')
+      output = [ordered]@{
+        dbDir = $dbDir
+        writeWikiRequested = [bool]$writeWiki
+        executed = $executed
+        summaryOut = $summaryOut
+        hint = 'Se whatIf=true, la Wiki non viene aggiornata: viene solo rigenerato il JSON di inventario.'
+        raw = ($outJson?.Trim())
+      }
+      error = $errorMsg
+    }
+    $result.contractId = 'action-result'
+    $result.contractVersion = '1.0'
+    if ($LogEvent) { Write-Event ($result + @{ event='agent-dba'; govApproved=$false }) }
+    Out-Result $result
+  }
   'db-user:create' {
     $p = $intent.params
     $username = $p.username

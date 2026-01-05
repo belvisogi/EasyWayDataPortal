@@ -31,6 +31,24 @@
   "done": {
     "ok": "Dashboard pronta. Vuoi fare una domanda?"
   },
+  "db_table_create_received": {
+    "ok": "Richiesta ricevuta. Valido la specifica della tabella."
+  },
+  "db_table_create_validated": {
+    "ok": "Spec valida. Genero DDL e documentazione.",
+    "error": "Spec non valida: controlla schema, table e columns."
+  },
+  "db_table_create_artifacts": {
+    "ok": "Artefatti generati (migrazione + pagina Wiki). Vuoi fare review prima dell'apply?",
+    "error": "Generazione artefatti fallita. Controlla i dettagli."
+  },
+  "db_table_create_apply": {
+    "ok": "Apply completato.",
+    "error": "Apply fallito. Verifica i log e riprova dopo correzione."
+  },
+  "db_table_create_done": {
+    "ok": "Operazione completata. Vuoi creare un'altra tabella o applicare la migrazione?"
+  },
   "actions": {
     "continue": "Continua",
     "retry": "Riprova",
@@ -45,4 +63,3 @@
     "open_log": "Apri log"
   }
 }
-

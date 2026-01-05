@@ -1,8 +1,13 @@
 param(
   [string]$DbDir = "DataBase",
-  [string]$PortalTablesFile = "DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql",
-  [string]$PortalProceduresFile = "DDL_PORTAL_STOREPROCES_EASYWAY_DATAPORTAL.sql",
-  [string]$StatlogProceduresFile = "DDL_STATLOG_STOREPROCES_EASYWAY_DATAPORTAL.sql",
+  [string]$CanonicalDdlFile = "DDL_EASYWAY_DATAPORTAL.sql",
+  [string]$ProvisioningDir = "DataBase/provisioning",
+  [string]$PortalSchema = "PORTAL",
+  [switch]$IncludeLegacy,
+  [string]$LegacyDir = "old/db/ddl_portal_exports",
+  [string]$LegacyPortalTablesFile = "DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql",
+  [string]$LegacyPortalProceduresFile = "DDL_PORTAL_STOREPROCES_EASYWAY_DATAPORTAL.sql",
+  [string]$LegacyStatlogProceduresFile = "DDL_STATLOG_STOREPROCES_EASYWAY_DATAPORTAL.sql",
   [string]$WikiOut = "Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/ddl-inventory.md",
   [switch]$WriteWiki,
   [string]$SummaryOut = "db-ddl-inventory.json"
@@ -16,21 +21,81 @@ function Read-Text([string]$p) {
   return (Get-Content -LiteralPath $p -Raw -Encoding UTF8)
 }
 
-function Extract-PortalTables([string]$sql) {
-  $rx = [regex]::new('(?im)^\s*CREATE\s+TABLE\s+PORTAL\.(?<name>[A-Z0-9_]+)\s*\(', [System.Text.RegularExpressions.RegexOptions]::None)
-  return @($rx.Matches($sql) | ForEach-Object { $_.Groups['name'].Value } | Sort-Object -Unique)
+function Resolve-ExistingPath([string[]]$candidates) {
+  foreach ($p in $candidates) { if ($p -and (Test-Path -LiteralPath $p)) { return $p } }
+  return $null
 }
 
-function Extract-PortalProcedures([string]$sql) {
-  $rx = [regex]::new('(?im)^\s*CREATE\s+OR\s+ALTER\s+PROCEDURE\s+PORTAL\.(?<name>[A-Za-z0-9_]+)\b', [System.Text.RegularExpressions.RegexOptions]::None)
-  return @($rx.Matches($sql) | ForEach-Object { $_.Groups['name'].Value } | Sort-Object -Unique)
+function Extract-Tables([string]$sql) {
+  $rxBracketed = [regex]::new('(?im)^\s*CREATE\s+TABLE\s+\[(?<schema>[A-Za-z0-9_]+)\]\.\[(?<name>[A-Za-z0-9_]+)\]\s*\(', [System.Text.RegularExpressions.RegexOptions]::None)
+  $rxPlain = [regex]::new('(?im)^\s*CREATE\s+TABLE\s+(?<schema>[A-Za-z0-9_]+)\.(?<name>[A-Za-z0-9_]+)\s*\(', [System.Text.RegularExpressions.RegexOptions]::None)
+
+  $items = New-Object System.Collections.Generic.List[object]
+  foreach ($m in $rxBracketed.Matches($sql)) { $items.Add(@{ schema = $m.Groups['schema'].Value; name = $m.Groups['name'].Value }) }
+  foreach ($m in $rxPlain.Matches($sql)) { $items.Add(@{ schema = $m.Groups['schema'].Value; name = $m.Groups['name'].Value }) }
+  return @($items)
+}
+
+function Extract-Procedures([string]$sql) {
+  $rxBracketed = [regex]::new('(?im)^\s*CREATE\s+(?:OR\s+ALTER\s+)?PROCEDURE\s+\[(?<schema>[A-Za-z0-9_]+)\]\.\[(?<name>[A-Za-z0-9_]+)\]\b', [System.Text.RegularExpressions.RegexOptions]::None)
+  $rxPlain = [regex]::new('(?im)^\s*CREATE\s+(?:OR\s+ALTER\s+)?PROCEDURE\s+(?<schema>[A-Za-z0-9_]+)\.(?<name>[A-Za-z0-9_]+)\b', [System.Text.RegularExpressions.RegexOptions]::None)
+
+  $items = New-Object System.Collections.Generic.List[object]
+  foreach ($m in $rxBracketed.Matches($sql)) { $items.Add(@{ schema = $m.Groups['schema'].Value; name = $m.Groups['name'].Value }) }
+  foreach ($m in $rxPlain.Matches($sql)) { $items.Add(@{ schema = $m.Groups['schema'].Value; name = $m.Groups['name'].Value }) }
+  return @($items)
+}
+
+function Normalize-FullName([string]$schema, [string]$name) {
+  $s = ($schema ?? '').Trim()
+  $n = ($name ?? '').Trim()
+  if ($s -eq '' -or $n -eq '') { return $null }
+  return ("{0}.{1}" -f $s.ToUpperInvariant(), $n.ToUpperInvariant())
+}
+
+function Collect-CanonicalSql {
+  param(
+    [string]$CanonicalPath,
+    [string]$ProvisioningDir
+  )
+
+  $canonicalSql = Read-Text $CanonicalPath
+  $provisioningFiles = @()
+
+  if (Test-Path -LiteralPath $ProvisioningDir) {
+    $provisioningFiles = @(
+      Get-ChildItem -LiteralPath $ProvisioningDir -File -Filter *.sql -ErrorAction Stop |
+      Sort-Object -Property Name |
+      ForEach-Object { $_.FullName }
+    )
+  }
+
+  $parts = New-Object System.Collections.Generic.List[string]
+  $parts.Add($canonicalSql)
+  foreach ($f in $provisioningFiles) {
+    try { $parts.Add((Read-Text $f)) } catch { }
+  }
+
+  return [pscustomobject]@{
+    combinedSql = ($parts -join "`n`n")
+    provisioningFiles = $provisioningFiles
+  }
 }
 
 function Build-Wiki {
   param(
-    [string[]]$Tables,
-    [string[]]$Procedures,
-    [string[]]$StatlogProcedures
+    [string]$PortalSchema,
+    [string]$CanonicalDdlRel,
+    [string]$ProvisioningRel,
+    [string[]]$CanonicalTables,
+    [string[]]$CanonicalProcedures,
+    [bool]$IncludeLegacy,
+    [string]$LegacyTablesRel,
+    [string]$LegacyProceduresRel,
+    [string]$LegacyStatlogRel,
+    [string[]]$LegacyTables,
+    [string[]]$LegacyProcedures,
+    [string[]]$LegacyStatlogProcedures
   )
 
   $today = (Get-Date).ToString('yyyy-MM-dd')
@@ -38,8 +103,8 @@ function Build-Wiki {
   $lines = New-Object System.Collections.Generic.List[string]
   $lines.Add('---')
   $lines.Add('id: ew-db-ddl-inventory')
-  $lines.Add('title: DB PORTAL - Inventario DDL (source-of-truth)')
-  $lines.Add('summary: Elenco tabelle e stored procedure estratto dai DDL sotto DataBase/, per mantenere allineata la Wiki 01_database_architecture.')
+  $lines.Add('title: DB PORTAL - Inventario DDL (canonico)')
+  $lines.Add("summary: Inventario DB (canonico) estratto da DDL_EASYWAY + provisioning per mantenere allineata la Wiki 01_database_architecture.")
   $lines.Add('status: draft')
   $lines.Add('owner: team-data')
   $lines.Add('tags: [domain/db, layer/reference, audience/dev, audience/dba, privacy/internal, language/it]')
@@ -50,87 +115,186 @@ function Build-Wiki {
   $lines.Add('  redaction: [email, phone]')
   $lines.Add('entities: []')
   $lines.Add(("updated: '{0}'" -f $today))
-  $lines.Add("next: TODO - validare quale file DDL e' canonico (DataBase/ vs db/flyway/sql/) e automatizzare il sync.")
+  $lines.Add("next: Rendere Flyway (`db/flyway/`) la fonte incrementale e rigenerare periodicamente il DDL canonico (snapshot) se necessario; mantenere i legacy export fuori dal retrieval.")
   $lines.Add('---')
   $lines.Add('')
-  $lines.Add('# DB PORTAL - Inventario DDL (source-of-truth)')
+  $lines.Add('# DB PORTAL - Inventario DDL (canonico)')
   $lines.Add('')
   $lines.Add('## Obiettivo')
-  $lines.Add("- Rendere esplicito l'elenco corretto di tabelle e stored procedure del PORTAL DB usando come fonte i DDL sotto `DataBase/`.")
+  $lines.Add("- Rendere esplicito l'elenco di tabelle e stored procedure usando **solo** le fonti canoniche del repo.")
   $lines.Add("- Ridurre ambiguita: un agente (o un umano) puo verificare rapidamente cosa esiste e dove e documentato.")
   $lines.Add('')
   $lines.Add('## Domande a cui risponde')
-  $lines.Add("- Quali tabelle esistono nello schema `PORTAL` secondo i DDL del repo?")
-  $lines.Add("- Quali stored procedure esistono nello schema `PORTAL` secondo i DDL del repo?")
-  $lines.Add("- Quali file DDL sono la fonte e come posso rigenerare questo inventario?")
-  $lines.Add("- Dove trovo la documentazione umana (01_database_architecture) per ciascun gruppo di SP?")
+  $lines.Add("- Quali tabelle/procedure esistono nello schema `${PortalSchema}` secondo le fonti canoniche?")
+  $lines.Add("- Quali file sono la fonte e come posso rigenerare questo inventario?")
   $lines.Add('')
   $lines.Add('## Source of truth (repo)')
-  $lines.Add('- Tabelle: `DataBase/DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql`')
-  $lines.Add('- Stored procedure: `DataBase/DDL_PORTAL_STOREPROCES_EASYWAY_DATAPORTAL.sql`')
-  $lines.Add('- Logging SP: `DataBase/DDL_STATLOG_STOREPROCES_EASYWAY_DATAPORTAL.sql`')
+  $lines.Add(("- DDL canonico: `{0}`" -f $CanonicalDdlRel))
+  $lines.Add(("- Provisioning (bootstrap idempotente): `{0}`" -f $ProvisioningRel))
   $lines.Add('')
-  $lines.Add("Nota: la deploy operativa tende a usare migrazioni Flyway in `db/flyway/sql/`. Questo inventario serve a mantenere la Wiki allineata alla lista dichiarata in `DataBase/`.")
-  $lines.Add('')
-  $lines.Add('## Tabelle (PORTAL)')
-  foreach ($t in $Tables) {
-    $lines.Add(('- `PORTAL.{0}`' -f $t))
+  if ($IncludeLegacy) {
+    $lines.Add('## Legacy export (solo audit/diff)')
+    $lines.Add('Nota: questi file non sono fonte primaria; servono solo per confronto durante la migrazione.')
+    $lines.Add(("- Tabelle (legacy): `{0}`" -f $LegacyTablesRel))
+    $lines.Add(("- Stored procedure (legacy): `{0}`" -f $LegacyProceduresRel))
+    $lines.Add(("- Logging SP (legacy): `{0}`" -f $LegacyStatlogRel))
+    $lines.Add('')
   }
+  $lines.Add("Deploy operativa: usare migrazioni Flyway in `db/flyway/` (apply controllato).")
   $lines.Add('')
-  $lines.Add('## Stored procedure (PORTAL)')
-  foreach ($p in $Procedures) {
-    $lines.Add(('- `PORTAL.{0}`' -f $p))
-  }
-  foreach ($p in $StatlogProcedures) {
-    if ($Procedures -contains $p) { continue }
-    $lines.Add(('- `PORTAL.{0}`' -f $p))
-  }
+
+  $lines.Add("## Tabelle (${PortalSchema}) - canonico")
+  if ($CanonicalTables.Count -eq 0) { $lines.Add('_Nessuna tabella trovata dal parser._') } else { foreach ($t in $CanonicalTables) { $lines.Add(("- `{0}`" -f $t)) } }
   $lines.Add('')
+
+  $lines.Add("## Stored procedure (${PortalSchema}) - canonico")
+  if ($CanonicalProcedures.Count -eq 0) { $lines.Add('_Nessuna stored procedure trovata dal parser._') } else { foreach ($p in $CanonicalProcedures) { $lines.Add(("- `{0}`" -f $p)) } }
+  $lines.Add('')
+
+  if ($IncludeLegacy) {
+    $lines.Add("## Tabelle (${PortalSchema}) - legacy (audit)")
+    foreach ($t in $LegacyTables) { $lines.Add(("- `{0}`" -f $t)) }
+    $lines.Add('')
+
+    $lines.Add("## Stored procedure (${PortalSchema}) - legacy (audit)")
+    foreach ($p in $LegacyProcedures) { $lines.Add(("- `{0}`" -f $p)) }
+    foreach ($p in $LegacyStatlogProcedures) {
+      if ($LegacyProcedures -contains $p) { continue }
+      $lines.Add(("- `{0}`" -f $p))
+    }
+    $lines.Add('')
+  }
+
   $lines.Add("## Dove e' documentato (Wiki)")
   $lines.Add('- Overview schema/tabelle: `easyway-webapp/01_database_architecture/portal.md`')
   $lines.Add('- Overview SP: `easyway-webapp/01_database_architecture/storeprocess.md`')
   $lines.Add('- SP per area: `easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md`')
   $lines.Add('- Logging: `easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md`')
   $lines.Add('')
+
   $lines.Add('## Rigenerazione (idempotente)')
-  $lines.Add('- `pwsh scripts/db-ddl-inventory.ps1 -WriteWiki`')
+  $lines.Add('- Solo canonico: `pwsh scripts/db-ddl-inventory.ps1 -WriteWiki`')
+  $lines.Add('- Con legacy export (audit): `pwsh scripts/db-ddl-inventory.ps1 -IncludeLegacy -WriteWiki`')
   $lines.Add('')
   return ($lines -join "`n") + "`n"
 }
 
-$tablesPath = Join-Path $DbDir $PortalTablesFile
-$procsPath = Join-Path $DbDir $PortalProceduresFile
-$statPath = Join-Path $DbDir $StatlogProceduresFile
+$portalSchemaNorm = ($PortalSchema ?? 'PORTAL').Trim()
+$canonicalPath = Join-Path $DbDir $CanonicalDdlFile
 
-$tablesSql = Read-Text $tablesPath
-$procsSql = Read-Text $procsPath
-$statSql = Read-Text $statPath
+$collected = Collect-CanonicalSql -CanonicalPath $canonicalPath -ProvisioningDir $ProvisioningDir
+$canonicalCombinedSql = $collected.combinedSql
+$provisioningFiles = @($collected.provisioningFiles)
 
-$tables = Extract-PortalTables $tablesSql
-$procs = Extract-PortalProcedures $procsSql
-$statProcs = Extract-PortalProcedures $statSql
+$canonicalTables = @()
+try {
+  $canonicalTables = @(
+    (Extract-Tables $canonicalCombinedSql) |
+    Where-Object { $_.schema -and $_.name -and ($_.schema -ieq $portalSchemaNorm) } |
+    ForEach-Object { Normalize-FullName $_.schema $_.name } |
+    Where-Object { $_ } |
+    Sort-Object -Unique
+  )
+} catch { $canonicalTables = @() }
 
-$tables = @($tables | Where-Object { $_ })
-$procs = @($procs | Where-Object { $_ })
-$statProcs = @($statProcs | Where-Object { $_ })
+$canonicalProcedures = @()
+try {
+  $canonicalProcedures = @(
+    (Extract-Procedures $canonicalCombinedSql) |
+    Where-Object { $_.schema -and $_.name -and ($_.schema -ieq $portalSchemaNorm) } |
+    ForEach-Object { Normalize-FullName $_.schema $_.name } |
+    Where-Object { $_ } |
+    Sort-Object -Unique
+  )
+} catch { $canonicalProcedures = @() }
+
+$legacyTablesPath = $null
+$legacyProcsPath = $null
+$legacyStatPath = $null
+$legacyTablesFull = @()
+$legacyProcsFull = @()
+$legacyStatFull = @()
+
+if ($IncludeLegacy) {
+  $legacyTablesPath = Resolve-ExistingPath @(
+    (Join-Path $LegacyDir $LegacyPortalTablesFile),
+    (Join-Path $DbDir $LegacyPortalTablesFile)
+  )
+  $legacyProcsPath = Resolve-ExistingPath @(
+    (Join-Path $LegacyDir $LegacyPortalProceduresFile),
+    (Join-Path $DbDir $LegacyPortalProceduresFile)
+  )
+  $legacyStatPath = Resolve-ExistingPath @(
+    (Join-Path $LegacyDir $LegacyStatlogProceduresFile),
+    (Join-Path $DbDir $LegacyStatlogProceduresFile)
+  )
+
+  $legacyTablesSql = if ($legacyTablesPath) { Read-Text $legacyTablesPath } else { '' }
+  $legacyProcsSql = if ($legacyProcsPath) { Read-Text $legacyProcsPath } else { '' }
+  $legacyStatSql = if ($legacyStatPath) { Read-Text $legacyStatPath } else { '' }
+
+  $legacyTablesFull = @(
+    (Extract-Tables $legacyTablesSql) |
+    Where-Object { $_.schema -and $_.name -and ($_.schema -ieq $portalSchemaNorm) } |
+    ForEach-Object { Normalize-FullName $_.schema $_.name } |
+    Where-Object { $_ } |
+    Sort-Object -Unique
+  )
+  $legacyProcsFull = @(
+    (Extract-Procedures $legacyProcsSql) |
+    Where-Object { $_.schema -and $_.name -and ($_.schema -ieq $portalSchemaNorm) } |
+    ForEach-Object { Normalize-FullName $_.schema $_.name } |
+    Where-Object { $_ } |
+    Sort-Object -Unique
+  )
+  $legacyStatFull = @(
+    (Extract-Procedures $legacyStatSql) |
+    Where-Object { $_.schema -and $_.name -and ($_.schema -ieq $portalSchemaNorm) } |
+    ForEach-Object { Normalize-FullName $_.schema $_.name } |
+    Where-Object { $_ } |
+    Sort-Object -Unique
+  )
+}
+
+$canonKey = @($canonicalTables | ForEach-Object { $_.ToLowerInvariant() })
+$legacyKey = @($legacyTablesFull | ForEach-Object { $_.ToLowerInvariant() })
+$legacyOnlyTables = @()
+for ($i=0; $i -lt $legacyTablesFull.Count; $i++) {
+  if ($canonKey -notcontains $legacyKey[$i]) { $legacyOnlyTables += $legacyTablesFull[$i] }
+}
 
 $summary = [pscustomobject]@{
   ok = $true
-  dbDir = $DbDir
   inputs = [pscustomobject]@{
-    portalTables = $tablesPath.Replace([char]92,'/')
-    portalProcedures = $procsPath.Replace([char]92,'/')
-    statlogProcedures = $statPath.Replace([char]92,'/')
+    portalSchema = $portalSchemaNorm
+    canonicalDdl = $canonicalPath.Replace([char]92,'/')
+    provisioningDir = $ProvisioningDir.Replace([char]92,'/')
+    provisioningFiles = @($provisioningFiles | ForEach-Object { $_.Replace([char]92,'/') })
+    includeLegacy = [bool]$IncludeLegacy
+    legacyDir = $LegacyDir.Replace([char]92,'/')
+    legacyPortalTables = if ($legacyTablesPath) { $legacyTablesPath.Replace([char]92,'/') } else { $null }
+    legacyPortalProcedures = if ($legacyProcsPath) { $legacyProcsPath.Replace([char]92,'/') } else { $null }
+    legacyStatlogProcedures = if ($legacyStatPath) { $legacyStatPath.Replace([char]92,'/') } else { $null }
   }
   counts = [pscustomobject]@{
-    tables = $tables.Count
-    procedures = $procs.Count
-    statlogProcedures = $statProcs.Count
+    canonicalTables = $canonicalTables.Count
+    canonicalProcedures = $canonicalProcedures.Count
+    legacyTables = $legacyTablesFull.Count
+    legacyProcedures = $legacyProcsFull.Count
+    legacyStatlogProcedures = $legacyStatFull.Count
+    legacyOnlyTables = $legacyOnlyTables.Count
   }
-  portal = [pscustomobject]@{
-    tables = $tables
-    procedures = $procs
-    statlogProcedures = $statProcs
+  canonical = [pscustomobject]@{
+    tables = $canonicalTables
+    procedures = $canonicalProcedures
+  }
+  legacy = [pscustomobject]@{
+    tables = $legacyTablesFull
+    procedures = $legacyProcsFull
+    statlogProcedures = $legacyStatFull
+  }
+  delta = [pscustomobject]@{
+    legacyOnlyTables = $legacyOnlyTables
   }
   wiki = [pscustomobject]@{
     wrote = [bool]$WriteWiki
@@ -139,10 +303,28 @@ $summary = [pscustomobject]@{
 }
 
 if ($WriteWiki) {
-  $md = Build-Wiki -Tables $tables -Procedures $procs -StatlogProcedures $statProcs
+  $legacyTablesRel = if ($IncludeLegacy -and $legacyTablesPath) { $legacyTablesPath.Replace([char]92,'/') } else { '' }
+  $legacyProcsRel = if ($IncludeLegacy -and $legacyProcsPath) { $legacyProcsPath.Replace([char]92,'/') } else { '' }
+  $legacyStatRel = if ($IncludeLegacy -and $legacyStatPath) { $legacyStatPath.Replace([char]92,'/') } else { '' }
+
+  $md = Build-Wiki `
+    -PortalSchema $portalSchemaNorm `
+    -CanonicalDdlRel ($canonicalPath.Replace([char]92,'/')) `
+    -ProvisioningRel ($ProvisioningDir.Replace([char]92,'/')) `
+    -CanonicalTables $canonicalTables `
+    -CanonicalProcedures $canonicalProcedures `
+    -IncludeLegacy ([bool]$IncludeLegacy) `
+    -LegacyTablesRel $legacyTablesRel `
+    -LegacyProceduresRel $legacyProcsRel `
+    -LegacyStatlogRel $legacyStatRel `
+    -LegacyTables $legacyTablesFull `
+    -LegacyProcedures $legacyProcsFull `
+    -LegacyStatlogProcedures $legacyStatFull
+
   Set-Content -LiteralPath $WikiOut -Value $md -Encoding utf8
 }
 
-$json = $summary | ConvertTo-Json -Depth 6
+$json = $summary | ConvertTo-Json -Depth 7
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json
+

@@ -37,6 +37,16 @@ Obiettivo: dare a n8n (o ad altri agenti) un modo **deterministico** per decider
 Quando GPT-5.2 Codex deve implementare sotto `EasyWay-DataPortal/`, usa il bundle:
 - `codex.dev.core`  contesto minimo (governance + portal + security) + entrypoints del codice.
 
+## Bundle DB (n8n)
+
+Quando n8n deve fare operazioni sul DB (es. rigenerare inventario DDL e aggiornare la Wiki DB), usa:
+- `n8n.db.core`  contesto DB (Wiki) + root tecnica `DataBase/` (source-of-truth dei DDL).
+
+Per la creazione di nuove tabelle (artefatti Flyway + pagina Wiki tabella), usa:
+- `n8n.db.table.create`
+
+Nota: di default i bundle servono a caricare **Wiki**; i DDL in `DataBase/` vanno letti come file tecnici solo quando necessario (non come "doc canonica").
+
 ## Regole operative
 
 1. n8n risolve `intent` → `bundle_id` (o riceve direttamente `bundle_id`).
@@ -54,4 +64,3 @@ Quando GPT-5.2 Codex deve implementare sotto `EasyWay-DataPortal/`, usa il bundl
 
 - Pagine "shim/redirect compat" devono avere `status: deprecated` e idealmente `llm.include: false` per non essere caricate dagli agenti.
 - La pagina canonica resta l'unica fonte: le altre rimandano (con `canonical:` o `redirect_to:`).
-

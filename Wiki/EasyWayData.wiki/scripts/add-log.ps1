@@ -1,6 +1,6 @@
 <#!
 .SYNOPSIS
-  Append a CSV-friendly activity log line to ACTIVITY_LOG.md
+  Append a CSV-friendly activity log line to a log file under logs/
 
 .DESCRIPTION
   Writes a single line in the format:
@@ -24,7 +24,7 @@
   Short description without newlines (they will be stripped). The pipe-broken delimiter will be sanitized to '/'.
 
 .PARAMETER LogPath
-  Optional path to the log file. Defaults to ../ACTIVITY_LOG.md next to this script.
+  Optional path to the log file. Defaults to ../logs/activity.log next to this script.
 
 .EXAMPLE
   ./add-log.ps1 -Type DOC -Scope conventions -Status success -Owner team-docs -Message "Aggiornata guida naming"
@@ -42,7 +42,7 @@ param(
   [Parameter(Mandatory=$true)][string]$Message,
   [ValidateSet('none','monthly','scope')][string]$Split = 'none',
   [bool]$MirrorToMaster = $true,
-  [string]$LogPath = (Join-Path $PSScriptRoot '..\ACTIVITY_LOG.md'),
+  [string]$LogPath = (Join-Path $PSScriptRoot '..\logs\activity.log'),
   [string]$LogsRoot = (Join-Path $PSScriptRoot '..\logs')
 )
 

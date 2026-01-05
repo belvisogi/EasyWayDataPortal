@@ -1,0 +1,106 @@
+{
+  "id": "db.table.create",
+  "version": "0.1.0",
+  "principle": "WHAT-first orchestration manifest: define cosa fare (obiettivi, stati, esiti, contratti) prima del come",
+  "intent": {
+    "name": "db.table.create",
+    "description": "Da una richiesta strutturata a: DDL/migrazione + pagina Wiki tabella + (opz.) apply controllato",
+    "trigger": "db.table.create.requested"
+  },
+  "roles": {
+    "requester": "Richiede una nuova tabella e fornisce requisiti (colonne, vincoli, privacy, tenanting).",
+    "orchestrator": "Sequenzia step, valida contratti, propaga correlationId e decision_trace_id.",
+    "agent_dba": "Genera artefatti DB e guida l'apply (con WhatIf e gates).",
+    "steward_governance": "Human-in-the-loop su scelte rischiose (PII, RLS, apply in ambienti condivisi)."
+  },
+  "preconditions": [
+    "Spec input disponibile (intent db.table.create)",
+    "Policy naming/PII note",
+    "Percorsi repo scrivibili (per generare artefatti)"
+  ],
+  "postconditions": [
+    "Artefatti generati: migrazione Flyway + doc Wiki tabella",
+    "Opzionale: apply su DB eseguito solo con approvazione e gates verdi"
+  ],
+  "stages": [
+    {
+      "name": "received",
+      "purpose": "Ricevere richiesta e inizializzare correlationId/run",
+      "entry_criteria": ["Evento db.table.create.requested"],
+      "inputs": ["intent_payload"],
+      "outputs": ["correlationId"],
+      "success_criteria": ["Payload ricevuto"],
+      "failure_criteria": ["Payload mancante"],
+      "events_emitted": ["db.table.create.started"],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "db_table_create_received"
+    },
+    {
+      "name": "validated",
+      "purpose": "Validare input contract (WHAT) e policy minime (naming/PII)",
+      "entry_criteria": ["received.success"],
+      "inputs": ["intent_payload"],
+      "outputs": ["validation_ok", "validation_notes"],
+      "success_criteria": ["Spec valida"],
+      "failure_criteria": ["Spec invalida"],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "db_table_create_validated"
+    },
+    {
+      "name": "artifacts_generated",
+      "purpose": "Generare migrazione Flyway e pagina Wiki tabella (no apply su DB)",
+      "entry_criteria": ["validated.success"],
+      "inputs": ["intent_payload"],
+      "outputs": ["artifacts[]", "ddl_path", "wiki_page"],
+      "success_criteria": ["Artefatti generati"],
+      "failure_criteria": ["Generazione fallita"],
+      "events_emitted": [],
+      "human_checkpoints": ["Review se PII/RLS o vincoli complessi"],
+      "timeouts": { "max_ms": 120000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "db_table_create_artifacts"
+    },
+    {
+      "name": "applied",
+      "purpose": "Opzionale: applicare su DB (solo con gates verdi e approvazione)",
+      "entry_criteria": ["artifacts_generated.success", "human_approved.apply"],
+      "inputs": ["ddl_path", "environment"],
+      "outputs": ["apply_ok", "apply_notes"],
+      "success_criteria": ["Migrazione applicata senza errori"],
+      "failure_criteria": ["Apply fallito"],
+      "events_emitted": ["db.migration.applied"],
+      "human_checkpoints": ["Approvazione governance"],
+      "timeouts": { "max_ms": 180000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "db_table_create_apply"
+    },
+    {
+      "name": "completed",
+      "purpose": "Chiudere la run con link agli artefatti e next step",
+      "entry_criteria": ["artifacts_generated.success"],
+      "inputs": ["artifacts[]"],
+      "outputs": ["run_summary"],
+      "success_criteria": ["Output finale disponibile"],
+      "failure_criteria": [],
+      "events_emitted": ["db.table.create.completed"],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 1 },
+      "retries": { "max": 0 },
+      "ux_prompts": "db_table_create_done"
+    }
+  ],
+  "transitions": [
+    { "from": "received", "to": "validated", "condition": "received.success" },
+    { "from": "validated", "to": "artifacts_generated", "condition": "validation_ok" },
+    { "from": "artifacts_generated", "to": "completed", "condition": "artifacts_generated.success" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}

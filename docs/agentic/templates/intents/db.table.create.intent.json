@@ -1,0 +1,81 @@
+{
+  "id": "db.table.create",
+  "what": {
+    "purpose": "Creare una nuova tabella DB in modo agentico e governato: generare DDL/migration idempotente, aggiornare doc canonica (Wiki) e produrre artifact machine-readable.",
+    "inputs": {
+      "schema": { "type": "string", "examples": ["PORTAL"], "description": "Schema SQL target." },
+      "table": { "type": "string", "examples": ["tenant"], "description": "Nome tabella (snake_case consigliato lato DB)." },
+      "columns": {
+        "type": "array",
+        "description": "Definizione colonne (minimo: name + sql_type).",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "examples": ["tenant_id", "created_at"] },
+            "sql_type": { "type": "string", "examples": ["int", "uniqueidentifier", "nvarchar(200)", "datetime2(3)"] },
+            "nullable": { "type": "boolean", "default": true },
+            "default": { "type": "string", "description": "Default SQL (es. 'sysutcdatetime()')." },
+            "pk": { "type": "boolean", "default": false },
+            "identity": { "type": "boolean", "default": false },
+            "references": {
+              "type": "object",
+              "properties": {
+                "schema": { "type": "string" },
+                "table": { "type": "string" },
+                "column": { "type": "string" }
+              }
+            },
+            "pii": { "type": "string", "enum": ["none", "low", "high"], "default": "none" },
+            "description": { "type": "string" }
+          },
+          "required": ["name", "sql_type"]
+        }
+      },
+      "indexes": {
+        "type": "array",
+        "description": "Indici (opzionale).",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "columns": { "type": "array", "items": { "type": "string" } },
+            "unique": { "type": "boolean", "default": false }
+          },
+          "required": ["columns"]
+        }
+      },
+      "tenanting": {
+        "type": "object",
+        "description": "Opzionale: regole multi-tenant / RLS.",
+        "properties": {
+          "tenant_column": { "type": "string", "examples": ["tenant_id"] },
+          "rls_required": { "type": "boolean", "default": false }
+        }
+      },
+      "documentation": {
+        "type": "object",
+        "description": "Metadati doc canonica (Wiki).",
+        "properties": {
+          "owner": { "type": "string", "examples": ["team-data"] },
+          "summary": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "writeWiki": { "type": "boolean", "default": true },
+      "writeFlyway": { "type": "boolean", "default": true },
+      "writeDatabaseSnapshot": { "type": "boolean", "default": false, "description": "Opzionale: aggiornare anche un file DDL snapshot in DataBase/ (se policy lo prevede)." },
+      "summaryOut": { "type": "string", "default": "db-table-create.json" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "artifacts": { "type": "array", "items": { "type": "string" } },
+      "ddl": { "type": "string", "description": "Path del DDL generato (migrazione Flyway o file DDL)." },
+      "wikiPage": { "type": "string", "description": "Path pagina Wiki creata/aggiornata (se writeWiki=true)." },
+      "notes": { "type": "string", "description": "Note/azioni manuali residue (es. ERwin export/import) se non automatizzabili." }
+    },
+    "events": ["db.table.create.started", "db.table.create.completed"],
+    "success_criteria": ["DDL generato e idempotente", "Doc Wiki creata/aggiornata (se richiesto)", "Output machine-readable prodotto"],
+    "failure_criteria": ["Spec invalida", "Generazione DDL fallita", "Scrittura artifact fallita"]
+  }
+}
+

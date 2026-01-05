@@ -57,6 +57,30 @@
         "governance-all"
       ]
     },
+    "n8n.db.core": {
+      "intent": "db.ddl-inventory",
+      "description": "Contesto DB minimale per n8n: architettura DB + inventario DDL (tabelle/SP) + governance essenziale.",
+      "scopes": [
+        "data-all",
+        "governance-all"
+      ],
+      "code_roots": [
+        "DataBase/"
+      ]
+    },
+    "n8n.db.table.create": {
+      "intent": "db.table.create",
+      "description": "Creazione tabella (WHAT-first): carica solo contesto DB+security+governance e i root tecnici per generare artefatti.",
+      "scopes": [
+        "data-all",
+        "security-all",
+        "governance-all"
+      ],
+      "code_roots": [
+        "db/flyway/",
+        "DataBase/"
+      ]
+    },
     "ingest.upload-file": {
       "intent": "ingest.upload-file",
       "description": "Ingest/upload file: validazione base, storage target e vincoli multi-tenant.",
