@@ -3,7 +3,7 @@ id: ew-easyway-webapp-05-codice-easyway-portale-readme
 title: readme
 tags: [domain/frontend, layer/index, audience/dev, privacy/internal, language/it, readme]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su readme.'
 status: draft
 llm:
   include: true
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 ## Domande a cui risponde
@@ -18,6 +20,7 @@ entities: []
 - Dove trovare guide di avvio, policy e script utili?
 - Quali passi seguire per contribuire o fare troubleshooting?
 - Come verificare consistenza (naming/ancore) e generare i manifest?
+
 
 
 

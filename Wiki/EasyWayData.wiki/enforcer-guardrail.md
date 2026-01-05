@@ -3,7 +3,7 @@ title: EnforcerCheck – Guardrail allowed_paths in CI
 tags: [ci, guardrail, governance, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
 status: active
 id: ew-enforcer-guardrail
-summary: TODO - aggiungere un sommario breve.
+summary: Guardrail CI che valida i changed files contro allowed_paths dei manifest agent, fail-fast in PreChecks per bloccare modifiche fuori scope.
 owner: team-platform
 llm:
   include: true

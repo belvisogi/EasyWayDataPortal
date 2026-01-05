@@ -1,7 +1,7 @@
 ---
 id: ew-easyway-webapp-02-logiche-easyway-logging-and-audit-readme
 title: readme
-summary: Breve descrizione del documento.
+summary: 'Documento su readme.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 # Checklist Operativa – Logging & Audit
 EasyWay Data Portal
@@ -65,6 +66,7 @@ Garantire che tutti i servizi, microservizi, pipeline e infrastrutture rispettin
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

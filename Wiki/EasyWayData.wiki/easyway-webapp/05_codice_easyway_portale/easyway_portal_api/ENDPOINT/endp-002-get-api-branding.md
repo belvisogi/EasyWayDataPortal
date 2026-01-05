@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 ### **1. `src/routes/branding.ts`**
 
@@ -119,6 +120,7 @@ export default app;
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

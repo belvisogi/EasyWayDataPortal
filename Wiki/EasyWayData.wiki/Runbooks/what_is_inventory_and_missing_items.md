@@ -1,7 +1,7 @@
 ---
 id: ew-runbooks-what-is-inventory-and-missing-items
 title: what is inventory and missing items
-summary: TODO - aggiungere un sommario breve.
+summary: Spiega cos’è l’inventory (CSV/JSON), perché serve per DR e quali gap tipici emergono (runbook-as-code, SID sync, IaC, sync storage, ingress, monitoring).
 status: draft
 owner: team-platform
 tags: [docs, domain/control-plane, layer/reference, audience/ops, privacy/internal, language/it, inventory]
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 Che cos'è l'"inventory" e a cosa serve (breve guida operativa)
 
@@ -59,6 +61,7 @@ Che cos'è l'"inventory" e a cosa serve (breve guida operativa)
 - D) Preparare lista gap dettagliata ordinata per priorità (deliverable + effort stimato).
 
 Indica quale azione vuoi che esegua subito (A, B, C o D) oppure conferma "procedi con A" se vuoi che inizi da inventory e matrice.
+
 
 
 

@@ -1,0 +1,132 @@
+{
+  "applied": true,
+  "includeFullPath": false,
+  "scopesPath": "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+  "ensureDraftHygiene": true,
+  "scopeName": "security-all",
+  "excluded": [
+    "logs/reports,old,.attachments"
+  ],
+  "results": [
+    {
+      "file": "db-user-access-management.md",
+      "rel": "db-user-access-management.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "domains/datalake.md",
+      "rel": "domains/datalake.md",
+      "action": "present",
+      "applied": false,
+      "changed": false
+    },
+    {
+      "file": "easyway-webapp/04-accesso-registrazione-notifiche.md",
+      "rel": "easyway-webapp/04-accesso-registrazione-notifiche.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/07-iam-naming-utenti-gruppi.md",
+      "rel": "easyway-webapp/07-iam-naming-utenti-gruppi.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md",
+      "rel": "easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md",
+      "rel": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md",
+      "rel": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md",
+      "rel": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md",
+      "rel": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md",
+      "rel": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md",
+      "rel": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md",
+      "rel": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md",
+      "rel": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md",
+      "rel": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md",
+      "rel": "easyway-webapp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/iac.md",
+      "rel": "easyway-webapp/05_codice_easyway_portale/iac.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/security-and-observability.md",
+      "rel": "easyway-webapp/05_codice_easyway_portale/security-and-observability.md",
+      "action": "patched",
+      "applied": true,
+      "changed": true
+    }
+  ],
+  "fixPlaceholderSummary": true
+}

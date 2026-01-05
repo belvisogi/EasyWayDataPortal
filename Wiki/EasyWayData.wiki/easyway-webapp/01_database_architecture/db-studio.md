@@ -11,6 +11,8 @@ llm:
   chunk_hint: 300-500
   redaction: [email]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Obiettivo
@@ -33,6 +35,7 @@ Pipeline
 Note
 - Gli script leggono INFORMATION_SCHEMA/sys.* e producono output idempotente.
 - Estensioni future: relazioni by columns, extended properties come descrizioni.
+
 
 
 

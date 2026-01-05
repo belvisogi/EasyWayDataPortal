@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-350
   redaction: []
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Dominio Datalake
@@ -31,6 +33,7 @@ Gates
 
 KB
 - Ricette Datalake in `agents/kb/recipes.jsonl` (da completare).
+
 
 
 

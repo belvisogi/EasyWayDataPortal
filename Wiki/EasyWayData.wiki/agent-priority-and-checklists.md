@@ -3,7 +3,7 @@ title: Agent Priority Rules e Checklists (human-in-the-loop)
 tags: [agents, governance, docs, domain/control-plane, layer/reference, audience/dev, privacy/internal, language/it]
 status: active
 id: ew-agent-priority-and-checklists
-summary: TODO - aggiungere un sommario breve.
+summary: Regole per decidere quando un agente deve proporre una checklist (mandatory/advisory) e come applicare human-in-the-loop senza alert fatigue.
 owner: team-platform
 llm:
   include: true

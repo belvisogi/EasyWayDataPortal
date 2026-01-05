@@ -1,11 +1,11 @@
 ---
 id: ew-portal-programmability-index
-title: Indice
-summary: Breve descrizione del documento.
-status: draft
+title: portal-programmability-index
+summary: Indice guide per function/sequence/stored-procedure nello schema PORTAL.
+status: active
 owner: team-data
 created: '2025-01-01'
-updated: '2025-01-01'
+updated: '2026-01-05'
 tags: [domain/db, layer/index, audience/dev, audience/dba, privacy/internal, language/it, programmability]
 entities: []
 llm:
@@ -13,21 +13,20 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+next: Aggiornare quando cambiano template o viene aggiunto un nuovo artefatto.
 ---
+
 # Indice
+
 Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Programmability
-- [function.md](./function.md) - Domande a cui risponde
-- [index.md](./index.md) - Indice
-- [sequence.md](./sequence.md) - EasyWay Data Portal – SEQUENCE
-- [stored-procedure.md](./stored-procedure.md) - EasyWay Data Portal - STORE PROCEDURE: Linee Guida, Best Practice e Template
+
+- [function.md](./function.md) - Linee guida e checklist per `FUNCTION`.
+- [sequence.md](./sequence.md) - Linee guida e naming per `SEQUENCE`.
+- [stored-procedure.md](./stored-procedure.md) - Guida, template e policy per `STORED PROCEDURE`.
+- [stored-procedure/index.md](./stored-procedure/index.md) - Indice delle stored procedure documentate (PORTAL).
 
 ## Domande a cui risponde
-- Dove trovare function/sequence/stored procedure e le rispettive guide?
-- Come navigare tra i template e gli esempi per ogni artefatto?
-- Dove sono indicati i riferimenti alle entità e agli indici correlati?
-- Come verificare rapidamente naming e ancore della cartella?
-
-
-
-
-
+- Dove trovare guide e template per function/sequence/stored procedure?
+- Quali regole di naming e policy applicare prima di creare un nuovo artefatto?
+- Dove consultare l’indice delle stored procedure già documentate?
+- Quali link canonici usare quando documento una nuova SP?

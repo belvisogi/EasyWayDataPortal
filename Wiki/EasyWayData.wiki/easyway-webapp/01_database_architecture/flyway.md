@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Cos’è Flyway
@@ -88,6 +90,7 @@ Nota su DataBase/ vs db/
 - `db/` è il nuovo “source of truth” per migrazioni (DevOps‑ready).
 - `DataBase/` contiene SQL storici: mantenerla come archivio finché non confluisce in migrazioni Flyway.
 - Obiettivo: migrare i DDL storici in `db/flyway/sql/` (V1..Vn) e deprecare gradualmente `DataBase/`.
+
 
 
 

@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Mapping Matrix - Workflow → Intent → Implementazione
@@ -56,6 +58,7 @@ entities: []
 ## Note operative
 - La colonna Entrypoint è “canonico”: molti intent hanno anche `IntentPath` sample in `agents/<agent>/templates/*.sample.json`.
 - Per aggiungere un nuovo intent: aggiungi schema WHAT in `docs/agentic/templates/intents/`, aggiorna questa matrice, aggiungi ricetta KB e pagina Wiki.
+
 
 
 

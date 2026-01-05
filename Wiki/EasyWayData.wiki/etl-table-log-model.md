@@ -11,6 +11,8 @@ llm:
   chunk_hint: 400-600
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # ETL – Table Log Model
@@ -36,6 +38,7 @@ Integrazione con agenti
 Riferimenti
 - ETL/ELT Inspirations (Table Log)
 - Datalake – Ensure Structure / portal-audit
+
 
 
 

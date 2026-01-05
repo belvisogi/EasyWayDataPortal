@@ -11,6 +11,8 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # ETL/ELT – Scelte Tecnologiche
@@ -55,6 +57,7 @@ Riferimenti
 - Intent pipeline (spec): `etl-spec:create`, `etl-spec:validate`, `etl:dry-run`, `etl:deploy` (stub).
 - Logging comune: `portal-audit/etl-execution-logs/` con chiavi minime (workflow_key, status, started_at, ended_at, rows_*).
 - Ogni azione agente produce Output Contract (JSON) con `summary` + `changesPreview` (WhatIf) o `stateAfter` (apply).
+
 
 
 

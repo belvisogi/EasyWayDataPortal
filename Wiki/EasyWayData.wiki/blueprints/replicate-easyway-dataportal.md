@@ -11,6 +11,8 @@ llm:
   chunk_hint: 400-700
   redaction: [email]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Obiettivo
@@ -116,6 +118,7 @@ Checklist finale
 - [ ] OpenAPI allineata, sicurezza Bearer documentata
 - [ ] Pipeline con Variable Group impostato
 - [ ] Smoke test REST/Jest passano (401 atteso senza token)
+
 
 
 

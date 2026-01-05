@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Output Contract (JSON)
@@ -63,6 +65,7 @@ Riferimenti
 - `agent-first-method.md`
 - `intent-contract.md`
 - Pagine dominio (DBA, Datalake) e relative ricette KB (con `example_output`).
+
 
 
 

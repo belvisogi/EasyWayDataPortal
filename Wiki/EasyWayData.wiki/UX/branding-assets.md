@@ -11,6 +11,8 @@ llm:
   chunk_hint: 200-300
   redaction: []
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # UX - Asset e Branding
@@ -22,6 +24,7 @@ Asset (root repo)
 
 Uso
 - Questi file sono riferimenti/mokup; se diventano parte del prodotto devono essere copiati in una posizione canonica del frontend (e documentati).
+
 
 
 

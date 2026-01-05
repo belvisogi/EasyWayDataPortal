@@ -3,7 +3,7 @@ title: ADO – Segnare un job come Required nelle PR
 tags: [ado, branch-policies, governance, domain/control-plane, layer/gate, audience/dev, audience/ops, privacy/internal, language/it, ci]
 status: active
 id: ew-checklist-ado-required-job
-summary: TODO - aggiungere un sommario breve.
+summary: Procedura per rendere il job EnforcerCheck un check Required nelle PR (Azure Repos branch policies) per far rispettare i guardrail.
 owner: team-platform
 llm:
   include: true

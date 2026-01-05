@@ -11,6 +11,8 @@ llm:
   chunk_hint: 300-500
   redaction: [email]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Obiettivi
@@ -67,6 +69,7 @@ Uso consigliato (GOLD/REPORTING)
 
 Approfondimenti
 - Parametrizzazione completa: vedi `Wiki/EasyWayData.wiki/parametrization-best-practices.md`
+
 
 
 

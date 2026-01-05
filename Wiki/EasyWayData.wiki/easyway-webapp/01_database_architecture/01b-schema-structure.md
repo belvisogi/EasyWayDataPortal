@@ -3,7 +3,7 @@ id: ew-01b-schema-structure
 title: 01b schema structure
 tags: [domain/db, layer/spec, audience/dev, audience/dba, privacy/internal, language/it, schema]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su 01b schema structure.'
 status: draft
 llm:
   include: true
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 
@@ -19,6 +21,7 @@ entities: []
 - Dove sono le convenzioni di naming e i collegamenti a programmability?
 - Quali passi minimi per aggiornare struttura e indici?
 - Dove trovare le entità correlate nel dizionario?
+
 
 
 

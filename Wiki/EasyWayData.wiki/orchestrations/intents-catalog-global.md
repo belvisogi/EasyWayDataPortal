@@ -11,9 +11,18 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Orchestrations - Intents Catalog (Globale)
+
+## Domande a cui risponde
+- Quali intent cross-domain sono già definiti e dove si trovano i rispettivi schemi?
+- Qual è il pattern di naming per un nuovo intent e in quale path va creato il JSON?
+- Quali altri artefatti devo aggiornare quando aggiungo un intent (Wiki, KB, orchestrazioni/manifest)?
+- Come distinguo intent attivi da intent “da definire” e quale owner li presidia?
+- Qual è l'orchestrazione che li dispatcha (es. n8n) e con quale contratto?
 
 Attivi (con schema)
 - orchestrator.n8n.dispatch -> `docs/agentic/templates/intents/orchestrator.n8n.dispatch.intent.json`
@@ -37,8 +46,4 @@ Da definire (skeleton cross-domain)
 
 Nota
 - Ogni nuovo intent deve avere: schema in `docs/agentic/templates/intents/` + ricetta KB + pagina Wiki.
-
-
-
-
 

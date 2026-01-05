@@ -15,15 +15,25 @@ entities: []
 
 # HOWTO – WHAT‑first + Diario di Bordo (Team)
 
-Obiettivo
+## Obiettivo
 - Adottare un flusso di lavoro semplice e ripetibile: prima descriviamo cosa fare (WHAT), poi realizziamo il come (HOW), con un diario di bordo chiaro per utenti e sviluppatori.
 
-Prerequisiti
+## Domande a cui risponde
+- Quali artefatti WHAT sono obbligatori (manifest, intents, UX prompts) e dove vivono?
+- Qual è l'ordine consigliato per lavorare (WHAT → lint → stub → HOW) senza perdere allineamento?
+- Quali lint devo eseguire e cosa guardare quando falliscono?
+- Come si struttura il diario di bordo (campi minimi) e dove viene consumato (UI/CI/log)?
+- Cosa significa DoR/DoD in EasyWayDataPortal e quando posso dire “è fatto”?
+- Cosa devo aggiornare quando aggiungo un nuovo intent (Wiki/KB/manifest/cataloghi)?
+
+## Prerequisiti
 - Manifesto orchestrazione + intents (cartella `docs/agentic/templates/`)
 - Copioni UX localizzati (IT/EN)
 - Stub CLI disponibili (opzionali) per provare il flusso end‑to‑end
 
-Passi consigliati (Step‑by‑Step)
+## Passi
+
+Passi consigliati (Step-by-Step)
 1) Definisci il WHAT dell’orchestrazione
    - Crea/aggiorna `docs/agentic/templates/orchestrations/<wf>.manifest.json` (scopo, stati, transizioni, contratti I/O, osservabilità, ux_prompts key)
    - Aggiungi pagina Wiki: `Wiki/EasyWayData.wiki/orchestrations/<wf>.md` (WHAT)
@@ -47,7 +57,7 @@ Passi consigliati (Step‑by‑Step)
    - Aggrega le entry JSON ad ogni transizione (`timestamp, stage, outcome, reason, next, decision_trace_id, artifacts[]`)
    - Usa i copioni UX per i messaggi in UI (One‑Button UX)
 
-Definition of Ready / Done
+## Verify
 - DoR: manifest + intents + UX prompts presenti; lint verdi; Wiki aggiornata
 - DoD: agent implementati con output strutturati; diario generato; pagina Wiki/Quest Board aggiornata; gates CI verdi
 
@@ -72,8 +82,4 @@ Riferimenti
 - UX Mock (diario): `UX/diary-mock-wf-excel-csv-upload.md`
 - UX Checklist: `UX/usability-checklist.md`
 - Quest Board: `quest-board-excel-csv.md`
-
-
-
-
 

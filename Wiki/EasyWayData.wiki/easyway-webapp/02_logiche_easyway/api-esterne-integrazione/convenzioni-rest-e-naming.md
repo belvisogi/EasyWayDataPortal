@@ -1,7 +1,7 @@
 ---
 id: ew-convenzioni-rest-e-naming
 title: convenzioni rest e naming
-summary: Breve descrizione del documento.
+summary: 'Documento su convenzioni rest e naming.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 ## Convenzioni REST EasyWay
 
@@ -52,6 +53,7 @@ entities: []
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

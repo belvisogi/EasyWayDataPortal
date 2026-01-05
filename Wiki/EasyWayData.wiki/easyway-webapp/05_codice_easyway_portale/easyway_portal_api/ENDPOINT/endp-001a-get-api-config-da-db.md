@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 **Obiettivo:**  
 Fornire un endpoint che restituisce la configurazione dinamica (parametri da DB) per il tenant corrente, esattamente come per il branding,  
@@ -79,6 +80,7 @@ app.use("/api/config", configRoutes);
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

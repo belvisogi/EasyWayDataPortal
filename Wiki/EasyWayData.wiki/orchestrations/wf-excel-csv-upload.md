@@ -21,6 +21,14 @@ Principio
 Scopo
 - Da file Excel/CSV a dashboard pronta + chat, con tracciabilità (Decision Trace), qualità (ARGOS) e diario di bordo comprensibile a tutti (One‑Button UX).
 
+## Domande a cui risponde
+- Qual è l'obiettivo end-to-end del workflow e quali stati canonici usa nel diario?
+- Quali gate di qualità (ARGOS/DQ) vengono applicati e quali esiti fanno avanzare/bloccare?
+- Quali eventi vengono emessi e come si propaga/usa `decision_trace_id`?
+- Dove sta il manifest JSON e cosa contiene (stati, transizioni, `ux_prompts`, osservabilità)?
+- Quali output e messaggi devono finire nel diario di bordo per essere “one-button” e auditabile?
+- Quali sono i prossimi passi HOW (agenti da implementare) aderendo al contratto WHAT?
+
 Manifest JSON
 - Percorso: `docs/agentic/templates/orchestrations/wf.excel-csv-upload.manifest.json`
 - Contiene: scope, ruoli, feature flags, pre/post‑condizioni, stages, transizioni, osservabilità, riferimenti a policy/mapping, messaggi UX standard.
@@ -49,8 +57,4 @@ Riferimenti
 - Use Case – Entrate/Uscite: `use-cases/entrate-uscite.md`
 - ARGOS – Quality Gates: `argos/argos-quality-gates.md`
 - Governance DQ: `governance-dq.md`
-
-
-
-
 

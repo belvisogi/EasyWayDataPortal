@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 # Prefazione – EasyWay Data Portal  
 ## Guida alla Documentazione Funzionale e Architetturale
@@ -69,6 +70,7 @@ La struttura e le macro-sezioni sono state definite in modo da coprire tutti gli
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

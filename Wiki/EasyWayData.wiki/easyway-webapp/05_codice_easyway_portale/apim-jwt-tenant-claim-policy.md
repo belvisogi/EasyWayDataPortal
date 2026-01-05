@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Obiettivo
@@ -55,6 +57,7 @@ Note
 - Il backend EasyWay non richiede più `X-Tenant-Id` dal client; legge il tenant dai claim del token.
 - L’header impostato da APIM può servire per audit/troubleshooting, ma non è necessario.
 - Usa prodotti/policy APIM per rate‑limit multi‑tenant, IP allowlist e mTLS secondo necessità.
+
 
 
 

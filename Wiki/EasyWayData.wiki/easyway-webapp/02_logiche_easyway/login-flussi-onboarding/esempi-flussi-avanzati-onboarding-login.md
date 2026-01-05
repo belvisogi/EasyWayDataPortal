@@ -1,7 +1,7 @@
 ---
 id: ew-esempi-flussi-avanzati-onboarding-login
 title: esempi flussi avanzati onboarding login
-summary: Breve descrizione del documento.
+summary: 'Documento su esempi flussi avanzati onboarding login.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 ## Esempi Flussi Avanzati Onboarding/Login
 
@@ -74,6 +75,7 @@ entities: []
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

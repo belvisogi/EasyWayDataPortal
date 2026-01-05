@@ -1,7 +1,7 @@
 ---
 id: ew-raccomandazione-architetturale-–-easyway-data-portal
 title: Raccomandazione Architetturale – EasyWay Data Portal
-summary: Breve descrizione del documento.
+summary: 'Documento su Raccomandazione Architetturale – EasyWay Data Portal.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 **EasyWay Data Portal** nasce come piattaforma SaaS multi-tenant, orientata alla scalabilità, alla sicurezza e alla modularità, con un’architettura a microservizi/container, rigorosamente separata per domini funzionali e tenant.
 
@@ -279,6 +280,7 @@ senza vincolare la crescita futura o la sicurezza operativa.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

@@ -21,6 +21,14 @@ Scopo
 - Esporre un punto unico per esecuzioni agentiche via n8n (locale/server), riusabile da UI/CLI/agent.
 - Garantire coerenza con i manifest WHAT-first e i gate (Checklist/DB Drift/KB Consistency, Doc Alignment).
 
+## Domande a cui risponde
+- Qual è il contratto di input (campi obbligatori) per dispatchare un intent via n8n?
+- Quali gate vengono eseguiti pre-dispatch e come funziona `whatIf` (default e override)?
+- Come viene invocato `ewctl` e come si propagano `correlationId` e `decision_trace_id`?
+- Qual è il formato di output atteso e come viene validato/parso dal workflow?
+- Dove finiscono log ed eventi (events.jsonl/Activity Log) e quali KPI minimi conviene tracciare?
+- Come gestire azioni potenzialmente distruttive (approval/whatIf/guardrail)?
+
 Input (contratto)
 - `action` (string) es. `wf.excel-csv-upload`, `doc-alignment`.
 - `params` (object) conforme all'intent specifico.
@@ -48,7 +56,4 @@ Riferimenti
 - Manifest esempio: `docs/agentic/templates/orchestrations/wf.excel-csv-upload.manifest.json`
 - Contratti: `Wiki/EasyWayData.wiki/intent-contract.md`, `Wiki/EasyWayData.wiki/output-contract.md`
 - Governance/gates: `Wiki/EasyWayData.wiki/agents-governance.md`, `doc-alignment-gate.md`
-
-
-
 

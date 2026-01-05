@@ -11,6 +11,8 @@ llm:
   chunk_hint: 200-300
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # ARGOS – Change & Versioning Guide (v1)
@@ -24,6 +26,7 @@ Best practice EasyWay
 
 Da dettagliare
 - Workflow di promozione, freeze window, pattern compatibilità, checklist e RACI.
+
 
 
 

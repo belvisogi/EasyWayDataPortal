@@ -1,0 +1,341 @@
+{
+  "ok": false,
+  "path": "Wiki/EasyWayData.wiki",
+  "excluded": [
+    "logs/reports",
+    "old",
+    ".attachments"
+  ],
+  "scopesPath": "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+  "scopeName": "portal-all",
+  "files": 39,
+  "failures": 11,
+  "counts": {
+    "missing_owner": 0,
+    "missing_or_placeholder_summary": 0,
+    "draft_missing_hygiene": 0,
+    "deprecated_missing_redirect": 0,
+    "runbook_howto_missing_sections": 11,
+    "missing_questions": 1
+  },
+  "results": [
+    {
+      "file": "easyway-webapp/06-frontend-architecture.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/docs.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway-portal-api.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway-portal-frontend.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/iac.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/index.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/qa-setup-and-test-locale.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/readme.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/scripts.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/security-and-observability.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/endpoint.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/index.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-2-—-Struttura-src-e-primi-file.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001-get-api-config.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001a-get-api-config-da-db.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/automazione-export-log-su-datalake-e-compliance.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/logging-conversational-ready-agent-aware.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file/conversational-and-agent-aware-ready.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "UX/agentic-ux.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "UX/branding-assets.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "UX/diary-mock-wf-excel-csv-upload.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "UX/usability-checklist.md",
+      "ok": false,
+      "status": "active",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify",
+        "missing_section_domande_a_cui_risponde"
+      ]
+    }
+  ]
+}

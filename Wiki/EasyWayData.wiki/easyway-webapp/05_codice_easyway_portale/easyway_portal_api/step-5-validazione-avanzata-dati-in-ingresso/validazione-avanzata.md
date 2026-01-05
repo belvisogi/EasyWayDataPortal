@@ -3,7 +3,7 @@ id: ew-validazione-avanzata
 title: validazione avanzata
 tags: [domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, validation, security]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su validazione avanzata.'
 status: draft
 llm:
   include: true
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 Dopo aver validato il **body** delle richieste (POST/PUT),  
 è **best practice** validare anche:
@@ -145,6 +147,7 @@ export function extractTenantId(req: Request, res: Response, next: NextFunction)
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

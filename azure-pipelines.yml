@@ -36,6 +36,12 @@ variables:
     value: 'true'
   - name: ENABLE_WIKI_SUMMARY_LINT
     value: 'true'
+  - name: ENABLE_WIKI_INDEX_LINT
+    value: 'true'
+  - name: ENABLE_WIKI_GAP_REPORT
+    value: 'true'
+  - name: WIKI_GAP_MODE
+    value: 'phased' # phased | all
   - name: ENABLE_WHATFIRST_LINT
     value: 'true'
   - name: ENABLE_DEPLOY
@@ -175,6 +181,65 @@ stages:
             inputs:
               PathtoPublish: '$(Build.SourcesDirectory)/wiki-summary-lint.portal-api-frontend-20.json'
               ArtifactName: 'wiki-summary-lint'
+      - job: WikiIndexLint
+        displayName: 'Wiki Index Lint (Phased scopes)'
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_INDEX_LINT'], 'true'))
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run wiki-index-lint (phased, fail on error)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                set -e
+                pwsh -NoProfile -Command "New-Item -ItemType Directory -Force -Path 'wiki-index-lint' | Out-Null"
+                pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-datalake-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.db-datalake-20.json'
+                pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName portal-api-frontend-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.portal-api-frontend-20.json'
+                pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName controlplane-governance-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.controlplane-governance-20.json'
+                pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName argos-dq-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.argos-dq-20.json'
+                pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName ops-runbooks-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.ops-runbooks-20.json'
+                pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName frontend-ui-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.frontend-ui-20.json'
+                pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-programmability-rest-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.db-programmability-rest-20.json'
+                pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName onboarding-runbook-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.onboarding-runbook-20.json'
+                pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName iam-security-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.iam-security-20.json'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: wiki-index-lint'
+            condition: succeededOrFailed()
+            inputs:
+              PathtoPublish: '$(Build.SourcesDirectory)/wiki-index-lint'
+              ArtifactName: 'wiki-index-lint'
+      - job: WikiGapReport
+        displayName: 'Wiki Gap Report (Phased scopes)'
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_GAP_REPORT'], 'true'))
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run wiki-gap-report (phased/all, fail on error)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                set -e
+                pwsh -NoProfile -Command "New-Item -ItemType Directory -Force -Path 'wiki-gap-report' | Out-Null"
+
+                if [ '$(WIKI_GAP_MODE)' = 'all' ]; then
+                  pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName '' -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.all.json'
+                  exit 0
+                fi
+
+                # Default: phased rollout on curated scopes (same set as wiki-frontmatter/tags/links lints).
+                pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-datalake-20 -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.db-datalake-20.json'
+                pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName portal-api-frontend-20 -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.portal-api-frontend-20.json'
+                pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName controlplane-governance-20 -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.controlplane-governance-20.json'
+                pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName argos-dq-20 -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.argos-dq-20.json'
+                pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName ops-runbooks-20 -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.ops-runbooks-20.json'
+                pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName frontend-ui-20 -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.frontend-ui-20.json'
+                pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-programmability-rest-20 -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.db-programmability-rest-20.json'
+                pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName onboarding-runbook-20 -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.onboarding-runbook-20.json'
+                pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName iam-security-20 -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.iam-security-20.json'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: wiki-gap-report'
+            condition: succeededOrFailed()
+            inputs:
+              PathtoPublish: '$(Build.SourcesDirectory)/wiki-gap-report'
+              ArtifactName: 'wiki-gap-report'
       - job: WhatFirstLint
         displayName: 'WHAT-first + Diary Lint (manifests/intents/ux_prompts)'
         condition: and(succeeded(), eq(variables['ENABLE_WHATFIRST_LINT'], 'true'))

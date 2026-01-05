@@ -13,6 +13,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Sequence principali (PORTAL)
@@ -22,6 +24,7 @@ Sequence principali (PORTAL)
 
 Regola
 - Le SP di insert formattano il codice finale (prefisso + padding) se non fornito in input.
+
 
 
 

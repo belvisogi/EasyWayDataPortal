@@ -1,7 +1,7 @@
 ---
 id: ew-stored-procedure
 title: Stored Procedure
-summary: Breve descrizione del documento.
+summary: 'Documento su Stored Procedure.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 
 # EasyWay Data Portal - STORE PROCEDURE: Linee Guida, Best Practice e Template
@@ -3018,6 +3019,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../entities-index.md)
+
 
 
 

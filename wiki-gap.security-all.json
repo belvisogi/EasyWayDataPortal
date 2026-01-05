@@ -1,0 +1,151 @@
+{
+  "ok": false,
+  "path": "Wiki/EasyWayData.wiki",
+  "excluded": [
+    "logs/reports",
+    "old",
+    ".attachments"
+  ],
+  "scopesPath": "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+  "scopeName": "security-all",
+  "files": 17,
+  "failures": 2,
+  "counts": {
+    "missing_owner": 0,
+    "missing_or_placeholder_summary": 0,
+    "draft_missing_hygiene": 0,
+    "deprecated_missing_redirect": 0,
+    "runbook_howto_missing_sections": 2,
+    "missing_questions": 1
+  },
+  "results": [
+    {
+      "file": "db-user-access-management.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify",
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "domains/datalake.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/04-accesso-registrazione-notifiche.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/07-iam-naming-utenti-gruppi.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/iac.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/security-and-observability.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    }
+  ]
+}

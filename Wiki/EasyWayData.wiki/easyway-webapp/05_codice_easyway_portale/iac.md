@@ -3,7 +3,7 @@ id: ew-iac
 title: iac
 tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, iac]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su iac.'
 status: draft
 llm:
   include: true
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 ## Domande a cui risponde
@@ -18,6 +20,7 @@ entities: []
 - Come si struttura il deploy (ambiente, variabili, segreti)?
 - Dove trovare policy e naming per componenti cloud?
 - Come validare naming/ancore e tracciare i cambiamenti?
+
 
 
 

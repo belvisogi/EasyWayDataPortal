@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Validazione Output Agenti in CI
@@ -39,6 +41,7 @@ Integrazione (Azure DevOps) – esempio
 Note
 - Il contratto base è descritto in `Wiki/EasyWayData.wiki/output-contract.md` e nello schema `agents/core/schemas/action-result.schema.json`.
 - Mantieni gli output concisi per ridurre costi/token e favorire parsing da LLM.
+
 
 
 

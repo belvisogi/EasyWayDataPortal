@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-350
   redaction: []
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Dominio Frontend
@@ -28,6 +30,7 @@ Riferimenti
 
 Gates
 - KB/Wiki aggiornate quando cambia UI/API.
+
 
 
 

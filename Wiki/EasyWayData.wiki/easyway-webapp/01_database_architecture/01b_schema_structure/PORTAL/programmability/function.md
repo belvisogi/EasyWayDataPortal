@@ -1,7 +1,7 @@
 ---
 id: ew-function
 title: function
-summary: Breve descrizione del documento.
+summary: 'Documento su function.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 -- Modello in uso: Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
 -- Queste funzioni sono da creare nello schema PORTAL.
@@ -687,6 +688,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../entities-index.md)
+
 
 
 

@@ -13,6 +13,7 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+next: TODO - definire next step.
 ---
 
 # Roadmap & Qualità Documentazione
@@ -46,6 +47,7 @@ llm:
 - Lint atomicità: nessun file con Q&A < 3 (fuori whitelist) e nessun code fence senza linguaggio.
 - Naming/Anchor check: 0 issue.
 - Manifest/Anchors/Chunks aggiornati.
+
 
 
 

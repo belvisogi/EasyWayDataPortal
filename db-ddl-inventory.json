@@ -1,0 +1,67 @@
+{
+  "ok": true,
+  "dbDir": "DataBase",
+  "inputs": {
+    "portalTables": "DataBase/DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql",
+    "portalProcedures": "DataBase/DDL_PORTAL_STOREPROCES_EASYWAY_DATAPORTAL.sql",
+    "statlogProcedures": "DataBase/DDL_STATLOG_STOREPROCES_EASYWAY_DATAPORTAL.sql"
+  },
+  "counts": {
+    "tables": 12,
+    "procedures": 28,
+    "statlogProcedures": 1
+  },
+  "portal": {
+    "tables": [
+      "CONFIGURATION",
+      "LOG_AUDIT",
+      "MASKING_METADATA",
+      "PROFILE_DOMAINS",
+      "RLS_METADATA",
+      "SECTION_ACCESS",
+      "STATS_EXECUTION_LOG",
+      "STATS_EXECUTION_TABLE_LOG",
+      "SUBSCRIPTION",
+      "TENANT",
+      "USER_NOTIFICATION_SETTINGS",
+      "USERS"
+    ],
+    "procedures": [
+      "sp_debug_insert_configuration",
+      "sp_debug_insert_profile_domain",
+      "sp_debug_insert_section_access",
+      "sp_debug_insert_subscription",
+      "sp_debug_insert_tenant",
+      "sp_debug_insert_user",
+      "sp_debug_insert_user_notification_setting",
+      "sp_delete_configuration",
+      "sp_delete_profile_domain",
+      "sp_delete_section_access",
+      "sp_delete_subscription",
+      "sp_delete_tenant",
+      "sp_delete_user",
+      "sp_delete_user_notification_setting",
+      "sp_insert_configuration",
+      "sp_insert_profile_domain",
+      "sp_insert_section_access",
+      "sp_insert_subscription",
+      "sp_insert_tenant",
+      "sp_insert_user",
+      "sp_insert_user_notification_setting",
+      "sp_update_configuration",
+      "sp_update_profile_domain",
+      "sp_update_section_access",
+      "sp_update_subscription",
+      "sp_update_tenant",
+      "sp_update_user",
+      "sp_update_user_notification_setting"
+    ],
+    "statlogProcedures": [
+      "sp_log_stats_execution"
+    ]
+  },
+  "wiki": {
+    "wrote": true,
+    "path": "Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/ddl-inventory.md"
+  }
+}

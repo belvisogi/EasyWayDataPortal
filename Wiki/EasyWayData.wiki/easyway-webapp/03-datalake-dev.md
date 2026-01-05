@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 🎯 Obiettivo
 ------------
@@ -229,6 +230,7 @@ Integra poi gli output in Azure DevOps (Variable Group) o Key Vault.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

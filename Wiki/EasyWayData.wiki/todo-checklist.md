@@ -3,7 +3,7 @@ id: ew-todo_checklist
 title: TODO CHECKLIST
 tags: [domain/docs, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, checklist]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su TODO CHECKLIST.'
 status: draft
 llm:
   include: true
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 # TODO - Razionalizzazione Wiki (Semplice)
 
@@ -126,6 +128,7 @@ Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anch
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

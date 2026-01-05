@@ -11,16 +11,31 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # n8n Retrieval Bundles
 
 Obiettivo: dare a n8n (o ad altri agenti) un modo **deterministico** per decidere *quali pagine Wiki caricare* per un intent, senza "rileggere tutto" e senza includere duplicati/obsolete.
 
+## Domande a cui risponde
+- Qual è la source of truth dei bundle (file) e qual è il suo formato?
+- Come n8n risolve `intent`/`bundle_id` e quali `scopes[]` deve caricare?
+- Quali directory/file vengono esclusi di default (attachments/logs/old/backup) per ridurre token?
+- Come mantenere gli scope `*-all` nel tempo quando la Wiki cresce o cambia struttura?
+- Come evitare ambiguità dovute a pagine duplicate (status deprecated, canonical, `llm.include: false`)?
+- Come verifico che un intent sia coperto da un bundle (e cosa fare se manca)?
+
 ## Source of truth (machine-readable)
 
 - `docs/agentic/templates/docs/retrieval-bundles.json`
 - Scope list: `docs/agentic/templates/docs/tag-taxonomy.scopes.json`
+
+## Bundle per Codex (sviluppo codice)
+
+Quando GPT-5.2 Codex deve implementare sotto `EasyWay-DataPortal/`, usa il bundle:
+- `codex.dev.core`  contesto minimo (governance + portal + security) + entrypoints del codice.
 
 ## Regole operative
 
@@ -39,3 +54,4 @@ Obiettivo: dare a n8n (o ad altri agenti) un modo **deterministico** per decider
 
 - Pagine "shim/redirect compat" devono avere `status: deprecated` e idealmente `llm.include: false` per non essere caricate dagli agenti.
 - La pagina canonica resta l'unica fonte: le altre rimandano (con `canonical:` o `redirect_to:`).
+

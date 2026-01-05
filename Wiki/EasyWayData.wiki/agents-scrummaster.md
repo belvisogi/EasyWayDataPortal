@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Modello Operativo
@@ -32,6 +34,7 @@ Strumenti
 
 Note
 - Questo documento integra agents-governance.md con il focus ScrumMaster.
+
 
 
 

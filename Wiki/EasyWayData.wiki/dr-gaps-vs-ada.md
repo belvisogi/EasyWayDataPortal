@@ -1,7 +1,7 @@
 ---
 id: ew-dr-gaps-vs-ada
 title: Cosa integrare da ADA per EasyWayDataPortal (approccio operativo e cosa aggiungere)
-summary: TODO - aggiungere un sommario breve.
+summary: Analisi operativa di cosa riusare da ADA per DR e cosa aggiungere in EasyWayDataPortal, con deliverable prioritizzati e stima fasi.
 status: draft
 owner: team-platform
 tags: [docs, domain/docs, layer/blueprint, audience/ops, audience/dev, privacy/internal, language/it, dr]
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 # Cosa integrare da ADA per EasyWayDataPortal (approccio operativo e cosa aggiungere)
 
@@ -86,6 +88,7 @@ Prossimi passi consigliati (azione immediata)
 1. Conferma: procedo con l'inventory tecnica (Fase 0) e genero la matrice dettagliata entro 5 giorni.
 2. Durante l'inventory, raccolgo i contatti/owners e i nomi risorsa; successivamente stabiliamo la priorità per Phase 1 (SQL SID + teardown).
 3. Manteniamo la documentazione aggiornata in wiki e versioniamo tutti gli artefatti as‑code nel repository.
+
 
 
 

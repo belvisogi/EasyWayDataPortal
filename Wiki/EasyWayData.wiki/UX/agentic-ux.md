@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Scopo
@@ -211,4 +213,5 @@ Se vuoi, procedo ora a:
 - creare uno scaffold API in EasyWay-DataPortal/easyway-portal-api/src/routes/plan.ts.
 
 Indica quale di questi vuoi che generi immediatamente.
+
 

@@ -1,7 +1,7 @@
 ---
 id: ew-datalake-standard
 title: Standard Accesso Storage e Datalake (IAM & Naming)
-summary: Breve descrizione del documento.
+summary: 'Documento su Standard Accesso Storage e Datalake (IAM & Naming).'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 # 🗂️ EasyWay DataPortal - Standard Accesso Storage e Datalake (IAM & Naming)
 
@@ -145,6 +146,7 @@ az ad group create --display-name "grp.portal.datalake.read" --mail-nickname "gr
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

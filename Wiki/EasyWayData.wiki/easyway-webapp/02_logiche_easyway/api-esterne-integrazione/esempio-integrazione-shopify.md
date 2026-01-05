@@ -1,7 +1,7 @@
 ---
 id: ew-esempio-integrazione-shopify
 title: esempio integrazione shopify
-summary: Breve descrizione del documento.
+summary: 'Documento su esempio integrazione shopify.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 # Integrazione Shopify – Dettaglio & Esempio Pratico
 
@@ -158,6 +159,7 @@ Nota operativa
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

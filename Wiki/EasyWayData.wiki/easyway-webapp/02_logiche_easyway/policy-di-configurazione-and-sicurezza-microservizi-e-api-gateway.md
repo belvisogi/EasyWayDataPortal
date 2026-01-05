@@ -1,7 +1,7 @@
 ---
 id: ew-policy-di-configurazione-&-sicurezza-–-microservizi-e-api-gateway
 title: Policy di Configurazione & Sicurezza – Microservizi e API Gateway
-summary: Breve descrizione del documento.
+summary: 'Documento su Policy di Configurazione & Sicurezza – Microservizi e API Gateway.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 # Policy di Configurazione & Sicurezza – Microservizi e API Gateway
 EasyWay Data Portal
@@ -85,6 +86,7 @@ Oppure proseguiamo con la prossima sezione (es: “Gestione logging & audit”, 
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

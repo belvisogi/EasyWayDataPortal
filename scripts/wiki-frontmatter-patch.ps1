@@ -9,6 +9,12 @@ param(
   [string]$ChunkHint = "250-400",
   [switch]$EnsureDraftHygiene,
   [string]$DefaultNext = "TODO - definire next step.",
+  [switch]$FixPlaceholderSummary,
+  [string[]]$PlaceholderSummaries = @(
+    'Breve descrizione del documento.',
+    'TODO - aggiungere un sommario breve.',
+    'TODO - definire next step.'
+  ),
   [switch]$Apply,
   [switch]$ForceReplaceUnterminated,
   [switch]$IncludeFullPath,
@@ -17,6 +23,10 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
+
+if ($ExcludePaths.Count -eq 1 -and $ExcludePaths[0] -match ',') {
+  $ExcludePaths = @($ExcludePaths[0].Split(',') | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+}
 
 function New-KebabId {
   param([string]$Root,[string]$File)
@@ -40,6 +50,38 @@ function Get-FirstHeadingOrName {
     }
   }
   return ([System.IO.Path]::GetFileNameWithoutExtension($File) -replace '[_\-]+',' ')
+}
+
+function Normalize-YamlScalar {
+  param([string]$Value)
+  if ($null -eq $Value) { return '' }
+  $t = $Value.Trim()
+  if ($t.Length -ge 2 -and $t.StartsWith("'") -and $t.EndsWith("'")) {
+    $t = $t.Substring(1, $t.Length - 2)
+    $t = $t.Replace("''", "'")
+    return $t.Trim()
+  }
+  if ($t.Length -ge 2 -and $t.StartsWith('"') -and $t.EndsWith('"')) {
+    $t = $t.Substring(1, $t.Length - 2)
+    $t = $t.Replace('\"', '"')
+    return $t.Trim()
+  }
+  return $t.Trim()
+}
+
+function Quote-YamlSingle {
+  param([string]$Value)
+  $t = [string]$Value
+  $t = $t.Replace("'", "''")
+  return "'" + $t + "'"
+}
+
+function Build-SummaryFromTitle {
+  param([string]$Title)
+  $t = ([string]$Title).Trim()
+  if ([string]::IsNullOrWhiteSpace($t)) { return 'Documento' }
+  if ($t.Length -gt 140) { $t = $t.Substring(0, 137) + '...' }
+  return "Documento su $t."
 }
 
 function Resolve-ExcludePrefixes {
@@ -119,6 +161,10 @@ function Ensure-FrontMatter {
   $defaultSummary = 'TODO - aggiungere un sommario breve.'
   $tagsYaml = "[" + ($DefaultTags -join ', ') + "]"
 
+  if ($FixPlaceholderSummary) {
+    $defaultSummary = Quote-YamlSingle (Build-SummaryFromTitle -Title $title)
+  }
+
   if (-not ($text.StartsWith("---`n") -or $text.StartsWith("---`r`n"))) {
     $fm = @"
 ---
@@ -181,6 +227,11 @@ entities: []
   $mStatus = ($lines | Where-Object { $_ -match '^status\s*:\s*\S+' } | Select-Object -First 1)
   if ($mStatus -match '^status\s*:\s*(?<s>\S+)\s*$') { $statusVal = $Matches['s'].Trim() }
 
+  $titleVal = ''
+  $mTitle = ($lines | Where-Object { $_ -match '^title\s*:\s*\S+' } | Select-Object -First 1)
+  if ($mTitle -match '^title\s*:\s*(?<t>.+?)\s*$') { $titleVal = Normalize-YamlScalar $Matches['t'] }
+  if ([string]::IsNullOrWhiteSpace($titleVal)) { $titleVal = $title }
+
   $hasNonEmptyOwner = [bool]($lines | Where-Object { $_ -match '^owner\s*:\s*\S+' } | Select-Object -First 1)
   $hasAnyOwner = [bool]($lines | Where-Object { $_ -match '^owner\s*:' } | Select-Object -First 1)
 
@@ -216,6 +267,18 @@ entities: []
       $hasAnySummary = $true
       continue
     }
+
+    if ($FixPlaceholderSummary -and $tt -match '^summary\s*:\s*(?<v>.+?)\s*$') {
+      $current = Normalize-YamlScalar $Matches['v']
+      if ($PlaceholderSummaries | Where-Object { $_.Equals($current, [System.StringComparison]::OrdinalIgnoreCase) } | Select-Object -First 1) {
+        $replacement = Quote-YamlSingle (Build-SummaryFromTitle -Title $titleVal)
+        $outLines.Add("summary: $replacement")
+        $hasNonEmptySummary = $true
+        $hasAnySummary = $true
+        continue
+      }
+    }
+
     if ($tt -match '^owner\s*:\s*$') {
       if ($hasNonEmptyOwner) { continue }
       $outLines.Add("owner: $Owner")
@@ -314,10 +377,19 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md | Where-Object { -not (Is
   } else {
     $entry.applied = $false
   }
-  $results += $entry
+$results += $entry
 }
 
-$summary = @{ applied = [bool]$Apply; excluded = $ExcludePaths; scopesPath = $ScopesPath; scopeName = $ScopeName; ensureDraftHygiene = [bool]$EnsureDraftHygiene; includeFullPath = [bool]$IncludeFullPath; results = $results }
+$summary = @{
+  applied = [bool]$Apply
+  excluded = $ExcludePaths
+  scopesPath = $ScopesPath
+  scopeName = $ScopeName
+  ensureDraftHygiene = [bool]$EnsureDraftHygiene
+  fixPlaceholderSummary = [bool]$FixPlaceholderSummary
+  includeFullPath = [bool]$IncludeFullPath
+  results = $results
+}
 $json = $summary | ConvertTo-Json -Depth 6
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json

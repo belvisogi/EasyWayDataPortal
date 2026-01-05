@@ -1,7 +1,7 @@
 ---
 id: ew-deployment-decision-mvp
 title: Deployment decision (MVP) — EasyWay Data Portal
-summary: TODO - aggiungere un sommario breve.
+summary: Decisione MVP di deploy (App Service o Container Apps) con motivazioni, link canonici e flag/gates CI necessari per un rilascio governato.
 status: draft
 owner: team-platform
 tags: [docs, domain/control-plane, layer/spec, audience/non-expert, audience/ops, audience/dev, privacy/internal, language/it, decision]
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 # Deployment decision (MVP) — EasyWay Data Portal
 
@@ -52,6 +54,7 @@ Prossimi step raccomandati
 
 Note finali
 - La scelta App Service è già documentata nel repo; questo file rende esplicita la decisione MVP e centralizza i link utili per dev/ops.
+
 
 
 

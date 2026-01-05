@@ -1,7 +1,7 @@
 ---
 id: ew-stats-execution-log
 title: stats execution log
-summary: Breve descrizione del documento.
+summary: 'Documento su stats execution log.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 * Abbiamo definito una SP,  `sp_log_stats_execution`, con tutti i parametri necessari (proc_name, rows, status, etc).
     
@@ -786,6 +787,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

@@ -11,6 +11,8 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 # Entities Index
 
@@ -85,6 +87,7 @@ llm:
 - Dove trovo l'elenco delle entità e i link rapidi?
 - Quali categorie di entità sono coperte?
 - Come navigo verso documenti specifici partendo dall'indice?
+
 
 
 

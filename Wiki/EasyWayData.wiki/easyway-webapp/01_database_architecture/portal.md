@@ -11,10 +11,16 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Obiettivo
 - Definire struttura, regole e best practice per le tabelle core del portale.
+
+Source of truth (repo)
+- Tabelle: `DataBase/DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql`
+- Inventario (Wiki): `easyway-webapp/01_database_architecture/ddl-inventory.md`
 
 Colonne standard
 - id (INT IDENTITY, PK), tenant_id (NVARCHAR(50), NOT NULL), created_by/created_at/updated_at (default), status (NVARCHAR(50)), ext_attributes (NVARCHAR(MAX)).
@@ -33,6 +39,7 @@ Indice & performance
 
 Note
 - RLS e funzioni predicate verranno aggiunte in una migrazione dedicata.
+
 
 
 

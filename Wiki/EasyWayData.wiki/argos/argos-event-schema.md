@@ -11,6 +11,8 @@ llm:
   chunk_hint: 200-300
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # ARGOS – Event Schema Addendum (v1)
@@ -30,6 +32,7 @@ Integrazione EasyWay
 - Repository: pubblicare gli schema JSON in `docs/agentic/templates/events/` e validare in CI.
 - QoS/Delivery: DLQ e retry policy allineate al bus eventi del portale.
 - Privacy/Retention: campi PII esclusi o sanificati; retention hint per topic.
+
 
 
 

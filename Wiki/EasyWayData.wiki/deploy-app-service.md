@@ -11,15 +11,26 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
-Obiettivo
+## Obiettivo
 - Descrivere come eseguire il deploy dell’API EasyWay su Azure App Service usando la pipeline ADO, con variabili/toggle e mapping App Settings.
 
-Prerequisiti
+## Domande a cui risponde
+- Quali variabili devo impostare per abilitare un deploy in pipeline?
+- Come deployo su uno slot e quando conviene fare lo swap verso production?
+- Quali gate vengono eseguiti prima del deploy e come li controllo via toggle?
+- Da dove arrivano gli App Settings e come gestisco i segreti (Variable Group/Key Vault)?
+- Come verifico rapidamente post-deploy (portal/API docs) e dove guardo log/artifact in caso di errore?
+
+## Prerequisiti
 - Azure DevOps con Service Connection (Azure Resource Manager) → `AZURE_SERVICE_CONNECTION`
 - Risorse Azure: Resource Group, App Service (Web App), opzionale Slot (es. `staging`)
 - Variable Group con segreti/env applicativi (Auth/DB/Storage/Branding/OTel)
+
+## Passi
 
 Pipeline – Stages (ordine)
 1. Infra (Terraform plan/apply)
@@ -66,6 +77,8 @@ Procedura – Deploy su slot + swap (opzionale)
 1. Imposta variabili: `ENABLE_DEPLOY=true`, `AZURE_SERVICE_CONNECTION`, `WEBAPP_NAME`, `RESOURCE_GROUP`, `WEBAPP_SLOT=staging`
 2. (Opzionale) `ENABLE_SWAP=true` per eseguire lo swap `staging → production` post‑deploy
 3. Avvia la pipeline; verifica l’esito del job Deploy e (se attivo) dello swap
+
+## Verify
 
 Verifica post‑Deploy
 - `https://<webapp>.azurewebsites.net/portal` → mini‑portale
@@ -162,10 +175,4 @@ Snippet alternativi (riuso rapido)
   // ... (vedi starter JSON sopra)
 ]
 ```sql
-
-
-
-
-
-
 

@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Indice Globale Wiki
@@ -418,6 +420,7 @@ entities: []
   - H2: Obiettivi
   - H2: Fasi e Sequenza
   - H2: Per‑Cartella (linee guida)
+
 
 
 

@@ -1,7 +1,7 @@
 ---
 id: ew-api-invio-notifica
 title: api invio notifica
-summary: Breve descrizione del documento.
+summary: 'Documento su api invio notifica.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 **A. Obiettivo**
 ----------------
@@ -147,6 +148,7 @@ Risposta 200 OK, o 500 in caso di errore
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

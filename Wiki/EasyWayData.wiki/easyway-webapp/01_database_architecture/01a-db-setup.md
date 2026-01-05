@@ -3,7 +3,7 @@ id: ew-01a-db-setup
 title: 01a db setup
 tags: [domain/db, layer/howto, audience/dev, audience/dba, privacy/internal, language/it, setup]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su 01a db setup.'
 status: draft
 llm:
   include: true
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # EasyWay Data Portal - Database SETUP
@@ -118,7 +120,18 @@ GRANT CONTROL ON SCHEMA::WORK      TO EWPORTAL_ADMIN_ROLE;
 - Dove approfondire?
 
 
+## Prerequisiti
+- Accesso al repository e al contesto target (subscription/tenant/ambiente) se applicabile.
+- Strumenti necessari installati (es. pwsh, az, sqlcmd, ecc.) in base ai comandi presenti nella pagina.
+- Permessi coerenti con il dominio (almeno read per verifiche; write solo se whatIf=false/approvato).
 
+## Passi
+1. Raccogli gli input richiesti (parametri, file, variabili) e verifica i prerequisiti.
+2. Esegui i comandi/azioni descritti nella pagina in modalita non distruttiva (whatIf=true) quando disponibile.
+3. Se l'anteprima e' corretta, riesegui in modalita applicativa (solo con approvazione) e salva gli artifact prodotti.
 
-
+## Verify
+- Controlla che l'output atteso (file generati, risorse create/aggiornate, response API) sia presente e coerente.
+- Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
+- Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
 

@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # .obsidian.example
@@ -23,3 +25,4 @@ Uso:
 
 Nota:
 - In repo teniamo `.obsidian.example` per evitare di committare configurazioni personali.
+

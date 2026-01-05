@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Obiettivo
@@ -51,6 +53,7 @@ Note operative
 - RLS: abilita la security policy solo dopo aver verificato che l’app imposti `SESSION_CONTEXT('tenant_id')` (vedi `withTenantContext`).
 - Migrazioni: 1 file = 1 scopo; commento/header con scopo e ticket.
 - Documentazione: genera/aggiorna ERD & SP Catalog con `npm run db:generate-docs` dopo modifiche strutturali.
+
 
 
 

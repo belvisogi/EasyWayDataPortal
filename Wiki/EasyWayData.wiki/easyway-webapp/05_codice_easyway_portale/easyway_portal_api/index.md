@@ -1,11 +1,11 @@
 ---
 id: ew-easyway-portal-api-index
-title: Indice
-summary: Indice della documentazione API: manutenzione, endpoint, logging e policy Store Procedure.
-status: draft
+title: easyway-portal-api-index
+summary: Indice della documentazione API (manutenzione, endpoint, logging e policy su dati sensibili).
+status: active
 owner: team-api
 created: '2025-01-01'
-updated: '2025-01-01'
+updated: '2026-01-05'
 tags: [domain/frontend, layer/index, audience/dev, privacy/internal, language/it]
 entities: []
 llm:
@@ -13,23 +13,20 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+next: Aggiornare quando cambiano endpoint o policy.
 ---
-# Indice
-Breadcrumb: Home / EasyWay WebApp / Codice Portale / API
-- [dinamiche-di-manutenzione.md](./dinamiche-di-manutenzione.md) - Capitolo – Dinamiche di Manutenzione
-- [endpoint.md](./endpoint.md) - Domande a cui risponde
-- [gestione-log-and-policy-dati-sensibili.md](./gestione-log-and-policy-dati-sensibili.md) - Gestione Log — EasyWay Data Portal
-- [index.md](./index.md) - Indice
-- [policy-api-store-procedure-easyway-data-portal.md](./policy-api-store-procedure-easyway-data-portal.md) - Policy API/Store Procedure — EasyWay Data Portal
 
+# Indice
+
+Breadcrumb: Home / EasyWay WebApp / Codice Portale / API
+
+- [dinamiche-di-manutenzione.md](./dinamiche-di-manutenzione.md) - Dinamiche di manutenzione
+- [endpoint.md](./endpoint.md) - Indice e pattern endpoint
+- [gestione-log-and-policy-dati-sensibili.md](./gestione-log-and-policy-dati-sensibili.md) - Logging e policy dati sensibili
+- [policy-api-store-procedure-easyway-data-portal.md](./policy-api-store-procedure-easyway-data-portal.md) - Policy API / store procedure
+- [ENDPOINT/index.md](./ENDPOINT/index.md) - Indice endpoint API
 
 ## Domande a cui risponde
-- Che cosa raccoglie questo indice?
-- Dove sono i documenti principali collegati?
-- Come verificare naming e ancore per questa cartella?
-- Dove trovare entità e guide correlate?
-
-
-
-
-
+- Quali documenti sono canonici per sviluppare e manutenere la API?
+- Dove trovare la lista endpoint e il template per nuovi endpoint?
+- Dove sono definite le regole di logging e gestione dati sensibili?

@@ -11,6 +11,8 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # ETL/ELT – [nome-pipeline]
@@ -71,6 +73,7 @@ Quick Checklist
 - [ ] Retention/ACL allineati
 - [ ] Schedule/allarmi configurati
 - [ ] Audit/log attivi
+
 
 
 

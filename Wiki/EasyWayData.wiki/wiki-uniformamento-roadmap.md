@@ -13,6 +13,7 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+next: TODO - definire next step.
 ---
 
 # Roadmap Uniformamento Wiki secondo docs-conventions
@@ -158,6 +159,7 @@ Tag base:
 - Quali strumenti/script usare e quando?
 - Quali sono i criteri di accettazione misurabili?
 - Come assegnare owner/tag e tracciare l’avanzamento?
+
 
 
 

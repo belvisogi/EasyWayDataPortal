@@ -11,9 +11,11 @@ llm:
   chunk_hint: 400-600
   redaction: [email, phone]
 entities: []
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su Database Architecture Master.'
 status: draft
 owner: team-platform
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 # EasyWay Data Portal - Database Architecture Master
 
@@ -147,6 +149,7 @@ Per ogni oggetto:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

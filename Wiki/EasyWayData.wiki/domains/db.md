@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-350
   redaction: []
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Dominio DB
@@ -34,6 +36,7 @@ Gates
 
 KB
 - `agents/kb/recipes.jsonl` (es. `db-migrate`, `predeploy-checklist`)
+
 
 
 

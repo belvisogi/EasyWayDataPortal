@@ -1,0 +1,1364 @@
+{
+  "applied": true,
+  "path": "Wiki/EasyWayData.wiki",
+  "excluded": [
+    "logs/reports",
+    "old",
+    ".attachments"
+  ],
+  "scopesPath": "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+  "scopeName": "",
+  "ensureRunbookHowtoSections": true,
+  "ensureQuestionsSection": true,
+  "files": 178,
+  "changed": 23,
+  "results": [
+    {
+      "file": "ACTIVITY_LOG.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "activity-log.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "agent-first-method.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "agent-manifest-and-indexing-best-practices.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "agent-output-validation-ci.md",
+      "layer": "gate",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "agent-priority-and-checklists.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "agentic-portal-vision.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "agents-governance.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "agents-scrummaster.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "best-practices-token-tuning-roadmap.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "checklist-ado-required-job.md",
+      "layer": "gate",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "ci-verifica-ewctl-gates-e-flyway.md",
+      "layer": "gate",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "datalake-apply-acl.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_domande",
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "datalake-ensure-structure.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_domande",
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "datalake-set-retention.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_domande",
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "db-generate-artifacts-dsl.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_domande",
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "db-user-access-management.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_domande",
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "deploy-app-service.md",
+      "layer": "runbook",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "deployment-decision-mvp.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "dev-dual-mode.md",
+      "layer": "howto",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "doc-alignment-gate.md",
+      "layer": "gate",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "DOCS_CONVENTIONS.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "docs-agentic-audit.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "docs-conventions.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "docs-tag-taxonomy.md",
+      "layer": "audience",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "dr-gaps-vs-ada.md",
+      "layer": "blueprint",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "dr-inventory-matrix.md",
+      "layer": "blueprint",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "enforcer-guardrail.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "entities-index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "etl-dq-framework.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "etl-elt-playbook.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_domande",
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "etl-elt-technology-choices.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "etl-elt-template.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "etl-governance-sla.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "etl-inspirations.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "etl-table-log-model.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "governance-dq.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "howto-what-first-team.md",
+      "layer": "howto",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "intent-contract.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "LLM_READINESS_CHECKLIST.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_domande",
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "llm-readiness-checklist.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "OBSIDIAN.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_domande",
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "onboarding-architettura.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "output-contract.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "parametrization-best-practices.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "quest-board-excel-csv.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "roadmap.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "start-here.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "TODO_CHECKLIST.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "todo-checklist.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "value-proposition.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "wiki-uniformamento-roadmap.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": ".obsidian.example/README.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "agents/agent-dq-blueprint.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-alerting.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-change-versioning.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-coach-agent.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-event-schema.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-glossario.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-modular-interop.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-overview.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-playbook-catalog.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-policy-dsl.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-quality-gates.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "argos/argos-tech-profiling.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "blueprints/legacy-reference-material.md",
+      "layer": "blueprint",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "blueprints/replicate-easyway-dataportal.md",
+      "layer": "blueprint",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "control-plane/index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "domains/datalake.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "domains/db.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "domains/docs-governance.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "domains/frontend.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "domains/index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01-database-architecture.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02-logiche-easyway.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/03-datalake-dev.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/04-accesso-registrazione-notifiche.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05-codice-easyway-portale.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/06-frontend-architecture.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/07-iam-naming-utenti-gruppi.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/10-ai-agents.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01a-db-setup.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b-schema-structure.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/best-practices-checklist.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/db-studio.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/flyway.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/portal.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/sequence.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/storeprocess.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/portal.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/function.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/configuration.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/profile-domains.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/section-access.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/subscription.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/tenant.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/user-notification-settings.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/users.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/best-practice-naming-and-scalability.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/integrate-ada-best-practices.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/logging-and-audit.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/notifiche-gestione.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/raccomandazione-architetturale-easyway-data-portal.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/logging-and-audit/readme.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/03_datalake_dev/index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/docs.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway-portal-api.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway-portal-frontend.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/iac.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/qa-setup-and-test-locale.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/readme.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/scripts.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/security-and-observability.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/endpoint.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-2-—-Struttura-src-e-primi-file.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001-get-api-config.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001a-get-api-config-da-db.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md",
+      "layer": "index",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/automazione-export-log-su-datalake-e-compliance.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/logging-conversational-ready-agent-aware.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file/conversational-and-agent-aware-ready.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "etl/atomic-flows-agentic.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "orchestrations/intents-catalog-global.md",
+      "layer": "intent",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "orchestrations/intents-catalog.md",
+      "layer": "intent",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "orchestrations/mapping-matrix.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "orchestrations/n8n-retrieval-bundles.md",
+      "layer": "orchestration",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "orchestrations/orchestrator-n8n.md",
+      "layer": "orchestration",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "orchestrations/wf-excel-csv-upload.md",
+      "layer": "orchestration",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "Runbooks/instructions_collect_azure_inventory.md",
+      "layer": "runbook",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "Runbooks/what_is_inventory_and_missing_items.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "scripts/scripts.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "use-cases/entrate-uscite.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "UX/agentic-ux.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "UX/branding-assets.md",
+      "layer": "reference",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "UX/diary-mock-wf-excel-csv-upload.md",
+      "layer": "spec",
+      "changed": false,
+      "applied": false,
+      "changes": []
+    },
+    {
+      "file": "UX/usability-checklist.md",
+      "layer": "howto",
+      "changed": true,
+      "applied": true,
+      "changes": [
+        "added_domande",
+        "added_prerequisiti",
+        "added_passi",
+        "added_verify"
+      ]
+    }
+  ]
+}

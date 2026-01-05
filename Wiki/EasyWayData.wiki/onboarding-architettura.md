@@ -1,7 +1,7 @@
 ---
 id: ew-onboarding-architettura
 title: EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata)
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata).'
 status: draft
 owner: team-platform
 tags: [domain/docs, layer/index, audience/non-expert, audience/dev, privacy/internal, language/it, onboarding, architecture, docs]
@@ -15,6 +15,8 @@ entities: []---
 
 Questa pagina razionalizza e centralizza tutte le informazioni essenziali per capire, avviare e contribuire al progetto EasyWay Data Portal.  
 **Per ogni dettaglio operativo, consulta i file canonici linkati in fondo.**
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 ## 1. Stato attuale & gap principali
@@ -90,6 +92,7 @@ Per dettagli: [docs/agentic/AGENTIC_READINESS.md](../../docs/agentic/AGENTIC_REA
 Questa pagina centralizza e razionalizza le informazioni chiave.  
 Le informazioni ridondanti sono state eliminate o rimandate ai file canonici sopra elencati.  
 Per ogni dettaglio operativo, consulta sempre questi riferimenti.
+
 
 
 

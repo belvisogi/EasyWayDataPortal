@@ -1,7 +1,7 @@
 ---
 id: ew-best-practice-naming-&-scalabilità
 title: Best Practice Naming & Scalabilità
-summary: Breve descrizione del documento.
+summary: 'Documento su Best Practice Naming & Scalabilità.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 # Lookup – Best Practice Naming & Scalabilità
 
@@ -92,6 +93,7 @@ Best Practice Naming & Scalabilità – EasyWay Data Portal
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

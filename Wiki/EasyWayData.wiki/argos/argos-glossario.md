@@ -11,6 +11,8 @@ llm:
   chunk_hint: 200-300
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # ARGOS – Glossario Unificato (v1)
@@ -26,6 +28,7 @@ Voci iniziali (selezione)
 
 Riferimenti
 - Quality Gates, Policy DSL, Tech Profiling, Playbook, Event Schema, Coach Agent.
+
 
 
 

@@ -13,6 +13,24 @@
     "**/*.bak*"
   ],
   "bundles": {
+    "codex.dev.core": {
+      "intent": "codex.dev.core",
+      "description": "Bundle minimale per GPT-5.2 Codex quando deve sviluppare codice sotto EasyWay-DataPortal/ (contesto governance + portal + security, senza rileggere tutta la Wiki).",
+      "scopes": [
+        "governance-all",
+        "portal-all",
+        "security-all"
+      ],
+      "code_roots": [
+        "EasyWay-DataPortal/"
+      ],
+      "code_entrypoints": [
+        "EasyWay-DataPortal/README.md",
+        "EasyWay-DataPortal/easyway-portal-api/README.md",
+        "EasyWay-DataPortal/easyway-portal-api/src/app.ts",
+        "EasyWay-DataPortal/easyway-portal-frontend/static/plan-viewer.html"
+      ]
+    },
     "n8n.orchestrator-dispatch": {
       "intent": "orchestrator.n8n.dispatch",
       "description": "Webhook → validate → gate precheck → dispatch ewctl → log (governance + ops + quality gates).",

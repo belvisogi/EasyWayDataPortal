@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 Visione
@@ -37,6 +39,7 @@ ChatOps (opzionali)
 
 Audit & Osservabilità
 - `PORTAL.LOG_AUDIT` per eventi agent; Application Insights/OTel per tracing e KPI (in roadmap)
+
 
 
 

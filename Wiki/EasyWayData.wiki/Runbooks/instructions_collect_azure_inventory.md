@@ -1,7 +1,7 @@
 ---
 id: ew-runbooks-instructions-collect-azure-inventory
 title: instructions collect azure inventory
-summary: TODO - aggiungere un sommario breve.
+summary: Istruzioni passo-passo per eseguire collect_azure_inventory.ps1 e produrre azure_inventory.json da usare per inventory e matrice DR.
 status: draft
 owner: team-platform
 tags: [docs, domain/control-plane, layer/runbook, audience/ops, privacy/internal, language/it, inventory]
@@ -11,19 +11,29 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 Istruzioni passo‑passo — esecuzione scripts/collect_azure_inventory.ps1 e invio azure_inventory.json
-Scopo
+## Obiettivo
 - Raccogliere automaticamente l’inventory Azure utile per la Fase 0 (inventory → RTO/RPO) e incollare qui il JSON di output.
 
-Prerequisiti
+## Domande a cui risponde
+- Quali prerequisiti (modulo Az, permessi) servono per eseguire lo script senza errori?
+- Qual è il comando consigliato per generare `azure_inventory.json` e dove viene scritto il file?
+- Come seleziono la subscription corretta se ne ho più di una?
+- Come verifico che il JSON prodotto sia valido e contenga le sezioni principali attese?
+- Cosa posso condividere/incollare in modo sicuro (senza segreti) e cosa devo rimuovere?
+- Cosa fare se ho errori di login, permessi insufficienti o policy di esecuzione script?
+
+## Prerequisiti
 1. PowerShell (Windows PowerShell o PowerShell 7 / pwsh).
 2. Modulo Az installato:
    - Se non installato: Execute in PowerShell con diritti utente:
      Install-Module -Name Az -Scope CurrentUser -Force
 3. Accesso alla subscription Azure con permessi di lettura sulle risorse che vuoi inventariare.
 
-Passi esecutivi
+## Passi
 1. Apri PowerShell (o pwsh) e autentica:
    - Connect-AzAccount
    - (opzionale se hai più subscription) Select-AzSubscription -SubscriptionId "<SUBSCRIPTION_ID>"
@@ -38,7 +48,11 @@ Passi esecutivi
 5. Verifica il file:
    - Apri il file con un editor (es. code .\azure_inventory.json o Notepad) e verifica che contenga sezioni come: ResourceGroups, WebApps, SqlServers, SqlDatabases, KeyVaults, StorageAccounts, PrivateEndpoints, FrontDoors, DnsZones, ecc.
 
-Cosa incollare qui
+## Verify
+- Esiste `azure_inventory.json` nella cartella di esecuzione ed è un JSON valido.
+- Contiene le sezioni principali (SqlServers/SqlDatabases/StorageAccounts/KeyVaults) se presenti nella subscription.
+
+## Cosa incollare qui
 - Apri azure_inventory.json, copia il contenuto (tutto) e incollalo nella risposta qui nella chat.
 - Se il JSON è molto grande e la chat lo tronca, puoi:
   1) comprimere e condividere via link (es. GitHub Gist o upload interno), oppure
@@ -62,9 +76,4 @@ Consegna
   3) segnalare eventuali gap informativi e richiedere solo i dettagli mancanti.
 
 Se preferisci, posso anche generare una versione equivalente in bash/Az CLI: dimmi se la vuoi.
-
-
-
-
-
 

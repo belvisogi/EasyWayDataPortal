@@ -11,6 +11,8 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # ETL – Governance & SLA
@@ -85,6 +87,7 @@ Riferimenti
 - ETL/ELT Playbook; ETL/ELT Template
 - ETL – Table Log Model; ETL – DQ Framework
 - Doc Alignment Gate; Output Contract
+
 
 
 

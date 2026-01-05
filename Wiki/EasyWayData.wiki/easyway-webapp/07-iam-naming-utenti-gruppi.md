@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 # 📂 Wiki IAM - Naming Convention Utenze Tecniche e Gruppi  
 EasyWay DataPortal - Storage & Datalake  
@@ -136,6 +137,7 @@ Scopo: Accesso amministrazione Datalake (IAM + ACL)
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

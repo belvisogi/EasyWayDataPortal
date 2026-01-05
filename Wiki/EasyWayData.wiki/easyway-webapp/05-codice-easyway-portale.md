@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 Nel tuo Wiki puoi mappare così:
 *   **Backend:**  
@@ -35,6 +36,7 @@ Nel tuo Wiki puoi mappare così:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 # EasyWay DataPortal – Conversational Intelligence & AMS
 
@@ -147,6 +148,7 @@ I nomi sono chiari, coerenti, e riflettono la modularità microservizi EasyWay.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

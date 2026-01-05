@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 
 # EasyWay Data Portal - Frontend Architecture & Integration
@@ -106,4 +107,5 @@ La sezione `/workspace` integra:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 

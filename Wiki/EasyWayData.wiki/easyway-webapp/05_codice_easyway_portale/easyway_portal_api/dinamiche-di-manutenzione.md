@@ -3,7 +3,7 @@ id: ew-dinamiche-di-manutenzione
 title: dinamiche di manutenzione
 tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, maintenance]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su dinamiche di manutenzione.'
 status: draft
 llm:
   include: true
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Capitolo - Dinamiche di Manutenzione
@@ -64,6 +66,7 @@ Facilita onboarding di persone e AI, riduce errori, aumenta la trasparenza e ren
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

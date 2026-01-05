@@ -3,7 +3,7 @@ id: ew-policy-api-store-procedure-easyway-data-portal
 title: policy api store procedure easyway data portal
 tags: [domain/control-plane, layer/spec, audience/dev, audience/dba, privacy/internal, language/it, policy, api, stored-procedure]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su policy api store procedure easyway data portal.'
 status: draft
 llm:
   include: true
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 # Policy API/Store Procedure — EasyWay Data Portal
 
@@ -87,6 +89,7 @@ Best Practice
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Contratto Intent (Mini‑DSL)
@@ -59,6 +61,7 @@ Esempio — Creazione utente DB
 Note
 - Ogni azione documenta i propri params nella pagina Wiki dedicata.
 - I manifest degli agent elencano le azioni supportate.
+
 
 
 

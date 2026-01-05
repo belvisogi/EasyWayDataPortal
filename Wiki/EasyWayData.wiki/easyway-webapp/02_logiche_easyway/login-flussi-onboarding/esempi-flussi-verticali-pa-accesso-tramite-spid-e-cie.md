@@ -1,7 +1,7 @@
 ---
 id: ew-esempi-flussi-verticali-pa-–-accesso-tramite-spid-e-cie
 title: Esempi Flussi Verticali PA – Accesso tramite SPID e CIE
-summary: Breve descrizione del documento.
+summary: 'Documento su Esempi Flussi Verticali PA – Accesso tramite SPID e CIE.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 # Esempi Flussi Verticali PA – Accesso tramite SPID e CIE
 
@@ -83,6 +84,7 @@ entities: []
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

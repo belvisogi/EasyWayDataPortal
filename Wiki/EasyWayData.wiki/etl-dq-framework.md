@@ -11,6 +11,8 @@ llm:
   chunk_hint: 400-600
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # ETL – Data Quality Framework
@@ -51,6 +53,7 @@ Riferimenti
 - ETL/ELT Inspirations (ADA Framework)
 - ETL/ELT Playbook
  - ARGOS – Overview: `argos/argos-overview.md`
+
 
 
 

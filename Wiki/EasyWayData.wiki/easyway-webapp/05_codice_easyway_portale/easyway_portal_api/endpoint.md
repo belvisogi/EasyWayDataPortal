@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 È il **primo vero endpoint parametrico** del backend EasyWay.  
 Mette insieme TUTTO quello che hai preparato finora (multi-tenant, lettura YAML, API REST) e lo espone come servizio.
@@ -37,6 +38,7 @@ Mette insieme TUTTO quello che hai preparato finora (multi-tenant, lettura YAML,
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

@@ -3,7 +3,7 @@ id: ew-portal
 title: portal
 tags: [domain/db, layer/spec, audience/dev, audience/dba, privacy/internal, language/it, portal]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: 'Documento su portal.'
 status: draft
 llm:
   include: true
@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # EasyWay Data Portal - PORTAL.md
@@ -320,6 +322,7 @@ CREATE TABLE PORTAL.CONFIGURATION (
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

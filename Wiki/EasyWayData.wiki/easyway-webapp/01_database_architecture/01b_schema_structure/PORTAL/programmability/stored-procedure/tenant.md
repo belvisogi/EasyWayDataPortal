@@ -1,7 +1,7 @@
 ---
 id: ew-tenant
 title: tenant
-summary: Breve descrizione del documento.
+summary: 'Documento su tenant.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 **Di seguito troverai:**
 ----------------------------
@@ -2370,6 +2371,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

@@ -13,6 +13,7 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+next: TODO - definire next step.
 ---
 
 # Agent Manifest & Indexing - Best Practices
@@ -58,6 +59,7 @@ Strategia d’uso:
 - Come può un agente sapere “cosa aprire” senza leggere tutto?
 - Come ridurre i token usando ancore e manifest?
 - Come uniformare l’accesso ai contenuti tra progetti/formati diversi?
+
 
 
 

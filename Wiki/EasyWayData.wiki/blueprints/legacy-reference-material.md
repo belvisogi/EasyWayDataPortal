@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-350
   redaction: []
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Materiale di riferimento (Legacy)
@@ -30,6 +32,7 @@ Documenti (root repo)
 
 Nota
 - Se un documento diventa “canonico” (operativo), va spostato/riscritto dentro `Wiki/EasyWayData.wiki/` o `docs/` e collegato da `start-here.md`.
+
 
 
 

@@ -13,7 +13,14 @@ llm:
 entities: []
 ---
 
-# Orchestrations – Intents Catalog (Use Case Excel/CSV)
+# Orchestrations - Intents Catalog (Use Case Excel/CSV)
+
+## Domande a cui risponde
+- Quali intent compongono `wf.excel-csv-upload` e qual è la sequenza logica degli step?
+- Dove trovo per ciascun intent lo schema input/output e i criteri di esito (WHAT)?
+- Cosa devo aggiornare se aggiungo/rimuovo uno step dal workflow (manifest/cataloghi/KB)?
+- Quali output alimentano il diario di bordo e quali eventi ARGOS sono attesi?
+- Qual è la pagina canonica che descrive l'orchestrazione e i contratti collegati?
 
 Principio WHAT-first
 - Definiamo cosa fa ogni Intent (scopo, input/output, criteri) separatamente dall’implementazione.
@@ -34,8 +41,4 @@ Uso
 Riferimenti
 - Orchestrazione – wf.excel-csv-upload: orchestrations/wf-excel-csv-upload.md
 - Use Case – Entrate/Uscite: use-cases/entrate-uscite.md
-
-
-
-
 

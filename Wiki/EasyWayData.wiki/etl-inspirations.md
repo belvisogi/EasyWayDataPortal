@@ -11,6 +11,8 @@ llm:
   chunk_hint: 400-600
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # ETL/ELT – Inspirations
@@ -37,6 +39,7 @@ Mapping verso EasyWay
 Prossimi passi
 - Compilare le pagine “ETL – DQ Framework” e “ETL – Table Log Model” con le decisioni derivate.
 - Allineare ricette KB per bootstrap DQ e logging.
+
 
 
 

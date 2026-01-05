@@ -41,8 +41,10 @@ Sezione consigliata (ordine):
 3. Passi
 4. Verify (cosa controllare)
 5. Errori comuni / Troubleshooting
-6. References (2–6 link a file/pagine correlate)
-7. Domande a cui risponde (3–7)
+6. References (2-6 link a file/pagine correlate)
+7. Domande a cui risponde (3-7)
+
+Nota: la sezione **Domande a cui risponde** è obbligatoria solo per le pagine **operative** (`layer/runbook`, `layer/howto`, `layer/orchestration`, `layer/intent`). Per le pagine di reference/spec è consigliata ma non bloccante.
 
 ## 3) Front matter YAML (obbligatorio)
 Ogni `.md` deve avere front matter completo:
@@ -111,7 +113,10 @@ Comandi utili:
 - Doc alignment gate: `pwsh scripts/doc-alignment-check.ps1 -FailOnError`
 - WHAT-first lint: `pwsh scripts/whatfirst-lint.ps1 -FailOnError`
 - Wiki front matter lint: `pwsh scripts/wiki-frontmatter-lint.ps1 -FailOnError`
+- Wiki gap report (sezioni minime + draft hygiene + placeholder): `pwsh scripts/wiki-gap-report.ps1 -Path "Wiki/EasyWayData.wiki" -ExcludePaths logs/reports,old,.attachments -ScopesPath "docs/agentic/templates/docs/tag-taxonomy.scopes.json" -ScopeName <SCOPE> -FailOnError -SummaryOut wiki-gap.<SCOPE>.json`
 - Governance gates (tutto): `pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent`
+
+Nota CI: il gate `WikiGapReport` in `azure-pipelines.yml` esegue `wiki-gap-report` in modalità **phased** (scope per scope) o **all** (toggle `WIKI_GAP_MODE=all`) per evitare regressioni.
 
 ### Agent-ready audit (a monte)
 Per evitare che “gli agenti arrivino sempre a valle”, la repo espone uno **standard verificabile** + uno script di audit aggregato:
@@ -135,6 +140,7 @@ Una modifica è “done” quando:
 - Pagine troppo lunghe (oltre budget token)
 - Duplicati (stesso argomento in più pagine senza canonical)
 - Link rotti e placeholder
+- Gap report (owner/summary/draft hygiene + sezioni minime per howto/runbook)
 
 ## Collegamenti
 - Regole semplici: `docs-conventions.md`

@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Doc Alignment Gate
@@ -34,6 +36,7 @@ Output
 
 Integrazione CI
 - Aggiungi uno step che esegue lo script con `-FailOnError` se vuoi bloccare il merge fino al riallineamento.
+
 
 
 

@@ -11,6 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+updated: '2026-01-05'
+next: TODO - definire next step.
 ---
 
 # Metodo di Lavoro (Agent‑First)
@@ -69,6 +71,7 @@ Riferimenti
 ## Badges & Guardrail
 - WhatIf‑Ready: l’azione implementa pre‑check a secco e mostra `stateBefore` (e `stateAfter` dopo l’applicazione). È la modalità predefinita consigliata.
 - Guardrail: gli agenti devono anticipare gli errori (validazioni, limiti, anteprime), riducendo i rischi prima di eseguire modifiche.
+
 
 
 

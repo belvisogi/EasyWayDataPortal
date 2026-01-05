@@ -1,7 +1,7 @@
 ---
 id: ew-subscription
 title: subscription
-summary: Breve descrizione del documento.
+summary: 'Documento su subscription.'
 status: draft
 owner: team-docs
 created: '2025-01-01'
@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+next: TODO - definire next step.
 ---
 ### a) **sp_insert_subscription**
 
@@ -2421,6 +2422,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 
