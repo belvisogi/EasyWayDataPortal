@@ -1,5 +1,5 @@
 ---
-id: ew-readme
+id: ew-easyway-webapp-05-codice-easyway-portale-readme
 title: readme
 tags: [domain/frontend, layer/index, audience/dev, privacy/internal, language/it, readme]
 owner: team-platform

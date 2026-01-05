@@ -1,5 +1,5 @@
 ---
-id: index
+id: ew-easyway-portal-api-index
 title: Indice
 summary: Indice della documentazione API: manutenzione, endpoint, logging e policy Store Procedure.
 status: draft

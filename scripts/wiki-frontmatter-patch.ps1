@@ -1,10 +1,14 @@
 param(
   [string]$Path = "Wiki/EasyWayData.wiki",
   [string[]]$ExcludePaths = @('logs/reports'),
+  [string]$ScopesPath = "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+  [string]$ScopeName = "",
   [string]$Owner = "team-platform",
   [string]$Status = "draft",
   [string[]]$DefaultTags = @('docs','privacy/internal','language/it'),
   [string]$ChunkHint = "250-400",
+  [switch]$EnsureDraftHygiene,
+  [string]$DefaultNext = "TODO - definire next step.",
   [switch]$Apply,
   [switch]$ForceReplaceUnterminated,
   [switch]$IncludeFullPath,
@@ -71,6 +75,38 @@ function Get-RelPath {
   $full = (Resolve-Path -LiteralPath $FullName).Path
   $rel = $full.Substring($rootFull.Length).TrimStart('/',[char]92)
   return $rel.Replace([char]92,'/')
+}
+
+function Read-Json {
+  param([string]$p)
+  if (-not (Test-Path -LiteralPath $p)) { throw "JSON not found: $p" }
+  return (Get-Content -LiteralPath $p -Raw | ConvertFrom-Json)
+}
+
+function Load-ScopeEntries {
+  param([string]$ScopesPath, [string]$ScopeName)
+  if ([string]::IsNullOrWhiteSpace($ScopeName)) { return @() }
+  if (-not (Test-Path -LiteralPath $ScopesPath)) { throw "Scopes JSON not found: $ScopesPath" }
+  $obj = Read-Json $ScopesPath
+  $scope = $obj.scopes.$ScopeName
+  if ($null -eq $scope) { throw "Scope not found in ${ScopesPath}: $ScopeName" }
+  return @($scope)
+}
+
+function Is-InScope {
+  param([string]$RelPath, [string[]]$ScopeEntries)
+  if ($null -eq $ScopeEntries -or $ScopeEntries.Count -eq 0) { return $true }
+  foreach ($e in $ScopeEntries) {
+    $p = [string]$e
+    if (-not $p) { continue }
+    $p = $p.Replace('\\','/')
+    if ($p.EndsWith('/')) {
+      if ($RelPath.StartsWith($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
+    } else {
+      if ($RelPath.Equals($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
+    }
+  }
+  return $false
 }
 
 function Ensure-FrontMatter {
@@ -141,6 +177,9 @@ entities: []
 
   $hasNonEmptyStatus = [bool]($lines | Where-Object { $_ -match '^status\s*:\s*\S+' } | Select-Object -First 1)
   $hasAnyStatus = [bool]($lines | Where-Object { $_ -match '^status\s*:' } | Select-Object -First 1)
+  $statusVal = ''
+  $mStatus = ($lines | Where-Object { $_ -match '^status\s*:\s*\S+' } | Select-Object -First 1)
+  if ($mStatus -match '^status\s*:\s*(?<s>\S+)\s*$') { $statusVal = $Matches['s'].Trim() }
 
   $hasNonEmptyOwner = [bool]($lines | Where-Object { $_ -match '^owner\s*:\s*\S+' } | Select-Object -First 1)
   $hasAnyOwner = [bool]($lines | Where-Object { $_ -match '^owner\s*:' } | Select-Object -First 1)
@@ -156,6 +195,10 @@ entities: []
   $hasLlmChunk = [bool]([regex]::IsMatch($fmBlock, '(?m)^\s+chunk_hint\s*:\s*\d+(-\d+)?\s*$'))
   $hasNonEmptyPii = [bool]([regex]::IsMatch($fmBlock, '(?m)^\s+pii\s*:\s*\S+'))
   $hasAnyPii = [bool]([regex]::IsMatch($fmBlock, '(?m)^\s+pii\s*:'))
+
+  $hasUpdated = [bool]($lines | Where-Object { $_ -match '^updated\s*:\s*\S+' } | Select-Object -First 1)
+  $hasNext = [bool]($lines | Where-Object { $_ -match '^next\s*:\s*\S+' } | Select-Object -First 1)
+  $hasChecklist = [bool]($lines | Where-Object { $_ -match '^checklist\s*:\s*(\[|$)' } | Select-Object -First 1)
 
   $outLines = New-Object System.Collections.Generic.List[string]
 
@@ -234,6 +277,20 @@ entities: []
   }
   if (-not $hasEntities) { $outLines.Add('entities: []') }
 
+  if ($EnsureDraftHygiene) {
+    $finalStatus = $statusVal
+    if ([string]::IsNullOrWhiteSpace($finalStatus)) { $finalStatus = $Status }
+    if ($finalStatus -eq 'draft') {
+      if (-not $hasUpdated) {
+        $today = (Get-Date).ToString('yyyy-MM-dd')
+        $outLines.Add("updated: '$today'")
+      }
+      if (-not $hasNext -and -not $hasChecklist) {
+        $outLines.Add("next: $DefaultNext")
+      }
+    }
+  }
+
   $newFm = ($outLines -join "`n").TrimEnd() + "`n"
   $newText = "---`n" + $newFm + "---`n" + $rest
 
@@ -242,11 +299,13 @@ entities: []
 }
 
 $excludePrefixes = Resolve-ExcludePrefixes -Root $Path -Exclude $ExcludePaths
+$scopeEntries = Load-ScopeEntries -ScopesPath $ScopesPath -ScopeName $ScopeName
 $results = @()
 
 Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md | Where-Object { -not (Is-Excluded -FullName ($_.FullName) -Prefixes $excludePrefixes) } | ForEach-Object {
   $res = Ensure-FrontMatter -File $_.FullName
   $rel = Get-RelPath -Root $Path -FullName $_.FullName
+  if (-not (Is-InScope -RelPath $rel -ScopeEntries $scopeEntries)) { return }
   $entry = @{ file = $rel; rel = $rel; action = $res.action; changed = [bool]$res.changed }
   if ($IncludeFullPath) { $entry.fullPath = $_.FullName }
   if ($Apply -and $res.changed -and $res.content) {
@@ -258,7 +317,7 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md | Where-Object { -not (Is
   $results += $entry
 }
 
-$summary = @{ applied = [bool]$Apply; excluded = $ExcludePaths; includeFullPath = [bool]$IncludeFullPath; results = $results }
+$summary = @{ applied = [bool]$Apply; excluded = $ExcludePaths; scopesPath = $ScopesPath; scopeName = $ScopeName; ensureDraftHygiene = [bool]$EnsureDraftHygiene; includeFullPath = [bool]$IncludeFullPath; results = $results }
 $json = $summary | ConvertTo-Json -Depth 6
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json

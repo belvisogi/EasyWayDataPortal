@@ -3,6 +3,8 @@ param(
   [string[]]$ExcludePaths = @('logs/reports'),
   [string]$ScopesPath = "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
   [string]$ScopeName = "",
+  [ValidateSet('off','warn','error')]
+  [string]$DraftHygiene = 'off',
   [switch]$IncludeFullPath,
   [switch]$FailOnError,
   [string]$SummaryOut = "wiki-frontmatter-lint.json"
@@ -82,6 +84,7 @@ function Test-FrontMatter {
   param(
     [string]$File,
     [string]$RelPath,
+    [string]$DraftHygiene,
     [switch]$IncludeFullPath
   )
   $text = Get-Content -LiteralPath $File -Raw -ErrorAction Stop
@@ -133,8 +136,29 @@ function Test-FrontMatter {
     if ($IncludeFullPath) { $r.fullPath = $File }
     return $r
   }
+
   $r = @{ file = $RelPath; ok = $true }
   if ($IncludeFullPath) { $r.fullPath = $File }
+
+  # Draft hygiene (phased): draft pages should not be "stale noise"
+  if ($DraftHygiene -ne 'off') {
+    $status = ''
+    if ($fm -match '(?m)^status\s*:\s*(?<s>\S+)\s*$') { $status = $Matches['s'].Trim().ToLowerInvariant() }
+    if ($status -eq 'draft') {
+      $missingDraft = @()
+      $hasUpdated = [regex]::IsMatch($fm, '(?m)^updated\s*:\s*\S+')
+      $hasNext = [regex]::IsMatch($fm, '(?m)^next\s*:\s*\S+')
+      $hasChecklist = [regex]::IsMatch($fm, '(?m)^checklist\s*:\s*(\[|$)')
+      if (-not $hasUpdated) { $missingDraft += 'updated' }
+      if (-not $hasNext -and -not $hasChecklist) { $missingDraft += 'next_or_checklist' }
+
+      if ($missingDraft.Count -gt 0) {
+        $r.draftMissing = $missingDraft
+        if ($DraftHygiene -eq 'error') { $r.ok = $false }
+      }
+    }
+  }
+
   return $r
 }
 
@@ -147,15 +171,25 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md |
   ForEach-Object {
     $rel = Get-RelPath -Root $Path -FullName $_.FullName
     if (-not (Is-InScope -RelPath $rel -ScopeEntries $scopeEntries)) { return }
-    $results += Test-FrontMatter -File $_.FullName -RelPath $rel -IncludeFullPath:$IncludeFullPath
+    $results += Test-FrontMatter -File $_.FullName -RelPath $rel -DraftHygiene $DraftHygiene -IncludeFullPath:$IncludeFullPath
   }
 
 $failures = @($results | Where-Object { -not $_.ok })
+$draftIssues = @(
+  $results | Where-Object {
+    if ($_ -is [hashtable]) {
+      return $_.ContainsKey('draftMissing') -and $_.draftMissing -and $_.draftMissing.Count -gt 0
+    }
+    return ($_.PSObject.Properties.Name -contains 'draftMissing') -and $_.draftMissing -and $_.draftMissing.Count -gt 0
+  }
+)
 $summary = @{
   ok = ($failures.Count -eq 0)
   excluded = $ExcludePaths
   scopesPath = $ScopesPath
   scopeName = $ScopeName
+  draftHygiene = $DraftHygiene
+  draftIssues = $draftIssues.Count
   includeFullPath = [bool]$IncludeFullPath
   files = $results.Count
   failures = $failures.Count

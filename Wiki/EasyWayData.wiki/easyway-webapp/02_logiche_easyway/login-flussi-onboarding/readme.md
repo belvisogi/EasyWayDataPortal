@@ -1,5 +1,5 @@
 ---
-id: ew-readme
+id: ew-easyway-webapp-02-logiche-easyway-login-flussi-onboarding-readme
 title: Flussi Onboarding/Login - Dettagli & Variazioni
 summary: Varianti operative dei flussi onboarding/login (disabilitazione, reinvito, cambio tenant/ruolo, cancellazione).
 status: draft
@@ -71,4 +71,3 @@ Ogni variazione di stato, ruolo o tenant deve essere tracciata, notificata e sog
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
-

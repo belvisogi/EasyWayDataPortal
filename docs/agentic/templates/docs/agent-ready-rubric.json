@@ -1,0 +1,75 @@
+{
+  "version": "1.0",
+  "id": "ew-agent-ready-v1",
+  "title": "EasyWay Agent-Ready Standard (v1)",
+  "summary": "Rubrica machine-readable per valutare se un repo è 'agent-ready' (docs + WHAT-first + retrieval + KB + gates).",
+  "defaults": {
+    "wikiPath": "Wiki/EasyWayData.wiki",
+    "scopesPath": "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+    "taxonomyPath": "docs/agentic/templates/docs/tag-taxonomy.json",
+    "bundlesPath": "docs/agentic/templates/docs/retrieval-bundles.json",
+    "intentsDir": "docs/agentic/templates/intents",
+    "orchestrationsDir": "docs/agentic/templates/orchestrations",
+    "kbRecipesPath": "agents/kb/recipes.jsonl"
+  },
+  "recommended_scope_sets": {
+    "core": ["core"],
+    "all": ["governance-all", "portal-all", "data-all", "security-all"]
+  },
+  "checks": [
+    {
+      "id": "whatfirst.json-valid",
+      "severity": "error",
+      "description": "Manifest orchestrazioni + intents + UX prompts sono JSON validi e presenti.",
+      "script": "scripts/whatfirst-lint.ps1"
+    },
+    {
+      "id": "docs.frontmatter",
+      "severity": "error",
+      "description": "Front matter YAML completo per tutte le pagine nello scope.",
+      "script": "scripts/wiki-frontmatter-lint.ps1"
+    },
+    {
+      "id": "docs.draft.hygiene",
+      "severity": "warning",
+      "description": "Le pagine draft hanno 'updated' e 'next' (o 'checklist') per evitare rumore/staleness.",
+      "script": "scripts/wiki-frontmatter-lint.ps1"
+    },
+    {
+      "id": "docs.tags.taxonomy",
+      "severity": "error",
+      "description": "Tag facet validi e facet obbligatorie presenti per le pagine nello scope.",
+      "script": "scripts/wiki-tags-lint.ps1"
+    },
+    {
+      "id": "docs.links.anchors",
+      "severity": "error",
+      "description": "Link locali e anchor validi (nessun link rotto/anchor mancante) nello scope.",
+      "script": "scripts/wiki-links-anchors-lint.ps1"
+    },
+    {
+      "id": "docs.ids.unique",
+      "severity": "error",
+      "description": "Gli id (front matter) sono globalmente univoci nella Wiki (evita ambiguità nei retrieval/index).",
+      "script": "scripts/agent-ready-audit.ps1"
+    },
+    {
+      "id": "docs.summary.no-placeholder",
+      "severity": "warning",
+      "description": "Nessun summary vuoto o placeholder nello scope (adozione a fasi consigliata).",
+      "script": "scripts/wiki-summary-lint.ps1"
+    },
+    {
+      "id": "retrieval.bundles.valid",
+      "severity": "error",
+      "description": "retrieval-bundles.json referenzia solo scope esistenti e copre tutti gli intents.",
+      "script": "scripts/agent-ready-audit.ps1"
+    },
+    {
+      "id": "kb.recipes.jsonl",
+      "severity": "error",
+      "description": "agents/kb/recipes.jsonl è parse-able (una JSON per riga).",
+      "script": "scripts/agent-ready-audit.ps1"
+    }
+  ]
+}

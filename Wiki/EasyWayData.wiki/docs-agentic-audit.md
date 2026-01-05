@@ -25,14 +25,15 @@ Questa pagina definisce:
 - **Definition of Done** (quando una modifica è “finita”)
 
 ## 1) Principi anti-allucinazione
-- **Fonte canonica**: per ogni argomento esiste UNA pagina “canonico”. Le altre pagine sono stub con link `canonical`.
+- **Fonte canonica**: per ogni argomento esiste UNA pagina "canonico". Le altre pagine sono stub con link `canonical`.
+- **Redirect/shim**: pagine duplicate (case/vecchi path) vanno marcate `status: deprecated`, `canonical: <path>`, `llm.include: false` e devono restare minimali.
 - **Path reali**: ogni istruzione operativa cita file/command reali del repo (in backtick).
-- **No “vedi sopra/sotto”**: ogni pagina deve essere autonoma.
+- **No "vedi sopra/sotto"**: ogni pagina deve essere autonoma.
 - **Esempi eseguibili**: comandi copiabili (PowerShell) e output/verify espliciti.
-- **Acronimi**: la prima occorrenza spiega l’acronimo (es. ADO, SLO, DQ).
+- **Acronimi**: la prima occorrenza spiega l'acronimo (es. ADO, SLO, DQ).
 
 ## 2) Struttura minima per pagina (RAG-first)
-Target: **300–600 token** per pagina (molte pagine piccole > una enorme).
+Target: **300-600 token** per pagina (molte pagine piccole > una enorme).
 
 Sezione consigliata (ordine):
 1. Scopo
@@ -50,6 +51,14 @@ Ogni `.md` deve avere front matter completo:
 - `entities` (anche vuoto)
 
 Nota: anche gli indici (`index.md`) devono essere **machine-readable** (front matter incluso).
+Nota: `id` deve essere **globalmente univoco** nella Wiki (evita ambiguità nei retrieval/index e collisioni di chunk/manifest).
+
+### 3.1) Draft hygiene (anti-rumore)
+Le pagine con `status: draft` devono avere anche:
+- `updated: <data>` (es. `updated: '2026-01-05'`)
+- `next: <prossimo step>` **oppure** `checklist:` (lista di task)
+
+Obiettivo: evitare pagine draft “orfane” che diventano rumore per agenti e umani.
 
 ## 4) Tagging: tassonomia (vocabolario controllato)
 Obiettivo: migliorare ricerca e clustering riducendo token.
@@ -103,6 +112,13 @@ Comandi utili:
 - WHAT-first lint: `pwsh scripts/whatfirst-lint.ps1 -FailOnError`
 - Wiki front matter lint: `pwsh scripts/wiki-frontmatter-lint.ps1 -FailOnError`
 - Governance gates (tutto): `pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent`
+
+### Agent-ready audit (a monte)
+Per evitare che “gli agenti arrivino sempre a valle”, la repo espone uno **standard verificabile** + uno script di audit aggregato:
+- Rubrica machine-readable: `docs/agentic/templates/docs/agent-ready-rubric.json`
+- Audit aggregato: `pwsh scripts/agent-ready-audit.ps1 -Mode all -FailOnError -SummaryOut agent-ready-audit.json`
+
+L’audit è pensato per essere riusato anche in altri progetti: produce un report JSON con `ok`, `errors/warnings` e dettaglio per scope.
 
 ## 8) Definition of Done (Doc agentica)
 Una modifica è “done” quando:

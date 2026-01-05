@@ -67,6 +67,9 @@ Gli scope sono definiti in `docs/agentic/templates/docs/tag-taxonomy.scopes.json
 Esempio: enforcement su 20 pagine DB+Datalake:
 - `pwsh scripts/wiki-tags-lint.ps1 -Path "Wiki/EasyWayData.wiki" -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName db-datalake-20 -FailOnError`
 
+### Scope (retrieval stabile per agenti)
+Per retrieval (es. n8n) conviene usare scope `*-all` basati su directory/prefix: sono più stabili e riducono manutenzione rispetto a liste enumerate.
+
 
 Esempi scope disponibili (casistiche):
 - `db-datalake-20`
@@ -78,4 +81,8 @@ Esempi scope disponibili (casistiche):
 - `portal-api-frontend-20`
 - `controlplane-governance-20`
 - `frontend-ui-20`
+- `governance-all`
+- `portal-all`
+- `data-all`
+- `security-all`
 

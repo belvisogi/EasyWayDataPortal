@@ -1,7 +1,7 @@
 ---
 title: Activity Log (shim)
 summary: Redirect compat per vecchi link; usare activity-log.md.
-id: ew-activity-log
+id: ew-activity-log-shim
 status: deprecated
 owner: team-platform
 canonical: activity-log.md

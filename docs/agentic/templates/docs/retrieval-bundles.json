@@ -39,6 +39,64 @@
         "governance-all"
       ]
     },
+    "ingest.upload-file": {
+      "intent": "ingest.upload-file",
+      "description": "Ingest/upload file: validazione base, storage target e vincoli multi-tenant.",
+      "scopes": [
+        "portal-all",
+        "data-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "schema.map-suggest": {
+      "intent": "schema.map-suggest",
+      "description": "Suggerimento mapping schema (colonne→target) con contesto dati e convenzioni.",
+      "scopes": [
+        "data-all",
+        "governance-all"
+      ]
+    },
+    "schema.map-apply": {
+      "intent": "schema.map-apply",
+      "description": "Applicazione mapping schema (staging/target) e regole di naming/validazione.",
+      "scopes": [
+        "data-all",
+        "governance-all"
+      ]
+    },
+    "dq.validate": {
+      "intent": "dq.validate",
+      "description": "Data quality validation (regole, report, gates) in contesto ETL/Datalake.",
+      "scopes": [
+        "data-all",
+        "governance-all"
+      ]
+    },
+    "etl.load-staging": {
+      "intent": "etl.load-staging",
+      "description": "Caricamento dati in staging (pattern ETL/ELT, logging, error handling).",
+      "scopes": [
+        "data-all",
+        "governance-all"
+      ]
+    },
+    "etl.merge-target": {
+      "intent": "etl.merge-target",
+      "description": "Merge staging→target (upsert, idempotenza, audit/log).",
+      "scopes": [
+        "data-all",
+        "governance-all"
+      ]
+    },
+    "analytics.materialize-defaults": {
+      "intent": "analytics.materialize-defaults",
+      "description": "Materializzazione viste/defaults analytics (tabelle, modelli, compatibilità).",
+      "scopes": [
+        "data-all",
+        "governance-all"
+      ]
+    },
     "docs.core": {
       "intent": "docs.core",
       "description": "Contesto base di governance docs (indice + convenzioni + cataloghi).",

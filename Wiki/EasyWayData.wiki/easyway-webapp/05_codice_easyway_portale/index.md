@@ -1,5 +1,5 @@
 ---
-id: ew-index
+id: ew-easyway-webapp-05-codice-easyway-portale-index
 title: index
 tags: [domain/frontend, layer/index, audience/dev, privacy/internal, language/it]
 owner: team-platform

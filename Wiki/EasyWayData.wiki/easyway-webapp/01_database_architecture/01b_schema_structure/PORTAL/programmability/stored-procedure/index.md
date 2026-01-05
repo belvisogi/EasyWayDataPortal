@@ -1,5 +1,5 @@
 ---
-id: index
+id: ew-portal-stored-procedure-index
 title: Indice
 summary: Breve descrizione del documento.
 status: draft

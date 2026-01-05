@@ -1,5 +1,5 @@
 ---
-id: ew-index
+id: ew-easyway-webapp-01-database-architecture-index
 title: index
 tags: [domain/db, layer/index, audience/dev, audience/dba, privacy/internal, language/it, database-architecture]
 owner: team-platform

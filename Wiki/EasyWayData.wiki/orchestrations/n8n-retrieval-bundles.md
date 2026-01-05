@@ -15,7 +15,7 @@ entities: []
 
 # n8n Retrieval Bundles
 
-Obiettivo: dare a n8n (o ad altri agenti) un modo **deterministico** per decidere *quali pagine Wiki caricare* per un intent, senza “rileggere tutto” e senza includere duplicati/obsolete.
+Obiettivo: dare a n8n (o ad altri agenti) un modo **deterministico** per decidere *quali pagine Wiki caricare* per un intent, senza "rileggere tutto" e senza includere duplicati/obsolete.
 
 ## Source of truth (machine-readable)
 
@@ -30,8 +30,12 @@ Obiettivo: dare a n8n (o ad altri agenti) un modo **deterministico** per decider
 4. Applica `default_exclude_globs` (attachments/logs/old/backup).
 5. Carica solo quelle pagine nel contesto del workflow.
 
+## Nota sugli scope (*-20 vs *-all)
+
+- `*-20`: blocchi da 20 pagine per **adozione a fasi** (CI/gates).
+- `*-all`: scope **stabili per retrieval** (es. n8n) basati su directory/prefix; vanno mantenuti nel tempo.
+
 ## Anti-duplicati (zero ambiguità)
 
-- Pagine “shim/redirect compat” devono avere `status: deprecated` e idealmente `llm.include: false` per non essere caricate dagli agenti.
-- La pagina canonica resta l’unica fonte: le altre rimandano (con `canonical:` o `redirect_to:`).
-
+- Pagine "shim/redirect compat" devono avere `status: deprecated` e idealmente `llm.include: false` per non essere caricate dagli agenti.
+- La pagina canonica resta l'unica fonte: le altre rimandano (con `canonical:` o `redirect_to:`).
