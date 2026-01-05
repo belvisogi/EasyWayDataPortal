@@ -7,6 +7,7 @@ param(
   [string]$RequireFacetsScope = 'all',
   [string]$ScopesPath = "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
   [string]$ScopeName = 'core',
+  [switch]$IncludeFullPath,
   [switch]$FailOnError,
   [string]$SummaryOut = "wiki-tags-lint.json"
 )
@@ -83,7 +84,7 @@ function Parse-Tags {
 
 function Suggest-Facets {
   param([string]$WikiPath)
-  $rel = $WikiPath.Replace('\\','/')
+  $rel = '/' + $WikiPath.Replace('\\','/').TrimStart('/')
   $s = @{}
 
   if ($rel -match '/orchestrations/') { $s.domain = 'control-plane'; $s.layer = 'orchestration' }
@@ -112,7 +113,7 @@ function Get-RelPath {
   $rootFull = (Resolve-Path -LiteralPath $Root).Path
   $full = (Resolve-Path -LiteralPath $FullName).Path
   $rel = $full.Substring($rootFull.Length).TrimStart('/',[char]92)
-  return $rel.Replace('\\','/')
+  return $rel.Replace([char]92,'/')
 }
 
 function Load-CoreScope {
@@ -171,13 +172,17 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md |
 
     if ($null -eq $fm) {
       $errors.Add('missing_front_matter')
-      $results += @{ file=$file; rel=$rel; ok=$false; inScope=$inScope; tags=@(); errors=@($errors); warnings=@($warnings) }
+      $r = @{ file = $rel; rel = $rel; ok = $false; inScope = $inScope; tags = @(); errors = @($errors); warnings = @($warnings) }
+      if ($IncludeFullPath) { $r.fullPath = $file }
+      $results += $r
       return
     }
 
     if ($tags.Count -eq 0) {
       $errors.Add('missing_tags')
-      $results += @{ file=$file; rel=$rel; ok=$false; inScope=$inScope; tags=@(); errors=@($errors); warnings=@($warnings) }
+      $r = @{ file = $rel; rel = $rel; ok = $false; inScope = $inScope; tags = @(); errors = @($errors); warnings = @($warnings) }
+      if ($IncludeFullPath) { $r.fullPath = $file }
+      $results += $r
       return
     }
 
@@ -245,13 +250,15 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md |
       }
     }
 
-    $suggest = Suggest-Facets $file
+    $suggest = Suggest-Facets $rel
     $ok = ($errors.Count -eq 0)
-    $results += @{ file=$file; rel=$rel; ok=$ok; inScope=$inScope; tags=@($tags); errors=@($errors); warnings=@($warnings); suggested=$suggest }
+    $r = @{ file = $rel; rel = $rel; ok = $ok; inScope = $inScope; tags = @($tags); errors = @($errors); warnings = @($warnings); suggested = $suggest }
+    if ($IncludeFullPath) { $r.fullPath = $file }
+    $results += $r
   }
 
 $failures = @($results | Where-Object { -not $_.ok })
-$summary = @{ ok = ($failures.Count -eq 0); requireFacets = [bool]$RequireFacets; requireFacetsScope = $RequireFacetsScope; scopeName = $ScopeName; scopesPath = $ScopesPath; taxonomy = $TaxonomyPath; excluded = $ExcludePaths; files = $results.Count; failures = $failures.Count; results = $results }
+$summary = @{ ok = ($failures.Count -eq 0); requireFacets = [bool]$RequireFacets; requireFacetsScope = $RequireFacetsScope; scopeName = $ScopeName; scopesPath = $ScopesPath; taxonomy = $TaxonomyPath; excluded = $ExcludePaths; includeFullPath = [bool]$IncludeFullPath; files = $results.Count; failures = $failures.Count; results = $results }
 $json = $summary | ConvertTo-Json -Depth 8
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json

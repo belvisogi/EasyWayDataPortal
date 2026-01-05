@@ -1,7 +1,7 @@
 ---
 id: ew-01b-schema-structure
 title: 01b schema structure
-tags: [privacy/internal, language/it]
+tags: [domain/db, layer/spec, audience/dev, audience/dba, privacy/internal, language/it, schema]
 owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft

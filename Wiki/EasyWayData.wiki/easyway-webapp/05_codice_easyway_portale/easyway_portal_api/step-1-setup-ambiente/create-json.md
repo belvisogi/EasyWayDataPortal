@@ -1,7 +1,7 @@
 ---
 id: ew-create-json
 title: create json
-tags: [privacy/internal, language/it]
+tags: [domain/control-plane, layer/howto, audience/dev, privacy/internal, language/it, configuration]
 owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft

@@ -2,11 +2,12 @@
 title: Docs Conventions (shim)
 summary: Redirect compat per vecchi link; usare docs-conventions.md.
 id: ew-docs-conventions
-status: draft
+status: deprecated
 owner: team-platform
-tags: [docs, privacy/internal, language/it]
+canonical: docs-conventions.md
+tags: [domain/docs, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, docs, deprecated]
 llm:
-  include: true
+  include: false
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]

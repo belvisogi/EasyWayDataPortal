@@ -4,7 +4,7 @@ title: Orchestratore n8n (WHAT)
 summary: Manifesto WHAT dell'orchestratore n8n per instradare intent agentici verso workflow dichiarati.
 status: active
 owner: team-platform
-tags: [orchestration, n8n, agents, language/it]
+tags: [domain/control-plane, layer/orchestration, audience/dev, privacy/internal, language/it, orchestration, n8n, agents]
 llm:
   include: true
   pii: none

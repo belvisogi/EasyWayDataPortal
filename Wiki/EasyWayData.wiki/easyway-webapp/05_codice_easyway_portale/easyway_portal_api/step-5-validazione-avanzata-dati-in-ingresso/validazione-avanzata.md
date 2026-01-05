@@ -1,7 +1,7 @@
 ---
 id: ew-validazione-avanzata
 title: validazione avanzata
-tags: [privacy/internal, language/it]
+tags: [domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, validation, security]
 owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft

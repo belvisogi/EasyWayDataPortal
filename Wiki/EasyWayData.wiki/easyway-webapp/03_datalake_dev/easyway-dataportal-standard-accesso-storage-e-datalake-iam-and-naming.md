@@ -6,8 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags: [policy-security, privacy/internal, language/it]
-title: easyway dataportal standard accesso storage e datalake iam and naming---
+tags: [domain/datalake, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, policy-security, iam, naming, rbac]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🗂️ EasyWay DataPortal - Standard Accesso Storage e Datalake (IAM & Naming)
 
 ## 🎯 Scopo del Documento
@@ -16,14 +22,6 @@ Definire le **linee guida ufficiali** per la gestione ordinata, sicura e scalabi
 - Gruppi di accesso (RBAC)
 - Naming convention
 - Best practice operative
-
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
----
 
 ## 🔎 Differenza tra Blob Storage e Datalake HNS
 

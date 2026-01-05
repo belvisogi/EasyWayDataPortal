@@ -1,7 +1,7 @@
 ---
 id: ew-easyway-webapp-05-codice-easyway-portale-easyway-portal-api-endpoint-index
 title: Indice
-summary: TODO - aggiungere un sommario breve.
+summary: Indice degli endpoint API (config/branding/users) e del template per nuovi endpoint.
 status: draft
 owner: team-platform
 tags: [docs, domain/frontend, layer/index, audience/dev, privacy/internal, language/it]

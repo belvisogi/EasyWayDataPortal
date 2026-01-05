@@ -4,7 +4,7 @@ title: Integrare le best-practice ADA in EasyWayDataPortal
 summary: TODO - aggiungere un sommario breve.
 status: draft
 owner: team-platform
-tags: [docs, privacy/internal, language/it]
+tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, docs, dr, ada]
 llm:
   include: true
   pii: none

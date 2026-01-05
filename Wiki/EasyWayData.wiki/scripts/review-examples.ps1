@@ -10,7 +10,7 @@
   - Extract headings H1–H3 to bootstrap indices
   - Rename files/folders from a mapping (with -WhatIf)
   - Append activity entries using scripts/add-log.ps1
-  - Generate a simple INDEX.md for a folder
+  - Generate a simple index.md for a folder
 
 .NOTES
   Keep this file updated. When new review snippets are created or improved,
@@ -80,7 +80,7 @@ function Get-NameCompliance {
     if ($rel -like '.attachments/*') { return }
     if ($rel -match '^logs/reports/') { return }
     if ($rel -match '^EasyWay_WebApp/05_codice_easyway_portale/easyway_portal_api/STEP-') { return }
-    if ($rel -in @('ACTIVITY_LOG.md','DOCS_CONVENTIONS.md','LLM_READINESS_CHECKLIST.md','TODO_CHECKLIST.md','INDEX.md')) { return }
+    if ($rel -in @('ACTIVITY_LOG.md','DOCS_CONVENTIONS.md','LLM_READINESS_CHECKLIST.md','TODO_CHECKLIST.md','index.md')) { return }
     $issues = [System.Collections.Generic.List[string]]::new()
     if ($name -cmatch '[A-Z]') { $issues.Add('uppercase') }
     if ($name -match '%[0-9A-Fa-f]{2}') { $issues.Add('percent-encoded') }
@@ -231,7 +231,7 @@ function New-RootIndex {
   [CmdletBinding()]
   param(
     [Parameter(Mandatory=$true)][string]$Root,
-    [string]$Output = (Join-Path $Root 'INDEX.md')
+    [string]$Output = (Join-Path $Root 'index.md')
   )
   $mds = Get-ChildItem -Path $Root -Recurse -File -Filter *.md | Sort-Object FullName
   $lines = New-Object System.Collections.Generic.List[string]

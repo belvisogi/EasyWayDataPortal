@@ -4,7 +4,7 @@ title: Agent ScrumMaster – Single Owner, Multi‑Agent
 summary: Coordinamento backlog/roadmap (Azure Boards), DoD/gates, sincronizzazione KB/Wiki in modello single‑owner.
 status: draft
 owner: team-platform
-tags: [agents, governance, privacy/internal, language/it]
+tags: [domain/control-plane, layer/reference, audience/dev, privacy/internal, language/it, agents, governance, scrummaster]
 llm:
   include: true
   pii: none

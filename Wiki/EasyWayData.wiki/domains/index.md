@@ -4,7 +4,7 @@ title: Domini - Panoramica
 summary: Scheletro cross-domain: DB, Datalake, Frontend, Docs/Governance con agenti, input/output e strumenti.
 status: active
 owner: team-platform
-tags: [domains, agents, governance, language/it]
+tags: [domain/docs, layer/index, audience/dev, audience/non-expert, privacy/internal, language/it, domains, agents, governance]
 llm:
   include: true
   pii: none

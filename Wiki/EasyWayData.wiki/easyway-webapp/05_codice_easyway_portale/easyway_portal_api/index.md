@@ -1,7 +1,7 @@
 ---
 id: index
 title: Indice
-summary: Breve descrizione del documento.
+summary: Indice della documentazione API: manutenzione, endpoint, logging e policy Store Procedure.
 status: draft
 owner: team-api
 created: '2025-01-01'

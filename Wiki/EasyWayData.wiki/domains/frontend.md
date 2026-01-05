@@ -4,7 +4,7 @@ title: Dominio Frontend
 summary: Scheletro del dominio Frontend: UI, one-button UX, integrazione auth, wiring con orchestrazioni.
 status: draft
 owner: team-frontend
-tags: [domain/frontend, agents, ux, language/it]
+tags: [domain/frontend, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, agents, ux]
 llm:
   include: true
   pii: none

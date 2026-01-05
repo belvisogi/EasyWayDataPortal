@@ -4,7 +4,7 @@ title: Visione Portale Agentico
 summary: Obiettivi e principi per un portale totalmente agentico, usabile anche da non esperti.
 status: active
 owner: team-platform
-tags: [agents, vision, language/it]
+tags: [domain/docs, layer/spec, audience/non-expert, audience/dev, privacy/internal, language/it, agents, vision]
 llm:
   include: true
   pii: none

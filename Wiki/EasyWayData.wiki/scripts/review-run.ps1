@@ -95,8 +95,8 @@ foreach($f in $IndexFolders){ if(Test-Path -LiteralPath $f){ if($DryRun){ Write-
 Write-Host "  → Indices generated: $idxCount"
 
 if (-not $NoGlobalIndex) {
-  Write-Host "[4b/5] Generating global INDEX.md ..." -ForegroundColor Cyan
-  if ($DryRun) { Write-Host "    (dry-run) would generate EasyWayData.wiki/INDEX.md" -ForegroundColor DarkGray } else { New-RootIndex -Root $Root }
+  Write-Host "[4b/5] Generating global index.md ..." -ForegroundColor Cyan
+  if ($DryRun) { Write-Host "    (dry-run) would generate EasyWayData.wiki/index.md" -ForegroundColor DarkGray } else { New-RootIndex -Root $Root }
 }
 
 $anchorsCount = 0

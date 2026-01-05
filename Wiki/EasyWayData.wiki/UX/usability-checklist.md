@@ -4,7 +4,7 @@ title: UX – Usability Checklist (One‑Button)
 summary: Checklist rapida per validare semplicità ed efficacia delle schermate (3‑click rule, leggibilità, zero dead‑ends, CTA chiare, default sicuri).
 status: active
 owner: team-platform
-tags: [ux, checklist, language/it]
+tags: [domain/ux, layer/howto, audience/dev, audience/non-expert, privacy/internal, language/it, ux, checklist]
 llm:
   include: true
   pii: none

@@ -4,7 +4,7 @@ title: Activity Log
 summary: Diario di bordo automatico (pipeline/agents)
 status: draft
 owner: team-platform
-tags: [activity, audit, domain/docs, layer/reference, audience/ops, audience/dev, privacy/internal, language/it]
+tags: [activity, audit, domain/docs, layer/reference, audience/non-expert, audience/ops, audience/dev, privacy/internal, language/it, decision-log]
 llm:
   include: true
   pii: none

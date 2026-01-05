@@ -7,13 +7,6 @@ owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
 tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, logging, audit]
-title: readme---
-# Checklist Operativa – Logging & Audit
-EasyWay Data Portal
-
-## Obiettivo
-Garantire che tutti i servizi, microservizi, pipeline e infrastrutture rispettino policy di logging, auditing e compliance, minimizzando i rischi e facilitando troubleshooting e auditing normativo.
-
 llm:
   include: true
   pii: none
@@ -21,6 +14,11 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+# Checklist Operativa – Logging & Audit
+EasyWay Data Portal
+
+## Obiettivo
+Garantire che tutti i servizi, microservizi, pipeline e infrastrutture rispettino policy di logging, auditing e compliance, minimizzando i rischi e facilitando troubleshooting e auditing normativo.
 
 ## Checklist Logging & Audit
 

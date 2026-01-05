@@ -3,7 +3,7 @@ title: UX & API Spec — Plan Viewer, Wizard e WhatIf (bozza)
 summary: Bozza operativa con wireframe testuali, specifica API, esempi JSON e indicazioni implementative per Plan Viewer, Wizard e WhatIf.
 owner: team-platform
 status: draft
-tags: [ux, api, agentic, wizard, plan]
+tags: [domain/ux, layer/spec, audience/dev, audience/non-expert, privacy/internal, language/it, ux, api, agentic, wizard, plan]
 id: ew-ux-agentic-ux
 llm:
   include: true

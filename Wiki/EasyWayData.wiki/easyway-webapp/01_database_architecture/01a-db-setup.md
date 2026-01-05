@@ -1,12 +1,8 @@
 ---
 id: ew-01a-db-setup
 title: 01a db setup
-tags: [privacy/internal, language/it]
-owner: team-platform---
-# EasyWay Data Portal – Database SETUP
-
-> **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
-
+tags: [domain/db, layer/howto, audience/dev, audience/dba, privacy/internal, language/it, setup]
+owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft
 llm:
@@ -16,6 +12,10 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+
+# EasyWay Data Portal - Database SETUP
+
+> **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
 
 ## ✅ Scopo del file
 

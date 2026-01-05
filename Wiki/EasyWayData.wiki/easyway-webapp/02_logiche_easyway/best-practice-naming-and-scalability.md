@@ -6,8 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags: [layer/reference, privacy/internal, language/it]
-title: best practice naming and scalability---
+tags: [domain/docs, layer/reference, audience/dev, privacy/internal, language/it, best-practices, naming, scalability]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Lookup – Best Practice Naming & Scalabilità
 
 | Cosa vuoi                      | Cosa devi scrivere                 | Dammi il .md                              | Stato    |
@@ -38,14 +44,6 @@ Best Practice Naming & Scalabilità – EasyWay Data Portal
 | API endpoint        | /api/users, /api/notifications        | /api/[dominio]                                | Seguire naming RESTful                    |
 | Service Principal   | portal.datalake.read                  | [modulo].[ambito].[permesso]                  | Come da policy sicurezza                  |
 | Slot Azure          | ew-app-portal-dev-slot                | ew-app-[modulo]-[env]-slot                    | Usare solo per test/blue-green            |
-
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
----
 
 ## Best Practice Scalabilità
 

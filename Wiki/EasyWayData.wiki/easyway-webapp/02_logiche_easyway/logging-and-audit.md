@@ -7,7 +7,13 @@ owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
 tags: [policy-logging, domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, logging, audit]
-title: logging and audit---
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Logging & Audit – EasyWay Data Portal
 
 ## Lookup Logging & Audit – Microservizi & API Gateway
@@ -18,14 +24,6 @@ title: logging and audit---
 | Tabella eventi da tracciare | Dammi tabella eventi audit         | Dammi il .md tabella eventi audit     | IN BOZZA |
 | Best practice monitoring    | Dammi best practice monitoring     | Dammi il .md best practice monitoring | IN BOZZA |
 | Esempio flusso log/audit    | Dammi esempio flusso audit         | Dammi il .md esempio flusso audit     | IN BOZZA |
-
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
----
 
 ## Tabella Eventi/Audit da Tracciare
 

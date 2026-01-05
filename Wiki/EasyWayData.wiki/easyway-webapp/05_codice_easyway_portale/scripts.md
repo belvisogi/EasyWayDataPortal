@@ -1,7 +1,7 @@
 ---
 id: ew-scripts
 title: scripts
-tags: [privacy/internal, language/it]
+tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, scripts]
 owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft

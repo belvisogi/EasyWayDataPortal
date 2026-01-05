@@ -7,7 +7,13 @@ owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
 tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, security]
-title: policy di configurazione and sicurezza microservizi e api gateway---
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Policy di Configurazione & Sicurezza – Microservizi e API Gateway
 EasyWay Data Portal
 
@@ -22,14 +28,6 @@ EasyWay Data Portal
 | Policy config versionabile   | Configurazioni ambiente/dev/test/prod sempre versionate e storicizzate                            | Tutti i servizi                | IaC (Bicep/ARM), YAML, GitOps     | Niente settaggi manuali fuori controllo, tutto in versioning             |
 | Audit & logging security     | Tracciare tutte le azioni rilevanti per sicurezza, compliance e troubleshooting                    | API Gateway, microservizi      | Log Analytics, Storage Audit      | Logging centralizzato, retention policy attiva, alert su anomalie        |
 | Compliance GDPR/SOC2/DORA    | Aderire alle policy di mascheramento, tracciamento, protezione dati sensibili                     | Storage, API, DB               | Masking metadata, audit DB        | Uso tabella masking e audit trail per ogni accesso ai dati personali     |
-
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
----
 
 ## Dettaglio Implementativo Policy Chiave
 

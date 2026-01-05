@@ -4,7 +4,7 @@ title: UX Mock – Diario di Bordo (wf.excel-csv-upload)
 summary: Schermate mock (testuali) del diario di bordo per il workflow Excel/CSV→Dashboard, in modalità One‑Button (Base) e Pro.
 status: active
 owner: team-platform
-tags: [ux, diary, use-case, argos, language/it]
+tags: [domain/ux, layer/spec, audience/dev, audience/non-expert, privacy/internal, language/it, ux, diary, use-case, argos]
 llm:
   include: true
   pii: none

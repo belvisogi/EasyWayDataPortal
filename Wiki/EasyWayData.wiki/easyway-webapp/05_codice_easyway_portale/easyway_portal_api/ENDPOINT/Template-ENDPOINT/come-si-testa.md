@@ -1,7 +1,7 @@
 ---
 id: ew-come-si-testa
 title: come si testa
-tags: [privacy/internal, language/it]
+tags: [domain/control-plane, layer/howto, audience/dev, privacy/internal, language/it, api, testing]
 owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft

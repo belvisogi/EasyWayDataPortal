@@ -1,7 +1,7 @@
 ---
 title: Metodo di Lavoro Agent‑First
 summary: Regole operative chiare per umani e agenti. Come si lavora in EasyWayDataPortal (intenti, manifest, ewctl, KB/Wiki, gates).
-tags: [agents, governance, onboarding, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
+tags: [agents, governance, onboarding, domain/control-plane, layer/spec, audience/non-expert, audience/dev, privacy/internal, language/it]
 id: ew-agent-first-method
 status: draft
 owner: team-platform

@@ -6,7 +6,7 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags: [layer/reference, privacy/internal, language/it]
+tags: [domain/frontend, layer/index, audience/dev, privacy/internal, language/it]
 title: 05 codice easyway portale
 llm:
   include: true

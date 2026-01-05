@@ -1,7 +1,7 @@
 ---
 id: ew-iac
 title: iac
-tags: [privacy/internal, language/it]
+tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, iac]
 owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft

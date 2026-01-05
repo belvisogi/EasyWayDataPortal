@@ -4,7 +4,7 @@ title: Materiale di riferimento (Legacy)
 summary: Documenti storici e di contesto (architetture, valutazioni, piani) mantenuti per consultazione.
 status: draft
 owner: team-platform
-tags: [legacy, reference, governance, language/it]
+tags: [domain/docs, layer/blueprint, audience/dev, privacy/internal, language/it, legacy, reference, governance]
 llm:
   include: true
   pii: none

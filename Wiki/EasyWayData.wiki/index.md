@@ -4,7 +4,7 @@ summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo,
 id: ew-index
 status: draft
 owner: team-platform
-tags: [docs, privacy/internal, language/it]
+tags: [domain/docs, layer/index, audience/non-expert, audience/dev, privacy/internal, language/it, docs]
 llm:
   include: true
   pii: none
@@ -330,7 +330,7 @@ entities: []
   - H2: Endpoints
   - H2: DB Stored Procedures
   - H2: DB Sequences
-- [INDEX.md](./INDEX.md) - Indice Globale
+- [index.md](./index.md) - Indice Globale
   - H2: Domande a cui risponde
 - [llm-readiness-checklist.md](./llm-readiness-checklist.md) - LLM Readiness – Lista Semplice (Per Persone e AI)
   - H2: Checklist per OGNI pagina (.md)

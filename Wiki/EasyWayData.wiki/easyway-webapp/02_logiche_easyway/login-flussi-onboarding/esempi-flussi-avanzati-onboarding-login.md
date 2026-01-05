@@ -6,8 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags: [layer/reference, privacy/internal, language/it]
-title: esempi flussi avanzati onboarding login---
+tags: [domain/frontend, layer/reference, audience/dev, privacy/internal, language/it, login, onboarding, sso]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 ## Esempi Flussi Avanzati Onboarding/Login
 
 | Flusso/Variante                   | Attori                   | Step Principali                                                          | Security/ACL                        | Note Operative                                   |
@@ -22,13 +28,6 @@ title: esempi flussi avanzati onboarding login---
 | Multi-factor onboarding           | Utente finale            | Obbligo attivazione MFA (OTP, Authenticator App) durante onboarding                  | Policy MFA, logging, audit           | Blocco login se MFA non completato                |
 | Onboarding/Accesso tramite QR code| Utente mobile/desktop    | Scan QR per onboarding rapido su dispositivi mobili                                  | Token QR one-time, ACL onboarding    | Valido per demo, eventi o partnership             |
 
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
----
 
 ## Dettaglio Esempio – SSO Aziendale Custom (Entra ID/SAML/OIDC)
 

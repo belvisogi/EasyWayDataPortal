@@ -1,12 +1,8 @@
 ---
 id: ew-todo_checklist
 title: TODO CHECKLIST
-tags: [privacy/internal, language/it]
-owner: team-platform---
-# TODO – Razionalizzazione Wiki (Semplice)
-
-Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anche AI).
-
+tags: [domain/docs, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, checklist]
+owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft
 llm:
@@ -16,6 +12,9 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+# TODO - Razionalizzazione Wiki (Semplice)
+
+Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anche AI).
 
 ## Gap e aree di miglioramento (cosa manca)
 - **Allineamento API/DB:** alcune API non usano ancora solo Store Procedure e c’è mismatch tra nomi colonne e DDL standard (Users, Config). Questo è il punto più critico per la coerenza agentica e la robustezza.
@@ -87,9 +86,9 @@ entities: []
 
 ## Indici e link
 - [ ] Generare `Wiki/EasyWayData.wiki/index.md` con H1/H2 e link
-- [ ] Aggiungere `INDEX.md` per le principali sottocartelle (DB, API, flussi)
+- [ ] Aggiungere `index.md` per le principali sottocartelle (DB, API, flussi)
 - [ ] Eseguire link checker markdown e correggere link rotti/anchor mancanti
-- [x] 02_logiche_easyway: creati `INDEX.md` per cartella e sottocartelle principali
+- [x] 02_logiche_easyway: creati `index.md` per cartella e sottocartelle principali
 
 ## Automazioni e controlli
 - [ ] Linter naming file (ASCII/kebab-case), report settimanale

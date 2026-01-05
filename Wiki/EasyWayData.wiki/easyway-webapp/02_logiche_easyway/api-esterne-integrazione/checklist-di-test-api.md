@@ -7,7 +7,13 @@ owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
 tags: [domain/control-plane, layer/howto, audience/dev, audience/ops, privacy/internal, language/it, checklist]
-title: checklist di test api---
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 ## Checklist di test API (EasyWay Data Portal)
 
 1. **Validazione input**
@@ -44,14 +50,6 @@ title: checklist di test api---
 8. **Documentazione**
    - ❑ Endpoint, input/output, errori, logica sempre documentati nella Wiki
    - ❑ Eventuali deviazioni, workaround, edge case riportati subito in doc
-
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
----
 
 
 

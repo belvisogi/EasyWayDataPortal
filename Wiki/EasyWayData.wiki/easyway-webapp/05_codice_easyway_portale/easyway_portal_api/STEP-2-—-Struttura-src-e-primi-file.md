@@ -1,7 +1,7 @@
 ---
 id: ew-step-2-—-struttura-src-e-primi-file
 title: STEP 2 — Struttura src e primi file
-tags: [privacy/internal, language/it]
+tags: [domain/control-plane, layer/howto, audience/dev, privacy/internal, language/it, api, structure]
 owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft

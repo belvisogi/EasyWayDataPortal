@@ -3,6 +3,7 @@ param(
   [string[]]$ExcludePaths = @('logs/reports'),
   [int]$ScanLines = 80,
   [switch]$Apply,
+  [switch]$IncludeFullPath,
   [string]$SummaryOut = "wiki-frontmatter-termination-fix.json"
 )
 
@@ -30,6 +31,14 @@ function Is-Excluded {
     if ($FullName.StartsWith($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
   }
   return $false
+}
+
+function Get-RelPath {
+  param([string]$Root, [string]$FullName)
+  $rootFull = (Resolve-Path -LiteralPath $Root).Path
+  $full = (Resolve-Path -LiteralPath $FullName).Path
+  $rel = $full.Substring($rootFull.Length).TrimStart('/',[char]92)
+  return $rel.Replace([char]92,'/')
 }
 
 function Fix-FrontMatter-Termination {
@@ -73,11 +82,14 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md |
     if ($res.changed -and $Apply) {
       Set-Content -LiteralPath $file -Value $res.text -Encoding utf8
     }
-    $results += @{ file=$file; changed=[bool]$res.changed }
+    $rel = Get-RelPath -Root $Path -FullName $file
+    $r = @{ file = $rel; rel = $rel; changed = [bool]$res.changed }
+    if ($IncludeFullPath) { $r.fullPath = $file }
+    $results += $r
   }
 
 $changed = @($results | Where-Object { $_.changed })
-$summary = @{ applied=[bool]$Apply; excluded=$ExcludePaths; scanLines=$ScanLines; files=$results.Count; changed=$changed.Count; results=$results }
+$summary = @{ applied=[bool]$Apply; excluded=$ExcludePaths; scanLines=$ScanLines; includeFullPath = [bool]$IncludeFullPath; files=$results.Count; changed=$changed.Count; results=$results }
 $json = $summary | ConvertTo-Json -Depth 6
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json

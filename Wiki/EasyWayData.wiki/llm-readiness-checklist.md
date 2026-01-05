@@ -1,7 +1,7 @@
 ---
 id: ew-llm_readiness_checklist
 title: LLM READINESS CHECKLIST
-tags: [privacy/internal, language/it]
+tags: [domain/docs, layer/howto, audience/non-expert, audience/dev, privacy/internal, language/it, llm, checklist]
 owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft
@@ -54,7 +54,7 @@ Analista/BI (metriche, dashboard):
 - [ ] Scopo dashboard, utenti target, viste chiave.
 
 ## Repository: controlli periodici
-- [ ] Indice auto (per cartella) con titoli e link (`INDEX.md`).
+- [ ] Indice auto (per cartella) con titoli e link (`index.md`).
 - [ ] Link checker (nessun link rotto, nessuna anchor duplicata). Anchor checker: i link con #ancora puntano a H1/H2/H3 esistenti (slug coerente).
 - [ ] Report nomi (niente `%2D`, backtick, maiuscole dove non servono).
 - [ ] Stima pezzi per AI (chunk 400–600 token): pagine molto lunghe → sezioni più piccole.

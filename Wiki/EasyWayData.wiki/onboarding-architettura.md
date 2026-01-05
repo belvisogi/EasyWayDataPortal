@@ -4,7 +4,7 @@ title: EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata)
 summary: TODO - aggiungere un sommario breve.
 status: draft
 owner: team-platform
-tags: [docs, privacy/internal, language/it]
+tags: [domain/docs, layer/index, audience/non-expert, audience/dev, privacy/internal, language/it, onboarding, architecture, docs]
 llm:
   include: true
   pii: none

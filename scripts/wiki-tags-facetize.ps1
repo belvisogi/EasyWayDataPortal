@@ -3,6 +3,7 @@ param(
   [string]$TaxonomyPath = "docs/agentic/templates/docs/tag-taxonomy.json",
   [string[]]$ExcludePaths = @('logs/reports'),
   [switch]$Apply,
+  [switch]$IncludeFullPath,
   [string]$SummaryOut = "wiki-tags-facetize.json"
 )
 
@@ -35,6 +36,14 @@ function Is-Excluded {
     if ($FullName.StartsWith($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
   }
   return $false
+}
+
+function Get-RelPath {
+  param([string]$Root, [string]$FullName)
+  $rootFull = (Resolve-Path -LiteralPath $Root).Path
+  $full = (Resolve-Path -LiteralPath $FullName).Path
+  $rel = $full.Substring($rootFull.Length).TrimStart('/',[char]92)
+  return $rel.Replace([char]92,'/')
 }
 
 function Extract-FrontMatterAndRest {
@@ -102,10 +111,13 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md |
   Where-Object { -not (Is-Excluded -FullName ($_.FullName) -Prefixes $excludePrefixes) } |
   ForEach-Object {
     $file = $_.FullName
+    $rel = Get-RelPath -Root $Path -FullName $file
     $text = Get-Content -LiteralPath $file -Raw
     $p = Extract-FrontMatterAndRest $text
     if (-not $p) {
-      $results += @{ file=$file; ok=$false; error='missing_front_matter' }
+      $r = @{ file = $rel; rel = $rel; ok = $false; error = 'missing_front_matter' }
+      if ($IncludeFullPath) { $r.fullPath = $file }
+      $results += $r
       return
     }
 
@@ -151,7 +163,9 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md |
 
     $newFm = Replace-TagsInline -FrontMatter $fm -Tags @($out)
     if ($newFm -eq $fm) {
-      $results += @{ file=$file; ok=$true; changed=$false }
+      $r = @{ file = $rel; rel = $rel; ok = $true; changed = $false }
+      if ($IncludeFullPath) { $r.fullPath = $file }
+      $results += $r
       return
     }
 
@@ -159,11 +173,13 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md |
     if ($Apply) {
       Set-Content -LiteralPath $file -Value $newText -Encoding utf8
     }
-    $results += @{ file=$file; ok=$true; changed=$true }
+    $r = @{ file = $rel; rel = $rel; ok = $true; changed = $true }
+    if ($IncludeFullPath) { $r.fullPath = $file }
+    $results += $r
   }
 
 $changed = @($results | Where-Object { $_.changed })
-$summary = @{ applied=[bool]$Apply; excluded=$ExcludePaths; files=$results.Count; changed=$changed.Count; results=$results }
+$summary = @{ applied=[bool]$Apply; excluded=$ExcludePaths; includeFullPath = [bool]$IncludeFullPath; files=$results.Count; changed=$changed.Count; results=$results }
 $json = $summary | ConvertTo-Json -Depth 6
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json

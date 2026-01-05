@@ -1,17 +1,12 @@
 ---
 id: ew-stored-procedure
-title: stored procedure
+title: Stored Procedure
 summary: Breve descrizione del documento.
 status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
 tags: [artifact-stored-procedure, domain/db, layer/reference, audience/dba, audience/dev, privacy/internal, language/it]
-title: stored procedure---
-# EasyWay Data Portal - STORE PROCEDURE: Linee Guida, Best Practice e Template
-
-> **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG, ext_attributes, auditing, logging automatico).
-
 llm:
   include: true
   pii: none
@@ -19,6 +14,10 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+
+# EasyWay Data Portal - STORE PROCEDURE: Linee Guida, Best Practice e Template
+
+> **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG, ext_attributes, auditing, logging automatico).
 
 ## ✅ Scopo del documento
 
@@ -3019,6 +3018,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../entities-index.md)
+
 
 
 

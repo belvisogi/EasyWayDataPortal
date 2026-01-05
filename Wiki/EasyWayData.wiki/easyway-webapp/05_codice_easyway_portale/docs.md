@@ -1,7 +1,7 @@
 ---
 id: ew-docs
 title: docs
-tags: [privacy/internal, language/it]
+tags: [domain/frontend, layer/reference, audience/dev, privacy/internal, language/it, docs]
 owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft

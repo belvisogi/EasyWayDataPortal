@@ -6,8 +6,14 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags: [layer/reference, privacy/internal, language/it]
-title: esempio integrazione shopify---
+tags: [domain/control-plane, layer/reference, audience/dev, privacy/internal, language/it, api, integration, shopify]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Integrazione Shopify – Dettaglio & Esempio Pratico
 
 ## Overview
@@ -16,14 +22,6 @@ L’integrazione Shopify permette di:
 - Sincronizzare ordini, prodotti e clienti dal marketplace Shopify al portale (analisi, arricchimento, dashboard)
 - Automatizzare workflow (import dati, notifiche, arricchimento profili)
 - Supportare più negozi/tenant, mantenendo separazione logica tra clienti
-
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
----
 
 ## Tabella Integrazione Shopify
 

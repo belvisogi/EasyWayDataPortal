@@ -2,9 +2,8 @@
 id: ew-logging-conversational-ready-agent-aware
 title: logging conversational ready agent aware
 tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it]
-owner: team-platform---
-#### Logging conversational-ready (agent-aware)
-summary: TODO - aggiungere un sommario breve.
+owner: team-platform
+summary: Logging conversational/agent-aware: header, campi obbligatori, correlazione e risposta standard.
 status: draft
 llm:
   include: true
@@ -13,6 +12,8 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+
+#### Logging conversational-ready (agent-aware)
 Questa sezione integra e amplia le policy dati sensibili:  
 - ogni log non è solo tracciato per sicurezza/compliance,  
 ma è anche progettato per essere interpretabile e utilizzabile da agenti AI, chatbot, workflow AMS.

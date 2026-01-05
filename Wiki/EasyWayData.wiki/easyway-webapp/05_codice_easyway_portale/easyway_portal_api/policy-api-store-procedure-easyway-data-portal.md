@@ -1,16 +1,8 @@
 ---
 id: ew-policy-api-store-procedure-easyway-data-portal
 title: policy api store procedure easyway data portal
-tags: [privacy/internal, language/it]
-owner: team-platform---
-# Policy API/Store Procedure — EasyWay Data Portal
-
-## Principio Guida
-
-Tutta la business logic principale di EasyWay Data Portal risiede **nelle Store Procedure (SP) del database**.  
-Le API backend **non contengono regole o logiche complesse**:  
-si limitano a **orchestrare le chiamate alle SP**, validare l’input, gestire autenticazione e logging conversazionale.
-
+tags: [domain/control-plane, layer/spec, audience/dev, audience/dba, privacy/internal, language/it, policy, api, stored-procedure]
+owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft
 llm:
@@ -20,6 +12,13 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+# Policy API/Store Procedure — EasyWay Data Portal
+
+## Principio Guida
+
+Tutta la business logic principale di EasyWay Data Portal risiede **nelle Store Procedure (SP) del database**.  
+Le API backend **non contengono regole o logiche complesse**:  
+si limitano a **orchestrare le chiamate alle SP**, validare l’input, gestire autenticazione e logging conversazionale.
 
 ## Vantaggi del modello
 

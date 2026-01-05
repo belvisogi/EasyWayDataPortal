@@ -4,7 +4,7 @@ title: Use Case – Entrate/Uscite (One‑Button UX)
 summary: Carica un file Excel/CSV con movimenti e ottieni subito una dashboard, con un percorso “un bottone = luce accesa”.
 status: active
 owner: team-platform
-tags: [use-case, ux, argos, agents, language/it]
+tags: [domain/ux, layer/spec, audience/non-expert, audience/dev, privacy/internal, language/it, use-case, ux, argos, agents]
 llm:
   include: true
   pii: none

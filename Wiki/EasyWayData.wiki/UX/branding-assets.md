@@ -4,7 +4,7 @@ title: UX - Asset e Branding
 summary: Asset storici (palette, html mock, logo) e loro utilizzo.
 status: draft
 owner: team-frontend
-tags: [ux, branding, assets, language/it]
+tags: [domain/ux, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, ux, branding, assets]
 llm:
   include: true
   pii: none

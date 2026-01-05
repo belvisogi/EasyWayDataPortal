@@ -88,6 +88,24 @@ foreach($r in $roots){
 . EasyWayData.wiki/scripts/add-log.ps1 -Type DOC -Scope wiki -Status success -Owner team-docs -Message "Aggiornata guida scripts"
 ```sql
 
+## Link-check + anchor-check (CI-friendly)
+
+Check mirato per evitare link rotti e anchor mancanti, con output **machine-readable** (JSON) e senza generare indici/artefatti.
+
+Nota: nei report JSON il campo `file` è un path **relativo** (stabile e CI-friendly). Per includere anche il path assoluto per debug, usa `-IncludeFullPath`.
+
+```powershell
+pwsh scripts/wiki-links-anchors-lint.ps1 -Path "Wiki/EasyWayData.wiki" -ExcludePaths logs/reports,old,.attachments -FailOnError -SummaryOut "wiki-links-anchors-lint.json"
+```sql
+
+## Summary lint (no placeholder) - phased
+
+Enforce che `summary:` non sia vuoto e non sia un placeholder, iniziando da uno scope alla volta.
+
+```powershell
+pwsh scripts/wiki-summary-lint.ps1 -Path "Wiki/EasyWayData.wiki" -ExcludePaths logs/reports,old,.attachments -ScopesPath "docs/agentic/templates/docs/tag-taxonomy.scopes.json" -ScopeName "portal-api-frontend-20" -FailOnError -SummaryOut "wiki-summary-lint.portal-api-frontend-20.json"
+```sql
+
 ## Domande a cui risponde
 - Quali script usare per normalizzare e ricostruire la wiki?
 - Come eseguire le routine multi-root e generare report?

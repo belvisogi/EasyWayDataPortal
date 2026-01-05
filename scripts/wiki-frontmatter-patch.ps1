@@ -7,6 +7,7 @@ param(
   [string]$ChunkHint = "250-400",
   [switch]$Apply,
   [switch]$ForceReplaceUnterminated,
+  [switch]$IncludeFullPath,
   [string]$SummaryOut = "wiki-frontmatter-patch.json"
 )
 
@@ -18,7 +19,7 @@ function New-KebabId {
   $abs = (Resolve-Path -LiteralPath $File).Path
   $rootPath = (Resolve-Path -LiteralPath $Root).Path
   $rel = $abs.Substring($rootPath.Length).TrimStart('/',[char]92)
-  $rel = $rel.Replace('\\','/').ToLowerInvariant()
+  $rel = $rel.Replace([char]92,'/').ToLowerInvariant()
   $name = [System.IO.Path]::GetFileNameWithoutExtension($rel)
   $dir = [System.IO.Path]::GetDirectoryName($rel).Replace('\\','/').Replace('/','-')
   $raw = if ([string]::IsNullOrWhiteSpace($dir)) { $name } else { "$dir-$name" }
@@ -62,6 +63,14 @@ function Is-Excluded {
     if ($FullName.StartsWith($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
   }
   return $false
+}
+
+function Get-RelPath {
+  param([string]$Root, [string]$FullName)
+  $rootFull = (Resolve-Path -LiteralPath $Root).Path
+  $full = (Resolve-Path -LiteralPath $FullName).Path
+  $rel = $full.Substring($rootFull.Length).TrimStart('/',[char]92)
+  return $rel.Replace([char]92,'/')
 }
 
 function Ensure-FrontMatter {
@@ -237,7 +246,9 @@ $results = @()
 
 Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md | Where-Object { -not (Is-Excluded -FullName ($_.FullName) -Prefixes $excludePrefixes) } | ForEach-Object {
   $res = Ensure-FrontMatter -File $_.FullName
-  $entry = @{ file = $_.FullName; action = $res.action; changed = [bool]$res.changed }
+  $rel = Get-RelPath -Root $Path -FullName $_.FullName
+  $entry = @{ file = $rel; rel = $rel; action = $res.action; changed = [bool]$res.changed }
+  if ($IncludeFullPath) { $entry.fullPath = $_.FullName }
   if ($Apply -and $res.changed -and $res.content) {
     Set-Content -LiteralPath $_.FullName -Value $res.content -Encoding utf8
     $entry.applied = $true
@@ -247,7 +258,7 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md | Where-Object { -not (Is
   $results += $entry
 }
 
-$summary = @{ applied = [bool]$Apply; excluded = $ExcludePaths; results = $results }
+$summary = @{ applied = [bool]$Apply; excluded = $ExcludePaths; includeFullPath = [bool]$IncludeFullPath; results = $results }
 $json = $summary | ConvertTo-Json -Depth 6
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json

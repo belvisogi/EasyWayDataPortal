@@ -6,7 +6,7 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags: [layer/reference, privacy/internal, language/it]
+tags: [domain/datalake, layer/reference, audience/dev, audience/ops, privacy/internal, language/it]
 title: 03 datalake dev
 llm:
   include: true

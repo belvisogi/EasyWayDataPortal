@@ -1,6 +1,9 @@
 param(
   [string]$Path = "Wiki/EasyWayData.wiki",
   [string[]]$ExcludePaths = @('logs/reports'),
+  [string]$ScopesPath = "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+  [string]$ScopeName = "",
+  [switch]$IncludeFullPath,
   [switch]$FailOnError,
   [string]$SummaryOut = "wiki-frontmatter-lint.json"
 )
@@ -35,14 +38,64 @@ function Is-Excluded {
   return $false
 }
 
+function Read-Json {
+  param([string]$p)
+  if (-not (Test-Path -LiteralPath $p)) { throw "JSON not found: $p" }
+  return (Get-Content -LiteralPath $p -Raw | ConvertFrom-Json)
+}
+
+function Load-ScopeEntries {
+  param([string]$ScopesPath, [string]$ScopeName)
+  if ([string]::IsNullOrWhiteSpace($ScopeName)) { return @() }
+  if (-not (Test-Path -LiteralPath $ScopesPath)) { throw "Scopes JSON not found: $ScopesPath" }
+  $obj = Read-Json $ScopesPath
+  $scope = $obj.scopes.$ScopeName
+  if ($null -eq $scope) { throw "Scope not found in ${ScopesPath}: $ScopeName" }
+  return @($scope)
+}
+
+function Get-RelPath {
+  param([string]$Root, [string]$FullName)
+  $rootFull = (Resolve-Path -LiteralPath $Root).Path
+  $full = (Resolve-Path -LiteralPath $FullName).Path
+  $rel = $full.Substring($rootFull.Length).TrimStart('/',[char]92)
+  return $rel.Replace([char]92,'/')
+}
+
+function Is-InScope {
+  param([string]$RelPath, [string[]]$ScopeEntries)
+  if ($null -eq $ScopeEntries -or $ScopeEntries.Count -eq 0) { return $true }
+  foreach ($e in $ScopeEntries) {
+    $p = [string]$e
+    if (-not $p) { continue }
+    $p = $p.Replace('\\','/')
+    if ($p.EndsWith('/')) {
+      if ($RelPath.StartsWith($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
+    } else {
+      if ($RelPath.Equals($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
+    }
+  }
+  return $false
+}
+
 function Test-FrontMatter {
-  param([string]$File)
+  param(
+    [string]$File,
+    [string]$RelPath,
+    [switch]$IncludeFullPath
+  )
   $text = Get-Content -LiteralPath $File -Raw -ErrorAction Stop
   if (-not $text.StartsWith("---`n") -and -not $text.StartsWith("---`r`n")) {
-    return @{ file = $File; ok = $false; error = 'missing_yaml_front_matter' }
+    $r = @{ file = $RelPath; ok = $false; error = 'missing_yaml_front_matter' }
+    if ($IncludeFullPath) { $r.fullPath = $File }
+    return $r
   }
   $end = ($text.IndexOf("`n---", 4))
-  if ($end -lt 0) { return @{ file = $File; ok = $false; error = 'unterminated_front_matter' } }
+  if ($end -lt 0) {
+    $r = @{ file = $RelPath; ok = $false; error = 'unterminated_front_matter' }
+    if ($IncludeFullPath) { $r.fullPath = $File }
+    return $r
+  }
 
   $fm = $text.Substring(4, $end - 4)
   $lines = $fm -split "`r?`n"
@@ -76,20 +129,38 @@ function Test-FrontMatter {
   $missing = @()
   foreach ($k in $req.Keys) { if (-not $req[$k]) { $missing += $k } }
   if ($missing.Count -gt 0) {
-    return @{ file=$File; ok=$false; missing=$missing }
+    $r = @{ file = $RelPath; ok = $false; missing = $missing }
+    if ($IncludeFullPath) { $r.fullPath = $File }
+    return $r
   }
-  return @{ file=$File; ok=$true }
+  $r = @{ file = $RelPath; ok = $true }
+  if ($IncludeFullPath) { $r.fullPath = $File }
+  return $r
 }
 
 $excludePrefixes = Resolve-ExcludePrefixes -Root $Path -Exclude $ExcludePaths
+$scopeEntries = Load-ScopeEntries -ScopesPath $ScopesPath -ScopeName $ScopeName
 
 $results = @()
-Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md | Where-Object { -not (Is-Excluded -FullName ($_.FullName) -Prefixes $excludePrefixes) } | ForEach-Object {
-  $results += Test-FrontMatter -File $_.FullName
-}
+Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md |
+  Where-Object { -not (Is-Excluded -FullName ($_.FullName) -Prefixes $excludePrefixes) } |
+  ForEach-Object {
+    $rel = Get-RelPath -Root $Path -FullName $_.FullName
+    if (-not (Is-InScope -RelPath $rel -ScopeEntries $scopeEntries)) { return }
+    $results += Test-FrontMatter -File $_.FullName -RelPath $rel -IncludeFullPath:$IncludeFullPath
+  }
 
 $failures = @($results | Where-Object { -not $_.ok })
-$summary = @{ ok = ($failures.Count -eq 0); excluded = $ExcludePaths; failures = $failures.Count; results = $results }
+$summary = @{
+  ok = ($failures.Count -eq 0)
+  excluded = $ExcludePaths
+  scopesPath = $ScopesPath
+  scopeName = $ScopeName
+  includeFullPath = [bool]$IncludeFullPath
+  files = $results.Count
+  failures = $failures.Count
+  results = $results
+}
 $json = $summary | ConvertTo-Json -Depth 6
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json

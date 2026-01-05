@@ -21,3 +21,17 @@ Wiki/**/.vscode/
 Wiki/**/logs/
 Wiki/**/logs/**
 
+# Generated CI/local artifacts (keep out of git)
+wiki-frontmatter-lint.json
+wiki-tags-lint.json
+whatfirst-lint.json
+wiki-links-anchors-lint.json
+wiki-summary-lint.json
+wiki-frontmatter-patch.json
+wiki-frontmatter-termination-fix.json
+wiki-tags-facetize.json
+wiki-tags-autofix.json
+checklist.json
+drift.json
+gates-report.json
+event-schema-validate.log

@@ -6,7 +6,7 @@ status: draft
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'
-tags: [roadmap, quality, documentation, governance, ai-readiness, language/it]
+tags: [domain/docs, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, roadmap, quality, documentation, governance, ai-readiness]
 entities: []
 llm:
   include: true
@@ -30,7 +30,7 @@ llm:
 - Usare `scripts/review-run.ps1` e `scripts/review-examples.ps1`; tenere aggiornati `entities.yaml` e `entities-index.md`.
 
 ### Fase 1 — Naming e indici
-- Applicare batch di rinomine per kebab-case; generare `index.md` in sottocartelle e `INDEX.md` globale.
+- Applicare batch di rinomine per kebab-case; generare `index.md` in sottocartelle e `index.md` globale.
 - Aggiornare link interni; rigenerare `entities-index.md`.
 
 ### Fase 2 — Front Matter
@@ -110,7 +110,7 @@ llm:
 - Front matter: presente in tutti i `.md` (id, title, summary, owner, tags, llm, entities).
 - Struttura: sezioni standard + Q&A in ogni pagina.
 - Link: 0 link file mancanti, 0 anchor mancanti (report anchors=0).
-- Indici: `index.md` in cartelle chiave + `INDEX.md` globale aggiornato.
+- Indici: `index.md` in cartelle chiave + `index.md` globale aggiornato.
 - Entities: `entities.yaml` aggiornato + `entities-index.md` rigenerato.
 - Privacy: `llm.include/pii` coerenti; redaction indicata dove serve.
 

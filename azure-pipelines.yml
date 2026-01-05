@@ -32,6 +32,10 @@ variables:
     value: 'Wiki/EasyWayData.wiki'
   - name: ENABLE_WIKI_TAGS_LINT
     value: 'true'
+  - name: ENABLE_WIKI_LINKS_ANCHORS_LINT
+    value: 'true'
+  - name: ENABLE_WIKI_SUMMARY_LINT
+    value: 'true'
   - name: ENABLE_WHATFIRST_LINT
     value: 'true'
   - name: ENABLE_DEPLOY
@@ -76,21 +80,31 @@ stages:
                 echo "== Enforcer: agent_pr_manager =="
                 pwsh scripts/enforcer.ps1 -Agent agent_pr_manager -GitDiff
       - job: WikiFrontmatterLint
-        displayName: 'Wiki LLM Front-Matter Lint (Whole Wiki)'
+        displayName: 'Wiki LLM Front-Matter Lint (Phased scopes)'
         condition: and(succeeded(), eq(variables['ENABLE_WIKI_LLM_LINT'], 'true'))
         steps:
           - task: PowerShell@2
-            displayName: 'Run wiki-frontmatter-lint (fail on error)'
+            displayName: 'Run wiki-frontmatter-lint (phased, fail on error)'
             inputs:
               targetType: 'inline'
               script: |
                 set -e
-                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -FailOnError -SummaryOut 'wiki-frontmatter-lint.json'
+                # Phased rollout: lint frontmatter only on curated scopes, to prevent regressions while we fix legacy pages.
+                pwsh -NoProfile -Command "New-Item -ItemType Directory -Force -Path 'wiki-frontmatter-lint' | Out-Null"
+                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-datalake-20 -FailOnError -SummaryOut 'wiki-frontmatter-lint/wiki-frontmatter-lint.db-datalake-20.json'
+                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName portal-api-frontend-20 -FailOnError -SummaryOut 'wiki-frontmatter-lint/wiki-frontmatter-lint.portal-api-frontend-20.json'
+                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName controlplane-governance-20 -FailOnError -SummaryOut 'wiki-frontmatter-lint/wiki-frontmatter-lint.controlplane-governance-20.json'
+                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName argos-dq-20 -FailOnError -SummaryOut 'wiki-frontmatter-lint/wiki-frontmatter-lint.argos-dq-20.json'
+                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName ops-runbooks-20 -FailOnError -SummaryOut 'wiki-frontmatter-lint/wiki-frontmatter-lint.ops-runbooks-20.json'
+                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName frontend-ui-20 -FailOnError -SummaryOut 'wiki-frontmatter-lint/wiki-frontmatter-lint.frontend-ui-20.json'
+                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-programmability-rest-20 -FailOnError -SummaryOut 'wiki-frontmatter-lint/wiki-frontmatter-lint.db-programmability-rest-20.json'
+                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName onboarding-runbook-20 -FailOnError -SummaryOut 'wiki-frontmatter-lint/wiki-frontmatter-lint.onboarding-runbook-20.json'
+                pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName iam-security-20 -FailOnError -SummaryOut 'wiki-frontmatter-lint/wiki-frontmatter-lint.iam-security-20.json'
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: wiki-frontmatter-lint'
             condition: succeededOrFailed()
             inputs:
-              PathtoPublish: '$(Build.SourcesDirectory)/wiki-frontmatter-lint.json'
+              PathtoPublish: '$(Build.SourcesDirectory)/wiki-frontmatter-lint'
               ArtifactName: 'wiki-frontmatter-lint'
       - job: WikiTagsLintPhased
         displayName: 'Wiki Tag Taxonomy Lint (Phased scopes)'
@@ -108,12 +122,59 @@ stages:
                 pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName controlplane-governance-20 -FailOnError -SummaryOut 'wiki-tags-lint.controlplane-governance-20.json'
                 pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName argos-dq-20 -FailOnError -SummaryOut 'wiki-tags-lint.argos-dq-20.json'
                 pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName ops-runbooks-20 -FailOnError -SummaryOut 'wiki-tags-lint.ops-runbooks-20.json'
+                pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName frontend-ui-20 -FailOnError -SummaryOut 'wiki-tags-lint.frontend-ui-20.json'
+                pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName db-programmability-rest-20 -FailOnError -SummaryOut 'wiki-tags-lint.db-programmability-rest-20.json'
+                pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName onboarding-runbook-20 -FailOnError -SummaryOut 'wiki-tags-lint.onboarding-runbook-20.json'
+                pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName iam-security-20 -FailOnError -SummaryOut 'wiki-tags-lint.iam-security-20.json'
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: wiki-tags-lint'
             condition: succeededOrFailed()
             inputs:
               PathtoPublish: '$(Build.SourcesDirectory)'
               ArtifactName: 'wiki-tags-lint'
+      - job: WikiLinksAnchorsLintPhased
+        displayName: 'Wiki Links + Anchors Lint (Phased scopes)'
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_LINKS_ANCHORS_LINT'], 'true'))
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run wiki-links-anchors-lint (phased, fail on error)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                set -e
+                pwsh -NoProfile -Command "New-Item -ItemType Directory -Force -Path 'wiki-links-anchors-lint' | Out-Null"
+                pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-datalake-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.db-datalake-20.json'
+                pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName portal-api-frontend-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.portal-api-frontend-20.json'
+                pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName controlplane-governance-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.controlplane-governance-20.json'
+                pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName argos-dq-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.argos-dq-20.json'
+                pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName ops-runbooks-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.ops-runbooks-20.json'
+                pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName frontend-ui-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.frontend-ui-20.json'
+                pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-programmability-rest-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.db-programmability-rest-20.json'
+                pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName onboarding-runbook-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.onboarding-runbook-20.json'
+                pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName iam-security-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.iam-security-20.json'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: wiki-links-anchors-lint'
+            condition: succeededOrFailed()
+            inputs:
+              PathtoPublish: '$(Build.SourcesDirectory)/wiki-links-anchors-lint'
+              ArtifactName: 'wiki-links-anchors-lint'
+      - job: WikiSummaryLintPortalApiFrontend
+        displayName: 'Wiki Summary Lint (portal-api-frontend-20)'
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_SUMMARY_LINT'], 'true'))
+        steps:
+          - task: PowerShell@2
+            displayName: 'Run wiki-summary-lint (fail on error)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                set -e
+                pwsh scripts/wiki-summary-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName portal-api-frontend-20 -FailOnError -SummaryOut 'wiki-summary-lint.portal-api-frontend-20.json'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifact: wiki-summary-lint'
+            condition: succeededOrFailed()
+            inputs:
+              PathtoPublish: '$(Build.SourcesDirectory)/wiki-summary-lint.portal-api-frontend-20.json'
+              ArtifactName: 'wiki-summary-lint'
       - job: WhatFirstLint
         displayName: 'WHAT-first + Diary Lint (manifests/intents/ux_prompts)'
         condition: and(succeeded(), eq(variables['ENABLE_WHATFIRST_LINT'], 'true'))

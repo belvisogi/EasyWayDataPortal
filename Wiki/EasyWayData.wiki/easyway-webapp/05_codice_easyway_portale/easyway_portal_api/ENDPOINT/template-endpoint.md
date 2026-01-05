@@ -2,7 +2,16 @@
 id: ew-template-endpoint
 title: template endpoint
 tags: [domain/frontend, layer/spec, audience/dev, privacy/internal, language/it]
-owner: team-platform---
+owner: team-platform
+summary: Template standard per documentare endpoint: struttura, best practice, test e snippet.
+status: draft
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 Di seguito il **template standard** per documentare ogni endpoint parametrico in EasyWay Data Portal,  
 **pronto da incollare in Wiki/README** e da seguire per ogni API “vera”.
 
@@ -13,15 +22,7 @@ Di seguito il **template standard** per documentare ogni endpoint parametrico in
 > [Breve descrizione della funzione dell’endpoint.  
 Esempio: “Restituisce la configurazione di branding (colori, etichette, immagini, path) per il tenant corrente.”]
 
-summary: TODO - aggiungere un sommario breve.
-status: draft
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
----
+```
 
 **Best Practice**
 - Validazione degli input (header, parametri, body) obbligatoria

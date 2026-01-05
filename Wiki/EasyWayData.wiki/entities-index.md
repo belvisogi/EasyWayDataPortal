@@ -4,7 +4,7 @@ title: Entities Index
 summary: Indice delle entità dichiarate in entities.yaml, raggruppate per categoria.
 status: draft
 owner: team-docs
-tags: [catalog, language/it]
+tags: [domain/docs, layer/index, audience/dev, privacy/internal, language/it, catalog]
 entities: []
 llm:
   include: true

@@ -70,8 +70,12 @@ Esempio: enforcement su 20 pagine DB+Datalake:
 
 Esempi scope disponibili (casistiche):
 - `db-datalake-20`
+- `db-programmability-rest-20`
+- `onboarding-runbook-20`
+- `iam-security-20`
 - `ops-runbooks-20`
 - `argos-dq-20`
 - `portal-api-frontend-20`
 - `controlplane-governance-20`
+- `frontend-ui-20`
 

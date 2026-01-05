@@ -6,7 +6,7 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags: [layer/reference, privacy/internal, language/it]
+tags: [domain/db, layer/reference, audience/dev, audience/dba, privacy/internal, language/it, programmability]
 title: programmability
 llm:
   include: true

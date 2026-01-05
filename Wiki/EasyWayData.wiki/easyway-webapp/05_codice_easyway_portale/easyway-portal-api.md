@@ -1,13 +1,19 @@
 ---
 id: ew-api-overview
 title: EasyWay Portal API – Overview
-summary: Breve descrizione del documento.
+summary: Visione e scelte architetturali del backend API (TS, multi-tenant, config YAML/DB, DevOps).
 status: draft
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'
 tags: [domain/frontend, layer/reference, audience/dev, privacy/internal, language/it]
-title: easyway portal api---
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # EasyWay Data Portal — Manifesto Tecnologico & Analitico
 
 ## Codice
@@ -26,14 +32,6 @@ EasyWay Data Portal **non nasce come semplice demo** o prototipo,
 ma come piattaforma **enterprise-ready**: **scalabile**, **multi-tenant**, configurabile in modo atomico, pensata per sostenere logiche di branding, sicurezza, compliance, automazione DevOps e conversational intelligence fin dal primo commit.
 
 > **Non costruiamo Hello World. Costruiamo un’infrastruttura pronta a crescere, evolvere, parlare.**
-
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
----
 
 ## Scelte Architetturali e Motivazioni
 

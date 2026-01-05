@@ -97,7 +97,7 @@
 "EasyWay_WebApp/10-ai-agents.md","ew-10-ai-agents","10 ai agents","","","layer;privacy;language","layer/concept;privacy/internal;language/it","","",""
 "easyway-webapp.md","easyway-webapp","EasyWay Data Portal - Visione e Fondamenti","Visione, principi Why/How/What e benefici chiave della piattaforma EasyWay Data Portal.","team-docs","privacy;language","vision;why;how;what;presentazione;overview;multi-tenant;ai;ams;conversational;privacy/internal;language/it","","",""
 "entities-index.md","ew-entities-index","Entities Index","Indice delle entità dichiarate in entities.yaml, raggruppate per categoria.","team-docs","language","catalog;language/it","","",""
-"INDEX.md","index","Indice Globale","","","","","","",""
+"index.md","index","Indice Globale","","","","","","",""
 "LLM_READINESS_CHECKLIST.md","ew-llm_readiness_checklist","LLM READINESS CHECKLIST","","","privacy;language",";privacy/internal;language/it","","",""
 "parametrization-best-practices.md","ew-param-best-practices","Parametrizzazione – Best Practices","Evitare hardcoded; usare env/variabili YAML e gates condizionati","team-platform","","","","",""
 "roadmap.md","ew-roadmap","Roadmap & Qualità Documentazione","Sezione operativa per mantenere la documentazione conforme alle best practice e pronta per agenti/LLM, con comandi locali e pipeline CI.","team-docs","language","roadmap;quality;automation;language/it","","",""

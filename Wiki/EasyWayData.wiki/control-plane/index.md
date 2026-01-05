@@ -4,7 +4,7 @@ title: Control Plane - Panoramica
 summary: Punto di ingresso canonico per orchestrazione agentica (n8n + ewctl), gates, logging e Human-in-the-loop.
 status: active
 owner: team-platform
-tags: [control-plane, orchestration, governance, n8n, language/it]
+tags: [domain/control-plane, layer/index, audience/dev, audience/ops, privacy/internal, language/it, control-plane, orchestration, governance, n8n]
 llm:
   include: true
   pii: none

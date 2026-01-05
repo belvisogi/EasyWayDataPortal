@@ -4,7 +4,7 @@ title: Indice
 summary: TODO - aggiungere un sommario breve.
 status: draft
 owner: team-platform
-tags: [docs, privacy/internal, language/it]
+tags: [domain/frontend, layer/index, audience/dev, privacy/internal, language/it, docs]
 llm:
   include: true
   pii: none

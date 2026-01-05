@@ -4,7 +4,7 @@ title: Dominio Datalake
 summary: Scheletro del dominio Datalake: struttura, ACL, retention, runbook e output idempotenti.
 status: draft
 owner: team-data
-tags: [domain/datalake, agents, language/it]
+tags: [domain/datalake, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, agents]
 llm:
   include: true
   pii: none

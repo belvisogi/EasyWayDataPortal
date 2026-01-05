@@ -6,7 +6,7 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags: [layer/reference, privacy/internal, language/it]
+tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, onboarding, notifications, security]
 title: 04 accesso registrazione notifiche
 llm:
   include: true

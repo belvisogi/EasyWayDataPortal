@@ -1,12 +1,8 @@
 ---
 id: ew-portal
 title: portal
-tags: [privacy/internal, language/it]
-owner: team-platform---
-# EasyWay Data Portal – PORTAL.md
-
-> **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
-
+tags: [domain/db, layer/spec, audience/dev, audience/dba, privacy/internal, language/it, portal]
+owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft
 llm:
@@ -16,6 +12,10 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+
+# EasyWay Data Portal - PORTAL.md
+
+> **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
 
 ## ✅ Scopo del file
 

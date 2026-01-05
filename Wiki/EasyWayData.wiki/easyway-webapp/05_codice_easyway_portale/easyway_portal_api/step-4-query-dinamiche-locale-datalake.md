@@ -3,7 +3,7 @@ id: ew-step-4-query-dinamiche-locale-datalake
 title: step 4 query dinamiche locale datalake
 tags: [domain/frontend, layer/howto, audience/dev, privacy/internal, language/it]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: Gestione query SQL: versionamento locale + override su Blob/Datalake con fallback e audit.
 status: draft
 llm:
   include: true

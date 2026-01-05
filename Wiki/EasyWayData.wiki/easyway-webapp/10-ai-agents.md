@@ -6,13 +6,7 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags: [layer/spec, privacy/internal, language/it]
-title: 10 ai agents---
-# EasyWay DataPortal – Conversational Intelligence & AMS
-
-## Obiettivo
-Integrare **AI Agents intelligenti e operativi** all'interno della piattaforma EasyWay DataPortal, per automatizzare attività di Application Management Services (AMS) e abilitare un'interazione naturale, efficace e contestualizzata con i servizi della piattaforma.
-
+tags: [domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, ai, agents]
 llm:
   include: true
   pii: none
@@ -20,6 +14,10 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+# EasyWay DataPortal – Conversational Intelligence & AMS
+
+## Obiettivo
+Integrare **AI Agents intelligenti e operativi** all'interno della piattaforma EasyWay DataPortal, per automatizzare attività di Application Management Services (AMS) e abilitare un'interazione naturale, efficace e contestualizzata con i servizi della piattaforma.
 
 ## Sommario
 

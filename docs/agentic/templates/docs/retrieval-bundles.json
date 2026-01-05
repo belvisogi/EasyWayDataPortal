@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "source_scopes_path": "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+  "notes": [
+    "Questo file è pensato per retrieval mirato (es. n8n): un workflow carica solo gli scope necessari, riducendo token e rumore.",
+    "Gli scope referenziati devono esistere in tag-taxonomy.scopes.json.",
+    "Evitare di includere pagine shim/obsolete: usare status: deprecated + llm.include=false per i redirect."
+  ],
+  "default_exclude_globs": [
+    ".attachments/**",
+    "logs/reports/**",
+    "old/**",
+    "**/*.bak*"
+  ],
+  "bundles": {
+    "n8n.orchestrator-dispatch": {
+      "intent": "orchestrator.n8n.dispatch",
+      "description": "Webhook → validate → gate precheck → dispatch ewctl → log (governance + ops + quality gates).",
+      "scopes": [
+        "governance-all",
+        "security-all"
+      ]
+    },
+    "n8n.wf.excel-csv-upload": {
+      "intent": "wf.excel-csv-upload",
+      "description": "Workflow Excel/CSV upload end-to-end (UX + API + data layer).",
+      "scopes": [
+        "portal-all",
+        "data-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "n8n.iam-security": {
+      "intent": "iam.security",
+      "description": "Contesto IAM/Security/Compliance per evitare ambiguità su permessi/policy.",
+      "scopes": [
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "docs.core": {
+      "intent": "docs.core",
+      "description": "Contesto base di governance docs (indice + convenzioni + cataloghi).",
+      "scopes": [
+        "core"
+      ]
+    }
+  }
+}

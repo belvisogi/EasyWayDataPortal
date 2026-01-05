@@ -4,7 +4,7 @@ title: HOWTO – WHAT‑first + Diario di Bordo (Team)
 summary: Guida pratica per team: definisci il WHAT (manifest, intents, UX), esegui i lint, poi implementa gli agent sostituendo gli stub, mantenendo il diario di bordo.
 status: active
 owner: team-platform
-tags: [howto, process, agents, argos, language/it]
+tags: [domain/docs, layer/howto, audience/dev, audience/non-expert, privacy/internal, language/it, howto, process, agents, argos]
 llm:
   include: true
   pii: none

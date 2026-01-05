@@ -3,7 +3,7 @@ id: ew-conversational-and-agent-aware-ready
 title: conversational and agent aware ready
 tags: [domain/frontend, layer/spec, audience/dev, privacy/internal, language/it]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: Esempi di controller/logging/response agent-aware con header e campi di tracing.
 status: draft
 llm:
   include: true

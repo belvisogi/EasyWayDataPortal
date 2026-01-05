@@ -6,11 +6,7 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags: [layer/reference, privacy/internal, language/it]
-title: 07 iam naming utenti gruppi---
-# 📂 Wiki IAM - Naming Convention Utenze Tecniche e Gruppi  
-EasyWay DataPortal - Storage & Datalake  
-
+tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, iam, rbac, naming]
 llm:
   include: true
   pii: none
@@ -18,6 +14,8 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+# 📂 Wiki IAM - Naming Convention Utenze Tecniche e Gruppi  
+EasyWay DataPortal - Storage & Datalake  
 
 ## 🎯 Scopo del Documento  
 Definire le regole ufficiali di **naming convention** per:  

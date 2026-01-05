@@ -3,7 +3,7 @@ id: ew-step-5-validazione-avanzata-dati-in-ingresso
 title: step 5 validazione avanzata dati in ingresso
 tags: [domain/frontend, layer/howto, audience/dev, privacy/internal, language/it]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: Validazione input con Zod: schema, middleware e best practice per API robuste.
 status: draft
 llm:
   include: true

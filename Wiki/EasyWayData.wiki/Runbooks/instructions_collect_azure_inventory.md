@@ -29,7 +29,7 @@ Passi esecutivi
    - (opzionale se hai più subscription) Select-AzSubscription -SubscriptionId "<SUBSCRIPTION_ID>"
 2. Posizionati nella cartella del repository dove è presente lo script:
    - cd <path-to-repo>
-     Esempio (se sei nella root del repo): cd "C:\Users\EBELVIGLS\OneDrive - NTT DATA EMEAL\Documents\EasyWayDataPortal"
+    Esempio (se sei nella root del repo): `cd "<repo-root>/EasyWayDataPortal"`
 3. Esegui lo script (comando consigliato — non distruttivo):
    - pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\collect_azure_inventory.ps1 -OutputFile .\azure_inventory.json
    Oppure, se usi Windows PowerShell senza pwsh:

@@ -1,7 +1,7 @@
 ---
 id: ew-index
 title: index
-tags: [privacy/internal, language/it]
+tags: [domain/frontend, layer/index, audience/dev, privacy/internal, language/it]
 owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft

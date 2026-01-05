@@ -4,7 +4,7 @@ title: Atomic Flows – Orchestrazione Agent‑First
 summary: Standard EasyWay per workflow ETL atomici (landing→DQ→STG→REF) gestiti da agente, con YAML, DAG Airflow e integrazione ARGOS.
 status: active
 owner: team-data
-tags: [etl, airflow, azure, agents, language/it]
+tags: [domain/datalake, layer/spec, audience/dev, privacy/internal, language/it, etl, airflow, azure, agents]
 llm:
   include: true
   pii: none

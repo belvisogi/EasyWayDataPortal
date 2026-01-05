@@ -1,15 +1,8 @@
 ---
 id: ew-dinamiche-di-manutenzione
 title: dinamiche di manutenzione
-tags: [privacy/internal, language/it]
-owner: team-platform---
-# Capitolo – Dinamiche di Manutenzione
-
-## Architettura delle Cartelle — Dinamiche di Manutenzione
-
-In EasyWay Data Portal, la struttura delle cartelle segue pattern enterprise  
-per garantire chiarezza, scalabilità, facile manutenzione e onboarding immediato di nuovi sviluppatori e agenti automatici.
-
+tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, maintenance]
+owner: team-platform
 summary: TODO - aggiungere un sommario breve.
 status: draft
 llm:
@@ -19,6 +12,13 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+
+# Capitolo - Dinamiche di Manutenzione
+
+## Architettura delle Cartelle — Dinamiche di Manutenzione
+
+In EasyWay Data Portal, la struttura delle cartelle segue pattern enterprise  
+per garantire chiarezza, scalabilità, facile manutenzione e onboarding immediato di nuovi sviluppatori e agenti automatici.
 
 ### Quali cartelle “si muovono” di più?
 

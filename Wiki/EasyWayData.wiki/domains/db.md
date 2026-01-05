@@ -4,7 +4,7 @@ title: Dominio DB
 summary: Scheletro del dominio DB: migrazioni, stored procedure, generatori, drift e logging.
 status: draft
 owner: team-data
-tags: [domain/db, agents, flyway, language/it]
+tags: [domain/db, layer/reference, audience/dev, audience/dba, privacy/internal, language/it, agents, flyway]
 llm:
   include: true
   pii: none

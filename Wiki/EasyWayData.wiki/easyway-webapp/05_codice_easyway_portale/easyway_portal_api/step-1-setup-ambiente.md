@@ -3,7 +3,7 @@ id: ew-step-1-setup-ambiente
 title: step 1 setup ambiente
 tags: [domain/frontend, layer/howto, audience/dev, privacy/internal, language/it]
 owner: team-platform
-summary: TODO - aggiungere un sommario breve.
+summary: Setup iniziale progetto Node/TypeScript (struttura, package/tsconfig, sample YAML, regole base).
 status: draft
 llm:
   include: true

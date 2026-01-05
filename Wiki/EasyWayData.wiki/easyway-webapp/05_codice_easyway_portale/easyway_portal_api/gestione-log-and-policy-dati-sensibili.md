@@ -2,8 +2,18 @@
 id: ew-gestione-log-and-policy-dati-sensibili
 title: gestione log and policy dati sensibili
 tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it]
-owner: team-platform---
-# Gestione Log — EasyWay Data Portal
+owner: team-platform
+summary: Policy logging e dati sensibili: livelli, retention, mascheramento e export su Datalake.
+status: draft
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
+
+# Gestione Log - EasyWay Data Portal
 
 
 > _Il logging non è solo un obbligo di compliance, ma la base per la sicurezza,  
@@ -17,16 +27,6 @@ owner: team-platform---
 - **Mai dati sensibili in chiaro** su file, Datalake, o esportazione.
 - **Documenta la policy**: scrivi sempre cosa si può loggare e come si mascherano i dati.
 - Tutti i log business/audit sono in formato JSON e pronti per essere esportati su Datalake.
-
-summary: TODO - aggiungere un sommario breve.
-status: draft
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
----
 
 ## **Tipi di log gestiti**
 

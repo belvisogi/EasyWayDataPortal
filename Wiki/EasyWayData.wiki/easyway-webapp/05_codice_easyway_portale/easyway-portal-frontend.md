@@ -1,7 +1,7 @@
 ---
 id: ew-frontend
 title: EasyWay Portal Frontend
-summary: Breve descrizione del documento.
+summary: Placeholder: architettura, setup e linee guida UI/branding del frontend EasyWay Portal.
 status: draft
 owner: team-api
 created: '2025-01-01'

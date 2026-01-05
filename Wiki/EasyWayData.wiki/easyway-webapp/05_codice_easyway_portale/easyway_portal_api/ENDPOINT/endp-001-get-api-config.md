@@ -7,13 +7,6 @@ owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'
 tags: [artifact-endpoint, domain/frontend, layer/reference, audience/dev, privacy/internal, language/it]
-title: endp 001 get api config---
-### ENDPOINT: GET `/api/config`
-
-**Descrizione**
-> Restituisce la configurazione dinamica per il tenant corrente, leggendo dalla tabella `PORTAL.CONFIGURATION`.  
-> Permette di ottenere tutti i parametri o filtrarli per sezione (`?section=nome_sezione`).
-
 llm:
   include: true
   pii: none
@@ -21,6 +14,11 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+### ENDPOINT: GET `/api/config`
+
+**Descrizione**
+> Restituisce la configurazione dinamica per il tenant corrente, leggendo dalla tabella `PORTAL.CONFIGURATION`.  
+> Permette di ottenere tutti i parametri o filtrarli per sezione (`?section=nome_sezione`).
 
 **Best Practice**
 - Richiede header `X-Tenant-Id`

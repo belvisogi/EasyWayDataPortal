@@ -1,17 +1,12 @@
 ---
 id: ew-sequence
-title: sequence
+title: SEQUENCE
 summary: Breve descrizione del documento.
 status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
 tags: [artifact-sequence, domain/db, layer/reference, audience/dba, privacy/internal, language/it]
-title: sequence---
-# EasyWay Data Portal – SEQUENCE
-
-> **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
-
 llm:
   include: true
   pii: none
@@ -19,6 +14,10 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+
+# EasyWay Data Portal - SEQUENCE
+
+> **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
 
 ## ✅ Scopo del file
 
@@ -605,6 +604,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../entities-index.md)
+
 
 
 
