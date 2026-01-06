@@ -25,16 +25,29 @@ export class SqlUsersRepo implements UsersRepo, OnboardingRepo {
     return (result.recordset?.[0] ?? { status: "ok" }) as any;
   }
 
-  async update(tenantId: string, user_id: string, data: { email?: string | null; display_name?: string | null; profile_id?: string | null; is_active?: boolean | null }): Promise<UserRecord | any> {
+  async update(
+    tenantId: string,
+    user_id: string,
+    data: {
+      name: string,
+      surname: string,
+      profile_code: string,
+      status: string,
+      is_tenant_admin: boolean,
+      updated_by: string
+    }
+  ): Promise<UserRecord | any> {
     const sqlQuery = await loadQueryWithFallback("users_update.sql");
     const result = await withTenantContext(tenantId, async (tx) => {
       return await new sql.Request(tx)
         .input("user_id", sql.NVarChar, user_id)
         .input("tenant_id", sql.NVarChar, tenantId)
-        .input("email", sql.NVarChar, data.email ?? null)
-        .input("display_name", sql.NVarChar, data.display_name ?? null)
-        .input("profile_id", sql.NVarChar, data.profile_id ?? null)
-        .input("is_active", sql.Bit, (data.is_active as any) ?? null)
+        .input("name", sql.NVarChar, data.name)
+        .input("surname", sql.NVarChar, data.surname)
+        .input("profile_code", sql.NVarChar, data.profile_code)
+        .input("status", sql.NVarChar, data.status)
+        .input("is_tenant_admin", sql.Bit, data.is_tenant_admin)
+        .input("updated_by", sql.NVarChar, data.updated_by)
         .query(sqlQuery);
     });
     return result.recordset?.[0] as any;
@@ -63,4 +76,3 @@ export class SqlUsersRepo implements UsersRepo, OnboardingRepo {
     return result.recordset;
   }
 }
-

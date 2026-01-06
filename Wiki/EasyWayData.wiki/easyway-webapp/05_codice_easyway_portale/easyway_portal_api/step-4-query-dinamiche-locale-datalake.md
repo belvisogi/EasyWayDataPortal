@@ -140,3 +140,9 @@ export async function createUser(req: Request, res: Response) {
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
 
+---
+
+### ⬇️ See also / Workflow correlati
+
+- [n8n-db-table-create → Come creare una nuova tabella DB in modo agentico/automatizzato con intent, pipeline n8n, agent_dba e aggiornamento Wiki](../../orchestrations/n8n-db-table-create.md)  
+ Per accelerare e standardizzare la creazione di nuove tabelle versionate e documentate in EasyWay DataPortal, usa questo workflow orchestrato a partire da una “intent spec” e l’integrazione pipeline agent_dba+n8n.

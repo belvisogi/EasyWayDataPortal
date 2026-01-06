@@ -11,7 +11,18 @@ export interface UserRecord {
 export interface UsersRepo {
   list(tenantId: string): Promise<UserRecord[]>;
   create(tenantId: string, data: { email: string; display_name?: string | null; profile_id?: string | null }): Promise<UserRecord | any>;
-  update(tenantId: string, user_id: string, data: { email?: string | null; display_name?: string | null; profile_id?: string | null; is_active?: boolean | null }): Promise<UserRecord | any>;
+  update(
+    tenantId: string, 
+    user_id: string, 
+    data: { 
+      name: string, 
+      surname: string, 
+      profile_code: string, 
+      status: string, 
+      is_tenant_admin: boolean, 
+      updated_by: string
+    }
+  ): Promise<UserRecord | any>;
   softDelete(tenantId: string, user_id: string): Promise<void>;
 }
 
@@ -26,4 +37,3 @@ export interface OnboardingInput {
 export interface OnboardingRepo {
   registerTenantAndUser(tenantId: string, input: OnboardingInput): Promise<any>;
 }
-

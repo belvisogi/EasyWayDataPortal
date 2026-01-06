@@ -38,19 +38,19 @@ export async function updateUser(req: Request, res: Response) {
   try {
     const tenantId = getTenantId(req);
     const { user_id } = req.params;
-    const { email } = req.body;
-    const display_name: string | null = req.body.display_name ?? req.body.name ?? null;
-    const profile_id: string | null = req.body.profile_id ?? req.body.profile_code ?? null;
-    let is_active: boolean | null | undefined = req.body.is_active;
-    if (is_active === undefined && typeof req.body.status === "string") {
-      const s = (req.body.status as string).toLowerCase();
-      if (s === "active") is_active = true;
-      else if (s === "inactive") is_active = false;
-    }
-    if (is_active === undefined) is_active = null;
-
     const repo = getUsersRepo();
-    const updated = await repo.update(tenantId, user_id, { email, display_name, profile_id, is_active });
+
+    // SOLO parametri DDL-compliant!
+    const userData = {
+      name: req.body.name,
+      surname: req.body.surname,
+      profile_code: req.body.profile_code,
+      status: req.body.status,
+      is_tenant_admin: req.body.is_tenant_admin,
+      updated_by: req.body.updated_by
+    };
+
+    const updated = await repo.update(tenantId, user_id, userData);
     res.json(updated);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
