@@ -1,3 +1,6 @@
+-- LEGACY: questo provisioning SQL può divergere da Flyway.
+-- Usa `db/flyway/sql/` tramite `db/provisioning/apply-flyway.ps1`.
+--
 -- Debug helper used by API for local/dev onboarding and user insert
 -- Idempotent: CREATE OR ALTER
 
@@ -55,4 +58,3 @@ BEGIN
     SELECT @status_out AS status, @tenant_id AS tenant_id, @user_email AS user_email, SYSUTCDATETIME() AS completed_at;
 END
 GO
-

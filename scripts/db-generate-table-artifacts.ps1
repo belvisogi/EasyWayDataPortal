@@ -188,7 +188,7 @@ $notes = New-Object System.Collections.Generic.List[string]
 if ($writeFlyway) { $artifacts.Add($flywayPath.Replace('\\','/')) | Out-Null }
 if ($wikiPage) { $artifacts.Add($wikiPage.Replace('\\','/')) | Out-Null }
 $notes.Add("ERwin/data model: aggiornamento non automatizzato in questo step; produrre/exportare artifact e linkarlo nella pagina tabella.") | Out-Null
-if ($writeSnapshot) { $notes.Add("Snapshot DDL in DataBase/: non implementato in questo step (serve policy di merge e formato canonico).") | Out-Null }
+if ($writeSnapshot) { $notes.Add("Snapshot DDL deprecato: usare solo migrazioni Flyway in db/flyway/sql/ (storici in old/db/).") | Out-Null }
 
 if (-not $WhatIf) {
   if ($writeFlyway) { Set-Content -LiteralPath $flywayPath -Value $ddlSql -Encoding utf8 }

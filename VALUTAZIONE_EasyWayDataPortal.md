@@ -1,12 +1,13 @@
 # Valutazione EasyWayDataPortal — Gap, Rischi e Piano di Allineamento
 
 ## Contesto e Obiettivo
-- Obiettivo: fotografare lo stato attuale (API/DB/Wiki), evidenziare i punti da sistemare e proporre un piano d’azione concreto e prioritizzato per portare EasyWay Data Portal in linea con gli standard documentati.
-- Scope: repository `EasyWayDataPortal` (root), modulo `EasyWay-DataPortal/easyway-portal-api` (API), cartella `DataBase` (DDL e SP), Wiki `Wiki/EasyWayData.wiki`.
+- Obiettivo: fotografare lo stato attuale (API/DB/Wiki), evidenziare i punti da sistemare e proporre un piano d'azione concreto e prioritizzato per portare EasyWay Data Portal in linea con gli standard documentati.
+- Scope: repository `EasyWayDataPortal` (root), modulo `EasyWay-DataPortal/easyway-portal-api` (API), migrazioni Flyway `db/flyway/sql/` (DDL canonico), Wiki `Wiki/EasyWayData.wiki` (+ archivio `old/db/` per storici).
 
 ## Fonti analizzate
 - API: `EasyWay-DataPortal/easyway-portal-api/src/...`
-- DDL: `DataBase/DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql`, `DataBase/DDL_EASYWAY_DATAPORTAL.sql`
+- DDL canonico: `db/flyway/sql/`
+- DDL storici (non canonici): `old/db/` (ex `DataBase/`, export `DDL_PORTAL_*`)
 - SP (documentazione): `Wiki/EasyWayData.wiki/.../PORTAL/programmability/stored-procedure.md`
 - Endpoint docs: `Wiki/EasyWayData.wiki/.../easyway_portal_api/ENDPOINT/*.md`
 
@@ -37,9 +38,9 @@
    - Problema: `loadQueryWithFallback` importa `loadSqlQueryFromBlob`, ma `src/config/queryLoader.ts` è vuoto.
    - Fix: implementare stub chiaro (lancia “not configured”) o feature flag che salti la chiamata a Blob quando non configurato. In seguito integrare con Azure Blob Storage.
 
-5) DDL duplicati/obsoleti — single source of truth (MEDIA)
-   - Problema: coesistenza di un DDL “vecchio” (`DDL_EASYWAY_DATAPORTAL.sql`) e di un DDL standard aggiornato (`DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql`).
-   - Fix: dichiarare ufficiale il DDL standard; marcare l’altro come deprecato o rimuoverlo; allineare Wiki se necessario.
+5) DDL duplicati/obsoleti - single source of truth (MEDIA)
+   - Problema: storicamente coesistevano snapshot/export diversi (DataBase/, `DDL_PORTAL_*`) creando ambiguità.
+   - Fix: fonte canonica unica = migrazioni Flyway in `db/flyway/sql/`; archiviare tutto il legacy in `old/db/` e rigenerare inventari Wiki da Flyway.
 
 6) Logging/Auditing — aderenza a STATS_EXECUTION_LOG (MEDIA)
    - Problema: se si usano DML diretti via API, si perde il logging standard previsto dalle SP.
@@ -73,11 +74,11 @@
 - Config loader: `easyway-portal-api/src/config/dbConfigLoader.ts:1`
 - Notifications routes: `easyway-portal-api/src/routes/notifications.ts:1`
 - Query loader Blob: `easyway-portal-api/src/config/queryLoader.ts:1`
-- DDL ufficiale: `DataBase/DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql:1`
+- DDL canonico: `db/flyway/sql/:1` (migrazioni V1..Vn)
 
 ## Rinomina cartelle (proposta)
 - Rinominare `EasyWay-DataPortal` in `portal-api` (o `easyway-portal-api`).
-- Mantenere `EasyWayDataPortal` come monorepo con: `portal-api/`, `DataBase/`, `Wiki/`, `docs/`, `tests/`.
+- Mantenere `EasyWayDataPortal` come monorepo con: `portal-api/`, `db/`, `Wiki/`, `docs/`, `tests/` (+ `old/` per archivi).
 - Eseguire rinomina in una PR dedicata per minimizzare impatti.
 
 ## Test — Strategia iniziale

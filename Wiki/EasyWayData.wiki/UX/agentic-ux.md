@@ -199,7 +199,7 @@ flowchart TD
 - Esempi di utilizzo dall'orchestratore (shell):
   - node agents/core/orchestrator.js --intent create_table_users --columns user_id,tenant_id,email
   - node agents/core/orchestrator.js --intent create_table_users --tags onboarding,demo --recipeMetadata '{"env":"staging","owner":"team-a"}'
-  - node agents/core/orchestrator.js --intent create_table_users --changedPaths "DataBase/migrations/**,src/somefile" --branch feature/new-entity
+  - node agents/core/orchestrator.js --intent create_table_users --changedPaths "db/flyway/sql/**,src/somefile" --branch feature/new-entity
 - Nota: per integrare questa logica nella UI, includere flags (tags, payloadPath/recipeMetadata) nella chiamata POST /api/intent in modo che il backend ricostruisca il context esatto e ritorni checklistSuggestions filtrate.
 
 9) Next steps immediati (azione consigliata)
@@ -213,5 +213,4 @@ Se vuoi, procedo ora a:
 - creare uno scaffold API in EasyWay-DataPortal/easyway-portal-api/src/routes/plan.ts.
 
 Indica quale di questi vuoi che generi immediatamente.
-
 

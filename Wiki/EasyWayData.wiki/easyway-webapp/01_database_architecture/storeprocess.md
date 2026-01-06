@@ -23,8 +23,9 @@ Standard SP
 - Versione `sp_debug_*` per ambienti test
 
 Source of truth (repo)
-- Stored procedure: `DataBase/DDL_PORTAL_STOREPROCES_EASYWAY_DATAPORTAL.sql`
-- Logging SP: `DataBase/DDL_STATLOG_STOREPROCES_EASYWAY_DATAPORTAL.sql`
+- DDL canonico (corrente): `db/flyway/sql/` (migrazioni incrementali)
+- Bootstrap dev/local (debug/utility): `db/provisioning/apply-flyway.ps1` (wrapper; applica Flyway con conferma)
+- Archivio storico: `old/db/` (non canonico)
 - Inventario (Wiki): `easyway-webapp/01_database_architecture/ddl-inventory.md`
 - SP per area (Wiki): `easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md`
 

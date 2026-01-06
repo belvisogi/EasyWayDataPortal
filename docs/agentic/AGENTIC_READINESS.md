@@ -46,9 +46,9 @@ Esempio JSON che un agente può usare per generare DDL+SP da template:
 ```
 
 ## Processo consigliato (agent workflow)
-1. L’agente propone il JSON (mini‑DSL) e genera i file SQL dai template.
+1. L'agente propone il JSON (mini-DSL) e genera i file SQL dai template.
 2. Validazione automatica: lint SQL, check idempotenza, confronto con convenzioni.
-3. PR con i file in `DataBase/migrations/<YYYYMMDD>_...sql` e aggiornamento Wiki.
+3. PR con le migrazioni in `db/flyway/sql/` e aggiornamento Wiki.
 4. Pipeline applica le migrazioni su ambiente di test; esegue smoke test SP.
 5. Approvazione e promozione verso UAT/PROD.
 
@@ -59,7 +59,9 @@ Esempio JSON che un agente può usare per generare DDL+SP da template:
 - Ogni modifica al modello dati deve essere reversibile o controllata tramite migrazione.
 
 ## Collegamenti
-- DDL di riferimento: `DataBase/DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql`
+- DDL di riferimento (canonico, corrente): `db/flyway/sql/` (migrazioni incrementali)
+- Bootstrap dev/local: `db/provisioning/apply-flyway.ps1` (wrapper; applica Flyway con conferma)
+- Archivio storico: `old/db/` (non canonico)
 - Linee guida SP (Wiki): `Wiki/EasyWayData.wiki/.../PORTAL/programmability/stored-procedure.md`
 - Nota infrastruttura: `docs/infra/azure-architecture.md`
 

@@ -12,7 +12,7 @@ llm:
   redaction: [email, phone]
 entities: []
 updated: '2026-01-05'
-next: Definire policy su snapshot DDL in DataBase/ e su integrazione ERwin.
+next: Consolidare convenzioni (RLS/PII/extended properties) e integrare export ERwin come artifact.
 ---
 
 # HowTo: creare una tabella
@@ -20,7 +20,7 @@ next: Definire policy su snapshot DDL in DataBase/ e su integrazione ERwin.
 ## Regola base (razionalizzazione)
 - Source-of-truth tecnica: migrazioni in `db/flyway/` (deploy controllato).
 - Source-of-truth documentale: Wiki sotto `easyway-webapp/01_database_architecture/`.
-- `DataBase/` resta un riferimento/snapshot se e solo se la policy lo richiede (evitare duplicazioni non governate).
+- Artefatti storici (non canonici): `old/db/` (ex `DataBase/`), solo per audit/ricostruibilita'.
 
 ## Passi (WHAT-first)
 1. Compila un intent WHAT `db.table.create` (schema, table, columns, indici, privacy/PII, tenanting).

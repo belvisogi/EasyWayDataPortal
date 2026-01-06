@@ -1,7 +1,10 @@
 param(
-  [string]$DbDir = "DataBase",
+  [string]$DbDir = "old/db/DataBase_legacy",
   [string]$CanonicalDdlFile = "DDL_EASYWAY_DATAPORTAL.sql",
-  [string]$ProvisioningDir = "DataBase/provisioning",
+  [switch]$IncludeSnapshot,
+  [string]$ProvisioningDir = "old/db/DataBase_legacy/provisioning",
+  [switch]$IncludeProvisioning,
+  [string]$FlywayDir = "db/flyway/sql",
   [string]$PortalSchema = "PORTAL",
   [switch]$IncludeLegacy,
   [string]$LegacyDir = "old/db/ddl_portal_exports",
@@ -33,7 +36,7 @@ function Extract-Tables([string]$sql) {
   $items = New-Object System.Collections.Generic.List[object]
   foreach ($m in $rxBracketed.Matches($sql)) { $items.Add(@{ schema = $m.Groups['schema'].Value; name = $m.Groups['name'].Value }) }
   foreach ($m in $rxPlain.Matches($sql)) { $items.Add(@{ schema = $m.Groups['schema'].Value; name = $m.Groups['name'].Value }) }
-  return @($items)
+  return $items.ToArray()
 }
 
 function Extract-Procedures([string]$sql) {
@@ -43,7 +46,7 @@ function Extract-Procedures([string]$sql) {
   $items = New-Object System.Collections.Generic.List[object]
   foreach ($m in $rxBracketed.Matches($sql)) { $items.Add(@{ schema = $m.Groups['schema'].Value; name = $m.Groups['name'].Value }) }
   foreach ($m in $rxPlain.Matches($sql)) { $items.Add(@{ schema = $m.Groups['schema'].Value; name = $m.Groups['name'].Value }) }
-  return @($items)
+  return $items.ToArray()
 }
 
 function Normalize-FullName([string]$schema, [string]$name) {
@@ -56,13 +59,21 @@ function Normalize-FullName([string]$schema, [string]$name) {
 function Collect-CanonicalSql {
   param(
     [string]$CanonicalPath,
-    [string]$ProvisioningDir
+    [string]$ProvisioningDir,
+    [string]$FlywayDir,
+    [bool]$IncludeSnapshot,
+    [bool]$IncludeProvisioning
   )
 
-  $canonicalSql = Read-Text $CanonicalPath
+  $canonicalSql = ''
   $provisioningFiles = @()
+  $flywayFiles = @()
 
-  if (Test-Path -LiteralPath $ProvisioningDir) {
+  if ($IncludeSnapshot -and $CanonicalPath -and (Test-Path -LiteralPath $CanonicalPath)) {
+    $canonicalSql = Read-Text $CanonicalPath
+  }
+
+  if ($IncludeProvisioning -and (Test-Path -LiteralPath $ProvisioningDir)) {
     $provisioningFiles = @(
       Get-ChildItem -LiteralPath $ProvisioningDir -File -Filter *.sql -ErrorAction Stop |
       Sort-Object -Property Name |
@@ -70,15 +81,27 @@ function Collect-CanonicalSql {
     )
   }
 
+  if (Test-Path -LiteralPath $FlywayDir) {
+    $flywayFiles = @(
+      Get-ChildItem -LiteralPath $FlywayDir -File -Filter *.sql -ErrorAction Stop |
+      Sort-Object -Property Name |
+      ForEach-Object { $_.FullName }
+    )
+  }
+
   $parts = New-Object System.Collections.Generic.List[string]
-  $parts.Add($canonicalSql)
+  if ($canonicalSql) { $parts.Add($canonicalSql) }
   foreach ($f in $provisioningFiles) {
+    try { $parts.Add((Read-Text $f)) } catch { }
+  }
+  foreach ($f in $flywayFiles) {
     try { $parts.Add((Read-Text $f)) } catch { }
   }
 
   return [pscustomobject]@{
     combinedSql = ($parts -join "`n`n")
     provisioningFiles = $provisioningFiles
+    flywayFiles = $flywayFiles
   }
 }
 
@@ -87,6 +110,9 @@ function Build-Wiki {
     [string]$PortalSchema,
     [string]$CanonicalDdlRel,
     [string]$ProvisioningRel,
+    [string]$FlywayRel,
+    [bool]$IncludeSnapshot,
+    [bool]$IncludeProvisioning,
     [string[]]$CanonicalTables,
     [string[]]$CanonicalProcedures,
     [bool]$IncludeLegacy,
@@ -104,7 +130,7 @@ function Build-Wiki {
   $lines.Add('---')
   $lines.Add('id: ew-db-ddl-inventory')
   $lines.Add('title: DB PORTAL - Inventario DDL (canonico)')
-  $lines.Add("summary: Inventario DB (canonico) estratto da DDL_EASYWAY + provisioning per mantenere allineata la Wiki 01_database_architecture.")
+  $lines.Add('summary: Inventario DB (canonico) estratto dalle migrazioni Flyway (source-of-truth) per mantenere allineata la Wiki 01_database_architecture.')
   $lines.Add('status: draft')
   $lines.Add('owner: team-data')
   $lines.Add('tags: [domain/db, layer/reference, audience/dev, audience/dba, privacy/internal, language/it]')
@@ -115,7 +141,7 @@ function Build-Wiki {
   $lines.Add('  redaction: [email, phone]')
   $lines.Add('entities: []')
   $lines.Add(("updated: '{0}'" -f $today))
-  $lines.Add("next: Rendere Flyway (`db/flyway/`) la fonte incrementale e rigenerare periodicamente il DDL canonico (snapshot) se necessario; mantenere i legacy export fuori dal retrieval.")
+  $lines.Add('next: Rendere Flyway (`db/flyway/`) la fonte incrementale e rigenerare periodicamente il DDL canonico (snapshot) se necessario; mantenere i legacy export fuori dal retrieval.')
   $lines.Add('---')
   $lines.Add('')
   $lines.Add('# DB PORTAL - Inventario DDL (canonico)')
@@ -125,42 +151,43 @@ function Build-Wiki {
   $lines.Add("- Ridurre ambiguita: un agente (o un umano) puo verificare rapidamente cosa esiste e dove e documentato.")
   $lines.Add('')
   $lines.Add('## Domande a cui risponde')
-  $lines.Add("- Quali tabelle/procedure esistono nello schema `${PortalSchema}` secondo le fonti canoniche?")
+  $lines.Add(('- Quali tabelle/procedure esistono nello schema `{0}` secondo le fonti canoniche?' -f $PortalSchema))
   $lines.Add("- Quali file sono la fonte e come posso rigenerare questo inventario?")
   $lines.Add('')
   $lines.Add('## Source of truth (repo)')
-  $lines.Add(("- DDL canonico: `{0}`" -f $CanonicalDdlRel))
-  $lines.Add(("- Provisioning (bootstrap idempotente): `{0}`" -f $ProvisioningRel))
+  $lines.Add(('- Flyway migrations (canonico, corrente): `{0}`' -f $FlywayRel))
+  if ($IncludeProvisioning) { $lines.Add(('- Provisioning (dev/local): `{0}`' -f $ProvisioningRel)) }
+  if ($IncludeSnapshot) { $lines.Add(('- Snapshot DDL (legacy): `{0}`' -f $CanonicalDdlRel)) }
   $lines.Add('')
   if ($IncludeLegacy) {
     $lines.Add('## Legacy export (solo audit/diff)')
     $lines.Add('Nota: questi file non sono fonte primaria; servono solo per confronto durante la migrazione.')
-    $lines.Add(("- Tabelle (legacy): `{0}`" -f $LegacyTablesRel))
-    $lines.Add(("- Stored procedure (legacy): `{0}`" -f $LegacyProceduresRel))
-    $lines.Add(("- Logging SP (legacy): `{0}`" -f $LegacyStatlogRel))
+    $lines.Add(('- Tabelle (legacy): `{0}`' -f $LegacyTablesRel))
+    $lines.Add(('- Stored procedure (legacy): `{0}`' -f $LegacyProceduresRel))
+    $lines.Add(('- Logging SP (legacy): `{0}`' -f $LegacyStatlogRel))
     $lines.Add('')
   }
-  $lines.Add("Deploy operativa: usare migrazioni Flyway in `db/flyway/` (apply controllato).")
+  $lines.Add('Deploy operativa: usare migrazioni Flyway in `db/flyway/` (apply controllato).')
   $lines.Add('')
 
   $lines.Add("## Tabelle (${PortalSchema}) - canonico")
-  if ($CanonicalTables.Count -eq 0) { $lines.Add('_Nessuna tabella trovata dal parser._') } else { foreach ($t in $CanonicalTables) { $lines.Add(("- `{0}`" -f $t)) } }
+  if ($CanonicalTables.Count -eq 0) { $lines.Add('_Nessuna tabella trovata dal parser._') } else { foreach ($t in $CanonicalTables) { $lines.Add(('- `{0}`' -f $t)) } }
   $lines.Add('')
 
   $lines.Add("## Stored procedure (${PortalSchema}) - canonico")
-  if ($CanonicalProcedures.Count -eq 0) { $lines.Add('_Nessuna stored procedure trovata dal parser._') } else { foreach ($p in $CanonicalProcedures) { $lines.Add(("- `{0}`" -f $p)) } }
+  if ($CanonicalProcedures.Count -eq 0) { $lines.Add('_Nessuna stored procedure trovata dal parser._') } else { foreach ($p in $CanonicalProcedures) { $lines.Add(('- `{0}`' -f $p)) } }
   $lines.Add('')
 
   if ($IncludeLegacy) {
     $lines.Add("## Tabelle (${PortalSchema}) - legacy (audit)")
-    foreach ($t in $LegacyTables) { $lines.Add(("- `{0}`" -f $t)) }
+    foreach ($t in $LegacyTables) { $lines.Add(('- `{0}`' -f $t)) }
     $lines.Add('')
 
     $lines.Add("## Stored procedure (${PortalSchema}) - legacy (audit)")
-    foreach ($p in $LegacyProcedures) { $lines.Add(("- `{0}`" -f $p)) }
+    foreach ($p in $LegacyProcedures) { $lines.Add(('- `{0}`' -f $p)) }
     foreach ($p in $LegacyStatlogProcedures) {
       if ($LegacyProcedures -contains $p) { continue }
-      $lines.Add(("- `{0}`" -f $p))
+      $lines.Add(('- `{0}`' -f $p))
     }
     $lines.Add('')
   }
@@ -173,8 +200,10 @@ function Build-Wiki {
   $lines.Add('')
 
   $lines.Add('## Rigenerazione (idempotente)')
-  $lines.Add('- Solo canonico: `pwsh scripts/db-ddl-inventory.ps1 -WriteWiki`')
-  $lines.Add('- Con legacy export (audit): `pwsh scripts/db-ddl-inventory.ps1 -IncludeLegacy -WriteWiki`')
+  $lines.Add('- Solo Flyway (canonico): `pwsh scripts/db-ddl-inventory.ps1 -WriteWiki`')
+  $lines.Add('- Include provisioning (dev/local): `pwsh scripts/db-ddl-inventory.ps1 -IncludeProvisioning -WriteWiki`')
+  $lines.Add('- Include snapshot DDL (legacy): `pwsh scripts/db-ddl-inventory.ps1 -IncludeSnapshot -WriteWiki`')
+  $lines.Add('- Include legacy export (audit): `pwsh scripts/db-ddl-inventory.ps1 -IncludeLegacy -WriteWiki`')
   $lines.Add('')
   return ($lines -join "`n") + "`n"
 }
@@ -182,9 +211,10 @@ function Build-Wiki {
 $portalSchemaNorm = ($PortalSchema ?? 'PORTAL').Trim()
 $canonicalPath = Join-Path $DbDir $CanonicalDdlFile
 
-$collected = Collect-CanonicalSql -CanonicalPath $canonicalPath -ProvisioningDir $ProvisioningDir
+$collected = Collect-CanonicalSql -CanonicalPath $canonicalPath -ProvisioningDir $ProvisioningDir -FlywayDir $FlywayDir -IncludeSnapshot ([bool]$IncludeSnapshot) -IncludeProvisioning ([bool]$IncludeProvisioning)
 $canonicalCombinedSql = $collected.combinedSql
 $provisioningFiles = @($collected.provisioningFiles)
+$flywayFiles = @($collected.flywayFiles)
 
 $canonicalTables = @()
 try {
@@ -267,9 +297,13 @@ $summary = [pscustomobject]@{
   ok = $true
   inputs = [pscustomobject]@{
     portalSchema = $portalSchemaNorm
-    canonicalDdl = $canonicalPath.Replace([char]92,'/')
+    includeSnapshot = [bool]$IncludeSnapshot
+    canonicalDdl = if ($IncludeSnapshot) { $canonicalPath.Replace([char]92,'/') } else { $null }
     provisioningDir = $ProvisioningDir.Replace([char]92,'/')
+    includeProvisioning = [bool]$IncludeProvisioning
     provisioningFiles = @($provisioningFiles | ForEach-Object { $_.Replace([char]92,'/') })
+    flywayDir = $FlywayDir.Replace([char]92,'/')
+    flywayFiles = @($flywayFiles | ForEach-Object { $_.Replace([char]92,'/') })
     includeLegacy = [bool]$IncludeLegacy
     legacyDir = $LegacyDir.Replace([char]92,'/')
     legacyPortalTables = if ($legacyTablesPath) { $legacyTablesPath.Replace([char]92,'/') } else { $null }
@@ -311,6 +345,9 @@ if ($WriteWiki) {
     -PortalSchema $portalSchemaNorm `
     -CanonicalDdlRel ($canonicalPath.Replace([char]92,'/')) `
     -ProvisioningRel ($ProvisioningDir.Replace([char]92,'/')) `
+    -FlywayRel ($FlywayDir.Replace([char]92,'/')) `
+    -IncludeSnapshot ([bool]$IncludeSnapshot) `
+    -IncludeProvisioning ([bool]$IncludeProvisioning) `
     -CanonicalTables $canonicalTables `
     -CanonicalProcedures $canonicalProcedures `
     -IncludeLegacy ([bool]$IncludeLegacy) `
@@ -327,4 +364,3 @@ if ($WriteWiki) {
 $json = $summary | ConvertTo-Json -Depth 7
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json
-

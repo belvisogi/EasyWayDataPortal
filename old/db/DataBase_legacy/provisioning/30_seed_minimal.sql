@@ -1,3 +1,6 @@
+-- LEGACY: questo provisioning SQL può divergere da Flyway.
+-- Usa `db/flyway/sql/` tramite `db/provisioning/apply-flyway.ps1`.
+--
 -- Minimal seed for local demo/test (idempotent)
 
 -- Tenants
@@ -22,4 +25,3 @@ IF NOT EXISTS (SELECT 1 FROM [PORTAL].[user_notification_settings] WHERE user_id
     INSERT INTO [PORTAL].[user_notification_settings](user_id, notify_email, notify_portal, notify_sms)
     VALUES (N'admin@dev', 1, 1, 0);
 GO
-

@@ -100,8 +100,8 @@ Obiettivo: confermare il pattern SP + variante DEBUG per onboarding.
 - Log conversazionali/agent-aware: presenti nel controller con `logger.info/error`.
 
 ## Processo PR/Migrazioni (riassunto)
-1. L’agente propone mini‑DSL JSON e genera i file SQL dai template (`docs/agentic/templates/...`).
-2. I file vanno versionati in `DataBase/migrations/` con naming data‑based.
+1. L'agente propone mini-DSL JSON e genera i file SQL dai template (`docs/agentic/templates/...`).
+2. I file vanno versionati come migrazioni Flyway in `db/flyway/sql/` con naming Flyway (`V<ts>__...sql`).
 3. Aggiornare la Wiki (questa pagina) con i riferimenti a nuove SP/tabelle.
 4. Pipeline: applica migrazioni in `test`, esegue smoke test (`tests/api/rest-client/...`).
 5. Approvazione e promozione verso UAT/PROD.

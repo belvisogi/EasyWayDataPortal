@@ -2,10 +2,16 @@
   "role": "Agent_Governance",
   "description": "Policy, qualità, gates e approvazioni per DB/API/Docs",
   "allowed_paths": [
+    "README.md",
     "azure-pipelines.yml",
     "Wiki/EasyWayData.wiki/**",
+    "agents/**",
     "agents/kb/**",
-    "scripts/agent-governance.ps1"
+    "scripts/**",
+    "db/**",
+    "old/db/**",
+    "DataBase/**",
+    "EasyWay-DataPortal/easyway-portal-api/**"
   ],
   "allowed_tools": ["pwsh", "node"],
   "required_gates": ["Checklist", "DB_Drift", "KB_Consistency"],

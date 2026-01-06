@@ -65,7 +65,8 @@
         "governance-all"
       ],
       "code_roots": [
-        "DataBase/"
+        "db/flyway/",
+        "db/provisioning/"
       ]
     },
     "n8n.db.table.create": {
@@ -78,7 +79,7 @@
       ],
       "code_roots": [
         "db/flyway/",
-        "DataBase/"
+        "db/provisioning/"
       ]
     },
     "ingest.upload-file": {

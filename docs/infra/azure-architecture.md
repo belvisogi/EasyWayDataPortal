@@ -26,7 +26,9 @@ Obiettivo: indicare i componenti Azure consigliati, configurazioni base e prereq
 - Pipeline: build (tsc, lint, test), publish artefatti, deploy App Service, migrazioni DB (script DDL/SP versionati), smoke test post-deploy.
 
 ## Database & SP
-- Applicare come fonte ufficiale `DataBase/DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql`.
+- Fonte canonica (corrente): migrazioni Flyway in `db/flyway/sql/` (apply controllato in ambienti condivisi).
+- Bootstrap dev/local: `db/provisioning/apply-flyway.ps1` (wrapper; applica Flyway con conferma).
+- Archivio storico: `old/db/` (non canonico).
 - Rilasciare le SP (produzione e `_DEBUG`) con logging su `PORTAL.STATS_EXECUTION_LOG`.
 - Abilitare auditing e policy (RLS/masking) secondo i metadati in tabella.
 
@@ -45,4 +47,3 @@ Obiettivo: indicare i componenti Azure consigliati, configurazioni base e prereq
 3. Pipeline CI/CD con ambienti.
 4. Abilitazione override query via Blob (feature flag) e branding per tenant.
 5. Integrazione Entra ID/AD B2C.
-

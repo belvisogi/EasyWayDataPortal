@@ -10,6 +10,13 @@ updated: '2026-01-06'
 
 # 🚦 Setup ambiente di test / sandbox agentica + Zero Trust
 
+## Contesto (repo)
+- Obiettivi e principi: `agents/goals.json`
+- Orchestrazione/gates (entrypoint): `scripts/ewctl.ps1`
+- Ricette operative (KB): `agents/kb/recipes.jsonl`
+- Osservabilita: `agents/logs/events.jsonl`
+- Standard contesto: `Wiki/EasyWayData.wiki/onboarding/documentazione-contesto-standard.md`
+
 **Questa guida ti permette di esplorare EasyWay DataPortal, agent, pipeline e automazioni in sicurezza massima, senza rischio di “toccare” dati o risorse reali.**
 
 ---

@@ -1,3 +1,6 @@
+-- LEGACY: questo provisioning SQL può divergere da Flyway.
+-- Usa `db/flyway/sql/` tramite `db/provisioning/apply-flyway.ps1`.
+--
 -- Foreign keys and indexes (idempotent)
 
 -- FK users.tenant_id -> tenants.tenant_id
@@ -34,4 +37,3 @@ GO
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = N'IX_users_email' AND object_id = OBJECT_ID(N'[PORTAL].[users]'))
     CREATE UNIQUE INDEX IX_users_email ON [PORTAL].[users]([email]);
 GO
-

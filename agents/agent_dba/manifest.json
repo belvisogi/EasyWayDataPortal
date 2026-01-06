@@ -3,10 +3,13 @@
   "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
   "allowed_paths": [
     "db/flyway/**",
-    "DataBase/**",
+    "db/provisioning/**",
+    "old/db/**",
+    "DataBase/README.md",
     "EasyWay-DataPortal/easyway-portal-api/src/tools/db/**",
     "scripts/db-ddl-inventory.ps1",
     "scripts/db-generate-table-artifacts.ps1",
+    "scripts/export-db-objects.ps1",
     "scripts/variables/db-required-objects.sample.json",
     "Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/**",
     "Wiki/EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/**",
@@ -54,7 +57,7 @@
     },
     {
       "name": "db-doc:ddl-inventory",
-      "description": "Rigenera inventario DB (tabelle/SP) da DataBase/ e aggiorna la pagina Wiki ddl-inventory (idempotente).",
+      "description": "Rigenera inventario DB (tabelle/SP) da Flyway (`db/flyway/sql/`) e aggiorna la pagina Wiki ddl-inventory (idempotente).",
       "params": {
         "dbDir": { "type": "string", "required": false },
         "writeWiki": { "type": "boolean", "required": false },

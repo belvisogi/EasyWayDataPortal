@@ -9,7 +9,7 @@ Write-Host "[export-db-objects] Exporting DB objects from $Server/$Database" -Fo
 
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repo = Resolve-Path (Join-Path $root "..")
-$outRoot = Join-Path $repo "DataBase/programmability"
+$outRoot = Join-Path $repo "old/db/runtime_exports/programmability"
 $spDir = Join-Path $outRoot "sp"
 $fnDir = Join-Path $outRoot "fn"
 $vwDir = Join-Path $outRoot "vw"
@@ -89,4 +89,3 @@ foreach ($tb in $db.Tables | Where-Object { -not $_.IsSystemObject }) {
 }
 
 Write-Host "[export-db-objects] Done. Files under $outRoot" -ForegroundColor Green
-

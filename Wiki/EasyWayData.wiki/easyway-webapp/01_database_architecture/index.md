@@ -19,9 +19,14 @@ next: Aggiornare quando cambiano DDL o struttura.
 
 Breadcrumb: Home / EasyWay WebApp / Database Architecture
 
+## Contesto
+- Source-of-truth DB (canonico): migrazioni Flyway in `db/flyway/sql/`.
+- Provisioning dev/local: wrapper `db/provisioning/apply-flyway.ps1` (human-in-the-loop).
+- Artefatti storici (non canonici): `old/db/` (ex `DataBase/` e export `DDL_PORTAL_*`).
+
 - [01a-db-setup.md](./01a-db-setup.md) - Setup DB (prerequisiti, ruoli, connessioni).
 - [01b-schema-structure.md](./01b-schema-structure.md) - Struttura schema e naming.
-- [ddl-inventory.md](./ddl-inventory.md) - Inventario tabelle/SP (source-of-truth: `DataBase/`).
+- [ddl-inventory.md](./ddl-inventory.md) - Inventario tabelle/SP (rigenerato da Flyway: `db/flyway/sql/`).
 - [howto-create-table.md](./howto-create-table.md) - HowTo: creare una tabella (agentico, WHAT-first).
 
 ## Domande a cui risponde

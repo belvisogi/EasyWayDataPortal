@@ -1,3 +1,6 @@
+-- LEGACY: questo provisioning SQL può divergere da Flyway.
+-- Usa `db/flyway/sql/` tramite `db/provisioning/apply-flyway.ps1`.
+--
 -- Extended properties (idempotent)
 
 -- Column description for users.user_id
@@ -39,4 +42,3 @@ BEGIN
       @level2type = N'Column', @level2name = 'password';
 END
 GO
-

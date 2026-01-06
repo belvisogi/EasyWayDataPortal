@@ -85,11 +85,18 @@ $tasks = @()
 
 # Conditional governance checklist via priority rules
 try {
-  $prioJson = pwsh 'scripts/agent-priority.ps1' -Agent agent_governance -UseGitDiff -Env ($env:ENVIRONMENT ?? 'local') -Intent ($Intent ?? $null)
+  $prioArgs = @(
+    'scripts/agent-priority.ps1',
+    '-Agent', 'agent_governance',
+    '-UseGitDiff',
+    '-Env', ($env:ENVIRONMENT ?? 'local')
+  )
+  if ($Intent) { $prioArgs += @('-Intent', $Intent) }
+  $prioJson = & pwsh @prioArgs
   $prio = $null; try { $prio = $prioJson | ConvertFrom-Json } catch {}
   if ($prio.showChecklist -eq $true) {
     $label = if ($prio.severity -eq 'mandatory') { 'Governance Checklist (mandatory)' } else { 'Governance Checklist (advisory)' }
-    $desc = 'Checklist di governance generata da regole priority; l’utente rivede e approva.'
+    $desc = "Checklist di governance generata da regole priority; l'utente rivede e approva."
     $items = @(); if ($prio.items) { $items = $prio.items } else {
       $items = @(
         'EnforcerCheck Required su develop/main',
@@ -111,8 +118,8 @@ try {
         foreach ($i in $items) { Write-Host ("- {0}" -f $i) }
         if ($Interactive) {
           $ans = Read-Host "Confermi la checklist? [Invio=SI / n=No]"
-          if ($ans.Trim().ToLower() -eq 'n') { Write-Host 'Checklist non approvata (rimandata dall’utente).'; return }
-          Write-Host 'Checklist approvata dall’utente.' -ForegroundColor Green
+          if ($ans.Trim().ToLower() -eq 'n') { Write-Host "Checklist non approvata (rimandata dall'utente)."; return }
+          Write-Host "Checklist approvata dall'utente." -ForegroundColor Green
         } else {
           Write-Host 'Checklist proposta (modalità non interattiva): vedere i riferimenti per approvare.' -ForegroundColor Yellow
         }
@@ -304,13 +311,13 @@ if ($LogEvent) {
     $actor = 'agent_governance'
     $envName = $env:ENVIRONMENT; if ([string]::IsNullOrWhiteSpace($envName)) { $envName = 'local' }
     $outcome = 'success'; if ($script:EW_TaskError) { $outcome = 'error' }
-    $notes = "Gates eseguiti: " + (@(
+    $notes = "Gates eseguiti: " + ((@(
       ($Checklist ? 'Checklist' : $null),
       ($DbDrift ? 'DBDrift' : $null),
       ($KbConsistency ? 'KBConsistency' : $null),
       ($TerraformPlan ? 'TerraformPlan' : $null),
       ($GenAppSettings ? 'GenAppSettings' : $null)
-    ) | Where-Object { $_ } -join ', ')
+    ) | Where-Object { $_ }) -join ', ')
     pwsh 'scripts/activity-log.ps1' -Intent $intent -Actor $actor -Env $envName -Outcome $outcome -Artifacts $artifacts -Notes $notes | Out-Host
   } catch { Write-Warning "Activity log failed: $($_.Exception.Message)" }
 }

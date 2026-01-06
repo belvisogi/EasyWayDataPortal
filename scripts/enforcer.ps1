@@ -20,10 +20,17 @@ function Load-Manifest {
 function PatternToRegex {
   param([string]$pattern)
   $pat = ($pattern -replace '\\','/')
+
+  # Replace wildcards before escaping, then re-inject as regex.
+  $dbl = '__EW_DBLSTAR__'
+  $sgl = '__EW_STAR__'
+  $pat = $pat -replace '\*\*', $dbl
+  $pat = $pat -replace '\*', $sgl
+
   $pat = [Regex]::Escape($pat)
-  # restore wildcards: ** => .*, * => [^/]*
-  $pat = $pat -replace '\*\*', '.*'
-  $pat = $pat -replace '(?<!\.)\*', '[^/]*'
+  $pat = $pat -replace [Regex]::Escape($dbl), '.*'
+  $pat = $pat -replace [Regex]::Escape($sgl), '[^/]*'
+
   return "^$pat$"
 }
 
@@ -77,4 +84,3 @@ try {
   Write-Error $_
   exit 1
 }
-

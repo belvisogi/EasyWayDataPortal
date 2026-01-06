@@ -1,3 +1,6 @@
+-- LEGACY: questo provisioning SQL può divergere da Flyway.
+-- Usa `db/flyway/sql/` tramite `db/provisioning/apply-flyway.ps1`.
+--
 -- Idempotent tables for Azure SQL (use bit instead of boolean)
 
 IF OBJECT_ID(N'[PORTAL].[users]', N'U') IS NULL

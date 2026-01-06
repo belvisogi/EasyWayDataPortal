@@ -149,10 +149,14 @@ switch ($Action) {
   'db-doc:ddl-inventory' {
     $p = $intent.params
     $dbDir = if ($p.dbDir) { [string]$p.dbDir } else { 'DataBase' }
+    $includeProvisioning = if ($null -ne $p.includeProvisioning) { [bool]$p.includeProvisioning } else { $false }
+    $includeSnapshot = if ($null -ne $p.includeSnapshot) { [bool]$p.includeSnapshot } else { $false }
     $writeWiki = if ($null -ne $p.writeWiki) { [bool]$p.writeWiki } else { $true }
     $summaryOut = if ($p.summaryOut) { [string]$p.summaryOut } else { 'db-ddl-inventory.json' }
 
     $args = @('-DbDir', $dbDir, '-SummaryOut', $summaryOut)
+    if ($includeProvisioning) { $args += '-IncludeProvisioning' }
+    if ($includeSnapshot) { $args += '-IncludeSnapshot' }
     if ($writeWiki) { $args += '-WriteWiki' }
 
     $executed = $false
@@ -161,6 +165,8 @@ switch ($Action) {
     if ($WhatIf) {
       # WhatIf per questo step: non applica -WriteWiki
       $argsWhatIf = @('-DbDir', $dbDir, '-SummaryOut', $summaryOut)
+      if ($includeProvisioning) { $argsWhatIf += '-IncludeProvisioning' }
+      if ($includeSnapshot) { $argsWhatIf += '-IncludeSnapshot' }
       try {
         $outJson = & pwsh @('scripts/db-ddl-inventory.ps1') @argsWhatIf 2>&1 | Out-String
         $executed = $true
@@ -182,6 +188,8 @@ switch ($Action) {
       finishedAt = (Get-Date).ToUniversalTime().ToString('o')
       output = [ordered]@{
         dbDir = $dbDir
+        includeProvisioning = [bool]$includeProvisioning
+        includeSnapshot = [bool]$includeSnapshot
         writeWikiRequested = [bool]$writeWiki
         executed = $executed
         summaryOut = $summaryOut

@@ -19,7 +19,9 @@ Obiettivo
 - Definire struttura, regole e best practice per le tabelle core del portale.
 
 Source of truth (repo)
-- Tabelle: `DataBase/DDL_PORTAL_TABLE_EASYWAY_DATAPORTAL.sql`
+- DDL canonico (corrente): `db/flyway/sql/` (migrazioni incrementali)
+- Bootstrap dev/local: `db/provisioning/apply-flyway.ps1` (wrapper; applica Flyway con conferma)
+- Archivio storico: `old/db/` (non canonico)
 - Inventario (Wiki): `easyway-webapp/01_database_architecture/ddl-inventory.md`
 
 Colonne standard

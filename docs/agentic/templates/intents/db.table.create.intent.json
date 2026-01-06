@@ -63,7 +63,7 @@
       },
       "writeWiki": { "type": "boolean", "default": true },
       "writeFlyway": { "type": "boolean", "default": true },
-      "writeDatabaseSnapshot": { "type": "boolean", "default": false, "description": "Opzionale: aggiornare anche un file DDL snapshot in DataBase/ (se policy lo prevede)." },
+      "writeDatabaseSnapshot": { "type": "boolean", "default": false, "description": "DEPRECATO: evitare snapshot DDL. Artefatti storici in `old/db/`." },
       "summaryOut": { "type": "string", "default": "db-table-create.json" }
     },
     "outputs": {
@@ -78,4 +78,3 @@
     "failure_criteria": ["Spec invalida", "Generazione DDL fallita", "Scrittura artifact fallita"]
   }
 }
-

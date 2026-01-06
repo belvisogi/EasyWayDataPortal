@@ -40,12 +40,12 @@ Quando GPT-5.2 Codex deve implementare sotto `EasyWay-DataPortal/`, usa il bundl
 ## Bundle DB (n8n)
 
 Quando n8n deve fare operazioni sul DB (es. rigenerare inventario DDL e aggiornare la Wiki DB), usa:
-- `n8n.db.core`  contesto DB (Wiki) + root tecnica `DataBase/` (source-of-truth dei DDL).
+- `n8n.db.core`  contesto DB (Wiki) + root tecnico `db/flyway/` (source-of-truth canonico dei DDL).
 
 Per la creazione di nuove tabelle (artefatti Flyway + pagina Wiki tabella), usa:
 - `n8n.db.table.create`
 
-Nota: di default i bundle servono a caricare **Wiki**; i DDL in `DataBase/` vanno letti come file tecnici solo quando necessario (non come "doc canonica").
+Nota: di default i bundle servono a caricare **Wiki**; `old/db/` e `DataBase/README.md` sono solo per audit/compat (non doc canonica).
 
 ## Regole operative
 

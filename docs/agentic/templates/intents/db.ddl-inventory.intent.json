@@ -1,9 +1,12 @@
 {
   "id": "db.ddl-inventory",
   "what": {
-    "purpose": "Rigenerare l'inventario DB (tabelle + stored procedure) a partire dai DDL sotto DataBase/ e aggiornare la pagina Wiki canonica (ddl-inventory).",
+    "purpose": "Rigenerare l'inventario DB (tabelle + stored procedure) a partire da DDL canonico + provisioning + migrazioni Flyway e aggiornare la pagina Wiki canonica (ddl-inventory).",
     "inputs": {
-      "dbDir": { "type": "string", "default": "DataBase", "description": "Cartella che contiene i DDL (source-of-truth)." },
+      "dbDir": { "type": "string", "default": "old/db/DataBase_legacy", "description": "Cartella legacy per snapshot/provisioning (non canonico)." },
+      "flywayDir": { "type": "string", "default": "db/flyway/sql", "description": "Cartella migrazioni Flyway (deploy incrementale, fonte canonica per ambienti condivisi)." },
+      "includeProvisioning": { "type": "boolean", "default": false, "description": "Se true include provisioning legacy (non canonico) nel parsing inventario." },
+      "includeSnapshot": { "type": "boolean", "default": false, "description": "Se true include snapshot legacy (non canonico) nel parsing inventario." },
       "writeWiki": { "type": "boolean", "default": true, "description": "Se true aggiorna la pagina Wiki ddl-inventory.md." },
       "summaryOut": { "type": "string", "default": "db-ddl-inventory.json", "description": "Percorso output JSON (machine-readable)." }
     },
@@ -18,4 +21,3 @@
     "failure_criteria": ["DDL mancanti/non leggibili", "Parsing fallito", "Scrittura Wiki fallita"]
   }
 }
-

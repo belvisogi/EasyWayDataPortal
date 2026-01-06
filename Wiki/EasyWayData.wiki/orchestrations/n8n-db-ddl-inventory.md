@@ -1,7 +1,7 @@
 ---
 id: ew-n8n-db-ddl-inventory
 title: n8n-db-ddl-inventory
-summary: Orchestrazione n8n per rigenerare l'inventario DB da DataBase/ e aggiornare la pagina Wiki ddl-inventory (agent_dba).
+summary: Orchestrazione n8n per rigenerare l'inventario DB da Flyway (`db/flyway/sql/`) e aggiornare la pagina Wiki ddl-inventory (agent_dba).
 status: draft
 owner: team-platform
 tags: [domain/control-plane, layer/orchestration, audience/dev, audience/dba, privacy/internal, language/it, n8n, db]
@@ -17,8 +17,12 @@ next: Implementare workflow n8n e collegare webhook.
 
 # n8n-db-ddl-inventory
 
+## Contesto
+- Source-of-truth DB (canonico): migrazioni Flyway in `db/flyway/sql/`.
+- Artefatti storici (non canonici): `old/db/` (ex `DataBase/`, export `DDL_PORTAL_*`).
+
 ## Scopo
-Workflow n8n che, a partire dai DDL in `DataBase/`, rigenera l'inventario DB e aggiorna la pagina canonica:
+Workflow n8n che, a partire dalle migrazioni in `db/flyway/sql/`, rigenera l'inventario DB e aggiorna la pagina canonica:
 - `easyway-webapp/01_database_architecture/ddl-inventory.md`
 
 ## Domande a cui risponde
@@ -38,8 +42,7 @@ Workflow n8n che, a partire dai DDL in `DataBase/`, rigenera l'inventario DB e a
 
 ## Comandi (CLI)
 Esecuzione diretta (senza n8n):
-- `pwsh scripts/db-ddl-inventory.ps1 -DbDir DataBase -WriteWiki -SummaryOut db-ddl-inventory.json`
+- `pwsh scripts/db-ddl-inventory.ps1 -WriteWiki -SummaryOut db-ddl-inventory.json`
 
 Esecuzione via agent:
 - `pwsh scripts/agent-dba.ps1 -Action db-doc:ddl-inventory -IntentPath agents/agent_dba/templates/intent.db-ddl-inventory.sample.json -NonInteractive`
-
