@@ -1,0 +1,55 @@
+{
+  "role": "Agent_Security",
+  "description": "Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit e registry (no valori segreti nei log).",
+  "allowed_paths": [
+    "scripts/agent-security.ps1",
+    "agents/agent_security/**",
+    "Wiki/EasyWayData.wiki/security/**",
+    "Wiki/EasyWayData.wiki/control-plane/**",
+    "docs/agentic/templates/intents/**",
+    "docs/agentic/templates/orchestrations/**",
+    "docs/agentic/templates/docs/**",
+    "agents/kb/recipes.jsonl",
+    "agents/logs/**",
+    "docs/agentic/templates/sheets/access-registry.csv"
+  ],
+  "allowed_tools": ["pwsh", "az"],
+  "required_gates": ["KB_Consistency"],
+  "approvals": {
+    "prod": ["Human_Governance_Approval"]
+  },
+  "knowledge_sources": [
+    "Wiki/EasyWayData.wiki/security/segreti-e-accessi.md",
+    "Wiki/EasyWayData.wiki/security/operativita-governance-provisioning-accessi.md",
+    "docs/ci/azure-devops-secrets.md",
+    "agents/kb/recipes.jsonl"
+  ],
+  "actions": [
+    {
+      "name": "kv-secret:set",
+      "description": "Imposta/aggiorna un secret in Azure Key Vault (non stampa il valore).",
+      "params": {
+        "vaultName": { "type": "string", "required": true },
+        "secretName": { "type": "string", "required": true },
+        "secretValue": { "type": "string", "required": true },
+        "tags": { "type": "object", "required": false }
+      }
+    },
+    {
+      "name": "kv-secret:reference",
+      "description": "Genera una Key Vault reference per App Settings (non legge il valore).",
+      "params": {
+        "vaultName": { "type": "string", "required": true },
+        "secretName": { "type": "string", "required": true },
+        "version": { "type": "string", "required": false }
+      }
+    },
+    {
+      "name": "access-registry:propose",
+      "description": "Propone una riga registry accessi (audit) senza valori segreti.",
+      "params": {
+        "access": { "type": "object", "required": true }
+      }
+    }
+  ]
+}

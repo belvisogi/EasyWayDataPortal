@@ -26,6 +26,7 @@ next: TODO - definire next step.
 
 Attivi (con schema)
 - orchestrator.n8n.dispatch -> `docs/agentic/templates/intents/orchestrator.n8n.dispatch.intent.json`
+- api.error.triage -> `docs/agentic/templates/intents/api.error.triage.intent.json`
 - ingest.upload-file -> `docs/agentic/templates/intents/ingest.upload-file.intent.json`
 - dq.validate -> `docs/agentic/templates/intents/dq.validate.intent.json`
 - schema.map-suggest -> `docs/agentic/templates/intents/schema.map-suggest.intent.json`
@@ -37,6 +38,7 @@ Attivi (con schema)
 Orchestrazioni (WHAT)
 - wf.excel-csv-upload -> `orchestrations/wf-excel-csv-upload.md`
 - orchestrator (n8n) -> `orchestrations/orchestrator-n8n.md`
+- n8n-api-error-triage -> `orchestrations/n8n-api-error-triage.md`
 
 Da definire (skeleton cross-domain)
 - db.migrate (Flyway)
@@ -46,4 +48,5 @@ Da definire (skeleton cross-domain)
 
 Nota
 - Ogni nuovo intent deve avere: schema in `docs/agentic/templates/intents/` + ricetta KB + pagina Wiki.
+- Tutti i nuovi intent devono essere dispatchati via `orchestrator.n8n.dispatch` (entrypoint unico).
 

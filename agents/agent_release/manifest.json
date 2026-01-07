@@ -1,0 +1,32 @@
+{
+  "role": "Agent_Release",
+  "description": "Packaging/versioning del runtime bundle (copia parziale) per runner segregato: build artifact e publish (no segreti).",
+  "allowed_paths": [
+    "agents/agent_release/**",
+    "scripts/agent-release.ps1",
+    "ai/vettorializza.yaml",
+    "scripts/**",
+    "agents/**",
+    "docs/agentic/templates/**",
+    "Wiki/EasyWayData.wiki/**",
+    "agents/kb/recipes.jsonl",
+    "agents/logs/**",
+    "out/**"
+  ],
+  "allowed_tools": ["pwsh", "git"],
+  "required_gates": ["KB_Consistency"],
+  "approvals": {},
+  "knowledge_sources": [
+    "Wiki/EasyWayData.wiki/control-plane/segregation-model-dev-knowledge-runtime.md"
+  ],
+  "actions": [
+    {
+      "name": "runtime:bundle",
+      "description": "Crea un bundle zip con subset del repo per execution runner.",
+      "params": {
+        "outZip": { "type": "string", "required": false }
+      }
+    }
+  ]
+}
+

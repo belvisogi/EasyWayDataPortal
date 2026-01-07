@@ -4,6 +4,8 @@ Param(
   [switch]$Wiki,
   [switch]$KbConsistency,
   [switch]$AddKbRecipe,
+  [switch]$SyncAgentsReadme,
+  [switch]$AgentsManifestAudit,
   [switch]$WhatIf,
   [switch]$LogEvent
 )
@@ -115,6 +117,54 @@ if ($hasWiki) {
   }
 }
 
+if ($SyncAgentsReadme -or $All) {
+  if (Test-Path 'scripts/agents-readme-sync.ps1') {
+    $tasks += [pscustomobject]@{
+      Id = 4
+      Name = 'Sync Agents README'
+      Description = 'Allinea agents/README.md con le cartelle e i manifest attuali.'
+      Recommended = $true
+      Enabled = $true
+      Action = {
+        $out = & pwsh 'scripts/agents-readme-sync.ps1' -Mode check 2>&1 | Out-String
+        if ($LASTEXITCODE -eq 0) { Write-Host $out; return }
+
+        Write-Host $out
+        if (-not $Interactive) {
+          throw 'Agents README drift (non-interactive): esegui pwsh scripts/agents-readme-sync.ps1 -Mode fix e riprova.'
+        }
+
+        $ans = Read-Host "Vuoi applicare ora il fix a agents/README.md? [Invio=SI / n=No]"
+        if ($ans.Trim().ToLower() -eq 'n') {
+          throw "Fix rimandato dall'utente. TODO: esegui pwsh scripts/agents-readme-sync.ps1 -Mode fix"
+        }
+
+        $fixOut = & pwsh 'scripts/agents-readme-sync.ps1' -Mode fix 2>&1 | Out-String
+        Write-Host $fixOut
+        $recheck = & pwsh 'scripts/agents-readme-sync.ps1' -Mode check 2>&1 | Out-String
+        if ($LASTEXITCODE -ne 0) {
+          Write-Host $recheck
+          throw 'Fix applicato ma drift ancora presente: verificare agents/README.md'
+        }
+        Write-Host $recheck
+      }
+    }
+  }
+}
+
+if ($AgentsManifestAudit -or $All) {
+  if (Test-Path 'scripts/agents-manifest-audit.ps1') {
+    $tasks += [pscustomobject]@{
+      Id = 5
+      Name = 'Agents Manifest Audit (advisory)'
+      Description = 'Analizza agents/*/manifest.json e produce lista gap per agente (RAG-ready).'
+      Recommended = $true
+      Enabled = $true
+      Action = { pwsh 'scripts/agents-manifest-audit.ps1' | Out-Host }
+    }
+  }
+}
+
 $kbRecommended = ($changedDbApi -or $changedAdoScripts -or $changedAgentsDocs)
 $tasks += [pscustomobject]@{
   Id = 2
@@ -181,6 +231,8 @@ function Select-Tasks($tasks) {
   if ($Wiki) { $explicit += 1 }
   if ($KbConsistency) { $explicit += 2 }
   if ($AddKbRecipe) { $explicit += 3 }
+  if ($SyncAgentsReadme) { $explicit += 4 }
+  if ($AgentsManifestAudit) { $explicit += 5 }
   if ($explicit.Count -gt 0) { return $tasks | Where-Object { $_.Enabled -and ($explicit -contains $_.Id) } }
   if (-not $Interactive) { return $tasks | Where-Object { $_.Enabled -and $_.Recommended } }
 

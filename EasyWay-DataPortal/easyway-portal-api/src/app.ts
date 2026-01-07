@@ -18,6 +18,7 @@ import usersRoutes from "./routes/users";
 import onboardingRoutes from "./routes/onboarding";
 import notificationsRoutes from "./routes/notifications";
 import docsRoutes from "./routes/docs";
+import dbRoutes from "./routes/db";
 
 // Carica variabili di ambiente (.env) e fallback opzionale .env.local
 dotenv.config();
@@ -77,5 +78,6 @@ app.use("/api/users", usersRoutes);
 app.use("/api/onboarding", onboardingRoutes);
 app.use("/api/notifications", notificationsRoutes);
 app.use("/api/docs", docsRoutes);
+app.use("/api/db", dbRoutes);
 
 export default app;

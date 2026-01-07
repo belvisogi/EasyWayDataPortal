@@ -49,6 +49,57 @@
   "db_table_create_done": {
     "ok": "Operazione completata. Vuoi creare un'altra tabella o applicare la migrazione?"
   },
+  "api_error_triage_received": {
+    "ok": "Richiesta ricevuta. Valido i dati della chiamata API."
+  },
+  "api_error_triage_validated": {
+    "ok": "Spec valida. Avvio la classificazione.",
+    "error": "Spec non valida: controlla method, url e service."
+  },
+  "api_error_triage_triaged": {
+    "ok": "Errore classificato. Propongo azioni suggerite.",
+    "error": "Classificazione fallita. Verifica i dettagli."
+  },
+  "api_error_triage_logged": {
+    "ok": "Evento registrato nel log.",
+    "error": "Log non riuscito. Verifica permessi e path."
+  },
+  "api_error_triage_done": {
+    "ok": "Triage completato. Vuoi aprire una issue o rieseguire?"
+  },
+  "iam_provision_received": {
+    "ok": "Richiesta ricevuta. Valido requisiti e policy di sicurezza."
+  },
+  "iam_provision_validated": {
+    "ok": "Spec valida. Serve approvazione per procedere.",
+    "error": "Spec non valida: controlla target, identity e permessi."
+  },
+  "iam_provision_approved": {
+    "ok": "Approvato. Eseguo gli step con agenti (WhatIf o apply).",
+    "error": "Non approvato. Operazione annullata."
+  },
+  "iam_provision_executed": {
+    "ok": "Esecuzione completata. Registro audit e riferimenti.",
+    "error": "Esecuzione fallita. Verifica log e riprova."
+  },
+  "iam_provision_done": {
+    "ok": "Provisioning completato. Vuoi aggiungere un altro accesso?"
+  },
+  "rag_export_received": {
+    "ok": "Richiesta ricevuta. Rigenero gli artifact Wiki per il RAG."
+  },
+  "rag_export_done": {
+    "ok": "Export completato. Vuoi pubblicare gli artifact sul runtime?"
+  },
+  "runtime_bundle_received": {
+    "ok": "Richiesta ricevuta. Creo il runtime bundle (copia parziale, senza segreti)."
+  },
+  "runtime_bundle_done": {
+    "ok": "Bundle creato. Vuoi pubblicarlo sul runner?"
+  },
+  "obs_healthcheck_done": {
+    "ok": "Healthcheck completato."
+  },
   "actions": {
     "continue": "Continua",
     "retry": "Riprova",

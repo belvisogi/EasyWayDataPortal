@@ -5,15 +5,20 @@
     "db/flyway/**",
     "db/provisioning/**",
     "old/db/**",
-    "DataBase/README.md",
+    "db/README.md",
+    "out/**",
     "EasyWay-DataPortal/easyway-portal-api/src/tools/db/**",
     "scripts/db-ddl-inventory.ps1",
     "scripts/db-generate-table-artifacts.ps1",
+    "scripts/db-table-intent-from-sheet.ps1",
+    "scripts/db-table-lint.ps1",
+    "scripts/db-export-portal-blueprint-csv.ps1",
     "scripts/export-db-objects.ps1",
     "scripts/variables/db-required-objects.sample.json",
     "Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/**",
     "Wiki/EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/**",
     "docs/agentic/templates/intents/**",
+    "docs/agentic/templates/sheets/**",
     "agents/kb/recipes.jsonl"
   ],
   "allowed_tools": ["flyway", "npm", "pwsh", "sqlcmd", "az"],
@@ -90,3 +95,4 @@
     "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
   ]
 }
+

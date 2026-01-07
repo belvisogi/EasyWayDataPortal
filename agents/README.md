@@ -9,14 +9,17 @@ Gli agent sono servizi/script modulari, ognuno responsabile di una funzione chia
 
 | Agent                    | Manifest      | Descrizione breve                                 | Template/Ricetta demo       |
 |--------------------------|--------------|--------------------------------------------------|-----------------------------|
-| agent_dba                | manifest.json| Migrazioni, inventario e audit DB, drift check   | templates/, test/, doc/     |
-| agent_governance         | manifest.json| Quality gates, checklist, doc enforce             | templates/, test/           |
-| agent_docs_review        | manifest.json| Normalizzazione Wiki, check glossario/Faq, Lint   | templates/, test/, check-*  |
-| agent_datalake           | manifest.json| Naming/ACL, compliance/esportazione Datalake      | templates/, doc/            |
-| agent_pr_manager         | manifest.json| Review, merge, gestione PR/issue                  | templates/                  |
-| agent_frontend           | manifest.json| Job di orchestrazione front-end                   | templates/                  |
-| agent_template           | manifest.json| Starter/boilerplate per nuovi agent               | templates/, doc/            |
-| ...                      | ...          | ...                                              | ...                         |
+| agent_ams                | manifest.json | Automazione operativa conversazionale (Checklist, Variable Group, deploy helpers) | templates/, doc/ |
+| agent_api                | manifest.json | Triage e tracciamento errori API; produce output strutturato per orchestrazioni n8n. | templates/, doc/ |
+| agent_datalake           | manifest.json | Gestione operativa e compliance del Datalake: naming, ACL, audit, retention, export log, policy. | templates/, doc/ |
+| agent_dba                | manifest.json | Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout | templates/, doc/ |
+| agent_docs_review        | manifest.json | Revisione documentazione: normalizzazione Wiki, indici/chunk, coerenza KB, supporto aggiunta ricette. | templates/, doc/ |
+| agent_dq_blueprint       | manifest.json | Genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX/schema, integrato con ARGOS. | templates/, doc/ |
+| agent_frontend           | manifest.json | Mini-portal e UI demo, integrazione branding, MSAL wiring | templates/, doc/ |
+| agent_governance         | manifest.json | Policy, qualità, gates e approvazioni per DB/API/Docs | templates/, doc/ |
+| agent_pr_manager         | manifest.json | Crea e propone Pull Request agentiche con esiti gates e riferimenti artifact. Nessun merge autonomo. | templates/, doc/ |
+| agent_scrummaster        | manifest.json | Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks. | templates/, doc/ |
+| agent_template           | manifest.json | Scheletro di agente agent-first: intent JSON, azioni idempotenti, output strutturato, allowed_paths. | templates/, doc/ |
 
 *(Aggiungi qui ogni nuovo agent, aggiorna la tabella custom)*
 
@@ -46,3 +49,4 @@ Gli agent sono servizi/script modulari, ognuno responsabile di una funzione chia
 
 > 📢 Contribuisci migliorando agent, ricette, test e documentazione!  
 > Proponi PR, issue o suggerimenti dove vuoi ampliare automazione e best practice.
+

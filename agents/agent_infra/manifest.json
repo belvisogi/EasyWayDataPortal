@@ -1,0 +1,32 @@
+{
+  "role": "Agent_Infra",
+  "description": "IaC/Terraform governato: validate/plan/apply (WhatIf-by-default), drift infra e runbook.",
+  "allowed_paths": [
+    "agents/agent_infra/**",
+    "scripts/agent-infra.ps1",
+    "infra/terraform/**",
+    "Wiki/EasyWayData.wiki/**",
+    "agents/kb/recipes.jsonl",
+    "agents/logs/**",
+    "out/**"
+  ],
+  "allowed_tools": ["pwsh", "terraform", "az"],
+  "required_gates": ["KB_Consistency"],
+  "approvals": {
+    "apply": ["Human_Governance_Approval"]
+  },
+  "knowledge_sources": [
+    "Wiki/EasyWayData.wiki/deploy-app-service.md",
+    "Wiki/EasyWayData.wiki/dr-inventory-matrix.md"
+  ],
+  "actions": [
+    {
+      "name": "infra:terraform-plan",
+      "description": "Esegue terraform init/validate/plan (no apply).",
+      "params": {
+        "workdir": { "type": "string", "required": false }
+      }
+    }
+  ]
+}
+

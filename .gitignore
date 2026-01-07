@@ -35,3 +35,7 @@ checklist.json
 drift.json
 gates-report.json
 event-schema-validate.log
+
+# Local run artifacts (keep out of git)
+out/**
+!out/README.md

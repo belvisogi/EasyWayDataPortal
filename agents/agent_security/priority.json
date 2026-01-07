@@ -1,0 +1,25 @@
+{
+  "rules": [
+    {
+      "id": "no-secret-in-logs",
+      "description": "Non loggare mai valori segreti (secretValue) e non stamparli in output.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["kv-secret:set"] },
+      "checklist": [
+        "Non includere secretValue nei log/eventi",
+        "Stampare solo secretName/vaultName e metadati",
+        "Preferire WhatIf in ambienti condivisi"
+      ]
+    },
+    {
+      "id": "kv-naming",
+      "description": "Naming coerente per secret (kebab con separatori).",
+      "severity": "advisory",
+      "when": { "intentContains": ["kv-secret:set", "kv-secret:reference"] },
+      "checklist": [
+        "Usare pattern: <system>--<area>--<name> (es. db--portal--connstring)",
+        "Aggiungere tag owner/scope se disponibili"
+      ]
+    }
+  ]
+}

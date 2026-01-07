@@ -10,8 +10,7 @@
     "scripts/**",
     "db/**",
     "old/db/**",
-    "DataBase/**",
-    "EasyWay-DataPortal/easyway-portal-api/**"
+        "EasyWay-DataPortal/easyway-portal-api/**"
   ],
   "allowed_tools": ["pwsh", "node"],
   "required_gates": ["Checklist", "DB_Drift", "KB_Consistency"],
@@ -25,3 +24,4 @@
     "Wiki/EasyWayData.wiki/checklist-ado-required-job.md"
   ]
 }
+

@@ -1,0 +1,5 @@
+name,logical_name,description,sql_type,nullable,default,pk,identity,pii,classification,masking,example_value,ref_schema,ref_table,ref_column
+sample_feature_flag_id,ID feature flag,"Chiave tecnica della tabella.",int,false,,true,true,none,internal,none,,,
+tenant_id,Tenant ID,"FK al tenant.",nvarchar(50),false,,false,false,none,internal,none,,PORTAL,TENANT,tenant_id
+flag_key,Flag key,"Chiave logica della feature flag.",nvarchar(200),false,,false,false,none,internal,none,feature_x,,
+flag_value,Flag value,"Valore della feature flag (opzionale).",nvarchar(200),true,,false,false,none,internal,none,on,,

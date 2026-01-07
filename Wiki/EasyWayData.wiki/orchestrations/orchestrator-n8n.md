@@ -21,6 +21,10 @@ Scopo
 - Esporre un punto unico per esecuzioni agentiche via n8n (locale/server), riusabile da UI/CLI/agent.
 - Garantire coerenza con i manifest WHAT-first e i gate (Checklist/DB Drift/KB Consistency, Doc Alignment).
 
+Policy (canonico)
+- Tutti i nuovi intent devono passare da `orchestrator.n8n.dispatch` come entrypoint unico.
+- Motivazione: coerenza, audit, log uniformi e facilità di retrieval/RAG.
+
 ## Domande a cui risponde
 - Qual è il contratto di input (campi obbligatori) per dispatchare un intent via n8n?
 - Quali gate vengono eseguiti pre-dispatch e come funziona `whatIf` (default e override)?
@@ -38,6 +42,27 @@ Input (contratto)
 Output (standard)
 - `workflow_id`, `run_id`, `dispatch_ok`, `gate_precheck` (risultati sintetici dei gate opzionali).
 - Struttura conforme a `output-contract` (action-result), arricchita con `diary_log_fields` ove presenti.
+
+Esempio (intent -> n8n.dispatch -> agent)
+```json
+{
+  "action": "orchestrator.n8n.dispatch",
+  "params": {
+    "action": "db-user:create",
+    "params": {
+      "mode": "sql-contained",
+      "database": "EasyWayDataPortal",
+      "username": "svc_tenant01_writer",
+      "roles": ["portal_reader", "portal_writer"],
+      "storeInKeyVault": true,
+      "keyvault": { "name": "kv-easyway-dev", "secretName": "sql-user-svc_tenant01_writer" }
+    },
+    "whatIf": true,
+    "nonInteractive": true,
+    "correlationId": "op-2026-01-06-001"
+  }
+}
+```
 
 Gates e controlli
 - Pre-dispatch: Doc Alignment + Checklist opzionale in WhatIf; DB Drift/KB Consistency se rilevanti.

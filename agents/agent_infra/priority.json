@@ -1,0 +1,15 @@
+{
+  "rules": [
+    {
+      "id": "whatif-by-default",
+      "description": "Apply non consentito senza approvazione esplicita.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["terraform", "infra"] },
+      "checklist": [
+        "Usare plan come default",
+        "Apply solo con Human_Governance_Approval"
+      ]
+    }
+  ]
+}
+

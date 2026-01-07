@@ -13,6 +13,7 @@ tags:
   - name: users
   - name: onboarding
   - name: notifications
+  - name: db
 security:
   - BearerAuth: []
 paths:
@@ -147,6 +148,30 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '500':
           $ref: '#/components/responses/ServerError'
+  /api/db/diagram:
+    get:
+      tags: [db]
+      summary: Diagramma DB (PORTAL) per viewer interno
+      parameters:
+        - name: schema
+          in: query
+          required: false
+          schema: { type: string, example: PORTAL }
+      responses:
+        '200':
+          description: JSON diagram model
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Diagram not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     Error:

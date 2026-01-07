@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "id": "api-input-minimum",
+      "description": "Verifica che l'intent includa i campi minimi (request.method, request.url, service, environment).",
+      "severity": "mandatory",
+      "when": { "intentContains": ["api.error.triage", "api-error:triage"] },
+      "checklist": [
+        "request.method presente e valido",
+        "request.url presente (no token in query)",
+        "service e environment valorizzati",
+        "correlationId presente se disponibile"
+      ]
+    },
+    {
+      "id": "auth-redaction",
+      "description": "Assicurarsi che token e cookie non finiscano nei log.",
+      "severity": "mandatory",
+      "when": { "headersContain": ["authorization", "cookie", "x-api-key"] },
+      "checklist": [
+        "Redigere Authorization/Cookie/X-API-Key",
+        "Non loggare body con PII non mascherata"
+      ]
+    },
+    {
+      "id": "retry-policy",
+      "description": "Suggerire retry solo per errori transienti (429/5xx/network).",
+      "severity": "advisory",
+      "when": { "statusIn": ["429", "500", "502", "503", "504"] },
+      "checklist": [
+        "Impostare retry con backoff",
+        "Valutare circuit breaker per 5xx ripetuti"
+      ]
+    }
+  ]
+}

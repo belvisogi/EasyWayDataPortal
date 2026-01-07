@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "id": "bundle-no-secrets",
+      "description": "Il bundle non deve includere .env, secrets o out runtime.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["runtime:bundle"] },
+      "checklist": [
+        "Escludere .env* e *secrets*",
+        "Escludere out/**",
+        "Includere solo scripts/agents/docs templates"
+      ]
+    }
+  ]
+}
+

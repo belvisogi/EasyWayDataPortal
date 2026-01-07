@@ -112,32 +112,55 @@ $now = (Get-Date).ToUniversalTime().ToString('o')
 switch ($Action) {
   'db-table:create' {
     $p = $intent.params
-    $summaryOut = if ($p.summaryOut) { [string]$p.summaryOut } else { 'db-table-create.json' }
+    $summaryOut = if ($p.summaryOut) { [string]$p.summaryOut } else { 'out/db/db-table-create.json' }
 
     $genArgs = @('-IntentPath', $IntentPath, '-SummaryOut', $summaryOut)
     if ($WhatIf) { $genArgs += '-WhatIf' }
 
+    # Lint semantico (fail-fast)
+    $lintPath = 'out/db/db-table-lint.json'
+    $lintOk = $true
+    $lintRaw = ''
+    try {
+      $lintRaw = & pwsh @('scripts/db-table-lint.ps1') @('-IntentPath', $IntentPath, '-OutJson', $lintPath) 2>&1 | Out-String
+      $lint = $lintRaw | ConvertFrom-Json -ErrorAction Stop
+      $lintOk = [bool]$lint.ok
+    } catch {
+      $lintOk = $false
+      $lintRaw = ("lint failed: " + $_.Exception.Message)
+    }
+
     $executed = $false
     $errorMsg = $null
-    $raw = $null
-    try {
-      $raw = & pwsh @('scripts/db-generate-table-artifacts.ps1') @genArgs 2>&1 | Out-String
-      $executed = $true
-    } catch { $errorMsg = $_.Exception.Message }
+    $raw = ''
+    if (-not $lintOk) {
+      $errorMsg = "db-table:create lint failed. Fix errors/warnings and re-run. Lint report: $lintPath"
+      $raw = $lintRaw
+    } else {
+      try {
+        $raw = & pwsh @('scripts/db-generate-table-artifacts.ps1') @genArgs 2>&1 | Out-String
+        $executed = $true
+      } catch { $errorMsg = $_.Exception.Message; $raw = '' }
+    }
+
+    $finishedAt = (Get-Date).ToUniversalTime().ToString('o')
+    $intentCorrelationId = if ($intent -and $intent.correlationId) { $intent.correlationId } else { $null }
+    $rawTrim = if ($raw) { $raw.Trim() } else { '' }
 
     $result = [ordered]@{
       action = $Action
       ok = ($errorMsg -eq $null)
       whatIf = [bool]$WhatIf
       nonInteractive = [bool]$NonInteractive
-      correlationId = $intent?.correlationId
+      correlationId = $intentCorrelationId
       startedAt = $now
-      finishedAt = (Get-Date).ToUniversalTime().ToString('o')
+      finishedAt = $finishedAt
       output = [ordered]@{
+        lint = [ordered]@{ ok = [bool]$lintOk; report = $lintPath }
         executed = $executed
         summaryOut = $summaryOut
         hint = 'Questo step genera artefatti (Flyway + Wiki) ma non applica sul DB. Per apply su DB serve gate + approvazione.'
-        raw = ($raw?.Trim())
+        raw = $rawTrim
       }
       error = $errorMsg
     }
@@ -148,7 +171,7 @@ switch ($Action) {
   }
   'db-doc:ddl-inventory' {
     $p = $intent.params
-    $dbDir = if ($p.dbDir) { [string]$p.dbDir } else { 'DataBase' }
+    $dbDir = if ($p.dbDir) { [string]$p.dbDir } else { 'old/db/DataBase_legacy' }
     $includeProvisioning = if ($null -ne $p.includeProvisioning) { [bool]$p.includeProvisioning } else { $false }
     $includeSnapshot = if ($null -ne $p.includeSnapshot) { [bool]$p.includeSnapshot } else { $false }
     $writeWiki = if ($null -ne $p.writeWiki) { [bool]$p.writeWiki } else { $true }
@@ -161,7 +184,7 @@ switch ($Action) {
 
     $executed = $false
     $errorMsg = $null
-    $outJson = $null
+    $outJson = ''
     if ($WhatIf) {
       # WhatIf per questo step: non applica -WriteWiki
       $argsWhatIf = @('-DbDir', $dbDir, '-SummaryOut', $summaryOut)
@@ -170,12 +193,12 @@ switch ($Action) {
       try {
         $outJson = & pwsh @('scripts/db-ddl-inventory.ps1') @argsWhatIf 2>&1 | Out-String
         $executed = $true
-      } catch { $errorMsg = $_.Exception.Message }
+      } catch { $errorMsg = $_.Exception.Message; $outJson = '' }
     } else {
       try {
         $outJson = & pwsh @('scripts/db-ddl-inventory.ps1') @args 2>&1 | Out-String
         $executed = $true
-      } catch { $errorMsg = $_.Exception.Message }
+      } catch { $errorMsg = $_.Exception.Message; $outJson = '' }
     }
 
     $result = [ordered]@{
@@ -337,7 +360,7 @@ switch ($Action) {
     if ($executed -and -not $errorMsg) { try { $stateAfter = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateAfter = $null } }
     $result = [ordered]@{
       action=$Action; ok=($errorMsg -eq $null); whatIf=[bool]$WhatIf; nonInteractive=[bool]$NonInteractive; correlationId=$intent?.correlationId; startedAt=$now; finishedAt=(Get-Date).ToUniversalTime().ToString('o');
-      output=[ordered]@{ server=$server; database=$db; username=$username; executed=$executed; keyVaultSet=$kvSet; passwordMasked=($password.Substring(0,4)+'…'+$password.Substring($password.Length-2)); tsqlPreview=$tsqlText; auth=($useAAD?'aad':'sql'); stateBefore=$stateBefore; preCheck=$preCheck; stateAfter=$stateAfter; summary=('rotate password for ' + $username + (if ($WhatIf){' (whatIf)'} else {' (applied)'})) };
+      output=[ordered]@{ server=$server; database=$db; username=$username; executed=$executed; keyVaultSet=$kvSet; passwordMasked=($password.Substring(0,4)+'…'+$password.Substring($password.Length-2)); tsqlPreview=$tsqlText; auth=($useAAD ? 'aad' : 'sql'); stateBefore=$stateBefore; preCheck=$preCheck; stateAfter=$stateAfter; summary=('rotate password for ' + $username + (if ($WhatIf){' (whatIf)'} else {' (applied)'})) };
       error=$errorMsg }
     $result.contractId = 'action-result'
     $result.contractVersion = '1.0'
@@ -380,7 +403,7 @@ switch ($Action) {
     if ($executed -and -not $errorMsg) { try { $stateAfter = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateAfter = $null } }
     $result = [ordered]@{
       action=$Action; ok=($errorMsg -eq $null); whatIf=[bool]$WhatIf; nonInteractive=[bool]$NonInteractive; correlationId=$intent?.correlationId; startedAt=$now; finishedAt=(Get-Date).ToUniversalTime().ToString('o');
-      output=[ordered]@{ server=$server; database=$db; username=$username; executed=$executed; tsqlPreview=$tsqlText; auth=($useAAD?'aad':'sql'); stateBefore=$stateBefore; preCheck=$preCheck; stateAfter=$stateAfter; summary=('revoke user ' + $username + (if ($WhatIf){' (whatIf)'} else {' (applied)'})) };
+      output=[ordered]@{ server=$server; database=$db; username=$username; executed=$executed; tsqlPreview=$tsqlText; auth=($useAAD ? 'aad' : 'sql'); stateBefore=$stateBefore; preCheck=$preCheck; stateAfter=$stateAfter; summary=('revoke user ' + $username + (if ($WhatIf){' (whatIf)'} else {' (applied)'})) };
       error=$errorMsg }
     $result.contractId = 'action-result'
     $result.contractVersion = '1.0'

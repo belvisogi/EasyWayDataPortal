@@ -40,6 +40,10 @@ Osservabilità
 Riferimenti
 - Start here: `start-here.md`
 - Metodo: `agent-first-method.md`
+- Registry agent: `control-plane/agents-registry.md`
+- Audit manifest agent: `control-plane/agents-manifest-audit.md`
+- Segregation model: `control-plane/segregation-model-dev-knowledge-runtime.md`
+- Roadmap agent: `control-plane/agents-missing-roadmap.md`
 - Orchestrazioni: `orchestrations/wf-excel-csv-upload.md`
 
 

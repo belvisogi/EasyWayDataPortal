@@ -49,6 +49,57 @@
   "db_table_create_done": {
     "ok": "Completed. Want to create another table or apply the migration?"
   },
+  "api_error_triage_received": {
+    "ok": "Request received. Validating the API call data."
+  },
+  "api_error_triage_validated": {
+    "ok": "Spec valid. Starting classification.",
+    "error": "Invalid spec: check method, url and service."
+  },
+  "api_error_triage_triaged": {
+    "ok": "Error classified. Suggesting next actions.",
+    "error": "Classification failed. Check details."
+  },
+  "api_error_triage_logged": {
+    "ok": "Event logged.",
+    "error": "Logging failed. Check permissions and path."
+  },
+  "api_error_triage_done": {
+    "ok": "Triage completed. Want to open an issue or retry?"
+  },
+  "iam_provision_received": {
+    "ok": "Request received. Validating requirements and security policy."
+  },
+  "iam_provision_validated": {
+    "ok": "Spec valid. Approval required to proceed.",
+    "error": "Invalid spec: check target, identity and permissions."
+  },
+  "iam_provision_approved": {
+    "ok": "Approved. Executing steps via agents (WhatIf or apply).",
+    "error": "Not approved. Operation cancelled."
+  },
+  "iam_provision_executed": {
+    "ok": "Execution completed. Recording audit and references.",
+    "error": "Execution failed. Check logs and retry."
+  },
+  "iam_provision_done": {
+    "ok": "Provisioning completed. Want to add another access?"
+  },
+  "rag_export_received": {
+    "ok": "Request received. Regenerating Wiki artifacts for RAG."
+  },
+  "rag_export_done": {
+    "ok": "Export completed. Want to publish artifacts to runtime?"
+  },
+  "runtime_bundle_received": {
+    "ok": "Request received. Creating runtime bundle (partial copy, no secrets)."
+  },
+  "runtime_bundle_done": {
+    "ok": "Bundle created. Want to publish it to the runner?"
+  },
+  "obs_healthcheck_done": {
+    "ok": "Healthcheck completed."
+  },
   "actions": {
     "continue": "Continue",
     "retry": "Retry",

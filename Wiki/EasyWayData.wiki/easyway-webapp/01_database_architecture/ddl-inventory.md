@@ -64,6 +64,7 @@ Deploy operativa: usare migrazioni Flyway in `db/flyway/` (apply controllato).
 
 ## Dove e' documentato (Wiki)
 - Overview schema/tabelle: `easyway-webapp/01_database_architecture/portal.md`
+- Data dictionary tabelle (blueprint): `easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/index.md`
 - Overview SP: `easyway-webapp/01_database_architecture/storeprocess.md`
 - SP per area: `easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md`
 - Logging: `easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md`

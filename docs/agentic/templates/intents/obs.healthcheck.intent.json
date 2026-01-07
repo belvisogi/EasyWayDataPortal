@@ -1,0 +1,20 @@
+{
+  "id": "obs.healthcheck",
+  "what": {
+    "purpose": "Eseguire healthcheck minimale (file-based) per runtime agentico e produrre output strutturato per n8n.",
+    "inputs": {
+      "paths": { "type": "array", "items": { "type": "string" } },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "checks": { "type": "array", "items": { "type": "object" } }
+    },
+    "events": ["obs.healthcheck.started", "obs.healthcheck.completed"],
+    "success_criteria": ["Output disponibile"],
+    "failure_criteria": ["Errore script"]
+  }
+}
+

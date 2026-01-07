@@ -1,0 +1,30 @@
+{
+  "role": "Agent_Backend",
+  "description": "Owner implementazione API: OpenAPI, pattern middleware auth/tenant, lint e scaffolding endpoint (distinct da agent_api triage).",
+  "allowed_paths": [
+    "agents/agent_backend/**",
+    "scripts/agent-backend.ps1",
+    "EasyWay-DataPortal/easyway-portal-api/**",
+    "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/**",
+    "agents/kb/recipes.jsonl",
+    "agents/logs/**",
+    "out/**"
+  ],
+  "allowed_tools": ["pwsh", "npm"],
+  "required_gates": ["Checklist", "KB_Consistency"],
+  "approvals": {},
+  "knowledge_sources": [
+    "EasyWay-DataPortal/easyway-portal-api/openapi/openapi.yaml",
+    "Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md"
+  ],
+  "actions": [
+    {
+      "name": "api:openapi-validate",
+      "description": "Valida l'OpenAPI locale (schema/consistenza).",
+      "params": {
+        "apiPath": { "type": "string", "required": false }
+      }
+    }
+  ]
+}
+

@@ -13,11 +13,15 @@ Uso
 - Dry‑run:
   - `pwsh scripts/agent-docs-review.ps1 -WhatIf`
 
-Attività
-- Wiki Normalize & Review: naming/front‑matter/ancore + rebuild indici/chunk.
+Attivita'
+- Wiki Normalize & Review: naming/front-matter/ancore + rebuild indici/chunk.
 - KB Consistency (advisory): suggerisce update KB/Wiki quando cambiano DB/API/agents docs.
-- Aggiungi Ricetta KB (guidata): popola `agents/kb/recipes.jsonl` usando `scripts/agent-kb-add.ps1`.
+- Aggiungi Ricetta KB (guidata): popola agents/kb/recipes.jsonl usando scripts/agent-kb-add.ps1.
+- Sync Agents README: allinea agents/README.md con cartelle e manifest.
+- Agents Manifest Audit (advisory): produce lista gap per agente da agents/*/manifest.json.
 
 Note
 - Richiede PowerShell 7+. Per il controllo “KB Consistency” è consigliato git in PATH.
+
+
 

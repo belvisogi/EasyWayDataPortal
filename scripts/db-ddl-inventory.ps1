@@ -19,6 +19,11 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+function Ensure-Dir([string]$p) {
+  if (-not $p) { return }
+  if (-not (Test-Path -LiteralPath $p)) { New-Item -ItemType Directory -Force -Path $p | Out-Null }
+}
+
 function Read-Text([string]$p) {
   if (-not (Test-Path -LiteralPath $p)) { throw "File not found: $p" }
   return (Get-Content -LiteralPath $p -Raw -Encoding UTF8)
@@ -362,5 +367,7 @@ if ($WriteWiki) {
 }
 
 $json = $summary | ConvertTo-Json -Depth 7
+$summaryDir = Split-Path -Parent $SummaryOut
+if ($summaryDir) { Ensure-Dir $summaryDir }
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json

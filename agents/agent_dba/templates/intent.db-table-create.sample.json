@@ -4,11 +4,10 @@
     "schema": "PORTAL",
     "table": "sample_feature_flag",
     "columns": [
-      { "name": "sample_feature_flag_id", "sql_type": "int", "identity": true, "pk": true, "nullable": false, "pii": "none" },
-      { "name": "tenant_id", "sql_type": "int", "nullable": false, "pii": "none", "description": "Tenant FK" },
-      { "name": "flag_key", "sql_type": "nvarchar(200)", "nullable": false, "pii": "none" },
-      { "name": "flag_value", "sql_type": "nvarchar(200)", "nullable": true, "pii": "none" },
-      { "name": "created_at", "sql_type": "datetime2(3)", "nullable": false, "default": "sysutcdatetime()", "pii": "none" }
+      { "name": "sample_feature_flag_id", "logical_name": "ID feature flag", "sql_type": "int", "identity": true, "pk": true, "nullable": false, "pii": "none", "description": "Chiave tecnica della tabella." },
+      { "name": "tenant_id", "logical_name": "Tenant ID", "sql_type": "nvarchar(50)", "nullable": false, "pii": "none", "description": "FK al tenant." },
+      { "name": "flag_key", "logical_name": "Flag key", "sql_type": "nvarchar(200)", "nullable": false, "pii": "none", "description": "Chiave logica della feature flag." },
+      { "name": "flag_value", "logical_name": "Flag value", "sql_type": "nvarchar(200)", "nullable": true, "pii": "none", "description": "Valore della feature flag (opzionale)." }
     ],
     "indexes": [
       { "columns": ["tenant_id", "flag_key"], "unique": true }
@@ -19,16 +18,21 @@
     },
     "documentation": {
       "owner": "team-data",
+      "logical_name": "Feature flags per tenant",
+      "domain": "onboarding",
+      "classification": "internal",
       "summary": "Tabella di esempio per feature flags per tenant (sample).",
+      "description": "Tabella di esempio per feature flags per tenant (sample).",
       "tags": ["artifact/table"]
     },
+    "includeAudit": true,
+    "includeSoftDelete": false,
     "writeWiki": true,
     "writeFlyway": true,
     "writeDatabaseSnapshot": false,
-    "summaryOut": "db-table-create.sample_feature_flag.json"
+    "summaryOut": "out/db/db-table-create.sample_feature_flag.json"
   },
   "whatIf": true,
   "nonInteractive": true,
   "correlationId": "db-table-create-001"
 }
-

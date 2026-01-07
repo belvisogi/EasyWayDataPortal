@@ -1,0 +1,20 @@
+{
+  "id": "runtime.bundle",
+  "what": {
+    "purpose": "Creare un bundle runtime (copia parziale del repo) per runner segregato, senza segreti.",
+    "inputs": {
+      "outZip": { "type": "string", "default": "out/runtime/easyway-runtime-bundle.zip" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "outZip": { "type": "string" }
+    },
+    "events": ["runtime.bundle.started", "runtime.bundle.completed"],
+    "success_criteria": ["Bundle creato (se whatIf=false)", "No segreti inclusi"],
+    "failure_criteria": ["Compress-Archive fallito"]
+  }
+}
+

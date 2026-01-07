@@ -17,6 +17,9 @@ next: TODO - definire next step.
 
 # Mapping Matrix - Workflow → Intent → Implementazione
 
+Nota
+- Censimento agent (ownership + domini + entrypoint): control-plane/agents-registry.md.
+
 ## Control Plane
 
 | Item | Tipo | Owner | Entrypoint | Artefatti | KB | Wiki |
@@ -56,11 +59,7 @@ next: TODO - definire next step.
 | wiki-frontmatter-lint | gate | Agent_Governance | `pwsh scripts/wiki-frontmatter-lint.ps1 -FailOnError` | `wiki-frontmatter-lint.json` (artifact) | `whatfirst-lint` | `howto-what-first-team.md` |
 
 ## Note operative
-- La colonna Entrypoint è “canonico”: molti intent hanno anche `IntentPath` sample in `agents/<agent>/templates/*.sample.json`.
+- La colonna Entrypoint e' canonica: tutti i nuovi intent passano da `orchestrator.n8n.dispatch`.
+- Molti intent hanno anche `IntentPath` sample in `agents/<agent>/templates/*.sample.json`.
 - Per aggiungere un nuovo intent: aggiungi schema WHAT in `docs/agentic/templates/intents/`, aggiorna questa matrice, aggiungi ricetta KB e pagina Wiki.
-
-
-
-
-
 

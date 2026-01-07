@@ -58,9 +58,34 @@ Esempio — Creazione utente DB
   "correlationId": "op-2025-10-21-001"
 }
 
+Flusso standard (n8n.dispatch)
+Obiettivo: tutti i nuovi intent passano dall'orchestratore n8n come entrypoint unico.
+
+Esempio - Dispatch verso agente
+```json
+{
+  "action": "orchestrator.n8n.dispatch",
+  "params": {
+    "action": "db-user:create",
+    "params": {
+      "mode": "sql-contained",
+      "database": "EasyWayDataPortal",
+      "username": "svc_tenant01_writer",
+      "roles": ["portal_reader", "portal_writer"],
+      "storeInKeyVault": true,
+      "keyvault": { "name": "kv-easyway-dev", "secretName": "sql-user-svc_tenant01_writer" }
+    },
+    "whatIf": true,
+    "nonInteractive": true,
+    "correlationId": "op-2026-01-06-001",
+    "decision_trace_id": "trace-001"
+  }
+}
+```
 Note
 - Ogni azione documenta i propri params nella pagina Wiki dedicata.
 - I manifest degli agent elencano le azioni supportate.
+
 
 
 

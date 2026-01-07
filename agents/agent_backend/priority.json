@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "id": "openapi-first",
+      "description": "Ogni endpoint deve avere OpenAPI aggiornato e policy auth/tenant coerente.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["api", "endpoint"] },
+      "checklist": [
+        "OpenAPI aggiornato",
+        "Middleware auth/tenant applicati",
+        "KB/Wiki aggiornate"
+      ]
+    }
+  ]
+}
+

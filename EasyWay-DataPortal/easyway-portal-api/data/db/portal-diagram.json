@@ -1,0 +1,842 @@
+{
+  "ok": true,
+  "schema": "PORTAL",
+  "sourceOfTruth": {
+    "flywaySqlDir": "db/flyway/sql"
+  },
+  "generatedAtUtc": "2026-01-06T21:51:01.423Z",
+  "nodes": [
+    {
+      "id": "PORTAL.CONFIGURATION",
+      "schema": "PORTAL",
+      "table": "CONFIGURATION"
+    },
+    {
+      "id": "PORTAL.LOG_AUDIT",
+      "schema": "PORTAL",
+      "table": "LOG_AUDIT"
+    },
+    {
+      "id": "PORTAL.MASKING_METADATA",
+      "schema": "PORTAL",
+      "table": "MASKING_METADATA"
+    },
+    {
+      "id": "PORTAL.PROFILE_DOMAINS",
+      "schema": "PORTAL",
+      "table": "PROFILE_DOMAINS"
+    },
+    {
+      "id": "PORTAL.RLS_METADATA",
+      "schema": "PORTAL",
+      "table": "RLS_METADATA"
+    },
+    {
+      "id": "PORTAL.SECTION_ACCESS",
+      "schema": "PORTAL",
+      "table": "SECTION_ACCESS"
+    },
+    {
+      "id": "PORTAL.STATS_EXECUTION_LOG",
+      "schema": "PORTAL",
+      "table": "STATS_EXECUTION_LOG"
+    },
+    {
+      "id": "PORTAL.STATS_EXECUTION_TABLE_LOG",
+      "schema": "PORTAL",
+      "table": "STATS_EXECUTION_TABLE_LOG"
+    },
+    {
+      "id": "PORTAL.SUBSCRIPTION",
+      "schema": "PORTAL",
+      "table": "SUBSCRIPTION"
+    },
+    {
+      "id": "PORTAL.TENANT",
+      "schema": "PORTAL",
+      "table": "TENANT"
+    },
+    {
+      "id": "PORTAL.USER_NOTIFICATION_SETTINGS",
+      "schema": "PORTAL",
+      "table": "USER_NOTIFICATION_SETTINGS"
+    },
+    {
+      "id": "PORTAL.USERS",
+      "schema": "PORTAL",
+      "table": "USERS"
+    }
+  ],
+  "columns": [
+    {
+      "table": "PORTAL.CONFIGURATION",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "tenant_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "section",
+          "sql_type": "nvarchar(64)",
+          "nullable": true
+        },
+        {
+          "name": "config_key",
+          "sql_type": "nvarchar(100)",
+          "nullable": false
+        },
+        {
+          "name": "config_value",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "enabled",
+          "sql_type": "bit",
+          "nullable": false
+        },
+        {
+          "name": "created_by",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.LOG_AUDIT",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "event_time",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "tenant_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "actor",
+          "sql_type": "nvarchar(255)",
+          "nullable": true
+        },
+        {
+          "name": "origin",
+          "sql_type": "nvarchar(64)",
+          "nullable": true
+        },
+        {
+          "name": "category",
+          "sql_type": "nvarchar(64)",
+          "nullable": true
+        },
+        {
+          "name": "message",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "payload",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "sql_type": "nvarchar(32)",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.MASKING_METADATA",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "tenant_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "schema_name",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "table_name",
+          "sql_type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "column_name",
+          "sql_type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "mask_type",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "note",
+          "sql_type": "nvarchar(255)",
+          "nullable": true
+        },
+        {
+          "name": "ext_attributes",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "created_by",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.PROFILE_DOMAINS",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "profile_code",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "description",
+          "sql_type": "nvarchar(255)",
+          "nullable": true
+        },
+        {
+          "name": "ext_attributes",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "created_by",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.RLS_METADATA",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "tenant_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "schema_name",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "table_name",
+          "sql_type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "column_name",
+          "sql_type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "policy_name",
+          "sql_type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "predicate_function",
+          "sql_type": "nvarchar(255)",
+          "nullable": true
+        },
+        {
+          "name": "note",
+          "sql_type": "nvarchar(255)",
+          "nullable": true
+        },
+        {
+          "name": "ext_attributes",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "created_by",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.SECTION_ACCESS",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "tenant_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "section_code",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "profile_code",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "user_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "is_enabled",
+          "sql_type": "bit",
+          "nullable": true
+        },
+        {
+          "name": "valid_from",
+          "sql_type": "datetime2",
+          "nullable": true
+        },
+        {
+          "name": "valid_to",
+          "sql_type": "datetime2",
+          "nullable": true
+        },
+        {
+          "name": "ext_attributes",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "created_by",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.STATS_EXECUTION_LOG",
+      "columns": [
+        {
+          "name": "execution_id",
+          "sql_type": "uniqueidentifier",
+          "nullable": false
+        },
+        {
+          "name": "proc_name",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "tenant_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "start_time",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "end_time",
+          "sql_type": "datetime2",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "sql_type": "nvarchar(16)",
+          "nullable": true
+        },
+        {
+          "name": "error_message",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "rows_inserted",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "rows_updated",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "rows_deleted",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "created_by",
+          "sql_type": "nvarchar(255)",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.STATS_EXECUTION_TABLE_LOG",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "execution_id",
+          "sql_type": "uniqueidentifier",
+          "nullable": false
+        },
+        {
+          "name": "table_name",
+          "sql_type": "nvarchar(256)",
+          "nullable": false
+        },
+        {
+          "name": "operation_types",
+          "sql_type": "nvarchar(64)",
+          "nullable": true
+        },
+        {
+          "name": "rows_affected",
+          "sql_type": "int",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.SUBSCRIPTION",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "tenant_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "plan_code",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "start_date",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "end_date",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "external_payment_id",
+          "sql_type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "payment_provider",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "last_payment_date",
+          "sql_type": "datetime2",
+          "nullable": true
+        },
+        {
+          "name": "ext_attributes",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "created_by",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.TENANT",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "tenant_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "tenant_name",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "plan_code",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "ext_attributes",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "created_by",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.USER_NOTIFICATION_SETTINGS",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "tenant_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "user_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "notify_on_upload",
+          "sql_type": "bit",
+          "nullable": true
+        },
+        {
+          "name": "notify_on_alert",
+          "sql_type": "bit",
+          "nullable": true
+        },
+        {
+          "name": "notify_on_digest",
+          "sql_type": "bit",
+          "nullable": true
+        },
+        {
+          "name": "ext_attributes",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "created_by",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "table": "PORTAL.USERS",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "int",
+          "nullable": true
+        },
+        {
+          "name": "user_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "tenant_id",
+          "sql_type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "email",
+          "sql_type": "nvarchar(320)",
+          "nullable": false
+        },
+        {
+          "name": "display_name",
+          "sql_type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "profile_id",
+          "sql_type": "nvarchar(64)",
+          "nullable": true
+        },
+        {
+          "name": "is_active",
+          "sql_type": "bit",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "sql_type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "ext_attributes",
+          "sql_type": "nvarchar(max)",
+          "nullable": true
+        },
+        {
+          "name": "created_by",
+          "sql_type": "nvarchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "sql_type": "datetime2",
+          "nullable": false
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "PORTAL.USERS",
+      "fromColumn": "tenant_id",
+      "to": "PORTAL.TENANT",
+      "toColumn": "tenant_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: tenant_id references PORTAL.TENANT.tenant_id"
+    },
+    {
+      "from": "PORTAL.CONFIGURATION",
+      "fromColumn": "tenant_id",
+      "to": "PORTAL.TENANT",
+      "toColumn": "tenant_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: tenant_id references PORTAL.TENANT.tenant_id"
+    },
+    {
+      "from": "PORTAL.SECTION_ACCESS",
+      "fromColumn": "tenant_id",
+      "to": "PORTAL.TENANT",
+      "toColumn": "tenant_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: tenant_id references PORTAL.TENANT.tenant_id"
+    },
+    {
+      "from": "PORTAL.SECTION_ACCESS",
+      "fromColumn": "user_id",
+      "to": "PORTAL.USERS",
+      "toColumn": "user_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: user_id references PORTAL.USERS.user_id (note: logical composite key may include tenant_id)."
+    },
+    {
+      "from": "PORTAL.SECTION_ACCESS",
+      "fromColumn": "profile_code",
+      "to": "PORTAL.PROFILE_DOMAINS",
+      "toColumn": "profile_code",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: profile_code references PORTAL.PROFILE_DOMAINS.profile_code"
+    },
+    {
+      "from": "PORTAL.USER_NOTIFICATION_SETTINGS",
+      "fromColumn": "tenant_id",
+      "to": "PORTAL.TENANT",
+      "toColumn": "tenant_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: tenant_id references PORTAL.TENANT.tenant_id"
+    },
+    {
+      "from": "PORTAL.USER_NOTIFICATION_SETTINGS",
+      "fromColumn": "user_id",
+      "to": "PORTAL.USERS",
+      "toColumn": "user_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: user_id references PORTAL.USERS.user_id (note: logical composite key may include tenant_id)."
+    },
+    {
+      "from": "PORTAL.SUBSCRIPTION",
+      "fromColumn": "tenant_id",
+      "to": "PORTAL.TENANT",
+      "toColumn": "tenant_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: tenant_id references PORTAL.TENANT.tenant_id"
+    },
+    {
+      "from": "PORTAL.MASKING_METADATA",
+      "fromColumn": "tenant_id",
+      "to": "PORTAL.TENANT",
+      "toColumn": "tenant_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: tenant_id references PORTAL.TENANT.tenant_id"
+    },
+    {
+      "from": "PORTAL.RLS_METADATA",
+      "fromColumn": "tenant_id",
+      "to": "PORTAL.TENANT",
+      "toColumn": "tenant_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: tenant_id references PORTAL.TENANT.tenant_id"
+    },
+    {
+      "from": "PORTAL.LOG_AUDIT",
+      "fromColumn": "tenant_id",
+      "to": "PORTAL.TENANT",
+      "toColumn": "tenant_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: tenant_id references PORTAL.TENANT.tenant_id"
+    },
+    {
+      "from": "PORTAL.STATS_EXECUTION_LOG",
+      "fromColumn": "tenant_id",
+      "to": "PORTAL.TENANT",
+      "toColumn": "tenant_id",
+      "kind": "inferred",
+      "confidence": "high",
+      "reason": "Convention: tenant_id references PORTAL.TENANT.tenant_id"
+    }
+  ]
+}

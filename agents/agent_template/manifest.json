@@ -21,7 +21,7 @@
       "EasyWay-DataPortal/easyway-portal-api/",
       "db/",
       "old/db/",
-      "DataBase/README.md"
+      "db/README.md"
     ],
     "write": [
       "agents/logs/",
@@ -29,3 +29,4 @@
     ]
   }
 }
+

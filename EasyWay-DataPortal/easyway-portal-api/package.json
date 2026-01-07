@@ -12,12 +12,13 @@
     "dev:jwt": "ts-node --transpile-only src/tools/dev-jwt.ts",
     "check:predeploy": "ts-node --transpile-only src/tools/checklist.ts",
     "db:generate-docs": "ts-node src/tools/db/generate-docs.ts",
+    "db:diagram:refresh": "ts-node --transpile-only src/tools/db/generate-portal-diagram.ts",
     "db:drift": "ts-node --transpile-only src/tools/db/drift-check.ts"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.28.0",
     "@azure/identity": "^4.5.0",
-    "@azure/monitor-opentelemetry-exporter": "^1.0.0",
+    "@azure/monitor-opentelemetry-exporter": "^1.0.0-beta.36",
     "@opentelemetry/auto-instrumentations-node": "^0.48.0",
     "@opentelemetry/sdk-node": "^0.48.0",
     "compression": "^1.7.4",

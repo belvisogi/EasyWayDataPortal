@@ -1,0 +1,2 @@
+schema,table,logical_name,description,owner,domain,classification,tags,tenant_column,rls_required,include_audit,include_soft_delete,writeWiki,writeFlyway,correlationId,summaryOut
+PORTAL,sample_feature_flag,Feature flags per tenant,"Tabella di esempio per feature flags per tenant (sample).",team-data,onboarding,internal,"artifact/table",tenant_id,false,true,false,true,true,db-table-create-001,out/db/db-table-create.sample_feature_flag.json

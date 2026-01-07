@@ -36,6 +36,22 @@ next: Consolidare convenzioni (RLS/PII/extended properties) e integrare export E
 - Generazione (scrive file):
   - `pwsh scripts/agent-dba.ps1 -Action db-table:create -IntentPath agents/agent_dba/templates/intent.db-table-create.sample.json -NonInteractive`
 
+## Template "Excel-friendly" (CSV)
+Per rendere la compilazione facile (anche da non esperti), usa i CSV apribili in Excel:
+- Tabella (1 riga): `docs/agentic/templates/sheets/db-table-create.table.csv`
+- Colonne (N righe): `docs/agentic/templates/sheets/db-table-create.columns.csv`
+- Indici (opzionale): `docs/agentic/templates/sheets/db-table-create.indexes.csv`
+
+Conversione CSV -> intent JSON:
+- `pwsh scripts/db-table-intent-from-sheet.ps1 -TableCsv <table.csv> -ColumnsCsv <columns.csv> -IndexesCsv <indexes.csv> -OutIntent out/intents/intent.db-table-create.generated.json`
+
+Poi esegui l'agent:
+- `pwsh scripts/agent-dba.ps1 -Action db-table:create -IntentPath out/intents/intent.db-table-create.generated.json -WhatIf -NonInteractive`
+
+## Lint semantico (consigliato)
+Prima di generare, valida naming/tipi/PII/RLS:
+- `pwsh scripts/db-table-lint.ps1 -IntentPath out/intents/intent.db-table-create.generated.json -OutJson out/db/db-table-lint.json`
+
 ## Domande a cui risponde
 - Qual e' la pipeline corretta per aggiungere una tabella senza ambiguita?
 - Dove finiscono i file (Flyway, Wiki) e cosa e' canonico?

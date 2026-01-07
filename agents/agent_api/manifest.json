@@ -1,0 +1,37 @@
+{
+  "role": "Agent_API",
+  "description": "Triage e tracciamento errori API; produce output strutturato per orchestrazioni n8n.",
+  "allowed_paths": [
+    "scripts/agent-api.ps1",
+    "agents/logs/**",
+    "agents/kb/recipes.jsonl",
+    "docs/agentic/templates/intents/**",
+    "docs/agentic/templates/orchestrations/**",
+    "Wiki/EasyWayData.wiki/orchestrations/**",
+    "Wiki/EasyWayData.wiki/api/**",
+    "EasyWay-DataPortal/easyway-portal-api/**"
+  ],
+  "allowed_tools": ["pwsh"],
+  "required_gates": ["KB_Consistency"],
+  "approvals": {},
+  "knowledge_sources": [
+    "Wiki/EasyWayData.wiki/api/rest-errors-qna.md",
+    "agents/kb/recipes.jsonl"
+  ],
+  "actions": [
+    {
+      "name": "api-error:triage",
+      "description": "Normalizza e classifica un errore REST, genera azioni suggerite e log strutturato per n8n.",
+      "params": {
+        "source": { "type": "string", "enum": ["n8n", "manual"], "required": true },
+        "service": { "type": "string", "required": true },
+        "environment": { "type": "string", "required": true },
+        "request": { "type": "object", "required": true },
+        "response": { "type": "object", "required": false },
+        "error": { "type": "object", "required": false },
+        "correlationId": { "type": "string", "required": false },
+        "decision_trace_id": { "type": "string", "required": false }
+      }
+    }
+  ]
+}

@@ -61,6 +61,7 @@
     ],
     "security-all": [
       "db-user-access-management.md",
+      "security/",
       "domains/datalake.md",
       "easyway-webapp/07-iam-naming-utenti-gruppi.md",
       "easyway-webapp/04-accesso-registrazione-notifiche.md",

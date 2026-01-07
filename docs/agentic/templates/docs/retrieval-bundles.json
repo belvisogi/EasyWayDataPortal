@@ -39,7 +39,25 @@
         "security-all"
       ]
     },
-    "n8n.wf.excel-csv-upload": {
+        "n8n.controlplane.scripts": {
+      "intent": "controlplane.scripts",
+      "description": "Contesto control-plane + accesso on-demand agli script PowerShell (da recuperare solo quando necessario, per evitare rumore).",
+      "scopes": [
+        "governance-all",
+        "security-all"
+      ],
+      "code_roots": [
+        "scripts/",
+        "agents/"
+      ],
+      "code_entrypoints": [
+        "scripts/ewctl.ps1",
+        "scripts/agent-docs-review.ps1",
+        "scripts/agents-readme-sync.ps1",
+        "scripts/agents-manifest-audit.ps1",
+        "agents/kb/recipes.jsonl"
+      ]
+    },"n8n.wf.excel-csv-upload": {
       "intent": "wf.excel-csv-upload",
       "description": "Workflow Excel/CSV upload end-to-end (UX + API + data layer).",
       "scopes": [
@@ -149,3 +167,4 @@
     }
   }
 }
+

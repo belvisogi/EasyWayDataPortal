@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "id": "no-secrets-in-rag",
+      "description": "Assicurarsi che la lista include/exclude escluda sempre segreti e output runtime.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["rag", "vettorializza", "vector"] },
+      "checklist": [
+        "Escludere .env* e *secrets*",
+        "Escludere out/** e scripts/variables/**",
+        "Usare scripts on-demand via bundle"
+      ]
+    }
+  ]
+}
+

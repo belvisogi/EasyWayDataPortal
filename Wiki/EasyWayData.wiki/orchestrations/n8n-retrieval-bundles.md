@@ -45,7 +45,7 @@ Quando n8n deve fare operazioni sul DB (es. rigenerare inventario DDL e aggiorna
 Per la creazione di nuove tabelle (artefatti Flyway + pagina Wiki tabella), usa:
 - `n8n.db.table.create`
 
-Nota: di default i bundle servono a caricare **Wiki**; `old/db/` e `DataBase/README.md` sono solo per audit/compat (non doc canonica).
+Nota: di default i bundle servono a caricare **Wiki**; `old/db/` e `db/README.md` sono solo per audit/compat (non doc canonica).
 
 ## Regole operative
 
@@ -64,3 +64,4 @@ Nota: di default i bundle servono a caricare **Wiki**; `old/db/` e `DataBase/REA
 
 - Pagine "shim/redirect compat" devono avere `status: deprecated` e idealmente `llm.include: false` per non essere caricate dagli agenti.
 - La pagina canonica resta l'unica fonte: le altre rimandano (con `canonical:` o `redirect_to:`).
+

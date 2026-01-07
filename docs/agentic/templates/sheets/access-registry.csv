@@ -1,0 +1,3 @@
+access_id,system,resource,identity_type,identity_name,scope,permissions,secret_ref,owner,rotation_days,last_rotation,expiry_date,justification,notes
+acc-001,db,portal-sql,managed_identity,mi-portal-api,prod,read/write,db--portal--connstring,team-platform,90,2025-01-01,2025-12-31,runtime access,accesso runtime API
+acc-002,datalake,portal-assets,service_principal,spn-portal-ci,ci,write,datalake--portal--sp-client-secret,team-devops,90,2025-01-01,2025-12-31,pipeline upload,upload artifact

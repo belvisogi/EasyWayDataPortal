@@ -56,7 +56,7 @@ flowchart TD
     - Troubleshooting, cronaca edge-case, errori tipici
 
 ```yaml
-# ai/vettorializza.yaml : esempio di file inclusione/esclusione
+# ai/vettorializza.yaml : file canonico di inclusione/esclusione
 include:
   - "README.md"
   - "Wiki/EasyWayData.wiki/**/*.md"
@@ -110,7 +110,7 @@ exclude:
 
 - Ogni sezione ha cross-link markdown friendly, per navigazione (anche da mobile/Obsidian vault).
 - La guida suggerisce dove mettere backlink (README, onboarding, recipes, agent docs).
-- Puoi aggiungere backlink a questa pagina in ogni documento chiave (“Per ricerche smart, vedi [Knowledge Base Vettoriale](ai/knowledge-vettoriale-easyway.md)”).
+- Puoi aggiungere backlink a questa pagina in ogni documento chiave (“Per ricerche smart, vedi [Knowledge Base Vettoriale](knowledge-vettoriale-easyway.md)”).
 
 ---
 
@@ -143,3 +143,4 @@ exclude:
 ---
 
 > _Per qualsiasi dubbio, proporre miglioramenti e contributi, commenta in questa guida o tagga nei manifest “ai-friendly”._
+

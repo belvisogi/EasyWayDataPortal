@@ -1,0 +1,34 @@
+{
+  "role": "Agent_Retrieval",
+  "description": "Gestione RAG: indicizzazione Wiki/KB, retrieval bundles, sync verso vector DB (on-demand), anti-duplicati/canonical.",
+  "allowed_paths": [
+    "agents/agent_retrieval/**",
+    "scripts/agent-retrieval.ps1",
+    "ai/vettorializza.yaml",
+    "docs/agentic/templates/docs/**",
+    "Wiki/EasyWayData.wiki/**",
+    "agents/kb/recipes.jsonl",
+    "agents/logs/**",
+    "out/**"
+  ],
+  "allowed_tools": ["pwsh"],
+  "required_gates": ["KB_Consistency"],
+  "approvals": {},
+  "knowledge_sources": [
+    "Wiki/EasyWayData.wiki/ai/knowledge-vettoriale-easyway.md",
+    "ai/vettorializza.yaml",
+    "docs/agentic/templates/docs/retrieval-bundles.json",
+    "docs/agentic/templates/docs/tag-taxonomy.scopes.json"
+  ],
+  "actions": [
+    {
+      "name": "rag:export-wiki-chunks",
+      "description": "Rigenera gli artifact Wiki (chunks/index) per ingestion RAG (no upload).",
+      "params": {
+        "wikiRoot": { "type": "string", "required": false },
+        "outDir": { "type": "string", "required": false }
+      }
+    }
+  ]
+}
+

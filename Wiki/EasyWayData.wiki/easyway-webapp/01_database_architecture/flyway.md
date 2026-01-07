@@ -100,5 +100,6 @@ Stato nel repo
 
 Nota su DataBase/ vs db/
 - `db/` è la fonte canonica (DevOps-ready): migrazioni in `db/flyway/sql/`.
-- `DataBase/` è deprecata (compat/redirect); gli artefatti storici sono archiviati in `old/db/`.
+- `DataBase/` e' stata rimossa; gli artefatti storici sono archiviati in `old/db/`.
 - Obiettivo: mantenere una sola referenza e rigenerare inventari/documentazione sempre da Flyway.
+

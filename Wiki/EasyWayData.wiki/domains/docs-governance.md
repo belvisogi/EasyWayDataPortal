@@ -35,6 +35,7 @@ Pagine chiave
 Strumenti
 - `scripts/ewctl.ps1`
 - Lint: `scripts/whatfirst-lint.ps1`, `scripts/wiki-frontmatter-lint.ps1`
+- Docs drift: `scripts/agents-readme-sync.ps1` (check-only nei gate, fix locale se necessario)
 
 Audit
 - `agents/logs/events.jsonl`

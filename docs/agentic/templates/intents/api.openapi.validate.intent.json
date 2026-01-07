@@ -1,0 +1,20 @@
+{
+  "id": "api.openapi.validate",
+  "what": {
+    "purpose": "Validare la presenza/consistenza OpenAPI (MVP) e produrre output strutturato per n8n.",
+    "inputs": {
+      "apiPath": { "type": "string", "default": "EasyWay-DataPortal/easyway-portal-api" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "openapiPath": { "type": "string" }
+    },
+    "events": ["api.openapi.validate.started", "api.openapi.validate.completed"],
+    "success_criteria": ["openapi.yaml presente"],
+    "failure_criteria": ["openapi.yaml mancante"]
+  }
+}
+

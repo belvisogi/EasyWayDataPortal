@@ -48,6 +48,7 @@ function Run-PSDocsReview {
   if ($All) { $argsList += '-All' }
   if ($Wiki) { $argsList += '-Wiki' } else { if (-not $All) { $argsList += '-Wiki' } }
   if ($KbConsistency) { $argsList += '-KbConsistency' }
+  $argsList += '-SyncAgentsReadme'
   if ($LogEvent) { $argsList += '-LogEvent' }
   pwsh scripts/agent-docs-review.ps1 @argsList
 }

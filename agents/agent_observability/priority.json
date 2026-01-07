@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "id": "no-pii-in-logs",
+      "description": "Mai includere PII/token nei log e negli artifact pubblicati.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["obs", "health", "log"] },
+      "checklist": [
+        "Redigere token/authorization",
+        "Non includere payload raw con PII",
+        "Usare solo summary sanitizzato"
+      ]
+    }
+  ]
+}
+

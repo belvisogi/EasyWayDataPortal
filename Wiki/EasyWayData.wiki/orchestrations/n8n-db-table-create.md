@@ -17,6 +17,10 @@ next: Modellare workflow in n8n (Webhook -> Validate -> Gate precheck -> Generat
 
 # n8n-db-table-create
 
+## Contesto
+- Source-of-truth DB (DDL): migrazioni Flyway in `db/flyway/sql/`.
+- Input strutturato: intent `db.table.create` (WHAT) oppure sheet Excel/CSV convertito in intent (vedi blueprint).
+
 ## Scopo
 Creare una nuova tabella DB in modo deterministico e agentico:
 - input strutturato (intent `db.table.create`)
@@ -34,12 +38,19 @@ Creare una nuova tabella DB in modo deterministico e agentico:
 ## Intent (WHAT)
 - Schema: `docs/agentic/templates/intents/db.table.create.intent.json`
 - Esempio intent agent: `agents/agent_dba/templates/intent.db-table-create.sample.json`
+ - Blueprint sheet (Excel/CSV -> intent): `Wiki/EasyWayData.wiki/blueprints/db-table-create-sheet.md`
 
 ## Esecuzione (CLI, senza n8n)
 - Genera artefatti (WhatIf):
   - `pwsh scripts/agent-dba.ps1 -Action db-table:create -IntentPath agents/agent_dba/templates/intent.db-table-create.sample.json -WhatIf -NonInteractive`
 - Genera artefatti (scrive file):
   - `pwsh scripts/agent-dba.ps1 -Action db-table:create -IntentPath agents/agent_dba/templates/intent.db-table-create.sample.json -NonInteractive`
+
+## Variante "Excel-friendly" (CSV)
+Se l'utente compila un foglio (Excel/CSV), convertilo in intent e poi esegui l'agent:
+- Template: `docs/agentic/templates/sheets/`
+- Conversione: `pwsh scripts/db-table-intent-from-sheet.ps1 -TableCsv <table.csv> -ColumnsCsv <columns.csv> -IndexesCsv <indexes.csv> -OutIntent out/intents/intent.db-table-create.generated.json`
+
 
 ## Output atteso
 - Migrazione: `db/flyway/VYYYYMMDDHHMMSS__create_<schema>_<table>.sql`

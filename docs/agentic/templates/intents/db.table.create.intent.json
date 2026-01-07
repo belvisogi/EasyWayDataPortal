@@ -57,10 +57,16 @@
         "description": "Metadati doc canonica (Wiki).",
         "properties": {
           "owner": { "type": "string", "examples": ["team-data"] },
+          "logical_name": { "type": "string", "description": "Nome logico/business (human-friendly) della tabella." },
           "summary": { "type": "string" },
+          "description": { "type": "string", "description": "Descrizione estesa (1-3 frasi) usata per doc." },
+          "domain": { "type": "string", "description": "Dominio funzionale (es. onboarding/config/security)." },
+          "classification": { "type": "string", "description": "Classificazione (es. public/internal/confidential)." },
           "tags": { "type": "array", "items": { "type": "string" } }
         }
       },
+      "includeAudit": { "type": "boolean", "default": false, "description": "Opzionale: aggiunge colonne audit standard (se supportato dal generator)." },
+      "includeSoftDelete": { "type": "boolean", "default": false, "description": "Opzionale: aggiunge colonne soft delete standard (se supportato dal generator)." },
       "writeWiki": { "type": "boolean", "default": true },
       "writeFlyway": { "type": "boolean", "default": true },
       "writeDatabaseSnapshot": { "type": "boolean", "default": false, "description": "DEPRECATO: evitare snapshot DDL. Artefatti storici in `old/db/`." },

@@ -13,6 +13,12 @@ Comandi usati da ewctl (PS engine)
   - Esegue: Checklist (API), DB Drift, KB Consistency
   - Registra evento strutturato (JSONL) e aggiorna `Wiki/EasyWayData.wiki/activity-log.md`
 
+Best practice (no rumore): Docs drift check su agents/README.md
+- Check-only (fallisce se non allineato): `pwsh scripts/ewctl.ps1 --engine ps --wiki --noninteractive`
+  - Include: `agents/README.md` sync check (non modifica file in CI)
+- Fix locale (quando serve): `pwsh scripts/agents-readme-sync.ps1 -Mode fix`
+  - Human-in-the-loop: in locale, `pwsh scripts/agent-docs-review.ps1 -SyncAgentsReadme` propone il fix e lo applica solo con conferma.
+
 Altre variabili utili
 - `ENABLE_CHECKLIST`, `ENABLE_DB_DRIFT`, `ENABLE_KB_CONSISTENCY` (continuano a valere per i job legacy)
 - `ENABLE_ORCHESTRATOR`, `ORCHESTRATOR_INTENT` per il job di pianificazione TS

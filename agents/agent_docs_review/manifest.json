@@ -4,7 +4,11 @@
   "allowed_paths": [
     "Wiki/EasyWayData.wiki/**",
     "agents/kb/**",
-    "scripts/agent-docs-review.ps1"
+    "scripts/agent-docs-review.ps1",
+    "scripts/agents-readme-sync.ps1",
+    "scripts/agents-manifest-audit.ps1",
+    "agents/README.md",
+    "out/**"
   ],
   "allowed_tools": ["pwsh"],
   "required_gates": ["KB_Consistency"],
@@ -14,4 +18,3 @@
     "Wiki/EasyWayData.wiki/scripts/scripts.md"
   ]
 }
-

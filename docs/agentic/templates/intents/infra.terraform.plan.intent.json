@@ -1,0 +1,20 @@
+{
+  "id": "infra.terraform.plan",
+  "what": {
+    "purpose": "Eseguire terraform init/validate/plan in modo governato (no apply).",
+    "inputs": {
+      "workdir": { "type": "string", "default": "infra/terraform" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "workdir": { "type": "string" }
+    },
+    "events": ["infra.terraform.plan.started", "infra.terraform.plan.completed"],
+    "success_criteria": ["Plan eseguito (se whatIf=false)"],
+    "failure_criteria": ["Terraform mancante", "Directory mancante"]
+  }
+}
+
