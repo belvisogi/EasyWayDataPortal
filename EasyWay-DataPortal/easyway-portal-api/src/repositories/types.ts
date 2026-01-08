@@ -15,12 +15,11 @@ export interface UsersRepo {
     tenantId: string, 
     user_id: string, 
     data: { 
-      name: string, 
-      surname: string, 
-      profile_code: string, 
-      status: string, 
-      is_tenant_admin: boolean, 
-      updated_by: string
+      email?: string | null,
+      display_name?: string | null,
+      profile_id?: string | null,
+      is_active?: boolean | null,
+      updated_by?: string | null
     }
   ): Promise<UserRecord | any>;
   softDelete(tenantId: string, user_id: string): Promise<void>;

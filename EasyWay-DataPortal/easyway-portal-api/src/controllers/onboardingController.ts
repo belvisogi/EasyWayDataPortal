@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { getOnboardingRepo } from "../repositories";
 import { logger } from "../utils/logger";
 
-export async function onboarding(req: Request, res: Response) {
+export async function onboarding(req: Request, res: Response, next: NextFunction) {
   const startTime = Date.now();
 
   // Recupero header conversational/agent-aware
@@ -67,13 +67,6 @@ export async function onboarding(req: Request, res: Response) {
       context: { ...req.body.ext_attributes, source_ip: req.ip }
     });
 
-    res.status(500).json({
-      status: "error",
-      message: err.message,
-      intent: "ONBOARDING_TENANT_USER",
-      esito: "error",
-      conversation_id,
-      origin
-    });
+    next(err);
   }
 }

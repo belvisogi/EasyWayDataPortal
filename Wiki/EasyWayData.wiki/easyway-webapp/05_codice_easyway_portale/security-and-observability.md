@@ -19,6 +19,8 @@ Obiettivi
 - Hardening API: helmet, CORS ristretto, rate limiting, body limit, compression.
 - Correlazione e tracciamento: `X-Request-Id`, `X-Correlation-Id`, log coerenti.
 - Autenticazione: JWT (Entra ID), estrazione tenant da claim applicativo (no header client).
+- Autorizzazione: RBAC/Scopes su endpoint sensibili (docs/db/notifications).
+- Error handling coerente con payload standard e code unificati.
 
 Implementazione (backend)
 - `src/app.ts`:
@@ -30,6 +32,9 @@ Implementazione (backend)
   - generazione di `X-Request-Id` e `X-Correlation-Id` (uuid v4), riutilizzando header in ingresso se presenti
   - `authenticateJwt` prima di tutte le rotte (verifica token via JWKS)
   - `extractTenantId` usa il claim dal token (default `ew_tenant_id` configurabile via `TENANT_CLAIM`)
+  - `requireAccessFromEnv` applica RBAC per route sensibili (docs/db/notifications)
+  - rate limit per-tenant + burst su `/api/*` (chiave: tenantId)
+  - `errorHandler` centralizzato con payload standard `{ error: { code, message, details }, requestId, correlationId }`
   - `withTenantContext(tenantId, fn)` imposta `SESSION_CONTEXT('tenant_id')` su SQL (RLS); flag `RLS_CONTEXT_ENABLED=false` per disattivare in debug
   - helper `runTenantQuery(tenantId, fn)` per route GOLD/REPORTING future
 
@@ -49,15 +54,23 @@ Propagazione
 
 Configurazione
 - `ALLOWED_ORIGINS`: domini abilitati (CSV). Default: `http://localhost:3000`.
-- `RATE_LIMIT_WINDOW_MS`: finestra (ms). Default: `60000`.
-- `RATE_LIMIT_MAX`: richieste per finestra. Default: `600`.
 - `BODY_LIMIT`: default `1mb`.
 - `PORTAL_BASE_PATH`: default `/portal`.
+- `TENANT_RATE_LIMIT_WINDOW_MS`: finestra rate limit per-tenant (ms). Default: `60000`.
+- `TENANT_RATE_LIMIT_MAX`: max richieste per-tenant nella finestra. Default: `600`.
+- `TENANT_BURST_WINDOW_MS`: finestra burst per-tenant (ms). Default: `10000`.
+- `TENANT_BURST_MAX`: max richieste burst per-tenant. Default: `120`.
+- `AUTH_ROLE_CLAIM`: claim ruoli (default `roles`).
+- `AUTH_SCOPE_CLAIM`: claim scope (default `scp`).
+- `DOCS_ROLES`, `DOCS_SCOPES`: ruoli/scopes ammessi per `/api/docs/*`.
+- `DB_ROLES`, `DB_SCOPES`: ruoli/scopes ammessi per `/api/db/*`.
+- `NOTIFY_ROLES`, `NOTIFY_SCOPES`: ruoli/scopes ammessi per `/api/notifications/*`.
 
 Note
 - Per ambienti dietro LB, impostare `TRUST_PROXY=true` per X-Forwarded-*.
 - Validazione input già gestita via Zod nei middleware.
 - Rimuovere `X-Tenant-Id` dai client: il tenant è determinato dal token.
+- Se i ruoli/scopes non sono presenti nel token, l'API restituisce 403.
 
 Uso consigliato (GOLD/REPORTING)
 - Per rotte GOLD/REPORTING e query sensibili, usa una di queste forme:

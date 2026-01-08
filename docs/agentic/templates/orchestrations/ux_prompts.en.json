@@ -112,5 +112,22 @@
     "apply_mapping": "Apply mapping",
     "save_template": "Save as template",
     "open_log": "Open log"
+  },
+  "agent_scaffold_generated": {
+    "ok": "Artifacts generated (WhatIf-by-default). Confirm writing to repo?",
+    "error": "Generation failed. Check details."
+  },
+  "agent_scaffold_received": {
+    "ok": "Request received. Validating agent scaffold."
+  },
+  "agent_scaffold_validated": {
+    "ok": "Spec valid. Preparing RAG context and generating artifacts.",
+    "error": "Invalid spec: check agentName/role and update flags."
+  },
+  "agent_scaffold_done": {
+    "ok": "Scaffold completed. Run gates and propose a PR?"
+  },
+  "agent_scaffold_context": {
+    "ok": "RAG context ready (Azure AI Search) or skipped."
   }
 }

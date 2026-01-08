@@ -9,6 +9,7 @@ import { getPool } from "../utils/db";
  */
 export async function loadDbConfig(
   tenantId: string,
+  section?: string,
   tx?: sql.Transaction
 ): Promise<Record<string, string>> {
   const pool = await getPool();
@@ -19,7 +20,10 @@ export async function loadDbConfig(
   const result = await request.execute("PORTAL.sp_get_config_by_tenant");
   const config: Record<string, string> = {};
   result.recordset.forEach((row: any) => {
-    config[row.config_key] = row.config_value;
+    const key = row.config_key;
+    if (!section || key.startsWith(section + ".")) {
+      config[key] = row.config_value;
+    }
   });
   return config;
 }

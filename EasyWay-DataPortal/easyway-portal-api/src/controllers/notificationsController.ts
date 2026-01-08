@@ -1,15 +1,15 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import sql from "mssql";
 import { getPool, withTenantContext } from "../utils/db";
 import { logger } from "../utils/logger";
 
 
-export async function subscribeNotification(req: Request, res: Response) {
+export async function subscribeNotification(req: Request, res: Response, _next: NextFunction) {
   // Placeholder: logica reale la aggiungi dopo
   res.status(201).json({ message: "Notifica iscrizione ricevuta!" });
 }
 
-export async function sendNotification(req: Request, res: Response) {
+export async function sendNotification(req: Request, res: Response, next: NextFunction) {
   const tenantId = (req as any).tenantId;
   const { recipients, category, channel, message, ext_attributes = {} } = req.body;
 
@@ -46,6 +46,6 @@ export async function sendNotification(req: Request, res: Response) {
       event: "NOTIFY_SEND_ERROR",
       time: new Date().toISOString()
     });
-    res.status(500).json({ error: err.message });
+    next(err);
   }
 }

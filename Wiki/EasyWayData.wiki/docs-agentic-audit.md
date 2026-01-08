@@ -46,6 +46,15 @@ Sezione consigliata (ordine):
 
 Nota: la sezione **Domande a cui risponde** è obbligatoria solo per le pagine **operative** (`layer/runbook`, `layer/howto`, `layer/orchestration`, `layer/intent`). Per le pagine di reference/spec è consigliata ma non bloccante.
 
+### 2.1) Troubleshooting obbligatorio (best practice)
+Regola: ogni volta che un test/comando fallisce, **aggiorna la pagina operativa coinvolta** con una sezione "Errori comuni / Troubleshooting" (o un mini-box) che includa:
+- Sintomo (messaggio di errore reale)
+- Causa probabile
+- Fix (passi concreti)
+- Verify (come confermare che e' risolto)
+
+Se l'errore e' ricorrente o impatta piu' team, aggiungi anche una KB recipe in `agents/kb/recipes.jsonl`.
+
 ## 3) Front matter YAML (obbligatorio)
 Ogni `.md` deve avere front matter completo:
 - `id, title, summary, status, owner, tags`
@@ -147,7 +156,6 @@ Una modifica è “done” quando:
 - LLM readiness checklist: `llm-readiness-checklist.md`
 - Start here: `start-here.md`
 - Control plane: `control-plane/index.md`
-
 
 
 

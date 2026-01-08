@@ -113,6 +113,27 @@ function Run-PSDBA {
   if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
 }
 
+
+function Run-PSAgentCreator {
+  param([string]$IntentPath, [switch]$Interactive)
+  try {
+    pwsh scripts/enforcer.ps1 -Agent agent_creator -Quiet
+    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_creator'; exit 2 }
+  } catch { Write-Warning "Enforcer preflight (agent_creator) non applicabile: $($_.Exception.Message)" }
+  $argsList = @('-Action','agent:scaffold')
+  if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
+  if ($WhatIf) { $argsList += '-WhatIf' }
+  if ($LogEvent) { $argsList += '-LogEvent' }
+  if (-not $Interactive) { $argsList += '-NonInteractive' }
+  $json = pwsh scripts/agent-creator.ps1 @argsList
+  if ($null -ne $json) {
+    try {
+      $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json
+      if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ', ')) }
+    } catch {}
+    Write-Output $json
+  }
+}
 function Run-PSDatalake {
   param([string]$Action, [string]$IntentPath, [switch]$Interactive)
   try {
@@ -189,6 +210,10 @@ function Dispatch-Intent-PS($intent) {
       $json = (pwsh scripts/doc-alignment-check.ps1)
       Write-Output $json; return
     }
+    '^(agent-scaffold|agent-create|agent-creator)$' {
+      $defaultIntent = 'agents/agent_creator/templates/intent.agent-scaffold.sample.json'
+      return Run-PSAgentCreator -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
     default {
       Write-Warning "Intent sconosciuto: $intent. Uso PS governance interattivo."; return Run-PSGovernance -Interactive:(!$NonInteractive)
     }
@@ -229,6 +254,8 @@ if ($Engine -eq 'ts') {
   node "agents/core/orchestrator.js" @argv
   exit $LASTEXITCODE
 }
+
+
 
 
 

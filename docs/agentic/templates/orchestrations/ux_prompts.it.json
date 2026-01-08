@@ -112,5 +112,22 @@
     "apply_mapping": "Applica mapping",
     "save_template": "Salva come template",
     "open_log": "Apri log"
+  },
+  "agent_scaffold_generated": {
+    "ok": "Artefatti generati (WhatIf-by-default). Vuoi confermare la scrittura nel repo?",
+    "error": "Generazione fallita. Verifica i dettagli."
+  },
+  "agent_scaffold_received": {
+    "ok": "Richiesta ricevuta. Valido lo scaffold del nuovo agente."
+  },
+  "agent_scaffold_validated": {
+    "ok": "Spec valida. Preparo il contesto (RAG) e genero gli artefatti.",
+    "error": "Spec non valida: controlla agentName/role e update flags."
+  },
+  "agent_scaffold_done": {
+    "ok": "Scaffold completato. Vuoi eseguire i gate e proporre una PR?"
+  },
+  "agent_scaffold_context": {
+    "ok": "Contesto RAG pronto (Azure AI Search) o saltato."
   }
 }

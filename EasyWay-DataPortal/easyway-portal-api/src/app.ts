@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import { logger } from "./utils/logger";
 import { authenticateJwt } from "./middleware/auth";
 import { extractTenantId } from "./middleware/tenant";
+import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 import healthRoutes from "./routes/health";
 import portalRoutes from "./routes/portal";
 import brandingRoutes from "./routes/branding";
@@ -47,11 +48,6 @@ app.use(cors({
 }));
 
 app.use(compression());
-
-const windowMs = parseInt(process.env.RATE_LIMIT_WINDOW_MS || "60000", 10);
-const maxReq = parseInt(process.env.RATE_LIMIT_MAX || "600", 10);
-app.use(rateLimit({ windowMs, max: maxReq, standardHeaders: true, legacyHeaders: false }));
-
 app.use(express.json({ limit: process.env.BODY_LIMIT || "1mb" }));
 
 // Request/Correlation IDs + logging baseline
@@ -70,6 +66,37 @@ app.use((req, res, next) => {
 app.use(authenticateJwt);
 app.use(extractTenantId);
 
+// Rate limit per tenant (steady + burst) for API routes
+const tenantWindowMs = parseInt(process.env.TENANT_RATE_LIMIT_WINDOW_MS || "60000", 10);
+const tenantMax = parseInt(process.env.TENANT_RATE_LIMIT_MAX || "600", 10);
+const burstWindowMs = parseInt(process.env.TENANT_BURST_WINDOW_MS || "10000", 10);
+const burstMax = parseInt(process.env.TENANT_BURST_MAX || "120", 10);
+const tenantKey = (req: any) => req.tenantId || req.ip || "unknown";
+const rateLimitHandler = (req: any, res: any) => {
+  res.status(429).json({
+    error: { code: "rate_limit", message: "Too many requests" },
+    requestId: req.requestId || null,
+    correlationId: req.correlationId || null
+  });
+};
+const tenantLimiter = rateLimit({
+  windowMs: tenantWindowMs,
+  max: tenantMax,
+  keyGenerator: tenantKey,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: rateLimitHandler
+});
+const tenantBurstLimiter = rateLimit({
+  windowMs: burstWindowMs,
+  max: burstMax,
+  keyGenerator: tenantKey,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: rateLimitHandler
+});
+app.use("/api", tenantLimiter, tenantBurstLimiter);
+
 // Rotte API
 app.use("/api/health", healthRoutes);
 app.use("/api/branding", brandingRoutes);
@@ -79,5 +106,8 @@ app.use("/api/onboarding", onboardingRoutes);
 app.use("/api/notifications", notificationsRoutes);
 app.use("/api/docs", docsRoutes);
 app.use("/api/db", dbRoutes);
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 export default app;

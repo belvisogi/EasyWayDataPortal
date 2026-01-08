@@ -27,7 +27,7 @@ Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Stored Proc
 - [subscription.md](./subscription.md) - `sp_insert_subscription`
 - [tenant.md](./tenant.md) - `sp_insert_tenant`
 - [user-notification-settings.md](./user-notification-settings.md) - `sp_insert_user_notification_settings`
-- [users.md](./users.md) - `sp_insert_users`
+- [users.md](./users.md) - `sp_insert_user`, `sp_update_user`, `sp_delete_user`, `sp_list_users_by_tenant`
 
 ## Domande a cui risponde
 - Quali stored procedure sono documentate per lo schema PORTAL e dove sono?

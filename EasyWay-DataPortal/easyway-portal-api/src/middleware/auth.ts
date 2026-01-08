@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { createRemoteJWKSet, createLocalJWKSet, jwtVerify, JWTPayload, JWK } from "jose";
+import { AppError } from "../utils/errors";
 
 let jwks: ReturnType<typeof createRemoteJWKSet> | ReturnType<typeof createLocalJWKSet> | null = null;
 
@@ -14,14 +15,14 @@ export async function authenticateJwt(req: Request, res: Response, next: NextFun
   try {
     const auth = req.headers.authorization || "";
     const token = auth.startsWith("Bearer ") ? auth.substring(7) : null;
-    if (!token) return res.status(401).json({ error: "Missing Bearer token" });
+    if (!token) return next(new AppError(401, "auth_missing_token", "Missing Bearer token"));
 
     const issuer = process.env.AUTH_ISSUER;
     const audience = process.env.AUTH_AUDIENCE;
     const jwksUri = process.env.AUTH_JWKS_URI;
     const testJwksText = process.env.AUTH_TEST_JWKS || process.env.AUTH_TEST_JWK;
     if ((!jwksUri && !testJwksText) || !issuer) {
-      return res.status(500).json({ error: "Auth not configured" });
+      return next(new AppError(500, "auth_not_configured", "Auth not configured"));
     }
 
     if (!jwks) {
@@ -32,7 +33,7 @@ export async function authenticateJwt(req: Request, res: Response, next: NextFun
           const jwksObj = (parsed.keys ? parsed : { keys: [parsed as JWK] });
           jwks = createLocalJWKSet(jwksObj as any);
         } catch {
-          return res.status(500).json({ error: "Invalid AUTH_TEST_JWK(S) JSON" });
+          return next(new AppError(500, "auth_invalid_jwks", "Invalid AUTH_TEST_JWK(S) JSON"));
         }
       } else if (jwksUri) {
         jwks = createRemoteJWKSet(new URL(jwksUri));
@@ -51,6 +52,6 @@ export async function authenticateJwt(req: Request, res: Response, next: NextFun
 
     return next();
   } catch (err: any) {
-    return res.status(401).json({ error: "Invalid token", details: err?.message });
+    return next(new AppError(401, "auth_invalid_token", "Invalid token", err?.message));
   }
 }

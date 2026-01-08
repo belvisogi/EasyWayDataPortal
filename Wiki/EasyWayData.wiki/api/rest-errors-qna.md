@@ -92,3 +92,17 @@ Azioni:
 ## Note
 - In ambiente enterprise, gli errori devono essere tracciabili con `X-Request-Id`.
 - Se un errore diventa ricorrente, aggiungi una KB recipe dedicata.
+
+## Formato errore standard
+Le API restituiscono un payload coerente:
+```json
+{
+  "error": {
+    "code": "validation_error",
+    "message": "Validation failed",
+    "details": []
+  },
+  "requestId": "uuid",
+  "correlationId": "uuid"
+}
+```

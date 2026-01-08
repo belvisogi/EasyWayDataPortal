@@ -1,0 +1,92 @@
+{
+  "id": "agent.scaffold",
+  "what": {
+    "purpose": "Scaffold di un nuovo agente (es. DBA) usando pattern canonici del repo + contesto RAG (Azure AI Search) e producendo artefatti WHAT-first (manifest, templates, KB, Wiki) in modo idempotente.",
+    "inputs": {
+      "agentName": {
+        "type": "string",
+        "examples": [
+          "agent_dba_rag"
+        ],
+        "description": "Nome folder agente, es. agent_dba_rag"
+      },
+      "agentRole": {
+        "type": "string",
+        "examples": [
+          "Agent_DBA_RAG"
+        ],
+        "description": "Role/capability principale"
+      },
+      "description": {
+        "type": "string",
+        "description": "Descrizione breve per manifest/README"
+      },
+      "baseTemplate": {
+        "type": "string",
+        "default": "agents/agent_template",
+        "description": "Template base da copiare (default agent_template)"
+      },
+      "rag": {
+        "type": "object",
+        "required": false,
+        "description": "Parametri RAG (retrieval gestito da n8n + Azure AI Search)"
+      },
+      "update": {
+        "type": "object",
+        "required": false,
+        "description": "Quali artefatti aggiornare (Wiki/KB/Agents README)"
+      },
+      "whatIf": {
+        "type": "boolean",
+        "default": true
+      },
+      "nonInteractive": {
+        "type": "boolean",
+        "default": false
+      },
+      "correlationId": {
+        "type": "string",
+        "description": "ID run end-to-end"
+      }
+    },
+    "outputs": {
+      "ok": {
+        "type": "boolean"
+      },
+      "created": {
+        "type": "boolean",
+        "description": "True se file scritti (whatIf=false)"
+      },
+      "agentDir": {
+        "type": "string"
+      },
+      "artifacts": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "next": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array",
+        "description": "Next step suggeriti (n8n, gates, PR)"
+      }
+    },
+    "events": [
+      "agent.scaffold.started",
+      "agent.scaffold.completed"
+    ],
+    "success_criteria": [
+      "Artefatti creati/aggiornati (se whatIf=false)",
+      "KB+Wiki allineate",
+      "Nessun secret hard-coded"
+    ],
+    "failure_criteria": [
+      "agentName non valido o path già esistente senza override",
+      "Scrittura fallita",
+      "Contratti WHAT mancanti"
+    ]
+  }
+}

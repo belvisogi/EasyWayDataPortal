@@ -1,1 +1,3 @@
-SELECT * FROM PORTAL.USERS WHERE tenant_id = @tenant_id AND is_active = 1;
+EXEC PORTAL.sp_list_users_by_tenant
+  @tenant_id = @tenant_id,
+  @include_inactive = 0;

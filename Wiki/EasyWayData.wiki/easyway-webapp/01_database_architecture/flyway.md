@@ -11,7 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-updated: '2026-01-05'
+updated: '2026-01-07'
 next: TODO - definire next step.
 ---
 
@@ -75,6 +75,23 @@ flyway -configFiles=db/flyway/flyway.conf validate
 flyway -configFiles=db/flyway/flyway.conf baseline -baselineVersion=1   # solo su DB esistenti
 flyway -configFiles=db/flyway/flyway.conf migrate
 ```
+
+Installazione locale (Windows, ZIP)
+- Scarica Flyway Community (zip) e estrai, es. `C:\Tools\flyway\`.
+- Esegui con path completo se non in PATH:
+```powershell
+$flywayExe = 'C:\Tools\flyway\flyway-10.20.0\flyway.cmd'
+& $flywayExe "-configFiles=db/flyway/flyway.conf" validate
+& $flywayExe "-configFiles=db/flyway/flyway.conf" migrate
+```
+- Se `flyway.conf` non ha URL/USER/PASSWORD, Flyway fallisce: impostare le env sopra.
+
+## Troubleshooting (Flyway)
+- Errore: "Unable to connect to the database. Configure the url, user and password." -> imposta `FLYWAY_URL`, `FLYWAY_USER`, `FLYWAY_PASSWORD` e riesegui `validate`.
+- Errore: "No database found to handle jdbc:sqlserver://..." -> verifica il formato JDBC (es. `jdbc:sqlserver://<host>:1433;databaseName=<db>;encrypt=true`).
+- Errore: "Invalid file path for -configFiles" -> esegui dal root repo o usa un path assoluto a `db/flyway/flyway.conf`.
+- Errore: "Login failed for user" -> verifica credenziali SQL Auth e firewall/VNet del DB; se usi AAD cambia metodo di auth.
+- Errore: "SSL/TLS handshake failed" -> verifica rete; per dev valuta `trustServerCertificate=true` solo se consentito.
 
 ## Provisioning dev/local (wrapper)
 Per setup locale, usa il wrapper (human-in-the-loop) che applica Flyway:

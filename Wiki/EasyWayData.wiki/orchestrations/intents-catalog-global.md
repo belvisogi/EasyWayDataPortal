@@ -25,6 +25,7 @@ next: TODO - definire next step.
 - Qual è l'orchestrazione che li dispatcha (es. n8n) e con quale contratto?
 
 Attivi (con schema)
+- agent.scaffold -> `docs/agentic/templates/intents/agent.scaffold.intent.json`
 - orchestrator.n8n.dispatch -> `docs/agentic/templates/intents/orchestrator.n8n.dispatch.intent.json`
 - api.error.triage -> `docs/agentic/templates/intents/api.error.triage.intent.json`
 - ingest.upload-file -> `docs/agentic/templates/intents/ingest.upload-file.intent.json`
@@ -49,4 +50,5 @@ Da definire (skeleton cross-domain)
 Nota
 - Ogni nuovo intent deve avere: schema in `docs/agentic/templates/intents/` + ricetta KB + pagina Wiki.
 - Tutti i nuovi intent devono essere dispatchati via `orchestrator.n8n.dispatch` (entrypoint unico).
+
 

@@ -1,12 +1,13 @@
 import { ZodSchema } from "zod";
 import { Request, Response, NextFunction } from "express";
+import { AppError } from "../utils/errors";
 
 // Body
 export function validateBody(schema: ZodSchema<any>) {
   return (req: Request, res: Response, next: NextFunction) => {
     const result = schema.safeParse(req.body);
     if (!result.success) {
-      return res.status(400).json({ error: "Validation failed", details: result.error.errors });
+      return next(new AppError(400, "validation_error", "Validation failed", result.error.errors));
     }
     req.body = result.data;
     next();
@@ -18,7 +19,7 @@ export function validateQuery(schema: ZodSchema<any>) {
   return (req: Request, res: Response, next: NextFunction) => {
     const result = schema.safeParse(req.query);
     if (!result.success) {
-      return res.status(400).json({ error: "Invalid query parameters", details: result.error.errors });
+      return next(new AppError(400, "validation_error", "Invalid query parameters", result.error.errors));
     }
     req.query = result.data;
     next();
@@ -30,7 +31,7 @@ export function validateParams(schema: ZodSchema<any>) {
   return (req: Request, res: Response, next: NextFunction) => {
     const result = schema.safeParse(req.params);
     if (!result.success) {
-      return res.status(400).json({ error: "Invalid route parameters", details: result.error.errors });
+      return next(new AppError(400, "validation_error", "Invalid route parameters", result.error.errors));
     }
     req.params = result.data;
     next();

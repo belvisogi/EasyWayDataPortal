@@ -1,0 +1,15 @@
+{
+  "rules": [
+    {
+      "when": {
+        "intentContains": [
+          "agent.scaffold",
+          "agent",
+          "scaffold"
+        ]
+      },
+      "priority": "high",
+      "route": "agent_creator"
+    }
+  ]
+}

@@ -11,6 +11,8 @@ include:
   - "agents/**/manifest.json"
   - "agents/kb/recipes.jsonl"
   - "scripts/**/*.ps1"
+  - "db/flyway/sql/**/*.sql"
+  - "EasyWay-DataPortal/easyway-portal-api/src/queries/**/*.sql"
 exclude:
   - ".git/**"
   - "**/node_modules/**"

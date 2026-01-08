@@ -1,0 +1,63 @@
+{
+  "role": "Agent_Creator",
+  "description": "Scaffolding governato di nuovi agenti (manifest/templates/KB/Wiki) usando pattern canonici + contesto RAG (Azure AI Search) orchestrato da n8n.",
+  "allowed_paths": [
+    "agents/**",
+    "docs/agentic/templates/intents/**",
+    "docs/agentic/templates/orchestrations/**",
+    "Wiki/EasyWayData.wiki/**",
+    "scripts/**",
+    "out/**"
+  ],
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
+  "actions": [
+    {
+      "name": "agent:scaffold",
+      "description": "Crea un nuovo agente da template canonico, genera artefatti WHAT-first e aggiorna KB/Wiki (WhatIf-by-default).",
+      "params": {
+        "writeKbRecipe": {
+          "type": "boolean",
+          "required": false
+        },
+        "agentRole": {
+          "type": "string",
+          "required": false
+        },
+        "description": {
+          "type": "string",
+          "required": false
+        },
+        "writeWikiPage": {
+          "type": "boolean",
+          "required": false
+        },
+        "agentName": {
+          "type": "string",
+          "required": true
+        },
+        "baseTemplate": {
+          "type": "string",
+          "required": false
+        },
+        "updateAgentsReadme": {
+          "type": "boolean",
+          "required": false
+        }
+      }
+    }
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
+  "approvals": {},
+  "knowledge_sources": [
+    "ai/vettorializza.yaml",
+    "Wiki/EasyWayData.wiki/ai/knowledge-vettoriale-easyway.md",
+    "Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md",
+    "docs/agentic/templates/intents/orchestrator.n8n.dispatch.intent.json",
+    "docs/agentic/templates/intents/agent.scaffold.intent.json"
+  ]
+}

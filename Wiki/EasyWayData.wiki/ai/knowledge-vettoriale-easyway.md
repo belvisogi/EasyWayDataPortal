@@ -5,7 +5,7 @@ tags: [ai, vector-db, llm, rag, semantic-search, automation, n8n, onboarding, ob
 summary: Panoramica, valore, architettura e casi d’uso della knowledge base vettoriale per EasyWay DataPortal. Per developer e agent.
 status: draft
 owner: team-platform
-updated: '2026-01-06'
+updated: '2026-01-07'
 ---
 
 # 🧠 Knowledge Base Vettoriale in EasyWay DataPortal
@@ -72,7 +72,19 @@ exclude:
 
 ---
 
-## Come gestire update e automazione
+
+## Scope DBA (SQL)
+
+Per casi d’uso DBA (stored procedure, ACL, migrazioni, query applicative) conviene includere anche sorgenti SQL “canoniche” del repo:
+- Flyway migrations: `db/flyway/sql/**/*.sql`
+- Query applicative: `EasyWay-DataPortal/easyway-portal-api/src/queries/**/*.sql`
+
+Regola canonica di include/exclude: `ai/vettorializza.yaml`.
+
+Note
+- Evitare qualunque file con segreti o `.env` (già esclusi dalla spec).
+- Chunking: per SQL usare chunk per statement/procedura, non per righe arbitrarie.
+
 
 - Ogni merge/commit su file inclusi triggera la (re)vettorializzazione automatica (n8n, Azure Pipeline, GitHub Actions, agent dedicato)
 - Solo i file che “matchano” la regola vengono reindicizzati → nessuno scan/bloat inutile
@@ -93,6 +105,25 @@ exclude:
 - Inizia con ChromaDB, Weaviate, Milvus (local, open, GRATIS)
 - Per scaling o pro/prod: Pinecone/Qdrant/Weaviate cloud (tier free → paghi solo se/quanto superi soglia)
 - Nulla vieta mix: local per dev, cloud per runtime!
+
+---
+
+## Strategia consigliata (dev locale → prod managed)
+
+Obiettivo: partire economici e veloci in dev (Qdrant/Chroma locale), mantenendo una strada semplice per migrare a un backend managed (Azure AI Search) quando serve.
+
+Dev (locale)
+- Vector DB locale (Qdrant o Chroma).
+- Ingestion incrementale dal repo usando la spec `ai/vettorializza.yaml` (Wiki/KB/manifest + SQL DBA quando serve).
+- n8n interroga il vector DB (non legge il repo) e passa un `rag_context_bundle` ai workflow/agent.
+
+Prod (upgrade)
+- Mantieni invariati: include/exclude (`ai/vettorializza.yaml`), chunking strategy e metadati minimi (almeno `path`, `title`, `tags`, `updated`, `chunk_id`).
+- Migrazione “semplice”: re-run ingestion e upsert su Azure AI Search (nessun lock-in nei documenti del repo).
+
+Come “tenere le analisi sul vector”
+- Ogni analisi/decisione utile all’agent (es. note DBA su SP/ACL, troubleshooting, mapping, policy) va salvata come pagina Wiki canonica sotto `Wiki/EasyWayData.wiki/ai/` (Markdown con front-matter e tag), così entra automaticamente in vettorializzazione.
+- Evitare duplicati: una pagina canonica per tema + backlink dalle pagine secondarie.
 
 ---
 
@@ -143,4 +174,5 @@ exclude:
 ---
 
 > _Per qualsiasi dubbio, proporre miglioramenti e contributi, commenta in questa guida o tagga nei manifest “ai-friendly”._
+
 

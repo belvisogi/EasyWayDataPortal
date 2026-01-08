@@ -1,0 +1,15 @@
+{
+  "action": "agent:scaffold",
+  "params": {
+    "agentName": "agent_dba_rag",
+    "agentRole": "Agent_DBA_RAG",
+    "description": "DBA assistant RAG-ready (Azure AI Search) che propone/dispaccia azioni verso agent_dba e produce output strutturato.",
+    "baseTemplate": "agents/agent_template",
+    "updateAgentsReadme": true,
+    "writeKbRecipe": true,
+    "writeWikiPage": true
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "agent-scaffold-001"
+}

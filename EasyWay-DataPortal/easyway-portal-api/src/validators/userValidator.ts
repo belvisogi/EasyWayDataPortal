@@ -1,28 +1,26 @@
 import { z } from "zod";
 
 // Allineato al DDL standard PORTAL.USERS
-// Manteniamo compatibilità: display_name/profile_id deprecati, mappati se presenti
+// Compat legacy: name/surname/profile_code vengono mappati a display_name/profile_id
 
 export const userCreateSchema = z.object({
   email: z.string().email(),
-  // Nuovo modello
+  display_name: z.string().min(3).max(100).optional(),
+  profile_id: z.string().min(1).optional(),
+
+  // Compat legacy (deprecato): se usati, verranno mappati
   name: z.string().min(1).max(100).optional(),
   surname: z.string().min(1).max(100).optional(),
   profile_code: z.string().min(1).max(50).optional(),
-
-  // Compat legacy (deprecato): se usati, verranno mappati
-  display_name: z.string().min(3).max(100).optional(),
-  profile_id: z.string().min(1).optional(),
 });
 
 // Solo parametri DDL-compliant, nessun legacy, nessun alias
 export const userUpdateSchema = z.object({
-  name: z.string().min(1).max(100),
-  surname: z.string().min(1).max(100),
-  profile_code: z.string().min(1).max(50),
-  status: z.string().min(1).max(50),
-  is_tenant_admin: z.boolean(),
-  updated_by: z.string().min(1).max(100)
+  email: z.string().email().optional(),
+  display_name: z.string().min(3).max(100).optional(),
+  profile_id: z.string().min(1).optional(),
+  is_active: z.boolean().optional(),
+  updated_by: z.string().min(1).max(100).optional()
 });
 
 export const userIdParamSchema = z.object({
