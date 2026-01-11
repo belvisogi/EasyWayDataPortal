@@ -65,3 +65,13 @@ Nota: di default i bundle servono a caricare **Wiki**; `old/db/` e `db/README.md
 - Pagine "shim/redirect compat" devono avere `status: deprecated` e idealmente `llm.include: false` per non essere caricate dagli agenti.
 - La pagina canonica resta l'unica fonte: le altre rimandano (con `canonical:` o `redirect_to:`).
 
+
+
+## Vedi anche
+
+- [n8n-db-ddl-inventory](./n8n-db-ddl-inventory.md)
+- [n8n-db-table-create](./n8n-db-table-create.md)
+- [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
+- [n8n API Error Triage](./n8n-api-error-triage.md)
+- [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
+

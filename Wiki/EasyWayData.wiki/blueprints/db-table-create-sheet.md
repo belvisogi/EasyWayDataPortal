@@ -114,3 +114,13 @@ Colonne:
 Se `writeFlyway=true` e sono presenti `logical_name`/`description` per tabella o colonne, l'agente genera una seconda migrazione Flyway dedicata per:
 - `MS_Description` (standard SSMS)
 - `Description` (compatibilità con artefatti esistenti in questo repo)
+
+
+## Vedi anche
+
+- [Blueprint - DB PORTAL Diagram (internal viewer)](./db-portal-diagram.md)
+- [Blueprint - DB PORTAL Tables (previste)](./db-portal-tables.md)
+- [db-howto-create-table](../easyway-webapp/01_database_architecture/howto-create-table.md)
+- [db-portal-tables-index](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/index.md)
+- [Template Data Dictionary (DB Table) - Excel](./db-table-dictionary-template.md)
+

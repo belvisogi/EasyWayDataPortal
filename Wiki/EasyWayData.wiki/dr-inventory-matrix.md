@@ -68,3 +68,13 @@ Se vuoi, genero subito il file CSV fisico nella wiki (Wiki/EasyWayData.wiki/DR_I
 
 
 
+
+
+## Vedi anche
+
+- [Cosa integrare da ADA per EasyWayDataPortal (approccio operativo e cosa aggiungere)](./dr-gaps-vs-ada.md)
+- [what is inventory and missing items](./Runbooks/what_is_inventory_and_missing_items.md)
+- [Integrare le best-practice ADA in EasyWayDataPortal](./easyway-webapp/02_logiche_easyway/integrate-ada-best-practices.md)
+- [Deployment decision (MVP) — EasyWay Data Portal](./deployment-decision-mvp.md)
+- [EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata)](./onboarding-architettura.md)
+

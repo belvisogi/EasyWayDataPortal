@@ -10,6 +10,7 @@ Gli agent sono servizi/script modulari, ognuno responsabile di una funzione chia
 | Agent                    | Manifest      | Descrizione breve                                 | Template/Ricetta demo       |
 |--------------------------|--------------|--------------------------------------------------|-----------------------------|
 | agent_ams                | manifest.json | Automazione operativa conversazionale (Checklist, Variable Group, deploy helpers) | templates/, doc/ |
+| agent_ado_userstory      | manifest.json | Gestione User Story su Azure DevOps: prefetch best practices e creazione work item. | templates/, doc/ |
 | agent_api                | manifest.json | Triage e tracciamento errori API; produce output strutturato per orchestrazioni n8n. | templates/, doc/ |
 | agent_backend            | manifest.json | Owner implementazione API: OpenAPI, pattern middleware auth/tenant, lint e scaffolding endpoint (distinct da agent_api triage). | templates/, doc/ |
 | agent_creator            | manifest.json | Scaffolding governato di nuovi agenti (manifest/templates/KB/Wiki) usando pattern canonici + contesto RAG (Azure AI Search) orchestrato da n8n. | templates/, doc/ |

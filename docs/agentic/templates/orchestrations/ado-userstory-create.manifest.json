@@ -1,0 +1,28 @@
+{
+  "id": "ado-userstory-create",
+  "version": "0.1.0",
+  "principle": "WHAT-first: definire scopo, contratti e audit prima dell'implementazione",
+  "intent": {
+    "name": "ado-userstory-create",
+    "description": "Crea una User Story in Azure DevOps con prefetch best practices e output strutturato.",
+    "trigger": "ado-userstory-create.requested"
+  },
+  "roles": {
+    "requester": "Operatore o n8n che richiede la creazione di User Story.",
+    "orchestrator": "n8n.dispatch: valida input, prefetch best practices e invoca agent_ado_userstory.",
+    "agent_ado_userstory": "Esegue prefetch e create in WhatIf/apply.",
+    "steward_governance": "Approva apply verso Azure DevOps."
+  },
+  "stages": [
+    { "name": "received", "purpose": "Ricevere richiesta e inizializzare correlationId", "entry_criteria": ["ado-userstory-create.requested"], "inputs": ["intent_payload"], "outputs": ["correlationId"], "success_criteria": ["Payload ricevuto"], "failure_criteria": ["Payload mancante"], "human_checkpoints": [], "ux_prompts": "ado_userstory_received" },
+    { "name": "validated", "purpose": "Validare input e policy (no segreti in log)", "entry_criteria": ["received.success"], "inputs": ["intent_payload"], "outputs": ["validation_ok"], "success_criteria": ["Spec valida"], "failure_criteria": ["Spec invalida"], "human_checkpoints": [], "ux_prompts": "ado_userstory_validated" },
+    { "name": "bestpractice", "purpose": "Prefetch best practices (Wiki locale + fonti esterne)", "entry_criteria": ["validated.success"], "inputs": ["intent_payload"], "outputs": ["best_practice_artifacts"], "success_criteria": ["Best practices raccolte o skip"], "failure_criteria": ["Prefetch fallito"], "human_checkpoints": [], "ux_prompts": "ado_userstory_bestpractice" },
+    { "name": "approved", "purpose": "Checkpoint governance per apply verso Azure DevOps", "entry_criteria": ["bestpractice.success"], "inputs": ["intent_payload"], "outputs": ["approved"], "success_criteria": ["Approvazione registrata"], "failure_criteria": ["Non approvato"], "human_checkpoints": ["Approvazione governance"], "ux_prompts": "generic_approved" },
+    { "name": "executed", "purpose": "Creare User Story e registrare output", "entry_criteria": ["approved.success"], "inputs": ["intent_payload"], "outputs": ["workItemId", "workItemUrl"], "success_criteria": ["Output strutturato prodotto"], "failure_criteria": ["Esecuzione fallita"], "human_checkpoints": [], "ux_prompts": "ado_userstory_executed" },
+    { "name": "completed", "purpose": "Chiudere run con output e next step", "entry_criteria": ["executed.success"], "inputs": ["workItemId", "workItemUrl"], "outputs": ["run_summary"], "success_criteria": ["Output finale disponibile"], "failure_criteria": [], "human_checkpoints": [], "ux_prompts": "ado_userstory_done" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}

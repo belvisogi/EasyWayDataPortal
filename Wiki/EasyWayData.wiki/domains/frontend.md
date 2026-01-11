@@ -35,3 +35,13 @@ Gates
 
 
 
+
+
+## Vedi anche
+
+- [Dominio Docs & Governance](./docs-governance.md)
+- [Dominio DB](./db.md)
+- [easyway portal frontend](../easyway-webapp/05_codice_easyway_portale/easyway-portal-frontend.md)
+- [Dominio Datalake](./datalake.md)
+- [Domini - Panoramica](./index.md)
+

@@ -67,3 +67,13 @@ pwsh scripts/agent-api.ps1 -Action api-error:triage -IntentPath out/api-error.in
 
 ## Riferimenti
 - Q&A errori REST: `Wiki/EasyWayData.wiki/api/rest-errors-qna.md`
+
+
+## Vedi anche
+
+- [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
+- [n8n-db-ddl-inventory](./n8n-db-ddl-inventory.md)
+- [n8n-db-table-create](./n8n-db-table-create.md)
+- [n8n Retrieval Bundles (riduzione token)](./n8n-retrieval-bundles.md)
+- [Release Preflight Security (WHAT)](./release-preflight-security.md)
+

@@ -1,0 +1,17 @@
+{
+  "ok": false,
+  "runId": "20260109-063513",
+  "timestamp": "2026-01-09T06:35:30.3303491+01:00",
+  "cards": [
+    {
+      "id": "connectivity:c88d2d41",
+      "type": "connectivity",
+      "severity": "warning",
+      "title": "Collegare orfani: 1",
+      "description": "Aggiungere link in/out e rigenerare.",
+      "files": [
+        "orphans.md"
+      ]
+    }
+  ]
+}

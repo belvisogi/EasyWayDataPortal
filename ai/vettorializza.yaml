@@ -6,6 +6,7 @@ notes:
 include:
   - "README.md"
   - "docs/**/*.md"
+  - "docs/**/*.json"
   - "Wiki/EasyWayData.wiki/**/*.md"
   - "agents/**/*.md"
   - "agents/**/manifest.json"

@@ -45,3 +45,13 @@ Note
 
 
 
+
+
+## Vedi anche
+
+- [Doc Alignment Gate](./doc-alignment-gate.md)
+- [Verifica CI – ewctl gates e Flyway (branch non-main)](./ci-verifica-ewctl-gates-e-flyway.md)
+- [ADO – Segnare un job come Required nelle PR](./checklist-ado-required-job.md)
+- [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
+- [Metodo di Lavoro Agent‑First](./agent-first-method.md)
+

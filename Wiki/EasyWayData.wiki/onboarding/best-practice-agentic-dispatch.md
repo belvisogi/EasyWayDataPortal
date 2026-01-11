@@ -57,3 +57,13 @@ entities: []
 - `Wiki/EasyWayData.wiki/intent-contract.md`
 - `Wiki/EasyWayData.wiki/security/segreti-e-accessi.md`
 - `Wiki/EasyWayData.wiki/security/operativita-governance-provisioning-accessi.md`
+
+
+## Vedi anche
+
+- [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
+- [Orchestratore n8n (WHAT)](../orchestrations/orchestrator-n8n.md)
+- [Orchestrazione - Agent Scaffold (WHAT)](../orchestrations/agent-scaffold.md)
+- [Control Plane - Panoramica](../control-plane/index.md)
+- [Segregation Model (Dev vs Knowledge vs Runtime)](../control-plane/segregation-model-dev-knowledge-runtime.md)
+

@@ -66,3 +66,13 @@ Nota: se apri come vault la cartella `Wiki/` (non `Wiki/EasyWayData.wiki`), usa 
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
 
+
+
+## Vedi anche
+
+- [Obsidian Vault Template (README)](.obsidian.example/README.md)
+- [LLM READINESS CHECKLIST](./llm-readiness-checklist.md)
+- [Suggerimenti Link Correlati (Affinità)](./docs-related-links.md)
+- [Generare DDL+SP da mini-DSL (agent-aware)](./db-generate-artifacts-dsl.md)
+- [Datalake - Set Retention (Stub)](./datalake-set-retention.md)
+

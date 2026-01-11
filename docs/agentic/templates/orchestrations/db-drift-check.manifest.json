@@ -1,0 +1,27 @@
+{
+  "id": "db-drift-check",
+  "version": "0.1.0",
+  "principle": "WHAT-first: definire scopo, contratti e audit prima dell'implementazione",
+  "intent": {
+    "name": "db-drift-check",
+    "description": "Eseguire DB drift check e produrre report machine-readable.",
+    "trigger": "db-drift-check.requested"
+  },
+  "roles": {
+    "requester": "Operatore o n8n che richiede drift check.",
+    "orchestrator": "n8n.dispatch: valida input e invoca runner.",
+    "agent_dba": "Esegue drift check e interpreta output.",
+    "steward_governance": "Valuta i fail prima del deploy."
+  },
+  "stages": [
+    { "name": "received", "purpose": "Ricevere richiesta e inizializzare correlationId", "entry_criteria": ["db-drift-check.requested"], "inputs": ["intent_payload"], "outputs": ["correlationId"], "success_criteria": ["Payload ricevuto"], "failure_criteria": ["Payload mancante"], "human_checkpoints": [], "ux_prompts": "generic_received" },
+    { "name": "validated", "purpose": "Validare input e prerequisiti", "entry_criteria": ["received.success"], "inputs": ["intent_payload"], "outputs": ["validation_ok"], "success_criteria": ["Spec valida"], "failure_criteria": ["Spec invalida"], "human_checkpoints": [], "ux_prompts": "generic_validated" },
+    { "name": "executed", "purpose": "Eseguire drift check e produrre report", "entry_criteria": ["validated.success"], "inputs": ["intent_payload"], "outputs": ["reportPath"], "success_criteria": ["Report prodotto"], "failure_criteria": ["Esecuzione fallita"], "human_checkpoints": [], "ux_prompts": "generic_executed" },
+    { "name": "completed", "purpose": "Chiudere run con output e next step", "entry_criteria": ["executed.success"], "inputs": ["reportPath"], "outputs": ["run_summary"], "success_criteria": ["Output finale disponibile"], "failure_criteria": [], "human_checkpoints": [], "ux_prompts": "generic_done" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}
+

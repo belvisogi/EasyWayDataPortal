@@ -40,3 +40,13 @@ Integrazione CI
 
 
 
+
+
+## Vedi anche
+
+- [Validazione Output Agenti in CI](./agent-output-validation-ci.md)
+- [Metodo di Lavoro Agent‑First](./agent-first-method.md)
+- [Orchestratore n8n (WHAT)](./orchestrations/orchestrator-n8n.md)
+- [Verifica CI – ewctl gates e Flyway (branch non-main)](./ci-verifica-ewctl-gates-e-flyway.md)
+- [Agent Priority Rules e Checklists (human-in-the-loop)](./agent-priority-and-checklists.md)
+

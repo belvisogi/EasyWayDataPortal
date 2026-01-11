@@ -1,0 +1,15 @@
+{
+  "rules": [
+    {
+      "id": "ado-userstory-bestpractice-prefetch",
+      "description": "Prefetch best practices prima di creare la User Story",
+      "severity": "mandatory",
+      "when": { "intentContains": ["ado-userstory-create"] },
+      "checklist": [
+        "Eseguire prefetch da Wiki locale",
+        "Se richiesto, scaricare fonti esterne (Microsoft Learn + Azure DevOps docs)",
+        "Registrare artifact in out/ado-best-practices"
+      ]
+    }
+  ]
+}

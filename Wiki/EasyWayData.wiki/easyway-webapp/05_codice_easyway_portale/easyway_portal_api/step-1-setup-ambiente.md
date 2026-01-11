@@ -1,19 +1,71 @@
 ---
 id: ew-step-1-setup-ambiente
-title: step 1 setup ambiente
-tags: [domain/frontend, layer/howto, audience/dev, privacy/internal, language/it]
+title: Step 1 - Setup ambiente (Onboarding rapido)
+tags: [domain/portal, layer/howto, audience/dev, privacy/internal, language/it, onboarding]
 owner: team-platform
-summary: Setup iniziale progetto Node/TypeScript (struttura, package/tsconfig, sample YAML, regole base).
-status: draft
+summary: Cosa fare appena clonato EasyWayDataPortal: setup env, avvio API, checklist predeploy e (opz.) Terraform plan.
+status: active
 llm:
   include: true
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-updated: '2026-01-05'
-next: TODO - definire next step.
+updated: '2026-01-09'
+next: Allineare le guide step-* a Start Here + ewctl.
 ---
+# Step 1 - Setup ambiente (Onboarding rapido)
+
+Questa è la guida “primo giorno”: cosa fare appena clonato EasyWayDataPortal per poter lavorare (API + governance gates) e, se ti serve, fare Terraform plan.
+
+Punti di ingresso canonici:
+- Start here: `../../../start-here.md`
+- Registry agenti: `../../../control-plane/agents-registry.md`
+- Entrypoint esecuzione: `../../../../../scripts/ewctl.ps1`
+
+## Prerequisiti
+- PowerShell 7+
+- Node.js + npm
+- Git
+- (Opzionale) Terraform per `plan`
+
+## Passi (locale)
+
+### 1) Setup variabili locali (.env.local)
+Script canonico (evita hardcode):
+```powershell
+pwsh scripts/setup-env.ps1 -TenantId <TENANT> -AuthClientId <CLIENT_ID> -DbConnString '<CONN>' -DefaultBusinessTenant tenant01
+```
+
+### 2) Avvio API (dev)
+```powershell
+cd EasyWay-DataPortal/easyway-portal-api
+npm ci
+npm run dev
+```
+
+### 3) Verifica rapida (health)
+- REST client: `../../../../../tests/api/rest-client/health.http`
+
+### 4) Governance gates (consigliato prima di PR)
+```powershell
+pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent
+```
+
+## Terraform (opzionale)
+Doc canonica provisioning/plan:
+- `../../../blueprints/replicate-easyway-dataportal.md`
+
+Shortcut (plan governato):
+```powershell
+pwsh scripts/ewctl.ps1 --engine ps --terraformplan --noninteractive
+```
+
+## Nota (legacy)
+Il contenuto sotto nasceva come guida “struttura repo Node/TS”. Oggi resta come appendice storica; per struttura del codice usa:
+- `./STEP-2-—-Struttura-src-e-primi-file.md`
+- `./STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md`
+
 **Perché lo facciamo:**
 *   Mettere le fondamenta tecniche della WebApp, in modo che sia **gestibile**, **scalabile**, e facile da sviluppare/manutenere.
     
@@ -197,3 +249,15 @@ easyway-portal-api/
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
 
+
+
+## Vedi anche
+
+- [create json](./step-1-setup-ambiente/create-json.md)
+- [STEP 3 - Gestione configurazioni (YAML + DB)](./STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md)
+- [STEP 2 - Struttura src e primi file](./STEP-2-—-Struttura-src-e-primi-file.md)
+- [step 4 query dinamiche locale datalake](./step-4-query-dinamiche-locale-datalake.md)
+- [step 5 validazione avanzata dati in ingresso](./step-5-validazione-avanzata-dati-in-ingresso.md)
+- [Start Here - Link Essenziali](../../../start-here.md)
+- [Agents Registry (owner, domini, intent)](../../../control-plane/agents-registry.md)
+- [Blueprint - Replicate EasyWay DataPortal (Terraform)](../../../blueprints/replicate-easyway-dataportal.md)

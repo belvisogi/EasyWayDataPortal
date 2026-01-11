@@ -1,0 +1,15 @@
+{
+  "intent_id": "doc-nav-improvement-001",
+  "updated": "2026-01-09",
+  "owner": "team-platform",
+  "goals": [
+    "Hub/indice ufficiale",
+    "Percorsi per persona (3-5 step)",
+    "Riduzione ridondanze con canonical/shim"
+  ],
+  "constraints": [
+    "Non cancellare: riclassificare legacy",
+    "Preferire modifiche reversibili"
+  ]
+}
+

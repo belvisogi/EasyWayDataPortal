@@ -1,0 +1,33 @@
+{
+  "id": "ado-bestpractice-prefetch",
+  "what": {
+    "purpose": "Raccogliere best practices per ADO User Story da Wiki locale e fonti esterne.",
+    "inputs": {
+      "wikiRoot": { "type": "string", "default": "Wiki/EasyWayData.wiki" },
+      "outDir": { "type": "string", "default": "out/ado-best-practices" },
+      "downloadExternal": { "type": "boolean", "default": true },
+      "externalSources": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": [
+          "https://learn.microsoft.com/azure/devops/boards/backlogs/create-your-backlog?view=azure-devops",
+          "https://learn.microsoft.com/azure/devops/boards/work-items/guidance/create-work-items?view=azure-devops",
+          "https://learn.microsoft.com/azure/devops/boards/work-items/guidance/user-stories?view=azure-devops",
+          "https://learn.microsoft.com/azure/devops/boards/boards/boards?view=azure-devops"
+        ]
+      },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "localCount": { "type": "number" },
+      "externalCount": { "type": "number" },
+      "artifacts": { "type": "array", "items": { "type": "string" } }
+    },
+    "events": ["ado-bestpractice-prefetch.started", "ado-bestpractice-prefetch.completed"],
+    "success_criteria": ["Best practices raccolte o skip"],
+    "failure_criteria": ["Wiki root mancante", "Download esterno fallito"]
+  }
+}

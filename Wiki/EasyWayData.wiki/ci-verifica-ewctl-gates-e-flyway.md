@@ -57,3 +57,13 @@ Riferimenti
 
 
 
+
+
+## Vedi anche
+
+- [ADO – Segnare un job come Required nelle PR](./checklist-ado-required-job.md)
+- [Validazione Output Agenti in CI](./agent-output-validation-ci.md)
+- [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
+- [Doc Alignment Gate](./doc-alignment-gate.md)
+- [EnforcerCheck – Guardrail allowed_paths in CI](./enforcer-guardrail.md)
+

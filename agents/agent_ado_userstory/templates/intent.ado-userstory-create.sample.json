@@ -1,0 +1,28 @@
+{
+  "action": "ado:userstory.create",
+  "params": {
+    "ado": {
+      "orgUrl": "https://dev.azure.com/<org>",
+      "project": "<project>",
+      "pat": "<PAT>"
+    },
+    "workItemType": "User Story",
+    "title": "Come utente voglio ... per ...",
+    "description": "Scenario e contesto",
+    "acceptanceCriteria": "- Criterio 1\n- Criterio 2",
+    "areaPath": "<project>\\Team",
+    "iterationPath": "<project>\\Sprint 1",
+    "tags": ["agentic", "easyway"],
+    "prefetchBestPractices": true,
+    "downloadExternal": true,
+    "externalSources": [
+      "https://learn.microsoft.com/azure/devops/boards/backlogs/create-your-backlog?view=azure-devops",
+      "https://learn.microsoft.com/azure/devops/boards/work-items/guidance/create-work-items?view=azure-devops",
+      "https://learn.microsoft.com/azure/devops/boards/work-items/guidance/user-stories?view=azure-devops",
+      "https://learn.microsoft.com/azure/devops/boards/boards/boards?view=azure-devops"
+    ]
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "ado-userstory-create-001"
+}

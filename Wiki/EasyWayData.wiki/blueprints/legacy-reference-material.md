@@ -37,3 +37,13 @@ Nota
 
 
 
+
+
+## Vedi anche
+
+- [Blueprint – Replicare EasyWay Data Portal](./replicate-easyway-dataportal.md)
+- [Dominio Docs & Governance](../domains/docs-governance.md)
+- [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](../docs-conventions.md)
+- [Domini - Panoramica](../domains/index.md)
+- [Roadmap Uniformamento Wiki secondo docs-conventions](../wiki-uniformamento-roadmap.md)
+

@@ -153,6 +153,21 @@ function Run-PSDatalake {
   if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
 }
 
+function Run-PSAdoUserStory {
+  param([string]$Action, [string]$IntentPath, [switch]$Interactive)
+  try {
+    pwsh scripts/enforcer.ps1 -Agent agent_ado_userstory -GitDiff -Quiet
+    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_ado_userstory'; exit 2 }
+  } catch { Write-Warning "Enforcer preflight (ado_userstory) non applicabile: $($_.Exception.Message)" }
+  $argsList = @('-Action', $Action)
+  if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
+  if ($WhatIf) { $argsList += '-WhatIf' }
+  if ($LogEvent) { $argsList += '-LogEvent' }
+  if (-not $Interactive) { $argsList += '-NonInteractive' }
+  $json = pwsh scripts/agent-ado-userstory.ps1 @argsList
+  if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
+}
+
 function Dispatch-Intent-PS($intent) {
   switch -Regex ($intent) {
     '^(wiki|docs)' {
@@ -206,8 +221,32 @@ function Dispatch-Intent-PS($intent) {
       $defaultIntent = 'agents/agent_datalake/templates/intent.etl-slo-validate.sample.json'
       return Run-PSDatalake -Action 'etl-slo:validate' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
     }
+    '^(ado-userstory-create|ado-userstory)$' {
+      $defaultIntent = 'agents/agent_ado_userstory/templates/intent.ado-userstory-create.sample.json'
+      return Run-PSAdoUserStory -Action 'ado:userstory.create' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
+    '^(ado-bestpractice-prefetch)$' {
+      $defaultIntent = 'agents/agent_ado_userstory/templates/intent.ado-bestpractice-prefetch.sample.json'
+      return Run-PSAdoUserStory -Action 'ado:bestpractice.prefetch' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
+    '^(ado-bootstrap)$' {
+      $defaultIntent = 'agents/agent_ado_userstory/templates/intent.ado-bootstrap.sample.json'
+      return Run-PSAdoUserStory -Action 'ado:bootstrap' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+    }
     '^(doc-alignment|docs-gate)$' {
       $json = (pwsh scripts/doc-alignment-check.ps1)
+      Write-Output $json; return
+    }
+    '^(docs-dq|docs-dq-audit|doc-dq)$' {
+      $argsList = @()
+      if ($WhatIf) { $argsList += '-WhatIf' }
+      if ($NonInteractive) { $argsList += '-NonInteractive' }
+      $json = (pwsh scripts/docs-dq-scorecard.ps1 @argsList)
+      Write-Output $json; return
+    }
+    '^(docs-confluence|confluence-dq|confluence-kanban)$' {
+      # Plan-only by default to avoid network access in wrappers; run the script directly for export/apply.
+      $json = (pwsh scripts/confluence-dq-board.ps1 -IntentPath 'scripts/intents/docs-dq-confluence-cloud-001.json' -PlanOnly)
       Write-Output $json; return
     }
     '^(agent-scaffold|agent-create|agent-creator)$' {

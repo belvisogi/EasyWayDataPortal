@@ -214,3 +214,13 @@ Se vuoi, procedo ora a:
 
 Indica quale di questi vuoi che generi immediatamente.
 
+
+
+## Vedi anche
+
+- [Contratto Plan + Diario di Bordo (Machine-readable)](../plan-and-diary-contract.md)
+- [UX Mock – Diario di Bordo (wf.excel-csv-upload)](./diary-mock-wf-excel-csv-upload.md)
+- [Use Case – Entrate/Uscite (One‑Button UX)](../use-cases/entrate-uscite.md)
+- [UX – Usability Checklist (One‑Button)](./usability-checklist.md)
+- [UX - Asset e Branding](./branding-assets.md)
+

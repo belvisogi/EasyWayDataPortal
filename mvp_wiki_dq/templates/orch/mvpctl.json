@@ -1,0 +1,9 @@
+{
+  "id": "mvpctl",
+  "runner": {
+    "engine": "ps",
+    "plan": "pwsh scripts/mvpctl.ps1 -Mode plan",
+    "apply": "pwsh scripts/mvpctl.ps1 -Mode apply"
+  }
+}
+

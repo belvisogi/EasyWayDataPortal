@@ -36,3 +36,13 @@ pwsh scripts/agent-security.ps1 -Action kv-secret:reference -IntentPath out/inte
 ## Note di sicurezza
 - Mai committare `.env*` o valori segreti.
 - Log e audit: `agents/logs/events.jsonl` (non contiene secretValue).
+
+
+## Vedi anche
+
+- [Segregation Model (Dev vs Knowledge vs Runtime)](../control-plane/segregation-model-dev-knowledge-runtime.md)
+- [07 iam naming utenti gruppi](../easyway-webapp/07-iam-naming-utenti-gruppi.md)
+- [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
+- [Segreti e accessi (DB + Datalake)](./segreti-e-accessi.md)
+- [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
+

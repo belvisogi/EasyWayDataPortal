@@ -63,3 +63,13 @@ pwsh scripts/db-table-template-xlsx.ps1
 - Il file Excel esiste e ha 4 fogli.
 - L'intent generato e' valido e il lint DB passa.
 - Eventi loggati in `agents/logs/events.jsonl` se `-LogEvent`.
+
+
+## Vedi anche
+
+- [Blueprint - DB Table Create (Excel/CSV -> Intent)](./db-table-create-sheet.md)
+- [n8n-db-table-create](../orchestrations/n8n-db-table-create.md)
+- [Esempi Notifiche & Template Email Configurabili](../easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md)
+- [Orchestrations – Intents Catalog (Use Case Excel/CSV)](../orchestrations/intents-catalog.md)
+- [db-howto-create-table](../easyway-webapp/01_database_architecture/howto-create-table.md)
+

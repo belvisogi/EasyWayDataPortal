@@ -109,3 +109,13 @@ pwsh scripts/access-registry-template-xlsx.ps1
 - `docs/ci/azure-devops-secrets.md`
 - `Wiki/EasyWayData.wiki/deploy-app-service.md`
 - `Wiki/EasyWayData.wiki/easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md`
+
+
+## Vedi anche
+
+- [Operativita governance-driven - provisioning accessi (DB/Datalake)](./operativita-governance-provisioning-accessi.md)
+- [Agent Security (IAM/KeyVault) - overview](./agent-security-iam.md)
+- [Segregation Model (Dev vs Knowledge vs Runtime)](../control-plane/segregation-model-dev-knowledge-runtime.md)
+- [Policy di Configurazione & Sicurezza – Microservizi e API Gateway](../easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md)
+- [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
+

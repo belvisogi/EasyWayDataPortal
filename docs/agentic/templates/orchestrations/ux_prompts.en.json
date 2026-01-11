@@ -129,5 +129,69 @@
   },
   "agent_scaffold_context": {
     "ok": "RAG context ready (Azure AI Search) or skipped."
+  },
+  "release_preflight_security_received": {
+    "ok": "Request received. Starting release security preflight."
+  },
+  "release_preflight_security_validated": {
+    "ok": "Spec valid. Running security/compliance/audit checks.",
+    "error": "Invalid spec: check targetEnv and changeSummary."
+  },
+  "release_preflight_security_evaluated": {
+    "ok": "Checklist completed. Summarizing outcome and evidence.",
+    "error": "Evaluation failed. Check details."
+  },
+  "release_preflight_security_done": {
+    "ok": "Preflight completed. Proceed to deploy or fix failed items?"
+  },
+  "ado_userstory_received": {
+    "ok": "Request received. Validating User Story inputs."
+  },
+  "ado_userstory_validated": {
+    "ok": "Spec valid. Starting best practice prefetch.",
+    "error": "Invalid spec: check orgUrl, project and title."
+  },
+  "ado_userstory_bestpractice": {
+    "ok": "Best practices collected (local Wiki + external sources).",
+    "error": "Best practice prefetch failed. Check details."
+  },
+  "ado_userstory_executed": {
+    "ok": "User Story created in Azure DevOps.",
+    "error": "Creation failed. Check logs and permissions."
+  },
+  "ado_userstory_done": {
+    "ok": "Completed. Want to create another User Story?"
+  },
+  "ado_bootstrap_received": {
+    "ok": "Request received. Validating Azure DevOps bootstrap parameters."
+  },
+  "ado_bootstrap_validated": {
+    "ok": "Spec valid. Approval required to proceed with Azure DevOps changes.",
+    "error": "Invalid spec: check orgUrl, project, areas/iterations."
+  },
+  "ado_bootstrap_executed": {
+    "ok": "Bootstrap completed. Areas/iterations created and backlog seed ready.",
+    "error": "Bootstrap failed. Check logs and permissions."
+  },
+  "ado_bootstrap_done": {
+    "ok": "Completed. Want to create the initial epics/features too?"
+  },
+  "generic_received": {
+    "ok": "Request received. Starting operation."
+  },
+  "generic_validated": {
+    "ok": "Spec valid. Proceeding with execution.",
+    "error": "Invalid spec: check required fields."
+  },
+  "generic_approved": {
+    "ok": "Approved. Proceeding.",
+    "error": "Not approved. Operation cancelled."
+  },
+  "generic_executed": {
+    "ok": "Execution completed. Recording evidence.",
+    "error": "Execution failed. Check details."
+  },
+  "generic_done": {
+    "ok": "Operation completed."
   }
 }

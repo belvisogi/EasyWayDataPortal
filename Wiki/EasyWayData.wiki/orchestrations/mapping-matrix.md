@@ -36,6 +36,9 @@ Nota
 
 | Item | Tipo | Owner | Entrypoint | Artefatti | KB | Wiki |
 |---|---|---|---|---|---|---|
+| setup-local-env | intent | Agent_AMS | `pwsh scripts/setup-env.ps1 -TenantId <TENANT> -AuthClientId <CLIENT_ID> -DbConnString '<CONN>' -DefaultBusinessTenant tenant01` | `.env.local` | `kb-setup-env-001` | `easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente.md` |
+| ado-bootstrap | intent | Agent_Scrummaster | `pwsh scripts/ewctl.ps1 --engine ps --intent ado-bootstrap --noninteractive --whatif` | output JSON (planned/created) | `kb-ado-operating-model-716` | `ado-operating-model.md` |
+| ado-userstory-create | intent | Agent_ADO_UserStory | `pwsh scripts/agent-ado-userstory.ps1 -Action ado:userstory.create -IntentPath agents/agent_ado_userstory/templates/intent.ado-userstory-create.sample.json -NonInteractive -WhatIf` | output JSON (action-result) | `kb-ado-userstory-715` | `orchestrations/ado-userstory-create.md` |
 | db-user:create | intent | Agent_DBA | `pwsh scripts/ewctl.ps1 --engine ps --intent db-user-create` | output JSON (action-result) + `agents/logs/events.jsonl` | `db-user-create` | `db-user-access-management.md` |
 | db-user:rotate | intent | Agent_DBA | `pwsh scripts/ewctl.ps1 --engine ps --intent db-user-rotate` | output JSON (action-result) + `agents/logs/events.jsonl` | `db-user-rotate` | `db-user-access-management.md` |
 | db-user:revoke | intent | Agent_DBA | `pwsh scripts/ewctl.ps1 --engine ps --intent db-user-revoke` | output JSON (action-result) + `agents/logs/events.jsonl` | `db-user-revoke` | `db-user-access-management.md` |
@@ -62,4 +65,14 @@ Nota
 - La colonna Entrypoint e' canonica: tutti i nuovi intent passano da `orchestrator.n8n.dispatch`.
 - Molti intent hanno anche `IntentPath` sample in `agents/<agent>/templates/*.sample.json`.
 - Per aggiungere un nuovo intent: aggiungi schema WHAT in `docs/agentic/templates/intents/`, aggiorna questa matrice, aggiungi ricetta KB e pagina Wiki.
+
+
+
+## Vedi anche
+
+- [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
+- [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
+- [Orchestrations – Intents Catalog (Use Case Excel/CSV)](./intents-catalog.md)
+- [Orchestrations - Intents Catalog (Globale)](./intents-catalog-global.md)
+- [Control Plane - Panoramica](../control-plane/index.md)
 

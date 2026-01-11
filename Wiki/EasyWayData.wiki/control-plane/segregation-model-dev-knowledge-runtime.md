@@ -95,3 +95,13 @@ flowchart LR
 - Retrieval bundles per n8n definiti (scripts solo on-demand).
 - Runner con `ewctl` e gate attivi.
 - Datalake usato solo per artifact (no codice eseguibile).
+
+
+## Vedi anche
+
+- [Agents Registry (owner, domini, intent)](./agents-registry.md)
+- [Agent Security (IAM/KeyVault) - overview](../security/agent-security-iam.md)
+- [Roadmap agent (retrieval, observability, infra, backend, release)](./agents-missing-roadmap.md)
+- [Control Plane - Panoramica](./index.md)
+- [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+

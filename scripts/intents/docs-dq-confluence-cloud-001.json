@@ -1,0 +1,52 @@
+{
+  "intent_id": "docs-dq-confluence-cloud-001",
+  "title": "Docs DQ + Kanban (Confluence Cloud) - Parametri",
+  "summary": "Parametri per esportare Confluence Cloud (read-only) e generare/aggiornare una pagina Kanban dedicata per la DQ della documentazione.",
+  "updated": "2026-01-09",
+  "owner": "team-platform",
+  "mode": "export-only",
+  "confluence": {
+    "baseUrl": "https://YOURORG.atlassian.net/wiki",
+    "spaceKey": "SPACEKEY",
+    "boardPage": {
+      "title": "Docs DQ Kanban",
+      "parentPageId": "",
+      "pageId": ""
+    },
+    "auth": {
+      "emailEnv": "CONFLUENCE_EMAIL",
+      "apiTokenEnv": "CONFLUENCE_API_TOKEN"
+    }
+  },
+  "export": {
+    "outDir": "out/confluence",
+    "pageLimit": 250,
+    "includeLabels": true,
+    "includeBodyStorage": false
+  },
+  "kanban": {
+    "maxCards": 60,
+    "autoSectionMarkers": {
+      "start": "<!-- AUTO:START -->",
+      "end": "<!-- AUTO:END -->"
+    }
+  },
+  "dq": {
+    "checks": [
+      "metadata.completeness",
+      "links.basic",
+      "duplication.canonical"
+    ]
+  },
+  "constraints": [
+    "Di default non scrivere su Confluence (WhatIf).",
+    "Nessuna credenziale hard-coded: usare env var.",
+    "Output sempre ripetibile e tracciabile in out/."
+  ],
+  "references": [
+    "Wiki/EasyWayData.wiki/orchestrations/docs-confluence-dq-kanban.md",
+    "docs/agentic/templates/orchestrations/docs-confluence-dq-kanban.manifest.json",
+    "docs/agentic/templates/intents/docs-confluence-dq-kanban.intent.json"
+  ]
+}
+

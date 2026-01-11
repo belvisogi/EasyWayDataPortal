@@ -77,3 +77,15 @@ Appendice – Connessioni Airflow
 
 
 
+
+
+## Vedi anche
+
+- [ETL/ELT - Scelte Tecnologiche](../etl-elt-technology-choices.md)
+- [ETL/ELT Template (Per-Pipeline)](../etl-elt-template.md)
+- [ETL - Data Quality Framework](../etl-dq-framework.md)
+- [ETL - Governance & SLA](../etl-governance-sla.md)
+- [ARGOS - Alerting & Notifications (v1.1)](../argos/argos-alerting.md)
+- [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
+- [Agent - DQ Blueprint (Spec v0)](../agents/agent-dq-blueprint.md)
+

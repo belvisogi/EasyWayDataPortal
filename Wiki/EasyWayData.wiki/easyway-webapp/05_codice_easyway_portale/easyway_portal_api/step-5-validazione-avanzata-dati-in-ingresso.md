@@ -137,3 +137,12 @@ export default router;
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
 
+
+
+## Vedi anche
+
+- [create json](./step-1-setup-ambiente/create-json.md)
+- [checklist di test api](../../02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md)
+- [STEP 2 - Struttura src e primi file](./STEP-2-—-Struttura-src-e-primi-file.md)
+- [step 4 query dinamiche locale datalake](./step-4-query-dinamiche-locale-datalake.md)
+- [validazione avanzata](./step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md)

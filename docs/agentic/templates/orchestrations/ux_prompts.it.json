@@ -129,5 +129,69 @@
   },
   "agent_scaffold_context": {
     "ok": "Contesto RAG pronto (Azure AI Search) o saltato."
+  },
+  "release_preflight_security_received": {
+    "ok": "Richiesta ricevuta. Inizio la preflight di sicurezza per il rilascio."
+  },
+  "release_preflight_security_validated": {
+    "ok": "Spec valida. Avvio i controlli security/compliance/audit.",
+    "error": "Spec non valida: controlla targetEnv e changeSummary."
+  },
+  "release_preflight_security_evaluated": {
+    "ok": "Checklist completata. Riassumo esito ed evidenze.",
+    "error": "Valutazione fallita. Verifica i dettagli."
+  },
+  "release_preflight_security_done": {
+    "ok": "Preflight completata. Vuoi procedere al deploy o correggere i punti in fail?"
+  },
+  "ado_userstory_received": {
+    "ok": "Richiesta ricevuta. Valido i dati per la User Story."
+  },
+  "ado_userstory_validated": {
+    "ok": "Spec valida. Avvio prefetch best practices.",
+    "error": "Spec non valida: controlla orgUrl, project e title."
+  },
+  "ado_userstory_bestpractice": {
+    "ok": "Best practices raccolte (Wiki locale + fonti esterne).",
+    "error": "Prefetch best practices fallito. Verifica i dettagli."
+  },
+  "ado_userstory_executed": {
+    "ok": "User Story creata in Azure DevOps.",
+    "error": "Creazione fallita. Controlla log e permessi."
+  },
+  "ado_userstory_done": {
+    "ok": "Operazione completata. Vuoi creare un'altra User Story?"
+  },
+  "ado_bootstrap_received": {
+    "ok": "Richiesta ricevuta. Valido i parametri di bootstrap Azure DevOps."
+  },
+  "ado_bootstrap_validated": {
+    "ok": "Spec valida. Serve approvazione per procedere con la creazione su Azure DevOps.",
+    "error": "Spec non valida: controlla orgUrl, project, areas/iterations."
+  },
+  "ado_bootstrap_executed": {
+    "ok": "Bootstrap completato. Area/Iteration create e backlog seed pronto.",
+    "error": "Bootstrap fallito. Verifica log e permessi."
+  },
+  "ado_bootstrap_done": {
+    "ok": "Operazione completata. Vuoi creare anche le epiche/feature iniziali?"
+  },
+  "generic_received": {
+    "ok": "Richiesta ricevuta. Inizio l'operazione."
+  },
+  "generic_validated": {
+    "ok": "Spec valida. Procedo con l'esecuzione.",
+    "error": "Spec non valida: controlla i campi richiesti."
+  },
+  "generic_approved": {
+    "ok": "Approvato. Procedo.",
+    "error": "Non approvato. Operazione annullata."
+  },
+  "generic_executed": {
+    "ok": "Esecuzione completata. Registro evidenze.",
+    "error": "Esecuzione fallita. Verifica i dettagli."
+  },
+  "generic_done": {
+    "ok": "Operazione completata."
   }
 }

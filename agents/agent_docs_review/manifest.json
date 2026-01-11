@@ -4,6 +4,9 @@
   "allowed_paths": [
     "Wiki/EasyWayData.wiki/**",
     "agents/kb/**",
+    "scripts/intents/**",
+    "scripts/docs-dq-scorecard.ps1",
+    "scripts/confluence-dq-board.ps1",
     "scripts/agent-docs-review.ps1",
     "scripts/agents-readme-sync.ps1",
     "scripts/agents-manifest-audit.ps1",
@@ -15,6 +18,12 @@
   "approvals": {},
   "knowledge_sources": [
     "agents/kb/recipes.jsonl",
-    "Wiki/EasyWayData.wiki/scripts/scripts.md"
+    "Wiki/EasyWayData.wiki/scripts/scripts.md",
+    "scripts/intents/doc-nav-improvement-001.json",
+    "docs/agentic/templates/orchestrations/docs-dq-audit.manifest.json",
+    "docs/agentic/templates/intents/docs-dq-audit.intent.json",
+    "scripts/intents/docs-dq-confluence-cloud-001.json",
+    "docs/agentic/templates/orchestrations/docs-confluence-dq-kanban.manifest.json",
+    "docs/agentic/templates/intents/docs-confluence-dq-kanban.intent.json"
   ]
 }

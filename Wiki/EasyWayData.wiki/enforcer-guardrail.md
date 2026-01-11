@@ -42,3 +42,13 @@ Riferimenti
 
 
 
+
+
+## Vedi anche
+
+- [ADO – Segnare un job come Required nelle PR](./checklist-ado-required-job.md)
+- [Metodo di Lavoro Agent‑First](./agent-first-method.md)
+- [Verifica CI – ewctl gates e Flyway (branch non-main)](./ci-verifica-ewctl-gates-e-flyway.md)
+- [Governance DQ – RACI, Processi e Checklist](./governance-dq.md)
+- [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
+

@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "nodes": 4,
+  "edges": 3,
+  "components": 1,
+  "largestComponentSize": 4,
+  "orphans": []
+}

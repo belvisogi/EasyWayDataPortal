@@ -1,0 +1,23 @@
+{
+  "id": "docs-confluence-dq-kanban",
+  "what": {
+    "purpose": "Esportare Confluence Cloud (space) e creare/aggiornare una pagina Kanban dedicata per la DQ della documentazione, con WhatIf di default e HITL per write-back.",
+    "inputs": {
+      "intentPath": { "type": "string", "default": "scripts/intents/docs-dq-confluence-cloud-001.json" },
+      "export": { "type": "boolean", "default": true },
+      "updateBoard": { "type": "boolean", "default": false },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "pagesOut": { "type": "string" },
+      "boardPageId": { "type": "string" },
+      "ok": { "type": "boolean" }
+    },
+    "events": ["docs.confluence.dq.kanban.started", "docs.confluence.dq.kanban.completed"],
+    "success_criteria": ["Export completato; write-back eseguito solo se approvato e WhatIf=false"],
+    "failure_criteria": ["Export fallito", "Write-back fallito"]
+  }
+}
+

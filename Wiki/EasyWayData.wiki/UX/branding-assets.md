@@ -29,3 +29,13 @@ Uso
 
 
 
+
+
+## Vedi anche
+
+- [UX Mock – Diario di Bordo (wf.excel-csv-upload)](./diary-mock-wf-excel-csv-upload.md)
+- [Dominio Frontend](../domains/frontend.md)
+- [UX & API Spec — Plan Viewer, Wizard e WhatIf (bozza)](./agentic-ux.md)
+- [UX – Usability Checklist (One‑Button)](./usability-checklist.md)
+- [endp 002 get api branding](../easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md)
+

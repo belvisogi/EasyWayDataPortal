@@ -83,6 +83,30 @@ Uso consigliato (GOLD/REPORTING)
 Approfondimenti
 - Parametrizzazione completa: vedi `Wiki/EasyWayData.wiki/parametrization-best-practices.md`
 
+## Security testing & pen test (piano)
+- In sviluppo: ogni feature nuova deve considerare vulnerabilita' note (OWASP Top 10, injection, authz).
+- SAST/SCA in CI: scanning continuo su dipendenze e codice (ogni PR).
+- DAST in pre-prod: smoke di sicurezza su endpoint critici prima di release.
+- Pen test periodico: almeno 1/anno (o semestrale se rischio alto) e dopo cambi major.
+- Threat model leggero per workflow nuovi o dati sensibili.
+
+## Punti di attenzione (backlog)
+- Secrets hygiene: nessun segreto in repo/log; migrare valori sensibili a Key Vault/Variable Group e applicare redaction nei log.
+- Logging/PII: definire campi vietati (token, password, PII) e redazione automatica nei log applicativi e `events.jsonl`.
+- CI security gates: introdurre SCA/SAST (minimo `npm audit` + lint) su ogni PR; aggiungere DAST smoke in pre-prod.
+- Token handling: in prod rimuovere fallback dev (token manuale) e dipendenze CDN non necessarie; applicare CSP/headers robusti.
+- RBAC scopes: validare ruoli/scopes reali dei token Entra e allineare mapping/policy (403 atteso senza claim).
+
+## Go-Live preflight (Security/Compliance/Audit)
+Usa questa checklist prima di andare in produzione (umana + agent).
+
+- Segreti: nessun segreto in repo (`.env*`), variabili sensibili solo in Key Vault/Variable Group, rotazione definita.
+- AuthN/AuthZ: `AUTH_ISSUER/JWKS/AUDIENCE` corretti, tenant claim valido, RBAC per endpoint sensibili abilitato e testato (403 senza claim).
+- Audit: log strutturati con `requestId/correlationId/tenantId/actor`, retention definita, redaction PII/token attiva.
+- Rate limit: per-tenant + burst configurati e verificati (429 con payload standard).
+- Gates sicurezza: SCA/SAST su PR, DAST smoke in pre-prod, pen test pianificato (almeno annuale) e dopo cambi major.
+- Docs: policy e QnA errori aggiornate; KB recipe presente per la preflight.
+
 
 
 

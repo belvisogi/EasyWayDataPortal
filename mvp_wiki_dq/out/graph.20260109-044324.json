@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "nodes": 5,
+  "edges": 3,
+  "components": 2,
+  "largestComponentSize": 4,
+  "orphans": [
+    "orphans.md"
+  ]
+}

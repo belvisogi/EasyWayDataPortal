@@ -43,3 +43,13 @@ Contesto: abbiamo già un blueprint derivabile da Flyway, quindi possiamo genera
 ## Come mantenerlo allineato
 - Se cambiano le migrazioni Flyway, rigenera l'inventario: `pwsh scripts/db-ddl-inventory.ps1 -WriteWiki -SummaryOut out/db/db-ddl-inventory.json`
 - Per nuove tabelle usa il workflow sheet->intent->agent: `blueprints/db-table-create-sheet.md`
+
+
+## Vedi anche
+
+- [Blueprint - DB PORTAL Diagram (internal viewer)](./db-portal-diagram.md)
+- [db-portal-tables-index](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/index.md)
+- [Blueprint - DB Table Create (Excel/CSV -> Intent)](./db-table-create-sheet.md)
+- [DB PORTAL - Inventario DDL (canonico)](../easyway-webapp/01_database_architecture/ddl-inventory.md)
+- [db-table-portal-log-audit](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-log-audit.md)
+

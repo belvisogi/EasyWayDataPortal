@@ -46,3 +46,13 @@ Esecuzione diretta (senza n8n):
 
 Esecuzione via agent:
 - `pwsh scripts/agent-dba.ps1 -Action db-doc:ddl-inventory -IntentPath agents/agent_dba/templates/intent.db-ddl-inventory.sample.json -NonInteractive`
+
+
+## Vedi anche
+
+- [n8n-db-table-create](./n8n-db-table-create.md)
+- [n8n Retrieval Bundles (riduzione token)](./n8n-retrieval-bundles.md)
+- [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
+- [n8n API Error Triage](./n8n-api-error-triage.md)
+- [DB Generate Docs (WHAT)](./db-generate-docs.md)
+

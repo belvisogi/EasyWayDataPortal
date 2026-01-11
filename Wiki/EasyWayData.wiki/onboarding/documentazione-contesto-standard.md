@@ -38,3 +38,13 @@ Ogni pagina deve essere auto-consistente: chi legge (umano o agente) deve capire
 - I cross-link puntano a file/pagine esistenti.
 - Se la pagina è “runtime-facing”, include confini di sicurezza (Zero Trust/sandbox).
 
+
+
+## Vedi anche
+
+- [Documentazione Agentica - Audit & Policy (Canonico)](../docs-agentic-audit.md)
+- [Developer & Agent Experience Upgrades](./developer-agent-experience-upgrades.md)
+- [Storyboard evolutivo - Da knowledge base classica a continuous improvement agentico (EasyWay)](./storyboard-easyway-agentic.md)
+- [HOWTO — Tagging e metadati in EasyWay DataPortal](./howto-tagging.md)
+- [Setup ambiente di test/Sandbox e Zero Trust](./setup-playground-zero-trust.md)
+

@@ -106,3 +106,13 @@ Le API restituiscono un payload coerente:
   "correlationId": "uuid"
 }
 ```
+
+
+## Vedi anche
+
+- [db-table-portal-log-audit](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-log-audit.md)
+- [checklist di test api](../easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md)
+- [LLM READINESS CHECKLIST](../llm-readiness-checklist.md)
+- [Gestione Accessi DB (Contained Users & Ruoli PORTAL)](../db-user-access-management.md)
+- [db-table-portal-users](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-users.md)
+

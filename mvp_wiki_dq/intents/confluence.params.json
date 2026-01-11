@@ -1,0 +1,27 @@
+{
+  "intent_id": "confluence-cloud-dq-kanban-001",
+  "updated": "2026-01-09",
+  "owner": "team-platform",
+  "confluence": {
+    "baseUrl": "https://YOURORG.atlassian.net/wiki",
+    "spaceKey": "SPACEKEY",
+    "board": {
+      "title": "Docs DQ Kanban",
+      "parentPageId": "",
+      "pageId": ""
+    },
+    "auth": {
+      "emailEnv": "CONFLUENCE_EMAIL",
+      "apiTokenEnv": "CONFLUENCE_API_TOKEN"
+    }
+  },
+  "export": {
+    "outDir": "out/confluence",
+    "pageLimit": 250
+  },
+  "markers": {
+    "start": "<!-- AUTO:START -->",
+    "end": "<!-- AUTO:END -->"
+  }
+}
+

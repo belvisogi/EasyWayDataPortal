@@ -26,6 +26,43 @@ Scopo: rendere la Wiki chiara per persone e AI. Regole brevi, esempi chiari, sem
 - Eccezioni: `_` è ammesso solo in alberi legacy già esistenti o in artefatti tecnici (DB/payload/config), non nei nuovi path Wiki.
 - Esempio: `easyway-webapp/02_logiche_easyway/login-flussi-onboarding.md`.
 
+### 1.1) Legacy (file non conformi) e migrazione
+Esistono file legacy con naming non conforme (es. `STEP-2-—-...`, maiuscole, caratteri speciali come `—`, parentesi, percent-encoding).
+
+Regole operative:
+- Non creare nuovi file con pattern legacy: per nuovi documenti usare sempre `kebab-case` ASCII.
+- Se devi “agganciare” un legacy (link rotti/orfani), preferisci:
+  - aggiungere link dagli indici e dagli step correlati (senza rinominare subito), e/o
+  - creare un file canonico `kebab-case` e lasciare nel file legacy una nota di redirect (“questa pagina è stata rinominata…”) mantenendo compatibilità.
+- Se rinomini/sposti file wiki:
+  - aggiorna i link in ingresso/uscita (indice globale `Wiki/EasyWayData.wiki/index.md`, indici di sezione, `Vedi anche` degli step),
+  - evita di cambiare path se la pagina è referenziata esternamente senza una strategia di redirect.
+
+#### Soluzione tecnica consigliata: “canonical-copy + legacy redirect stub”
+Obiettivo: migrare a path canonici **senza rompere** navigazione e retrieval.
+
+Passi (safe-by-default):
+1. Crea il file canonico in `kebab-case` (nuovo path) copiando contenuto e sistemando i link interni.
+2. Mantieni il file legacy (vecchio path) ma rendilo **stub minimale** che reindirizza al canonico.
+3. Aggiorna gli indici e i link “Vedi anche” a puntare al canonico (non al legacy).
+4. (Opz.) Se esiste un mapping massivo, applica una link map (CSV) e poi riesegui i lint.
+
+Frontmatter suggerito per il file legacy (stub):
+```yaml
+status: deprecated
+canonical: <percorso/relativo/al/wiki/file-canonico.md>
+llm:
+  include: false
+```
+
+Contenuto suggerito per il file legacy (stub):
+```md
+Questa pagina è stata rinominata (path canonico): `<percorso/relativo/al/wiki/file-canonico.md>`.
+
+Vai alla pagina canonica:
+- [Titolo canonico](./file-canonico.md)
+```
+
 ## 2) kebab-case vs snake_case
 Regola: il canonico lato doc/UI è `kebab-case`; i derivati sono meccanici per il dominio tecnico.
 
@@ -85,3 +122,13 @@ Ogni modifica significativa deve aggiornare:
 - una ricetta KB in `agents/kb/recipes.jsonl`
 - almeno una pagina Wiki pertinente
 - (se cambia un workflow) manifest + intents in `docs/agentic/templates/`
+
+## 7) Checklist di completamento (best practice)
+Per aiutare agenti (e umani) a chiudere davvero uno step, ogni pagina operativa (step/howto/runbook) dovrebbe includere una checklist esplicita **subito dopo** `## Domande a cui risponde`.
+
+Pattern consigliato:
+- `## Checklist per considerare lo step COMPLETO`
+  - `### Template (best practice)`: checklist generica (struttura pagina, prerequisiti, passi, verify, vedi anche, gate).
+  - `### Specifica (<tema>)`: checklist “operativa” con output attesi e verify concreti (file/endpoint/script/testcases).
+
+Esempio reale (Template + Specifica): `easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md`.

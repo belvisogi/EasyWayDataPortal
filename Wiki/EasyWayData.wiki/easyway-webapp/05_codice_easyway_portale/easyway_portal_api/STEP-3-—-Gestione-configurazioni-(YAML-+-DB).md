@@ -183,3 +183,12 @@ Con questa struttura puoi già:
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
 
+
+
+## Vedi anche
+
+- [create json](./step-1-setup-ambiente/create-json.md)
+- [STEP 2 - Struttura src e primi file](./STEP-2-—-Struttura-src-e-primi-file.md)
+- [checklist di test api](../../02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md)
+- [come si testa](./ENDPOINT/Template-ENDPOINT/come-si-testa.md)
+- [step 1 setup ambiente](./step-1-setup-ambiente.md)

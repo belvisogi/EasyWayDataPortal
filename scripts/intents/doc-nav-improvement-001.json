@@ -1,0 +1,74 @@
+{
+  "intent_id": "doc-nav-improvement-001",
+  "title": "Migliorare navigabilità e coerenza della documentazione EasyWay Data Portal",
+  "goals": [
+    "Rendere esplicite le fonti di verità della documentazione",
+    "Definire percorsi guidati per persona (Business, Dev backend, Data/DBA)",
+    "Ridurre ridondanze e sovrapposizioni tra i documenti principali"
+  ],
+  "constraints": [
+    "Non cancellare documenti esistenti: i contenuti legacy devono essere riclassificati, non persi",
+    "Minimizzare modifiche invasive al layout della wiki esistente",
+    "Riutilizzare ove possibile i link e gli script wiki-* già presenti nel repository"
+  ],
+  "steps": [
+    {
+      "id": "step-1-mark-sources-of-truth",
+      "description": "Marcare esplicitamente le fonti di verità e distinguere i documenti legacy/reference",
+      "actions": [
+        "Identifica i documenti che sono effettive fonti di verità (es. README root, pagina principale wiki, Sintesi_EasyWayDataPortal.md, documenti architetturali chiave).",
+        "Crea o aggiorna una pagina in wiki (es. 'Documentation Hub') che dichiari esplicitamente: 'Questo è l’indice ufficiale della documentazione'.",
+        "All’interno di questa pagina, elenca chiaramente: 'Questi sono documenti normativi / fonte di verità' e 'Questi sono documenti legacy/reference'.",
+        "Se la documentazione usa frontmatter o metadata, aggiungi un campo tipo `doc_role: fonte-di-verita | legacy | howto` ai documenti principali."
+      ],
+      "expected_output": [
+        "Una pagina Documentation Hub che funge da indice ufficiale.",
+        "Un elenco distinto di: fonti di verità, documenti how-to, documenti legacy/reference."
+      ]
+    },
+    {
+      "id": "step-2-persona-based-paths",
+      "description": "Creare percorsi guidati per persona",
+      "actions": [
+        "All’interno del Documentation Hub (o in una sezione dedicata del README), aggiungi tre sezioni: 'Per Utenti Business', 'Per Developer backend', 'Per Data/DBA'.",
+        "Per ogni sezione, definisci un percorso di lettura in 3–5 passi, usando documenti già esistenti (es. 'Se sei Business → leggi A, poi B, poi C').",
+        "Ogni percorso deve esplicitare chiaramente l’ordine di lettura (uso di liste numerate) e il valore di ogni documento (es. 'overview', 'howto pratico', 'dettaglio tecnico').",
+        "Aggiungi nel README root un paragrafo 'Percorsi guidati per persona' che linka a queste tre sezioni."
+      ],
+      "expected_output": [
+        "Percorsi per persona chiari, con ordine di lettura e link funzionanti.",
+        "README aggiornato con link ai percorsi guidati."
+      ]
+    },
+    {
+      "id": "step-3-reduce-redundancy",
+      "description": "Ridurre ridondanze e sovrapposizioni tra i documenti",
+      "actions": [
+        "Analizza i documenti principali (es. README, Sintesi, VALUTAZIONE, alcune pagine chiave di wiki) e individua concetti ripetuti in modo molto simile.",
+        "Per i concetti più ricorrenti (es. descrizione high-level del portale, principi agentici, architettura di base), scegli 1 pagina 'centrale' che diventerà il riferimento ufficiale.",
+        "Nelle altre pagine dove questi concetti si ripetono, sostituisci la descrizione dettagliata con un riassunto breve + link alla pagina centrale (es. 'Per la descrizione completa vedi …').",
+        "Se esistono documenti che di fatto sono usati solo come storico (decision log, comparazioni, POC), marcalI esplicitamente come 'legacy' o 'archivio' e collegali dalla sezione 'Legacy/Reference' del Documentation Hub."
+      ],
+      "expected_output": [
+        "Concetti chiave descritti in una sola pagina di riferimento, con le altre pagine che rimandano a quella.",
+        "Documenti storici/POC etichettati come legacy e collegati come tali."
+      ]
+    }
+  ],
+  "success_criteria": [
+    "Esiste una pagina chiaramente etichettata come 'Documentation Hub' o 'Indice ufficiale'.",
+    "Ogni persona tipo (Business, Dev backend, Data/DBA) ha un percorso di lettura in massimo 3–5 step.",
+    "I concetti chiave (cos’è il portale, architettura base, approccio agentico) hanno un unico punto di verità e gli altri documenti puntano lì.",
+    "I documenti legacy/reference sono riconoscibili e non confusi con la documentazione normativa."
+  ],
+  "updated": "2026-01-09",
+  "owner": "team-platform",
+  "references": [
+    "Wiki/EasyWayData.wiki/start-here.md",
+    "Wiki/EasyWayData.wiki/index.md",
+    "Wiki/EasyWayData.wiki/docs-conventions.md",
+    "Wiki/EasyWayData.wiki/orphans-index.md",
+    "Wiki/EasyWayData.wiki/docs-related-links.md"
+  ]
+}
+

@@ -76,3 +76,13 @@ Note finali
 
 
 
+
+
+## Vedi anche
+
+- [Cosa integrare da ADA per EasyWayDataPortal (approccio operativo e cosa aggiungere)](../../dr-gaps-vs-ada.md)
+- [what is inventory and missing items](../../Runbooks/what_is_inventory_and_missing_items.md)
+- [DR — Inventory & matrice componente → RTO / RPO](../../dr-inventory-matrix.md)
+- [Deployment decision (MVP) — EasyWay Data Portal](../../deployment-decision-mvp.md)
+- [readme](./logging-and-audit/readme.md)
+

@@ -46,3 +46,13 @@ pwsh scripts/agent-docs-review.ps1 -AgentsManifestAudit
 ## Uso consigliato
 - In locale: audit + fix guidati (human-in-the-loop).
 - In CI: usalo come advisory (non blocca) finche' non avete standardizzato tutti i manifest.
+
+
+## Vedi anche
+
+- [Agents Registry (owner, domini, intent)](./agents-registry.md)
+- [Roadmap agent (retrieval, observability, infra, backend, release)](./agents-missing-roadmap.md)
+- [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
+- [Validazione Output Agenti in CI](../agent-output-validation-ci.md)
+- [Agent Security (IAM/KeyVault) - overview](../security/agent-security-iam.md)
+

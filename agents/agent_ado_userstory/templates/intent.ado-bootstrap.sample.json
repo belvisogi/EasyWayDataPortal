@@ -1,0 +1,68 @@
+{
+  "action": "ado:bootstrap",
+  "params": {
+    "ado": {
+      "orgUrl": "https://dev.azure.com/EasyWayData",
+      "project": "EasyWay-DataPortal"
+    },
+    "areas": [
+      "EasyWay\\AMS",
+      "EasyWay\\Infra",
+      "EasyWay\\Business\\Frontend",
+      "EasyWay\\Business\\Logic",
+      "EasyWay\\Business\\Reporting",
+      "EasyWay\\Sprints"
+    ],
+    "iterations": [
+      {
+        "path": "EasyWay\\Sprints\\2026\\Sprint 01",
+        "startDate": "2026-01-12T00:00:00Z",
+        "finishDate": "2026-01-23T23:59:59Z"
+      },
+      {
+        "path": "EasyWay\\Sprints\\2026\\Sprint 02",
+        "startDate": "2026-01-26T00:00:00Z",
+        "finishDate": "2026-02-06T23:59:59Z"
+      }
+    ],
+    "backlog": [
+      {
+        "key": "E-BUS",
+        "workItemType": "Epic",
+        "title": "Business Delivery (Sprints)"
+      },
+      {
+        "key": "E-AMS",
+        "workItemType": "Epic",
+        "title": "AMS & Operations (Kanban)"
+      },
+      {
+        "key": "E-INFRA",
+        "workItemType": "Epic",
+        "title": "Infrastructure & Platform (Kanban)"
+      },
+      {
+        "key": "F-FE",
+        "parentKey": "E-BUS",
+        "workItemType": "Feature",
+        "title": "Frontend Business"
+      },
+      {
+        "key": "F-LOGIC",
+        "parentKey": "E-BUS",
+        "workItemType": "Feature",
+        "title": "Logiche Business"
+      },
+      {
+        "key": "F-REP",
+        "parentKey": "E-BUS",
+        "workItemType": "Feature",
+        "title": "Reportistica"
+      }
+    ]
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "ado-bootstrap-001"
+}
+

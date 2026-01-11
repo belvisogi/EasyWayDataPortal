@@ -83,3 +83,13 @@ Riferimenti
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
 
+
+
+## Vedi anche
+
+- [Gestione Accessi DB (Contained Users & Ruoli PORTAL)](./db-user-access-management.md)
+- [Datalake - Set Retention (Stub)](./datalake-set-retention.md)
+- [LLM READINESS CHECKLIST](./llm-readiness-checklist.md)
+- [Datalake - Ensure Structure (Stub)](./datalake-ensure-structure.md)
+- [Datalake - Apply ACL (Stub)](./datalake-apply-acl.md)
+

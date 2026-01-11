@@ -1,0 +1,39 @@
+{
+  "intent": "release.preflight.security",
+  "correlationId": "op-2026-01-08-001",
+  "startedAt": "2026-01-08T10:00:00Z",
+  "finishedAt": "2026-01-08T10:01:12Z",
+  "entries": [
+    {
+      "timestamp": "2026-01-08T10:00:01Z",
+      "stage": "received",
+      "outcome": "ok",
+      "reason": "Intent ricevuto",
+      "next": "Validare input"
+    },
+    {
+      "timestamp": "2026-01-08T10:00:05Z",
+      "stage": "validated",
+      "outcome": "ok",
+      "reason": "Schema valido",
+      "next": "Eseguire controlli"
+    },
+    {
+      "timestamp": "2026-01-08T10:00:45Z",
+      "stage": "evaluated",
+      "outcome": "warn",
+      "reason": "Manca evidenza SAST/SCA su PR",
+      "next": "Eseguire scanning e allegare artifact",
+      "artifacts": [
+        { "type": "wiki", "path": "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/security-and-observability.md" }
+      ]
+    },
+    {
+      "timestamp": "2026-01-08T10:01:12Z",
+      "stage": "completed",
+      "outcome": "warn",
+      "reason": "Preflight completata con warning",
+      "next": "Fix warning o approvazione esplicita per proseguire"
+    }
+  ]
+}

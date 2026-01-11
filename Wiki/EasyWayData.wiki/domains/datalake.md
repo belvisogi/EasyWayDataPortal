@@ -38,3 +38,13 @@ KB
 
 
 
+
+
+## Vedi anche
+
+- [Dominio DB](./db.md)
+- [datalake-dev-index](../easyway-webapp/03_datalake_dev/index.md)
+- [Dominio Frontend](./frontend.md)
+- [Datalake - Set Retention (Stub)](../datalake-set-retention.md)
+- [ETL/ELT Playbook](../etl-elt-playbook.md)
+

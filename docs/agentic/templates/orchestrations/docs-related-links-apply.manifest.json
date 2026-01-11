@@ -1,0 +1,34 @@
+{
+  "id": "docs-related-links-apply",
+  "version": "0.1.0",
+  "principle": "WHAT-first: suggerire e applicare cross-link (human-in-the-loop) con rollback via backup/artifacts",
+  "intent": {
+    "name": "docs.related.links.apply",
+    "description": "Genera suggerimenti di link correlati e (opz.) applica una sezione 'Vedi anche' con conferma umana e backup.",
+    "trigger": "docs.related.links.apply.requested"
+  },
+  "roles": {
+    "requester": "Operatore che richiede miglioramento navigazione/graph.",
+    "orchestrator": "n8n.dispatch: valida input e invoca runner (WhatIf di default).",
+    "agent_docs_review": "Esegue suggerimento/apply e valida link/anchor.",
+    "steward_governance": "Human-in-the-loop per approvare l'apply e la soglia minScore."
+  },
+  "runner": {
+    "engine": "ps",
+    "plan_command": "pwsh scripts/wiki-related-links.ps1 -WikiPath \"Wiki/EasyWayData.wiki\" -TopK 7 -OutJson \"out/wiki-related-links.suggestions.json\"",
+    "apply_command": "pwsh scripts/wiki-related-links.ps1 -WikiPath \"Wiki/EasyWayData.wiki\" -TopK 7 -Apply -WhatIf -ApplyScope orphans-only -MinScore 0.35 -MaxLinksToAdd 5"
+  },
+  "stages": [
+    { "name": "received", "purpose": "Ricevere richiesta e inizializzare correlationId", "entry_criteria": ["docs.related.links.apply.requested"], "inputs": ["intent_payload"], "outputs": ["correlationId"], "success_criteria": ["Payload ricevuto"], "failure_criteria": ["Payload mancante"], "human_checkpoints": [], "ux_prompts": "generic_received" },
+    { "name": "validated", "purpose": "Validare input e scope", "entry_criteria": ["received.success"], "inputs": ["intent_payload"], "outputs": ["validation_ok"], "success_criteria": ["Spec valida"], "failure_criteria": ["Spec invalida"], "human_checkpoints": [], "ux_prompts": "generic_validated" },
+    { "name": "suggested", "purpose": "Generare suggerimenti (report)", "entry_criteria": ["validated.success"], "inputs": ["intent_payload"], "outputs": ["suggestionsOut"], "success_criteria": ["Report prodotto"], "failure_criteria": ["Generazione fallita"], "human_checkpoints": [], "ux_prompts": "generic_executed" },
+    { "name": "applied", "purpose": "Opzionale: applicare cross-link (con WhatIf di default e backup)", "entry_criteria": ["suggested.success", "human_approved.apply"], "inputs": ["intent_payload", "suggestionsOut"], "outputs": ["applySummaryOut"], "success_criteria": ["Apply eseguito"], "failure_criteria": ["Apply fallito"], "human_checkpoints": ["Approvazione apply"], "ux_prompts": "generic_executed" },
+    { "name": "validated_links", "purpose": "Validare link/anchor dopo apply", "entry_criteria": ["applied.success"], "inputs": ["intent_payload"], "outputs": ["lintOut"], "success_criteria": ["Lint OK"], "failure_criteria": ["Lint fallito"], "human_checkpoints": [], "ux_prompts": "generic_done" },
+    { "name": "completed", "purpose": "Chiudere run con artifact e next step", "entry_criteria": ["suggested.success"], "inputs": ["suggestionsOut", "applySummaryOut", "lintOut"], "outputs": ["run_summary"], "success_criteria": ["Output finale disponibile"], "failure_criteria": [], "human_checkpoints": [], "ux_prompts": "generic_done" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}
+

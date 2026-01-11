@@ -1,0 +1,18 @@
+{
+  "ok": false,
+  "score": 99,
+  "runId": "20260109-063513",
+  "timestamp": "2026-01-09T06:35:30.1201406+01:00",
+  "metrics": {
+    "orphans": 1,
+    "gapFailures": 0,
+    "linkIssues": 0,
+    "tagFailures": 0
+  },
+  "artifacts": {
+    "graph": "out/graph.20260109-063513.json",
+    "gap": "out/gap.20260109-063513.json",
+    "links": "out/links.20260109-063513.json",
+    "tags": "out/tags.20260109-063513.json"
+  }
+}

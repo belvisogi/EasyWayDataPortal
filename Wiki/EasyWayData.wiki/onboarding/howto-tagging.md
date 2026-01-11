@@ -96,3 +96,13 @@ updated: '2026-01-06'
 **Collega questa guida ogni volta che crei una nuova doc, agent, script, oppure nelle review di manifest/template!**
 
 ---
+
+
+## Vedi anche
+
+- [Developer & Agent Experience Upgrades](./developer-agent-experience-upgrades.md)
+- [Storyboard evolutivo - Da knowledge base classica a continuous improvement agentico (EasyWay)](./storyboard-easyway-agentic.md)
+- [Proposte Cross-link, FAQ mancanti, Ricette edge-case e automazioni](./proposte-crosslink-faq-edgecase.md)
+- [Documentazione - Contesto standard (obbligatorio)](./documentazione-contesto-standard.md)
+- [Glossario EasyWay & FAQ Errori Tipici](../glossario-errori-faq.md)
+

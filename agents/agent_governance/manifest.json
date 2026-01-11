@@ -21,7 +21,8 @@
     "Wiki/EasyWayData.wiki/agents-scrummaster.md",
     "scripts/ado/README.md",
     "Wiki/EasyWayData.wiki/enforcer-guardrail.md",
-    "Wiki/EasyWayData.wiki/checklist-ado-required-job.md"
+    "Wiki/EasyWayData.wiki/checklist-ado-required-job.md",
+    "scripts/intents/doc-nav-improvement-001.json"
   ]
 }
 

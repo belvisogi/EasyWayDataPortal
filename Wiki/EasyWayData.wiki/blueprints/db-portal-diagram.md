@@ -50,3 +50,13 @@ next: Estendere le relazioni esplicite (FK) quando presenti e migliorare le euri
 - Il viewer è una vista derivata: la fonte unica resta Flyway.
 - Le relazioni `inferred` vanno considerate "ipotesi": sono utili per orientare, non sostituiscono vincoli DB.
 - Se/Quando aggiungiamo FK fisiche nelle migrazioni, il viewer le mostrerà come `explicit`.
+
+
+## Vedi anche
+
+- [Blueprint - DB PORTAL Tables (previste)](./db-portal-tables.md)
+- [Blueprint - DB Table Create (Excel/CSV -> Intent)](./db-table-create-sheet.md)
+- [db-portal-tables-index](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/index.md)
+- [DB Generate Docs (WHAT)](../orchestrations/db-generate-docs.md)
+- [db-table-portal-log-audit](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-log-audit.md)
+

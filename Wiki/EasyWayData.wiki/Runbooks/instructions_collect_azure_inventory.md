@@ -77,3 +77,13 @@ Consegna
 
 Se preferisci, posso anche generare una versione equivalente in bash/Az CLI: dimmi se la vuoi.
 
+
+
+## Vedi anche
+
+- [what is inventory and missing items](./what_is_inventory_and_missing_items.md)
+- [Integrare le best-practice ADA in EasyWayDataPortal](../easyway-webapp/02_logiche_easyway/integrate-ada-best-practices.md)
+- [DR — Inventory & matrice componente → RTO / RPO](../dr-inventory-matrix.md)
+- [Validazione Output Agenti in CI](../agent-output-validation-ci.md)
+- [Deploy su Azure App Service – Pipeline & Variabili](../deploy-app-service.md)
+

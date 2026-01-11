@@ -1,0 +1,17 @@
+{
+  "action": "ado:bestpractice.prefetch",
+  "params": {
+    "wikiRoot": "Wiki/EasyWayData.wiki",
+    "outDir": "out/ado-best-practices",
+    "downloadExternal": true,
+    "externalSources": [
+      "https://learn.microsoft.com/azure/devops/boards/backlogs/create-your-backlog?view=azure-devops",
+      "https://learn.microsoft.com/azure/devops/boards/work-items/guidance/create-work-items?view=azure-devops",
+      "https://learn.microsoft.com/azure/devops/boards/work-items/guidance/user-stories?view=azure-devops",
+      "https://learn.microsoft.com/azure/devops/boards/boards/boards?view=azure-devops"
+    ]
+  },
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "ado-bestpractice-prefetch-001"
+}

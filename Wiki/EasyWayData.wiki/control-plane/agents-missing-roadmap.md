@@ -40,3 +40,13 @@ Abbiamo creato gli agenti skeleton minimi per:
 - Agganciare questi intent a `orchestrator.n8n.dispatch` con workflow n8n dedicati.
 - Aggiungere upload/publish runtime (artifact) come step separato con `agent_datalake`.
 - Rendere i controlli piu' robusti (es. openapi-cli, terraform plan artifact, health endpoint).
+
+
+## Vedi anche
+
+- [Agents Registry (owner, domini, intent)](./agents-registry.md)
+- [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+- [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
+- [Control Plane - Panoramica](./index.md)
+- [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
+

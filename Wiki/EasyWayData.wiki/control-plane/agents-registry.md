@@ -64,3 +64,13 @@ Quelli che tipicamente servono in un mondo enterprise per chiudere i loop (secur
 
 ## Note
 - Questo registro e' “canonico” per RAG e onboarding; la verita' operativa resta nei manifest.
+
+
+## Vedi anche
+
+- [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
+- [Roadmap agent (retrieval, observability, infra, backend, release)](./agents-missing-roadmap.md)
+- [Control Plane - Panoramica](./index.md)
+- [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
+- [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+

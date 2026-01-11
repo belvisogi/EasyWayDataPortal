@@ -59,3 +59,13 @@ updated: 2026-01-07
   }
 }
 ```
+
+
+## Vedi anche
+
+- [Best practice - intent agentici via n8n.dispatch (RAG-ready)](../onboarding/best-practice-agentic-dispatch.md)
+- [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
+- [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
+- [Control Plane - Panoramica](../control-plane/index.md)
+- [Orchestrations - Intents Catalog (Globale)](./intents-catalog-global.md)
+

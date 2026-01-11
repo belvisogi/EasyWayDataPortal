@@ -64,6 +64,13 @@ Ogni `.md` deve avere front matter completo:
 Nota: anche gli indici (`index.md`) devono essere **machine-readable** (front matter incluso).
 Nota: `id` deve essere **globalmente univoco** nella Wiki (evita ambiguità nei retrieval/index e collisioni di chunk/manifest).
 
+### 3.2) Migrazione “safe” di file legacy (soluzione tecnica)
+Quando devi migrare file wiki con naming non conforme (es. `STEP-*`, caratteri speciali, ecc.), usa il pattern:
+- **canonical-copy**: crea la pagina canonica in `kebab-case`.
+- **legacy stub**: lascia il file vecchio come redirect minimale con `status: deprecated`, `canonical: <path>` e `llm.include: false`.
+
+Obiettivo: evitare rotture di link e ridurre rumore nel retrieval, mantenendo compatibilità con riferimenti esterni.
+
 ### 3.1) Draft hygiene (anti-rumore)
 Le pagine con `status: draft` devono avere anche:
 - `updated: <data>` (es. `updated: '2026-01-05'`)
@@ -104,12 +111,21 @@ Ogni nuovo workflow/use case deve avere:
 - Pagina Wiki orchestrazione: `Wiki/EasyWayData.wiki/orchestrations/<wf>.md`
 - Diario di bordo (contratto output): timeline con `timestamp, stage, outcome, reason, next, decision_trace_id, artifacts[]`
 
-## 6) KB: ricette come “entrypoints” operativi
+### 5.1) Plan + Diario (machine-readable)
+Per ogni orchestrazione/intent che deve essere eseguibile via n8n, mantenere allineati:
+- Schema Plan: `docs/agentic/templates/plans/plan.schema.json`
+- Schema Diario: `docs/agentic/templates/plans/diary.schema.json`
+- Almeno un esempio aggiornato sotto `docs/agentic/templates/plans/samples/`
+Fonte canonica: `Wiki/EasyWayData.wiki/plan-and-diary-contract.md`.
+
+## 6) KB: ricette come "entrypoints" operativi
 Ogni cambiamento che introduce un comando/procedura deve aggiornare `agents/kb/recipes.jsonl` con:
 - `intent` (stringa stabile)
 - `steps` (comandi copiabili)
 - `verify` (cosa osservare)
 - `references` (file/pagine)
+
+Best practice (navigabilita' doc): intent machine-readable in `scripts/intents/doc-nav-improvement-001.json`.
 
 ## 7) Gates: controlli automatici (local + CI)
 
@@ -119,6 +135,7 @@ Quando il lint fallisce, usa lo script di patch (non tocca il contenuto, solo il
 
 Nota: `Wiki/EasyWayData.wiki/logs/reports/` contiene **report generati** e va trattato come non-canonico (escluso dai controlli “hard”).
 Comandi utili:
+- Naming report (non conformità + anchor issues, safe in `-DryRun`): `pwsh Wiki/EasyWayData.wiki/scripts/review-run.ps1 -Root "Wiki/EasyWayData.wiki" -Mode kebab -CheckAnchors -DryRun`
 - Doc alignment gate: `pwsh scripts/doc-alignment-check.ps1 -FailOnError`
 - WHAT-first lint: `pwsh scripts/whatfirst-lint.ps1 -FailOnError`
 - Wiki front matter lint: `pwsh scripts/wiki-frontmatter-lint.ps1 -FailOnError`
@@ -162,4 +179,13 @@ Una modifica è “done” quando:
 
 
 
+
+
+## Vedi anche
+
+- [Roadmap Uniformamento Wiki secondo docs-conventions](./wiki-uniformamento-roadmap.md)
+- [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](./docs-conventions.md)
+- [Tag Taxonomy (Controllata)](./docs-tag-taxonomy.md)
+- [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
+- [Visione Portale Agentico](./agentic-portal-vision.md)
 

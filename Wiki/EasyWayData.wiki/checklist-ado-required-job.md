@@ -42,3 +42,13 @@ Riferimenti
 
 
 
+
+
+## Vedi anche
+
+- [EnforcerCheck – Guardrail allowed_paths in CI](./enforcer-guardrail.md)
+- [Verifica CI – ewctl gates e Flyway (branch non-main)](./ci-verifica-ewctl-gates-e-flyway.md)
+- [Validazione Output Agenti in CI](./agent-output-validation-ci.md)
+- [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
+- [Deploy su Azure App Service – Pipeline & Variabili](./deploy-app-service.md)
+

@@ -38,7 +38,8 @@ next: TODO - definire next step.
 - [blueprints/replicate-easyway-dataportal.md](./blueprints/replicate-easyway-dataportal.md) - Variabili Pipeline (ADO) – Esempio
 - [deploy-app-service.md](./deploy-app-service.md) - deploy-app-service
 - [dev-dual-mode.md](./dev-dual-mode.md) - Sviluppo Locale Dual‑Mode (DB mock | SQL)
-- [agent-first-method.md](./agent-first-method.md) - Metodo di Lavoro Agent‑First
+- [agent-first-method.md](./agent-first-method.md) - Metodo di Lavoro Agent-First
+- [ado-operating-model.md](./ado-operating-model.md) - Azure DevOps Operating Model (Hybrid)
 - [value-proposition.md](./value-proposition.md) - Visione & Value Proposition
 - [intent-contract.md](./intent-contract.md) - Contratto Intent (Mini‑DSL)
 - [output-contract.md](./output-contract.md) - Output Contract (JSON)
@@ -71,14 +72,21 @@ next: TODO - definire next step.
 - [use-cases/entrate-uscite.md](./use-cases/entrate-uscite.md) - Use Case – Entrate/Uscite (One‑Button UX)
 ## Quest Board
 - [quest-board-excel-csv.md](./quest-board-excel-csv.md) - Quest Board – Excel/CSV Upload (L1→L5)
+- [quest-board-docs-dq.md](./quest-board-docs-dq.md) - Quest Board - Documentazione (DQ + Kanban)
 ## HOWTO
-- [howto-what-first-team.md](./howto-what-first-team.md) - HOWTO – WHAT‑first + Diario di Bordo (Team)
+- [howto-what-first-team.md](./howto-what-first-team.md) - HOWTO - WHAT-first + Diario di Bordo (Team)
+- [orchestrations/docs-dq-audit.md](./orchestrations/docs-dq-audit.md) - Docs DQ Audit + Kanban (WHAT)
+- [orchestrations/docs-confluence-dq-kanban.md](./orchestrations/docs-confluence-dq-kanban.md) - Docs DQ Kanban - Confluence Cloud (WHAT)
+- [orchestrations/ado-userstory-create.md](./orchestrations/ado-userstory-create.md) - ADO User Story Create (WHAT)
 - [control-plane/index.md](./control-plane/index.md) - Control Plane - Panoramica
 - [domains/index.md](./domains/index.md) - Domini - Panoramica
-- [start-here.md](./start-here.md) - Start Here – 5 Link Essenziali
+- [start-here.md](./start-here.md) - Start Here - 5 Link Essenziali
+- [orphans-index.md](./orphans-index.md) - Radar: pagine isolate (degree=0) da collegare
+- [docs-related-links.md](./docs-related-links.md) - Suggerimenti di link correlati (affinità) per cross-link
+- [orchestrations/docs-related-links-apply.md](./orchestrations/docs-related-links-apply.md) - Orchestrazione - link correlati (apply, HITL, rollback)
 - [orchestrations/orchestrator-n8n.md](./orchestrations/orchestrator-n8n.md) - Orchestratore n8n (WHAT)
-- [orchestrations/wf-excel-csv-upload.md](./orchestrations/wf-excel-csv-upload.md) - Orchestrazione – wf.excel-csv-upload (WHAT)
-- [orchestrations/intents-catalog.md](./orchestrations/intents-catalog.md) - Orchestrations – Intents Catalog (Use Case Excel/CSV)
+- [orchestrations/wf-excel-csv-upload.md](./orchestrations/wf-excel-csv-upload.md) - Orchestrazione - wf.excel-csv-upload (WHAT)
+- [orchestrations/intents-catalog.md](./orchestrations/intents-catalog.md) - Orchestrations - Intents Catalog (Use Case Excel/CSV)
 ## UX
 - [UX/diary-mock-wf-excel-csv-upload.md](./UX/diary-mock-wf-excel-csv-upload.md) - UX Mock – Diario di Bordo (wf.excel-csv-upload)
 - [UX/usability-checklist.md](./UX/usability-checklist.md) - UX – Usability Checklist (One‑Button)
@@ -281,13 +289,20 @@ next: TODO - definire next step.
   - H2: Principio Guida
   - H2: Vantaggi del modello
   - H2: Pattern operativo
-- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md) - EasyWay Data Portal API — Starter Kit
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente.md) - Step 1 - Setup ambiente (Onboarding rapido)
+  - H2: Prerequisiti
+  - H2: Passi (locale)
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md) - STEP 3 - Gestione configurazioni (YAML + DB)
+  - H2: Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md) - EasyWay Data Portal API - Starter Kit
   - H2: Comandi principali
   - H2: Struttura file configurazione
   - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file/conversational-and-agent-aware-ready.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file/conversational-and-agent-aware-ready.md) - **. Controller**
   - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md) - Domande a cui risponde
+  - H2: Domande a cui risponde
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso.md) - step 5 validazione avanzata dati in ingresso
   - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md) - **A. Middleware di validazione per parametri e querystring**
   - H2: Domande a cui risponde
@@ -420,12 +435,3 @@ next: TODO - definire next step.
   - H2: Obiettivi
   - H2: Fasi e Sequenza
   - H2: Per‑Cartella (linee guida)
-
-
-
-
-
-
-
-
-

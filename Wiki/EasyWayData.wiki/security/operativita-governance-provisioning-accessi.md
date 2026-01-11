@@ -74,3 +74,13 @@ Per ogni agente, creare una pagina operativa equivalente:
 - Output agente ok=true
 - Secret salvato in Key Vault (solo riferimento nel repo)
 - Censimento accessi aggiornato
+
+
+## Vedi anche
+
+- [Segreti e accessi (DB + Datalake)](./segreti-e-accessi.md)
+- [Agent Security (IAM/KeyVault) - overview](./agent-security-iam.md)
+- [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
+- [Datalake - Ensure Structure (Stub)](../datalake-ensure-structure.md)
+- [Dominio Datalake](../domains/datalake.md)
+

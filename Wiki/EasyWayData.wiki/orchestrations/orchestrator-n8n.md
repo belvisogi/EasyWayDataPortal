@@ -25,6 +25,10 @@ Policy (canonico)
 - Tutti i nuovi intent devono passare da `orchestrator.n8n.dispatch` come entrypoint unico.
 - Motivazione: coerenza, audit, log uniformi e facilità di retrieval/RAG.
 
+Esempio: preflight go-live (security/compliance/audit)
+- Intent: `release.preflight.security`
+- Wiki: `orchestrations/release-preflight-security.md`
+
 ## Domande a cui risponde
 - Qual è il contratto di input (campi obbligatori) per dispatchare un intent via n8n?
 - Quali gate vengono eseguiti pre-dispatch e come funziona `whatIf` (default e override)?

@@ -93,11 +93,12 @@ Cosa fa EasyWay Data Portal
 - Sicurezza: segreti solo in Key Vault, rate limiting, validazione input, audit log
 - Documentazione: Wiki ricca, template, checklist, roadmap, TODO pubblici
 
-### Metodo di Lavoro (Agent‑First)
-- Intent‑first, manifest per agente, orchestrazione `ewctl.ps1`, KB+Wiki aggiornate ad ogni change.
-- Due rubinetti: locale low‑cost (mock) e cloud pronto (sql/kv) via env.
+### Metodo di Lavoro (Agent-First)
+- Intent-first, manifest per agente, orchestrazione `ewctl.ps1`, KB+Wiki aggiornate ad ogni change.
+- Due rubinetti: locale low-cost (mock) e cloud pronto (sql/kv) via env.
 - Definizione di Fatto: KB+Wiki aggiornate, gates verdi, eventi log.
-- Leggi: [Metodo Agent‑First](wiki/EasyWayData.wiki/agent-first-method.md), [Contratto Intent](wiki/EasyWayData.wiki/intent-contract.md), [Output Contract](wiki/EasyWayData.wiki/output-contract.md)
+- Best practice (doc navigation): `scripts/intents/doc-nav-improvement-001.json`
+- Leggi: [Metodo Agent-First](wiki/EasyWayData.wiki/agent-first-method.md), [Contratto Intent](wiki/EasyWayData.wiki/intent-contract.md), [Output Contract](wiki/EasyWayData.wiki/output-contract.md)
 
 Per dettagli:  
 - [Architettura Azure](docs/infra/azure-architecture.md)  

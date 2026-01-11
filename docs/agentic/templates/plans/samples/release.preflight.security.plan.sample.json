@@ -1,0 +1,20 @@
+{
+  "intent": "release.preflight.security",
+  "targetEnv": "prod",
+  "whatIf": true,
+  "nonInteractive": true,
+  "correlationId": "op-2026-01-08-001",
+  "createdAt": "2026-01-08T10:00:00Z",
+  "references": [
+    "Wiki/EasyWayData.wiki/orchestrations/release-preflight-security.md",
+    "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/security-and-observability.md",
+    "agents/kb/recipes.jsonl#kb-release-preflight-security-708"
+  ],
+  "steps": [
+    { "id": "S1", "title": "Carica policy e KB", "status": "pending", "tools": ["rag.query"], "outputs": ["policy_bundle"] },
+    { "id": "S2", "title": "Valida input intent", "status": "pending", "tools": ["jsonschema.validate"], "outputs": ["validation_ok"] },
+    { "id": "S3", "title": "Esegui checklist preflight", "status": "pending", "tools": ["ewctl", "kb.run"], "outputs": ["checks[]"] },
+    { "id": "S4", "title": "Human checkpoint se fail", "status": "pending", "requiresApproval": true, "statusHint": "waiting_approval" },
+    { "id": "S5", "title": "Logga esito e next step", "status": "pending", "tools": ["events.append"], "outputs": ["diary.json"] }
+  ]
+}

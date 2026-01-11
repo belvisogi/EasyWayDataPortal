@@ -1,0 +1,3 @@
+graph Wiki {
+  overlap=false; splines=true;
+}

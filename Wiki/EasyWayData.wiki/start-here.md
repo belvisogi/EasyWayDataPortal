@@ -26,6 +26,7 @@ entities: []
 3) Control Plane + Domini (skeleton)
 - Control Plane: `control-plane/index.md`
 - Domini: `domains/index.md`
+- Policy ADO (Operating Model): `ado-operating-model.md`
 
 4) UX Prompts (IT/EN)
 - Copioni UI: `docs/agentic/templates/orchestrations/ux_prompts.it.json`, `docs/agentic/templates/orchestrations/ux_prompts.en.json`
@@ -33,6 +34,7 @@ entities: []
 5) HOWTO - WHAT-first + Diario
 - Guida team: `howto-what-first-team.md`
 - Audit doc agentica: `docs-agentic-audit.md`
+- Onboarding dev (Step 1 - Setup ambiente): `easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente.md`
 
 
 5b) Tag taxonomy (controllata)
@@ -40,6 +42,8 @@ entities: []
 6) KB Ricette (comandi rapidi)
 - Skeleton: `agents/kb/recipes.jsonl` (id: `kb-docs-skeleton-601`)
 - Lint: `agents/kb/recipes.jsonl` (id: `kb-lint-whatfirst-602`)
+- Setup env locale: `agents/kb/recipes.jsonl` (id: `kb-setup-env-001`)
+- ADO operating model + bootstrap: `agents/kb/recipes.jsonl` (id: `kb-ado-operating-model-716`)
 
 7) Materiale legacy / asset
 - Contesto: `blueprints/legacy-reference-material.md`

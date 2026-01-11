@@ -41,3 +41,13 @@ KB
 
 
 
+
+
+## Vedi anche
+
+- [Dominio Datalake](./datalake.md)
+- [Dominio Frontend](./frontend.md)
+- [Dominio Docs & Governance](./docs-governance.md)
+- [DB PORTAL - Inventario DDL (canonico)](../easyway-webapp/01_database_architecture/ddl-inventory.md)
+- [db-table-portal-stats-execution-log](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-stats-execution-log.md)
+

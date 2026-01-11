@@ -29,6 +29,7 @@ EasyWay Data Portal
 | Policy config versionabile   | Configurazioni ambiente/dev/test/prod sempre versionate e storicizzate                            | Tutti i servizi                | IaC (Bicep/ARM), YAML, GitOps     | Niente settaggi manuali fuori controllo, tutto in versioning             |
 | Audit & logging security     | Tracciare tutte le azioni rilevanti per sicurezza, compliance e troubleshooting                    | API Gateway, microservizi      | Log Analytics, Storage Audit      | Logging centralizzato, retention policy attiva, alert su anomalie        |
 | Compliance GDPR/SOC2/DORA    | Aderire alle policy di mascheramento, tracciamento, protezione dati sensibili                     | Storage, API, DB               | Masking metadata, audit DB        | Uso tabella masking e audit trail per ogni accesso ai dati personali     |
+| Security testing continuo    | Ridurre vulnerabilita' note e regressioni                                                        | CI/CD, pre-prod, runtime       | SAST/SCA/DAST, pen test periodici | Scansioni ad ogni PR, DAST pre-release, pen test almeno annuale          |
 
 ## Dettaglio Implementativo Policy Chiave
 
@@ -71,6 +72,7 @@ EasyWay Data Portal
 > - Integrare queste policy come requisito base
 > - Indicare (in README/commenti) che le configurazioni vanno versionate e i segreti gestiti fuori dal codice
 > - Prevedere auditing/logging centralizzato per qualsiasi azione rilevante
+> - Considerare vulnerabilita' note (OWASP) durante lo sviluppo e nei code review
 
 ---
 
@@ -86,6 +88,7 @@ Oppure proseguiamo con la prossima sezione (es: “Gestione logging & audit”, 
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

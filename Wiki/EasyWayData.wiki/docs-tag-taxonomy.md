@@ -87,3 +87,13 @@ Esempi scope disponibili (casistiche):
 - `security-all`
 
 
+
+
+## Vedi anche
+
+- [Documentazione Agentica - Audit & Policy (Canonico)](./docs-agentic-audit.md)
+- [Start Here - Link Essenziali](./start-here.md)
+- [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
+- [Visione Portale Agentico](./agentic-portal-vision.md)
+- [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](./docs-conventions.md)
+
