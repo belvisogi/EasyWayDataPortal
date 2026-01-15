@@ -12,15 +12,11 @@ export async function createUser(req: Request, res: Response, next: NextFunction
   try {
     const tenantId = (req as any).tenantId;
     const { email } = req.body;
-    
-    // Deprecation warnings per campi legacy
-    if (req.body.name && !req.body.display_name) {
-      logger.warn(`[DEPRECATED] Field 'name' is deprecated. Use 'display_name' instead. tenant=${tenantId}`);
-    }
-    if (req.body.profile_code && !req.body.profile_id) {
-      logger.warn(`[DEPRECATED] Field 'profile_code' is deprecated. Use 'profile_id' instead. tenant=${tenantId}`);
-    }
-    
+
+
+    // Mapping da legacy per compatibilità, ma senza warning (ormai standardizzato)
+
+
     const display_name: string | null = req.body.display_name ?? req.body.name ?? null;
     const profile_id: string | null = req.body.profile_id ?? req.body.profile_code ?? null;
     const repo = getUsersRepo();
@@ -50,13 +46,9 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
     const { user_id } = req.params;
     const repo = getUsersRepo();
 
-    // Deprecation warnings
-    if ((req.body.name || req.body.surname) && !req.body.display_name) {
-      logger.warn(`[DEPRECATED] Fields 'name'/'surname' are deprecated. Use 'display_name' instead. tenant=${tenantId} user=${user_id}`);
-    }
-    if (req.body.profile_code && !req.body.profile_id) {
-      logger.warn(`[DEPRECATED] Field 'profile_code' is deprecated. Use 'profile_id' instead. tenant=${tenantId} user=${user_id}`);
-    }
+
+    // Mapping legacy silenzioso
+
 
     // SOLO parametri DDL-compliant (display_name/profile_id/is_active/email)
     const legacyName = [req.body.name, req.body.surname].filter(Boolean).join(" ");
