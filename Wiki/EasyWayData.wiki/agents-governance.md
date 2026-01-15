@@ -11,7 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-updated: '2026-01-05'
+updated: '2026-01-15'
 next: TODO - definire next step.
 ---
 
@@ -35,14 +35,21 @@ Gates in pipeline (ADO)
 - (Opz.) Flyway Migrate Dev/Test: esegue validate/migrate con variabili Flyway
 
 ChatOps (opzionali)
-- Teams/Logic Apps per comandi semplici; l’agente usa la KB e pubblica artifact (checklist.json/drift.json)
+- Teams/Logic Apps per comandi semplici; l'agente usa la KB e pubblica artifact (checklist.json/drift.json)
+
+## Agent Workflow Standard (Pattern 3-Step)
+
+**Riferimento**: [`agents/AGENT_WORKFLOW_STANDARD.md`](../../agents/AGENT_WORKFLOW_STANDARD.md)
+
+Tutti gli agenti EasyWay seguono il **pattern 3-step** per completamento task:
+
+1. **Task Boundary Update**: Aggiornare con summary cumulativo completo (past tense, specifico)
+2. **walkthrough.md**: Documentare tutto il lavoro fatto (comprehensive, proof of work)
+3. **notify_user**: Comunicare con utente (conciso, actionable, con file paths)
+
+**Integrazione GEDI**: Opzionalmente chiamare `agent_gedi` per philosophical review post-completion (non bloccante).
+
+**Template**: Vedi [`AGENT_WORKFLOW_STANDARD.md`](../../agents/AGENT_WORKFLOW_STANDARD.md) per esempi, template, FAQ.
 
 Audit & Osservabilità
 - `PORTAL.LOG_AUDIT` per eventi agent; Application Insights/OTel per tracing e KPI (in roadmap)
-
-
-
-
-
-
-

@@ -5,5 +5,5 @@ export const sendNotificationSchema = z.object({
   category: z.string().min(3).max(32),   // es: "ALERT"
   channel: z.string().min(3).max(16),    // es: "EMAIL", "SMS"
   message: z.string().min(1).max(1024),
-  ext_attributes: z.record(z.any()).optional()
+  ext_attributes: z.record(z.string(), z.any()).optional()
 });

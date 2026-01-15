@@ -1,0 +1,56 @@
+erDiagram
+  PORTAL_TENANT {
+    BIGINT id PK "NOT NULL"
+    NVARCHAR tenant_id "NOT NULL"
+    NVARCHAR tenant_name "NOT NULL"
+    NVARCHAR plan_code
+    NVARCHAR status
+    NVARCHAR ext_attributes
+    NVARCHAR created_by "NOT NULL"
+    DATETIME2 created_at "NOT NULL"
+    DATETIME2 updated_at "NOT NULL"
+  }
+
+  PORTAL_USERS {
+    INT id PK "NOT NULL"
+    NVARCHAR user_id FK "NOT NULL"
+    NVARCHAR tenant_id FK "NOT NULL"
+    NVARCHAR email "NOT NULL"
+    NVARCHAR display_name
+    NVARCHAR profile_id
+    BIT is_active "NOT NULL"
+    NVARCHAR status
+    NVARCHAR ext_attributes
+    NVARCHAR created_by "NOT NULL"
+    DATETIME2 created_at "NOT NULL"
+    DATETIME2 updated_at "NOT NULL"
+  }
+
+  PORTAL_CONFIGURATION {
+    INT id PK "NOT NULL"
+    NVARCHAR tenant_id FK "NOT NULL"
+    NVARCHAR section
+    AS section_normalized
+    NVARCHAR config_key "NOT NULL"
+    NVARCHAR config_value
+    BIT enabled "NOT NULL"
+    NVARCHAR created_by "NOT NULL"
+    DATETIME2 created_at "NOT NULL"
+    DATETIME2 updated_at "NOT NULL"
+  }
+
+  PORTAL_LOG_AUDIT {
+    BIGINT id PK "NOT NULL"
+    DATETIME2 event_time "NOT NULL"
+    NVARCHAR tenant_id FK
+    NVARCHAR actor
+    NVARCHAR origin
+    NVARCHAR category
+    NVARCHAR message
+    NVARCHAR payload
+    NVARCHAR status
+  }
+
+  PORTAL_TENANT ||--o{ PORTAL_USERS : "has"
+  PORTAL_TENANT ||--o{ PORTAL_CONFIGURATION : "has"
+  PORTAL_TENANT ||--o{ PORTAL_LOG_AUDIT : "has"

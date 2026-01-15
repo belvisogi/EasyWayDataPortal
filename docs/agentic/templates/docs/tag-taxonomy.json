@@ -13,7 +13,7 @@
     "domain": "one",
     "privacy": "one"
   },
-  "version": "1.0",
+  "version": "1.1",
   "free_tag_regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
   "facets": {
     "language": [
@@ -24,7 +24,8 @@
       "non-expert",
       "dev",
       "dba",
-      "ops"
+      "ops",
+      "architect"
     ],
     "layer": [
       "howto",
@@ -41,6 +42,9 @@
       "db",
       "datalake",
       "frontend",
+      "api",
+      "security",
+      "analytics",
       "docs",
       "control-plane",
       "ux"
@@ -51,10 +55,47 @@
       "restricted"
     ]
   },
-  "summary": "Controlled tag taxonomy for EasyWayDataPortal documentation (agent-ready).",
+  "canonical_free_tags": {
+    "description": "Lista canonica di free tags. Evitare sinonimi: usare SOLO la forma canonica elencata qui.",
+    "preferred": [
+      "agents",
+      "dq",
+      "n8n",
+      "ewctl",
+      "flyway",
+      "rag",
+      "keyvault",
+      "rbac",
+      "otel",
+      "terraform",
+      "argos",
+      "wiki",
+      "kb",
+      "manifest",
+      "orchestration",
+      "intents",
+      "governance",
+      "compliance",
+      "audit",
+      "automation",
+      "roadmap",
+      "onboarding",
+      "use-case",
+      "quest",
+      "kanban",
+      "checklist"
+    ],
+    "deprecated_synonyms": {
+      "agentic": "agents",
+      "data-quality": "dq",
+      "key-vault": "keyvault"
+    }
+  },
+  "summary": "Controlled tag taxonomy for EasyWayDataPortal documentation (agent-ready). v1.1: added api/security/analytics domains, audience/architect, canonical free tags.",
   "notes": [
     "Facet tags MUST use the format <facet>/<value>, e.g. domain/docs.",
-    "Free tags are allowed (kebab-case), but avoid synonyms/duplicates.",
+    "Free tags are allowed (kebab-case), but prefer canonical tags from canonical_free_tags.preferred.",
+    "Avoid synonyms/duplicates: check deprecated_synonyms mapping.",
     "Prefer canonical tags to reduce ambiguity and token usage."
   ]
 }

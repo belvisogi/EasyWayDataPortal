@@ -183,7 +183,7 @@ function buildContextFromFlags(flags, recipe) {
       if (fs.existsSync(p)) {
         ctx.changedPaths = fs.readFileSync(p, 'utf-8').split(/\r?\n/).map(s => s.trim()).filter(Boolean);
       }
-    } catch {}
+    } catch { }
   }
 
   // columns: try flags.columns (comma-separated) or payload in flags.payload (JSON string) or recipe payload
@@ -193,7 +193,7 @@ function buildContextFromFlags(flags, recipe) {
     try {
       const pl = JSON.parse(flags.payload);
       if (pl && Array.isArray(pl.columns)) ctx.columns = pl.columns.map(c => c.name || c);
-    } catch {}
+    } catch { }
   } else if (recipe && recipe.payload && Array.isArray(recipe.payload.columns)) {
     ctx.columns = recipe.payload.columns.map(c => c.name || c);
   }
@@ -212,7 +212,7 @@ function buildContextFromFlags(flags, recipe) {
     try {
       const rm = JSON.parse(flags.recipeMetadata);
       if (rm && typeof rm === 'object') ctx.recipeMetadata = rm;
-    } catch {}
+    } catch { }
   } else if (recipe && recipe.metadata && typeof recipe.metadata === 'object') {
     ctx.recipeMetadata = recipe.metadata;
   } else if (recipe && recipe.meta && typeof recipe.meta === 'object') {
@@ -228,7 +228,7 @@ function buildContextFromFlags(flags, recipe) {
         if (pl && Array.isArray(pl.columns)) ctx.columns = pl.columns.map(c => c.name || c);
         if (pl && pl.metadata && typeof pl.metadata === 'object') ctx.recipeMetadata = pl.metadata;
       }
-    } catch {}
+    } catch { }
   }
 
   return ctx;
@@ -272,6 +272,33 @@ function suggestFromIntent(intent) {
   return null;
 }
 
+// Security validation (Layer 1 - Input Validation)
+function validateIntent(intent) {
+  if (!intent) return { valid: true };
+
+  // Check for dangerous patterns (basic version, full validation in PS script)
+  const dangerousPatterns = [
+    /ignora\s+(tutte?\s+le\s+)?istruzioni/i,
+    /ignore\s+(all\s+)?instructions/i,
+    /override\s+(all\s+)?rules/i,
+    /disregard\s+previous/i,
+    /;\s*exec\s*\(/i,
+    /\$\([^)]+\)/
+  ];
+
+  for (const pattern of dangerousPatterns) {
+    if (pattern.test(intent)) {
+      return {
+        valid: false,
+        severity: 'high',
+        message: 'Intent contains potentially dangerous pattern'
+      };
+    }
+  }
+
+  return { valid: true };
+}
+
 function main() {
   const { flags } = parseArgs(process.argv);
   const manifests = loadManifests();
@@ -279,6 +306,18 @@ function main() {
   const goals = loadGoals();
 
   const intent = flags.intent || null;
+
+  // Security validation BEFORE processing
+  const validation = validateIntent(intent);
+  if (!validation.valid) {
+    console.error(JSON.stringify({
+      error: 'security_validation_failed',
+      severity: validation.severity,
+      message: validation.message
+    }, null, 2));
+    process.exit(1);
+  }
+
   const recipe = kb.find(r => r.id === intent || r.intent === intent) || null;
   const suggestion = suggestFromIntent(intent) || null;
 
@@ -294,7 +333,8 @@ function main() {
     manifests: manifests.map(m => ({ name: m.name, role: m.manifest.role })),
     goals,
     checklistSuggestions,
-    context
+    context,
+    securityValidation: { passed: true, timestamp: new Date().toISOString() }
   };
 
   // For now, just print the plan (the PS wrapper actually executes)

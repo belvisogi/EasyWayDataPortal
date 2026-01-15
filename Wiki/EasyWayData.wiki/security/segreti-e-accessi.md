@@ -4,7 +4,7 @@ title: Segreti e accessi (DB + Datalake)
 summary: Linee guida canoniche per gestione segreti e accessi tecnici in EasyWay DataPortal (dev/ci/prod).
 status: active
 owner: team-platform
-tags: [security, secrets, keyvault, db, datalake, devops, privacy/internal, language/it]
+tags: [domain/security, layer/reference, audience/ops, audience/dba, privacy/internal, language/it, keyvault, db, datalake]
 llm:
   include: true
   pii: none

@@ -12,9 +12,9 @@ export interface UsersRepo {
   list(tenantId: string): Promise<UserRecord[]>;
   create(tenantId: string, data: { email: string; display_name?: string | null; profile_id?: string | null }): Promise<UserRecord | any>;
   update(
-    tenantId: string, 
-    user_id: string, 
-    data: { 
+    tenantId: string,
+    user_id: string,
+    data: {
       email?: string | null,
       display_name?: string | null,
       profile_id?: string | null,
@@ -35,4 +35,16 @@ export interface OnboardingInput {
 
 export interface OnboardingRepo {
   registerTenantAndUser(tenantId: string, input: OnboardingInput): Promise<any>;
+}
+
+export interface NotificationInput {
+  user_id: string;
+  category: string;
+  channel: string;
+  message: string;
+  ext_attributes?: Record<string, any>;
+}
+
+export interface NotificationsRepo {
+  send(tenantId: string, input: NotificationInput): Promise<void>;
 }

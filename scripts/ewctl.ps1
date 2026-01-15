@@ -1,5 +1,5 @@
 Param(
-  [ValidateSet('ps','ts')]
+  [ValidateSet('ps', 'ts')]
   [string]$Engine = 'ps',
   [string]$Intent,
   [switch]$All,
@@ -41,7 +41,8 @@ function Run-PSDocsReview {
   try {
     pwsh scripts/enforcer.ps1 -Agent agent_docs_review -GitDiff -Quiet
     if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_docs_review'; exit 2 }
-  } catch { Write-Warning "Enforcer preflight (docs) non applicabile: $($_.Exception.Message)" }
+  }
+  catch { Write-Warning "Enforcer preflight (docs) non applicabile: $($_.Exception.Message)" }
   $argsList = @()
   if ($WhatIf) { $argsList += '-WhatIf' }
   if (-not $Interactive) { $argsList += '-Interactive:$false' }
@@ -58,7 +59,8 @@ function Run-PSGovernance {
   try {
     pwsh scripts/enforcer.ps1 -Agent agent_governance -GitDiff -Quiet
     if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_governance'; exit 2 }
-  } catch { Write-Warning "Enforcer preflight (governance) non applicabile: $($_.Exception.Message)" }
+  }
+  catch { Write-Warning "Enforcer preflight (governance) non applicabile: $($_.Exception.Message)" }
   $argsList = @()
   if ($WhatIf) { $argsList += '-WhatIf' }
   if (-not $Interactive) { $argsList += '-Interactive:$false' }
@@ -76,7 +78,8 @@ function Run-PSPrManager {
   try {
     pwsh scripts/enforcer.ps1 -Agent agent_pr_manager -GitDiff -Quiet
     if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_pr_manager'; exit 2 }
-  } catch { Write-Warning "Enforcer preflight (pr) non applicabile: $($_.Exception.Message)" }
+  }
+  catch { Write-Warning "Enforcer preflight (pr) non applicabile: $($_.Exception.Message)" }
   $argsList = @()
   if ($WhatIf) { $argsList += '-WhatIf' } else { $argsList += '-WhatIf:$false' }
   if ($LogEvent) { $argsList += '-LogEvent' }
@@ -88,8 +91,9 @@ function Run-PSTemplateAgent {
   try {
     pwsh scripts/enforcer.ps1 -Agent agent_template -GitDiff -Quiet
     if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_template'; exit 2 }
-  } catch { Write-Warning "Enforcer preflight (template) non applicabile: $($_.Exception.Message)" }
-  $argsList = @('-Action','sample:echo')
+  }
+  catch { Write-Warning "Enforcer preflight (template) non applicabile: $($_.Exception.Message)" }
+  $argsList = @('-Action', 'sample:echo')
   if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
   if ($WhatIf) { $argsList += '-WhatIf' }
   if ($LogEvent) { $argsList += '-LogEvent' }
@@ -103,8 +107,9 @@ function Run-PSDBA {
   try {
     pwsh scripts/enforcer.ps1 -Agent agent_dba -GitDiff -Quiet
     if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_dba'; exit 2 }
-  } catch { Write-Warning "Enforcer preflight (dba) non applicabile: $($_.Exception.Message)" }
-  $argsList = @('-Action','db-user:create')
+  }
+  catch { Write-Warning "Enforcer preflight (dba) non applicabile: $($_.Exception.Message)" }
+  $argsList = @('-Action', 'db-user:create')
   if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
   if ($WhatIf) { $argsList += '-WhatIf' }
   if ($LogEvent) { $argsList += '-LogEvent' }
@@ -119,8 +124,9 @@ function Run-PSAgentCreator {
   try {
     pwsh scripts/enforcer.ps1 -Agent agent_creator -Quiet
     if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_creator'; exit 2 }
-  } catch { Write-Warning "Enforcer preflight (agent_creator) non applicabile: $($_.Exception.Message)" }
-  $argsList = @('-Action','agent:scaffold')
+  }
+  catch { Write-Warning "Enforcer preflight (agent_creator) non applicabile: $($_.Exception.Message)" }
+  $argsList = @('-Action', 'agent:scaffold')
   if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
   if ($WhatIf) { $argsList += '-WhatIf' }
   if ($LogEvent) { $argsList += '-LogEvent' }
@@ -130,7 +136,8 @@ function Run-PSAgentCreator {
     try {
       $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json
       if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ', ')) }
-    } catch {}
+    }
+    catch {}
     Write-Output $json
   }
 }
@@ -139,7 +146,8 @@ function Run-PSDatalake {
   try {
     pwsh scripts/enforcer.ps1 -Agent agent_datalake -GitDiff -Quiet
     if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_datalake'; exit 2 }
-  } catch { Write-Warning "Enforcer preflight (datalake) non applicabile: $($_.Exception.Message)" }
+  }
+  catch { Write-Warning "Enforcer preflight (datalake) non applicabile: $($_.Exception.Message)" }
   $argsList = @()
   if ($Action -eq 'dlk-ensure-structure') { $argsList += '-Naming' }
   elseif ($Action -eq 'dlk-apply-acl') { $argsList += '-ACL' }
@@ -158,7 +166,8 @@ function Run-PSAdoUserStory {
   try {
     pwsh scripts/enforcer.ps1 -Agent agent_ado_userstory -GitDiff -Quiet
     if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_ado_userstory'; exit 2 }
-  } catch { Write-Warning "Enforcer preflight (ado_userstory) non applicabile: $($_.Exception.Message)" }
+  }
+  catch { Write-Warning "Enforcer preflight (ado_userstory) non applicabile: $($_.Exception.Message)" }
   $argsList = @('-Action', $Action)
   if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
   if ($WhatIf) { $argsList += '-WhatIf' }
@@ -168,8 +177,43 @@ function Run-PSAdoUserStory {
   if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
 }
 
+function Validate-AgentInput {
+  param([string]$Input, [string]$AgentId)
+  
+  if (-not (Test-Path 'scripts/validate-agent-input.ps1')) {
+    Write-Warning "Security validation script not found, skipping validation"
+    return $true
+  }
+  
+  try {
+    $validationResult = & pwsh scripts/validate-agent-input.ps1 -Input $Input -AgentId $AgentId -Strictness 'medium' -ErrorAction Stop
+    
+    if ($validationResult -match '"severity"\s*:\s*"(critical|high)"') {
+      Write-Error "Security validation FAILED: Input contains dangerous patterns. Aborting."
+      return $false
+    }
+    
+    if ($validationResult -match '"severity"\s*:\s*"medium"') {
+      Write-Warning "Security validation WARNING: Input may contain suspicious patterns"
+    }
+    
+    return $true
+  }
+  catch {
+    Write-Warning "Security validation error: $($_.Exception.Message)"
+    return $true  # Fail open to avoid blocking legitimate requests
+  }
+}
+
 function Dispatch-Intent-PS($intent) {
+  # Security validation BEFORE dispatching
+  if (-not (Validate-AgentInput -Input $intent -AgentId 'orchestrator')) {
+    Write-Error "Intent blocked by security validation"
+    exit 1
+  }
+  
   switch -Regex ($intent) {
+
     '^(wiki|docs)' {
       return Run-PSDocsReview -Interactive:(!$NonInteractive)
     }

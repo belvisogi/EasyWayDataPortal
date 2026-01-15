@@ -1,0 +1,363 @@
+{
+    "metadata": {
+        "name": "EasyWay Portal Database",
+        "version": "1.0.0",
+        "description": "Complete schema blueprint for EasyWay Data Portal",
+        "compatibility_level": 150,
+        "created_at": "2026-01-14",
+        "authors": [
+            "EasyWay Team"
+        ]
+    },
+    "schemas": [
+        {
+            "name": "PORTAL",
+            "description": "Main application schema for portal functionality"
+        },
+        {
+            "name": "BRONZE",
+            "description": "Raw data layer (medallion architecture)"
+        },
+        {
+            "name": "SILVER",
+            "description": "Cleaned data layer (medallion architecture)"
+        },
+        {
+            "name": "GOLD",
+            "description": "Business-ready data layer (medallion architecture)"
+        }
+    ],
+    "tables": [
+        {
+            "name": "TENANT",
+            "schema": "PORTAL",
+            "description": "Multi-tenant organizations table",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "INT",
+                    "identity": true,
+                    "primary_key": true
+                },
+                {
+                    "name": "tenant_id",
+                    "type": "NVARCHAR(50)",
+                    "nullable": false,
+                    "description": "Business key for tenant"
+                },
+                {
+                    "name": "tenant_name",
+                    "type": "NVARCHAR(255)",
+                    "nullable": false
+                },
+                {
+                    "name": "plan_code",
+                    "type": "NVARCHAR(50)",
+                    "nullable": true
+                },
+                {
+                    "name": "status",
+                    "type": "NVARCHAR(50)",
+                    "nullable": true
+                },
+                {
+                    "name": "ext_attributes",
+                    "type": "NVARCHAR(MAX)",
+                    "nullable": true,
+                    "description": "JSON for extensibility"
+                },
+                {
+                    "name": "created_by",
+                    "type": "NVARCHAR(255)",
+                    "nullable": false,
+                    "default": "'MANUAL'"
+                },
+                {
+                    "name": "created_at",
+                    "type": "DATETIME2",
+                    "nullable": false,
+                    "default": "SYSUTCDATETIME()"
+                },
+                {
+                    "name": "updated_at",
+                    "type": "DATETIME2",
+                    "nullable": false,
+                    "default": "SYSUTCDATETIME()"
+                }
+            ],
+            "indexes": [
+                {
+                    "name": "UX_PORTAL_TENANT_tenant_id",
+                    "columns": [
+                        "tenant_id"
+                    ],
+                    "unique": true
+                }
+            ]
+        },
+        {
+            "name": "USERS",
+            "schema": "PORTAL",
+            "description": "User accounts with multi-tenant support",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "INT",
+                    "identity": true,
+                    "primary_key": true
+                },
+                {
+                    "name": "user_id",
+                    "type": "NVARCHAR(50)",
+                    "nullable": false
+                },
+                {
+                    "name": "tenant_id",
+                    "type": "NVARCHAR(50)",
+                    "nullable": false
+                },
+                {
+                    "name": "email",
+                    "type": "NVARCHAR(320)",
+                    "nullable": false
+                },
+                {
+                    "name": "display_name",
+                    "type": "NVARCHAR(100)",
+                    "nullable": true
+                },
+                {
+                    "name": "profile_id",
+                    "type": "NVARCHAR(64)",
+                    "nullable": true
+                },
+                {
+                    "name": "is_active",
+                    "type": "BIT",
+                    "nullable": false,
+                    "default": "1"
+                },
+                {
+                    "name": "status",
+                    "type": "NVARCHAR(50)",
+                    "nullable": true
+                },
+                {
+                    "name": "ext_attributes",
+                    "type": "NVARCHAR(MAX)",
+                    "nullable": true
+                },
+                {
+                    "name": "created_by",
+                    "type": "NVARCHAR(255)",
+                    "nullable": false,
+                    "default": "'MANUAL'"
+                },
+                {
+                    "name": "created_at",
+                    "type": "DATETIME2",
+                    "nullable": false,
+                    "default": "SYSUTCDATETIME()"
+                },
+                {
+                    "name": "updated_at",
+                    "type": "DATETIME2",
+                    "nullable": false,
+                    "default": "SYSUTCDATETIME()"
+                }
+            ],
+            "indexes": [
+                {
+                    "name": "UX_PORTAL_USERS_user",
+                    "columns": [
+                        "tenant_id",
+                        "user_id"
+                    ],
+                    "unique": true
+                },
+                {
+                    "name": "UX_PORTAL_USERS_email",
+                    "columns": [
+                        "tenant_id",
+                        "email"
+                    ],
+                    "unique": true
+                },
+                {
+                    "name": "IX_PORTAL_USERS_tenant",
+                    "columns": [
+                        "tenant_id"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "CONFIGURATION",
+            "schema": "PORTAL",
+            "description": "Application configuration per tenant",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "INT",
+                    "identity": true,
+                    "primary_key": true
+                },
+                {
+                    "name": "tenant_id",
+                    "type": "NVARCHAR(50)",
+                    "nullable": false
+                },
+                {
+                    "name": "section",
+                    "type": "NVARCHAR(64)",
+                    "nullable": true
+                },
+                {
+                    "name": "section_normalized",
+                    "type": "AS ISNULL(section,'')",
+                    "persisted": true
+                },
+                {
+                    "name": "config_key",
+                    "type": "NVARCHAR(100)",
+                    "nullable": false
+                },
+                {
+                    "name": "config_value",
+                    "type": "NVARCHAR(MAX)",
+                    "nullable": true
+                },
+                {
+                    "name": "enabled",
+                    "type": "BIT",
+                    "nullable": false,
+                    "default": "1"
+                },
+                {
+                    "name": "created_by",
+                    "type": "NVARCHAR(255)",
+                    "nullable": false,
+                    "default": "'MANUAL'"
+                },
+                {
+                    "name": "created_at",
+                    "type": "DATETIME2",
+                    "nullable": false,
+                    "default": "SYSUTCDATETIME()"
+                },
+                {
+                    "name": "updated_at",
+                    "type": "DATETIME2",
+                    "nullable": false,
+                    "default": "SYSUTCDATETIME()"
+                }
+            ],
+            "indexes": [
+                {
+                    "name": "UX_PORTAL_CONFIGURATION_key",
+                    "columns": [
+                        "tenant_id",
+                        "section_normalized",
+                        "config_key"
+                    ],
+                    "unique": true
+                }
+            ]
+        },
+        {
+            "name": "LOG_AUDIT",
+            "schema": "PORTAL",
+            "description": "Audit log for all database operations",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "BIGINT",
+                    "identity": true,
+                    "primary_key": true
+                },
+                {
+                    "name": "event_time",
+                    "type": "DATETIME2",
+                    "nullable": false,
+                    "default": "SYSUTCDATETIME()"
+                },
+                {
+                    "name": "tenant_id",
+                    "type": "NVARCHAR(50)",
+                    "nullable": true
+                },
+                {
+                    "name": "actor",
+                    "type": "NVARCHAR(255)",
+                    "nullable": true
+                },
+                {
+                    "name": "origin",
+                    "type": "NVARCHAR(64)",
+                    "nullable": true
+                },
+                {
+                    "name": "category",
+                    "type": "NVARCHAR(64)",
+                    "nullable": true
+                },
+                {
+                    "name": "message",
+                    "type": "NVARCHAR(MAX)",
+                    "nullable": true
+                },
+                {
+                    "name": "payload",
+                    "type": "NVARCHAR(MAX)",
+                    "nullable": true
+                },
+                {
+                    "name": "status",
+                    "type": "NVARCHAR(32)",
+                    "nullable": true
+                }
+            ],
+            "indexes": [
+                {
+                    "name": "IX_PORTAL_LOG_AUDIT_tenant_time",
+                    "columns": [
+                        "tenant_id",
+                        "event_time"
+                    ]
+                }
+            ]
+        }
+    ],
+    "functions": [
+        {
+            "name": "fn_rls_tenant_filter",
+            "schema": "PORTAL",
+            "type": "inline_table",
+            "description": "Row-Level Security filter for multi-tenancy",
+            "sql": "CREATE OR ALTER FUNCTION PORTAL.fn_rls_tenant_filter(@tenant_id NVARCHAR(50)) RETURNS TABLE AS RETURN (SELECT 1 AS fn_result WHERE (@tenant_id = CAST(SESSION_CONTEXT(N'tenant_id') AS NVARCHAR(50)) OR IS_MEMBER(N'db_owner') = 1));"
+        }
+    ],
+    "procedures": [
+        {
+            "name": "sp_insert_tenant",
+            "schema": "PORTAL",
+            "description": "Insert new tenant with logging",
+            "parameters": [
+                {
+                    "name": "@tenant_id",
+                    "type": "NVARCHAR(50)",
+                    "default": "NULL"
+                },
+                {
+                    "name": "@tenant_name",
+                    "type": "NVARCHAR(255)"
+                },
+                {
+                    "name": "@plan_code",
+                    "type": "NVARCHAR(50)"
+                }
+            ],
+            "sql": "-- See V6__stored_procedures_core.sql for full implementation"
+        }
+    ]
+}

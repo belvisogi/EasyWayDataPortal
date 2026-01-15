@@ -1,0 +1,42 @@
+{
+    "name": "db-deploy-ai",
+    "version": "0.1.0",
+    "description": "AI-friendly database migration and schema management tool",
+    "main": "src/index.js",
+    "type": "module",
+    "bin": {
+        "db-deploy": "./src/cli.js",
+        "db-blueprint": "./src/blueprint-cli.js"
+    },
+    "scripts": {
+        "test": "node --test",
+        "lint": "eslint src/",
+        "apply": "node src/cli.js apply",
+        "diff": "node src/cli.js diff",
+        "analyze": "node src/analyze.js",
+        "visualize": "node src/visualize.js",
+        "visualize:mermaid": "node src/visualize.js ../schema/easyway-portal.blueprint.json mermaid",
+        "visualize:d2": "node src/visualize.js ../schema/easyway-portal.blueprint.json d2",
+        "visualize:html": "node src/visualize.js ../schema/easyway-portal.blueprint.json html",
+        "blueprint:sync": "node src/blueprint-cli.js sync",
+        "blueprint:generate": "node src/blueprint-cli.js generate"
+    },
+    "keywords": [
+        "database",
+        "migration",
+        "ai",
+        "schema",
+        "sql-server"
+    ],
+    "author": "EasyWay Team",
+    "license": "MIT",
+    "dependencies": {
+        "mssql": "^11.0.1",
+        "commander": "^12.0.0",
+        "chalk": "^5.3.0",
+        "dotenv": "^16.4.5"
+    },
+    "devDependencies": {
+        "eslint": "^8.57.0"
+    }
+}

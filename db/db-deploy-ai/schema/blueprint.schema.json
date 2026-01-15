@@ -1,0 +1,231 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Database Blueprint Schema",
+    "description": "Declarative database schema definition (ERwin alternative for AI)",
+    "type": "object",
+    "properties": {
+        "metadata": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "compatibility_level": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "name",
+                "version"
+            ]
+        },
+        "schemas": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        "tables": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/table"
+            }
+        },
+        "functions": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/function"
+            }
+        },
+        "procedures": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/procedure"
+            }
+        }
+    },
+    "required": [
+        "metadata",
+        "tables"
+    ],
+    "definitions": {
+        "table": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "schema": {
+                    "type": "string",
+                    "default": "dbo"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "columns": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": {
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "default": {
+                                "type": "string"
+                            },
+                            "identity": {
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "primary_key": {
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "name",
+                            "type"
+                        ]
+                    }
+                },
+                "indexes": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "columns": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "unique": {
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "clustered": {
+                                "type": "boolean",
+                                "default": false
+                            }
+                        },
+                        "required": [
+                            "name",
+                            "columns"
+                        ]
+                    }
+                },
+                "foreign_keys": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "columns": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "references": {
+                                "type": "object",
+                                "properties": {
+                                    "table": {
+                                        "type": "string"
+                                    },
+                                    "columns": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "required": [
+                "name",
+                "columns"
+            ]
+        },
+        "function": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "schema": {
+                    "type": "string",
+                    "default": "dbo"
+                },
+                "type": {
+                    "enum": [
+                        "scalar",
+                        "table",
+                        "inline_table"
+                    ]
+                },
+                "sql": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "type",
+                "sql"
+            ]
+        },
+        "procedure": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "schema": {
+                    "type": "string",
+                    "default": "dbo"
+                },
+                "sql": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "sql"
+            ]
+        }
+    }
+}

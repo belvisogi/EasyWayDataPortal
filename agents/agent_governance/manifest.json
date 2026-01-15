@@ -10,10 +10,17 @@
     "scripts/**",
     "db/**",
     "old/db/**",
-        "EasyWay-DataPortal/easyway-portal-api/**"
+    "EasyWay-DataPortal/easyway-portal-api/**"
   ],
-  "allowed_tools": ["pwsh", "node"],
-  "required_gates": ["Checklist", "DB_Drift", "KB_Consistency"],
+  "allowed_tools": [
+    "pwsh",
+    "node"
+  ],
+  "required_gates": [
+    "Checklist",
+    "DB_Drift",
+    "KB_Consistency"
+  ],
   "approvals": {},
   "knowledge_sources": [
     "agents/kb/recipes.jsonl",
@@ -22,7 +29,8 @@
     "scripts/ado/README.md",
     "Wiki/EasyWayData.wiki/enforcer-guardrail.md",
     "Wiki/EasyWayData.wiki/checklist-ado-required-job.md",
-    "scripts/intents/doc-nav-improvement-001.json"
+    "scripts/intents/doc-nav-improvement-001.json",
+    "agents/AGENT_WORKFLOW_STANDARD.md",
+    "agents/GEDI_INTEGRATION_PATTERN.md"
   ]
 }
-

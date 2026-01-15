@@ -1,0 +1,42 @@
+{
+  "role": "Agent_Synapse",
+  "description": "[EXPERIMENTAL - Phase 2] Gestione workspace Synapse/DataFactory: scaffolding cartelle, linting PySpark, gestione Linked Services e template standard. In valutazione per roadmap analytics avanzati.",
+  "status": "experimental",
+  "allowed_paths": [
+    "WorkSpaceSynapse/**",
+    "SqlPool/**",
+    "Wiki/**",
+    "agents/**",
+    "Rules.Vault/connectors/**",
+    "Rules.Vault/config/**"
+  ],
+  "allowed_tools": [
+    "pwsh"
+  ],
+  "actions": [
+    {
+      "name": "synapse:scaffold",
+      "description": "Inizializza un workspace Synapse vuoto con struttura cartelle standard (pipelines, notebooks, sqlscript, ecc) e README.",
+      "script": "actions/scripts/scaffold-workspace.ps1"
+    },
+    {
+      "name": "synapse:check-sql",
+      "description": "Verifica connettività SQL verso SQL Pool o altro DB usando un connettore sicuro (Read-Only).",
+      "script": "../../connectors/sql-check.ps1"
+    }
+  ],
+  "relationships": {
+    "depends_on": [
+      "agent_datalake"
+    ],
+    "supports": [
+      "agent_dba"
+    ],
+    "orchestrated_by": "project:synapse-init"
+  },
+  "approvals": {},
+  "knowledge_sources": [
+    "../../Wiki/EasyWayData.wiki/control-plane/agents-registry.md",
+    "../../Wiki/EasyWayData.wiki/agents-governance.md"
+  ]
+}

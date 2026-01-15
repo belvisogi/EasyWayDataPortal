@@ -4,7 +4,7 @@ title: Operativita governance-driven - provisioning accessi (DB/Datalake)
 summary: Runbook operativo per simulazione governance-driven e replica tramite agent (db/datalake).
 status: active
 owner: team-platform
-tags: [security, governance, runbook, db, datalake, agents, privacy/internal, language/it]
+tags: [domain/security, layer/runbook, audience/ops, audience/dba, privacy/internal, language/it, governance, agents, db, datalake]
 llm:
   include: true
   pii: none

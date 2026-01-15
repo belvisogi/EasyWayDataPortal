@@ -1,0 +1,28 @@
+---
+tags: [layer/index, domain/docs, DOMAIN]
+summary: Functional or Business Areas - Category index for DOMAIN pillar
+---
+
+# 📁 DOMAIN
+
+> Functional or Business Areas
+
+## Categories
+- [[CAA]] (1 pages)
+- [[Control-Plane]] (84 pages)
+- [[DataLake]] (15 pages)
+- [[DB]] (52 pages)
+- [[API]] (2 pages)
+- [[UX]] (7 pages)
+- [[Security]] (4 pages)
+- [[Agents]] (0 pages)
+- [[Argos]] (0 pages)
+- [[ETL]] (0 pages)
+- [[Docs]] (40 pages)
+- [[Frontend]] (26 pages)
+- [[Architecture]] (1 pages)
+
+---
+
+[⬆️ Back to Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+

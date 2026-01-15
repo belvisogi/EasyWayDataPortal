@@ -5,5 +5,5 @@ export const onboardingSchema = z.object({
   user_email: z.string().email(),
   display_name: z.string().min(3).max(100),
   profile_id: z.string().min(1).max(64),
-  ext_attributes: z.record(z.any()).optional()
+  ext_attributes: z.record(z.string(), z.any()).optional()
 });

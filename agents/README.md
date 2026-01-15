@@ -1,14 +1,28 @@
 # 🧑‍💻 agents/ — EntryPoint per tutti gli agent di EasyWay DataPortal
 
+> [!IMPORTANT]
+> **📚 Documentazione Canonica Wiki**
+> 
+> Questo README è un riferimento rapido. La **documentazione canonica e sempre aggiornata** si trova nella Wiki:
+> - **[Agents Registry](../Wiki/EasyWayData.wiki/control-plane/agents-registry.md)** - Registro completo con ownership, domini, intent
+> - **[Agents Governance](../Wiki/EasyWayData.wiki/agents-governance.md)** - Policy e best practices
+> - **[Control Plane](../Wiki/EasyWayData.wiki/control-plane/index.md)** - Panoramica architetturale
+> - **[Agent Workflow Standard](./AGENT_WORKFLOW_STANDARD.md)** ⭐ - Pattern 3-step per completamento task
+> - **[GEDI Integration Pattern](./GEDI_INTEGRATION_PATTERN.md)** - Philosophical review pattern
+> 
+> **⚠️ REGOLA: Quando modifichi un agent, aggiorna SEMPRE anche la Wiki.**
+
 Questa directory raccoglie _tutti gli agent_ agentici del progetto EasyWay DataPortal.  
 Gli agent sono servizi/script modulari, ognuno responsabile di una funzione chiave (provisioning, audit, doc, governance, QA, ecc), **self-contained**, con manifest/documentazione propria, pronti per essere usati, estesi, automatizzati o orchestrati (anche via n8n).
+
+> **⭐ Core Agents Standardized**: `agent_dba`, `agent_backend`, `agent_frontend`, `agent_governance` seguono obbligatoriamente il [3-Step Workflow](./AGENT_WORKFLOW_STANDARD.md).
 
 ---
 
 ## 📁 Indice agent attuali
 
 | Agent                    | Manifest      | Descrizione breve                                 | Template/Ricetta demo       |
-|--------------------------|--------------|--------------------------------------------------|-----------------------------|
+|--------------------------|--------------|--------------------------------------------------|-----------------------------| 
 | agent_ams                | manifest.json | Automazione operativa conversazionale (Checklist, Variable Group, deploy helpers) | templates/, doc/ |
 | agent_ado_userstory      | manifest.json | Gestione User Story su Azure DevOps: prefetch best practices e creazione work item. | templates/, doc/ |
 | agent_api                | manifest.json | Triage e tracciamento errori API; produce output strutturato per orchestrazioni n8n. | templates/, doc/ |
@@ -17,6 +31,7 @@ Gli agent sono servizi/script modulari, ognuno responsabile di una funzione chia
 | agent_datalake           | manifest.json | Gestione operativa e compliance del Datalake: naming, ACL, audit, retention, export log, policy. | templates/, doc/ |
 | agent_dba                | manifest.json | Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout | templates/, doc/ |
 | agent_docs_review        | manifest.json | Revisione documentazione: normalizzazione Wiki, indici/chunk, coerenza KB, supporto aggiunta ricette. | templates/, doc/ |
+| **agent_docs_sync** ✨   | manifest.json | **Sincronizzazione automatica documentazione: allineamento tra Wiki, KB, manifest e codice.** | templates/, doc/ |
 | agent_dq_blueprint       | manifest.json | Genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX/schema, integrato con ARGOS. | templates/, doc/ |
 | agent_frontend           | manifest.json | Mini-portal e UI demo, integrazione branding, MSAL wiring | templates/, doc/ |
 | agent_governance         | manifest.json | Policy, qualità, gates e approvazioni per DB/API/Docs | templates/, doc/ |
@@ -27,7 +42,9 @@ Gli agent sono servizi/script modulari, ognuno responsabile di una funzione chia
 | agent_retrieval          | manifest.json | Gestione RAG: indicizzazione Wiki/KB, retrieval bundles, sync verso vector DB (on-demand), anti-duplicati/canonical. | templates/, doc/ |
 | agent_scrummaster        | manifest.json | Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks. | templates/, doc/ |
 | agent_security           | manifest.json | Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit e registry (no valori segreti nei log). | templates/, doc/ |
+| **agent_synapse** 🧪     | manifest.json | **[EXPERIMENTAL] Integrazione Azure Synapse per analytics/data warehouse avanzati. In valutazione per roadmap futura.** | templates/, doc/ |
 | agent_template           | manifest.json | Scheletro di agente agent-first: intent JSON, azioni idempotenti, output strutturato, allowed_paths. | templates/, doc/ |
+
 
 *(Aggiungi qui ogni nuovo agent, aggiorna la tabella custom)*
 

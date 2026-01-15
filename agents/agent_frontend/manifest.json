@@ -7,11 +7,23 @@
     "Wiki/EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/**",
     "agents/kb/recipes.jsonl"
   ],
-  "allowed_tools": ["npm", "pwsh"],
-  "required_gates": ["Checklist", "KB_Consistency"],
-  "approvals": { "prod": ["Human_Governance_Approval"] },
+  "allowed_tools": [
+    "npm",
+    "pwsh"
+  ],
+  "required_gates": [
+    "Checklist",
+    "KB_Consistency"
+  ],
+  "approvals": {
+    "prod": [
+      "Human_Governance_Approval"
+    ]
+  },
   "knowledge_sources": [
     "agents/kb/recipes.jsonl",
-    "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
+    "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md",
+    "agents/AGENT_WORKFLOW_STANDARD.md",
+    "agents/GEDI_INTEGRATION_PATTERN.md"
   ]
 }

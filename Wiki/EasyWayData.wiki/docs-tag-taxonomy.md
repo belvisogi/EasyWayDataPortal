@@ -32,21 +32,32 @@ Ogni pagina canonica dovrebbe avere:
 - `privacy/<...>`
 - `language/<it|en>`
 
-## Valori ammessi (v1)
+## Valori ammessi (v1.1)
 ### domain
-- `domain/db`, `domain/datalake`, `domain/frontend`, `domain/docs`, `domain/control-plane`, `domain/ux`
+- `domain/db`, `domain/datalake`, `domain/frontend`, `domain/api` ✨, `domain/security` ✨, `domain/analytics` ✨, `domain/docs`, `domain/control-plane`, `domain/ux`
 
 ### layer
 - `layer/howto`, `layer/reference`, `layer/runbook`, `layer/spec`, `layer/orchestration`, `layer/intent`, `layer/gate`, `layer/index`, `layer/blueprint`
 
 ### audience
-- `audience/non-expert`, `audience/dev`, `audience/dba`, `audience/ops`
+- `audience/non-expert`, `audience/dev`, `audience/dba`, `audience/ops`, `audience/architect` ✨
 
 ### privacy
 - `privacy/internal`, `privacy/public`, `privacy/restricted`
 
 ### language
 - `language/it`, `language/en`
+
+## Free Tags Canonici ✨
+Lista preferita (anti-sinonimi):
+- `agents` (non ~~agentic~~)
+- `dq` (non ~~data-quality~~)
+- `n8n`, `ewctl`, `flyway`, `rag`, `keyvault` (non ~~key-vault~~), `rbac`, `otel`, `terraform`
+- `argos`, `wiki`, `kb`, `manifest`
+- `orchestration`, `intents`, `governance`, `compliance`, `audit`
+- `automation`, `roadmap`, `onboarding`, `use-case`, `quest`, `kanban`, `checklist`
+
+**Regola**: Usare SOLO la forma canonica. I sinonimi deprecati vengono segnalati dal lint.
 
 ## Regole anti-ambiguità
 - Evitare sinonimi duplicati: scegliere una forma (`data-quality` oppure `dq`).
@@ -92,6 +103,7 @@ Esempi scope disponibili (casistiche):
 ## Vedi anche
 
 - [Documentazione Agentica - Audit & Policy (Canonico)](./docs-agentic-audit.md)
+- [Tag Scopes & Retrieval Bundles (Gerarchia)](./docs-tag-scopes.md) 📍 **NUOVO**
 - [Start Here - Link Essenziali](./start-here.md)
 - [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
 - [Visione Portale Agentico](./agentic-portal-vision.md)

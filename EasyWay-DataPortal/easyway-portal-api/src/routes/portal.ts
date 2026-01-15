@@ -139,11 +139,11 @@ router.get("/tenant/:tenantId", async (req, res) => {
     </html>`;
     res.type('html').send(html);
   } catch (err: any) {
-    res.status(500).type('text/html').send(`<!doctype html><html><body><h1>Portal error</h1><pre>${(err?.message||String(err))}</pre></body></html>`);
+    res.status(500).type('text/html').send(`<!doctype html><html><body><h1>Portal error</h1><pre>${(err?.message || String(err))}</pre></body></html>`);
   }
 });
 
-export default router;
+
 
 /* ---- Simple App (MSAL demo) ---- */
 router.get("/app", (_req, res) => {
@@ -269,7 +269,7 @@ router.get("/app", (_req, res) => {
 router.get("/app/config", (_req, res) => {
   const cfg = {
     clientId: process.env.AUTH_CLIENT_ID || "YOUR_MSAL_CLIENT_ID",
-    tenant: (process.env.AUTH_TENANT_ID || (process.env.AUTH_ISSUER||'').split('/')[3] || "common"),
+    tenant: (process.env.AUTH_TENANT_ID || (process.env.AUTH_ISSUER || '').split('/')[3] || "common"),
     apiBase: process.env.PORT ? `${_req.protocol}://${_req.get('host')}` : (process.env.API_BASE || ''),
     scopes: (process.env.AUTH_SCOPES || 'api://default/.default').split(',').map(s => s.trim())
   };

@@ -70,7 +70,7 @@ export async function withTenantContext<T>(tenantId: string, run: (tx: sql.Trans
     await tx.commit();
     return result;
   } catch (err) {
-    try { if (tx._aborted !== true) await tx.rollback(); } catch {}
+    try { if ((tx as any)._aborted !== true) await tx.rollback(); } catch { }
     throw err;
   }
 }

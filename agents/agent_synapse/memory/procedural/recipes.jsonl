@@ -1,0 +1,1 @@
+{"id": "recipe-sample-echo", "intent": "sample:echo", "steps": ["pwsh skills/ps/echo.ps1"], "description": "Example recipe echoing a message."}

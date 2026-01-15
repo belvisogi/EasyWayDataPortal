@@ -15,6 +15,19 @@ entities: []
 
 # Start Here - Link Essenziali
 
+## 🎨 Filosofia EasyWay
+
+- **[MANIFESTO.md](../../MANIFESTO.md)** - La filosofia: "Misuriamo due, tagliamo una", "Qualità > Velocità", "Impronta tangibile"
+- **[Agent GEDI](../../agents/agent_gedi/manifest.json)** - Guardian dei principi, ricorda quando andiamo di fretta
+
+## 💙 EasyCAA - Social Impact
+
+- **[EasyCAA Overview](./caa/easyCAA-overview.md)** - Tool CAA GRATIS per ragazzi autismo/DSA
+  - Research: ARASAAC, PECS, WCAG accessibility
+  - Timeline: 2-3 mesi (qualità > velocità)
+
+---
+
 1) Orchestrazioni (WHAT)
 - wf Excel/CSV → Dashboard: `orchestrations/wf-excel-csv-upload.md`
 - Orchestratore n8n: `orchestrations/orchestrator-n8n.md`

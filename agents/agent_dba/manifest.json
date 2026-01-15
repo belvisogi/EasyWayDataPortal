@@ -2,8 +2,8 @@
   "role": "Agent_DBA",
   "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
   "allowed_paths": [
-    "db/flyway/**",
-    "db/provisioning/**",
+    "db/migrations/**",
+    "db/db-deploy-ai/**",
     "old/db/**",
     "db/README.md",
     "out/**",
@@ -21,78 +21,304 @@
     "docs/agentic/templates/sheets/**",
     "agents/kb/recipes.jsonl"
   ],
-  "allowed_tools": ["flyway", "npm", "pwsh", "sqlcmd", "az"],
+  "allowed_tools": [
+    "npm",
+    "pwsh",
+    "sqlcmd",
+    "az"
+  ],
   "actions": [
     {
       "name": "db-user:create",
       "description": "Crea utente contained in Azure SQL, assegna ruoli PORTAL_*, opz. salva segreto in Key Vault",
       "params": {
-        "mode": { "type": "string", "enum": ["sql-contained"], "required": true },
-        "adminAuth": { "type": "string", "enum": ["sql","aad"], "required": false },
-        "server": { "type": "string", "required": false },
-        "database": { "type": "string", "required": true },
-        "username": { "type": "string", "required": true },
-        "roles": { "type": "array", "items": {"type":"string"}, "required": true },
-        "expires_hours": { "type": "number", "required": false },
-        "storeInKeyVault": { "type": "boolean", "required": false },
-        "keyvault": { "type": "object", "required": false }
+        "mode": {
+          "type": "string",
+          "enum": [
+            "sql-contained"
+          ],
+          "required": true
+        },
+        "adminAuth": {
+          "type": "string",
+          "enum": [
+            "sql",
+            "aad"
+          ],
+          "required": false
+        },
+        "server": {
+          "type": "string",
+          "required": false
+        },
+        "database": {
+          "type": "string",
+          "required": true
+        },
+        "username": {
+          "type": "string",
+          "required": true
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": true
+        },
+        "expires_hours": {
+          "type": "number",
+          "required": false
+        },
+        "storeInKeyVault": {
+          "type": "boolean",
+          "required": false
+        },
+        "keyvault": {
+          "type": "object",
+          "required": false
+        }
       }
     },
     {
       "name": "db-user:rotate",
       "description": "Ruota la password di un utente contained e aggiorna (opz.) Key Vault",
       "params": {
-        "adminAuth": { "type": "string", "enum": ["sql","aad"], "required": false },
-        "server": { "type": "string", "required": false },
-        "database": { "type": "string", "required": true },
-        "username": { "type": "string", "required": true },
-        "storeInKeyVault": { "type": "boolean", "required": false },
-        "keyvault": { "type": "object", "required": false }
+        "adminAuth": {
+          "type": "string",
+          "enum": [
+            "sql",
+            "aad"
+          ],
+          "required": false
+        },
+        "server": {
+          "type": "string",
+          "required": false
+        },
+        "database": {
+          "type": "string",
+          "required": true
+        },
+        "username": {
+          "type": "string",
+          "required": true
+        },
+        "storeInKeyVault": {
+          "type": "boolean",
+          "required": false
+        },
+        "keyvault": {
+          "type": "object",
+          "required": false
+        }
       }
     },
     {
       "name": "db-user:revoke",
       "description": "Revoca accesso: rimuove membership ruoli PORTAL_* e DROP USER (idempotente)",
       "params": {
-        "adminAuth": { "type": "string", "enum": ["sql","aad"], "required": false },
-        "server": { "type": "string", "required": false },
-        "database": { "type": "string", "required": true },
-        "username": { "type": "string", "required": true }
+        "adminAuth": {
+          "type": "string",
+          "enum": [
+            "sql",
+            "aad"
+          ],
+          "required": false
+        },
+        "server": {
+          "type": "string",
+          "required": false
+        },
+        "database": {
+          "type": "string",
+          "required": true
+        },
+        "username": {
+          "type": "string",
+          "required": true
+        }
       }
     },
     {
       "name": "db-doc:ddl-inventory",
       "description": "Rigenera inventario DB (tabelle/SP) da Flyway (`db/flyway/sql/`) e aggiorna la pagina Wiki ddl-inventory (idempotente).",
       "params": {
-        "dbDir": { "type": "string", "required": false },
-        "writeWiki": { "type": "boolean", "required": false },
-        "summaryOut": { "type": "string", "required": false }
+        "dbDir": {
+          "type": "string",
+          "required": false
+        },
+        "writeWiki": {
+          "type": "boolean",
+          "required": false
+        },
+        "summaryOut": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "db-metadata:extract",
+      "description": "Estrae metadati completi del database (tabelle, SP, funzioni, sequence) come JSON per analisi e confronto",
+      "params": {
+        "server": {
+          "type": "string",
+          "required": false
+        },
+        "database": {
+          "type": "string",
+          "required": true
+        },
+        "outputFile": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "db-metadata:diff",
+      "description": "Confronta metadati tra due environment (DEV vs PROD, SQL vs Synapse). Genera report HTML con new/deleted/modified objects. Essenziale prima di deployment PROD o sync Synapse.",
+      "params": {
+        "sourceEnv": {
+          "type": "string",
+          "required": true
+        },
+        "sourceDatabase": {
+          "type": "string",
+          "required": true
+        },
+        "targetEnv": {
+          "type": "string",
+          "required": true
+        },
+        "targetDatabase": {
+          "type": "string",
+          "required": true
+        },
+        "outputReport": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "db-guardrails:check",
+      "description": "Valida conformità di oggetti DB (tabelle, SP, funzioni) rispetto ai Guardrails standard (GUARDRAILS.md). Genera compliance report con violations + auto-fix suggestions. Governato da agent_dba (operational, può bloccare). agent_gedi fornisce feedback strategico (advisory, mai bloccante).",
+      "params": {
+        "scope": {
+          "type": "string",
+          "enum": [
+            "all",
+            "tables",
+            "procedures",
+            "functions",
+            "specific"
+          ],
+          "required": true
+        },
+        "objectName": {
+          "type": "string",
+          "required": false
+        },
+        "database": {
+          "type": "string",
+          "required": true
+        },
+        "outputReport": {
+          "type": "string",
+          "required": false
+        },
+        "autoFix": {
+          "type": "boolean",
+          "default": false,
+          "required": false
+        }
       }
     },
     {
       "name": "db-table:create",
       "description": "Genera artefatti per una nuova tabella (Flyway migration + pagina Wiki tabella) da spec WHAT (idempotente lato file; apply su DB è step separato).",
       "params": {
-        "schema": { "type": "string", "required": true },
-        "table": { "type": "string", "required": true },
-        "columns": { "type": "array", "required": true },
-        "indexes": { "type": "array", "required": false },
-        "tenanting": { "type": "object", "required": false },
-        "documentation": { "type": "object", "required": false },
-        "writeWiki": { "type": "boolean", "required": false },
-        "writeFlyway": { "type": "boolean", "required": false },
-        "writeDatabaseSnapshot": { "type": "boolean", "required": false },
-        "summaryOut": { "type": "string", "required": false }
+        "schema": {
+          "type": "string",
+          "required": true
+        },
+        "table": {
+          "type": "string",
+          "required": true
+        },
+        "columns": {
+          "type": "array",
+          "required": true
+        },
+        "indexes": {
+          "type": "array",
+          "required": false
+        },
+        "tenanting": {
+          "type": "object",
+          "required": false
+        },
+        "documentation": {
+          "type": "object",
+          "required": false
+        },
+        "writeWiki": {
+          "type": "boolean",
+          "required": false
+        },
+        "writeFlyway": {
+          "type": "boolean",
+          "required": false
+        },
+        "writeDatabaseSnapshot": {
+          "type": "boolean",
+          "required": false
+        },
+        "summaryOut": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "db-blueprint:generate",
+      "description": "Genera un Blueprint JSON dal database esistente (Reverse Engineering) usando db-deploy-ai. Sostituisce i vecchi script PowerShell CSV.",
+      "params": {
+        "outputFile": {
+          "type": "string",
+          "description": "Path del file JSON di output (default: blueprint.json)",
+          "required": false
+        },
+        "database": {
+          "type": "string",
+          "description": "Nome del database target (opzionale se definito in env)",
+          "required": false
+        }
       }
     }
   ],
-  "required_gates": ["Checklist", "DB_Drift", "KB_Consistency"],
+  "required_gates": [
+    "Checklist",
+    "DB_Drift",
+    "KB_Consistency"
+  ],
   "approvals": {
-    "prod": ["Human_Governance_Approval"]
+    "prod": [
+      "Human_Governance_Approval"
+    ]
   },
   "knowledge_sources": [
+    {
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/why-not-flyway.md",
+      "priority": "high",
+      "description": "Rationale per la decisione di NON usare Flyway. Spiega perché abbiamo scelto db-deploy-ai e SQL diretto invece di Flyway/Liquibase. Da leggere quando qualcuno chiede perché non usiamo migration tools tradizionali."
+    },
     "agents/kb/recipes.jsonl",
-    "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
+    "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md",
+    "agents/AGENT_WORKFLOW_STANDARD.md",
+    "agents/GEDI_INTEGRATION_PATTERN.md"
   ]
 }
-

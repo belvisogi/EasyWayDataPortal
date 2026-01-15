@@ -15,15 +15,13 @@ export async function loadDbConfig(
   const pool = await getPool();
 
   const request = (tx ? new sql.Request(tx) : pool.request())
-    .input("tenant_id", sql.NVarChar, tenantId);
+    .input("tenant_id", sql.NVarChar, tenantId)
+    .input("section", sql.NVarChar, section ?? null);
 
   const result = await request.execute("PORTAL.sp_get_config_by_tenant");
   const config: Record<string, string> = {};
   result.recordset.forEach((row: any) => {
-    const key = row.config_key;
-    if (!section || key.startsWith(section + ".")) {
-      config[key] = row.config_value;
-    }
+    config[row.config_key] = row.config_value;
   });
   return config;
 }

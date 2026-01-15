@@ -1,0 +1,306 @@
+# Agent Workflow Standard - 3-Step Completion Pattern
+
+> **📌 Integrazione con GEDI Pattern**  
+> Questo documento integra il pattern di completamento task (3-step) con il GEDI philosophical review pattern esistente.
+
+---
+
+## 🎯 Obiettivo
+
+Definire il workflow standard che **tutti gli agenti** devono seguire quando completano un task in modalità agentica.
+
+---
+
+## 📋 Pattern Standard: 3-Step Completion
+
+### Step 1: Aggiornare Task Boundary con Summary Completo
+
+**Prima di concludere**, aggiornare il task boundary con un riassunto **cumulativo** di tutto il lavoro svolto.
+
+#### Come Fare
+
+```javascript
+task_boundary({
+  Mode: "VERIFICATION",  // o EXECUTION/PLANNING secondo contesto
+  TaskName: "%SAME%",    // Mantieni lo stesso task name
+  TaskStatus: "Finalizing documentation and preparing to communicate results",
+  TaskSummary: "RIASSUNTO COMPLETO E CUMULATIVO DI TUTTO IL LAVORO - past tense, comprehensive",
+  PredictedTaskSize: 1   // Pochi step rimanenti
+})
+```
+
+#### ✅ Best Practices
+
+- **TaskSummary deve essere CUMULATIVO**: Include tutto dal primo step all'ultimo
+- **Past tense**: "Completed X, created Y, analyzed Z"
+- **Specifico**: Cita file, numeri, risultati concreti
+- **Comprehensive**: Non solo "cosa" ma anche risultati importanti
+
+#### ❌ Anti-patterns
+
+- ❌ Summary che dice solo l'ultimo step
+- ❌ "Updating documentation" (generico)
+- ❌ Future tense: "Will create..."
+- ❌ Vago: "Did some work on the project"
+
+#### Esempio Concreto
+
+```javascript
+// ❌ SBAGLIATO - Solo ultimo step
+TaskSummary: "Updated walkthrough.md file"
+
+// ✅ CORRETTO - Cumulativo completo
+TaskSummary: "Completed comprehensive analysis of EasyWayDataPortal. Explored 26 specialized agents across all domains (datalake, dba, docs_review, governance, security, retrieval, synapse). Reviewed agent-first philosophy defined in goals.json with 7 core principles. Analyzed 338-page comprehensive Wiki covering database architecture, API patterns, ARGOS data quality framework, orchestrations, and UX. Studied innovative AI-native db-deploy-ai tool replacing Flyway with JSON API, blueprint system (ERwin alternative), and automated drift detection. Created comprehensive walkthrough.md with project overview, 8 identified strengths, 3 improvement areas, and 5 brainstorming topics with concrete questions. Updated task.md marking all analysis tasks complete."
+```
+
+---
+
+### Step 2: Aggiornare walkthrough.md con Tutto il Lavoro Fatto
+
+Creare o aggiornare `walkthrough.md` nella artifact directory con documentazione completa.
+
+#### Struttura walkthrough.md
+
+```markdown
+# [Nome Task] - Walkthrough
+
+## 📋 Obiettivo
+[Cosa dovevi fare]
+
+## ✅ Cosa è stato fatto
+
+### [Sezione Major 1]
+- [Item fatto]
+- [Item fatto]
+
+### [Sezione Major 2]
+...
+
+## 🔍 Risultati Chiave
+[Insights, findings, decisioni importanti]
+
+## 🎯 Deliverables
+[File creati, modifiche fatte, output prodotti]
+
+## ✅ Validazione
+### Cosa è stato fatto
+[Checklist verificabile]
+
+### Prossimi Passi
+[Handoff chiaro per l'utente o prossimo agent]
+```
+
+#### ✅ Best Practices
+
+- **Comprehensive**: Copre TUTTO il lavoro, non solo highlights
+- **Strutturato**: Usa sezioni, liste, tabelle per leggibilità
+- **Proof of work**: Include screenshot, link a file, numeri concreti
+- **Markdown ricco**: Emoji, tabelle, code blocks, mermaid diagrams se utile
+- **User-facing**: Scritto per l'utente, non per te stesso
+
+---
+
+### Step 3: Chiamare notify_user per Uscire dal Task
+
+Una volta completati Step 1 e 2, chiamare `notify_user` per:
+1. **Uscire dal task mode**
+2. **Comunicare con l'utente**
+3. **Chiedere feedback/next steps**
+
+#### Come Fare
+
+```javascript
+notify_user({
+  PathsToReview: ["<absolute-path-to-walkthrough.md>"],
+  BlockedOnUser: false,  // true solo se serve approval per procedere
+  Message: "MESSAGGIO CONCISO - summary + domande/next steps",
+  ShouldAutoProceed: false  // Quasi sempre false
+})
+```
+
+#### Message Structure
+
+```markdown
+[STATO COMPLETAMENTO BREVE] 🎉
+
+[RIASSUNTO 2-3 RIGHE MAX]
+
+[DELIVERABLE CHIAVE]
+
+[DOMANDA/NEXT STEP - se applicabile]
+```
+
+#### ✅ Best Practices
+
+- **Conciso**: 3-5 righe MAX
+- **Non ridondante**: Non ripetere contenuto walkthrough.md
+- **File path**: SEMPRE include PathsToReview con walkthrough
+- **BlockedOnUser**: false se task completo, true se serve approval
+- **Actionable**: Domanda chiara o next step chiaro
+
+---
+
+## 🦗 Integrazione con GEDI Pattern
+
+Dopo lo Step 3, ma ancora dentro il task, **OPZIONALMENTE** chiamare `agent_gedi` per philosophical review:
+
+```javascript
+// Dopo notify_user ma prima della fine
+const gediReview = await agent_gedi.review({
+  agent: "agent_xxx",
+  action_completed: "task-completion",
+  summary: taskSummary,
+  artifacts: ["walkthrough.md", "task.md"]
+});
+
+// Log feedback (informativo, non bloccante)
+console.log("🦗 GEDI feedback:", gediReview.message);
+```
+
+GEDI valuterà se:
+- ✅ TaskSummary è cumulativo e completo
+- ✅ walkthrough.md documenta tutto il lavoro
+- ✅ Allineamento con principi `goals.json`
+
+**GEDI non blocca mai** - fornisce solo feedback filosofico.
+
+---
+
+## 🔄 Workflow Completo Integrato
+
+```mermaid
+flowchart TD
+    A[Inizio Task] --> B[Lavoro Agent]
+    B --> C{Task Completo?}
+    C -->|No| B
+    C -->|Sì| D[Step 1: Update Task Boundary<br/>con Summary Cumulativo]
+    D --> E[Step 2: Create/Update<br/>walkthrough.md]
+    E --> F[Step 3: notify_user]
+    F --> G{GEDI Review?}
+    G -->|Opzionale| H[agent_gedi.review]
+    H --> I[Log GEDI feedback]
+    G -->|Skip| J[Fine Task]
+    I --> J
+```
+
+---
+
+## 📚 Checklist Veloce Pre-Completion
+
+Prima di chiamare notify_user, verifica:
+
+- [ ] **Task Boundary aggiornato** con summary CUMULATIVO completo?
+- [ ] **walkthrough.md creato/aggiornato** con tutto il lavoro documentato?
+- [ ] **task.md aggiornato** con tutti i checklist items marcati?
+- [ ] **Message conciso** (max 5 righe) scritto?
+- [ ] **PathsToReview include walkthrough.md**?
+- [ ] **BlockedOnUser corretto** (false se task completo)?
+- [ ] (Opzionale) **GEDI review** chiamato per feedback filosofico?
+
+Se tutti ✅, puoi chiamare `notify_user`!
+
+---
+
+## 🎯 Integrazione con goals.json
+
+Questo pattern rispetta i principi di `agents/goals.json`:
+
+```json
+{
+  "principles": [
+    "Trasparenza: piani, esiti e log strutturati, ricostruibili",  // ← walkthrough.md
+    "Documentazione-viva: KB + Wiki aggiornate ad ogni cambio",    // ← sempre update
+    "Osservabilità: log/eventi per metriche"                       // ← task boundary summary
+  ]
+}
+```
+
+E si integra con GEDI per:
+- **Qualità > Velocità**: GEDI ricorda "hai misurato due volte?"
+- **Impronta Tangibile**: Ogni walkthrough lascia traccia duratura
+- **Il Percorso Conta**: TaskSummary cumulativo documenta il journey
+
+---
+
+## 📖 Template Riutilizzabili
+
+### Template task_boundary finale
+
+```javascript
+task_boundary({
+  TaskName: "%SAME%",
+  Mode: "VERIFICATION",
+  TaskSummary: "[PAST TENSE] Completed [MAIN TASK]. [WHAT WAS EXPLORED/CREATED]. [KEY RESULTS]. [DELIVERABLES]. [METRICS if applicable].",
+  TaskStatus: "Finalizing documentation and preparing to communicate results",
+  PredictedTaskSize: 1
+})
+```
+
+### Template notify_user
+
+```javascript
+notify_user({
+  PathsToReview: ["<absolute-path-walkthrough.md>"],
+  BlockedOnUser: false,
+  Message: "[EMOJI] [1-LINE STATUS]\n\n[1-2 LINE SUMMARY]\n\n[DELIVERABLE]\n\n[QUESTION/NEXT if needed]",
+  ShouldAutoProceed: false
+})
+```
+
+### Template walkthrough.md
+
+```markdown
+# [Task Name] - Walkthrough
+
+## 📋 Obiettivo
+[What needed to be done]
+
+## ✅ Cosa è stato fatto
+[Comprehensive list with sections]
+
+## 🎯 Deliverables
+[Files created, changes made]
+
+## ✅ Validazione
+### Cosa è stato fatto
+[Verifiable checklist]
+
+### Prossimi Passi
+[Clear handoff]
+```
+
+---
+
+## 🔗 Collegamenti
+
+- **GEDI Pattern**: Vedi [`GEDI_INTEGRATION_PATTERN.md`](./GEDI_INTEGRATION_PATTERN.md) per philosophical review
+- **Goals**: Vedi [`goals.json`](./goals.json) per principi fondamentali
+- **Agent README**: Vedi [`README.md`](./README.md) per registry agenti
+
+---
+
+## 📝 FAQ
+
+### Q: Quando aggiornare task_boundary?
+
+**R**: Più volte durante il lavoro per mostrare progresso, e **sempre** prima di notify_user con summary cumulativo completo.
+
+### Q: walkthrough.md è sempre necessario?
+
+**R**: Sì per task complessi (PLANNING/EXECUTION/VERIFICATION). Per task banali (1-2 tool calls) può essere skippato.
+
+### Q: GEDI review è obbligatorio?
+
+**R**: No, è **opzionale**. Utile per task significativi dove vuoi feedback filosofico. Non blocca mai.
+
+### Q: BlockedOnUser true o false?
+
+**R**: 
+- `true` = Serve approval utente per procedere (es. implementation plan da approvare)
+- `false` = Task completo, comunicazione informativa
+
+---
+
+**Status**: Standard Pattern per EasyWayDataPortal Agents  
+**Owner**: All Agent Developers  
+**Integrato con**: GEDI Philosophical Review Pattern

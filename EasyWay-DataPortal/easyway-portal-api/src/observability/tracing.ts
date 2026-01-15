@@ -13,13 +13,13 @@ void (async () => {
 
     const exporter = new AzureMonitorTraceExporter({ connectionString: conn });
     const sdk = new NodeSDK({
-      traceExporter: exporter,
+      traceExporter: exporter as any,
       instrumentations: [getNodeAutoInstrumentations()]
     });
 
-    sdk.start().catch(() => {
-      // ignore init errors in dev
-    });
+    try {
+      sdk.start();
+    } catch { }
 
     process.on('SIGTERM', () => { void sdk.shutdown(); });
     process.on('SIGINT', () => { void sdk.shutdown(); });
@@ -29,4 +29,4 @@ void (async () => {
   }
 })();
 
-export {}; // side-effect init only
+export { }; // side-effect init only

@@ -10,21 +10,31 @@
     "agents/logs/**",
     "out/**"
   ],
-  "allowed_tools": ["pwsh", "npm"],
-  "required_gates": ["Checklist", "KB_Consistency"],
+  "allowed_tools": [
+    "pwsh",
+    "npm"
+  ],
+  "required_gates": [
+    "Checklist",
+    "KB_Consistency"
+  ],
   "approvals": {},
   "knowledge_sources": [
     "EasyWay-DataPortal/easyway-portal-api/openapi/openapi.yaml",
-    "Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md"
+    "Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md",
+    "agents/AGENT_WORKFLOW_STANDARD.md",
+    "agents/GEDI_INTEGRATION_PATTERN.md"
   ],
   "actions": [
     {
       "name": "api:openapi-validate",
       "description": "Valida l'OpenAPI locale (schema/consistenza).",
       "params": {
-        "apiPath": { "type": "string", "required": false }
+        "apiPath": {
+          "type": "string",
+          "required": false
+        }
       }
     }
   ]
 }
-

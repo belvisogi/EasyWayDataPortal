@@ -4,7 +4,7 @@ title: ETL – Governance & SLA
 summary: Policy di SLA/SLO/SLI per pipeline ETL/ELT, error budget, alerting, fallback ed escalation, in stile agent‑first.
 status: draft
 owner: team-data
-tags: [etl, sla, domain/datalake, layer/spec, audience/ops, audience/dev, privacy/internal, language/it]
+tags: [etl, domain/datalake, layer/spec, audience/ops, audience/dev, privacy/internal, language/it]
 entities: []
 llm:
   include: true

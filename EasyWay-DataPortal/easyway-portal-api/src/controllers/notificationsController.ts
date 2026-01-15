@@ -1,11 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import sql from "mssql";
-import { getPool, withTenantContext } from "../utils/db";
 import { logger } from "../utils/logger";
-
+import { getNotificationsRepo } from "../repositories";
 
 export async function subscribeNotification(req: Request, res: Response, _next: NextFunction) {
-  // Placeholder: logica reale la aggiungi dopo
+  // Placeholder: logica reale la aggiungi dopo (es. preferenze utente su DB)
   res.status(201).json({ message: "Notifica iscrizione ricevuta!" });
 }
 
@@ -14,19 +12,21 @@ export async function sendNotification(req: Request, res: Response, next: NextFu
   const { recipients, category, channel, message, ext_attributes = {} } = req.body;
 
   try {
-    // Per ogni destinatario, chiama la SP (o batch, secondo design DB)
-    await withTenantContext(tenantId, async (tx) => {
-      for (const user_id of recipients) {
-        await new sql.Request(tx)
-          .input("tenant_id", sql.NVarChar, tenantId)
-          .input("user_id", sql.NVarChar, user_id)
-          .input("category", sql.NVarChar, category)
-          .input("channel", sql.NVarChar, channel)
-          .input("message", sql.NVarChar, message)
-          .input("ext_attributes", sql.NVarChar, JSON.stringify(ext_attributes))
-          .query("EXEC PORTAL.sp_send_notification @tenant_id, @user_id, @category, @channel, @message, @ext_attributes");
-      }
-    });
+    const repo = getNotificationsRepo();
+
+    // Invia notifica a ciascun destinatario
+    // Nota: idealmente fare batch insert, ma per ora loop con SP singola va bene per volumi bassi
+    const promises = recipients.map((user_id: string) =>
+      repo.send(tenantId, {
+        user_id,
+        category,
+        channel,
+        message,
+        ext_attributes
+      })
+    );
+
+    await Promise.all(promises);
 
     logger.info("Notification sent", {
       tenantId,

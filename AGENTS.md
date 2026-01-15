@@ -22,6 +22,7 @@ Convergenza documentazione ↔ agenti
 Orchestrazione
 - Usare `scripts/ewctl.ps1` come entrypoint. Engine: `--engine ps|ts`.
 - Gli agenti figli (docs/governance/DB/frontend) devono esporre script idempotenti e con esiti strutturati.
+- **Workflow Completion**: Tutti gli agenti devono seguire il [3-Step Standard](agents/AGENT_WORKFLOW_STANDARD.md) per chiudere i task.
 
 ## Workflow agentici
 

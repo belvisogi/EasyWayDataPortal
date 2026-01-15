@@ -29,6 +29,11 @@ next: TODO - definire next step.
   - H2: Principi
   - H2: Implementazione
 - [agents-governance.md](./agents-governance.md) - agents-governance
+  - H2: Agent Workflow Standard (Pattern 3-Step)
+- [../../agents/AGENT_WORKFLOW_STANDARD.md](../../agents/AGENT_WORKFLOW_STANDARD.md) - Agent Workflow Standard - Pattern 3-Step Completion
+  - H2: Pattern Standard: 3-Step Completion
+  - H2: Integrazione con GEDI Pattern
+  - H2: Template Riutilizzabili
 - [agents/agent-dq-blueprint.md](./agents/agent-dq-blueprint.md) - Agent – DQ Blueprint (Spec v0)
 - [agents-scrummaster.md](./agents-scrummaster.md) - agents-scrummaster
 - [best-practices-token-tuning-roadmap.md](./best-practices-token-tuning-roadmap.md) - Best Practices & Roadmap – Token Tuning, AI-Readiness e Governance Universale

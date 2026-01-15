@@ -9,9 +9,12 @@ export const userCreateSchema = z.object({
   profile_id: z.string().min(1).optional(),
 
   // Compat legacy (deprecato): se usati, verranno mappati
-  name: z.string().min(1).max(100).optional(),
-  surname: z.string().min(1).max(100).optional(),
-  profile_code: z.string().min(1).max(50).optional(),
+  name: z.string().min(1).max(100).optional()
+    .describe('[DEPRECATED v2.0.0] Use display_name instead'),
+  surname: z.string().min(1).max(100).optional()
+    .describe('[DEPRECATED v2.0.0] Will be concatenated to display_name'),
+  profile_code: z.string().min(1).max(50).optional()
+    .describe('[DEPRECATED v2.0.0] Use profile_id instead'),
 });
 
 // Solo parametri DDL-compliant, nessun legacy, nessun alias

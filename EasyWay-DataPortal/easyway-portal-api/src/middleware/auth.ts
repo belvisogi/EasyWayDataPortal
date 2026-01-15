@@ -40,7 +40,7 @@ export async function authenticateJwt(req: Request, res: Response, next: NextFun
       }
     }
 
-    const { payload } = await jwtVerify(token, jwks, {
+    const { payload } = await jwtVerify(token, jwks!, {
       issuer,
       audience,
       algorithms: ["RS256", "PS256"],

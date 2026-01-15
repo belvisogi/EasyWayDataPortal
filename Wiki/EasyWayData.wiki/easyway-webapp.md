@@ -6,7 +6,7 @@ status: draft
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'
-tags: [domain/docs, layer/index, audience/non-expert, audience/dev, privacy/internal, language/it, vision, why, how, what, presentazione, overview, multi-tenant, ai, ams, conversational]
+tags: [domain/docs, layer/index, audience/non-expert, audience/dev, privacy/internal, language/it, vision, presentazione, overview, multi-tenant, ai, ams, conversational]
 entities: []---
 
 # 🎯 EasyWay Data Portal – Start With Why

@@ -20,6 +20,8 @@ import onboardingRoutes from "./routes/onboarding";
 import notificationsRoutes from "./routes/notifications";
 import docsRoutes from "./routes/docs";
 import dbRoutes from "./routes/db";
+import agentChatRouter from "./routes/agent-chat";
+
 
 // Carica variabili di ambiente (.env) e fallback opzionale .env.local
 dotenv.config();
@@ -106,6 +108,7 @@ app.use("/api/onboarding", onboardingRoutes);
 app.use("/api/notifications", notificationsRoutes);
 app.use("/api/docs", docsRoutes);
 app.use("/api/db", dbRoutes);
+app.use("/api", agentChatRouter);  // Agent Chat API
 
 app.use(notFoundHandler);
 app.use(errorHandler);
