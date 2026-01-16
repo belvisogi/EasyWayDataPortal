@@ -1,16 +1,17 @@
 ---
-id: ew-control-plane-segregation-model
 title: Segregation Model (Dev vs Knowledge vs Runtime)
-summary: Linea guida canonica per segregare repo (evoluzione), knowledge vettoriale (lettura n8n/LLM) e runtime (esecuzione con segreti).
-status: active
-owner: team-platform
 tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, rag, n8n, security, keyvault]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-350
-  redaction: [email, phone, token]
+status: active
+updated: 2026-01-16
+redaction: [email, phone, token]
+id: ew-control-plane-segregation-model
+chunk_hint: 250-350
 entities: []
+include: true
+summary: Linea guida canonica per segregare repo (evoluzione), knowledge vettoriale (lettura n8n/LLM) e runtime (esecuzione con segreti).
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Segregation Model (Dev vs Knowledge vs Runtime)
@@ -81,7 +82,7 @@ flowchart LR
   E --> F[Datalake/Storage: publish artifacts]
   D --> G[Key Vault: secrets]
   D --> A
-```
+```sql
 
 ## Regole (linea guida)
 - n8n non deve avere accesso diretto a repo e segreti.
@@ -104,4 +105,5 @@ flowchart LR
 - [Roadmap agent (retrieval, observability, infra, backend, release)](./agents-missing-roadmap.md)
 - [Control Plane - Panoramica](./index.md)
 - [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+
 

@@ -1,16 +1,17 @@
 ---
-id: ew-orch-wf-excel-csv-upload
 title: Orchestrazione – wf.excel-csv-upload (WHAT)
-summary: Manifesto del workflow Excel/CSV→Dashboard in logica WHAT-first, con stati, esiti, contratti e diario di bordo.
-status: active
-owner: team-platform
 tags: [orchestration, use-case, argos, agents, domain/control-plane, layer/orchestration, audience/non-expert, audience/dev, privacy/internal, language/it]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-orch-wf-excel-csv-upload
+chunk_hint: 250-400
 entities: []
+include: true
+summary: Manifesto del workflow Excel/CSV→Dashboard in logica WHAT-first, con stati, esiti, contratti e diario di bordo.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Orchestrazione – wf.excel-csv-upload (WHAT)
@@ -57,4 +58,5 @@ Riferimenti
 - Use Case – Entrate/Uscite: `use-cases/entrate-uscite.md`
 - ARGOS – Quality Gates: `argos/argos-quality-gates.md`
 - Governance DQ: `governance-dq.md`
+
 

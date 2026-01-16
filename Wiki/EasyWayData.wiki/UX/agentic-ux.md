@@ -47,7 +47,7 @@ flowchart TD
   Frontend --> PlanViewer
   PlanViewer -->|Preview/WhatIf| Simulator
   PlanViewer -->|Proponi PR| GitOps
-```
+```sql
 
 2.2 Wizard (Create Table) — step-by-step (schermate)
 - Step 1: Info generali

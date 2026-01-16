@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, DOMAIN/Agents]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with DOMAIN/Agents
+status: draft
 ---
 
 # 📄 Agents
@@ -13,4 +16,6 @@ summary: Index of all pages tagged with DOMAIN/Agents
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

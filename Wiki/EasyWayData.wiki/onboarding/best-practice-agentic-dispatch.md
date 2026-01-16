@@ -1,16 +1,17 @@
 ---
-id: ew-best-practice-agentic-dispatch
 title: Best practice - intent agentici via n8n.dispatch (RAG-ready)
-summary: Assessment sintetico e linea guida canonica per intent agentici governati via n8n.dispatch.
-status: active
-owner: team-platform
 tags: [best-practice, governance, orchestration, n8n, agents, rag, privacy/internal, language/it]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone, token]
+status: active
+updated: 2026-01-16
+redaction: [email, phone, token]
+id: ew-best-practice-agentic-dispatch
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Assessment sintetico e linea guida canonica per intent agentici governati via n8n.dispatch.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Best practice - intent agentici via n8n.dispatch (RAG-ready)
@@ -66,4 +67,5 @@ entities: []
 - [Orchestrazione - Agent Scaffold (WHAT)](../orchestrations/agent-scaffold.md)
 - [Control Plane - Panoramica](../control-plane/index.md)
 - [Segregation Model (Dev vs Knowledge vs Runtime)](../control-plane/segregation-model-dev-knowledge-runtime.md)
+
 

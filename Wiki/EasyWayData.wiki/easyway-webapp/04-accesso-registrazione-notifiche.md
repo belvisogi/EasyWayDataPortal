@@ -1,20 +1,19 @@
 ---
 id: ew-04-accesso-registrazione-notifiche
 title: 04 accesso registrazione notifiche
-summary: Pagina top-level della documentazione.
+summary: Flussi di Accesso, Registrazione, Onboarding Microservizi e sistema di Notifiche.
 status: active
 owner: team-docs
 created: '2025-01-01'
-updated: '2025-01-01'
+updated: '2026-01-16'
 tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, onboarding, notifications, security]
-title: 04 accesso registrazione notifiche
 llm:
   include: true
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-next: TODO - definire next step.
+next: Implementare flow DQ.
 ---
 # EasyWay Data Portal - Documentazione Funzionale Completa
 
@@ -274,11 +273,9 @@ Entrambi convivono senza conflitti.
 
 
 ## Domande a cui risponde
-- Cosa fa questa pagina?
-- Quali sono i prerequisiti?
-- Quali passi devo seguire?
-- Quali sono gli errori comuni?
-- Dove approfondire?
+1. Qual è il flusso di registrazione di un nuovo utente?
+2. Qual è la differenza tra `tenant_id` (SQL) e Entra ID?
+3. Come funziona la priorità delle notifiche (email vs settings)?
 
 
 

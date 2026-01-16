@@ -1,16 +1,17 @@
 ---
-id: ew-uc-entrate-uscite
 title: Use Case – Entrate/Uscite (One‑Button UX)
-summary: Carica un file Excel/CSV con movimenti e ottieni subito una dashboard, con un percorso “un bottone = luce accesa”.
-status: active
-owner: team-platform
 tags: [domain/ux, layer/spec, audience/non-expert, audience/dev, privacy/internal, language/it, use-case, ux, argos, agents]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-uc-entrate-uscite
+chunk_hint: 250-400
 entities: []
+include: true
+summary: Carica un file Excel/CSV con movimenti e ottieni subito una dashboard, con un percorso “un bottone = luce accesa”.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Use Case – Entrate/Uscite (One‑Button UX)
@@ -36,7 +37,7 @@ flowchart TD
     T --> V[Viste & Dashboard]
     V --> C[Chat: domande e calcoli]
     DQ -->|FAIL| H[Messaggio chiaro + correzione guidata]
-```
+```sql
 
 Regole DQ Minime (in parole semplici)
 - Formato accettato: Excel o CSV.
@@ -84,6 +85,7 @@ Roadmap “a livelli” (caccia al tesoro)
 - L3: Chat Q&A e widget salvabili.
 - L4: Outlier avanzati, multi‑conto, valuta.
 - L5: Template multipli, scheduler, connettori.
+
 
 
 

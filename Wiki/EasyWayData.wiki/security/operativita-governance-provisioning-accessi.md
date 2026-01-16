@@ -1,16 +1,17 @@
 ---
-id: ew-security-operativita-governance-provisioning-accessi
 title: Operativita governance-driven - provisioning accessi (DB/Datalake)
-summary: Runbook operativo per simulazione governance-driven e replica tramite agent (db/datalake).
-status: active
-owner: team-platform
 tags: [domain/security, layer/runbook, audience/ops, audience/dba, privacy/internal, language/it, governance, agents, db, datalake]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone, token]
+status: active
+updated: 2026-01-16
+redaction: [email, phone, token]
+id: ew-security-operativita-governance-provisioning-accessi
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Runbook operativo per simulazione governance-driven e replica tramite agent (db/datalake).
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Operativita governance-driven - provisioning accessi (DB/Datalake)
@@ -52,13 +53,13 @@ Output atteso:
 Esempio comando (manuale):
 ```powershell
 pwsh scripts/agent-dba.ps1 -Action db-user:create -IntentPath <intent.json> -WhatIf -LogEvent
-```
+```sql
 
 ### Datalake (agent_datalake)
 Esempio comando (manuale):
 ```powershell
 pwsh scripts/agent-datalake.ps1 -Action dlk-apply-acl -IntentPath <intent.json> -WhatIf -LogEvent
-```
+```sql
 
 ## Step 3 - Registrazione e audit
 - Aggiorna il censimento accessi in `Wiki/EasyWayData.wiki/security/segreti-e-accessi.md`.
@@ -83,4 +84,5 @@ Per ogni agente, creare una pagina operativa equivalente:
 - [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
 - [Datalake - Ensure Structure (Stub)](../datalake-ensure-structure.md)
 - [Dominio Datalake](../domains/datalake.md)
+
 

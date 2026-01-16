@@ -58,7 +58,7 @@ updated: 2026-01-07
     "correlationId": "agent-scaffold-001"
   }
 }
-```
+```sql
 
 
 ## Vedi anche

@@ -1,8 +1,8 @@
 ---
 id: ew-orch-db-user-create
 title: DB User Create (WHAT)
-summary: Crea un utente DB in modo governato (WhatIf-by-default), con audit e (opz.) Key Vault.
-status: draft
+summary: Crea o aggiorna un utente database in modo governato, supportando audit log, rotazione credenziali e integrazione opzionale con Key Vault.
+status: active
 owner: team-data
 tags: [domain/db, layer/orchestration, audience/dba, privacy/internal, language/it, security, iam]
 llm:
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
-updated: '2026-01-08'
+updated: '2026-01-16'
 next: Aggiungere esempi output stateBefore/stateAfter.
 ---
 
 # DB User Create (WHAT)
+
+## Domande a cui risponde
+1. Qual è il payload JSON per creare un utente con ruoli `portal_writer`?
+2. Supporta l'autenticazione SQL e AAD?
+3. Come posso testare la creazione in modalità `whatIf`?
 
 Contratto
 - Intent: `docs/agentic/templates/intents/db-user-create.intent.json`
@@ -40,7 +45,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-106"
   }
 }
-```
+```sql
 
 Riferimenti
 - Output contract: `Wiki/EasyWayData.wiki/output-contract.md`

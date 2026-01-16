@@ -1,20 +1,19 @@
 ---
 id: ew-05-codice-easyway-portale
 title: 05 codice easyway portale
-summary: Pagina top-level della documentazione.
+summary: Mappatura tra repository codice e documentazione (Backend, Frontend, Infra, Docs).
 status: active
 owner: team-docs
 created: '2025-01-01'
-updated: '2025-01-01'
+updated: '2026-01-16'
 tags: [domain/frontend, layer/index, audience/dev, privacy/internal, language/it]
-title: 05 codice easyway portale
 llm:
   include: true
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-next: TODO - definire next step.
+next: Aggiungere link repo diretti.
 ---
 Nel tuo Wiki puoi mappare così:
 *   **Backend:**  
@@ -31,11 +30,9 @@ Nel tuo Wiki puoi mappare così:
 
 
 ## Domande a cui risponde
-- Cosa fa questa pagina?
-- Quali sono i prerequisiti?
-- Quali passi devo seguire?
-- Quali sono gli errori comuni?
-- Dove approfondire?
+1. Qual è la repository per il Backend?
+2. Dove trovo la documentazione dell'infrastruttura (IaC)?
+3. Come sono mappati i componenti codice-documentazione?
 
 
 

@@ -1,7 +1,7 @@
 ---
 id: ew-domain-datalake
 title: Dominio Datalake
-summary: Scheletro del dominio Datalake: struttura, ACL, retention, runbook e output idempotenti.
+summary: Definizione del dominio Datalake: struttura dei tenant, applicazione ACL, policy di retention e agenti correlati.
 status: active
 owner: team-data
 tags: [domain/datalake, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, agents]
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-350
   redaction: []
 entities: []
-updated: '2026-01-05'
-next: TODO - definire next step.
+updated: '2026-01-16'
+next: Completare le ricette KB.
 ---
 
 # Dominio Datalake
+
+## Domande a cui risponde
+1. Quali sono le responsabilità del dominio Datalake?
+2. Dove sono definiti gli agenti per il Datalake?
+3. Come vengono gestite le ACL e la retention?
 
 Cosa fa
 - Preparazione struttura tenant, applicazione ACL, policy retention.

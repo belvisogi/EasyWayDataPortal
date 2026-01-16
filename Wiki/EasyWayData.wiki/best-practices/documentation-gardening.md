@@ -1,6 +1,9 @@
 ---
 tags: [domain/docs, layer/process, best-practice, governance, gardening]
+updated: 2026-01-16
+owner: team-platform
 summary: Metodologia "Gardener Cycle" per la gestione evolutiva della tassonomia documentale. Invece di definire strutture rigide a priori, si usa un approccio bottom-up: scansione della realtà, clustering emergente e raffinamento iterativo a livelli.
+status: draft
 ---
 
 # Documentation Gardening 🌱
@@ -59,3 +62,5 @@ L'obiettivo è arrivare gradualmente a una struttura a 3 livelli:
 1.  **Macro-Area** (Business, Technology, Ops)
 2.  **Domain** (Data, API, UX, Security)
 3.  **Specific** (T-SQL, React, OAUTH2)
+
+

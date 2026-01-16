@@ -1,7 +1,7 @@
 ---
 id: ew-domain-frontend
 title: Dominio Frontend
-summary: Scheletro del dominio Frontend: UI, one-button UX, integrazione auth, wiring con orchestrazioni.
+summary: Definizione del dominio Frontend: UI guidata per intent, UX "one-button", integrazione auth e dashboard operative.
 status: active
 owner: team-frontend
 tags: [domain/frontend, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, agents, ux]
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-350
   redaction: []
 entities: []
-updated: '2026-01-05'
-next: TODO - definire next step.
+updated: '2026-01-16'
+next: Mappare tutti gli use case.
 ---
 
 # Dominio Frontend
+
+## Domande a cui risponde
+1. Qual è l'approccio UX del portale?
+2. Come si integra il frontend con gli agenti?
+3. Quali sono i gate di qualità per la UI?
 
 Cosa fa
 - UI guidata (wizard) per intent comuni.

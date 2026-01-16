@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, DOMAIN/DataLake]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with DOMAIN/DataLake
+status: draft
 ---
 
 # 📄 DataLake
@@ -28,4 +31,6 @@ summary: Index of all pages tagged with DOMAIN/DataLake
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

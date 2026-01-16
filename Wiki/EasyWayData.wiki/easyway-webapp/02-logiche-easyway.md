@@ -1,11 +1,11 @@
 ---
 id: ew-02-logiche-easyway
 title: 02 logiche easyway
-summary: Pagina top-level della documentazione.
+summary: Prefazione e Guida alla Documentazione Funzionale/Architetturale (Naming, Logging, Onboarding, notifiche).
 status: active
 owner: team-docs
 created: '2025-01-01'
-updated: '2025-01-01'
+updated: '2026-01-16'
 tags: [domain/docs, layer/index, audience/dev, privacy/internal, language/it]
 llm:
   include: true
@@ -13,7 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-next: TODO - definire next step.
+next: Verificare allineamento sezioni.
 ---
 # Prefazione – EasyWay Data Portal  
 ## Guida alla Documentazione Funzionale e Architetturale
@@ -57,23 +57,5 @@ La struttura e le macro-sezioni sono state definite in modo da coprire tutti gli
 
 **Tutte le scelte qui documentate sono alla base dello sviluppo della piattaforma e saranno mantenute allineate a ogni evoluzione del progetto.**  
 **Ogni sezione è pronta per essere esportata, integrata o sviluppata secondo lo standard “ready for code”.**
-
-> Per qualsiasi modifica, integrazione o dettaglio operativo,  
-> fare sempre riferimento a queste linee guida prima di procedere con lo sviluppo.
-
-
-
-
-## Domande a cui risponde
-- Cosa fa questa pagina?
-- Quali sono i prerequisiti?
-- Quali passi devo seguire?
-- Quali sono gli errori comuni?
-- Dove approfondire?
-
-
-
-
-
 
 

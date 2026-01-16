@@ -1,4 +1,6 @@
 ---
+tags:
+  - artifact/stored-procedure
 id: ew-portal-stored-procedure-index
 title: portal-stored-procedure-index
 summary: Indice operativo delle stored procedure PORTAL documentate (firma, esempi, logging, idempotenza).
@@ -18,6 +20,9 @@ next: Aggiornare quando cambia l’elenco SP o la documentazione associata.
 
 # Indice
 
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
+
 Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Stored Procedure
 
 - [configuration.md](./configuration.md) - `sp_insert_configuration`
@@ -34,3 +39,5 @@ Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Stored Proc
 - Dove trovare firma, input/output ed esempi di invocazione per ogni SP?
 - Quali SP gestiscono logging/audit e come validare il loro output?
 - Qual è il link canonico da usare quando referenzio una SP in altre pagine?
+
+

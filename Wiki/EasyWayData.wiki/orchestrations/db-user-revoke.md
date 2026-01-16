@@ -1,8 +1,8 @@
 ---
 id: ew-orch-db-user-revoke
 title: DB User Revoke (WHAT)
-summary: Revoca un utente DB in modo governato (WhatIf-by-default) e registra audit/registry.
-status: draft
+summary: Revoca un utente DB in modo governato (WhatIf-by-default) e registra l'operazione per audit e compliance (registry/logs).
+status: active
 owner: team-data
 tags: [domain/db, layer/orchestration, audience/dba, privacy/internal, language/it, security, iam]
 llm:
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
-updated: '2026-01-08'
+updated: '2026-01-16'
 next: Aggiungere esempi output stateBefore/stateAfter.
 ---
 
 # DB User Revoke (WHAT)
+
+## Domande a cui risponde
+1. Come revoco un'utenza tecnica dal database in emergenza?
+2. L'azione cancella l'utente o toglie solo i permessi?
+3. Viene generato un log di audit per la revoca?
 
 Contratto
 - Intent: `docs/agentic/templates/intents/db-user-revoke.intent.json`
@@ -39,7 +44,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-108"
   }
 }
-```
+```sql
 
 
 

@@ -1,16 +1,17 @@
 ---
-id: ew-agent-dq-blueprint
 title: Agent – DQ Blueprint (Spec v0)
-summary: Agente che genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX o schema, integrato con ARGOS.
-status: active
-owner: team-platform
 tags: [agents, argos, dq, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-agent-dq-blueprint
+chunk_hint: 250-400
 entities: []
+include: true
+summary: Agente che genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX o schema, integrato con ARGOS.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Agent – DQ Blueprint (Spec v0)
@@ -35,7 +36,7 @@ Intent (mini‑DSL)
   "scope": { "domain_id": "customer", "flow_id": "orders", "instance_id": "ord_v2_daily" },
   "options": { "sample_rows": 2000, "impact_default": 0.5 }
 }
-```
+```sql
 
 Esito strutturato
 ```json
@@ -47,7 +48,7 @@ Esito strutturato
   "notes": ["Regole marcate BLOCKING su colonne id/key"],
   "artifacts": ["out/blueprint/policy_proposals.json", "out/blueprint/policy_set.json"]
 }
-```
+```sql
 
 Heuristics v0 (estratto)
 - FORMAT: email/iban/phone/cf/piva/zip/pattern alfanumerico da regex note.
@@ -79,6 +80,7 @@ Riferimenti
 - ARGOS – Policy DSL: `argos/argos-policy-dsl.md`
 - Quality Gates: `argos/argos-quality-gates.md`
 - Governance DQ: `governance-dq.md`
+
 
 
 

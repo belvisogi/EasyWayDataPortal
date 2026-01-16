@@ -1,16 +1,17 @@
 ---
-id: ew-questboard-excel-csv
 title: Quest Board – Excel/CSV Upload (L1→L5)
-summary: Roadmap a livelli per portare l’utente da un file Excel/CSV a una dashboard con diario di bordo e agenti ARGOS, in modalità One‑Button.
-status: active
-owner: team-platform
 tags: [domain/ux, layer/spec, audience/non-expert, audience/dev, privacy/internal, language/it, quest, roadmap, use-case, argos, agents]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-questboard-excel-csv
+chunk_hint: 250-400
 entities: []
+include: true
+summary: Roadmap a livelli per portare l’utente da un file Excel/CSV a una dashboard con diario di bordo e agenti ARGOS, in modalità One‑Button.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Quest Board – Excel/CSV Upload (L1→L5)
@@ -66,6 +67,7 @@ Misurazione (L1)
 
 Note
 - I livelli successivi (L2..L5) si innestano senza rompere il contratto UX/WHAT definito a L1.
+
 
 
 

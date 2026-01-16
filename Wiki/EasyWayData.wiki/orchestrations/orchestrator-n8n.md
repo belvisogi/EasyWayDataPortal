@@ -1,16 +1,17 @@
 ---
-id: ew-orch-n8n-dispatch
 title: Orchestratore n8n (WHAT)
-summary: Manifesto WHAT dell'orchestratore n8n per instradare intent agentici verso workflow dichiarati.
-status: active
-owner: team-platform
 tags: [domain/control-plane, layer/orchestration, audience/dev, privacy/internal, language/it, orchestration, n8n, agents]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-350
-  redaction: []
+status: active
+updated: 2026-01-16
+redaction: []
+id: ew-orch-n8n-dispatch
+chunk_hint: 250-350
 entities: []
+include: true
+summary: Manifesto WHAT dell'orchestratore n8n per instradare intent agentici verso workflow dichiarati.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Orchestratore n8n (WHAT)
@@ -66,7 +67,7 @@ Esempio (intent -> n8n.dispatch -> agent)
     "correlationId": "op-2026-01-06-001"
   }
 }
-```
+```sql
 
 Gates e controlli
 - Pre-dispatch: Doc Alignment + Checklist opzionale in WhatIf; DB Drift/KB Consistency se rilevanti.
@@ -85,4 +86,5 @@ Riferimenti
 - Manifest esempio: `docs/agentic/templates/orchestrations/wf.excel-csv-upload.manifest.json`
 - Contratti: `Wiki/EasyWayData.wiki/intent-contract.md`, `Wiki/EasyWayData.wiki/output-contract.md`
 - Governance/gates: `Wiki/EasyWayData.wiki/agents-governance.md`, `doc-alignment-gate.md`
+
 

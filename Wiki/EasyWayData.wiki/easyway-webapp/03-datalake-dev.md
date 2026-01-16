@@ -1,20 +1,19 @@
 ---
 id: ew-03-datalake-dev
 title: 03 datalake dev
-summary: Pagina top-level della documentazione.
+summary: Architettura Datalake, struttura folder (Landing/Staging/Official), Retention Policy e Audit Costi.
 status: active
 owner: team-docs
 created: '2025-01-01'
-updated: '2025-01-01'
+updated: '2026-01-16'
 tags: [domain/datalake, layer/reference, audience/dev, audience/ops, privacy/internal, language/it]
-title: 03 datalake dev
 llm:
   include: true
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-next: TODO - definire next step.
+next: Validare Terraform.
 ---
 🎯 Obiettivo
 ------------
@@ -225,11 +224,9 @@ terraform apply
 Integra poi gli output in Azure DevOps (Variable Group) o Key Vault.
 
 ## Domande a cui risponde
-- Cosa fa questa pagina?
-- Quali sono i prerequisiti?
-- Quali passi devo seguire?
-- Quali sono gli errori comuni?
-- Dove approfondire?
+1. Qual è la struttura delle cartelle del Datalake (landing, staging, official)?
+2. Quali sono le retention policy per i dati grezzi e validati?
+3. Dove finiscono le righe scartate (invalid rows)?
 
 
 

@@ -1,16 +1,17 @@
 ---
-id: ew-blueprint-db-table-dictionary-template
 title: Template Data Dictionary (DB Table) - Excel
-summary: Template Excel per compilare in modo umano le specifiche di una nuova tabella DB e generare l'intent per agent_dba.
-status: active
-owner: team-platform
 tags: [db, blueprint, data-dictionary, templates, agentic, language/it, privacy/internal]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone, token]
+status: active
+updated: 2026-01-16
+redaction: [email, phone, token]
+id: ew-blueprint-db-table-dictionary-template
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Template Excel per compilare in modo umano le specifiche di una nuova tabella DB e generare l'intent per agent_dba.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Template Data Dictionary (DB Table) - Excel
@@ -44,11 +45,11 @@ pwsh scripts/db-table-intent-from-sheet.ps1 `
   -ColumnsCsv <columns.csv> `
   -IndexesCsv <indexes.csv> `
   -OutIntent out/intents/intent.db-table-create.generated.json
-```
+```sql
 4. Lancia l'agent:
 ```powershell
 pwsh scripts/agent-dba.ps1 -Action db-table:create -IntentPath out/intents/intent.db-table-create.generated.json -LogEvent
-```
+```sql
 
 ## Datalake (placeholder)
 Usa questo path come placeholder fino alla definizione finale:
@@ -57,7 +58,7 @@ Usa questo path come placeholder fino alla definizione finale:
 ## Come rigenerare (idempotente)
 ```powershell
 pwsh scripts/db-table-template-xlsx.ps1
-```
+```sql
 
 ## Verify
 - Il file Excel esiste e ha 4 fogli.
@@ -72,4 +73,5 @@ pwsh scripts/db-table-template-xlsx.ps1
 - [Esempi Notifiche & Template Email Configurabili](../easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md)
 - [Orchestrations – Intents Catalog (Use Case Excel/CSV)](../orchestrations/intents-catalog.md)
 - [db-howto-create-table](../easyway-webapp/01_database_architecture/howto-create-table.md)
+
 

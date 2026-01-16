@@ -20,7 +20,7 @@ function Ensure-ParentDir([string]$path) {
   New-Item -ItemType Directory -Force -Path $dir | Out-Null
 }
 
-function New-TempFile([string]$prefix,[string]$ext) {
+function New-TempFile([string]$prefix, [string]$ext) {
   $base = $env:RUNNER_TEMP
   if ([string]::IsNullOrWhiteSpace($base)) { $base = $env:TEMP }
   if ([string]::IsNullOrWhiteSpace($base)) { $base = (Get-Location).Path }
@@ -29,6 +29,7 @@ function New-TempFile([string]$prefix,[string]$ext) {
 }
 
 function Read-Json([string]$p) {
+  Write-Host "Reading JSON: $p"
   if (-not (Test-Path -LiteralPath $p)) { throw "JSON not found: $p" }
   return (Get-Content -LiteralPath $p -Raw | ConvertFrom-Json)
 }
@@ -68,13 +69,13 @@ function New-Card {
     [string[]]$References
   )
   return [pscustomobject]@{
-    id = "$Type:$([Guid]::NewGuid().ToString('N').Substring(0,8))"
-    type = $Type
-    severity = $Severity
-    title = $Title
+    id          = "{0}:{1}" -f $Type, ([Guid]::NewGuid().ToString('N').Substring(0, 8))
+    type        = $Type
+    severity    = $Severity
+    title       = $Title
     description = $Description
-    files = @($Files | Where-Object { $_ } | Select-Object -Unique)
-    references = @($References | Where-Object { $_ } | Select-Object -Unique)
+    files       = @($Files | Where-Object { $_ } | Select-Object -Unique)
+    references  = @($References | Where-Object { $_ } | Select-Object -Unique)
   }
 }
 
@@ -113,34 +114,34 @@ try {
   if ($score -lt 0) { $score = 0 }
 
   $scorecard = [pscustomobject]@{
-    ok = $ok
-    score = [int]$score
-    runId = $runId
+    ok        = $ok
+    score     = [int]$score
+    runId     = $runId
     timestamp = (Get-Date).ToString('o')
-    wikiPath = $WikiPath.Replace([char]92,'/')
-    metrics = [pscustomobject]@{
-      agentReady = [pscustomobject]@{
-        ok = [bool]$agentReady.ok
-        errors = $agentErrors.Count
+    wikiPath  = $WikiPath.Replace([char]92, '/')
+    metrics   = [pscustomobject]@{
+      agentReady   = [pscustomobject]@{
+        ok       = [bool]$agentReady.ok
+        errors   = $agentErrors.Count
         warnings = $agentWarnings.Count
-        checks = [int]$agentReady.counts.checks
+        checks   = [int]$agentReady.counts.checks
       }
       connectivity = [pscustomobject]@{
-        nodes = [int]$orphans.nodes
-        edges = [int]$orphans.edges
-        components = [int]$orphans.components
+        nodes                = [int]$orphans.nodes
+        edges                = [int]$orphans.edges
+        components           = [int]$orphans.components
         largestComponentSize = [int]$orphans.largestComponentSize
-        orphans = $orphansCount
-        noInbound = @($orphans.noInbound).Count
-        noOutbound = @($orphans.noOutbound).Count
+        orphans              = $orphansCount
+        noInbound            = @($orphans.noInbound).Count
+        noOutbound           = @($orphans.noOutbound).Count
       }
-      gapReport = [pscustomobject]@{
-        files = [int]$gap.files
+      gapReport    = [pscustomobject]@{
+        files    = [int]$gap.files
         failures = [int]$gap.failures
-        counts = $gap.counts
+        counts   = $gap.counts
       }
     }
-    notes = @("Doc-as-Data Quality: regole + misure + remediation + kanban backlog.")
+    notes     = @("Doc-as-Data Quality: regole + misure + remediation + kanban backlog.")
   }
 
   Ensure-ParentDir $OutScorecard
@@ -150,23 +151,23 @@ try {
 
   foreach ($r in @($agentErrors | Select-Object -First 10)) {
     $cards.Add((New-Card `
-      -Type 'gate' `
-      -Severity 'error' `
-      -Title ("Ripristinare check agent-ready: " + [string]$r.id) `
-      -Description "Eseguire il gate indicato e correggere le violazioni (frontmatter/tags/link/WHAT-first/KB)." `
-      -Files @() `
-      -References @('Wiki/EasyWayData.wiki/docs-agentic-audit.md','scripts/agent-ready-audit.ps1'))) | Out-Null
+          -Type 'gate' `
+          -Severity 'error' `
+          -Title ("Ripristinare check agent-ready: " + [string]$r.id) `
+          -Description "Eseguire il gate indicato e correggere le violazioni (frontmatter/tags/link/WHAT-first/KB)." `
+          -Files @() `
+          -References @('Wiki/EasyWayData.wiki/docs-agentic-audit.md', 'scripts/agent-ready-audit.ps1'))) | Out-Null
   }
 
   if ($orphansCount -gt 0) {
     $sample = @($orphans.orphans | Select-Object -First 12)
     $cards.Add((New-Card `
-      -Type 'connectivity' `
-      -Severity 'warning' `
-      -Title ("Collegare pagine isolate (orphans): {0}" -f $orphansCount) `
-      -Description ("Ridurre degree=0 aggiungendo link in/out. Esempi: {0}" -f ($sample -join ', ')) `
-      -Files @($sample) `
-      -References @('Wiki/EasyWayData.wiki/orphans-index.md','Wiki/EasyWayData.wiki/docs-related-links.md','scripts/wiki-related-links.ps1'))) | Out-Null
+          -Type 'connectivity' `
+          -Severity 'warning' `
+          -Title ("Collegare pagine isolate (orphans): {0}" -f $orphansCount) `
+          -Description ("Ridurre degree=0 aggiungendo link in/out. Esempi: {0}" -f ($sample -join ', ')) `
+          -Files @($sample) `
+          -References @('Wiki/EasyWayData.wiki/orphans-index.md', 'Wiki/EasyWayData.wiki/docs-related-links.md', 'scripts/wiki-related-links.ps1'))) | Out-Null
   }
 
   $issueGroups = @()
@@ -181,20 +182,20 @@ try {
     $files = @($g.Group | Select-Object -ExpandProperty file | Sort-Object -Unique | Select-Object -First 15)
     $sev = if ($g.Name -match '^missing_front_matter$') { 'error' } else { 'warning' }
     $cards.Add((New-Card `
-      -Type 'gap' `
-      -Severity $sev `
-      -Title ("Fix gap: {0} ({1} file)" -f $g.Name, $g.Count) `
-      -Description "Correggere il gap indicato secondo docs-agentic-audit (es. owner/summary/sezioni minime/draft hygiene)." `
-      -Files $files `
-      -References @('Wiki/EasyWayData.wiki/docs-agentic-audit.md','scripts/wiki-gap-report.ps1'))) | Out-Null
+          -Type 'gap' `
+          -Severity $sev `
+          -Title ("Fix gap: {0} ({1} file)" -f $g.Name, $g.Count) `
+          -Description "Correggere il gap indicato secondo docs-agentic-audit (es. owner/summary/sezioni minime/draft hygiene)." `
+          -Files $files `
+          -References @('Wiki/EasyWayData.wiki/docs-agentic-audit.md', 'scripts/wiki-gap-report.ps1'))) | Out-Null
   }
 
   $backlog = [pscustomobject]@{
-    ok = $ok
-    runId = $runId
+    ok        = $ok
+    runId     = $runId
     timestamp = (Get-Date).ToString('o')
-    maxCards = $MaxCards
-    cards = @($cards.ToArray() | Select-Object -First $MaxCards)
+    maxCards  = $MaxCards
+    cards     = @($cards.ToArray() | Select-Object -First $MaxCards)
   }
   Ensure-ParentDir $OutBacklog
   $backlog | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $OutBacklog -Encoding utf8
@@ -218,8 +219,8 @@ try {
   }
   [void]$md.AppendLine("")
   [void]$md.AppendLine("Artifacts:")
-  [void]$md.AppendLine("- `"+$OutScorecard.Replace([char]92,'/')+"`")
-  [void]$md.AppendLine("- `"+$OutBacklog.Replace([char]92,'/')+"`")
+  [void]$md.AppendLine(('- `{0}`' -f $OutScorecard.Replace([char]92, '/')))
+  [void]$md.AppendLine(('- `{0}`' -f $OutBacklog.Replace([char]92, '/')))
 
   $preview = $md.ToString()
   Write-Utf8 -path $OutQuestBoardPreview -text $preview
@@ -227,7 +228,8 @@ try {
   if ($UpdateQuestBoard) {
     if ($WhatIf) {
       Write-Host "WhatIf: aggiornamento quest board saltato: $QuestBoardPath"
-    } else {
+    }
+    else {
       if (-not (Test-Path -LiteralPath $QuestBoardPath)) { throw "QuestBoardPath not found: $QuestBoardPath" }
       $existing = Get-Content -LiteralPath $QuestBoardPath -Raw -Encoding UTF8
       $newText = Update-AutoSection -Text $existing -AutoContent $preview
@@ -239,29 +241,30 @@ try {
       Write-Utf8 -path $QuestBoardPath -text $newText
 
       $applySummary = [pscustomobject]@{
-        ok = $true
-        runId = $runId
-        questBoardPath = $QuestBoardPath.Replace([char]92,'/')
-        backup = $backup.Replace([char]92,'/')
-        preview = $OutQuestBoardPreview.Replace([char]92,'/')
+        ok             = $true
+        runId          = $runId
+        questBoardPath = $QuestBoardPath.Replace([char]92, '/')
+        backup         = $backup.Replace([char]92, '/')
+        preview        = $OutQuestBoardPreview.Replace([char]92, '/')
       }
       $applySummary | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $applyDir 'apply-summary.json') -Encoding utf8
     }
   }
 
   $out = [pscustomobject]@{
-    ok = $ok
-    score = [int]$score
-    scorecardOut = $OutScorecard.Replace([char]92,'/')
-    backlogOut = $OutBacklog.Replace([char]92,'/')
-    questBoardPreviewOut = $OutQuestBoardPreview.Replace([char]92,'/')
-    runId = $runId
+    ok                   = $ok
+    score                = [int]$score
+    scorecardOut         = $OutScorecard.Replace([char]92, '/')
+    backlogOut           = $OutBacklog.Replace([char]92, '/')
+    questBoardPreviewOut = $OutQuestBoardPreview.Replace([char]92, '/')
+    runId                = $runId
   }
   $json = $out | ConvertTo-Json -Depth 6
   Write-Output $json
   if ($FailOnError -and -not $ok) { exit 1 }
-} finally {
-  foreach ($p in @($tmpAgentReady,$tmpOrphansJson,$tmpOrphansDot,$tmpOrphansMd,$tmpGap)) {
+}
+finally {
+  foreach ($p in @($tmpAgentReady, $tmpOrphansJson, $tmpOrphansDot, $tmpOrphansMd, $tmpGap)) {
     if ($p -and (Test-Path -LiteralPath $p)) { Remove-Item -Force -LiteralPath $p -ErrorAction SilentlyContinue }
   }
 }

@@ -1,16 +1,17 @@
 ---
-id: ew-docs-tag-scopes
 title: Tag Scopes & Retrieval Bundles (Gerarchia)
-summary: Sistema gerarchico di scopes e bundles per retrieval mirato, enforcement CI graduale e context loading ottimizzato per agents/n8n.
-status: active
-owner: team-platform
 tags: [domain/docs, layer/reference, audience/dev, audience/architect, privacy/internal, language/it, taxonomy, rag, n8n, agents]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 300-450
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-docs-tag-scopes
+chunk_hint: 300-450
 entities: []
+include: true
+summary: Sistema gerarchico di scopes e bundles per retrieval mirato, enforcement CI graduale e context loading ottimizzato per agents/n8n.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Tag Scopes & Retrieval Bundles (Gerarchia)
@@ -32,7 +33,7 @@ Questa pagina documenta il **sistema gerarchico** di organizzazione della Wiki b
 
 ## 🏗️ Architettura a 3 Livelli
 
-```
+```sql
 🌐 Wiki (240+ pagine)
 │
 ├─ Level 1: FACET TAGS (Coordinate)
@@ -44,7 +45,7 @@ Questa pagina documenta il **sistema gerarchico** di organizzazione della Wiki b
 │
 └─ Level 3: RETRIEVAL BUNDLES (Intent-Based)
    └─ Combinazioni scope + code_roots per scenari specifici
-```
+```sql
 
 ---
 
@@ -76,7 +77,7 @@ Uno **scope** è un raggruppamento logico di pagine Wiki, definito tramite:
   "scopes": ["security-all", "governance-all"]
   // → Carica ~120 pagine rilevanti per IAM
 }
-```
+```sql
 
 #### B) Micro-Scopes (`*-20`)
 
@@ -100,7 +101,7 @@ Uno **scope** è un raggruppamento logico di pagine Wiki, definito tramite:
 pwsh scripts/wiki-tags-lint.ps1 `
   -Scope db-datalake-20 `
   -RequireFacets -FailOnError
-```
+```sql
 
 #### C) Special Scope: `core`
 
@@ -140,7 +141,7 @@ Un **retrieval bundle** è una **combinazione predefinita di scopes** per un int
     "code_entrypoints": ["file1.ts", ...]     // Opzionale
   }
 }
-```
+```sql
 
 ### Bundle Disponibili
 
@@ -239,7 +240,7 @@ graph LR
     F --> G[Retrieval: ~150 pagine mirate]
     G --> H[LLM Context: DDL + gates + IAM]
     H --> I[Genera: Flyway + test + docs]
-```
+```sql
 
 **Vantaggio**: ~150 pagine invece di 240 → -37% token, +60% precisione
 
@@ -259,7 +260,7 @@ graph TD
     I --> J[160 pagine validate]
     J --> K[Month 3: All macro-scopes]
     K --> L[240 pagine validate]
-```
+```sql
 
 **Strategia**:
 1. **Pilot** (Week 1): `db-datalake-20` → FailOnError
@@ -308,7 +309,7 @@ pwsh scripts/wiki-tags-lint.ps1 `
   -Scope db-datalake-20 `
   -RequireFacets `
   -FailOnError
-```
+```sql
 
 **Scope**: `db-datalake-20`
 
@@ -343,7 +344,7 @@ pwsh scripts/wiki-tags-lint.ps1 -Scope db-datalake-20,portal-api-frontend-20 -Re
 
 # Macro-scope (warn only)
 pwsh scripts/wiki-tags-lint.ps1 -Scope data-all -RequireFacets -WarnOnly
-```
+```sql
 
 ### n8n Workflow con Bundle
 
@@ -358,7 +359,7 @@ const pages = await loadPagesFromScopes(targetBundle.scopes);
 // Passa a LLM
 const context = pages.map(p => p.content).join('\n\n');
 const prompt = `${context}\n\nCrea tabella: ${userInput}`;
-```
+```sql
 
 ### Agent Script con Scope Filtering
 
@@ -375,7 +376,7 @@ foreach ($page in $pages) {
     $content = Get-WikiPage -Path "Wiki/EasyWayData.wiki/$page"
     # Process...
 }
-```
+```sql
 
 ---
 
@@ -422,7 +423,7 @@ scopes:
   - security-all        # Perché in security/
   - iam-security-20     # Perché lista esplicita
   - governance-all      # Perché security governance-related
-```
+```sql
 
 **Query combinata**:
 ```sql
@@ -432,7 +433,7 @@ WHERE scope = 'iam-security-20'
   AND 'domain/security' IN tags
   AND 'layer/runbook' IN tags
   AND 'audience/ops' IN tags
-```
+```sql
 
 ---
 
@@ -505,7 +506,7 @@ pwsh scripts/wiki-scopes-audit.ps1 -ShowCoverage
 
 # Find orphan pages (non in nessuno scope)
 pwsh scripts/wiki-scopes-audit.ps1 -FindOrphans
-```
+```sql
 
 ---
 
@@ -537,4 +538,5 @@ pwsh scripts/wiki-scopes-audit.ps1 -FindOrphans
 - [Orchestrator n8n - Dispatch & Workflow](./orchestrations/orchestrator-n8n.md)
 - [Documentazione Agentica - Audit & Policy](./docs-agentic-audit.md)
 - [Retrieval Bundles - Mapping Intent → Context](./orchestrations/n8n-retrieval-bundles.md) (se esiste)
+
 

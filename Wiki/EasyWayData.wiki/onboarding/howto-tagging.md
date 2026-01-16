@@ -63,7 +63,7 @@ tags: [domain/api, layer/howto, audience/dev, agentic, language/it]
 summary: Avvia e testa rapidamente la API EasyWay in sandbox o ambiente dev.
 updated: '2026-01-06'
 ---
-```
+```sql
 
 **B) In manifest.json**
 ```json
@@ -71,7 +71,7 @@ updated: '2026-01-06'
   "role": "Agent_Docs_Review",
   "tags": ["agentic", "docs", "lint", "automation", "domain/doc"]
 }
-```
+```sql
 
 **C) In header script**
 ```powershell
@@ -79,7 +79,7 @@ updated: '2026-01-06'
   Script: agent-dba.ps1
   Tags: db, agentic, migration, audit, sandbox, language/it
 #>
-```
+```sql
 
 ---
 

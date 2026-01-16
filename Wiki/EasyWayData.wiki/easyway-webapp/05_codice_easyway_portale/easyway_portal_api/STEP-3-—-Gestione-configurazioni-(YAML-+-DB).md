@@ -160,6 +160,46 @@ Con questa struttura puoi già:
 
 * * *
 
+
+## Contratto di Configurazione (Reference)
+
+Per garantire prevedibilità e stabilità, il sistema di configurazione rispetta il seguente contratto:
+
+### 1. DB Runtime Config (`PORTAL.CONFIGURATION`)
+*   **Source of Truth**: Il database vince sui default a codice, ma non sovrascrive le variabili d'ambiente infrastrutturali (es. Connection Strings).
+*   **Behavior (Exact Match)**:
+    *   Richiedere `section='finance'` restituisce **SOLO** le chiavi appartenenti a quella sezione.
+    *   Richiedere `section=null` (o non specificarlo) restituisce **SOLO** le chiavi globali (dove `section` è NULL o vuota).
+    *   *Non esiste ereditarietà implicita*: se serve una chiave globale in una sezione, il client deve fare due chiamate o l'applicazione deve gestire il merge.
+*   **Naming Convention**:
+    *   `section`: `kebab-case` (es. `user-preferences`, `feature-flags`).
+    *   `config_key`: `kebab-case` (es. `max-items`, `show-beta-banner`).
+    *   `config_value`: Stringa (JSON stringified se complesso).
+
+### 2. Priorità
+1.  **Variabili d'Ambiente** (Infrastruttura, Secret): Livello più alto, immutabile a runtime (es. `DB_CONN_STRING`).
+2.  **DB Runtime (`PORTAL.CONFIGURATION`)**: Logica di business dinamica, modificabile senza deploy.
+3.  **YAML (Branding/Static)**: Configurazioni statiche di UI/Label, cambiano raramente.
+4.  **Codice (Default)**: Fallback hardcoded se nessuna configurazione è trovata.
+
+### 3. Esempi di Output
+
+**Richiesta Globale** (`GET /api/config`):
+```json
+{
+  "maintenance-mode": "false",
+  "support-email": "support@example.com"
+}
+```sql
+
+**Richiesta Sezione** (`GET /api/config?section=checkout`):
+```json
+{
+  "enable-coupon": "true",
+  "max-cart-items": "50"
+}
+```sql
+
 ## Domande a cui risponde
 - Cosa fa questa pagina?
 - Quali sono i prerequisiti?

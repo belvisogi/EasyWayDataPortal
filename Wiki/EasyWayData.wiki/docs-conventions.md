@@ -53,7 +53,7 @@ status: deprecated
 canonical: <percorso/relativo/al/wiki/file-canonico.md>
 llm:
   include: false
-```
+```sql
 
 Contenuto suggerito per il file legacy (stub):
 ```md
@@ -61,7 +61,7 @@ Questa pagina è stata rinominata (path canonico): `<percorso/relativo/al/wiki/f
 
 Vai alla pagina canonica:
 - [Titolo canonico](./file-canonico.md)
-```
+```sql
 
 ## 2) kebab-case vs snake_case
 Regola: il canonico lato doc/UI è `kebab-case`; i derivati sono meccanici per il dominio tecnico.
@@ -94,7 +94,7 @@ snake_case file .md: ^[a-z0-9]+(?:_[a-z0-9]+)*\.md$
 # File con estensioni permesse
 kebab-case: ^[a-z0-9]+(?:-[a-z0-9]+)*\.(?:md|yml|yaml|json|sql|ps1)$
 snake_case: ^[a-z0-9]+(?:_[a-z0-9]+)*\.(?:md|yml|yaml|json|sql|ps1)$
-```
+```sql
 
 ## 4) Link e percorsi
 - Nei documenti usare backtick per i path reali del repo.
@@ -132,3 +132,11 @@ Pattern consigliato:
   - `### Specifica (<tema>)`: checklist “operativa” con output attesi e verify concreti (file/endpoint/script/testcases).
 
 Esempio reale (Template + Specifica): `easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md`.
+
+## 8) Template obbligatorio per nuove pagine
+Per creare nuove pagine Wiki, partire sempre dal file `_template.md` della cartella di destinazione.
+
+Regole:
+- Non creare nuove pagine "da zero": copia `_template.md` e poi compila.
+- Mantieni il frontmatter YAML completo e aggiorna `id/title/summary/owner/status/tags`.
+- Se una cartella non ha `_template.md`, crearne uno prima di aggiungere nuove pagine.

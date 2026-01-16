@@ -1,19 +1,25 @@
 ---
-id: ew-n8n-api-error-triage
 title: n8n API Error Triage
-summary: Orchestrazione agentica per classificare errori REST e produrre log strutturato per n8n.
-status: active
-owner: team-platform
 tags: [domain/control-plane, layer/orchestration, audience/dev, privacy/internal, language/it, n8n, api, errors]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone, token]
+status: active
+updated: 2026-01-16
+redaction: [email, phone, token]
+id: ew-n8n-api-error-triage
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Orchestrazione agentica per classificare errori REST e produrre log strutturato per n8n.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # n8n API Error Triage
+
+## Domande a cui risponde
+1. Cosa fare se n8n riceve un errore 401/403 dalle API?
+2. Come classificare un errore come "retryable"?
+3. Dove trovo lo schema dell'intent di triage?
 
 ## Contesto
 Questo workflow serve quando n8n chiama le REST API del portale e incontra errori. L'obiettivo e' standardizzare il triage con un agente dedicato, produrre azioni suggerite e log strutturati per audit e miglioramento continuo.
@@ -52,7 +58,7 @@ Esempio minimo:
     }
   }
 }
-```
+```sql
 
 ## Output atteso
 - `errorClass`, `severity`, `retryable`
@@ -63,7 +69,7 @@ Esempio minimo:
 ## Esecuzione locale (manuale)
 ```powershell
 pwsh scripts/agent-api.ps1 -Action api-error:triage -IntentPath out/api-error.intent.json -LogEvent
-```
+```sql
 
 ## Riferimenti
 - Q&A errori REST: `Wiki/EasyWayData.wiki/api/rest-errors-qna.md`
@@ -76,4 +82,5 @@ pwsh scripts/agent-api.ps1 -Action api-error:triage -IntentPath out/api-error.in
 - [n8n-db-table-create](./n8n-db-table-create.md)
 - [n8n Retrieval Bundles (riduzione token)](./n8n-retrieval-bundles.md)
 - [Release Preflight Security (WHAT)](./release-preflight-security.md)
+
 

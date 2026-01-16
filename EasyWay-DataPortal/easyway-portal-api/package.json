@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@azure/identity": "^4.5.0",
+    "@azure/keyvault-secrets": "^4.10.0",
     "@azure/monitor-opentelemetry-exporter": "^1.0.0-beta.36",
     "@azure/storage-blob": "^12.28.0",
     "@opentelemetry/auto-instrumentations-node": "^0.48.0",

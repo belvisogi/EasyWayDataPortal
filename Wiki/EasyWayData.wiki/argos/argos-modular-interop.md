@@ -1,26 +1,24 @@
----
-id: ew-argos-modular-interop
 title: ARGOS – Modular Architecture & Interop (v1)
-summary: Tre moduli (M1/M2/M3) con Correlation Fabric, eventi canonici e feature flags per EasyWay.
-status: active
-owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
-llm:
-  include: true
+status: active
+updated: '2026-01-16'
+redaction: [email, phone]
+id: ew-argos-modular-interop
+chunk_hint: 250-400
+entities: []
+include: true
+summary: Architettura modulare ARGOS (M1 Fast-Ops, M2 Biz-Learning, M3 Tech-Profiling), Correlation Fabric ed eventi canonici.
+llm: 
   pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []---
+owner: team-platform
+---
 
 # ARGOS – Modular Architecture & Interop (v1)
 
-> Scopo: definire ARGOS come 3 moduli autonomi ma correlabili: M1 Fast‑Ops (Gating), M2 Biz‑Learning (Coach), M3 Tech‑Profiling (IT Health). Ogni modulo può vivere separatamente, condivide uno strato di correlazione.
-
-Integrazione EasyWay
-- Correlation Fabric: usare chiavi canoniche (RUN_ID, INSTANCE_ID, FLOW_ID, DOMAIN_ID, RULE_VERSION_ID, PRODUCER_ID, DECISION_TRACE_ID) in DB/API/Events.
-- Eventi canonici: `argos.run.completed`, `argos.gate.decision`, `argos.profile.drift`, `argos.coach.nudge.sent`, `argos.policy.proposal`, `argos.contract.proposal`, `argos.ticket.opened`.
-- Feature flags: attivazione graduale moduli e funzioni in pipeline/portal.
----
+## Domande a cui risponde
+1. Quali sono i tre moduli architetturali di ARGOS?
+2. A cosa serve il Correlation Fabric?
+3. Quali sono gli identificativi chiave per la correlazione (es. RUN_ID)?
 
 ## Principi di modularità
 Indipendenza, interoperabilità by‑design (eventi+chiavi), opt‑in progressivo, explainability, privacy‑first.
@@ -41,6 +39,7 @@ Solo M1; M1+M3; M1+M2; Full. Feature flags e NFR (latency, backpressure, RBAC & 
 
 ## RACI e roadmap modulare
 Attivazione progressiva 1) M1 2) M3 3) M2 4) Full.
+
 
 
 

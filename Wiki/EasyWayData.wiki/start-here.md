@@ -1,16 +1,17 @@
 ---
-id: ew-start-here
 title: Start Here - Link Essenziali
-summary: Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB.
-status: active
-owner: team-platform
 tags: [start-here, onboarding, agents, argos, language/it, domain/docs, layer/index, audience/non-expert, audience/dev, privacy/internal]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-start-here
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Start Here - Link Essenziali
@@ -61,6 +62,7 @@ entities: []
 7) Materiale legacy / asset
 - Contesto: `blueprints/legacy-reference-material.md`
 - Branding: `UX/branding-assets.md`
+
 
 
 

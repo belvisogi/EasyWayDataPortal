@@ -2,15 +2,16 @@
 title: ADO – Segnare un job come Required nelle PR
 tags: [ado, branch-policies, governance, domain/control-plane, layer/gate, audience/dev, audience/ops, privacy/internal, language/it, ci]
 status: active
+updated: 2026-01-16
+redaction: [email, phone]
 id: ew-checklist-ado-required-job
-summary: Procedura per rendere il job EnforcerCheck un check Required nelle PR (Azure Repos branch policies) per far rispettare i guardrail.
-owner: team-platform
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
+chunk_hint: 250-400
 entities: []
+include: true
+summary: Procedura per rendere il job EnforcerCheck un check Required nelle PR (Azure Repos branch policies) per far rispettare i guardrail.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 Obiettivo
@@ -51,4 +52,5 @@ Riferimenti
 - [Validazione Output Agenti in CI](./agent-output-validation-ci.md)
 - [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
 - [Deploy su Azure App Service – Pipeline & Variabili](./deploy-app-service.md)
+
 

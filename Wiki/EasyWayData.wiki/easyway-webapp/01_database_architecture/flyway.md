@@ -36,7 +36,7 @@ db/flyway/sql/
 ├─ V4__portal_logging_tables.sql
 ├─ V5__rls_and_masking.sql
 └─ V6__stored_procedures_core.sql
-```
+```sql
 - Esegue solo le migrazioni non ancora registrate; in caso di errore, si ferma e fallisce la pipeline.
 
 Naming (Flyway Standard)
@@ -62,7 +62,7 @@ baselineOnMigrate=true
 sqlMigrationSuffixes=.sql
 connectRetries=5
 # Le credenziali (URL/USER/PASSWORD) si passano come env nel runner
-```
+```sql
 
 Esecuzione (CLI)
 ```powershell
@@ -74,7 +74,7 @@ $env:FLYWAY_PASSWORD = '<password>'
 flyway -configFiles=db/flyway/flyway.conf validate
 flyway -configFiles=db/flyway/flyway.conf baseline -baselineVersion=1   # solo su DB esistenti
 flyway -configFiles=db/flyway/flyway.conf migrate
-```
+```sql
 
 Installazione locale (Windows, ZIP)
 - Scarica Flyway Community (zip) e estrai, es. `C:\Tools\flyway\`.
@@ -83,7 +83,7 @@ Installazione locale (Windows, ZIP)
 $flywayExe = 'C:\Tools\flyway\flyway-10.20.0\flyway.cmd'
 & $flywayExe "-configFiles=db/flyway/flyway.conf" validate
 & $flywayExe "-configFiles=db/flyway/flyway.conf" migrate
-```
+```sql
 - Se `flyway.conf` non ha URL/USER/PASSWORD, Flyway fallisce: impostare le env sopra.
 
 ## Troubleshooting (Flyway)
@@ -108,7 +108,7 @@ FROM flyway_schema_history ORDER BY installed_on DESC;
 
 -- Migrazioni fallite o pendenti
 SELECT * FROM flyway_schema_history WHERE success = 0;
-```
+```sql
 
 Stato nel repo
 - Skeleton già presente: `db/flyway/` con `sql/` e `flyway.conf`.

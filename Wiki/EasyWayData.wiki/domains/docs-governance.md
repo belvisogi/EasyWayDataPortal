@@ -1,7 +1,7 @@
 ---
 id: ew-domain-docs-governance
 title: Dominio Docs & Governance
-summary: Scheletro: convenzioni doc, linter, gates, PR discipline, human-in-the-loop e activity log.
+summary: Definizione del dominio Docs & Governance: standard di documentazione, linter WHAT-first, quality gates e integrazione CI/CD.
 status: active
 owner: team-platform
 tags: [domain/docs, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, governance, agents]
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-350
   redaction: []
 entities: []
-updated: '2026-01-05'
-next: TODO - definire next step.
+updated: '2026-01-16'
+next: Completare audit log.
 ---
 
 # Dominio Docs & Governance
+
+## Domande a cui risponde
+1. Quali sono gli strumenti di governance della documentazione?
+2. Chi sono gli agenti responsabili della review docs?
+3. Dove trovo le convenzioni di scrittura (Docs Conventions)?
 
 Cosa fa
 - Mantiene coerenza tra codice, KB e Wiki.

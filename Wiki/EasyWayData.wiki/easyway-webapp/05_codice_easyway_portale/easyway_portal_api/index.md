@@ -18,6 +18,9 @@ next: Aggiornare quando cambiano endpoint o policy.
 
 # Indice
 
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
+
 Breadcrumb: Home / EasyWay WebApp / Codice Portale / API
 
 - [dinamiche-di-manutenzione.md](./dinamiche-di-manutenzione.md) - Dinamiche di manutenzione
@@ -35,3 +38,4 @@ Breadcrumb: Home / EasyWay WebApp / Codice Portale / API
 - Quali documenti sono canonici per sviluppare e manutenere la API?
 - Dove trovare la lista endpoint e il template per nuovi endpoint?
 - Dove sono definite le regole di logging e gestione dati sensibili?
+

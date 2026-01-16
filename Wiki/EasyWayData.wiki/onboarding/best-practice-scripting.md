@@ -64,6 +64,6 @@ Usa queste best practice ogni volta che contribuisci uno script `.ps1`, `.sh` o 
 if ($PSVersionTable.Platform -ne "Unix" -and $env:OS -eq $null) {
     Write-Warning "Questo script potrebbe non essere compatibile fuori da Windows!"
 }
-```
+```sql
 
 **Se trovi uno script poco portabile, crea una issue o PR di suggestion!**

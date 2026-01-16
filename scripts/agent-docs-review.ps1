@@ -70,7 +70,7 @@ try {
     $tasks += [pscustomobject]@{
       Id = 0
       Name = $label
-      Description = 'Checklist documentazione generata da regole priority; l’utente approva.'
+      Description = 'Checklist documentazione generata da regole priority; richiede approvazione utente.'
       Recommended = $true
       Enabled = $true
       Action = {

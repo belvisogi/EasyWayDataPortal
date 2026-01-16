@@ -1,8 +1,8 @@
 ---
 id: ew-orch-kb-assessment
 title: KB Assessment (WHAT)
-summary: Verifica allineamento della KB (JSONL valido, references, campi minimi) e produce report.
-status: draft
+summary: Verifica la qualità tecnica della Knowledge Base (recipe JSONL, link validi, campi obbligatori) e produce un report di assessment.
+status: active
 owner: team-platform
 tags: [domain/docs, layer/orchestration, audience/dev, privacy/internal, language/it, kb, governance]
 llm:
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
-updated: '2026-01-08'
+updated: '2026-01-16'
 next: Collegare a un gate CI opzionale.
 ---
 
 # KB Assessment (WHAT)
+
+## Domande a cui risponde
+1. Come verifico se le mie ricette KB sono valide?
+2. Il tool controlla anche i link rotti nella documentazione?
+3. Qual è il comando n8n per lanciare l'assessment?
 
 Contratto
 - Intent: `docs/agentic/templates/intents/kb.assessment.intent.json`
@@ -38,7 +43,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-113"
   }
 }
-```
+```sql
 
 
 

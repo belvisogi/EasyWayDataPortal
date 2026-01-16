@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, DOMAIN/Control-Plane]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with DOMAIN/Control-Plane
+status: draft
 ---
 
 # 📄 Control-Plane
@@ -97,4 +100,6 @@ summary: Index of all pages tagged with DOMAIN/Control-Plane
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

@@ -1,11 +1,11 @@
 ---
 id: ew-10-ai-agents
 title: 10 ai agents
-summary: Pagina top-level della documentazione.
+summary: Strategia, Scenari, Architettura e Costi per l'integrazione di AI Agents (Conversational Intelligence) in EasyWay.
 status: active
 owner: team-docs
 created: '2025-01-01'
-updated: '2025-01-01'
+updated: '2026-01-16'
 tags: [domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, ai, agents]
 llm:
   include: true
@@ -13,7 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-next: TODO - definire next step.
+next: Prototipo agent.upload.
 ---
 # EasyWay DataPortal – Conversational Intelligence & AMS
 
@@ -135,24 +135,6 @@ Tutti gli agenti seguono il prefisso `agent.` e il dominio funzionale:
 - `agent.dq`
 - `agent.billing`
 - `agent.audit`
-
-I nomi sono chiari, coerenti, e riflettono la modularità microservizi EasyWay.
-
----
-
-
-
-## Domande a cui risponde
-- Cosa fa questa pagina?
-- Quali sono i prerequisiti?
-- Quali passi devo seguire?
-- Quali sono gli errori comuni?
-- Dove approfondire?
-
-
-
-
-
 
 
 

@@ -1,7 +1,7 @@
 ---
 id: ew-argos-event-schema
 title: ARGOS – Event Schema Addendum (v1)
-summary: Elenco eventi canonici argos.* e note per pubblicare JSON Schema e validarli in CI.
+summary: Specifica degli eventi canonici emessi da ARGOS (es. argos.run.completed, argos.gate.decision) per l'integrazione nel Correlation Fabric.
 status: active
 owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, event]
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 200-300
   redaction: [email, phone]
 entities: []
-updated: '2026-01-05'
-next: TODO - definire next step.
+updated: '2026-01-16'
+next: Definire JSON Schema formale.
 ---
 
 # ARGOS – Event Schema Addendum (v1)
+
+## Domande a cui risponde
+1. Quali sono gli eventi principali emessi da ARGOS?
+2. Dove vengono pubblicati gli schemi JSON degli eventi?
+3. Come vengono gestiti i dati personali (PII) negli eventi?
 
 > Nota: documento placeholder da completare con JSON Schema e esempi payload per tutti gli eventi elencati sotto. Integrare con il Correlation Fabric del portale e con la pipeline di validazione.
 

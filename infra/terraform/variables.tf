@@ -37,6 +37,11 @@ variable "tenants" {
   default     = ["tenant01"]
 }
 
+variable "key_vault_name" {
+  description = "Name of the Key Vault (globally unique). Example: kv-easyway-dev"
+  type        = string
+}
+
 variable "assign_reader_principal_id" {
   description = "Optional principal/object id to assign Storage Blob Data Reader on containers"
   type        = string

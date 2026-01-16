@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, META/Status-Deprecated]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with META/Status-Deprecated
+status: draft
 ---
 
 # 📄 Status-Deprecated
@@ -13,4 +16,6 @@ summary: Index of all pages tagged with META/Status-Deprecated
 ---
 
 [⬆️ Back to META](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

@@ -1,11 +1,25 @@
-import sql from 'mssql';
+import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
+
+// Try loading .env.local first, then fallback to default behavior which loads .env
+if (fs.existsSync('.env.local')) {
+  dotenv.config({ path: '.env.local' });
+} else {
+  dotenv.config();
+}
+
+import sql from 'mssql';
 import { getPool } from '../../utils/db';
 
 type RequiredObjects = { tables?: string[]; procedures?: string[] };
 
 function loadRequired(): RequiredObjects {
+  // Debug Env
+  console.log('DEBUG: DB_CONN_STRING present?', !!process.env.DB_CONN_STRING);
+  console.log('DEBUG: DB_AAD present?', !!process.env.DB_AAD);
+  console.log('DEBUG: DB_HOST present?', !!process.env.DB_HOST);
+
   const configPath = process.env.DB_REQUIRED_OBJECTS || path.resolve(process.cwd(), '../../scripts/variables/db-required-objects.sample.json');
   if (!fs.existsSync(configPath)) return { tables: [], procedures: [] };
   return JSON.parse(fs.readFileSync(configPath, 'utf-8')) as RequiredObjects;
@@ -40,5 +54,5 @@ async function main() {
   process.exit(ok ? 0 : 1);
 }
 
-main().catch(err => { console.error(JSON.stringify({ ok:false, error: err?.message || String(err) })); process.exit(1); });
+main().catch(err => { console.error(JSON.stringify({ ok: false, error: err?.message || String(err) })); process.exit(1); });
 

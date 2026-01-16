@@ -1,8 +1,8 @@
 ---
 id: ew-orch-db-user-rotate
 title: DB User Rotate (WHAT)
-summary: Ruota credenziali DB user in modo governato (WhatIf-by-default) e registra audit/registry.
-status: draft
+summary: Ruota le credenziali di un utente DB (password) in modo governato, sincronizzando opzionalmente il nuovo segreto su Key Vault.
+status: active
 owner: team-data
 tags: [domain/db, layer/orchestration, audience/dba, privacy/internal, language/it, security, iam]
 llm:
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
-updated: '2026-01-08'
+updated: '2026-01-16'
 next: Aggiungere esempi output stateBefore/stateAfter.
 ---
 
 # DB User Rotate (WHAT)
+
+## Domande a cui risponde
+1. Come eseguo la rotazione password periodica per un'utenza applicativa?
+2. La nuova password viene salvata automaticamente nel Vault?
+3. Cosa succede se la rotazione fallisce a metà?
 
 Contratto
 - Intent: `docs/agentic/templates/intents/db-user-rotate.intent.json`
@@ -39,7 +44,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-107"
   }
 }
-```
+```sql
 
 
 

@@ -81,7 +81,7 @@ Esempio - Dispatch verso agente
     "decision_trace_id": "trace-001"
   }
 }
-```
+```sql
 Note
 - Ogni azione documenta i propri params nella pagina Wiki dedicata.
 - I manifest degli agent elencano le azioni supportate.

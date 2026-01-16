@@ -59,7 +59,7 @@ EasyCAA è costruito seguendo il [Manifesto EasyWay](../../../MANIFESTO.md):
 ## Architettura CAA
 
 ### Database Schema (Planned)
-```
+```sql
 caa.child_profiles      - Profili bambini (età, PECS phase, preferences)
 caa.vocabulary          - ARASAAC symbols + emoji fallback
 caa.categories          - Gerarchia semantica (People, Actions, Feelings)
@@ -67,14 +67,14 @@ caa.routines            - Activity grids (mattina, scuola, pranzo)
 caa.sentence_templates  - PECS Phase IV+ (sentence builder)
 caa.generated_boards    - AI output cache
 caa.progress_log        - Tracking completamento task
-```
+```sql
 
 ### API Endpoints (Planned)
-```
+```sql
 POST /api/caa/routine/upload    - Upload Excel routine da educatori
 GET  /api/caa/board/:child_id   - Retrieve board generata
 POST /api/caa/progress/:child_id - Log task completato
-```
+```sql
 
 ### Standards Compliance
 - ✅ **ARASAAC** library integration (Creative Commons BY-NC-SA)
@@ -114,7 +114,7 @@ CAA utilizza ARGOS per quality gates:
 EXEC caa.sp_validate_routine_upload 
   @child_id INT,
   @excel_data NVARCHAR(MAX)
-```
+```sql
 
 **Checks**:
 1. Colonne required presenti (Momento, Attività, Emoji, Passi)

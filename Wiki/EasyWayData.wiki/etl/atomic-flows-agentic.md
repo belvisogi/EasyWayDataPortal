@@ -1,16 +1,17 @@
 ---
-id: ew-atomic-flows-agentic
 title: Atomic Flows – Orchestrazione Agent‑First
-summary: Standard EasyWay per workflow ETL atomici (landing→DQ→STG→REF) gestiti da agente, con YAML, DAG Airflow e integrazione ARGOS.
-status: active
-owner: team-data
 tags: [domain/datalake, layer/spec, audience/dev, privacy/internal, language/it, etl, airflow, azure, agents]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 350-500
-  redaction: [email]
+status: active
+updated: 2026-01-16
+redaction: [email]
+id: ew-atomic-flows-agentic
+chunk_hint: 350-500
 entities: []
+include: true
+summary: Standard EasyWay per workflow ETL atomici (landing→DQ→STG→REF) gestiti da agente, con YAML, DAG Airflow e integrazione ARGOS.
+llm: 
+pii: none
+owner: team-data
 ---
 
 # Atomic Flows – Orchestrazione Agent‑First
@@ -88,4 +89,5 @@ Appendice – Connessioni Airflow
 - [ARGOS - Alerting & Notifications (v1.1)](../argos/argos-alerting.md)
 - [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
 - [Agent - DQ Blueprint (Spec v0)](../agents/agent-dq-blueprint.md)
+
 

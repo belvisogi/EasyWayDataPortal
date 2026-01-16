@@ -1,19 +1,39 @@
 ---
-id: ew-domains-index
 title: Domini - Panoramica
-summary: Scheletro cross-domain: DB, Datalake, Frontend, Docs/Governance con agenti, input/output e strumenti.
-status: active
-owner: team-platform
 tags: [domain/docs, layer/index, audience/dev, audience/non-expert, privacy/internal, language/it, domains, agents, governance]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-350
-  redaction: []
+status: active
+updated: 2026-01-16
+redaction: []
+id: ew-domains-index
+chunk_hint: 250-350
 entities: []
+include: true
+summary: Scheletro cross-domain: DB, Datalake, Frontend, Docs/Governance con agenti, input/output e strumenti.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Domini - Panoramica
+
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
+
+Obiettivo
+- Dare una mappa unica per capire "chi fa cosa" (agenti), con contratti e artefatti attesi.
+
+Domini
+- DB: `domains/db.md`
+- Datalake: `domains/datalake.md`
+- Frontend: `domains/frontend.md`
+- Docs & Governance: `domains/docs-governance.md`
+
+Regola
+
+# Domini - Panoramica
+
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
 
 Obiettivo
 - Dare una mappa unica per capire "chi fa cosa" (agenti), con contratti e artefatti attesi.
@@ -30,3 +50,8 @@ Regola
 
 
 
+
+## Domande a cui risponde
+1. Quali sono i domini principali del portale EasyWay?
+2. Dove trovo la documentazione specifica per DB o Datalake?
+3. Qual è la regola aurea per definire una nuova "capability"?

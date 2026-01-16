@@ -1,16 +1,17 @@
 ---
-id: ew-control-plane-agents-manifest-audit
 title: Agents Manifest Audit (gap list)
-summary: Operativita' per generare automaticamente una lista di gap per agente (manifest/readme/actions/gates/knowledge sources).
-status: active
-owner: team-platform
 tags: [domain/control-plane, layer/howto, audience/dev, audience/ops, privacy/internal, language/it, agents, docs-governance, rag]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone, token]
+status: active
+updated: 2026-01-16
+redaction: [email, phone, token]
+id: ew-control-plane-agents-manifest-audit
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Operativita' per generare automaticamente una lista di gap per agente (manifest/readme/actions/gates/knowledge sources).
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Agents Manifest Audit (gap list)
@@ -25,7 +26,7 @@ entities: []
 ## Come eseguire (manuale)
 ```powershell
 pwsh scripts/agents-manifest-audit.ps1
-```
+```sql
 
 Output:
 - JSON: `out/docs/agents-manifest-audit.json`
@@ -34,7 +35,7 @@ Output:
 ## Come eseguire (agentico)
 ```powershell
 pwsh scripts/agent-docs-review.ps1 -AgentsManifestAudit
-```
+```sql
 
 ## Cosa controlla (minimo)
 - `description/role/name` nel manifest
@@ -55,4 +56,5 @@ pwsh scripts/agent-docs-review.ps1 -AgentsManifestAudit
 - [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
 - [Validazione Output Agenti in CI](../agent-output-validation-ci.md)
 - [Agent Security (IAM/KeyVault) - overview](../security/agent-security-iam.md)
+
 

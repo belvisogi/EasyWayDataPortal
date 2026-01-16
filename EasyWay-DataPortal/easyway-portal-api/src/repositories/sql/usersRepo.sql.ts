@@ -87,7 +87,7 @@ export class SqlUsersRepo implements UsersRepo, OnboardingRepo {
         .input("display_name", sql.NVarChar, input.display_name ?? null)
         .input("profile_id", sql.NVarChar, input.profile_id ?? null)
         .input("ext_attributes", sql.NVarChar, JSON.stringify(input.ext_attributes ?? {}))
-        .query("EXEC PORTAL.sp_debug_register_tenant_and_user @tenant_name, @user_email, @display_name, @profile_id, @ext_attributes");
+        .execute("PORTAL.sp_register_tenant_and_user");
     });
     return result.recordset;
   }

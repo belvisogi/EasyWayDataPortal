@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, AUDIENCE/Non-Expert]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with AUDIENCE/Non-Expert
+status: draft
 ---
 
 # 📄 Non-Expert
@@ -51,4 +54,6 @@ summary: Index of all pages tagged with AUDIENCE/Non-Expert
 ---
 
 [⬆️ Back to AUDIENCE](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

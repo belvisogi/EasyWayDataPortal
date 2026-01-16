@@ -1,16 +1,17 @@
 ---
-id: ew-control-plane-agents-registry
 title: Agents Registry (owner, domini, intent)
-summary: Registro canonico degli agenti di EasyWay DataPortal con ownership per dominio, intent principali ed entrypoint (n8n.dispatch/ewctl).
-status: active
-owner: team-platform
 tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, agents, governance, n8n, ewctl, rag]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-350
-  redaction: [email, phone, token]
+status: active
+updated: 2026-01-16
+redaction: [email, phone, token]
+id: ew-control-plane-agents-registry
+chunk_hint: 250-350
 entities: []
+include: true
+summary: Registro canonico degli agenti di EasyWay DataPortal con ownership per dominio, intent principali ed entrypoint (n8n.dispatch/ewctl).
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Agents Registry (owner, domini, intent)
@@ -83,4 +84,5 @@ Gli agenti qui sotto erano nella lista "mancanti" e sono stati implementati con 
 - [Control Plane - Panoramica](./index.md)
 - [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
 - [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+
 

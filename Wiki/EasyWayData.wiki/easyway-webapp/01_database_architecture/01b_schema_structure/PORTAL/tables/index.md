@@ -17,6 +17,9 @@ next: Completare descrizioni colonne e policy (PII/RLS) per tutte le tabelle.
 
 # PORTAL — Tables (Blueprint)
 
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
+
 ## Contesto
 - Source-of-truth DB (fisico): migrazioni Flyway in `db/flyway/sql/`.
 - Inventario (rigenerabile): `easyway-webapp/01_database_architecture/ddl-inventory.md`.
@@ -35,4 +38,12 @@ next: Completare descrizioni colonne e policy (PII/RLS) per tutte le tabelle.
 - [`PORTAL.TENANT`](./portal-tenant.md)
 - [`PORTAL.USER_NOTIFICATION_SETTINGS`](./portal-user-notification-settings.md)
 - [`PORTAL.USERS`](./portal-users.md)
+
+
+## Domande a cui risponde
+- Che cosa raccoglie questo indice?
+- Dove sono i documenti principali collegati?
+- Come verificare naming e ancore per questa cartella?
+- Dove trovare entità e guide correlate?
+
 

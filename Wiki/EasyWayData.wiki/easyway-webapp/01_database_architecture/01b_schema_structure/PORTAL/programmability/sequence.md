@@ -1,4 +1,6 @@
 ---
+tags:
+  - artifact/sequence
 id: ew-sequence
 title: SEQUENCE
 summary: 'Documento su SEQUENCE.'
@@ -605,6 +607,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../entities-index.md)
+
 
 
 

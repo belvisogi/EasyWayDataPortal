@@ -24,7 +24,7 @@ Di seguito il **template standard** per documentare ogni endpoint parametrico in
 > [Breve descrizione della funzione dell’endpoint.  
 Esempio: “Restituisce la configurazione di branding (colori, etichette, immagini, path) per il tenant corrente.”]
 
-```
+```sql
 
 **Best Practice**
 - Validazione degli input (header, parametri, body) obbligatoria

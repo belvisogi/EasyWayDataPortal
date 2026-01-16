@@ -43,7 +43,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "ado-userstory-create-001"
   }
 }
-```
+```sql
 
 Riferimenti
 - Output contract: `Wiki/EasyWayData.wiki/output-contract.md`

@@ -1,16 +1,17 @@
 ---
-id: ew-security-agent-security-iam
 title: Agent Security (IAM/KeyVault) - overview
-summary: Agente per provisioning sicuro di segreti/reference e supporto a provisioning accessi DB/Datalake (via n8n.dispatch).
-status: active
-owner: team-platform
 tags: [security, iam, keyvault, agents, domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone, token]
+status: active
+updated: 2026-01-16
+redaction: [email, phone, token]
+id: ew-security-agent-security-iam
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Agente per provisioning sicuro di segreti/reference e supporto a provisioning accessi DB/Datalake (via n8n.dispatch).
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Agent Security (IAM/KeyVault)
@@ -31,7 +32,7 @@ entities: []
 ## Esempio (manuale)
 ```powershell
 pwsh scripts/agent-security.ps1 -Action kv-secret:reference -IntentPath out/intent.kv-secret-ref.json -LogEvent
-```
+```sql
 
 ## Note di sicurezza
 - Mai committare `.env*` o valori segreti.
@@ -45,4 +46,5 @@ pwsh scripts/agent-security.ps1 -Action kv-secret:reference -IntentPath out/inte
 - [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
 - [Segreti e accessi (DB + Datalake)](./segreti-e-accessi.md)
 - [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
+
 

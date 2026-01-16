@@ -1,7 +1,7 @@
 ---
 id: ew-argos-glossario
 title: ARGOS – Glossario Unificato (v1)
-summary: Glossario condiviso per ARGOS (termini chiave, enum, abbreviazioni) allineato con EasyWay.
+summary: Glossario unificato dei termini, acronimi e definizioni chiave del framework ARGOS (es. Decision Trace, Noise Budget).
 status: active
 owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/reference, audience/non-expert, audience/dev, privacy/internal, language/it]
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 200-300
   redaction: [email, phone]
 entities: []
-updated: '2026-01-05'
-next: TODO - definire next step.
+updated: '2026-01-16'
+next: Espandere le voci di glossario.
 ---
 
 # ARGOS – Glossario Unificato (v1)
+
+## Domande a cui risponde
+1. Cosa si intende per "Noise Budget"?
+2. Che cos'è una "Decision Trace"?
+3. Qual è la differenza tra "Conformity" e "Quality"?
 
 > Nota: glossario da completare per ridurre ambiguità e uniformare il linguaggio tra moduli e portale. Includere abbreviazioni, enum e RACI.
 

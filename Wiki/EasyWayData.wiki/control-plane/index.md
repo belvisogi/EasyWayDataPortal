@@ -1,19 +1,23 @@
 ---
-id: ew-control-plane-index
 title: Control Plane - Panoramica
-summary: Punto di ingresso canonico per orchestrazione agentica (n8n + ewctl), gates, logging e Human-in-the-loop.
-status: active
-owner: team-platform
 tags: [domain/control-plane, layer/index, audience/dev, audience/ops, privacy/internal, language/it, control-plane, orchestration, governance, n8n]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-350
-  redaction: []
+status: active
+updated: 2026-01-16
+redaction: []
+id: ew-control-plane-index
+chunk_hint: 250-350
 entities: []
+include: true
+summary: Punto di ingresso canonico per orchestrazione agentica (n8n + ewctl), gates, logging e Human-in-the-loop.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Control Plane - Panoramica
+
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
 
 Scopo
 - Rendere l'esecuzione dei workflow agentici governabile da non esperti.
@@ -46,6 +50,15 @@ Riferimenti
 - Roadmap agent: `control-plane/agents-missing-roadmap.md`
 - Orchestrazioni: `orchestrations/wf-excel-csv-upload.md`
 
+
+
+
+
+## Domande a cui risponde
+- Che cosa raccoglie questo indice?
+- Dove sono i documenti principali collegati?
+- Come verificare naming e ancore per questa cartella?
+- Dove trovare entità e guide correlate?
 
 
 

@@ -1,4 +1,6 @@
 ---
+tags:
+  - artifact/stored-procedure
 id: ew-tenant
 title: tenant
 summary: 'Documento su tenant.'
@@ -2371,6 +2373,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

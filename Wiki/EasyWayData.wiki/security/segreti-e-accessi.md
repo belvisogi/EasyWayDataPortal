@@ -1,16 +1,17 @@
 ---
-id: ew-security-segreti-accessi
 title: Segreti e accessi (DB + Datalake)
-summary: Linee guida canoniche per gestione segreti e accessi tecnici in EasyWay DataPortal (dev/ci/prod).
-status: active
-owner: team-platform
 tags: [domain/security, layer/reference, audience/ops, audience/dba, privacy/internal, language/it, keyvault, db, datalake]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone, token]
+status: active
+updated: 2026-01-16
+redaction: [email, phone, token]
+id: ew-security-segreti-accessi
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Linee guida canoniche per gestione segreti e accessi tecnici in EasyWay DataPortal (dev/ci/prod).
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Segreti e accessi (DB + Datalake)
@@ -79,17 +80,17 @@ Tabella minima per audit (non contiene valori segreti). Template consigliati:
 ### CLI (az)
 ```powershell
 az keyvault secret show --vault-name <kv-name> --name <secret-name> --query value -o tsv
-```
+```sql
 
 ### PowerShell (modulo Az)
 ```powershell
 Get-AzKeyVaultSecret -VaultName <kv-name> -Name <secret-name> -AsPlainText
-```
+```sql
 
 ### App Settings via Key Vault reference
 ```text
 @Microsoft.KeyVault(SecretUri=https://<kv-name>.vault.azure.net/secrets/<secret-name>/<version>)
-```
+```sql
 
 ## Owner e mantenimento
 - Owner censimento accessi: `agent_governance` (audit/compliance).
@@ -103,7 +104,7 @@ Get-AzKeyVaultSecret -VaultName <kv-name> -Name <secret-name> -AsPlainText
 ## Come rigenerare i template (idempotente)
 ```powershell
 pwsh scripts/access-registry-template-xlsx.ps1
-```
+```sql
 
 ## Riferimenti
 - `docs/ci/azure-devops-secrets.md`
@@ -118,4 +119,5 @@ pwsh scripts/access-registry-template-xlsx.ps1
 - [Segregation Model (Dev vs Knowledge vs Runtime)](../control-plane/segregation-model-dev-knowledge-runtime.md)
 - [Policy di Configurazione & Sicurezza – Microservizi e API Gateway](../easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md)
 - [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
+
 

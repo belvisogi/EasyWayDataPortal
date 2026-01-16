@@ -58,14 +58,14 @@ def get_template(tipo, lingua, params, excel_path):
     for k, v in params.items():
         corpo = corpo.replace(f'{{{{{k}}}}}', str(v))
     return oggetto, corpo
-```
+```sql
 
 Esempio chiamata:
 
 ```python
 params = {"nome": "Mario", "tenant": "AziendaXYZ", "data": "21/07/2025", "reset_link": "https://..."}
 oggetto, corpo = get_template("onboarding", "IT", params, "email_templates.xlsx")
-```
+```sql
 
 ---
 
@@ -82,7 +82,7 @@ oggetto, corpo = get_template("onboarding", "IT", params, "email_templates.xlsx"
       |
       v
 [Log invio + template utilizzato + outcome]
-```
+```sql
 
 ---
 

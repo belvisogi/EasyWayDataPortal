@@ -1,4 +1,6 @@
 ---
+tags:
+  - artifact/stored-procedure
 id: ew-section-access
 title: section access
 summary: 'Documento su section access.'
@@ -1903,6 +1905,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

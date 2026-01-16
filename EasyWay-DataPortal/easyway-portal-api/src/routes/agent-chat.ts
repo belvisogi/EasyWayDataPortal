@@ -46,6 +46,19 @@ router.get('/agents/:agentId/info', async (req: Request, res: Response) => {
   }
 });
 
+function requireAuthContext(req: Request): { userId: string; tenantId: string } {
+  const userId = (req as any).user?.id;
+  const tenantId = (req as any).tenantId;
+
+  if (!userId || !tenantId) {
+    const err: any = new Error("Missing auth context");
+    err.code = "AUTH_REQUIRED";
+    throw err;
+  }
+
+  return { userId, tenantId };
+}
+
 /**
  * POST /api/agents/:agentId/chat
  * Send a message to an agent
@@ -60,19 +73,34 @@ router.post('/agents/:agentId/chat',
       const { agentId } = req.params;
       const { message, conversationId, context } = req.body;
 
-      // TODO: Get user from auth middleware
-      const userId = (req as any).user?.id || 'anonymous';
+      const { userId, tenantId } = requireAuthContext(req);
 
       const response = await chatService.sendMessage({
         agentId,
         message,
         conversationId: conversationId || null,
         context: context || {},
-        userId
+        userId,
+        tenantId
       });
 
       res.json(response);
     } catch (error: any) {
+      if (error.code === 'INTENT_NOT_ALLOWED') {
+        return res.status(403).json({
+          error: 'intent_not_allowed',
+          message: error.message,
+          allowedIntents: error.allowedIntents || []
+        });
+      }
+
+      if (error.code === 'AUTH_REQUIRED') {
+        return res.status(401).json({
+          error: 'unauthorized',
+          message: 'Authentication required'
+        });
+      }
+
       if (error.code === 'RATE_LIMIT') {
         return res.status(429).json({
           error: 'rate_limit_exceeded',
@@ -106,18 +134,25 @@ router.get('/agents/:agentId/conversations', async (req: Request, res: Response)
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
 
-    // TODO: Get user from auth middleware
-    const userId = (req as any).user?.id || 'anonymous';
+    const { userId, tenantId } = requireAuthContext(req);
 
     const result = await chatService.getConversations({
       agentId,
       userId,
+      tenantId,
       limit,
       offset
     });
 
     res.json(result);
   } catch (error: any) {
+    if (error.code === 'AUTH_REQUIRED') {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
     res.status(500).json({
       error: 'internal_server_error',
       message: error.message
@@ -133,13 +168,13 @@ router.get('/agents/:agentId/conversations/:conversationId', async (req: Request
   try {
     const { agentId, conversationId } = req.params;
 
-    // TODO: Get user from auth middleware
-    const userId = (req as any).user?.id || 'anonymous';
+    const { userId, tenantId } = requireAuthContext(req);
 
     const conversation = await chatService.getConversation({
       agentId,
       conversationId,
-      userId
+      userId,
+      tenantId
     });
 
     if (!conversation) {
@@ -151,6 +186,13 @@ router.get('/agents/:agentId/conversations/:conversationId', async (req: Request
 
     res.json(conversation);
   } catch (error: any) {
+    if (error.code === 'AUTH_REQUIRED') {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
     res.status(500).json({
       error: 'internal_server_error',
       message: error.message
@@ -166,17 +208,24 @@ router.delete('/agents/:agentId/conversations/:conversationId', async (req: Requ
   try {
     const { agentId, conversationId } = req.params;
 
-    // TODO: Get user from auth middleware
-    const userId = (req as any).user?.id || 'anonymous';
+    const { userId, tenantId } = requireAuthContext(req);
 
     await chatService.deleteConversation({
       agentId,
       conversationId,
-      userId
+      userId,
+      tenantId
     });
 
     res.status(204).send();
   } catch (error: any) {
+    if (error.code === 'AUTH_REQUIRED') {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
     if (error.code === 'NOT_FOUND') {
       return res.status(404).json({
         error: 'conversation_not_found',

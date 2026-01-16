@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, TECH/React]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with TECH/React
+status: draft
 ---
 
 # 📄 React
@@ -13,4 +16,6 @@ summary: Index of all pages tagged with TECH/React
 ---
 
 [⬆️ Back to TECH](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

@@ -18,6 +18,9 @@ next: Aggiornare quando cambiano template o viene aggiunto un nuovo artefatto.
 
 # Indice
 
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
+
 Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Programmability
 
 - [function.md](./function.md) - Linee guida e checklist per `FUNCTION`.
@@ -30,3 +33,4 @@ Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Programmabi
 - Quali regole di naming e policy applicare prima di creare un nuovo artefatto?
 - Dove consultare l’indice delle stored procedure già documentate?
 - Quali link canonici usare quando documento una nuova SP?
+

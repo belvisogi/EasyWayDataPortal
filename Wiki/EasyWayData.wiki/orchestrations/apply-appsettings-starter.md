@@ -38,7 +38,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-109"
   }
 }
-```
+```sql
 
 Riferimenti
 - Deploy App Service: `Wiki/EasyWayData.wiki/deploy-app-service.md`

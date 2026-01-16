@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, ARTIFACT/Report]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with ARTIFACT/Report
+status: draft
 ---
 
 # 📄 Report
@@ -13,4 +16,6 @@ summary: Index of all pages tagged with ARTIFACT/Report
 ---
 
 [⬆️ Back to ARTIFACT](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

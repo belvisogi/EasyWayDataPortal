@@ -1,19 +1,33 @@
 ---
-id: ew-argos-overview
 title: ARGOS – Overview e Integrazione
-summary: Integrazione ARGOS in EasyWay (gates, DSL, playbook, profiling, coach, eventi) con best practice del portale.
+tags: [argos, dq, agents, domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, data-quality]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-argos-overview
+chunk_hint: 250-400
+entities: []
+include: true
+summary: Panoramica dell'integrazione del framework di Data Quality ARGOS in EasyWay, inclusi i moduli Fast-Ops (Gates), Biz-Learning (Coach) e Tech-Profiling.
 status: active
 owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, data-quality]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
+updated: '2026-01-16'
+redaction: [email, phone]
+id: ew-argos-overview
+chunk_hint: 250-400
 entities: []
+include: true
+llm: 
+  pii: none
 ---
 
 # ARGOS – Overview e Integrazione con EasyWayDataPortal
+
+## Domande a cui risponde
+1. Quali sono i tre moduli principali di ARGOS?
+2. Come abilito i gate di Data Quality nella pipeline?
+3. Dove trovo la documentazione sui Quality Gates?
 
 Scopo
 - Integrare il framework di Data Quality “ARGOS” all’interno di EasyWayDataPortal in modo agent‑first, mantenendo documentazione e operatività coerenti con le best practice del portale.
@@ -41,6 +55,7 @@ Mappa contenuti
 - Event Schema Addendum: `./argos-event-schema.md`
 - Change & Versioning Guide: `./argos-change-versioning.md`
 - Glossario Unificato: `./argos-glossario.md`
+
 
 
 

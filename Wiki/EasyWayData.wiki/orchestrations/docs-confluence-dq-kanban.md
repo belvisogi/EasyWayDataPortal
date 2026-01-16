@@ -27,7 +27,7 @@ Contratto
 ### 1) Plan (no network, no write)
 ```powershell
 pwsh scripts/confluence-dq-board.ps1 -IntentPath "scripts/intents/docs-dq-confluence-cloud-001.json" -PlanOnly
-```
+```sql
 
 ### 2) Export (richiede network + credenziali via env var)
 Env:
@@ -36,7 +36,7 @@ Env:
 
 ```powershell
 pwsh scripts/confluence-dq-board.ps1 -IntentPath "scripts/intents/docs-dq-confluence-cloud-001.json" -Export
-```
+```sql
 
 Output:
 - `out/confluence/pages.jsonl`
@@ -45,10 +45,10 @@ Output:
 Di default e' `-WhatIf` (nessuna scrittura su Confluence).
 ```powershell
 pwsh scripts/confluence-dq-board.ps1 -IntentPath "scripts/intents/docs-dq-confluence-cloud-001.json" -Export -UpdateBoard -WhatIf
-```
+```sql
 
 Per scrivere davvero (solo dopo approvazione):
 ```powershell
 pwsh scripts/confluence-dq-board.ps1 -IntentPath "scripts/intents/docs-dq-confluence-cloud-001.json" -Export -UpdateBoard -WhatIf:$false
-```
+```sql
 

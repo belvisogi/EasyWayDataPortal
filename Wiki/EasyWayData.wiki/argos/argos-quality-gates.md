@@ -1,26 +1,24 @@
----
-id: ew-argos-gates
 title: ARGOS – Quality Gates (v1.1)
-summary: Esiti, matrici decisionali, severity dinamica, hysteresis, trace e quarantine, con note CI ewctl.
-status: active
-owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, data-quality]
-llm:
-  include: true
+status: active
+updated: '2026-01-16'
+redaction: [email, phone]
+id: ew-argos-gates
+chunk_hint: 250-400
+entities: []
+include: true
+summary: Definizione dei Quality Gates di ARGOS: esiti (PASS/DEFER/FAIL), matrici decisionali, severity dinamica, hysteresis e explainability.
+llm: 
   pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []---
-
-# ARGOS – Quality Gates Specification (v1.1)
-
-> Scopo: definire in modo completo e agnostico i Quality Gates di ARGOS (esiti, input, matrici decisionali, hysteresis/cool-down, budget mapping, explainability e gestione eccezioni), allineati con Blueprint Dual/Triple-Loop, Policy DSL v1.1 e Event Schema Addendum.
-
-Integrazione EasyWay
-- CI/CD: impostare `USE_EWCTL_GATES=true` e usare `pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent` per i gates di governance.
-- Decision Trace: salvare l’ID trace e linkarlo in ticket/digest/scorecard del portale; coverage ≥ 99%.
-- Feature flags: `enable_dynamic_severity`, `enable_decision_trace`, `enable_profiling_gate_soft` configurati per dominio.
+owner: team-platform
 ---
+
+# ARGOS – Quality Gates (v1.1)
+
+## Domande a cui risponde
+1. Qual è la differenza tra esito DEFER e FAIL?
+2. Come funziona l'isteresi (hysteresis) per evitare il flapping?
+3. Cosa contiene una Decision Trace?
 
 ## 0) Principi
 1) Outcome standard: PASS | DEFER | FAIL (quarantine è zona, non outcome).
@@ -99,6 +97,7 @@ Quarantine con TTL e retention; re‑processing programmato; safe-actions solo c
 
 ## 10) KPI dei Gates
 GPR, Blocking Rate, False PASS sample rate, Quarantine Dwell Time, Decision Trace coverage, override/backout rate, Time‑to‑decision p95.
+
 
 
 

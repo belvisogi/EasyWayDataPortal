@@ -1,26 +1,24 @@
----
-id: ew-argos-alerting
 title: ARGOS – Alerting & Notifications (v1.1)
-summary: Canali, severità, dedup/suppression, digest e integrazione con EasyWay (coach/profiling/gates).
-status: active
-owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/ops, audience/dev, privacy/internal, language/it, alerting]
-llm:
-  include: true
+status: active
+updated: '2026-01-16'
+redaction: [email, phone]
+id: ew-argos-alerting
+chunk_hint: 250-400
+entities: []
+include: true
+summary: Strategia completa di alerting per Quality Gates e ciclo ARGOS, inclusi canali, severity mapping, deduplica e soppressione del rumore.
+llm: 
   pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []---
-
-# ARGOS – Alerting & Notifications Guide (v1.1)
-
-> Scopo: definire la strategia completa di alerting e notifica per i Quality Gates e per l’intero ciclo ARGOS (Ops, Business, IT). Include canali, severità, dedup, hysteresis e integrazione con il Coach Agent.
-
-Integrazione EasyWay
-- Canali: Email/ChatOps/Incident e Digest integrati con i job ADO; mantenere template messaggi in repo e linkarli dai ticket.
-- Pipeline: mappare `FAIL→CRITICAL`, `DEFER→WARN`, `PASS→INFO` nei notifier del portale; usare digest giornalieri per governance.
-- Privacy: nessuna PII; allegati sanificati; RBAC sugli endpoint dell’API del portale.
+owner: team-platform
 ---
+
+# ARGOS – Alerting & Notifications (v1.1)
+
+## Domande a cui risponde
+1. Quali canali di notifica supporta ARGOS?
+2. Come viene mappato l'esito FAIL di un gate?
+3. Come funziona la finestra di soppressione per i warning ripetitivi?
 
 ## 1) Principi
 1) Un messaggio → un’azione: ogni notifica deve indicare un’azione o un owner.
@@ -61,12 +59,12 @@ Coach Agent genera INFO/WARN per i nudges; nessun CRITICAL.
 Campi chiave: `run_id`, `domain/flow/instance`, `gate_type`, `outcome`, `controls_result`, `impact_score`, `error_budget_residuo`, `noise_budget_residuo`, `decision_trace_id`, `invalid_rows_path`, `scorecard_link`, `playbook_id?`, `ticket_id?`.
 
 Formato sintetico (email/chat)
-```
+```sql
 [ARGOS][{domain}/{flow}] {gate_type}:{outcome} {controls_result}
 Impact={impact_score:.2f} | ErrorBudget={err_budget:.2f} | NoiseBudget={noise_budget:.2f}
 Run={run_id} | DecisionTrace={decision_trace_id}
 {playbook_link}
-```
+```sql
 
 ---
 
@@ -103,6 +101,7 @@ Run={run_id} | DecisionTrace={decision_trace_id}
 
 ## 10) Definition of Done (v1.1)
 - Severità e mapping completi; dedup/suppression/quiet hours; payload standard; digest; integrazione Coach/Profiling; KPI definiti.
+
 
 
 

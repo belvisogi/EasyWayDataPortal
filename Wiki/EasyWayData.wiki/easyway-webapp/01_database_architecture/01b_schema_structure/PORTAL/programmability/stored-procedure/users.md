@@ -1,4 +1,6 @@
 ---
+tags:
+  - artifact/stored-procedure
 id: ew-users
 title: users
 summary: 'Documento su users.'
@@ -336,7 +338,7 @@ BEGIN
   EXEC PORTAL.sp_log_stats_execution @proc_name='sp_list_users_by_tenant', @tenant_id=@tenant_id, @rows_updated=@rows, @status=@status, @error_message=@err, @start_time=@start, @end_time=@end, @affected_tables='PORTAL.USERS', @operation_types='SELECT', @created_by=COALESCE(@requested_by,'sp_list_users_by_tenant');
 END
 GO
-```
+```sql
 
 
 
@@ -2752,6 +2754,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

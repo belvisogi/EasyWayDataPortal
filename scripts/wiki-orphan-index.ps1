@@ -24,10 +24,10 @@ function Strip-Code([string]$text) {
 function Escape-LinkTarget([string]$relPath) {
   if ($null -eq $relPath) { return '' }
   return ($relPath `
-    -replace '\(', '%28' `
-    -replace '\)', '%29' `
-    -replace '\+', '%2B' `
-    -replace ' ', '%20')
+      -replace '\(', '%28' `
+      -replace '\)', '%29' `
+      -replace '\+', '%2B' `
+      -replace ' ', '%20')
 }
 
 function Ensure-ParentDir([string]$path) {
@@ -60,8 +60,11 @@ function Rel([string]$fullName) {
   return $rel.Replace([char]92, [char]47)
 }
 
-$files = Get-ChildItem -LiteralPath $root -Recurse -Filter *.md -File |
-  Where-Object { -not (Is-Excluded -fullName $_.FullName) }
+$files = @(Get-ChildItem -LiteralPath $root -Recurse -Filter *.md -File |
+  Where-Object { -not (Is-Excluded -fullName $_.FullName) })
+
+$totalFiles = $files.Count
+$processed = 0
 
 # Index for wikilinks resolution (by path and by basename)
 $byRel = @{}
@@ -77,6 +80,10 @@ foreach ($f in $files) {
 $adjOut = @{}
 $adjIn = @{}
 foreach ($f in $files) {
+  $processed++
+  if ($processed % 10 -eq 0) {
+    Write-Progress -Activity "Building Wiki Graph" -Status "Processing files" -PercentComplete (($processed / $totalFiles) * 100) -CurrentOperation "$($f.Name)"
+  }
   $src = Rel $f.FullName
   $srcKey = $src.ToLowerInvariant()
   if (-not $adjOut.ContainsKey($srcKey)) { $adjOut[$srcKey] = New-Object System.Collections.Generic.HashSet[string] }
@@ -141,7 +148,8 @@ foreach ($f in $files) {
       $candRel = $candidate.Replace([char]92, [char]47).TrimStart([char]47)
       $key = $candRel.ToLowerInvariant()
       if ($byRel.ContainsKey($key)) { $dst = $byRel[$key] }
-    } else {
+    }
+    else {
       $nameKey = [IO.Path]::GetFileNameWithoutExtension($candidate).ToLowerInvariant()
       if ($byName.ContainsKey($nameKey) -and $byName[$nameKey].Count -eq 1) { $dst = $byName[$nameKey][0] }
     }
@@ -166,6 +174,7 @@ foreach ($n in $nodes) {
   $outDegree[$n] = $adjOut[$n].Count
   $edgeCount += $adjOut[$n].Count
 }
+Write-Progress -Activity "Building Wiki Graph" -Completed
 
 # Connected components (undirected)
 $visited = New-Object System.Collections.Generic.HashSet[string]
@@ -198,25 +207,25 @@ $noOutbound = @($nodes | Where-Object { $outDegree[$_] -eq 0 } | ForEach-Object 
 
 $top = $nodes | ForEach-Object {
   [pscustomobject]@{
-    path = (ToRelDisplay $_)
-    in = $inDegree[$_]
-    out = $outDegree[$_]
+    path   = (ToRelDisplay $_)
+    in     = $inDegree[$_]
+    out    = $outDegree[$_]
     degree = ($inDegree[$_] + $outDegree[$_])
   }
 } | Sort-Object degree -Descending | Select-Object -First 25
 
 $report = [pscustomobject]@{
-  ok = $true
-  root = $WikiPath.Replace([char]92, [char]47)
-  excluded = @($ExcludePaths)
-  nodes = $nodes.Count
-  edges = $edgeCount
-  components = $componentsSorted.Count
+  ok                   = $true
+  root                 = $WikiPath.Replace([char]92, [char]47)
+  excluded             = @($ExcludePaths)
+  nodes                = $nodes.Count
+  edges                = $edgeCount
+  components           = $componentsSorted.Count
   largestComponentSize = ($componentsSorted | Select-Object -First 1).size
-  orphans = @($orphans)
-  noInbound = @($noInbound)
-  noOutbound = @($noOutbound)
-  topByDegree = @($top)
+  orphans              = @($orphans)
+  noInbound            = @($noInbound)
+  noOutbound           = @($noOutbound)
+  topByDegree          = @($top)
 }
 
 Ensure-ParentDir $OutJson

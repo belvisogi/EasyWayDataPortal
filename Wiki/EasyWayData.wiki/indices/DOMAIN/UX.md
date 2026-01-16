@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, DOMAIN/UX]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with DOMAIN/UX
+status: draft
 ---
 
 # 📄 UX
@@ -20,4 +23,6 @@ summary: Index of all pages tagged with DOMAIN/UX
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

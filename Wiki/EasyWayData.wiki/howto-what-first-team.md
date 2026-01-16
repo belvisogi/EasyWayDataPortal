@@ -1,16 +1,17 @@
 ---
-id: ew-howto-what-first-team
 title: HOWTO – WHAT‑first + Diario di Bordo (Team)
-summary: Guida pratica per team: definisci il WHAT (manifest, intents, UX), esegui i lint, poi implementa gli agent sostituendo gli stub, mantenendo il diario di bordo.
-status: active
-owner: team-platform
 tags: [domain/docs, layer/howto, audience/dev, audience/non-expert, privacy/internal, language/it, howto, process, agents, argos]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-howto-what-first-team
+chunk_hint: 250-400
 entities: []
+include: true
+summary: Guida pratica per team: definisci il WHAT (manifest, intents, UX), esegui i lint, poi implementa gli agent sostituendo gli stub, mantenendo il diario di bordo.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # HOWTO – WHAT‑first + Diario di Bordo (Team)
@@ -82,4 +83,5 @@ Riferimenti
 - UX Mock (diario): `UX/diary-mock-wf-excel-csv-upload.md`
 - UX Checklist: `UX/usability-checklist.md`
 - Quest Board: `quest-board-excel-csv.md`
+
 

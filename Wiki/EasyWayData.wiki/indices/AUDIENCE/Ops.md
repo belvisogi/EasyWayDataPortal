@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, AUDIENCE/Ops]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with AUDIENCE/Ops
+status: draft
 ---
 
 # 📄 Ops
@@ -77,4 +80,6 @@ summary: Index of all pages tagged with AUDIENCE/Ops
 ---
 
 [⬆️ Back to AUDIENCE](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

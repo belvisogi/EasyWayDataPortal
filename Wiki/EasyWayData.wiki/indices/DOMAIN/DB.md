@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, DOMAIN/DB]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with DOMAIN/DB
+status: draft
 ---
 
 # 📄 DB
@@ -65,4 +68,6 @@ summary: Index of all pages tagged with DOMAIN/DB
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, PROCESS/DQ]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with PROCESS/DQ
+status: draft
 ---
 
 # 📄 DQ
@@ -13,4 +16,6 @@ summary: Index of all pages tagged with PROCESS/DQ
 ---
 
 [⬆️ Back to PROCESS](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

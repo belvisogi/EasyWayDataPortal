@@ -1,26 +1,24 @@
----
-id: ew-argos-policy-dsl
 title: ARGOS – Policy DSL & Registry (v1.1)
-summary: DSL di policy DQ (deterministiche/probabilistiche) e Registry, con SemVer, linter e integrazioni.
-status: active
-owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, policy, data-quality]
-llm:
-  include: true
+updated: '2026-01-16'
+status: active
+redaction: [email, phone]
+id: ew-argos-policy-dsl
+chunk_hint: 250-400
+entities: []
+include: true
+summary: Linguaggio di policy agnostico (DSL) e Registry per il ciclo di vita delle regole DQ, incluso versioning SemVer e Linter.
+llm: 
   pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []---
-
-# ARGOS – Policy DSL & Registry Specification (v1.1)
-
-> Scopo: definire un linguaggio di policy agnostico (DSL) e il Registry per ciclo di vita, versioning e promozione delle regole di data quality. Allineato a Quality Gates v1.1, Event Schema, KPI & SLO, Tech Profiling e Interop.
-
-Integrazione EasyWay
-- Repository: mantenere esempi Policy/Policy Set in JSON/YAML versionati e convalidati in CI (schema check).
-- Linter: esporre un comando agente che valida naming, efficacy/noise/flapping, privacy; pubblicare risultato nel Run Hub.
-- SemVer: usare PATCH/MINOR/MAJOR coerente con il Rollout Gate; MAJOR richiede dual‑read/dual‑write e backout.
+owner: team-platform
 ---
+
+# ARGOS – Policy DSL & Registry (v1.1)
+
+## Domande a cui risponde
+1. Come definisco una regola di Data Quality nel DSL?
+2. Quali sono gli stati del ciclo di vita di una policy nel Registry?
+3. Il linter controlla la privacy delle policy?
 
 ## Principi
 Chiarezza vs potenza, deterministic+probabilistic, severity base distinta da severity dinamica, explainability, compatibilità, privacy‑first.
@@ -51,6 +49,7 @@ Gates (severity dinamica/trace), Tech Profiling (soglie), Biz‑Learning (propos
 
 ## DoD (v1.1)
 Schema Policy completo + linter; workflow & semver; integrazioni; esempi; privacy ok.
+
 
 
 

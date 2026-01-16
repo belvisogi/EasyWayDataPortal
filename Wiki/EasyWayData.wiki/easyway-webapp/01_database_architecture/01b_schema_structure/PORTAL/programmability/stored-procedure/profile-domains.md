@@ -1,4 +1,6 @@
 ---
+tags:
+  - artifact/stored-procedure
 id: ew-profile-domains
 title: profile domains
 summary: 'Documento su profile domains.'
@@ -1849,6 +1851,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

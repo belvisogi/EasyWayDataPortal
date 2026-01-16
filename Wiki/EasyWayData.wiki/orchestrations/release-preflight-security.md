@@ -1,8 +1,8 @@
 ---
 id: ew-orch-release-preflight-security
 title: Release Preflight Security (WHAT)
-summary: Checklist pre-go-live (security/compliance/audit) richiamabile via orchestrator.n8n.dispatch con output strutturato.
-status: draft
+summary: Esegue una batteria di controlli di sicurezza (pre-flight) prima del rilascio in produzione e restituisce un esito strutturato (Pass/Fail).
+status: active
 owner: team-platform
 tags: [domain/control-plane, layer/orchestration, audience/dev, audience/ops, privacy/internal, language/it, security, compliance, audit, release]
 llm:
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
-updated: '2026-01-08'
+updated: '2026-01-16'
 next: Collegare al workflow n8n reale e aggiungere esempi di output.
 ---
 
 # Release Preflight Security (WHAT)
+
+## Domande a cui risponde
+1. Quali controlli vengono eseguiti prima del deploy in produzione?
+2. Come interpreto l'output JSON del preflight?
+3. Cosa devo fare se ottengo "warn" su un controllo RBAC?
 
 Scopo
 - Prima di andare in produzione, restituire in modo **agent-ready** un elenco di controlli security/compliance/audit con esito e next step.
@@ -40,7 +45,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-001"
   }
 }
-```
+```sql
 
 Output atteso (alto livello)
 - `ok`: true/false

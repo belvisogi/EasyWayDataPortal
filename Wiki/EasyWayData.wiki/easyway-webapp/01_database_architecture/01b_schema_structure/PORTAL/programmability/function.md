@@ -1,4 +1,6 @@
 ---
+tags:
+  - artifact/function
 id: ew-function
 title: function
 summary: 'Documento su function.'
@@ -688,6 +690,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../entities-index.md)
+
 
 
 

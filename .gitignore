@@ -39,3 +39,4 @@ event-schema-validate.log
 # Local run artifacts (keep out of git)
 out/**
 !out/README.md
+scripts/easyway-secrets.json

@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, DOMAIN/Frontend]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with DOMAIN/Frontend
+status: draft
 ---
 
 # 📄 Frontend
@@ -39,4 +42,6 @@ summary: Index of all pages tagged with DOMAIN/Frontend
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

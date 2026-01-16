@@ -1,8 +1,8 @@
 ---
 id: ew-orch-iam-provision-access
 title: IAM Provision Access (WHAT)
-summary: Provisioning governance-driven di accessi tecnici (DB/Datalake) con Key Vault + registry e approvazione human-in-the-loop.
-status: draft
+summary: Provisioning end-to-end di accessi tecnici (DB, Datalake) con integrazione Key Vault, RBAC e approvazione human-in-the-loop per ambienti sensibili.
+status: active
 owner: team-platform
 tags: [domain/security, layer/orchestration, audience/ops, privacy/internal, language/it, iam, audit, governance]
 llm:
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
-updated: '2026-01-08'
+updated: '2026-01-16'
 next: Aggiungere esempi end-to-end per target db e datalake.
 ---
 
 # IAM Provision Access (WHAT)
+
+## Domande a cui risponde
+1. Come provisioning un'utenza tecnica sul Datalake?
+2. Qual è la sintassi per referenziare un secret su Key Vault?
+3. Quali parametri sono obbligatori per il target `db`?
 
 Contratto
 - Intent: `docs/agentic/templates/intents/iam.provision.access.intent.json`
@@ -42,7 +47,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-102"
   }
 }
-```
+```sql
 
 Riferimenti
 - Operativita': `Wiki/EasyWayData.wiki/security/operativita-governance-provisioning-accessi.md`

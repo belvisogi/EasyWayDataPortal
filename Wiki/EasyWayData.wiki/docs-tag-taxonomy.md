@@ -1,16 +1,17 @@
 ---
-id: ew-docs-tag-taxonomy
 title: Tag Taxonomy (Controllata)
-summary: Vocabolario controllato per tag (domain/layer/audience/privacy/language) per migliorare ricerca, ridurre token e ridurre allucinazioni.
-status: active
-owner: team-platform
 tags: [domain/docs, layer/spec, audience/dev, privacy/internal, language/it, taxonomy]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 300-450
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-docs-tag-taxonomy
+chunk_hint: 300-450
 entities: []
+include: true
+summary: Vocabolario controllato per tag (domain/layer/audience/privacy/language) per migliorare ricerca, ridurre token e ridurre allucinazioni.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Tag Taxonomy (Controllata)
@@ -108,4 +109,5 @@ Esempi scope disponibili (casistiche):
 - [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
 - [Visione Portale Agentico](./agentic-portal-vision.md)
 - [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](./docs-conventions.md)
+
 

@@ -1,16 +1,17 @@
 ---
-id: ew-orch-intents-catalog
 title: Orchestrations – Intents Catalog (Use Case Excel/CSV)
-summary: Catalogo degli Intent (WHAT) per gli agenti coinvolti nel workflow Excel/CSV→Dashboard, con input/output e criteri di esito.
-status: active
-owner: team-platform
 tags: [orchestration, intents, argos, agents, domain/control-plane, layer/intent, audience/dev, privacy/internal, language/it]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-orch-intents-catalog
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Catalogo degli Intent (WHAT) per gli agenti coinvolti nel workflow Excel/CSV→Dashboard, con input/output e criteri di esito.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Orchestrations - Intents Catalog (Use Case Excel/CSV)
@@ -41,4 +42,5 @@ Uso
 Riferimenti
 - Orchestrazione – wf.excel-csv-upload: orchestrations/wf-excel-csv-upload.md
 - Use Case – Entrate/Uscite: use-cases/entrate-uscite.md
+
 

@@ -1,18 +1,16 @@
 ---
-id: ew-entities-index
-title: Entities Index
-summary: Indice delle entità dichiarate in entities.yaml, raggruppate per categoria.
-status: active
-owner: team-docs
-tags: [domain/docs, layer/index, audience/dev, privacy/internal, language/it, catalog]
+include: true
 entities: []
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-updated: '2026-01-05'
-next: TODO - definire next step.
+owner: team-docs
+id: ew-entities-index
+tags: 
+status: draft
+title: Entities Index
+updated: 2026-01-16
+llm: 
+summary: Indice delle entità dichiarate in entities.yaml, raggruppate per categoria.
+pii: none
+chunk_hint: 400-600
 ---
 # Entities Index
 
@@ -87,12 +85,6 @@ next: TODO - definire next step.
 - Dove trovo l'elenco delle entità e i link rapidi?
 - Quali categorie di entità sono coperte?
 - Come navigo verso documenti specifici partendo dall'indice?
-
-
-
-
-
-
 
 
 

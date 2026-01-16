@@ -1,8 +1,8 @@
 ---
 id: ew-orch-db-drift-check
 title: DB Drift Check (WHAT)
-summary: Verifica drift DB (oggetti richiesti) e produce un report machine-readable per gate/governance.
-status: draft
+summary: Verifica la conformità degli oggetti database (tabelle, stored procedure) rispetto alla configurazione attesa, generando un report delle discrepanze (drift). Utile per gate di governance.
+status: active
 owner: team-data
 tags: [domain/db, layer/orchestration, audience/dba, privacy/internal, language/it, quality, drift]
 llm:
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
-updated: '2026-01-08'
-next: Collegare al workflow n8n reale e includere formato report.
+updated: '2026-01-16'
+next: Integrare il report nel Quest Board DQ.
 ---
 
 # DB Drift Check (WHAT)
+
+## Domande a cui risponde
+1. Come faccio a verificare se il DB di produzione è allineato con il codice?
+2. Quale action n8n devo lanciare per controllare il drift?
+3. Dove trovo le specifiche degli oggetti "Required"?
 
 Contratto
 - Intent: `docs/agentic/templates/intents/db-drift-check.intent.json`
@@ -34,7 +39,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-104"
   }
 }
-```
+```sql
 
 Riferimenti
 - Governance gates: `Wiki/EasyWayData.wiki/agents-governance.md`

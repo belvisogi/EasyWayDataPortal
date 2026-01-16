@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, TECH/N8n]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with TECH/N8n
+status: draft
 ---
 
 # 📄 N8n
@@ -13,4 +16,6 @@ summary: Index of all pages tagged with TECH/N8n
 ---
 
 [⬆️ Back to TECH](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

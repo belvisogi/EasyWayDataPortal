@@ -1,16 +1,17 @@
 ---
-id: ew-docs-agentic-audit
 title: Documentazione Agentica - Audit & Policy (Canonico)
-summary: Standard e controlli per rendere la documentazione davvero “agent-ready”: metadati, tassonomia tag, WHAT-first, KB, gates e anti-allucinazioni.
-status: active
-owner: team-platform
 tags: [docs, governance, agentic, audit, policy, domain/docs, layer/spec, audience/dev, privacy/internal, language/it]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 350-550
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-docs-agentic-audit
+chunk_hint: 350-550
 entities: []
+include: true
+summary: Standard e controlli per rendere la documentazione davvero “agent-ready”: metadati, tassonomia tag, WHAT-first, KB, gates e anti-allucinazioni.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Documentazione Agentica - Audit & Policy (Canonico)
@@ -54,6 +55,11 @@ Regola: ogni volta che un test/comando fallisce, **aggiorna la pagina operativa 
 - Verify (come confermare che e' risolto)
 
 Se l'errore e' ricorrente o impatta piu' team, aggiungi anche una KB recipe in `agents/kb/recipes.jsonl`.
+
+## Domande a cui risponde
+- Come verificare la conformità dei manifest degli agenti?
+- Quali sono i requisiti minimi per la documentazione agentica?
+- Come eseguire l'audit manuale o automatico?
 
 ## 3) Front matter YAML (obbligatorio)
 Ogni `.md` deve avere front matter completo:
@@ -188,4 +194,5 @@ Una modifica è “done” quando:
 - [Tag Taxonomy (Controllata)](./docs-tag-taxonomy.md)
 - [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
 - [Visione Portale Agentico](./agentic-portal-vision.md)
+
 

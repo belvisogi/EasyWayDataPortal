@@ -1,11 +1,11 @@
 ---
 id: ew-07-iam-naming-utenti-gruppi
 title: 07 iam naming utenti gruppi
-summary: Pagina top-level della documentazione.
+summary: Naming Convention ufficiale per Utenze Tecniche (portal.*) e Gruppi IAM (grp.*).
 status: active
 owner: team-docs
 created: '2025-01-01'
-updated: '2025-01-01'
+updated: '2026-01-16'
 tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, iam, rbac, naming]
 llm:
   include: true
@@ -13,7 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-next: TODO - definire next step.
+next: Applicare a terraform.
 ---
 # 📂 Wiki IAM - Naming Convention Utenze Tecniche e Gruppi  
 EasyWay DataPortal - Storage & Datalake  
@@ -124,23 +124,5 @@ Scopo: Accesso amministrazione Datalake (IAM + ACL)
 | `grp.portal.datalake.write`| `Storage Blob Data Contributor` | Scrittura dati in staging/landing per ETL e App                |
 
 ---
-
-## 🔔 Note operative future
-- Ogni nuova utenza o gruppo deve rispettare questa convenzione.
-- Nessuna utenza personale (es. `giuseppebelviso@`) deve avere permessi su Storage in produzione.
-
-
-
-## Domande a cui risponde
-- Cosa fa questa pagina?
-- Quali sono i prerequisiti?
-- Quali passi devo seguire?
-- Quali sono gli errori comuni?
-- Dove approfondire?
-
-
-
-
-
 
 

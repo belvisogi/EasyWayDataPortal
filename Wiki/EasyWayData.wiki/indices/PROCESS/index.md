@@ -1,9 +1,15 @@
 ---
 tags: [layer/index, domain/docs, PROCESS]
+updated: 2026-01-16
+owner: team-platform
 summary: Workflows, Lifecycles, and Governance - Category index for PROCESS pillar
+status: draft
 ---
 
 # 📁 PROCESS
+
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
 
 > Workflows, Lifecycles, and Governance
 
@@ -21,4 +27,14 @@ summary: Workflows, Lifecycles, and Governance - Category index for PROCESS pill
 ---
 
 [⬆️ Back to Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
+## Domande a cui risponde
+- Che cosa raccoglie questo indice?
+- Dove sono i documenti principali collegati?
+- Come verificare naming e ancore per questa cartella?
+- Dove trovare entità e guide correlate?
+
+
+
 

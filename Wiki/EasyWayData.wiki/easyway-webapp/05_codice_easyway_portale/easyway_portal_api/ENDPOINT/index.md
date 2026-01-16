@@ -17,6 +17,9 @@ next: Aggiornare quando si aggiunge o modifica un endpoint.
 
 # Indice
 
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
+
 Breadcrumb: Home / EasyWay WebApp / Codice Portale / API / Endpoint
 
 - [endp-001-get-api-config.md](./endp-001-get-api-config.md) - GET `/api/config`
@@ -29,3 +32,4 @@ Breadcrumb: Home / EasyWay WebApp / Codice Portale / API / Endpoint
 - Quali endpoint sono documentati e dove sono le istruzioni?
 - Qual e il template canonico per aggiungere un nuovo endpoint?
 - Quali file del codice devo toccare per ogni endpoint?
+

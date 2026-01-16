@@ -19,3 +19,13 @@ output "branding_prefix" {
   description = "Default BRANDING_PREFIX (directory inside portal-assets)"
 }
 
+output "key_vault_name" {
+  value       = azurerm_key_vault.kv.name
+  description = "Key Vault Name"
+}
+
+output "key_vault_uri" {
+  value       = azurerm_key_vault.kv.vault_uri
+  description = "Key Vault URI"
+}
+

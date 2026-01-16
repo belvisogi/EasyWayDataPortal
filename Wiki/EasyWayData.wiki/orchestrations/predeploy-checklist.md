@@ -1,8 +1,8 @@
 ---
 id: ew-orch-predeploy-checklist
 title: Predeploy Checklist (WHAT)
-summary: Esegue la checklist pre-deploy e produce report machine-readable (gating).
-status: draft
+summary: Esegue la checklist operativa pre-deploy (controlli manuali e automatici) e produce un report di gating per la pipeline CI/CD.
+status: active
 owner: team-platform
 tags: [domain/control-plane, layer/orchestration, audience/dev, audience/ops, privacy/internal, language/it, governance]
 llm:
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
-updated: '2026-01-08'
+updated: '2026-01-16'
 next: Collegare all'esecuzione ewctl/checklist e includere output sample.
 ---
 
 # Predeploy Checklist (WHAT)
+
+## Domande a cui risponde
+1. Come lancio la checklist pre-deploy in locale?
+2. Dove viene salvato il report `checklist.json`?
+3. Qual è la differenza tra runner "governance wrapper" e runner diretto?
 
 Contratto
 - Intent: `docs/agentic/templates/intents/predeploy-checklist.intent.json`
@@ -34,7 +39,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-112"
   }
 }
-```
+```sql
 
 ## Runtime (come si esegue oggi)
 
@@ -43,7 +48,7 @@ Esegue il task di checklist dentro `scripts/agent-governance.ps1` e (se richiest
 
 ```powershell
 pwsh scripts/ewctl.ps1 --engine ps --checklist --noninteractive --logevent
-```
+```sql
 
 Output/artefatti:
 - Report: `EasyWay-DataPortal/easyway-portal-api/checklist.json`
@@ -57,7 +62,7 @@ Esegue `npm run check:predeploy` dentro `EasyWay-DataPortal/easyway-portal-api` 
 
 ```powershell
 pwsh scripts/checklist.ps1 -ApiPath EasyWay-DataPortal/easyway-portal-api
-```
+```sql
 
 ### CI/CD (gating)
 In pipeline, il job `GovernanceGatesEWCTL` usa `ewctl` per eseguire Checklist/DBDrift/KBConsistency (vedi `azure-pipelines.yml`).

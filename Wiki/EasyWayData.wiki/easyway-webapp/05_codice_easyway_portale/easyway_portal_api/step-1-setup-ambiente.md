@@ -35,14 +35,14 @@ Punti di ingresso canonici:
 Script canonico (evita hardcode):
 ```powershell
 pwsh scripts/setup-env.ps1 -TenantId <TENANT> -AuthClientId <CLIENT_ID> -DbConnString '<CONN>' -DefaultBusinessTenant tenant01
-```
+```sql
 
 ### 2) Avvio API (dev)
 ```powershell
 cd EasyWay-DataPortal/easyway-portal-api
 npm ci
 npm run dev
-```
+```sql
 
 ### 3) Verifica rapida (health)
 - REST client: `../../../../../tests/api/rest-client/health.http`
@@ -50,7 +50,7 @@ npm run dev
 ### 4) Governance gates (consigliato prima di PR)
 ```powershell
 pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent
-```
+```sql
 
 ## Terraform (opzionale)
 Doc canonica provisioning/plan:
@@ -59,7 +59,7 @@ Doc canonica provisioning/plan:
 Shortcut (plan governato):
 ```powershell
 pwsh scripts/ewctl.ps1 --engine ps --terraformplan --noninteractive
-```
+```sql
 
 ## Nota (legacy)
 Il contenuto sotto nasceva come guida “struttura repo Node/TS”. Oggi resta come appendice storica; per struttura del codice usa:

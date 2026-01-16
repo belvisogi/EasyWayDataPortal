@@ -25,7 +25,7 @@ Obiettivo: proporre (senza modificare file) link “Vedi anche” tra pagine aff
 ## Comando
 ```powershell
 pwsh scripts/wiki-related-links.ps1 -WikiPath "Wiki/EasyWayData.wiki" -TopK 7 -OutJson "out/wiki-related-links.suggestions.json"
-```
+```sql
 
 ## Come usarlo (Human-in-the-loop)
 1. Apri `out/wiki-related-links.suggestions.json`.
@@ -43,7 +43,7 @@ pwsh scripts/wiki-related-links.ps1 -WikiPath "Wiki/EasyWayData.wiki" -TopK 7 -A
 
 # Apply reale (scrive i .md)
 pwsh scripts/wiki-related-links.ps1 -WikiPath "Wiki/EasyWayData.wiki" -TopK 7 -Apply -WhatIf:$false -ApplyScope orphans-only -MinScore 0.35 -MaxLinksToAdd 5
-```
+```sql
 
 Rollback:
 - Ogni run crea backup in `out/wiki-related-links-apply/<runId>/` e un `apply-summary.json` con i file da ripristinare.

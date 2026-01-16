@@ -1,10 +1,11 @@
 ---
+owner: team-platform
 id: ew-activity-log
+tags: [activity, audit, privacy/internal, language/it]
+status: active
 title: Activity Log
 summary: Diario di bordo automatico (pipeline/agents)
-status: active
-owner: team-platform
-tags: [activity, audit, privacy/internal, language/it]
+updated: 2026-01-16
 ---
 
 | Timestamp (UTC) | Actor | Intent | Env | Outcome | Gov | Refs | Artifacts | Notes |
@@ -14,3 +15,4 @@ tags: [activity, audit, privacy/internal, language/it]
 | 01/06/2026 12:54:50 | agent_governance | governance-gates | local | success |  | EasyWay-DataPortal\easyway-portal-api\drift.json | EasyWay-DataPortal\easyway-portal-api\checklist.json | Gates eseguiti: KBConsistency |
 | 01/06/2026 12:41:58 | agent_governance | governance-gates | local | success |  | EasyWay-DataPortal\easyway-portal-api\drift.json | EasyWay-DataPortal\easyway-portal-api\checklist.json | Gates eseguiti: Checklist, DBDrift, KBConsistency |
 | 10/20/2025 11:26:45 | agent_docs_review | docs-review | local | success |  | Wiki/EasyWayData.wiki/index_master.csv | Wiki/EasyWayData.wiki/entities-index.md | Wiki Normalize & Review |
+

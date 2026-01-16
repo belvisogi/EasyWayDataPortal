@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, META/Privacy-Internal]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with META/Privacy-Internal
+status: draft
 ---
 
 # 📄 Privacy-Internal
@@ -13,4 +16,6 @@ summary: Index of all pages tagged with META/Privacy-Internal
 ---
 
 [⬆️ Back to META](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

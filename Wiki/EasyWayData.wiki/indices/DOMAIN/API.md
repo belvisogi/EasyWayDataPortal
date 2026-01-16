@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, DOMAIN/API]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with DOMAIN/API
+status: draft
 ---
 
 # 📄 API
@@ -15,4 +18,6 @@ summary: Index of all pages tagged with DOMAIN/API
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

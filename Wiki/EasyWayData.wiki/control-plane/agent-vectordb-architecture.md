@@ -85,7 +85,7 @@ graph TB
     
     AG1 -.->|Log execution| SQLDB
     SP -.->|AI-readable logs| SQLDB
-```
+```sql
 
 ---
 
@@ -94,23 +94,23 @@ graph TB
 ### 1. **Agent-First, No Direct Query**
 
 **❌ OLD (Portale Tradizionale)**:
-```
+```sql
 User → UI → SQL Query → Display Results
-```
+```sql
 
 **✅ NEW (Agent-First)**:
-```
+```sql
 User → Chat → Agent → Vector Search + SP Execution → Structured Answer
-```
+```sql
 
 **Esempio**:
-```
+```sql
 User: "Dammi lista utenti tenant TEN001"
 
 ❌ OLD: User scrive SELECT * FROM PORTAL.USERS WHERE tenant_id='TEN001'
 ✅ NEW: Agent capisce intent → Cerca in vector DB quale SP usare 
         → Esegue sp_get_users_by_tenant → Ritorna lista formattata
-```
+```sql
 
 ---
 
@@ -137,7 +137,7 @@ User: "Dammi lista utenti tenant TEN001"
 const recipe = recipes.find(r => 
   r.intent === extractedIntent(userMessage)
 );
-```
+```sql
 
 **Layer 2 - SQL/SP Index** (Latency: ~50ms):
 ```sql
@@ -145,7 +145,7 @@ const recipe = recipes.find(r =>
 SELECT name, description 
 FROM sys.procedures 
 WHERE name LIKE 'sp_' + @search_term
-```
+```sql
 
 **Layer 3 - Vector Semantic** (Latency: ~200ms):
 ```typescript
@@ -155,10 +155,10 @@ const results = await azureSearch.search(userMessage, {
   select: ['content', 'source', 'tags'],
   top: 5
 });
-```
+```sql
 
 **Decision Tree**:
-```
+```sql
 User query → Try Layer 1 (exact)
             ↓ No match?
             → Try Layer 2 (SQL index)
@@ -166,7 +166,7 @@ User query → Try Layer 1 (exact)
             → Layer 3 (vector semantic)
             ↓
             Return best match (confidence score)
-```
+```sql
 
 ---
 
@@ -195,7 +195,7 @@ User query → Try Layer 1 (exact)
     "author": "team-platform"
   }
 }
-```
+```sql
 
 **Indici Azure AI Search**:
 
@@ -236,7 +236,7 @@ async processMessage(message: string, context: ConversationContext) {
   
   return { intent, agent, knowledge };
 }
-```
+```sql
 
 ---
 
@@ -281,7 +281,7 @@ async searchKnowledge(query: string, context: any) {
     confidence: vectorResults.results[0]?.score || 0.5
   };
 }
-```
+```sql
 
 ---
 
@@ -317,7 +317,7 @@ async executeWithKnowledge(knowledge: KnowledgeResult, params: any) {
     };
   }
 }
-```
+```sql
 
 ---
 
@@ -344,7 +344,7 @@ sequenceDiagram
     Embedder->>VectorDB: Upload chunks + embeddings
     VectorDB->>VectorDB: Index new content
     VectorDB-->>Agent: New knowledge available!
-```
+```sql
 
 ---
 
@@ -379,7 +379,7 @@ steps:
     AZURE_SEARCH_ENDPOINT: $(AZURE_SEARCH_ENDPOINT)
     AZURE_SEARCH_KEY: $(AZURE_SEARCH_KEY)
     OPENAI_API_KEY: $(OPENAI_API_KEY)
-```
+```sql
 
 ---
 
@@ -427,7 +427,7 @@ async function syncWikiToVectorDB() {
   
   console.log(`Synced ${wikiFiles.length} files to vector DB`);
 }
-```
+```sql
 
 ---
 
@@ -436,19 +436,19 @@ async function syncWikiToVectorDB() {
 ### 1. **Zero Learning Curve per User**
 
 **Tradizionale**:
-```
+```sql
 User deve imparare:
 - SQL syntax
 - Table schema
 - SP signatures
 - Wiki navigation
-```
+```sql
 
 **Agent-First**:
-```
+```sql
 User: "dammi utenti"
 Agent: capisce, cerca, esegue, risponde
-```
+```sql
 
 ---
 
@@ -456,7 +456,7 @@ Agent: capisce, cerca, esegue, risponde
 
 **Scenario**: User vuole creare nuova tabella
 
-```
+```sql
 User: "Vorrei creare una tabella PRODUCTS con id, name, price"
 
 Agent (vector search):
@@ -476,7 +476,7 @@ Agent:
   → Esegue Flyway migrate
   → Aggiorna Wiki inventory
   → Risponde: "✅ Tabella creata, DDL: [link]"
-```
+```sql
 
 **Tutto senza**:
 - Scrivere SQL
@@ -488,15 +488,15 @@ Agent:
 ### 3. **Knowledge Always Updated**
 
 **Problema tradizionale**:
-```
+```sql
 Dev aggiorna Wiki → User non sa → User usa info vecchia
-```
+```sql
 
 **Con Vector DB**:
-```
+```sql
 Dev commit Wiki → Pipeline sync → Vector DB aggiornato
 → Agent risponde con info nuova (automatic)
-```
+```sql
 
 **Zero lag** tra code/wiki update e agent knowledge!
 
@@ -513,7 +513,7 @@ const results = await azureSearch.search(query, {
   filter: `metadata/tags/any(t: t eq 'privacy/internal') 
            AND metadata/tags/any(t: t eq 'audience/${user.role}')`
 });
-```
+```sql
 
 **Esempio**:
 - User role `dev` → Vede wiki internal + code
@@ -541,7 +541,7 @@ INSERT INTO PORTAL.STATS_EXECUTION_LOG (
   '[{"source":"Wiki/db/users.md","score":0.92}]',
   0.92
 );
-```
+```sql
 
 **Analytics**:
 - Quali query più frequenti?
@@ -594,26 +594,26 @@ INSERT INTO PORTAL.STATS_EXECUTION_LOG (
 ## Costi Stimati
 
 ### Azure AI Search
-```
+```sql
 Tier: Basic
 Storage: 15 GB (2000 chunks * 5KB avg + 500 code snippets)
 Replicas: 2
 Cost: ~€70/month
-```
+```sql
 
 ### OpenAI Embeddings
-```
+```sql
 Model: text-embedding-ada-002
 Usage: 2000 chunks * 400 tokens avg = 800K tokens
 Cost (one-time): ~€0.10
 Cost (incremental, 100 chunks/month): ~€1/month
-```
+```sql
 
 ### Azure Blob Storage (chunks backup)
-```
+```sql
 Storage: 5 GB
 Cost: ~€0.50/month
-```
+```sql
 
 **Total**: ~€71.50/month
 

@@ -1,16 +1,17 @@
 ---
-id: ew-obsidian
 title: Obsidian Vault Setup (Wiki)
-summary: Come aprire `Wiki/EasyWayData.wiki` in Obsidian mantenendo link, attachments e frontmatter coerenti.
-status: active
-owner: team-platform
 tags: [domain/docs, layer/howto, audience/non-expert, audience/dev, privacy/internal, language/it, obsidian]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-obsidian
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Come aprire `Wiki/EasyWayData.wiki` in Obsidian mantenendo link, attachments e frontmatter coerenti.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Obsidian Vault Setup (Wiki)
@@ -75,4 +76,5 @@ Nota: se apri come vault la cartella `Wiki/` (non `Wiki/EasyWayData.wiki`), usa 
 - [Suggerimenti Link Correlati (Affinità)](./docs-related-links.md)
 - [Generare DDL+SP da mini-DSL (agent-aware)](./db-generate-artifacts-dsl.md)
 - [Datalake - Set Retention (Stub)](./datalake-set-retention.md)
+
 

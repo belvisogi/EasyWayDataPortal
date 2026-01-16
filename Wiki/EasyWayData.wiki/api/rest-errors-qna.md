@@ -105,7 +105,7 @@ Le API restituiscono un payload coerente:
   "requestId": "uuid",
   "correlationId": "uuid"
 }
-```
+```sql
 
 
 ## Vedi anche

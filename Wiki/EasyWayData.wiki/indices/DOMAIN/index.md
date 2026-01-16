@@ -1,9 +1,15 @@
 ---
 tags: [layer/index, domain/docs, DOMAIN]
+updated: 2026-01-16
+owner: team-platform
 summary: Functional or Business Areas - Category index for DOMAIN pillar
+status: draft
 ---
 
 # 📁 DOMAIN
+
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
 
 > Functional or Business Areas
 
@@ -25,4 +31,14 @@ summary: Functional or Business Areas - Category index for DOMAIN pillar
 ---
 
 [⬆️ Back to Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
+## Domande a cui risponde
+- Che cosa raccoglie questo indice?
+- Dove sono i documenti principali collegati?
+- Come verificare naming e ancore per questa cartella?
+- Dove trovare entità e guide correlate?
+
+
+
 

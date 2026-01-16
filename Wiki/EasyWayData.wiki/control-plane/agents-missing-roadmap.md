@@ -1,16 +1,17 @@
 ---
-id: ew-control-plane-agents-missing-roadmap
 title: Roadmap agent (retrieval, observability, infra, backend, release)
-summary: Pagina canonica: perche' servono questi agenti e quali intent minimi devono coprire.
-status: active
-owner: team-platform
 tags: [domain/control-plane, layer/roadmap, audience/dev, audience/ops, privacy/internal, language/it, agents, rag, observability, infra]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone, token]
+status: active
+updated: 2026-01-16
+redaction: [email, phone, token]
+id: ew-control-plane-agents-missing-roadmap
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Pagina canonica: perche' servono questi agenti e quali intent minimi devono coprire.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Roadmap agent (retrieval, observability, infra, backend, release)
@@ -49,4 +50,5 @@ Abbiamo creato gli agenti skeleton minimi per:
 - [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
 - [Control Plane - Panoramica](./index.md)
 - [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
+
 

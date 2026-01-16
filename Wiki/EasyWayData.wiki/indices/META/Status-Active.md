@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, META/Status-Active]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with META/Status-Active
+status: draft
 ---
 
 # 📄 Status-Active
@@ -13,4 +16,6 @@ summary: Index of all pages tagged with META/Status-Active
 ---
 
 [⬆️ Back to META](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

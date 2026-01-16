@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, DOMAIN/Security]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with DOMAIN/Security
+status: draft
 ---
 
 # 📄 Security
@@ -17,4 +20,6 @@ summary: Index of all pages tagged with DOMAIN/Security
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

@@ -48,3 +48,46 @@ export interface NotificationInput {
 export interface NotificationsRepo {
   send(tenantId: string, input: NotificationInput): Promise<void>;
 }
+
+export interface AgentChatMessageRecord {
+  event_time: string;
+  role: 'user' | 'agent' | 'system';
+  content: string;
+  payload_json?: string | null;
+}
+
+export interface AgentChatConversationRecord {
+  conversationId: string;
+  lastEventTime: string;
+  lastMessage?: string | null;
+}
+
+export interface AgentChatRepo {
+  logMessage(tenantId: string, input: {
+    actor: string;
+    agentId: string;
+    conversationId: string;
+    role: 'user' | 'agent' | 'system';
+    content: string;
+    metadata?: any;
+  }): Promise<void>;
+
+  listConversations(tenantId: string, input: {
+    actor: string;
+    agentId: string;
+    limit: number;
+    offset: number;
+  }): Promise<{ conversations: AgentChatConversationRecord[]; total: number }>;
+
+  getConversation(tenantId: string, input: {
+    actor: string;
+    agentId: string;
+    conversationId: string;
+  }): Promise<{ deleted: boolean; messages: AgentChatMessageRecord[] }>;
+
+  deleteConversation(tenantId: string, input: {
+    actor: string;
+    agentId: string;
+    conversationId: string;
+  }): Promise<void>;
+}

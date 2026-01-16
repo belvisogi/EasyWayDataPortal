@@ -1,6 +1,9 @@
 ---
 tags: [domain/frontend, domain/ux, layer/spec, audience/dev, best-practice]
+updated: 2026-01-16
+owner: team-platform
 summary: Sistema di traduzione errori tecnici in messaggi user-friendly italiani con azioni suggerite per migliorare UX
+status: draft
 ---
 
 # Error Messages User-Friendly 🇮🇹
@@ -10,18 +13,18 @@ summary: Sistema di traduzione errori tecnici in messaggi user-friendly italiani
 ## Problema
 
 **Prima** (errori tecnici):
-```
+```sql
 Error: sp_insert_user failed
 Error: UNIQUE constraint violation on column 'email'
 Error: Foreign key constraint failed on tenant_id
-```
+```sql
 
 **Dopo** (messaggi user-friendly):
-```
+```sql
 ✉️ Email già registrata. Vuoi recuperare la password?
 ⚠️ Operazione non consentita. Contatta l'amministratore del tuo team.
 🔒 Account non attivo. Verifica la tua email per attivarlo.
-```
+```sql
 
 ---
 
@@ -206,7 +209,7 @@ class ErrorTranslator {
 }
 
 export const errorTranslator = new ErrorTranslator();
-```
+```sql
 
 ---
 
@@ -241,7 +244,7 @@ export function useUserFriendlyError() {
     hasError: !!error
   };
 }
-```
+```sql
 
 ---
 
@@ -305,7 +308,7 @@ export function ErrorToast({ error, onClose }: Props) {
     </div>
   );
 }
-```
+```sql
 
 ---
 
@@ -339,7 +342,7 @@ function RegisterForm() {
     </>
   );
 }
-```
+```sql
 
 ---
 
@@ -400,7 +403,7 @@ const i18n = {
   'it': { /* Italian messages */ },
   'es': { /* Spanish messages */ }
 };
-```
+```sql
 
 ### Context-aware
 ```typescript
@@ -409,7 +412,7 @@ translate(error, {
   formField: 'email',
   operation: 'user_creation'
 });
-```
+```sql
 
 ### Analytics
 ```typescript
@@ -418,7 +421,7 @@ trackError(error, {
   userMessage: friendlyError.message,
   userId: currentUser.id
 });
-```
+```sql
 
 ---
 
@@ -435,7 +438,7 @@ describe('ErrorTranslator', () => {
     expect(result.action?.label).toBe('Recupera password');
   });
 });
-```
+```sql
 
 ### Accessibility Tests
 - Screen reader: NVDA/JAWS legge messaggio completo
@@ -460,3 +463,5 @@ describe('ErrorTranslator', () => {
 
 **Tempo stimato**: ~1 giorno  
 **Beneficio**: UX dramaticamente migliore, frustrazione utente ridotta, supporto clienti più efficiente
+
+

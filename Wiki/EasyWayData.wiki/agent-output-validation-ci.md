@@ -28,7 +28,7 @@ Uso
 - Esito: stampa report JSON per ogni file e restituisce exit code 1 se `-FailOnError` e mancano chiavi contrattuali
 
 Integrazione (Azure DevOps) – esempio
-```
+```sql
 - task: PowerShell@2
   displayName: 'Validate agent outputs (WhatIf)'
   condition: and(succeeded(), eq(variables['VALIDATE_AGENT_OUTPUT'], 'true'))
@@ -36,7 +36,7 @@ Integrazione (Azure DevOps) – esempio
     targetType: 'inline'
     script: |
       pwsh scripts/ci-validate-agent-output.ps1 -Path out -FailOnError
-```
+```sql
 
 Note
 - Il contratto base è descritto in `Wiki/EasyWayData.wiki/output-contract.md` e nello schema `agents/core/schemas/action-result.schema.json`.

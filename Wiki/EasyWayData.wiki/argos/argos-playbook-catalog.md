@@ -1,26 +1,24 @@
----
-id: ew-argos-playbook-catalog
 title: ARGOS – Playbook Catalog (v1)
-summary: Catalogo playbook di remediation/prevenzione con MODE/guardrail/backout/KPI e integrazione EasyWay.
-status: active
-owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/reference, audience/ops, audience/dev, privacy/internal, language/it]
-llm:
-  include: true
+updated: '2026-01-16'
+status: active
+redaction: [email, phone]
+id: ew-argos-playbook-catalog
+chunk_hint: 250-400
+entities: []
+include: true
+summary: Catalogo playbook di remediation/prevenzione per Data Quality, con modalità (AUTO_SAFE/ASSIST), guardrail, backout e criteri di certificazione.
+llm: 
   pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []---
+owner: team-platform
+---
 
 # ARGOS – Playbook Catalog (v1)
 
-> Scopo: catalogo dei playbook operativi di ARGOS per remediation e prevenzione. Documento agnostico, con struttura standard, criteri AUTO_SAFE, guardrail, backout e metriche. Integrato con Quality Gates, Policy DSL, Alerting, Coach, Tech Profiling.
-
-Integrazione EasyWay
-- Repository: serializzare le schede in YAML (`argos/pb/*.yaml`) con MODE/guardrail/backout/KPI e versionarle.
-- ChatOps: comandi `/argos pb list|open` integrati con i ticket del portale e con Decision Trace.
-- CI: validazione schema YAML dei PB e verifica campi minimi (owner, backout, privacy, guardrail).
----
+## Domande a cui risponde
+1. Qual è la struttura standard di un Playbook ARGOS?
+2. Cosa significano le modalità AUTO_SAFE e ASSIST?
+3. Come vengono governati e certificati i Playbook?
 
 ## Principi essenziali
 Safety‑first (AUTO_SAFE/ASSIST), minimo intervento, backout pronto, misurabilità, privacy.
@@ -46,6 +44,7 @@ OWNER chiaro; manutenzione trimestrale; AUTO_SAFE solo per PB certificati.
 
 ## DoD (v1)
 Schede minime pubblicate, integrazione Alerting/Gates, KPI raccolti, flag AUTO_SAFE/guardrail/backout definiti, privacy rispettata.
+
 
 
 

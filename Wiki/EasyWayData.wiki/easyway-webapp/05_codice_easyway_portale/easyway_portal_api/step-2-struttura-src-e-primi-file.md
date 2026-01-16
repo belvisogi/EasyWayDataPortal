@@ -54,7 +54,7 @@ easyway-portal-api/
     │     └── logger.ts
     └── /types
           └── config.d.ts
-```
+```sql
 
 2.1 `src/app.ts`
 ```ts
@@ -84,7 +84,7 @@ app.use(extractTenantId);
 app.use("/api/health", healthRoutes);
 
 export default app;
-```
+```sql
 
 **Dove va:**  
 `easyway-portal-api/src/app.ts`  
@@ -104,7 +104,7 @@ app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`EasyWay API running on port ${PORT}`);
 });
-```
+```sql
 
 **Dove va:**  
 `easyway-portal-api/src/server.ts`  
@@ -124,7 +124,7 @@ export const logger = winston.createLogger({
     new winston.transports.Console(),
   ],
 });
-```
+```sql
 
 **Dove va:**  
 `easyway-portal-api/src/utils/logger.ts`  
@@ -148,7 +148,7 @@ export function extractTenantId(req: Request, res: Response, next: NextFunction)
   (req as any).tenantId = tenantId;
   next();
 }
-```
+```sql
 
 **Dove va:**  
 `easyway-portal-api/src/middleware/tenant.ts`  
@@ -169,7 +169,7 @@ const router = Router();
 router.get("/", healthCheck);
 
 export default router;
-```
+```sql
 
 **Dove va:**  
 `easyway-portal-api/src/routes/health.ts`  
@@ -189,7 +189,7 @@ export function healthCheck(req: Request, res: Response) {
     service: "EasyWay Data Portal API"
   });
 }
-```
+```sql
 
 **Dove va:**  
 `easyway-portal-api/src/controllers/healthController.ts`  
@@ -226,7 +226,7 @@ export interface TenantConfig {
   labels: LabelsConfig;
   paths: PathsConfig;
 }
-```
+```sql
 
 **Dove va:**  
 `easyway-portal-api/src/types/config.d.ts`  

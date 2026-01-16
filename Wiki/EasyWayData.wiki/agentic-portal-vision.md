@@ -1,40 +1,23 @@
 ---
-id: ew-agentic-portal-vision
 title: Visione Portale Agentico
-summary: Obiettivi e principi per un portale totalmente agentico, usabile anche da non esperti.
-status: active
-owner: team-platform
-tags: [domain/docs, layer/spec, audience/non-expert, audience/dev, privacy/internal, language/it, agents, vision]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []---
-
-## Visione
-Portale governabile da agenti e da umani non esperti, con piani chiari e scelte confermabili.
-
-## Principi
-- Human-in-the-loop
-- Trasparenza (piani, esiti, log)
-- Idempotenza
-- Documentazione viva (KB + Wiki)
-- Policy & gates comprensibili
-- Parametrizzazione
-- Osservabilità
-
-## Implementazione
-- Wrapper: `scripts/ewctl.ps1` (engine `ps|ts`)
-- Orchestratore: `agents/core/orchestrator.js` (carica manifest, KB, `agents/goals.json`)
 - Agenti: `scripts/agent-docs-review.ps1`, `scripts/agent-governance.ps1`
-- Memoria obiettivi: `agents/goals.json`
-
-## Flusso Consigliato
-1) Pianifica (TS): `pwsh scripts/ewctl.ps1 --engine ts --intent <intent>`
+- Wrapper: `scripts/ewctl.ps1` (engine `ps|ts`)
+tags: [domain/docs, layer/spec, audience/non-expert, audience/dev, privacy/internal, language/it, agents, vision]
+- Orchestratore: `agents/core/orchestrator.js` (carica manifest, KB, `agents/goals.json`)
+updated: 2026-01-16
+status: active
 2) Esegui (PS): `pwsh scripts/ewctl.ps1 --engine ps --intent <intent> --noninteractive`
-3) Verifica gates (Checklist/DB Drift/KB Consistency)
-4) Aggiorna KB + Wiki
+redaction: [email, phone]
+- Memoria obiettivi: `agents/goals.json`
+id: ew-agentic-portal-vision
+chunk_hint: 250-400
+entities: []---
+1) Pianifica (TS): `pwsh scripts/ewctl.ps1 --engine ts --intent <intent>`
+include: true
+summary: Obiettivi e principi per un portale totalmente agentico, usabile anche da non esperti.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 ## Workflow agentici
@@ -81,7 +64,7 @@ flowchart TD
     E --> F[Gates CI/CD agentici]
     F --> G[Deploy + Logging]
     G --> H[Human-in-the-loop: verifica e conferma]
-```
+```sql
 
 ---
 
@@ -121,6 +104,7 @@ Nota organizzativa sulla collocazione della documentazione UX
   - aggiungere qui i link diretti alle pagine UX già create (Wiki/UX/agentic-ux.md e Wiki/UX/agentic-ux-guidelines.md), e
   - creare una copia/trasferimento dei file nella directory Wiki/EasyWayData.wiki/UX/ per rendere il contenuto parte integrante della Wiki del progetto.
 - Raccomandazione pratica: per l'allenamento degli LLM mantieni una versione "canonica" nella Wiki principale e usa le copie di lavoro per bozze; versiona e marca la pagina canonica come "LLM‑readable" (es. aggiungendo meta JSON all'inizio del file) in modo che gli agenti sappiano quale file usare come fonte primaria.
+
 
 
 

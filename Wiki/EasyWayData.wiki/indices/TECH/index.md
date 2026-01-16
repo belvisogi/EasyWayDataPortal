@@ -1,9 +1,15 @@
 ---
 tags: [layer/index, domain/docs, TECH]
+updated: 2026-01-16
+owner: team-platform
 summary: Specific Tools and Technologies - Category index for TECH pillar
+status: draft
 ---
 
 # 📁 TECH
+
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
 
 > Specific Tools and Technologies
 
@@ -20,4 +26,14 @@ summary: Specific Tools and Technologies - Category index for TECH pillar
 ---
 
 [⬆️ Back to Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
+## Domande a cui risponde
+- Che cosa raccoglie questo indice?
+- Dove sono i documenti principali collegati?
+- Come verificare naming e ancore per questa cartella?
+- Dove trovare entità e guide correlate?
+
+
+
 

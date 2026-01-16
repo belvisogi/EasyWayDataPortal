@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, AUDIENCE/DBA]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with AUDIENCE/DBA
+status: draft
 ---
 
 # 📄 DBA
@@ -65,4 +68,6 @@ summary: Index of all pages tagged with AUDIENCE/DBA
 ---
 
 [⬆️ Back to AUDIENCE](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

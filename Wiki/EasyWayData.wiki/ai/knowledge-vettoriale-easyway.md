@@ -42,7 +42,7 @@ flowchart TD
   D --> E3[Copilot/LLM QA: suggerimenti, fix, PR stub]
   A -.update ogni merge/PR.-> C
   D ==> A
-```
+```sql
 - I file “classici” restano in repo, ma il **vector DB** è la base runtime per query intelligenti agent/n8n/LLM.
 - Ogni nuovo doc/manifest/recipe va in pipeline e aggiorna la knowledge base semantica subito.
 
@@ -67,7 +67,7 @@ exclude:
   - "old/"
   - "bin/"
   - "*.pdf"
-```
+```sql
 - **Questa regola YAML** guida ogni pipeline di embedding e può essere aggiornata/estesa facilmente!
 
 ---

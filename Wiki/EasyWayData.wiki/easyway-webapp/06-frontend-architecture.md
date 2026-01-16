@@ -1,11 +1,11 @@
 ---
 id: ew-06-frontend-architecture
 title: 06 Frontend Architecture
-summary: Architettura frontend e integrazione con backend, multi-tenant, security e logging.
+summary: Architettura Frontend (Next.js), integrazione Backend/API, gestione Auth/ACL e Logging strutturato.
 status: active
 owner: team-docs
 created: '2025-01-01'
-updated: '2025-01-01'
+updated: '2026-01-16'
 tags: [domain/frontend, layer/spec, audience/dev, privacy/internal, language/it, architecture]
 llm:
   include: true
@@ -13,7 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-next: TODO - definire next step.
+next: Dettagliare componenti UI.
 ---
 
 # EasyWay Data Portal - Frontend Architecture & Integration
@@ -43,7 +43,7 @@ Definire l'architettura frontend di EasyWay Data Portal in modo coerente con:
 /acl -> Logica permessi per visualizzazione moduli
 /utils
 /logger.ts -> Audit azioni frontend verso backend
-```
+```sql
 
 ---
 
@@ -99,13 +99,11 @@ La sezione `/workspace` integra:
 {user?.profile?.can_upload && (
   <UploadArea />
 )}
-```
+```sql
 
 ## Domande a cui risponde
-- Cosa fa questa pagina?
-- Quali sono i prerequisiti?
-- Quali passi devo seguire?
-- Quali sono gli errori comuni?
-- Dove approfondire?
+1. Qual è la struttura del progetto Next.js Frontend?
+2. Come viene gestito il contesto utente (Tenant/ACL)?
+3. Come funziona l'audit logging dal Frontend?
 
 

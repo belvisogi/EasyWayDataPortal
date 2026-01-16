@@ -1,16 +1,17 @@
 ---
-id: ew-ux-diary-wf-excel-csv-upload
 title: UX Mock – Diario di Bordo (wf.excel-csv-upload)
-summary: Schermate mock (testuali) del diario di bordo per il workflow Excel/CSV→Dashboard, in modalità One‑Button (Base) e Pro.
-status: active
-owner: team-platform
 tags: [domain/ux, layer/spec, audience/dev, audience/non-expert, privacy/internal, language/it, ux, diary, use-case, argos]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-ux-diary-wf-excel-csv-upload
+chunk_hint: 250-400
 entities: []
+include: true
+summary: Schermate mock (testuali) del diario di bordo per il workflow Excel/CSV→Dashboard, in modalità One‑Button (Base) e Pro.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # UX Mock – Diario di Bordo (wf.excel-csv-upload)
@@ -128,7 +129,7 @@ Timeline (Base → Pro)
 - Toggle Pro aggiunge: conteggi, regole DQ applicate, campi mappati, link Decision Trace.
 
 Esempio entry (JSON)
-```
+```sql
 {
   "timestamp": "2025-10-27T10:12:00Z",
   "stage": "dq_evaluated",
@@ -142,12 +143,13 @@ Esempio entry (JSON)
     "actions": ["Continua", "Vedi dettagli"]
   }
 }
-```
+```sql
 
 Note
 - Tutti i messaggi UX sono allineati ai `ux_prompts` del manifest (WHAT) e vanno localizzati.
 - Il diario deve essere leggibile “a colpo d’occhio”, con pulsanti chiari e un aiuto contestuale semplice.
  - Copioni localizzati: vedere `docs/agentic/templates/orchestrations/ux_prompts.it.json` e `ux_prompts.en.json`.
+
 
 
 

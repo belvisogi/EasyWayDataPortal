@@ -1,7 +1,7 @@
 ---
-id: ew-dr-gaps-vs-ada
-title: Cosa integrare da ADA per EasyWayDataPortal (approccio operativo e cosa aggiungere)
-summary: Analisi operativa di cosa riusare da ADA per DR e cosa aggiungere in EasyWayDataPortal, con deliverable prioritizzati e stima fasi.
+id: ew-dr-strategy-cloud-native
+title: Strategia Cloud-Native Disaster Recovery (approccio operativo)
+summary: Analisi operativa di cosa riusare dagli standard aziendali per DR e cosa aggiungere in EasyWayDataPortal, con deliverable prioritizzati e stima fasi.
 status: active
 owner: team-platform
 tags: [docs, domain/docs, layer/blueprint, audience/ops, audience/dev, privacy/internal, language/it, dr]
@@ -11,21 +11,21 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-updated: '2026-01-05'
+updated: '2026-01-16'
 next: TODO - definire next step.
 ---
-# Cosa integrare da ADA per EasyWayDataPortal (approccio operativo e cosa aggiungere)
+# Strategia Cloud-Native Disaster Recovery (approccio operativo)
 
 Scopo
-- Descrivere in modo operativo quali pratiche, pattern e componenti presi dall’esperienza ADA vanno riutilizzati o adattati per EasyWayDataPortal, e quali elementi nuovi è opportuno introdurre per ottenere una soluzione cloud‑native con capacità DR cross‑cloud (Azure primary, GCP DR). Componenti esclusi: Databricks, Informatica, Axon, Synapse.
+- Descrivere in modo operativo quali pratiche, pattern e componenti presi dagli **standard aziendali di riferimento** vanno riutilizzati o adattati per EasyWayDataPortal, e quali elementi nuovi è opportuno introdurre per ottenere una soluzione cloud‑native con capacità DR cross‑cloud (Azure primary, GCP DR). Componenti esclusi: Databricks, Informatica, Axon, Synapse.
 
 Sintesi veloce
-- ADA fornisce runbook consolidati, criteri di monitoraggio e policy di sicurezza utili come baseline. Per EasyWayDataPortal occorre:
+- Gli standard attuali forniscono runbook consolidati, criteri di monitoraggio e policy di sicurezza utili come baseline. Per EasyWayDataPortal occorre:
   1) riutilizzare i processi maturi (checklist, criteri di accettazione, regole monitoring),
   2) riprogettarli come artefatti "as‑code" (Terraform, pipeline, runbook automatizzati),
   3) mappare le contromisure su servizi PaaS e su GCP per la parte DR.
 
-Cosa prendere da ADA (da riutilizzare/adattare)
+Cosa prendere dagli standard esistenti (da riutilizzare/adattare)
 - Runbook e checklist DR: sequenze operative, test plan, criteri di accettazione da usare come base per runbook‑as‑code.
 - Politiche di monitoraggio e soglie: regole di alerting e dashboard (App Insights / Log Analytics) da importare e adattare.
 - Pattern di network isolation: principi di uso di Private Endpoints e segmentazione rete.
@@ -74,12 +74,12 @@ Raccomandazioni operative
 - Tenere tutte le procedure "as‑code" nella repo per audit, review e rollback ripetibili.
 - Per componenti legacy non containerizzabili, prevedere immagine VM automatizzata come transizione temporanea.
 
-Materiale ADA utile da riusare (reference)
-- DR_Plan_ADA.docx — checklists, runbook manuali e sequenze test.
-- ADA Reference Architecture.pptx — diagrammi rete, zonizzazione, failover patterns.
+Materiale di riferimento utile (Reference)
+- DR_Plan_Legacy.docx — checklists, runbook manuali e sequenze test.
+- Reference_Architecture.pptx — diagrammi rete, zonizzazione, failover patterns.
 - Esempi di runbook e playbook operativi (estrarre e trasformare in script).
 
-Output che posso produrre subito (se approvi)
+Output che posso produrre subito
 - Matrice inventory→RTO/RPO dettagliata in 5 giorni (CSV + MD).
 - Template runbook DR‑MVP (script + pipeline) per DB+Storage+Ingress in 7–10 giorni.
 - Repo Terraform POC su GCP (DB+GCS+Secret Manager+LB) in 7–14 giorni.
@@ -89,17 +89,9 @@ Prossimi passi consigliati (azione immediata)
 2. Durante l'inventory, raccolgo i contatti/owners e i nomi risorsa; successivamente stabiliamo la priorità per Phase 1 (SQL SID + teardown).
 3. Manteniamo la documentazione aggiornata in wiki e versioniamo tutti gli artefatti as‑code nel repository.
 
-
-
-
-
-
-
-
-
 ## Vedi anche
 
-- [Integrare le best-practice ADA in EasyWayDataPortal](./easyway-webapp/02_logiche_easyway/integrate-ada-best-practices.md)
+- [Best Practice Operative e Integrazione](./easyway-webapp/02_logiche_easyway/operational-best-practices.md)
 - [DR — Inventory & matrice componente → RTO / RPO](./dr-inventory-matrix.md)
 - [what is inventory and missing items](./Runbooks/what_is_inventory_and_missing_items.md)
 - [Deployment decision (MVP) — EasyWay Data Portal](./deployment-decision-mvp.md)

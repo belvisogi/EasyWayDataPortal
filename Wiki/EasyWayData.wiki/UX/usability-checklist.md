@@ -1,16 +1,17 @@
 ---
-id: ew-ux-usability-checklist
 title: UX – Usability Checklist (One‑Button)
-summary: Checklist rapida per validare semplicità ed efficacia delle schermate (3‑click rule, leggibilità, zero dead‑ends, CTA chiare, default sicuri).
-status: active
-owner: team-platform
 tags: [domain/ux, layer/howto, audience/dev, audience/non-expert, privacy/internal, language/it, ux, checklist]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 200-300
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-ux-usability-checklist
+chunk_hint: 200-300
 entities: []
+include: true
+summary: Checklist rapida per validare semplicità ed efficacia delle schermate (3‑click rule, leggibilità, zero dead‑ends, CTA chiare, default sicuri).
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # UX – Usability Checklist (One‑Button)
@@ -54,4 +55,5 @@ Come usarla
 - Controlla che l'output atteso (file generati, risorse create/aggiornate, response API) sia presente e coerente.
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
+
 

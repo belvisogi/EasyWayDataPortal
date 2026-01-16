@@ -17,6 +17,9 @@ next: Aggiornare quando cambia la struttura del codice o i capitoli.
 
 # Indice
 
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
+
 Breadcrumb: Home / EasyWay WebApp / Codice Portale
 
 - [docs.md](./docs.md) - Docs
@@ -31,3 +34,4 @@ Breadcrumb: Home / EasyWay WebApp / Codice Portale
 - Quali capitoli descrivono API, frontend e IaC del portale?
 - Dove sono le istruzioni per QA/test locale?
 - Quali sono i link canonici per questa sezione?
+

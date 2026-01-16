@@ -38,7 +38,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-101"
   }
 }
-```
+```sql
 
 Riferimenti
 - Policy security/observability: `Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/security-and-observability.md`

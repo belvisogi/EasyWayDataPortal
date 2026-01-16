@@ -34,7 +34,7 @@ Esempio DSL (salva in `dsl/user.json`)
     "delete": {"name": "sp_delete_user"}
   }
 }
-```
+```sql
 
 Comando generatore
 - `node agents/core/generate-db-artifacts.js --in dsl/user.json --out db/flyway/sql`

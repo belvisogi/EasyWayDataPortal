@@ -1,16 +1,17 @@
 ---
-id: ew-agent-orchestration-weighting
 title: Multi-Agent Orchestration con Ponderazione e Round Table
-summary: Sistema di orchestrazione multi-agent con weighting qualità-focused, peer review a tavola rotonda, eliminazione outlier e 5-question framework per decision making robusto.
-status: active
-owner: team-platform
 tags: [domain/control-plane, layer/spec, audience/architect, audience/dev, privacy/internal, language/it, agents, orchestration, n8n, governance, decision-framework]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 400-600
-  redaction: [email, phone]
+status: active
+updated: 2026-01-16
+redaction: [email, phone]
+id: ew-agent-orchestration-weighting
+chunk_hint: 400-600
 entities: []
+include: true
+summary: Sistema di orchestrazione multi-agent con weighting qualità-focused, peer review a tavola rotonda, eliminazione outlier e 5-question framework per decision making robusto.
+llm: 
+pii: none
+owner: team-platform
 ---
 
 # Multi-Agent Orchestration con Ponderazione e Round Table
@@ -157,7 +158,7 @@ graph TB
     style R fill:#f99,stroke:#c00,stroke-width:2px
     style T fill:#9f9,stroke:#060,stroke-width:2px
     style V fill:#99f,stroke:#006,stroke-width:2px
-```
+```sql
 
 ---
 
@@ -196,7 +197,7 @@ sequenceDiagram
         Orchestrator->>Orchestrator: Select top 3 experts
         Orchestrator->>Orchestrator: Select 1 outsider (expertise < 30%)
     end
-```
+```sql
 
 ### Phase 1: 5-Question Framework (Parallel)
 
@@ -231,7 +232,7 @@ sequenceDiagram
     end
     
     Orchestrator->>Orchestrator: Collect all 4 proposals
-```
+```sql
 
 ### Phase 2: Round Table Peer Scoring
 
@@ -277,7 +278,7 @@ sequenceDiagram
     end
     
     Orchestrator->>Orchestrator: Aggregate scores<br/>Weighted by evaluator weight
-```
+```sql
 
 ### Phase 3: Outlier Elimination
 
@@ -301,7 +302,7 @@ graph LR
     style C4 fill:#fcc,stroke:#c00
     style E fill:#cfc,stroke:#0c0
     style F fill:#9f9,stroke:#060,stroke-width:3px
-```
+```sql
 
 ### Phase 4: Decision Matrix & Consensus
 
@@ -337,7 +338,7 @@ graph TD
     style H fill:#f99,stroke:#c00
     style I fill:#9f9,stroke:#060
     style O fill:#99f,stroke:#006
-```
+```sql
 
 ---
 
@@ -362,12 +363,12 @@ graph TD
 - agent_api (domain/api expertise: 75, domain/db: 30)
 
 **Weight calculation**:
-```
+```sql
 agent_dba:      0.35*95 + 0.25*90 + 0.30*92 + 0.10*85 = 88.1
 agent_security: 0.35*60 + 0.25*85 + 0.30*88 + 0.10*90 = 75.1
 agent_governance: 0.35*40 + 0.25*70 + 0.30*75 + 0.10*80 = 63.5
 agent_frontend: 0.35*15 + 0.25*20 + 0.30*60 + 0.10*30 = 31.3
-```
+```sql
 
 **Decision**: Multi-Agent Mode (top weight 88.1 < threshold 90 per task critico security)
 
@@ -408,7 +409,7 @@ why_important:
   long_term_impact: ["Pattern riusabile", "Compliance audit ready"]
   alternatives_considered:
     - {alt: "DB separati per tenant", rejected: "Costi infra"}
-```
+```sql
 
 **Agent Security**:
 ```yaml
@@ -417,7 +418,7 @@ how: "Flyway + RLS + post-migration secret rotation"
 effort: "3h"
 ...
 emphasis: "Security-first con audit logging"
-```
+```sql
 
 **Agent Governance**:
 ```yaml
@@ -426,7 +427,7 @@ how: "Flyway + RLS + documentation governance"
 effort: "4h"
 ...
 emphasis: "Governance completeness (KB, Wiki, gates)"
-```
+```sql
 
 **Agent Frontend (Outsider)**:
 ```yaml
@@ -436,7 +437,7 @@ effort: "1h"
 ...
 emphasis: "Alternative approach non DB-native"
 rationale: "Outsider perspective: evitare complessità DB"
-```
+```sql
 
 ### Phase 2: Peer Scoring
 
@@ -489,10 +490,10 @@ why_important:
   - "Long-term: pattern scalabile + audit trail"
 confidence: 0.82
 requires_approval: true # High impact + security critical
-```
+```sql
 
 **Human Approval UI**:
-```
+```sql
 🎯 Multi-Agent Consensus (2 agents: Security + Governance)
 
 Eliminated Proposals:
@@ -510,7 +511,7 @@ Critical Items:
   
 Approve to proceed?
 [✓ Approve] [✗ Reject] [📝 Revise]
-```
+```sql
 
 ---
 
@@ -823,7 +824,7 @@ graph LR
     style D fill:#9f9,stroke:#060,stroke-width:2px
     style F fill:#99f,stroke:#006
     style J fill:#ff9,stroke:#f90
-```
+```sql
 
 ### Componenti
 
@@ -889,3 +890,4 @@ Altrimenti: **stay con Expert + Reviewer**.
 **Status**: RECOMMENDED APPROACH (2026-01-13)  
 **Owner**: team-platform  
 **Next Review**: 2026-07-01 (6 months)
+

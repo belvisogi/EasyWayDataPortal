@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, META/Privacy-Confidential]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with META/Privacy-Confidential
+status: draft
 ---
 
 # 📄 Privacy-Confidential
@@ -13,4 +16,6 @@ summary: Index of all pages tagged with META/Privacy-Confidential
 ---
 
 [⬆️ Back to META](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

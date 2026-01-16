@@ -35,7 +35,7 @@ updated: '2026-01-06'
 ```bash
 git clone <URL_REPO_EASYWAY>
 cd EasyWayDataPortal
-```
+```sql
 
 **B) Crea un file di env “mock”**
 ```bash
@@ -44,12 +44,12 @@ cp .env.example .env
 echo 'DB_CONN_STRING="Server=localhost;Database=FAKE;User Id=mock;Password=mock;"' > .env
 echo 'AZURE_STORAGE_KEY="fake-key"' >> .env
 echo 'AGENT_MODE=mock' >> .env
-```
+```sql
 
 **C) Installa le dipendenze**
 ```bash
 npm install --prefix EasyWay-DataPortal/easyway-portal-api/
-```
+```sql
 
 **D) Avvia i servizi in modalità sandbox (mock)**
 ```bash
@@ -57,13 +57,13 @@ cd EasyWay-DataPortal/easyway-portal-api/
 npm run dev:mock
 # oppure setta DB_MODE=mock e avvia:
 # DB_MODE=mock npm run dev
-```
+```sql
 
 **E) Prova una pipeline agentica/CLI di test**
 ```bash
 pwsh scripts/agent-dba.ps1 -WhatIf
 # non farà alcuna modifica reale!
-```
+```sql
 
 ---
 
@@ -86,7 +86,7 @@ pwsh scripts/agent-dba.ps1 -WhatIf
 ```bash
 git clean -fd
 git reset --hard
-```
+```sql
 - Ripristina .env_example su .env
 - Per sicurezza, verifica SEMPRE che le variabili d’ambiente non contengano secret reali prima di avviare
 - Loggati come utente standard, mai admin/root

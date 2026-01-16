@@ -1,16 +1,17 @@
 ---
-id: ew-ai-security-guardrails
 title: AI Security Guardrails
-summary: Sistema di protezione multi-layer contro prompt injection e attacchi AI per orchestrazione agent. Include validation input/output, KB integrity, e secure prompts.
-status: active
-owner: team-security, team-platform
 tags: [domain/security, layer/reference, audience/dev, audience/architect, privacy/internal, language/it, ai-security, prompt-injection, guardrails, agents]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 300-400
-  redaction: []
+status: active
+updated: 2026-01-16
+redaction: []
+id: ew-ai-security-guardrails
+chunk_hint: 300-400
 entities: []
+include: true
+summary: Sistema di protezione multi-layer contro prompt injection e attacchi AI per orchestrazione agent. Include validation input/output, KB integrity, e secure prompts.
+llm: 
+pii: none
+owner: team-security, team-platform
 ---
 
 # AI Security Guardrails
@@ -49,7 +50,7 @@ graph LR
     style L3 fill:#9f9,stroke:#060
     style L4 fill:#99f,stroke:#006
     style L5 fill:#f9f,stroke:#909
-```
+```sql
 
 ---
 
@@ -71,7 +72,7 @@ if (-not ($valid | ConvertFrom-Json).IsValid) {
     # Block execution
     exit 1
 }
-```
+```sql
 
 ---
 
@@ -90,7 +91,7 @@ if (-not ($valid | ConvertFrom-Json).IsValid) {
 $systemPrompt = Get-Content "agents/core/templates/secure-system-prompt.txt" -Raw
 $systemPrompt = $systemPrompt -replace '\$\{AGENT_ROLE\}', 'Agent_DBA'
 # Use in LLM call
-```
+```sql
 
 ---
 
@@ -112,7 +113,7 @@ $compliant = pwsh scripts/validate-agent-output.ps1 `
 if (-not ($compliant | ConvertFrom-Json).IsCompliant) {
     # Escalate to human
 }
-```
+```sql
 
 ---
 
@@ -129,13 +130,13 @@ if (-not ($compliant | ConvertFrom-Json).IsCompliant) {
 ```bash
 cp scripts/pre-commit.sh .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
-```
+```sql
 
 **Test**:
 ```bash
 python3 scripts/kb-security-scan.py agents/kb/recipes.jsonl
 # ✅ KB scan passed: 201 recipes, 0 violations
-```
+```sql
 
 ---
 
@@ -156,7 +157,7 @@ $events = Get-Content agents/logs/security-events.jsonl | ConvertFrom-Json
 if ($events.Count -gt 5) {
     # Alert security team
 }
-```
+```sql
 
 ---
 
@@ -190,7 +191,7 @@ async function expertReviewerWithSecurity(intent) {
     // Human review required
   }
 }
-```
+```sql
 
 **Security scoring**: Reviewer valuta se proposta ha vulnerabilità.
 
@@ -241,7 +242,7 @@ pwsh scripts/validate-agent-input.ps1 -InputJson $malicious
 # Test 3: KB scan
 python3 scripts/kb-security-scan.py agents/kb/recipes.jsonl
 # Expected: ✅ KB scan passed
-```
+```sql
 
 ---
 
@@ -275,3 +276,4 @@ python3 scripts/kb-security-scan.py agents/kb/recipes.jsonl
 **Owner**: team-security, team-platform  
 **Status**: Scripts ready, deployment pending  
 **Priority**: Deploy before Expert+Reviewer goes live
+

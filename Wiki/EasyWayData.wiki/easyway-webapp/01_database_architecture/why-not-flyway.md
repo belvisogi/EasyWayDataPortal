@@ -1,3 +1,22 @@
+---
+id: why-not-flyway
+title: Perché NON usare Flyway per questo progetto
+summary: Breve descrizione del documento.
+status: draft
+owner: team-data
+created: '2025-01-01'
+updated: '2025-01-01'
+tags:
+  - layer/reference
+  - privacy/internal
+  - language/it
+llm:
+  include: true
+  pii: none
+  chunk_hint: 400-600
+  redaction: [email, phone]
+entities: []
+---
 # Perché NON usare Flyway per questo progetto
 
 ## TL;DR
@@ -72,7 +91,7 @@ sqlcmd -S server -d database -U user -P pass -i V2__add_notifications.sql
 # 3. Commit in git
 git add db/migrations/V2__add_notifications.sql
 git commit -m "Migration V2: Add notifications feature"
-```
+```sql
 
 ## Quando Flyway È Utile
 
@@ -127,3 +146,4 @@ Per **EasyWayDataPortal**:
 **Data decisione**: 2026-01-14  
 **Flyway utilizzato**: No  
 **Alternativa**: sqlcmd + Git
+

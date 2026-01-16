@@ -79,19 +79,58 @@ resource "azurerm_storage_data_lake_gen2_path" "tenant_subdirs" {
 }
 
 # Optional: assign reader on containers to an app principal (for API MI)
-data "azurerm_client_config" "current" {}
 
-resource "azurerm_role_assignment" "portal_assets_reader" {
-  count                = length(var.assign_reader_principal_id) > 0 ? 1 : 0
-  scope                = azurerm_storage_data_lake_gen2_filesystem.portal_assets.resource_manager_id
-  role_definition_name = "Storage Blob Data Reader"
-  principal_id         = var.assign_reader_principal_id
-}
+# =======================================================================================
+# Azure Key Vault (Standard Tier)
+# =======================================================================================
 
-resource "azurerm_role_assignment" "datalake_reader" {
-  count                = length(var.assign_reader_principal_id) > 0 ? 1 : 0
-  scope                = azurerm_storage_data_lake_gen2_filesystem.datalake.resource_manager_id
-  role_definition_name = "Storage Blob Data Reader"
-  principal_id         = var.assign_reader_principal_id
+data "azurerm_client_config" "current_user" {}
+
+resource "azurerm_key_vault" "kv" {
+  name                        = var.key_vault_name
+  location                    = var.location
+  resource_group_name         = var.resource_group_name
+  enabled_for_disk_encryption = true
+  tenant_id                   = data.azurerm_client_config.current_user.tenant_id
+  soft_delete_retention_days  = 7
+  purge_protection_enabled    = false
+
+  sku_name = "standard"
+
+  # Access Policy: Current User (running Terraform) gets full access
+  access_policy {
+    tenant_id = data.azurerm_client_config.current_user.tenant_id
+    object_id = data.azurerm_client_config.current_user.object_id
+
+    key_permissions = [
+      "Get", "List", "Create", "Delete", "Update", "Recover", "Purge", "GetRotationPolicy"
+    ]
+
+    secret_permissions = [
+      "Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"
+    ]
+
+    certificate_permissions = [
+      "Get", "List", "Update", "Create", "Import", "Delete", "Recover", "Backup", "Restore", "ManageContacts", "ManageIssuers", "GetKeyIssuers", "ListKeyIssuers", "SetKeyIssuers", "DeleteKeyIssuers", "Purge"
+    ]
+  }
+
+  # Access Policy: Optional Application Principal (Managed Identity)
+  dynamic "access_policy" {
+    for_each = length(var.assign_reader_principal_id) > 0 ? [1] : []
+    content {
+      tenant_id = data.azurerm_client_config.current_user.tenant_id
+      object_id = var.assign_reader_principal_id
+
+      secret_permissions = [
+        "Get", "List"
+      ]
+    }
+  }
+
+  tags = {
+    project = var.project_name
+    layer   = "security"
+  }
 }
 

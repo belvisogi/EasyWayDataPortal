@@ -1,7 +1,7 @@
 ---
 id: ew-domain-db
 title: Dominio DB
-summary: Scheletro del dominio DB: migrazioni, stored procedure, generatori, drift e logging.
+summary: Definizione del dominio DB: gestione migrazioni Flyway, template stored procedure, generazione artefatti e monitoraggio drift.
 status: active
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, audience/dba, privacy/internal, language/it, agents, flyway]
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-350
   redaction: []
 entities: []
-updated: '2026-01-05'
-next: TODO - definire next step.
+updated: '2026-01-16'
+next: Estendere esempi DSL.
 ---
 
 # Dominio DB
+
+## Domande a cui risponde
+1. Come vengono gestite le migrazioni del database?
+2. Dove si trovano i template per le Stored Procedure?
+3. Qual è il gate per controllare il "Drift" del DB?
 
 Cosa fa
 - Evoluzione schema via migrazioni (`db/flyway/`).

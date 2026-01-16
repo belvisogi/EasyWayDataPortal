@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, DOMAIN/Architecture]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with DOMAIN/Architecture
+status: draft
 ---
 
 # 📄 Architecture
@@ -14,4 +17,6 @@ summary: Index of all pages tagged with DOMAIN/Architecture
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

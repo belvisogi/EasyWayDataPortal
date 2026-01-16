@@ -29,7 +29,7 @@ pwsh scripts/docs-dq-scorecard.ps1 `
   -OutScorecard "out/docs-dq-scorecard.json" `
   -OutBacklog "out/docs-dq-backlog.json" `
   -OutQuestBoardPreview "out/docs-dq-quest-board.preview.md"
-```
+```sql
 
 ### 2) (Opz.) Aggiorna la pagina Kanban in Wiki (HITL, reversibile)
 Di default e' in `-WhatIf`.
@@ -38,7 +38,7 @@ pwsh scripts/docs-dq-scorecard.ps1 `
   -WikiPath "Wiki/EasyWayData.wiki" `
   -UpdateQuestBoard `
   -WhatIf
-```
+```sql
 
 Per applicare davvero:
 ```powershell
@@ -46,7 +46,7 @@ pwsh scripts/docs-dq-scorecard.ps1 `
   -WikiPath "Wiki/EasyWayData.wiki" `
   -UpdateQuestBoard `
   -WhatIf:$false
-```
+```sql
 
 Rollback:
 - Ogni apply salva backup e summary in `out/docs-dq-scorecard-apply/<runId>/`.

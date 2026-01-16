@@ -1,26 +1,24 @@
----
-id: ew-argos-tech-profiling
 title: ARGOS – Tech Profiling & Reliability (v1)
-summary: Profiling tecnico, drift e IT health con viste/gate soft e KPI/SLO, integrato con EasyWay.
-status: active
-owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, profiling]
-llm:
-  include: true
+status: active
+updated: '2026-01-16'
+redaction: [email, phone]
+id: ew-argos-tech-profiling
+chunk_hint: 250-400
+entities: []
+include: true
+summary: Modulo M3 di ARGOS dedicato al profiling tecnico, monitoraggio drift e IT health (file/table/job), con supporto per "Soft Gates".
+llm: 
   pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []---
-
-# ARGOS – Tech Profiling & Reliability (Spec v1)
-
-> Scopo: definire il Tech Loop dedicato a profiling tecnico, drift e affidabilità IT (file/table/job). Fornisce segnali per il Gating (Fast Loop) e il Learning (Slow Loop).
-
-Integrazione EasyWay
-- DB: creare entità/viste RUN_PROFILE_RESULT, PROFILE_BASELINE, PROFILE_DRIFT_EVENT, FILE_HEALTH, PARTITION_HEALTH, PROCESS_METRICS + viste VW_*.
-- Gate soft: collegare segnali di drift/health ai DQ Gates (severity dinamica, DEFER) e tracciare in Decision Trace.
-- Privacy: profili con valori hash/sanitizzati e RBAC per viste IT.
+owner: team-platform
 ---
+
+# ARGOS – Tech Profiling & Reliability (v1)
+
+## Domande a cui risponde
+1. Quali metriche traccia il modulo Tech Profiling (M3)?
+2. Che cos'è un "Soft Gate" di profiling?
+3. Come vengono monitorati i file piccoli (Small Files)?
 
 ## Estensioni LDM (estratto)
 - RUN_PROFILE_RESULT: distribuzioni, null rate, cardinalità, quantili, pattern.
@@ -38,6 +36,7 @@ Warn/Defer su drift severo o small‑files rate elevato; routing verso RCA/Coach
 
 ## KPI & SLO IT (indicativi)
 Schema Stability ≥ 99,5%; Small Files Rate ≤ 5%; Late Partition Rate ≤ 1%; Job Success ≥ 99,9%; Throughput p95 ≥ baseline−10%.
+
 
 
 

@@ -1,110 +1,222 @@
 ---
-title: Indice Globale Wiki
-summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo, deploy e governance.
-id: ew-index
-status: active
 owner: team-platform
-tags: [domain/docs, layer/index, audience/non-expert, audience/dev, privacy/internal, language/it, docs]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
-updated: '2026-01-05'
-next: TODO - definire next step.
+tags: ['domain/general', 'index']
+status: active
+title: Indice Globale
+summary: Punto di ingresso principale alla documentazione di EasyWay Data Portal. Contiene l'indice globale navigabile per domini, processi e audience.
+updated: 2026-01-16
 ---
+# Indice Globale
 
-# Indice Globale Wiki
+- Nota per autori: per nuove pagine usare `./_template.md`.
 
-- [activity-log.md](./activity-log.md) - Activity Log – CSV friendly (delimiter: ¦)
-  - H2: Domande a cui risponde
-  - H2: API – Eventi approvati
+
+- [.obsidian.example/README.md](./.obsidian.example/README.md) - .obsidian.example
+  - H2: Vedi anche
+- [activity-log.md](./activity-log.md) - activity-log
+- [ado-operating-model.md](./ado-operating-model.md) - Azure DevOps Operating Model (Hybrid)
+  - H2: Obiettivo
+  - H2: Struttura backlog (consigliata)
+  - H2: Aree (Area Path)
+- [agent-first-method.md](./agent-first-method.md) - Metodo di Lavoro (Agent‑First)
+  - H2: Best practice per le Ricette KB
+  - H2: Badges & Guardrail
 - [agent-manifest-and-indexing-best-practices.md](./agent-manifest-and-indexing-best-practices.md) - Agent Manifest & Indexing - Best Practices
   - H2: Obiettivo
   - H2: Manifest JSONL (consumo per agenti)
   - H2: Anchors CSV (richiami di sezione)
+- [agent-output-validation-ci.md](./agent-output-validation-ci.md) - Validazione Output Agenti in CI
+  - H2: Vedi anche
+- [agent-priority-and-checklists.md](./agent-priority-and-checklists.md) - Vedi anche
+  - H2: Vedi anche
 - [agentic-portal-vision.md](./agentic-portal-vision.md) - Visione
   - H2: Visione
   - H2: Principi
   - H2: Implementazione
-- [agents-governance.md](./agents-governance.md) - agents-governance
+- [agents-governance.md](./agents-governance.md) - Agent Workflow Standard (Pattern 3-Step)
   - H2: Agent Workflow Standard (Pattern 3-Step)
-- [../../agents/AGENT_WORKFLOW_STANDARD.md](../../agents/AGENT_WORKFLOW_STANDARD.md) - Agent Workflow Standard - Pattern 3-Step Completion
-  - H2: Pattern Standard: 3-Step Completion
-  - H2: Integrazione con GEDI Pattern
-  - H2: Template Riutilizzabili
-- [agents/agent-dq-blueprint.md](./agents/agent-dq-blueprint.md) - Agent – DQ Blueprint (Spec v0)
 - [agents-scrummaster.md](./agents-scrummaster.md) - agents-scrummaster
+- [agents/agent-dq-blueprint.md](./agents/agent-dq-blueprint.md) - Agent – DQ Blueprint (Spec v0)
+- [ai/knowledge-vettoriale-easyway.md](./ai/knowledge-vettoriale-easyway.md) - 🧠 Knowledge Base Vettoriale in EasyWay DataPortal
+  - H2: Cos’è una knowledge base vettoriale?
+  - H2: Perché serve a EasyWay
+  - H2: Architettura e workflow consigliato
+- [api/rest-errors-qna.md](./api/rest-errors-qna.md) - QnA - Errori REST API (EasyWay Portal)
+  - H2: Contesto (repo)
+  - H2: Q&A (errori ricorrenti)
+  - H2: Note
+- [argos/argos-alerting.md](./argos/argos-alerting.md) - ARGOS – Alerting & Notifications Guide (v1.1)
+  - H2: 1) Principi
+  - H2: 2) Canali
+  - H2: 3) Severità & mapping
+- [argos/argos-change-versioning.md](./argos/argos-change-versioning.md) - ARGOS – Change & Versioning Guide (v1)
+- [argos/argos-coach-agent.md](./argos/argos-coach-agent.md) - ARGOS – Coach Agent (Spec v1)
+  - H2: Trigger e segnali
+  - H2: Azioni
+  - H2: Telemetria
+- [argos/argos-event-schema.md](./argos/argos-event-schema.md) - ARGOS – Event Schema Addendum (v1)
+- [argos/argos-glossario.md](./argos/argos-glossario.md) - ARGOS – Glossario Unificato (v1)
+- [argos/argos-modular-interop.md](./argos/argos-modular-interop.md) - ARGOS – Modular Architecture & Interop (v1)
+  - H2: Principi di modularità
+  - H2: I tre moduli (estratto)
+  - H2: Strato di correlazione
+- [argos/argos-overview.md](./argos/argos-overview.md) - ARGOS – Overview e Integrazione con EasyWayDataPortal
+- [argos/argos-playbook-catalog.md](./argos/argos-playbook-catalog.md) - ARGOS – Playbook Catalog (v1)
+  - H2: Principi essenziali
+  - H2: Struttura standard Playbook
+  - H2: Indice Playbook (selezione v1)
+- [argos/argos-policy-dsl.md](./argos/argos-policy-dsl.md) - ARGOS – Policy DSL & Registry Specification (v1.1)
+  - H2: Principi
+  - H2: Oggetto Policy (schema logico)
+  - H2: CHECK – costrutti DSL (estratti)
+- [argos/argos-quality-gates.md](./argos/argos-quality-gates.md) - ARGOS – Quality Gates Specification (v1.1)
+  - H2: 0) Principi
+  - H2: 1) Tipi di Gate
+  - H2: 2) Input minimi
+- [argos/argos-tech-profiling.md](./argos/argos-tech-profiling.md) - ARGOS – Tech Profiling & Reliability (Spec v1)
+  - H2: Estensioni LDM (estratto)
+  - H2: Viste consigliate
+  - H2: Gate «Profiling» (soft)
 - [best-practices-token-tuning-roadmap.md](./best-practices-token-tuning-roadmap.md) - Best Practices & Roadmap – Token Tuning, AI-Readiness e Governance Universale
   - H2: Obiettivo
   - H2: 1. Best Practices per la Riduzione Token e l’AI-Readiness
   - H2: 2. Applicazione alle Principali Varianti di Formato
+- [best-practices/documentation-gardening.md](./best-practices/documentation-gardening.md) - Documentation Gardening 🌱
+  - H2: Il Problema
+  - H2: La Soluzione: Il Ciclo del Giardiniere (Gardener Cycle)
+  - H2: Benefici
+- [blueprints/db-portal-diagram.md](./blueprints/db-portal-diagram.md) - Blueprint - DB PORTAL Diagram (internal viewer)
+  - H2: Contesto
+  - H2: Cosa abbiamo implementato (MVP)
+  - H2: Uso (local workflow)
+- [blueprints/db-portal-tables.md](./blueprints/db-portal-tables.md) - Blueprint - DB PORTAL Tables (previste)
+  - H2: Contesto
+  - H2: Dove leggere il blueprint (Wiki)
+  - H2: Export CSV (Excel-friendly)
+- [blueprints/db-table-create-sheet.md](./blueprints/db-table-create-sheet.md) - Blueprint - DB Table Create (Excel/CSV -> Intent)
+  - H2: Contesto
+  - H2: Source of truth (template)
+  - H2: Flusso operativo (deterministico)
+- [blueprints/db-table-dictionary-template.md](./blueprints/db-table-dictionary-template.md) - Template Data Dictionary (DB Table) - Excel
+  - H2: Contesto (repo)
+  - H2: Cosa contiene il template
+  - H2: Come usarlo (happy path)
+- [blueprints/legacy-reference-material.md](./blueprints/legacy-reference-material.md) - Materiale di riferimento (Legacy)
+  - H2: Vedi anche
 - [blueprints/replicate-easyway-dataportal.md](./blueprints/replicate-easyway-dataportal.md) - Variabili Pipeline (ADO) – Esempio
-- [deploy-app-service.md](./deploy-app-service.md) - deploy-app-service
-- [dev-dual-mode.md](./dev-dual-mode.md) - Sviluppo Locale Dual‑Mode (DB mock | SQL)
-- [agent-first-method.md](./agent-first-method.md) - Metodo di Lavoro Agent-First
-- [ado-operating-model.md](./ado-operating-model.md) - Azure DevOps Operating Model (Hybrid)
-- [value-proposition.md](./value-proposition.md) - Visione & Value Proposition
-- [intent-contract.md](./intent-contract.md) - Contratto Intent (Mini‑DSL)
-- [output-contract.md](./output-contract.md) - Output Contract (JSON)
-- [agents/agent_template/README.md](../../agents/agent_template/README.md) - Template Agente (Skeleton)
-- [db-user-access-management.md](./db-user-access-management.md) - Gestione Accessi DB (Agent DBA)
-- [datalake-ensure-structure.md](./datalake-ensure-structure.md) - Datalake Ensure Structure (Stub)
-- [datalake-apply-acl.md](./datalake-apply-acl.md) - Datalake Apply ACL (Stub)
-- [datalake-set-retention.md](./datalake-set-retention.md) - Datalake Set Retention (Stub)
-- [etl-elt-playbook.md](./etl-elt-playbook.md) - ETL/ELT Playbook (Scheletro)
-- [etl-elt-template.md](./etl-elt-template.md) - ETL/ELT Template (Per-Pipeline)
-- [etl-elt-technology-choices.md](./etl-elt-technology-choices.md) - ETL/ELT Scelte Tecnologiche
-- [etl-inspirations.md](./etl-inspirations.md) - ETL/ELT Inspirations (ADA Framework)
-- [etl-dq-framework.md](./etl-dq-framework.md) - ETL – Data Quality Framework
-  - ARGOS: vedi nuova sezione “ARGOS Data Quality”
-- [etl-table-log-model.md](./etl-table-log-model.md) - ETL – Table Log Model
-- [etl-governance-sla.md](./etl-governance-sla.md) - ETL – Governance & SLA
-## ARGOS Data Quality
-- [argos/argos-overview.md](./argos/argos-overview.md) - ARGOS – Overview e Integrazione
-- [argos/argos-quality-gates.md](./argos/argos-quality-gates.md) - ARGOS – Quality Gates (v1.1)
-- [argos/argos-policy-dsl.md](./argos/argos-policy-dsl.md) - ARGOS – Policy DSL & Registry (v1.1)
-- [argos/argos-alerting.md](./argos/argos-alerting.md) - ARGOS – Alerting & Notifications (v1.1)
-- [argos/argos-playbook-catalog.md](./argos/argos-playbook-catalog.md) - ARGOS – Playbook Catalog (v1)
-- [argos/argos-tech-profiling.md](./argos/argos-tech-profiling.md) - ARGOS – Tech Profiling & Reliability (v1)
-- [argos/argos-coach-agent.md](./argos/argos-coach-agent.md) - ARGOS – Coach Agent (v1)
-- [argos/argos-modular-interop.md](./argos/argos-modular-interop.md) - ARGOS – Modular Architecture & Interop (v1)
-- [argos/argos-event-schema.md](./argos/argos-event-schema.md) - ARGOS – Event Schema Addendum (v1)
-- [argos/argos-change-versioning.md](./argos/argos-change-versioning.md) - ARGOS – Change & Versioning (v1)
-- [argos/argos-glossario.md](./argos/argos-glossario.md) - ARGOS – Glossario (v1)
-## Use Cases
-- [use-cases/entrate-uscite.md](./use-cases/entrate-uscite.md) - Use Case – Entrate/Uscite (One‑Button UX)
-## Quest Board
-- [quest-board-excel-csv.md](./quest-board-excel-csv.md) - Quest Board – Excel/CSV Upload (L1→L5)
-- [quest-board-docs-dq.md](./quest-board-docs-dq.md) - Quest Board - Documentazione (DQ + Kanban)
-## HOWTO
-- [howto-what-first-team.md](./howto-what-first-team.md) - HOWTO - WHAT-first + Diario di Bordo (Team)
-- [orchestrations/docs-dq-audit.md](./orchestrations/docs-dq-audit.md) - Docs DQ Audit + Kanban (WHAT)
-- [orchestrations/docs-confluence-dq-kanban.md](./orchestrations/docs-confluence-dq-kanban.md) - Docs DQ Kanban - Confluence Cloud (WHAT)
-- [orchestrations/ado-userstory-create.md](./orchestrations/ado-userstory-create.md) - ADO User Story Create (WHAT)
+- [caa/easyCAA-overview.md](./caa/easyCAA-overview.md) - EasyCAA - Comunicazione Aumentativa Alternativa
+  - H2: Filosofia
+  - H2: Documenti Chiave
+  - H2: Architettura CAA
+- [checklist-ado-required-job.md](./checklist-ado-required-job.md) - Vedi anche
+  - H2: Vedi anche
+- [ci-verifica-ewctl-gates-e-flyway.md](./ci-verifica-ewctl-gates-e-flyway.md) - Vedi anche
+  - H2: Vedi anche
+- [control-plane/agent-orchestration-weighting.md](./control-plane/agent-orchestration-weighting.md) - Multi-Agent Orchestration con Ponderazione e Round Table
+  - H2: Contesto
+  - H2: Principi Cardine
+  - H2: Architettura Completa
+- [control-plane/agent-vectordb-architecture.md](./control-plane/agent-vectordb-architecture.md) - Agent-First Architecture con Vector Database
+  - H2: Vision
+  - H2: Architettura Complessiva
+  - H2: Principi Fondamentali
+- [control-plane/agents-manifest-audit.md](./control-plane/agents-manifest-audit.md) - Agents Manifest Audit (gap list)
+  - H2: Contesto (repo)
+  - H2: Come eseguire (manuale)
+  - H2: Come eseguire (agentico)
+- [control-plane/agents-missing-roadmap.md](./control-plane/agents-missing-roadmap.md) - Roadmap agent (retrieval, observability, infra, backend, release)
+  - H2: Contesto (repo)
+  - H2: Stato
+  - H2: Intent minimi (WHAT-first)
+- [control-plane/agents-registry.md](./control-plane/agents-registry.md) - Agents Registry (owner, domini, intent)
+  - H2: Contesto (repo)
+  - H2: Agenti (attivi)
+  - H2: Pattern canonico (RAG-ready)
 - [control-plane/index.md](./control-plane/index.md) - Control Plane - Panoramica
+  - H2: Domande a cui risponde
+- [control-plane/segregation-model-dev-knowledge-runtime.md](./control-plane/segregation-model-dev-knowledge-runtime.md) - Segregation Model (Dev vs Knowledge vs Runtime)
+  - H2: Contesto (repo)
+  - H2: Obiettivo
+  - H2: Dev world (repo)
+- [datalake-apply-acl.md](./datalake-apply-acl.md) - Datalake - Apply ACL (Agent Datalake)
+  - H2: Parsing Output (JSON)
+  - H2: Parse Cheatsheet
+  - H2: Domande a cui risponde
+- [datalake-ensure-structure.md](./datalake-ensure-structure.md) - Datalake - Ensure Structure (Agent Datalake)
+  - H2: Parsing Output (JSON)
+  - H2: Parse Cheatsheet
+  - H2: Domande a cui risponde
+- [datalake-set-retention.md](./datalake-set-retention.md) - Datalake - Set Retention (Agent Datalake)
+  - H2: Parsing Output (JSON)
+  - H2: Parse Cheatsheet
+  - H2: Domande a cui risponde
+- [db-generate-artifacts-dsl.md](./db-generate-artifacts-dsl.md) - Domande a cui risponde
+  - H2: Domande a cui risponde
+  - H2: Prerequisiti
+  - H2: Passi
+- [db-user-access-management.md](./db-user-access-management.md) - Gestione Accessi DB (Agent DBA)
+  - H2: Parsing Output (JSON)
+  - H2: Parse Cheatsheet
+  - H2: Domande a cui risponde
+- [deploy-app-service.md](./deploy-app-service.md) - Obiettivo
+  - H2: Obiettivo
+  - H2: Domande a cui risponde
+  - H2: Prerequisiti
+- [deployment-decision-mvp.md](./deployment-decision-mvp.md) - Deployment decision (MVP) — EasyWay Data Portal
+- [dev-dual-mode.md](./dev-dual-mode.md) - Obiettivo
+  - H2: Obiettivo
+  - H2: Domande a cui risponde
+  - H2: Prerequisiti
+- [doc-alignment-gate.md](./doc-alignment-gate.md) - Doc Alignment Gate
+  - H2: Vedi anche
+- [docs-agentic-audit.md](./docs-agentic-audit.md) - Documentazione Agentica - Audit & Policy (Canonico)
+  - H2: 1) Principi anti-allucinazione
+  - H2: 2) Struttura minima per pagina (RAG-first)
+  - H2: 3) Front matter YAML (obbligatorio)
+- [docs-conventions.md](./docs-conventions.md) - EasyWayData Portal - Regole Semplici (La Nostra Bibbia)
+  - H2: 1) Nomi di file e cartelle
+  - H2: 2) kebab-case vs snake_case
+  - H2: 3) Quick check (regex)
+  - H2: 8) Template obbligatorio per nuove pagine
+- [docs-related-links.md](./docs-related-links.md) - Suggerimenti Link Correlati (Affinità)
+  - H2: Come funziona
+  - H2: Comando
+  - H2: Come usarlo (Human-in-the-loop)
+- [docs-tag-scopes.md](./docs-tag-scopes.md) - Tag Scopes & Retrieval Bundles (Gerarchia)
+  - H2: Contesto
+  - H2: 🏗️ Architettura a 3 Livelli
+  - H2: 📦 Level 2: Scopes
+- [docs-tag-taxonomy.md](./docs-tag-taxonomy.md) - Tag Taxonomy (Controllata)
+  - H2: Formato
+  - H2: Facet obbligatorie
+  - H2: Valori ammessi (v1.1)
+- [documentation-governance-workflow.md](./documentation-governance-workflow.md) - Documentation Governance Workflow 🌳
+  - H2: Il Sistema Completo
+  - H2: Le 8 Azioni dello Scanner
+  - H2: File Critici del Sistema
+- [domains/datalake.md](./domains/datalake.md) - Dominio Datalake
+  - H2: Vedi anche
+- [domains/db.md](./domains/db.md) - Dominio DB
+  - H2: Vedi anche
+- [domains/docs-governance.md](./domains/docs-governance.md) - Dominio Docs & Governance
+  - H2: Vedi anche
+- [domains/frontend.md](./domains/frontend.md) - Dominio Frontend
+  - H2: Vedi anche
 - [domains/index.md](./domains/index.md) - Domini - Panoramica
-- [start-here.md](./start-here.md) - Start Here - 5 Link Essenziali
-- [orphans-index.md](./orphans-index.md) - Radar: pagine isolate (degree=0) da collegare
-- [docs-related-links.md](./docs-related-links.md) - Suggerimenti di link correlati (affinità) per cross-link
-- [orchestrations/docs-related-links-apply.md](./orchestrations/docs-related-links-apply.md) - Orchestrazione - link correlati (apply, HITL, rollback)
-- [orchestrations/orchestrator-n8n.md](./orchestrations/orchestrator-n8n.md) - Orchestratore n8n (WHAT)
-- [orchestrations/wf-excel-csv-upload.md](./orchestrations/wf-excel-csv-upload.md) - Orchestrazione - wf.excel-csv-upload (WHAT)
-- [orchestrations/intents-catalog.md](./orchestrations/intents-catalog.md) - Orchestrations - Intents Catalog (Use Case Excel/CSV)
-## UX
-- [UX/diary-mock-wf-excel-csv-upload.md](./UX/diary-mock-wf-excel-csv-upload.md) - UX Mock – Diario di Bordo (wf.excel-csv-upload)
-- [UX/usability-checklist.md](./UX/usability-checklist.md) - UX – Usability Checklist (One‑Button)
- - [governance-dq.md](./governance-dq.md) - Governance DQ – RACI, Processi e Checklist
-- [docs-conventions.md](./docs-conventions.md) - EasyWayData Portal – Regole Semplici (La Nostra Bibbia)
-  - H2: 1) Nomi di file e cartelle (semplici)
-  - H2: 1.1) Convenzione di Nomenclatura – kebab-case vs snake_case
-  - H2: Uso di kebab-case e snake_case per AI, DB e API
-- [easyway-webapp/01_database_architecture/01a-db-setup.md](./easyway-webapp/01_database_architecture/01a-db-setup.md) - EasyWay Data Portal – Database SETUP
+  - H2: Domande a cui risponde
+- [dr-gaps-vs-ada.md](./dr-gaps-vs-ada.md) - Cosa integrare da ADA per EasyWayDataPortal (approccio operativo e cosa aggiungere)
+  - H2: Vedi anche
+- [dr-inventory-matrix.md](./dr-inventory-matrix.md) - DR — Inventory & matrice componente → RTO / RPO
+  - H2: Vedi anche
+- [easyway-webapp.md](./easyway-webapp.md) - 🎯 EasyWay Data Portal – Start With Why
+  - H2: 🧭 Why – Perché lo facciamo
+  - H2: 🛠 How – Come lo facciamo
+  - H2: 📦 What – Cosa offriamo
+- [easyway-webapp/01_database_architecture/01a-db-setup.md](./easyway-webapp/01_database_architecture/01a-db-setup.md) - EasyWay Data Portal - Database SETUP
   - H2: ✅ Scopo del file
   - H2: 1️⃣ **Login SQL Server (da creare su MASTER)**
   - H2: Domande a cui risponde
-- [easyway-webapp/01_database_architecture/01b_schema_structure/portal.md](./easyway-webapp/01_database_architecture/01b_schema_structure/portal.md) - EasyWay Data Portal – PORTAL.md
+- [easyway-webapp/01_database_architecture/01b_schema_structure/portal.md](./easyway-webapp/01_database_architecture/01b_schema_structure/portal.md) - EasyWay Data Portal - PORTAL.md
   - H2: ✅ Scopo del file
   - H2: 📋 **Riepilogo tabelle principali schema PORTAL**
   - H2: 5️⃣ **Accesso sezioni Portale** (Policy Section Access custom)
@@ -118,7 +230,7 @@ next: TODO - definire next step.
   - H2: Schema/DDL
 - [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md) - Indice
   - H2: Domande a cui risponde
-- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md) - EasyWay Data Portal – SEQUENCE
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md) - EasyWay Data Portal - SEQUENCE
   - H2: ✅ Scopo del file
   - H2: 1️⃣ Sequence PRODUZIONE (NDG reali)
   - H2: 2️⃣ Sequence DEBUG/TEST (codici demo)
@@ -160,22 +272,79 @@ next: TODO - definire next step.
   - H2: Domande a cui risponde
   - H2: Scopo
   - H2: Schema/DDL
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/index.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/index.md) - PORTAL — Tables (Blueprint)
+  - H2: Contesto
+  - H2: Tabelle (canoniche da Flyway)
+  - H2: Domande a cui risponde
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-configuration.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-configuration.md) - PORTAL.CONFIGURATION — Configuration
+  - H2: Contesto
+  - H2: Scopo
+  - H2: Domande a cui risponde
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-log-audit.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-log-audit.md) - PORTAL.LOG_AUDIT — Audit log
+  - H2: Contesto
+  - H2: Scopo
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-masking-metadata.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-masking-metadata.md) - PORTAL.MASKING_METADATA — Masking metadata
+  - H2: Contesto
+  - H2: Scopo
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-profile-domains.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-profile-domains.md) - PORTAL.PROFILE_DOMAINS — Profile domains
+  - H2: Contesto
+  - H2: Scopo
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-rls-metadata.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-rls-metadata.md) - PORTAL.RLS_METADATA — RLS metadata
+  - H2: Contesto
+  - H2: Scopo
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-section-access.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-section-access.md) - PORTAL.SECTION_ACCESS — Section access
+  - H2: Contesto
+  - H2: Scopo
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-stats-execution-log.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-stats-execution-log.md) - PORTAL.STATS_EXECUTION_LOG — SP execution log
+  - H2: Contesto
+  - H2: Scopo
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-stats-execution-table-log.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-stats-execution-table-log.md) - PORTAL.STATS_EXECUTION_TABLE_LOG — Table execution log
+  - H2: Contesto
+  - H2: Scopo
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-subscription.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-subscription.md) - PORTAL.SUBSCRIPTION — Subscription
+  - H2: Contesto
+  - H2: Scopo
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-tenant.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-tenant.md) - PORTAL.TENANT — Tenant
+  - H2: Contesto
+  - H2: Scopo
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-user-notification-settings.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-user-notification-settings.md) - PORTAL.USER_NOTIFICATION_SETTINGS — User notification settings
+  - H2: Contesto
+  - H2: Scopo
+- [easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-users.md](./easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-users.md) - PORTAL.USERS — Users
+  - H2: Contesto
+  - H2: Scopo
 - [easyway-webapp/01_database_architecture/01b-schema-structure.md](./easyway-webapp/01_database_architecture/01b-schema-structure.md) - Domande a cui risponde
   - H2: Domande a cui risponde
 - [easyway-webapp/01_database_architecture/best-practices-checklist.md](./easyway-webapp/01_database_architecture/best-practices-checklist.md) - best-practices-checklist
 - [easyway-webapp/01_database_architecture/db-studio.md](./easyway-webapp/01_database_architecture/db-studio.md) - db-studio
-- [easyway-webapp/01_database_architecture/flyway.md](./easyway-webapp/01_database_architecture/flyway.md) - Le credenziali (URL/USER/PASSWORD) si passano come env nel runner
+- [easyway-webapp/01_database_architecture/ddl-inventory.md](./easyway-webapp/01_database_architecture/ddl-inventory.md) - DB PORTAL - Inventario DDL (canonico)
+  - H2: Obiettivo
+  - H2: Domande a cui risponde
+  - H2: Source of truth (repo)
+- [easyway-webapp/01_database_architecture/flyway.md](./easyway-webapp/01_database_architecture/flyway.md) - Contesto
+  - H2: Contesto
+  - H2: Troubleshooting (Flyway)
+  - H2: Provisioning dev/local (wrapper)
+- [easyway-webapp/01_database_architecture/howto-create-table.md](./easyway-webapp/01_database_architecture/howto-create-table.md) - HowTo: creare una tabella
+  - H2: Regola base (razionalizzazione)
+  - H2: Passi (WHAT-first)
+  - H2: Comandi
 - [easyway-webapp/01_database_architecture/index.md](./easyway-webapp/01_database_architecture/index.md) - Indice
+  - H2: Contesto
   - H2: Domande a cui risponde
 - [easyway-webapp/01_database_architecture/portal.md](./easyway-webapp/01_database_architecture/portal.md) - portal
 - [easyway-webapp/01_database_architecture/sequence.md](./easyway-webapp/01_database_architecture/sequence.md) - sequence
 - [easyway-webapp/01_database_architecture/storeprocess.md](./easyway-webapp/01_database_architecture/storeprocess.md) - storeprocess
-- [easyway-webapp/01-database-architecture.md](./easyway-webapp/01-database-architecture.md) - EasyWay Data Portal – Database Architecture Master
+- [easyway-webapp/01_database_architecture/why-not-flyway.md](./easyway-webapp/01_database_architecture/why-not-flyway.md) - Perché NON usare Flyway per questo progetto
+  - H2: TL;DR
+  - H2: Contesto
+  - H2: Problemi Riscontrati
+- [easyway-webapp/01-database-architecture.md](./easyway-webapp/01-database-architecture.md) - EasyWay Data Portal - Database Architecture Master
   - H2: ✅ Scopo del Documento
   - H2: 👾 Conversational Intelligence & AMS Ready — Principi Base
   - H2: 📂 Schemi Database Principali
-- [easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md) - Integrazione API Esterne – EasyWay Data Portal
-  - H2: Lookup – Integrazione API Esterne
+- [easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md) - Integrazione API Esterne - EasyWay Data Portal
+  - H2: Lookup - Integrazione API Esterne
   - H2: Tabella Integrazioni API Esterne
   - H2: Policy Sicurezza & Gestione Key/API
 - [easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md) - **1. Schema di validazione**
@@ -187,6 +356,7 @@ next: TODO - definire next step.
 - [easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md) - Checklist di test API (EasyWay Data Portal)
   - H2: Checklist di test API (EasyWay Data Portal)
   - H2: Domande a cui risponde
+  - H2: Prerequisiti
 - [easyway-webapp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md) - Convenzioni REST EasyWay
   - H2: Convenzioni REST EasyWay
   - H2: Domande a cui risponde
@@ -199,6 +369,9 @@ next: TODO - definire next step.
   - H2: Best Practice Scalabilità
   - H2: Checklist Naming & Scalabilità
 - [easyway-webapp/02_logiche_easyway/index.md](./easyway-webapp/02_logiche_easyway/index.md) - Indice
+  - H2: Domande a cui risponde
+- [easyway-webapp/02_logiche_easyway/integrate-ada-best-practices.md](./easyway-webapp/02_logiche_easyway/integrate-ada-best-practices.md) - Integrare le best-practice ADA in EasyWayDataPortal
+  - H2: Vedi anche
 - [easyway-webapp/02_logiche_easyway/logging-and-audit.md](./easyway-webapp/02_logiche_easyway/logging-and-audit.md) - Logging & Audit – EasyWay Data Portal
   - H2: Lookup Logging & Audit – Microservizi & API Gateway
   - H2: Tabella Eventi/Audit da Tracciare
@@ -207,10 +380,10 @@ next: TODO - definire next step.
   - H2: Obiettivo
   - H2: Checklist Logging & Audit
   - H2: Template di commento/README da includere in ogni script/codice
-- [easyway-webapp/02_logiche_easyway/login-flussi-onboarding.md](./easyway-webapp/02_logiche_easyway/login-flussi-onboarding.md) - Lookup – Flussi Onboarding/Login
+- [easyway-webapp/02_logiche_easyway/login-flussi-onboarding.md](./easyway-webapp/02_logiche_easyway/login-flussi-onboarding.md) - Flussi Onboarding/Login - EasyWay Data Portal
+  - H2: Lookup - Flussi Onboarding/Login
   - H2: Tabella Flussi Utente
   - H2: Best Practice Onboarding/Login
-  - H2: Esempio Flusso Step-by-Step – Onboarding Locale
 - [easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md](./easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md) - Esempi Flussi Avanzati Onboarding/Login
   - H2: Esempi Flussi Avanzati Onboarding/Login
   - H2: Dettaglio Esempio – SSO Aziendale Custom (Entra ID/SAML/OIDC)
@@ -219,14 +392,14 @@ next: TODO - definire next step.
   - H2: Esempio Dettagliato – Accesso tramite SPID
   - H2: Esempio Dettagliato – Accesso tramite CIE
   - H2: Esempio Onboarding Integrato SPID/CIE
-- [easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md](./easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md) - Flussi Onboarding/Login – Dettagli & Variazioni
+- [easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md](./easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md) - Flussi Onboarding/Login - Dettagli & Variazioni
   - H2: Tabella Flussi Aggiuntivi e Variazioni
   - H2: Dettaglio Pratiche Operative
-  - H2: Esempio Flusso “Upgrade prospect → cliente reale”
-- [easyway-webapp/02_logiche_easyway/notifiche-gestione.md](./easyway-webapp/02_logiche_easyway/notifiche-gestione.md) - Lookup – Gestione Notifiche
+  - H2: Esempio Flusso "Upgrade prospect -> cliente reale"
+- [easyway-webapp/02_logiche_easyway/notifiche-gestione.md](./easyway-webapp/02_logiche_easyway/notifiche-gestione.md) - Gestione Notifiche - EasyWay Data Portal
+  - H2: Lookup - Gestione Notifiche
   - H2: Tabella Tipologia Notifiche
   - H2: Gestione Preferenze Notifica Utente
-  - H2: Flusso Invio Notifiche (step-by-step)
 - [easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md](./easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md) - Esempi Notifiche & Template Email Configurabili (Excel su Storage)
   - H2: 1. Flusso Gestione Template Email
   - H2: 2. Struttura file Excel `email_templates.xlsx`
@@ -246,6 +419,7 @@ next: TODO - definire next step.
   - H2: 🔎 Differenza tra Blob Storage e Datalake HNS
   - H2: 🏷️ Naming Convention - Utenze di Servizio
 - [easyway-webapp/03_datalake_dev/index.md](./easyway-webapp/03_datalake_dev/index.md) - Indice
+  - H2: Domande a cui risponde
 - [easyway-webapp/03-datalake-dev.md](./easyway-webapp/03-datalake-dev.md) - `landing/`
   - H2: Domande a cui risponde
 - [easyway-webapp/04-accesso-registrazione-notifiche.md](./easyway-webapp/04-accesso-registrazione-notifiche.md) - EasyWay Data Portal - Documentazione Funzionale Completa
@@ -259,7 +433,7 @@ next: TODO - definire next step.
   - H2: Scopo
   - H2: Linee guida agentiche
   - H2: Esempio 1 — USERS (CRUD via SP)
-- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md) - Capitolo – Dinamiche di Manutenzione
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md) - Capitolo - Dinamiche di Manutenzione
   - H2: Architettura delle Cartelle — Dinamiche di Manutenzione
   - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/endpoint.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/endpoint.md) - Domande a cui risponde
@@ -274,11 +448,14 @@ next: TODO - definire next step.
 - [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md) - ENDPOINT: CRUD `/api/users`
   - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md) - Indice
+  - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md) - ENDPOINT: [HTTP_VERB] `/api/your-endpoint`
   - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md) - Gestione Log — EasyWay Data Portal
+  - H2: Prerequisiti
+  - H2: Passi
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md) - Gestione Log - EasyWay Data Portal
   - H2: **Principi guida**
   - H2: **Tipi di log gestiti**
   - H2: **Policy dati sensibili**
@@ -294,12 +471,7 @@ next: TODO - definire next step.
   - H2: Principio Guida
   - H2: Vantaggi del modello
   - H2: Pattern operativo
-- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente.md) - Step 1 - Setup ambiente (Onboarding rapido)
-  - H2: Prerequisiti
-  - H2: Passi (locale)
-- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md) - STEP 3 - Gestione configurazioni (YAML + DB)
-  - H2: Domande a cui risponde
-- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md) - EasyWay Data Portal API - Starter Kit
+- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md) - EasyWay Data Portal API — Starter Kit
   - H2: Comandi principali
   - H2: Struttura file configurazione
   - H2: Domande a cui risponde
@@ -307,10 +479,11 @@ next: TODO - definire next step.
   - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso.md) - step 5 validazione avanzata dati in ingresso
-  - H2: Domande a cui risponde
+  - H2: Prerequisiti
+  - H2: Passi
 - [easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md](./easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md) - **A. Middleware di validazione per parametri e querystring**
   - H2: Domande a cui risponde
+  - H2: Checklist per considerare lo step COMPLETO
 - [easyway-webapp/05_codice_easyway_portale/easyway-portal-api.md](./easyway-webapp/05_codice_easyway_portale/easyway-portal-api.md) - EasyWay Data Portal — Manifesto Tecnologico & Analitico
   - H2: Codice
   - H2: Premessa e Visione
@@ -321,21 +494,24 @@ next: TODO - definire next step.
   - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/index.md](./easyway-webapp/05_codice_easyway_portale/index.md) - Indice
   - H2: Domande a cui risponde
-- [easyway-webapp/05_codice_easyway_portale/qa-setup-and-test-locale.md](./easyway-webapp/05_codice_easyway_portale/qa-setup-and-test-locale.md) - EasyWay Data Portal — Q&A Setup & Test Locale
+- [easyway-webapp/05_codice_easyway_portale/qa-setup-and-test-locale.md](./easyway-webapp/05_codice_easyway_portale/qa-setup-and-test-locale.md) - EasyWay Data Portal - Q&A Setup & Test Locale
   - H2: Aggiornamenti dal 2025-07-28 al 2025-07-29
-  - H2: **Note generali**
+  - H2: Note generali
   - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/readme.md](./easyway-webapp/05_codice_easyway_portale/readme.md) - Domande a cui risponde
   - H2: Domande a cui risponde
 - [easyway-webapp/05_codice_easyway_portale/scripts.md](./easyway-webapp/05_codice_easyway_portale/scripts.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [easyway-webapp/05_codice_easyway_portale/security-and-observability.md](./easyway-webapp/05_codice_easyway_portale/security-and-observability.md) - security-and-observability
+- [easyway-webapp/05_codice_easyway_portale/security-and-observability.md](./easyway-webapp/05_codice_easyway_portale/security-and-observability.md) - Security testing & pen test (piano)
+  - H2: Security testing & pen test (piano)
+  - H2: Punti di attenzione (backlog)
+  - H2: Go-Live preflight (Security/Compliance/Audit)
 - [easyway-webapp/05-codice-easyway-portale.md](./easyway-webapp/05-codice-easyway-portale.md) - Domande a cui risponde
   - H2: Domande a cui risponde
-- [easyway-webapp/06-frontend-architecture.md](./easyway-webapp/06-frontend-architecture.md) - EasyWay Data Portal – Frontend Architecture & Integration
-  - H2: 🎯 Obiettivo
-  - H2: 📁 Struttura Progetto Frontend (Next.js)
-  - H2: 🔄 Mappatura Controller Backend ⇄ Frontend UI
+- [easyway-webapp/06-frontend-architecture.md](./easyway-webapp/06-frontend-architecture.md) - EasyWay Data Portal - Frontend Architecture & Integration
+  - H2: Obiettivo
+  - H2: Struttura Progetto Frontend (Next.js)
+  - H2: Mappatura Controller Backend -> Frontend UI
 - [easyway-webapp/07-iam-naming-utenti-gruppi.md](./easyway-webapp/07-iam-naming-utenti-gruppi.md) - 📂 Wiki IAM - Naming Convention Utenze Tecniche e Gruppi  
   - H2: 🎯 Scopo del Documento  
   - H2: 🔑 Naming Convention - Utenze Tecniche di Servizio  
@@ -344,99 +520,354 @@ next: TODO - definire next step.
   - H2: Obiettivo
   - H2: Sommario
   - H2: 1. Introduzione
-- [easyway-webapp.md](./easyway-webapp.md) - 🎯 EasyWay Data Portal – Start With Why
-  - H2: 🧭 Why – Perché lo facciamo
-  - H2: 🛠 How – Come lo facciamo
-  - H2: 📦 What – Cosa offriamo
+- [enforcer-guardrail.md](./enforcer-guardrail.md) - Vedi anche
+  - H2: Vedi anche
 - [entities-index.md](./entities-index.md) - Entities Index
   - H2: Endpoints
   - H2: DB Stored Procedures
   - H2: DB Sequences
-- [index.md](./index.md) - Indice Globale
+- [etl-dq-framework.md](./etl-dq-framework.md) - ETL – Data Quality Framework
+- [etl-elt-playbook.md](./etl-elt-playbook.md) - ETL/ELT Playbook
   - H2: Domande a cui risponde
+  - H2: Prerequisiti
+  - H2: Passi
+- [etl-elt-technology-choices.md](./etl-elt-technology-choices.md) - ETL/ELT – Scelte Tecnologiche
+  - H2: Decisioni Minime (provvisorie)
+  - H2: Quando usare cosa (regola pratica)
+  - H2: Mappatura agentica (prossimi step)
+- [etl-elt-template.md](./etl-elt-template.md) - ETL/ELT – [nome-pipeline]
+- [etl-governance-sla.md](./etl-governance-sla.md) - ETL – Governance & SLA
+- [etl-inspirations.md](./etl-inspirations.md) - ETL/ELT – Inspirations
+- [etl-table-log-model.md](./etl-table-log-model.md) - ETL – Table Log Model
+- [etl/atomic-flows-agentic.md](./etl/atomic-flows-agentic.md) - Atomic Flows – Orchestrazione Agent‑First
+  - H2: Vedi anche
+- [frontend/error-messages-user-friendly.md](./frontend/error-messages-user-friendly.md) - Error Messages User-Friendly 🇮🇹
+  - H2: Problema
+  - H2: Architettura
+  - H2: Dizionario Errori Comuni
+- [glossario-errori-faq.md](./glossario-errori-faq.md) - Glossario Essenziale EasyWay
+  - H2: Vedi anche
+- [governance-dq.md](./governance-dq.md) - Governance DQ – RACI, Processi e Checklist
+- [howto-what-first-team.md](./howto-what-first-team.md) - HOWTO – WHAT‑first + Diario di Bordo (Team)
+  - H2: Obiettivo
+  - H2: Domande a cui risponde
+  - H2: Prerequisiti
+- [index.md](./index.md) - Indice Globale Wiki
+  - H2: ARGOS Data Quality
+  - H2: Use Cases
+  - H2: Quest Board
+- [indices/ARTIFACT/Blueprint.md](./indices/ARTIFACT/Blueprint.md) - 📄 Blueprint
+  - H2: Pages in this category
+- [indices/ARTIFACT/Contract.md](./indices/ARTIFACT/Contract.md) - 📄 Contract
+  - H2: Pages in this category
+- [indices/ARTIFACT/HowTo.md](./indices/ARTIFACT/HowTo.md) - 📄 HowTo
+  - H2: Pages in this category
+- [indices/ARTIFACT/index.md](./indices/ARTIFACT/index.md) - 📄 Index
+  - H2: Pages in this category
+  - H2: Domande a cui risponde
+- [indices/ARTIFACT/Orchestration.md](./indices/ARTIFACT/Orchestration.md) - 📄 Orchestration
+  - H2: Pages in this category
+- [indices/ARTIFACT/Reference.md](./indices/ARTIFACT/Reference.md) - 📄 Reference
+  - H2: Pages in this category
+- [indices/ARTIFACT/Report.md](./indices/ARTIFACT/Report.md) - 📄 Report
+  - H2: Pages in this category
+- [indices/ARTIFACT/Runbook.md](./indices/ARTIFACT/Runbook.md) - 📄 Runbook
+  - H2: Pages in this category
+- [indices/ARTIFACT/Script.md](./indices/ARTIFACT/Script.md) - 📄 Script
+  - H2: Pages in this category
+- [indices/ARTIFACT/Spec.md](./indices/ARTIFACT/Spec.md) - 📄 Spec
+  - H2: Pages in this category
+- [indices/AUDIENCE/Architect.md](./indices/AUDIENCE/Architect.md) - 📄 Architect
+  - H2: Pages in this category
+- [indices/AUDIENCE/DBA.md](./indices/AUDIENCE/DBA.md) - 📄 DBA
+  - H2: Pages in this category
+- [indices/AUDIENCE/Dev.md](./indices/AUDIENCE/Dev.md) - 📄 Dev
+  - H2: Pages in this category
+- [indices/AUDIENCE/index.md](./indices/AUDIENCE/index.md) - 📁 AUDIENCE
+  - H2: Categories
+  - H2: Domande a cui risponde
+- [indices/AUDIENCE/Non-Expert.md](./indices/AUDIENCE/Non-Expert.md) - 📄 Non-Expert
+  - H2: Pages in this category
+- [indices/AUDIENCE/Ops.md](./indices/AUDIENCE/Ops.md) - 📄 Ops
+  - H2: Pages in this category
+- [indices/DOMAIN/Agents.md](./indices/DOMAIN/Agents.md) - 📄 Agents
+  - H2: Pages in this category
+- [indices/DOMAIN/API.md](./indices/DOMAIN/API.md) - 📄 API
+  - H2: Pages in this category
+- [indices/DOMAIN/Architecture.md](./indices/DOMAIN/Architecture.md) - 📄 Architecture
+  - H2: Pages in this category
+- [indices/DOMAIN/Argos.md](./indices/DOMAIN/Argos.md) - 📄 Argos
+  - H2: Pages in this category
+- [indices/DOMAIN/CAA.md](./indices/DOMAIN/CAA.md) - 📄 CAA
+  - H2: Pages in this category
+- [indices/DOMAIN/Control-Plane.md](./indices/DOMAIN/Control-Plane.md) - 📄 Control-Plane
+  - H2: Pages in this category
+- [indices/DOMAIN/DataLake.md](./indices/DOMAIN/DataLake.md) - 📄 DataLake
+  - H2: Pages in this category
+- [indices/DOMAIN/DB.md](./indices/DOMAIN/DB.md) - 📄 DB
+  - H2: Pages in this category
+- [indices/DOMAIN/Docs.md](./indices/DOMAIN/Docs.md) - 📄 Docs
+  - H2: Pages in this category
+- [indices/DOMAIN/ETL.md](./indices/DOMAIN/ETL.md) - 📄 ETL
+  - H2: Pages in this category
+- [indices/DOMAIN/Frontend.md](./indices/DOMAIN/Frontend.md) - 📄 Frontend
+  - H2: Pages in this category
+- [indices/DOMAIN/index.md](./indices/DOMAIN/index.md) - 📁 DOMAIN
+  - H2: Categories
+  - H2: Domande a cui risponde
+- [indices/DOMAIN/Security.md](./indices/DOMAIN/Security.md) - 📄 Security
+  - H2: Pages in this category
+- [indices/DOMAIN/UX.md](./indices/DOMAIN/UX.md) - 📄 UX
+  - H2: Pages in this category
+- [indices/META/index.md](./indices/META/index.md) - 📁 META
+  - H2: Categories
+  - H2: Domande a cui risponde
+- [indices/META/Language-EN.md](./indices/META/Language-EN.md) - 📄 Language-EN
+  - H2: Pages in this category
+- [indices/META/Language-IT.md](./indices/META/Language-IT.md) - 📄 Language-IT
+  - H2: Pages in this category
+- [indices/META/Privacy-Confidential.md](./indices/META/Privacy-Confidential.md) - 📄 Privacy-Confidential
+  - H2: Pages in this category
+- [indices/META/Privacy-Internal.md](./indices/META/Privacy-Internal.md) - 📄 Privacy-Internal
+  - H2: Pages in this category
+- [indices/META/Privacy-Public.md](./indices/META/Privacy-Public.md) - 📄 Privacy-Public
+  - H2: Pages in this category
+- [indices/META/Status-Active.md](./indices/META/Status-Active.md) - 📄 Status-Active
+- [standards/secrets-management.md](./standards/secrets-management.md) - Standard Gestione Segreti (Azure Key Vault)
+  - H2: Pages in this category
+- [indices/META/Status-Deprecated.md](./indices/META/Status-Deprecated.md) - 📄 Status-Deprecated
+  - H2: Pages in this category
+- [indices/META/Status-Draft.md](./indices/META/Status-Draft.md) - 📄 Status-Draft
+  - H2: Pages in this category
+- [indices/PROCESS/Best-Practice.md](./indices/PROCESS/Best-Practice.md) - 📄 Best-Practice
+  - H2: Pages in this category
+- [indices/PROCESS/Checklist.md](./indices/PROCESS/Checklist.md) - 📄 Checklist
+  - H2: Pages in this category
+- [indices/PROCESS/CI-CD.md](./indices/PROCESS/CI-CD.md) - 📄 CI-CD
+  - H2: Pages in this category
+- [indices/PROCESS/Deploy.md](./indices/PROCESS/Deploy.md) - 📄 Deploy
+  - H2: Pages in this category
+- [indices/PROCESS/DQ.md](./indices/PROCESS/DQ.md) - 📄 DQ
+  - H2: Pages in this category
+- [indices/PROCESS/Governance.md](./indices/PROCESS/Governance.md) - 📄 Governance
+  - H2: Pages in this category
+- [indices/PROCESS/index.md](./indices/PROCESS/index.md) - 📁 PROCESS
+  - H2: Categories
+  - H2: Domande a cui risponde
+- [indices/PROCESS/Migration.md](./indices/PROCESS/Migration.md) - 📄 Migration
+  - H2: Pages in this category
+- [indices/PROCESS/Onboarding.md](./indices/PROCESS/Onboarding.md) - 📄 Onboarding
+  - H2: Pages in this category
+- [indices/PROCESS/Testing.md](./indices/PROCESS/Testing.md) - 📄 Testing
+  - H2: Pages in this category
+- [indices/TECH/Azure.md](./indices/TECH/Azure.md) - 📄 Azure
+  - H2: Pages in this category
+- [indices/TECH/Flyway.md](./indices/TECH/Flyway.md) - 📄 Flyway
+  - H2: Pages in this category
+- [indices/TECH/index.md](./indices/TECH/index.md) - 📁 TECH
+  - H2: Categories
+  - H2: Domande a cui risponde
+- [indices/TECH/N8n.md](./indices/TECH/N8n.md) - 📄 N8n
+  - H2: Pages in this category
+- [indices/TECH/Obsidian.md](./indices/TECH/Obsidian.md) - 📄 Obsidian
+  - H2: Pages in this category
+- [indices/TECH/PowerShell.md](./indices/TECH/PowerShell.md) - 📄 PowerShell
+  - H2: Pages in this category
+- [indices/TECH/React.md](./indices/TECH/React.md) - 📄 React
+  - H2: Pages in this category
+- [indices/TECH/SQL.md](./indices/TECH/SQL.md) - 📄 SQL
+  - H2: Pages in this category
+- [indices/TECH/Vector-DB.md](./indices/TECH/Vector-DB.md) - 📄 Vector-DB
+  - H2: Pages in this category
+- [intent-contract.md](./intent-contract.md) - Contratto Intent (Mini‑DSL)
+- [KNOWLEDGE-GRAPH.md](./KNOWLEDGE-GRAPH.md) - 🗂️ EasyWay Knowledge Graph
+  - H2: 📊 Pillars (Level 1)
+  - H2: 📈 Stats
 - [llm-readiness-checklist.md](./llm-readiness-checklist.md) - LLM Readiness – Lista Semplice (Per Persone e AI)
   - H2: Checklist per OGNI pagina (.md)
   - H2: Checklist NOMI (file e cartelle)
   - H2: Checklist CONTENUTI (per tipo)
-- [logs/reports/anchors-20251018064203.md](./logs/reports/anchors-20251018064203.md) - Anchor Check (20251018064203)
+- [logs/reports/normalize-20260116051701.md](./logs/reports/normalize-20260116051701.md) - Normalize Scan Report
+- [OBSIDIAN.md](./OBSIDIAN.md) - Obsidian Vault Setup (Wiki)
+  - H2: Scopo
+  - H2: Setup consigliato (senza committare config personali)
+  - H2: Convenzioni repository (da rispettare)
+- [old/index.md](./old/index.md) - Archivio (old/)
+  - H2: start-here backups
   - H2: Domande a cui risponde
-- [logs/reports/anchors-20251018093206.md](./logs/reports/anchors-20251018093206.md) - Anchor Check (20251018093206)
+- [onboarding-architettura.md](./onboarding-architettura.md) - EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata)
+  - H2: 1. Stato attuale & gap principali
+  - H2: 2. Architettura cloud (sintesi)
+  - H2: 3. Principi agentici (sintesi)
+- [onboarding/best-practice-agentic-dispatch.md](./onboarding/best-practice-agentic-dispatch.md) - Best practice - intent agentici via n8n.dispatch (RAG-ready)
+  - H2: Contesto (repo)
+  - H2: Assessment (stato attuale)
+  - H2: Best practice canonica
+- [onboarding/best-practice-scripting.md](./onboarding/best-practice-scripting.md) - Best Practice Scripting (PowerShell, Bash, Node.js, Linux/Windows)
+  - H2: 1. Usa solo PowerShell Core (pwsh) ≥ 7
+  - H2: 2. Struttura e shebang cross-platform
+  - H2: 3. Percorsi e variabili
+- [onboarding/developer-agent-experience-upgrades.md](./onboarding/developer-agent-experience-upgrades.md) - 🚀 Potenziare l’alberatura: più developer-friendly, più scalabile, più agent-ready
+  - H2: 1. Sotto-README, manifest e intro micro per ogni cartella chiave
+  - H2: 2. Ogni agent come "micro-root" self-contained
+  - H2: 3. Wizard/script per accensione nuovo agent
+- [onboarding/documentazione-contesto-standard.md](./onboarding/documentazione-contesto-standard.md) - Documentazione: Contesto standard (obbligatorio)
+  - H2: Obiettivo
+  - H2: Template consigliato (da incollare)
+  - H2: Checklist rapida (prima del merge)
+- [onboarding/howto-tagging.md](./onboarding/howto-tagging.md) - 🏷️ HOWTO: Tagging & Metadati in EasyWay DataPortal
+  - H2: 1. **Destinazione tag (dove si mettono)**
+  - H2: 2. **Standard tag e convenzioni**
+  - H2: 3. **Esempi**
+- [onboarding/proposte-crosslink-faq-edgecase.md](./onboarding/proposte-crosslink-faq-edgecase.md) - 🧩 Suggerimenti mirati: cross-link, FAQ mancanti, edge-case, automation
+  - H2: Contesto (repo)
+- [onboarding/setup-playground-zero-trust.md](./onboarding/setup-playground-zero-trust.md) - 🚦 Setup ambiente di test / sandbox agentica + Zero Trust
+  - H2: Contesto (repo)
+  - H2: 1. Cos’è il Playground Zero Trust
+  - H2: 2. Setup rapido sandbox
+- [onboarding/storyboard-easyway-agentic.md](./onboarding/storyboard-easyway-agentic.md) - 📖 Storyboard evolutivo: la storia “agentica” di EasyWay
+  - H2: Contesto (repo)
+  - H2: 1. Il punto di partenza: repo vivo, ma "manuale"
+  - H2: 2. Crescita → massa critica: la knowledge base esplode
+- [orchestrations/ado-bootstrap.md](./orchestrations/ado-bootstrap.md) - ADO Bootstrap
+  - H2: Responsabilità
+  - H2: Riferimenti
+- [orchestrations/ado-userstory-create.md](./orchestrations/ado-userstory-create.md) - ADO User Story Create (WHAT)
+  - H2: Vedi anche
+- [orchestrations/agent-scaffold.md](./orchestrations/agent-scaffold.md) - Orchestrazione - Agent Scaffold (WHAT)
+  - H2: Scopo
+  - H2: Entrypoint (policy)
+  - H2: Contratti
+- [orchestrations/api-rbac-configure.md](./orchestrations/api-rbac-configure.md) - API RBAC Configure (WHAT)
+  - H2: Vedi anche
+- [orchestrations/apply-appsettings-starter.md](./orchestrations/apply-appsettings-starter.md) - Apply AppSettings Starter (WHAT)
+  - H2: Vedi anche
+- [orchestrations/db-drift-check.md](./orchestrations/db-drift-check.md) - DB Drift Check (WHAT)
+  - H2: Vedi anche
+- [orchestrations/db-generate-docs.md](./orchestrations/db-generate-docs.md) - DB Generate Docs (WHAT)
+  - H2: Vedi anche
+- [orchestrations/db-migrate.md](./orchestrations/db-migrate.md) - DB Migrate (Flyway) (WHAT)
+  - H2: Vedi anche
+- [orchestrations/db-user-create.md](./orchestrations/db-user-create.md) - DB User Create (WHAT)
+  - H2: Vedi anche
+- [orchestrations/db-user-revoke.md](./orchestrations/db-user-revoke.md) - DB User Revoke (WHAT)
+  - H2: Vedi anche
+- [orchestrations/db-user-rotate.md](./orchestrations/db-user-rotate.md) - DB User Rotate (WHAT)
+  - H2: Vedi anche
+- [orchestrations/docs-confluence-dq-kanban.md](./orchestrations/docs-confluence-dq-kanban.md) - Docs DQ Kanban - Confluence Cloud (WHAT)
+  - H2: Runtime
+- [orchestrations/docs-dq-audit.md](./orchestrations/docs-dq-audit.md) - Docs DQ Audit + Kanban (WHAT)
+  - H2: Runtime (locale)
+- [orchestrations/docs-related-links-apply.md](./orchestrations/docs-related-links-apply.md) - Docs Related Links Apply (WHAT)
+  - H2: Runtime (locale)
+- [orchestrations/generate-appsettings-from-env.md](./orchestrations/generate-appsettings-from-env.md) - Generate AppSettings From Env (WHAT)
+  - H2: Vedi anche
+- [orchestrations/iam-provision-access.md](./orchestrations/iam-provision-access.md) - IAM Provision Access (WHAT)
+  - H2: Vedi anche
+- [orchestrations/intents-catalog-global.md](./orchestrations/intents-catalog-global.md) - Orchestrations - Intents Catalog (Globale)
   - H2: Domande a cui risponde
-- [logs/reports/anchors-20251018103044.md](./logs/reports/anchors-20251018103044.md) - Anchor Check (20251018103044)
+  - H2: Vedi anche
+- [orchestrations/intents-catalog.md](./orchestrations/intents-catalog.md) - Orchestrations - Intents Catalog (Use Case Excel/CSV)
   - H2: Domande a cui risponde
-- [logs/reports/anchors-20251018103742.md](./logs/reports/anchors-20251018103742.md) - Anchor Check (20251018103742)
-- [logs/reports/anchors-20251018104140.md](./logs/reports/anchors-20251018104140.md) - Anchor Check (20251018104140)
-- [logs/reports/anchors-20251018104418.md](./logs/reports/anchors-20251018104418.md) - Anchor Check (20251018104418)
-- [logs/reports/anchors-20251018104748.md](./logs/reports/anchors-20251018104748.md) - Anchor Check (20251018104748)
-- [logs/reports/anchors-20251018105948.md](./logs/reports/anchors-20251018105948.md) - Anchor Check (20251018105948)
-- [logs/reports/anchors-20251018110026.md](./logs/reports/anchors-20251018110026.md) - Anchor Check (20251018110026)
-- [logs/reports/anchors-20251018110253.md](./logs/reports/anchors-20251018110253.md) - Anchor Check (20251018110253)
-- [logs/reports/anchors-20251018124502.md](./logs/reports/anchors-20251018124502.md) - Anchor Check (20251018124502)
-- [logs/reports/anchors-20251018125020.md](./logs/reports/anchors-20251018125020.md) - Anchor Check (20251018125020)
-- [logs/reports/anchors-20251018132417.md](./logs/reports/anchors-20251018132417.md) - Anchor Check (20251018132417)
-- [logs/reports/anchors-20251018134027.md](./logs/reports/anchors-20251018134027.md) - Anchor Check (20251018134027)
-- [logs/reports/anchors-20251019203154.md](./logs/reports/anchors-20251019203154.md) - Anchor Check (20251019203154)
-- [logs/reports/anchors-20251019203554.md](./logs/reports/anchors-20251019203554.md) - Anchor Check (20251019203554)
-- [logs/reports/anchors-20251019204016.md](./logs/reports/anchors-20251019204016.md) - Anchor Check (20251019204016)
-- [logs/reports/anchors-20251020065030.md](./logs/reports/anchors-20251020065030.md) - Anchor Check (20251020065030)
-- [logs/reports/anchors-20251020070131.md](./logs/reports/anchors-20251020070131.md) - Anchor Check (20251020070131)
-- [logs/reports/anchors-20251020094544.md](./logs/reports/anchors-20251020094544.md) - Anchor Check (20251020094544)
-- [logs/reports/anchors-20251020104226.md](./logs/reports/anchors-20251020104226.md) - Anchor Check (20251020104226)
-- [logs/reports/anchors-20251020110022.md](./logs/reports/anchors-20251020110022.md) - Anchor Check (20251020110022)
-- [logs/reports/anchors-20251020111226.md](./logs/reports/anchors-20251020111226.md) - Anchor Check (20251020111226)
-- [logs/reports/anchors-20251020112225.md](./logs/reports/anchors-20251020112225.md) - Anchor Check (20251020112225)
-- [logs/reports/anchors-20251020112408.md](./logs/reports/anchors-20251020112408.md) - Anchor Check (20251020112408)
-- [logs/reports/atomicity-20251018151337.md](./logs/reports/atomicity-20251018151337.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018151922.md](./logs/reports/atomicity-20251018151922.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018152434.md](./logs/reports/atomicity-20251018152434.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018152951.md](./logs/reports/atomicity-20251018152951.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018153046.md](./logs/reports/atomicity-20251018153046.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018153234.md](./logs/reports/atomicity-20251018153234.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018153342.md](./logs/reports/atomicity-20251018153342.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018154041.md](./logs/reports/atomicity-20251018154041.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018154437.md](./logs/reports/atomicity-20251018154437.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018160012.md](./logs/reports/atomicity-20251018160012.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018160206.md](./logs/reports/atomicity-20251018160206.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018160726.md](./logs/reports/atomicity-20251018160726.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018161142.md](./logs/reports/atomicity-20251018161142.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018163121.md](./logs/reports/atomicity-20251018163121.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018163339.md](./logs/reports/atomicity-20251018163339.md) - Atomicity Lint
-- [logs/reports/atomicity-20251018163431.md](./logs/reports/atomicity-20251018163431.md) - Atomicity Lint
-- [logs/reports/atomicity-20251020114614.md](./logs/reports/atomicity-20251020114614.md) - Atomicity Lint
-- [logs/reports/atomicity-20251020124245.md](./logs/reports/atomicity-20251020124245.md) - Atomicity Lint
-- [logs/reports/atomicity-20251020130041.md](./logs/reports/atomicity-20251020130041.md) - Atomicity Lint
-- [logs/reports/atomicity-20251020131245.md](./logs/reports/atomicity-20251020131245.md) - Atomicity Lint
-- [logs/reports/atomicity-20251020132242.md](./logs/reports/atomicity-20251020132242.md) - Atomicity Lint
-- [logs/reports/atomicity-20251020132426.md](./logs/reports/atomicity-20251020132426.md) - Atomicity Lint
-- [logs/reports/llm-readiness-20251018103206.md](./logs/reports/llm-readiness-20251018103206.md) - LLM Readiness Mini-Report (20251018103206)  | File | Missing | |---|---|
-- [logs/reports/naming-20251018061858-analysis.md](./logs/reports/naming-20251018061858-analysis.md) - Naming Report Analysis (20251018061858)
+- [orchestrations/kb-assessment.md](./orchestrations/kb-assessment.md) - KB Assessment (WHAT)
+  - H2: Vedi anche
+- [orchestrations/mapping-matrix.md](./orchestrations/mapping-matrix.md) - Mapping Matrix - Workflow → Intent → Implementazione
+  - H2: Control Plane
+  - H2: Orchestrazioni (use case)
+  - H2: Intents (già implementati via agent + ewctl)
+- [orchestrations/n8n-api-error-triage.md](./orchestrations/n8n-api-error-triage.md) - n8n API Error Triage
+  - H2: Contesto
+  - H2: Source of truth (WHAT-first)
+  - H2: Quando usarlo
+- [orchestrations/n8n-db-ddl-inventory.md](./orchestrations/n8n-db-ddl-inventory.md) - n8n-db-ddl-inventory
+  - H2: Contesto
+  - H2: Scopo
   - H2: Domande a cui risponde
-- [logs/reports/normalize-20251018161054.md](./logs/reports/normalize-20251018161054.md) - Normalize Scan Report
-- [logs/reports/normalize-20251018161055.md](./logs/reports/normalize-20251018161055.md) - Normalize Scan Report
-- [logs/reports/normalize-20251018161134.md](./logs/reports/normalize-20251018161134.md) - Normalize Scan Report
-- [logs/reports/normalize-20251018161530-EasyWayData.wiki.md](./logs/reports/normalize-20251018161530-EasyWayData.wiki.md) - Normalize Scan Report
-- [logs/reports/normalize-20251018161531-EasyWayData.wiki.md](./logs/reports/normalize-20251018161531-EasyWayData.wiki.md) - Normalize Scan Report
-- [logs/reports/normalize-20251020114526.md](./logs/reports/normalize-20251020114526.md) - Normalize Scan Report
-- [logs/reports/normalize-20251020124219.md](./logs/reports/normalize-20251020124219.md) - Normalize Scan Report
-- [logs/reports/normalize-20251020130014.md](./logs/reports/normalize-20251020130014.md) - Normalize Scan Report
-- [logs/reports/normalize-20251020131220.md](./logs/reports/normalize-20251020131220.md) - Normalize Scan Report
-- [logs/reports/normalize-20251020132221.md](./logs/reports/normalize-20251020132221.md) - Normalize Scan Report
-- [logs/reports/normalize-20251020132403.md](./logs/reports/normalize-20251020132403.md) - Normalize Scan Report
-- [logs/reports/normalize-20251020132605.md](./logs/reports/normalize-20251020132605.md) - Normalize Scan Report
+- [orchestrations/n8n-db-table-create.md](./orchestrations/n8n-db-table-create.md) - n8n-db-table-create
+  - H2: Contesto
+  - H2: Scopo
+  - H2: Domande a cui risponde
+- [orchestrations/n8n-retrieval-bundles.md](./orchestrations/n8n-retrieval-bundles.md) - n8n Retrieval Bundles
+  - H2: Domande a cui risponde
+  - H2: Source of truth (machine-readable)
+  - H2: Bundle per Codex (sviluppo codice)
+- [orchestrations/orchestrator-n8n.md](./orchestrations/orchestrator-n8n.md) - Orchestratore n8n (WHAT)
+  - H2: Domande a cui risponde
+- [orchestrations/predeploy-checklist.md](./orchestrations/predeploy-checklist.md) - Predeploy Checklist (WHAT)
+  - H2: Runtime (come si esegue oggi)
+  - H2: Vedi anche
+- [orchestrations/release-preflight-security.md](./orchestrations/release-preflight-security.md) - Release Preflight Security (WHAT)
+  - H2: Vedi anche
+- [orchestrations/sync-appsettings-guardrail.md](./orchestrations/sync-appsettings-guardrail.md) - Sync AppSettings Guardrail (WHAT)
+  - H2: Vedi anche
+- [orchestrations/wf-excel-csv-upload.md](./orchestrations/wf-excel-csv-upload.md) - Orchestrazione – wf.excel-csv-upload (WHAT)
+  - H2: Domande a cui risponde
+- [orchestrations/whatfirst-lint.md](./orchestrations/whatfirst-lint.md) - WHAT-first Lint (WHAT)
+  - H2: Vedi anche
+- [orphans-index.md](./orphans-index.md) - Orphans Index
+- [output-contract.md](./output-contract.md) - Output Contract (JSON)
 - [parametrization-best-practices.md](./parametrization-best-practices.md) - parametrization-best-practices
+- [plan-and-diary-contract.md](./plan-and-diary-contract.md) - Contratto Plan + Diario di Bordo (Machine-readable)
+  - H2: Vedi anche
+- [quest-board-docs-dq.md](./quest-board-docs-dq.md) - Quest Board - Documentazione (DQ + Kanban)
+  - H2: Snapshot DQ (auto) - TBD
+- [quest-board-excel-csv.md](./quest-board-excel-csv.md) - Quest Board – Excel/CSV Upload (L1→L5)
 - [roadmap.md](./roadmap.md) - Roadmap & Qualità Documentazione
   - H2: Obiettivi
   - H2: Comandi locali (riassunto)
   - H2: Pipeline CI (Azure DevOps)
+- [Runbooks/instructions_collect_azure_inventory.md](./Runbooks/instructions_collect_azure_inventory.md) - Obiettivo
+  - H2: Obiettivo
+  - H2: Domande a cui risponde
+  - H2: Prerequisiti
+- [Runbooks/what_is_inventory_and_missing_items.md](./Runbooks/what_is_inventory_and_missing_items.md) - Vedi anche
+  - H2: Vedi anche
 - [scripts/scripts.md](./scripts/scripts.md) - Scripts - One-shot e routine frequenti
   - H2: One-shot: rigenera tutto (root corrente)
   - H2: Multi-root: aggrega più progetti
   - H2: Multi-root: normalizzazione (scan/apply) e report
-- [todo-checklist.md](./todo-checklist.md) - TODO – Razionalizzazione Wiki (Semplice)
+- [security/agent-security-iam.md](./security/agent-security-iam.md) - Agent Security (IAM/KeyVault)
+  - H2: Contesto (repo)
+  - H2: Cosa fa
+  - H2: Esempio (manuale)
+- [security/ai-security-guardrails.md](./security/ai-security-guardrails.md) - AI Security Guardrails
+  - H2: Contesto
+  - H2: 🛡️ Architettura (5 Layer)
+  - H2: Layer 1: Input Validation (Pre-Execution)
+- [security/operativita-governance-provisioning-accessi.md](./security/operativita-governance-provisioning-accessi.md) - Operativita governance-driven - provisioning accessi (DB/Datalake)
+  - H2: Contesto (repo)
+  - H2: Obiettivo
+  - H2: Input minimo (da compilare)
+- [security/segreti-e-accessi.md](./security/segreti-e-accessi.md) - Segreti e accessi (DB + Datalake)
+  - H2: Contesto (repo)
+  - H2: Principi base (non negoziabili)
+  - H2: Flusso per ambiente
+- [start-here.md](./start-here.md) - Start Here - Link Essenziali
+  - H2: 🎨 Filosofia EasyWay
+  - H2: 💙 EasyCAA - Social Impact
+- [todo-checklist.md](./todo-checklist.md) - TODO - Razionalizzazione Wiki (Semplice)
+  - H2: Gap e aree di miglioramento (cosa manca)
   - H2: Convenzioni e struttura
-  - H2: Rinomine e pulizia nomi
-  - H2: Metadati e front matter
+  - H2: Best practice: Uniformamento naming e struttura
+- [use-cases/entrate-uscite.md](./use-cases/entrate-uscite.md) - Use Case – Entrate/Uscite (One‑Button UX)
+- [UX/agent-chat-interface.md](./UX/agent-chat-interface.md) - Agent Chat Interface (Teams-style)
+  - H2: Vision
+  - H2: Wireframe (Testuale)
+  - H2: User Flows
+- [UX/agentic-ux.md](./UX/agentic-ux.md) - Vedi anche
+  - H2: Vedi anche
+- [UX/branding-assets.md](./UX/branding-assets.md) - UX - Asset e Branding
+  - H2: Vedi anche
+- [UX/diary-mock-wf-excel-csv-upload.md](./UX/diary-mock-wf-excel-csv-upload.md) - UX Mock – Diario di Bordo (wf.excel-csv-upload)
+- [UX/usability-checklist.md](./UX/usability-checklist.md) - UX – Usability Checklist (One‑Button)
+  - H2: Domande a cui risponde
+  - H2: Prerequisiti
+  - H2: Passi
+- [value-proposition.md](./value-proposition.md) - Visione & Value Proposition
+  - H2: Start With Why (S. Sinek)
 - [wiki-uniformamento-roadmap.md](./wiki-uniformamento-roadmap.md) - Roadmap Uniformamento Wiki secondo docs-conventions
   - H2: Obiettivi
   - H2: Fasi e Sequenza
   - H2: Per‑Cartella (linee guida)
+
+

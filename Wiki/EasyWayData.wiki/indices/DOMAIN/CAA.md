@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, DOMAIN/CAA]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with DOMAIN/CAA
+status: draft
 ---
 
 # 📄 CAA
@@ -14,4 +17,6 @@ summary: Index of all pages tagged with DOMAIN/CAA
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

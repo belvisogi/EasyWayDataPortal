@@ -1,6 +1,9 @@
 ---
 tags: [layer/index, ARTIFACT/Reference]
+updated: 2026-01-16
+owner: team-platform
 summary: Index of all pages tagged with ARTIFACT/Reference
+status: draft
 ---
 
 # 📄 Reference
@@ -13,4 +16,6 @@ summary: Index of all pages tagged with ARTIFACT/Reference
 ---
 
 [⬆️ Back to ARTIFACT](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
+
 

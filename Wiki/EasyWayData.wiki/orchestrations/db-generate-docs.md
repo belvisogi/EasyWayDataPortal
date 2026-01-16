@@ -1,8 +1,8 @@
 ---
 id: ew-orch-db-generate-docs
 title: DB Generate Docs (WHAT)
-summary: Rigenera artefatti di documentazione DB (diagram JSON, indici Wiki) in modo governato.
-status: draft
+summary: Rigenera artefatti di documentazione DB (diagramma JSON, indici Wiki) in modo governato e sincronizzato con lo stato reale del database.
+status: active
 owner: team-data
 tags: [domain/db, layer/orchestration, audience/dev, audience/dba, privacy/internal, language/it, docs]
 llm:
@@ -11,11 +11,16 @@ llm:
   chunk_hint: 250-400
   redaction: []
 entities: []
-updated: '2026-01-08'
+updated: '2026-01-16'
 next: Collegare al workflow n8n reale e aggiungere esempi artifacts[].
 ---
 
 # DB Generate Docs (WHAT)
+
+## Domande a cui risponde
+1. Come faccio a rigenerare automaticamente i diagrammi del database?
+2. Quale parametro n8n devo usare per il target "portal-diagram"?
+3. Dove posso visualizzare il diagramma generato?
 
 Contratto
 - Intent: `docs/agentic/templates/intents/db-generate-docs.intent.json`
@@ -34,7 +39,7 @@ Entrypoint (n8n.dispatch)
     "correlationId": "op-2026-01-08-105"
   }
 }
-```
+```sql
 
 Riferimenti
 - DB Diagram Viewer: `http://localhost:3000/portal/tools/db-diagram`

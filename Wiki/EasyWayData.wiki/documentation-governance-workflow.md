@@ -1,6 +1,9 @@
 ---
 tags: [domain/docs, layer/reference, governance, best-practice, documentation]
+updated: 2026-01-16
+owner: team-platform
 summary: Workflow completo del Documentation Gardener Cycle - processo iterativo di governance documentale con Knowledge Graph, Master Hierarchy e Agent-driven analysis.
+status: draft
 ---
 
 # Documentation Governance Workflow 🌳
@@ -56,14 +59,14 @@ flowchart TD
     style K fill:#ffccbc
     style U fill:#f3e5f5
     style V fill:#c5e1a5
-```
+```sql
 
 ## Le 8 Azioni dello Scanner
 
 ### 1. **Scan** - Indicizzazione Base
 ```powershell
 pwsh scripts/ps/agent-docs-scanner.ps1 -Action Scan
-```
+```sql
 **Output**: `agents/memory/docs-content-index.json`  
 **Cosa fa**: Scansiona i file .md, estrae keyword, crea indice inverso (keyword → file).
 
@@ -72,7 +75,7 @@ pwsh scripts/ps/agent-docs-scanner.ps1 -Action Scan
 ### 2. **BuildGraph** - Generazione Knowledge Graph
 ```powershell
 pwsh scripts/ps/agent-docs-scanner.ps1 -Action BuildGraph
-```
+```sql
 **Output**: `agents/memory/knowledge-graph.json`  
 **Cosa fa**:
 - Estrae il `summary` dal frontmatter di ogni file
@@ -99,14 +102,14 @@ pwsh scripts/ps/agent-docs-scanner.ps1 -Action BuildGraph
     }
   }
 }
-```
+```sql
 
 ---
 
 ### 3. **AuditHierarchy** - Controllo Compliance
 ```powershell
 pwsh scripts/ps/agent-docs-scanner.ps1 -Action AuditHierarchy
-```
+```sql
 **Output**: Report console + statistiche  
 **Cosa fa**:
 - Carica `knowledge-graph.json` + `tag-master-hierarchy.json`
@@ -115,7 +118,7 @@ pwsh scripts/ps/agent-docs-scanner.ps1 -Action AuditHierarchy
 - Identifica orphan tags (non mappati)
 
 **Output Sample**:
-```
+```sql
 📐 HIERARCHY STRUCTURE:
    Pillars (Level 1): 6
       DOMAIN -> 13 categories
@@ -128,14 +131,14 @@ pwsh scripts/ps/agent-docs-scanner.ps1 -Action AuditHierarchy
    Compliant Tags: 1823/1919 (95%+)
    Orphan Tag Types: 96
    Orphan Occurrences: 96 (5%)
-```
+```sql
 
 ---
 
 ### 4. **AnalyzeExotics** - Analisi Semantica Profonda
 ```powershell
 pwsh scripts/ps/agent-docs-scanner.ps1 -Action AnalyzeExotics
-```
+```sql
 **Output**: `agents/memory/exotic-tags-analysis.json`  
 **Cosa fa**:
 - Trova i tag usati una sola volta
@@ -153,7 +156,7 @@ pwsh scripts/ps/agent-docs-scanner.ps1 -Action AnalyzeExotics
 ### 5. **CleanTags** - Rimozione Automatica Tag Noise
 ```powershell
 pwsh scripts/ps/agent-docs-scanner.ps1 -Action CleanTags
-```
+```sql
 **Output**: File modificati + backup  
 **Cosa fa**:
 - Legge `exotic-tags-analysis.json`
@@ -172,7 +175,7 @@ pwsh scripts/ps/agent-docs-scanner.ps1 -Action CleanTags
 ### 6. **ProposeHierarchy** - Evoluzione Automatica
 ```powershell
 pwsh scripts/ps/agent-docs-scanner.ps1 -Action ProposeHierarchy
-```
+```sql
 **Output**: Report console  
 **Cosa fa**:
 - Analizza tag con >15 documenti
@@ -181,18 +184,18 @@ pwsh scripts/ps/agent-docs-scanner.ps1 -Action ProposeHierarchy
 - Segue Vector DB best practices (no frammentazione)
 
 **Esempio Output**:
-```
+```sql
 📌 domain/db (41 docs)
    Top themes: tenant, tabelle, governato, audit
    ✅ No split needed (homogeneous cluster)
-```
+```sql
 
 ---
 
 ### 7. **AnalyzeLinks** - Suggerimenti Link Semantici
 ```powershell
 pwsh scripts/ps/agent-docs-scanner.ps1 -Action AnalyzeLinks
-```
+```sql
 **Output**: `agents/memory/link-suggestions.json` + `obsidian-link-suggestions.md`  
 **Cosa fa**:
 - Analizza tag in comune tra pagine
@@ -210,7 +213,7 @@ pwsh scripts/ps/agent-docs-scanner.ps1 -Action AnalyzeLinks
 ### 8. **GenerateHierarchicalIndex** - Creazione Indici Strutturati
 ```powershell
 pwsh scripts/ps/agent-docs-scanner.ps1 -Action GenerateHierarchicalIndex
-```
+```sql
 **Output**: `KNOWLEDGE-GRAPH.md` + `indices/PILLAR/Category.md`  
 **Cosa fa**:
 - Crea root index (`KNOWLEDGE-GRAPH.md`)
@@ -219,7 +222,7 @@ pwsh scripts/ps/agent-docs-scanner.ps1 -Action GenerateHierarchicalIndex
 - Ogni index linka solo le pagine con quel tag
 
 **Struttura generata**:
-```
+```sql
 KNOWLEDGE-GRAPH.md (root)
 └── indices/
     ├── DOMAIN/
@@ -232,7 +235,7 @@ KNOWLEDGE-GRAPH.md (root)
     │   ├── Dev.md (222 pagine)
     │   └── ...
     └── ... (6 pillars totali)
-```
+```sql
 
 **Beneficio**: Navigazione gerarchica in Obsidian invece di super-hub centrale!
 
@@ -261,7 +264,7 @@ KNOWLEDGE-GRAPH.md (root)
     }
   }
 }
-```
+```sql
 
 ### 2. `knowledge-graph.json` (LA REALTÀ)
 **Location**: `agents/memory/knowledge-graph.json`  
@@ -350,3 +353,5 @@ Solo DELETE rumore vero (`why`, `how`, acronym senza context).
 - [Tag Taxonomy Schema](./docs-tag-taxonomy.md)
 - Knowledge Graph: `agents/memory/knowledge-graph.json`
 - Master Hierarchy: `agents/memory/tag-master-hierarchy.json`
+
+

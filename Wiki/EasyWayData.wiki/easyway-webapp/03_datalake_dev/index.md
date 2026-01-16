@@ -17,6 +17,9 @@ next: Aggiornare quando si aggiungono standard o runbook datalake.
 
 # Indice
 
+- Nota per autori: per nuove pagine usare `./_template.md`.
+
+
 Breadcrumb: Home / EasyWay WebApp / Datalake Dev
 
 - [easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md](./easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md) - Standard accesso storage e datalake (IAM e naming)
@@ -24,3 +27,4 @@ Breadcrumb: Home / EasyWay WebApp / Datalake Dev
 ## Domande a cui risponde
 - Qual e lo standard per accesso e naming del datalake?
 - Dove trovo i prerequisiti IAM per lavorare sul datalake?
+
