@@ -76,7 +76,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                set -e
+                $ErrorActionPreference = 'Stop'
                 git config --global --add safe.directory $(Build.SourcesDirectory)
                 cd $(Build.SourcesDirectory)
                 echo "== Enforcer: agent_governance =="
@@ -94,7 +94,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                set -e
+                $ErrorActionPreference = 'Stop'
                 # Phased rollout: lint frontmatter only on curated scopes, to prevent regressions while we fix legacy pages.
                 pwsh -NoProfile -Command "New-Item -ItemType Directory -Force -Path 'wiki-frontmatter-lint' | Out-Null"
                 pwsh scripts/wiki-frontmatter-lint.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-datalake-20 -FailOnError -SummaryOut 'wiki-frontmatter-lint/wiki-frontmatter-lint.db-datalake-20.json'
@@ -121,7 +121,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                set -e
+                $ErrorActionPreference = 'Stop'
                 # Enforce the controlled tag taxonomy on curated scopes (phased rollout)
                 pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName db-datalake-20 -FailOnError -SummaryOut 'wiki-tags-lint.db-datalake-20.json'
                 pwsh scripts/wiki-tags-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports -RequireFacets -RequireFacetsScope core -ScopeName portal-api-frontend-20 -FailOnError -SummaryOut 'wiki-tags-lint.portal-api-frontend-20.json'
@@ -147,7 +147,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                set -e
+                $ErrorActionPreference = 'Stop'
                 pwsh -NoProfile -Command "New-Item -ItemType Directory -Force -Path 'wiki-links-anchors-lint' | Out-Null"
                 pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-datalake-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.db-datalake-20.json'
                 pwsh scripts/wiki-links-anchors-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName portal-api-frontend-20 -FailOnError -SummaryOut 'wiki-links-anchors-lint/wiki-links-anchors-lint.portal-api-frontend-20.json'
@@ -173,7 +173,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                set -e
+                $ErrorActionPreference = 'Stop'
                 pwsh scripts/wiki-summary-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName portal-api-frontend-20 -FailOnError -SummaryOut 'wiki-summary-lint.portal-api-frontend-20.json'
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: wiki-summary-lint'
@@ -190,7 +190,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                set -e
+                $ErrorActionPreference = 'Stop'
                 pwsh -NoProfile -Command "New-Item -ItemType Directory -Force -Path 'wiki-index-lint' | Out-Null"
                 pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-datalake-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.db-datalake-20.json'
                 pwsh scripts/wiki-index-lint.ps1 -Path 'Wiki/EasyWayData.wiki' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName portal-api-frontend-20 -FailOnError -SummaryOut 'wiki-index-lint/wiki-index-lint.portal-api-frontend-20.json'
@@ -216,13 +216,13 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                set -e
+                $ErrorActionPreference = 'Stop'
                 pwsh -NoProfile -Command "New-Item -ItemType Directory -Force -Path 'wiki-gap-report' | Out-Null"
 
-                if [ '$(WIKI_GAP_MODE)' = 'all' ]; then
+                if ('$(WIKI_GAP_MODE)' -eq 'all') {
                   pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName '' -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.all.json'
                   exit 0
-                fi
+                }
 
                 # Default: phased rollout on curated scopes (same set as wiki-frontmatter/tags/links lints).
                 pwsh scripts/wiki-gap-report.ps1 -Path '$(WIKI_LLM_LINT_PATH)' -ExcludePaths logs/reports,old,.attachments -ScopesPath 'docs/agentic/templates/docs/tag-taxonomy.scopes.json' -ScopeName db-datalake-20 -FailOnError -SummaryOut 'wiki-gap-report/wiki-gap.db-datalake-20.json'
@@ -249,7 +249,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                set -e
+                $ErrorActionPreference = 'Stop'
                 pwsh scripts/whatfirst-lint.ps1 -FailOnError -SummaryOut 'whatfirst-lint.json'
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: whatfirst-lint'
@@ -266,7 +266,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                set -e
+                $ErrorActionPreference = 'Stop'
                 git config --global --add safe.directory $(Build.SourcesDirectory)
                 cd $(Build.SourcesDirectory)
                 $res = pwsh scripts/doc-alignment-check.ps1 -FailOnError

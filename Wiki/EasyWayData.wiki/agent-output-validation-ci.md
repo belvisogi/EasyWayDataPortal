@@ -3,7 +3,7 @@ title: Validazione Output Agenti in CI
 summary: Come validare rapidamente gli output JSON degli agenti in pipeline usando lo script PowerShell dedicato.
 tags: [ci, gates, agents, domain/control-plane, layer/gate, audience/dev, audience/ops, privacy/internal, language/it]
 id: ew-agent-output-validation-ci
-status: draft
+status: active
 owner: team-platform
 llm:
   include: true

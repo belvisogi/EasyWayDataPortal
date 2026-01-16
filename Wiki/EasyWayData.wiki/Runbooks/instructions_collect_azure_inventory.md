@@ -2,7 +2,7 @@
 id: ew-runbooks-instructions-collect-azure-inventory
 title: instructions collect azure inventory
 summary: Istruzioni passo-passo per eseguire collect_azure_inventory.ps1 e produrre azure_inventory.json da usare per inventory e matrice DR.
-status: draft
+status: active
 owner: team-platform
 tags: [docs, domain/control-plane, layer/runbook, audience/ops, privacy/internal, language/it, inventory]
 llm:

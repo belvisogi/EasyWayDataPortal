@@ -2,7 +2,7 @@
 id: ew-raccomandazione-architetturale-–-easyway-data-portal
 title: Raccomandazione Architetturale – EasyWay Data Portal
 summary: 'Documento su Raccomandazione Architetturale – EasyWay Data Portal.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

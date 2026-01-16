@@ -4,7 +4,7 @@ title: gestione log and policy dati sensibili
 tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it]
 owner: team-platform
 summary: Policy logging e dati sensibili: livelli, retention, mascheramento e export su Datalake.
-status: draft
+status: active
 llm:
   include: true
   pii: none

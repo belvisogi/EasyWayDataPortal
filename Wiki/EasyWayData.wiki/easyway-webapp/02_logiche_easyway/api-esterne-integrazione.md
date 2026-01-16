@@ -2,7 +2,7 @@
 id: ew-api-ext
 title: API Esterne - Integrazione
 summary: Integrazioni verso API esterne (lookup, tabella integrazioni, policy sicurezza, best practice).
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

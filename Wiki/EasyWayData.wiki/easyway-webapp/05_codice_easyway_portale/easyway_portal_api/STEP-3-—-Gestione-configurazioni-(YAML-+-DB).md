@@ -4,7 +4,7 @@ title: STEP 3 - Gestione configurazioni (YAML + DB)
 tags: [domain/control-plane, layer/howto, audience/dev, audience/ops, privacy/internal, language/it, configuration, secrets]
 owner: team-platform
 summary: 'Documento su STEP 3 - Gestione configurazioni (YAML + DB).'
-status: draft
+status: active
 llm:
   include: true
   pii: none

@@ -2,7 +2,7 @@
 id: ew-scripts
 title: Scripts - One-shot e routine frequenti
 summary: Comandi ricorrenti per rigenerare indici, manifest, ancore e chunk, eseguire lint e review, e loggare le attività.
-status: draft
+status: active
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'

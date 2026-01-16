@@ -2,7 +2,7 @@
 id: wiki-uniformamento-roadmap
 title: Roadmap Uniformamento Wiki secondo docs-conventions
 summary: Piano pratico e incrementale per riscrivere e uniformare l'intera wiki secondo le convenzioni, con fasi, strumenti, responsabilità e criteri di accettazione.
-status: draft
+status: active
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'

@@ -2,7 +2,7 @@
 id: ew-convenzioni-rest-e-naming
 title: convenzioni rest e naming
 summary: 'Documento su convenzioni rest e naming.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

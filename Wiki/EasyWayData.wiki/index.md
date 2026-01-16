@@ -2,7 +2,7 @@
 title: Indice Globale Wiki
 summary: Sommario dei contenuti della Wiki EasyWay con link rapidi per sviluppo, deploy e governance.
 id: ew-index
-status: draft
+status: active
 owner: team-platform
 tags: [domain/docs, layer/index, audience/non-expert, audience/dev, privacy/internal, language/it, docs]
 llm:

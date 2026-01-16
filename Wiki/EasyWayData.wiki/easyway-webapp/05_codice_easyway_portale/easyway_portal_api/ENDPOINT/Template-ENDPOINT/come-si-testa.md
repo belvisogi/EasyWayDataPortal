@@ -4,7 +4,7 @@ title: come si testa
 tags: [domain/control-plane, layer/howto, audience/dev, privacy/internal, language/it, api, testing]
 owner: team-platform
 summary: 'Documento su come si testa.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

@@ -2,7 +2,7 @@
 id: ew-esempio-integrazione-shopify
 title: esempio integrazione shopify
 summary: 'Documento su esempio integrazione shopify.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

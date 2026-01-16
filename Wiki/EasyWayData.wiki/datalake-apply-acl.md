@@ -3,7 +3,7 @@ title: Datalake - Apply ACL (Stub)
 summary: Calcola e applica (in WhatIf di default) ACL suggerite su container/cartelle, con anteprima differenze.
 tags: [datalake, security, whatif, domain/datalake, layer/howto, audience/ops, audience/dev, privacy/internal, language/it]
 id: ew-datalake-apply-acl
-status: draft
+status: active
 owner: team-platform
 llm:
   include: true

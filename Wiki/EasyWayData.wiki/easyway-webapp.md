@@ -2,7 +2,7 @@
 id: easyway-webapp
 title: EasyWay Data Portal - Visione e Fondamenti
 summary: Visione, principi Why/How/What e benefici chiave della piattaforma EasyWay Data Portal.
-status: draft
+status: active
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'

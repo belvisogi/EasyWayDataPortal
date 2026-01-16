@@ -4,7 +4,7 @@ title: portal
 tags: [domain/db, layer/spec, audience/dev, audience/dba, privacy/internal, language/it, portal]
 owner: team-platform
 summary: 'Documento su portal.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

@@ -4,7 +4,7 @@ title: LLM READINESS CHECKLIST
 tags: [domain/docs, layer/howto, audience/non-expert, audience/dev, privacy/internal, language/it, llm, checklist]
 owner: team-platform
 summary: 'Documento su LLM READINESS CHECKLIST.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

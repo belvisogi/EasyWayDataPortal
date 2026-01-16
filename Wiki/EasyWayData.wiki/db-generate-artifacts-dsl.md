@@ -1,7 +1,7 @@
 ---
 title: Generare DDL+SP da mini-DSL (agent-aware)
 tags: [db, dsl, generator, flyway, domain/db, layer/howto, audience/dev, audience/dba, privacy/internal, language/it]
-status: draft
+status: active
 id: ew-db-generate-artifacts-dsl
 summary: 'Documento su Generare DDL+SP da mini-DSL (agent-aware).'
 owner: team-platform

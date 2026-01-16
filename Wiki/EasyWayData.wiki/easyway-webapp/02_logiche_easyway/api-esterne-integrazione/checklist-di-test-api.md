@@ -2,7 +2,7 @@
 id: ew-checklist-di-test-api
 title: checklist di test api
 summary: 'Documento su checklist di test api.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

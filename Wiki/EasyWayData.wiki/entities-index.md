@@ -2,7 +2,7 @@
 id: ew-entities-index
 title: Entities Index
 summary: Indice delle entità dichiarate in entities.yaml, raggruppate per categoria.
-status: draft
+status: active
 owner: team-docs
 tags: [domain/docs, layer/index, audience/dev, privacy/internal, language/it, catalog]
 entities: []

@@ -2,7 +2,7 @@
 id: ew-datalake-standard
 title: Standard Accesso Storage e Datalake (IAM & Naming)
 summary: 'Documento su Standard Accesso Storage e Datalake (IAM & Naming).'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

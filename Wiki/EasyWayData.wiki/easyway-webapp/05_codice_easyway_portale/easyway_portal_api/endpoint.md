@@ -2,7 +2,7 @@
 id: ew-endpoint-overview
 title: Endpoint – Introduzione
 summary: Primo endpoint parametrico: collega multi-tenant, config e API REST in un esempio completo.
-status: draft
+status: active
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'

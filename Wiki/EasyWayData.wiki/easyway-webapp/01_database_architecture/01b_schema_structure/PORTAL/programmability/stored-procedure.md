@@ -2,7 +2,7 @@
 id: ew-stored-procedure
 title: Stored Procedure
 summary: 'Documento su Stored Procedure.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

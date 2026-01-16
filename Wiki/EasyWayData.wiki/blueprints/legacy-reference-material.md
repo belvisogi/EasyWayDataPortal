@@ -2,7 +2,7 @@
 id: ew-legacy-reference-material
 title: Materiale di riferimento (Legacy)
 summary: Documenti storici e di contesto (architetture, valutazioni, piani) mantenuti per consultazione.
-status: draft
+status: active
 owner: team-platform
 tags: [domain/docs, layer/blueprint, audience/dev, privacy/internal, language/it, legacy, reference, governance]
 llm:

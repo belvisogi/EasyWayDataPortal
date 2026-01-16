@@ -2,7 +2,7 @@
 id: ew-endp-001
 title: GET /api/config
 summary: Restituisce la configurazione dinamica del portale per il tenant corrente.
-status: draft
+status: active
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'

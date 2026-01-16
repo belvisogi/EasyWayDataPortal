@@ -3,7 +3,7 @@ title: Contratto Intent (Mini‑DSL)
 summary: Schema JSON degli intent che gli agenti accettano. Esempi e campi comuni.
 tags: [agents, governance, contracts, domain/docs, layer/reference, audience/dev, privacy/internal, language/it]
 id: ew-intent-contract
-status: draft
+status: active
 owner: team-platform
 llm:
   include: true

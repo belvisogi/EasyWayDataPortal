@@ -2,7 +2,7 @@
 id: ew-value-proposition
 title: Visione & Value Proposition
 summary: Perché EasyWay Data Portal e cosa fa. Messaggio chiaro per persone e agenti.
-status: draft
+status: active
 owner: team-platform
 tags: [domain/docs, layer/spec, audience/non-expert, audience/dev, privacy/internal, language/it, vision, value, onboarding]
 llm:

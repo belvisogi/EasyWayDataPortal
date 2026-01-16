@@ -2,7 +2,7 @@
 id: ew-easyway-webapp-02-logiche-easyway-login-flussi-onboarding-readme
 title: Flussi Onboarding/Login - Dettagli & Variazioni
 summary: Varianti operative dei flussi onboarding/login (disabilitazione, reinvito, cambio tenant/ruolo, cancellazione).
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

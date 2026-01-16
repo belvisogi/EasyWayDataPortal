@@ -2,7 +2,7 @@
 id: ew-db-storeprocess
 title: Store Procedure – Standard e catalogo (overview)
 summary: Struttura TRY/CATCH + TRAN, logging e output uniformato
-status: draft
+status: active
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
 llm:

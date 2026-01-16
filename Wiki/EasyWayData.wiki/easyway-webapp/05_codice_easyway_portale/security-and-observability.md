@@ -2,7 +2,7 @@
 id: ew-security-observability
 title: Security Middleware & Observability
 summary: Best practice di sicurezza, request id e correlazione
-status: draft
+status: active
 owner: team-api
 tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it]
 llm:

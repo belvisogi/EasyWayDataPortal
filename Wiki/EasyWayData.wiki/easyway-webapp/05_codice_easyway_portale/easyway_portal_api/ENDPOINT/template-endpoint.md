@@ -4,7 +4,7 @@ title: template endpoint
 tags: [domain/frontend, layer/spec, audience/dev, privacy/internal, language/it]
 owner: team-platform
 summary: Template standard per documentare endpoint: struttura, best practice, test e snippet.
-status: draft
+status: active
 llm:
   include: true
   pii: none

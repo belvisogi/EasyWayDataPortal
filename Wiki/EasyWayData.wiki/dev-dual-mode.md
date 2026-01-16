@@ -3,7 +3,7 @@ title: Sviluppo Locale Dual-Mode (DB mock | SQL)
 summary: Riduci i costi in locale con DB mock basato su file e passa a SQL senza refactor.
 tags: [dev, db, costs, domain/control-plane, layer/howto, audience/dev, privacy/internal, language/it]
 id: ew-dev-dual-mode
-status: draft
+status: active
 owner: team-platform
 llm:
   include: true

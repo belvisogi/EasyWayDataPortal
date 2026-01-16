@@ -2,7 +2,7 @@
 id: ew-db-portal
 title: Schema PORTAL – Struttura e convenzioni
 summary: Tabelle core multi-tenant (tenant, users, configuration, audit, stats)
-status: draft
+status: active
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
 llm:

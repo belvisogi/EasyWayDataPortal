@@ -2,7 +2,7 @@
 id: ew-agentic-readiness-examples
 title: Agentic Readiness & Esempi (Users/Onboarding)
 summary: Linee guida agentiche e esempi pratici per generare DDL/SP e integrarli con l'API.
-status: draft
+status: active
 owner: team-api
 created: '2025-10-18'
 updated: '2025-10-18'

@@ -4,7 +4,7 @@ title: logging conversational ready agent aware
 tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it]
 owner: team-platform
 summary: Logging conversational/agent-aware: header, campi obbligatori, correlazione e risposta standard.
-status: draft
+status: active
 llm:
   include: true
   pii: none

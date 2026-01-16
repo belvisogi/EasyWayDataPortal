@@ -4,7 +4,7 @@ title: conversational and agent aware ready
 tags: [domain/frontend, layer/spec, audience/dev, privacy/internal, language/it]
 owner: team-platform
 summary: Esempi di controller/logging/response agent-aware con header e campi di tracing.
-status: draft
+status: active
 llm:
   include: true
   pii: none

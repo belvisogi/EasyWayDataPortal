@@ -2,7 +2,7 @@
 id: ew-logging-audit
 title: Logging & Audit
 summary: 'Documento su Logging & Audit.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

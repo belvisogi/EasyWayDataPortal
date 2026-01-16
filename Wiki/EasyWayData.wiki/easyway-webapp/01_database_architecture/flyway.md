@@ -2,7 +2,7 @@
 id: ew-db-flyway
 title: Flyway - DevOps per il Database (EasyWay)
 summary: Strumento migration-based per portare DDL/SP/sequence/RLS in un flusso maturo e ripetibile
-status: draft
+status: active
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
 llm:

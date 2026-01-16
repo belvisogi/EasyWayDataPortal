@@ -2,7 +2,7 @@
 id: ew-esempi-notifiche-and-template-email-configurabili
 title: Esempi Notifiche & Template Email Configurabili
 summary: Esempi pratici per template email/notifications configurabili via file Excel su Storage.
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

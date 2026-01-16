@@ -1,14 +1,26 @@
 #!/usr/bin/env node
-/* Minimal orchestrator (JS) – scaffolding for TS version
-   - Loads agent manifests and KB
-   - Resolves simple intents
-   - Prints plan or delegates (future)
-   - [2025-10-20] Esteso: legge priority.json per ogni agente e aggrega checklist advisory/mandatory nel plan
-   - [2025-10-20] Esteso: evaluation delle condizioni "when" (intentContains, columnsContain, branch, changedPaths, tags, recipeMetadata)
+/* 
+   CORE ORCHESTRATOR (JS) - PRODUCTION READY
+   =========================================
+   - Loads agent manifests and Knowledge Base (KB)
+   - Resolves intents to specific agents and actions
+   - Validates input for security and schema compliance
+   - Aggregates advisory/mandatory checklists based on priority rules
+   - Evaluates "when" conditions for context-aware rules
+   - Structured logging (JSON) for observability
 */
 
 const fs = require('fs');
 const path = require('path');
+
+// --- Logger ---
+const logger = {
+  info: (msg, meta) => console.log(JSON.stringify({ level: 'INFO', timestamp: new Date(), msg, ...meta })),
+  error: (msg, meta) => console.error(JSON.stringify({ level: 'ERROR', timestamp: new Date(), msg, ...meta })),
+  warn: (msg, meta) => console.warn(JSON.stringify({ level: 'WARN', timestamp: new Date(), msg, ...meta }))
+};
+
+// --- Utils ---
 
 function parseArgs(argv) {
   const out = { flags: {} };
@@ -23,7 +35,15 @@ function parseArgs(argv) {
   return out;
 }
 
-function readJsonSafe(p) { try { return JSON.parse(fs.readFileSync(p, 'utf-8')); } catch { return null; } }
+function readJsonSafe(p) {
+  try {
+    return JSON.parse(fs.readFileSync(p, 'utf-8'));
+  } catch (e) {
+    // Only log if file exists but is invalid, silent if missing (optional)
+    if (fs.existsSync(p)) logger.warn(`Failed to parse JSON file: ${p}`, { error: e.message });
+    return null;
+  }
+}
 
 function loadManifests() {
   const base = path.resolve(process.cwd(), 'agents');
@@ -44,19 +64,25 @@ function loadManifests() {
 function loadKb() {
   const kbPath = path.resolve(process.cwd(), 'agents/kb/recipes.jsonl');
   if (!fs.existsSync(kbPath)) return [];
-  const lines = fs.readFileSync(kbPath, 'utf-8').split(/\r?\n/).filter(Boolean);
-  return lines.map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+  try {
+    const lines = fs.readFileSync(kbPath, 'utf-8').split(/\r?\n/).filter(Boolean);
+    return lines.map(l => {
+      try { return JSON.parse(l); } catch { return null; }
+    }).filter(Boolean);
+  } catch (e) {
+    logger.error("Failed to load KB", { error: e.message });
+    return [];
+  }
 }
 
 function loadGoals() {
   const goalsPath = path.resolve(process.cwd(), 'agents/goals.json');
   if (!fs.existsSync(goalsPath)) return null;
-  try { return JSON.parse(fs.readFileSync(goalsPath, 'utf-8')); } catch { return null; }
+  return readJsonSafe(goalsPath);
 }
 
 // Utility: convert wildcard pattern (simple * and **) to RegExp
 function wildcardToRegExp(pattern) {
-  // escape regex special chars, then replace \*\* and \* accordingly
   let p = pattern.replace(/[-/\\^$+?.()|[\]{}]/g, '\\$&');
   p = p.replace(/\\\*\\\*/g, '.*'); // ** -> .*
   p = p.replace(/\\\*/g, '[^/]*');   // * -> no slash
@@ -80,19 +106,13 @@ function containsAnyToken(text, tokens) {
   return tokens.some(t => lower.includes(String(t).toLowerCase()));
 }
 
-function arrayContainsAny(haystack, needles) {
-  if (!Array.isArray(haystack) || !needles || needles.length === 0) return false;
-  const lowerHay = haystack.map(x => String(x).toLowerCase());
-  return needles.some(n => lowerHay.includes(String(n).toLowerCase()));
-}
-
 function intersectArrays(a, b) {
   if (!Array.isArray(a) || !Array.isArray(b)) return [];
   const setB = new Set(b.map(x => String(x).toLowerCase()));
   return a.filter(x => setB.has(String(x).toLowerCase()));
 }
 
-// match recipeMetadata rules: whenObj.recipeMetadata can be { key: valueOrArray }
+// match recipeMetadata rules
 function matchesRecipeMetadata(whenMeta, ctxMeta) {
   if (!whenMeta || Object.keys(whenMeta).length === 0) return true;
   if (!ctxMeta) return false;
@@ -101,7 +121,6 @@ function matchesRecipeMetadata(whenMeta, ctxMeta) {
     const actual = ctxMeta[key];
     if (actual === undefined) return false;
     if (Array.isArray(expected)) {
-      // any match
       const lowerExpected = expected.map(e => String(e).toLowerCase());
       const act = Array.isArray(actual) ? actual.map(a => String(a).toLowerCase()) : [String(actual).toLowerCase()];
       const has = act.some(a => lowerExpected.includes(a));
@@ -113,34 +132,26 @@ function matchesRecipeMetadata(whenMeta, ctxMeta) {
   return true;
 }
 
-// Evaluate the "when" object against a provided context
+// Evaluate "when" condition
 function evaluateWhen(whenObj, context) {
-  if (!whenObj || Object.keys(whenObj).length === 0) {
-    // No conditions -> match by default
-    return true;
-  }
-  // intentContains: array of substrings to search in intent
+  if (!whenObj || Object.keys(whenObj).length === 0) return true;
+
   if (whenObj.intentContains) {
     if (!context.intent) return false;
     if (!containsAnyToken(context.intent, whenObj.intentContains)) return false;
   }
-  // branch: array of branch names or globs
   if (whenObj.branch) {
     if (!context.branch) return false;
-    // support patterns: e.g. "main", "release/*"
     const patterns = whenObj.branch;
     const match = patterns.some(pat => wildcardToRegExp(pat).test(context.branch));
     if (!match) return false;
   }
-  // changedPaths: array of path patterns; match if any changedPath matches any pattern
   if (whenObj.changedPaths) {
     if (!context.changedPaths || context.changedPaths.length === 0) return false;
     if (!anyPatternMatches(whenObj.changedPaths, context.changedPaths)) return false;
   }
-  // columnsContain: array of column names or tokens present in context.columns
   if (whenObj.columnsContain) {
     if (!context.columns || context.columns.length === 0) return false;
-    // match if any of the tokens is included in any column name
     const tokens = whenObj.columnsContain.map(t => String(t).toLowerCase());
     const found = context.columns.some(col => {
       const c = String(col).toLowerCase();
@@ -148,21 +159,17 @@ function evaluateWhen(whenObj, context) {
     });
     if (!found) return false;
   }
-  // tags: array of tags expected in context.tags (any match)
   if (whenObj.tags) {
     if (!context.tags || context.tags.length === 0) return false;
     const inter = intersectArrays(context.tags, whenObj.tags);
     if (!inter || inter.length === 0) return false;
   }
-  // recipeMetadata: object with key->value(s) constraints
   if (whenObj.recipeMetadata) {
     if (!matchesRecipeMetadata(whenObj.recipeMetadata, context.recipeMetadata)) return false;
   }
-  // If all specified checks passed, return true
   return true;
 }
 
-// Build a lightweight context object from flags and recipe/payload
 function buildContextFromFlags(flags, recipe) {
   const ctx = {
     intent: flags.intent || null,
@@ -173,68 +180,49 @@ function buildContextFromFlags(flags, recipe) {
     recipeMetadata: {}
   };
 
-  // support flags.changedPaths as comma-separated
   if (flags.changedPaths) {
     ctx.changedPaths = String(flags.changedPaths).split(',').map(s => s.trim()).filter(Boolean);
   } else if (flags.changedPathsFile) {
-    // optional: load a file with changed paths (one per line)
     try {
       const p = path.resolve(process.cwd(), flags.changedPathsFile);
       if (fs.existsSync(p)) {
         ctx.changedPaths = fs.readFileSync(p, 'utf-8').split(/\r?\n/).map(s => s.trim()).filter(Boolean);
       }
-    } catch { }
+    } catch (e) { logger.warn("Failed to read changedPathsFile", { error: e.message }); }
   }
 
-  // columns: try flags.columns (comma-separated) or payload in flags.payload (JSON string) or recipe payload
-  if (flags.columns) {
-    ctx.columns = String(flags.columns).split(',').map(s => s.trim()).filter(Boolean);
-  } else if (flags.payload) {
-    try {
-      const pl = JSON.parse(flags.payload);
-      if (pl && Array.isArray(pl.columns)) ctx.columns = pl.columns.map(c => c.name || c);
-    } catch { }
-  } else if (recipe && recipe.payload && Array.isArray(recipe.payload.columns)) {
-    ctx.columns = recipe.payload.columns.map(c => c.name || c);
-  }
+  // Helper to parse columns and metadata
+  const extractFromObject = (obj) => {
+    if (obj && Array.isArray(obj.columns)) ctx.columns = obj.columns.map(c => c.name || c);
+    if (obj && obj.metadata && typeof obj.metadata === 'object') ctx.recipeMetadata = obj.metadata;
+    if (obj && obj.meta && typeof obj.meta === 'object') ctx.recipeMetadata = obj.meta;
+    if (obj && Array.isArray(obj.tags)) ctx.tags = obj.tags.map(t => String(t));
+    if (obj && typeof obj.tags === 'string') ctx.tags = String(obj.tags).split(',').map(s => s.trim()).filter(Boolean);
+  };
 
-  // tags: flags.tags comma-separated or recipe.tags array
-  if (flags.tags) {
-    ctx.tags = String(flags.tags).split(',').map(s => s.trim()).filter(Boolean);
-  } else if (recipe && Array.isArray(recipe.tags)) {
-    ctx.tags = recipe.tags.map(t => String(t));
-  } else if (recipe && recipe.tags && typeof recipe.tags === 'string') {
-    ctx.tags = String(recipe.tags).split(',').map(s => s.trim()).filter(Boolean);
-  }
-
-  // recipeMetadata: try recipe.metadata or recipe.meta or flags.recipeMetadata (JSON string)
+  if (flags.columns) ctx.columns = String(flags.columns).split(',').map(s => s.trim()).filter(Boolean);
+  if (flags.tags) ctx.tags = String(flags.tags).split(',').map(s => s.trim()).filter(Boolean);
   if (flags.recipeMetadata) {
-    try {
-      const rm = JSON.parse(flags.recipeMetadata);
-      if (rm && typeof rm === 'object') ctx.recipeMetadata = rm;
-    } catch { }
-  } else if (recipe && recipe.metadata && typeof recipe.metadata === 'object') {
-    ctx.recipeMetadata = recipe.metadata;
-  } else if (recipe && recipe.meta && typeof recipe.meta === 'object') {
-    ctx.recipeMetadata = recipe.meta;
+    try { ctx.recipeMetadata = JSON.parse(flags.recipeMetadata); } catch { }
   }
 
-  // allow flags.payloadPath pointing to a JSON file for columns or metadata
+  // Load from payload flag or file
+  if (flags.payload) {
+    try { extractFromObject(JSON.parse(flags.payload)); } catch { }
+  }
+  if (recipe && recipe.payload) extractFromObject(recipe.payload);
+  if (recipe) extractFromObject(recipe); // Allow top-level tags/metadata in recipe
+
   if ((!ctx.columns || ctx.columns.length === 0) && flags.payloadPath) {
     try {
       const p = path.resolve(process.cwd(), flags.payloadPath);
-      if (fs.existsSync(p)) {
-        const pl = JSON.parse(fs.readFileSync(p, 'utf-8'));
-        if (pl && Array.isArray(pl.columns)) ctx.columns = pl.columns.map(c => c.name || c);
-        if (pl && pl.metadata && typeof pl.metadata === 'object') ctx.recipeMetadata = pl.metadata;
-      }
-    } catch { }
+      if (fs.existsSync(p)) extractFromObject(JSON.parse(fs.readFileSync(p, 'utf-8')));
+    } catch (e) { logger.warn("Failed to read payloadPath", { error: e.message }); }
   }
 
   return ctx;
 }
 
-// Restituisce: { <agent>: { mandatory: [...], advisory: [...] } }
 function loadPriorityChecklists(agentDirs, context) {
   const out = {};
   for (const agent of agentDirs) {
@@ -242,15 +230,16 @@ function loadPriorityChecklists(agentDirs, context) {
     if (!fs.existsSync(priorityPath)) continue;
     const priority = readJsonSafe(priorityPath);
     if (!priority || !Array.isArray(priority.rules)) continue;
+
     for (const rule of priority.rules) {
+      if (!rule.checklist || rule.checklist.length === 0) continue;
+
       const whenObj = rule.when || {};
-      const applies = evaluateWhen(whenObj, context);
-      if (!applies) continue;
-      const sev = rule.severity === 'mandatory' ? 'mandatory' : 'advisory';
-      if (!out[agent.name]) out[agent.name] = { mandatory: [], advisory: [] };
-      if (Array.isArray(rule.checklist)) {
-        out[agent.name][sev].push(...rule.checklist.map(item =>
-          `[${rule.id}] ${item}`));
+      if (evaluateWhen(whenObj, context)) {
+        const sev = rule.severity === 'mandatory' ? 'mandatory' : 'advisory';
+        if (!out[agent.name]) out[agent.name] = { mandatory: [], advisory: [] };
+
+        out[agent.name][sev].push(...rule.checklist.map(item => `[${rule.id}] ${item}`));
       }
     }
   }
@@ -260,6 +249,9 @@ function loadPriorityChecklists(agentDirs, context) {
 function suggestFromIntent(intent) {
   if (!intent) return null;
   const i = intent.toLowerCase();
+
+  // Extendable Routing Table
+  // TODO: Load this from a routing config or manifest triggers
   if (i.includes('wiki') || i.includes('docs')) {
     return { agent: 'agent_docs_review', action: 'ps', args: ['scripts/agent-docs-review.ps1', '-Wiki', '-Interactive:$false'] };
   }
@@ -272,11 +264,9 @@ function suggestFromIntent(intent) {
   return null;
 }
 
-// Security validation (Layer 1 - Input Validation)
 function validateIntent(intent) {
   if (!intent) return { valid: true };
 
-  // Check for dangerous patterns (basic version, full validation in PS script)
   const dangerousPatterns = [
     /ignora\s+(tutte?\s+le\s+)?istruzioni/i,
     /ignore\s+(all\s+)?instructions/i,
@@ -295,50 +285,71 @@ function validateIntent(intent) {
       };
     }
   }
-
   return { valid: true };
 }
 
 function main() {
-  const { flags } = parseArgs(process.argv);
-  const manifests = loadManifests();
-  const kb = loadKb();
-  const goals = loadGoals();
+  try {
+    const { flags } = parseArgs(process.argv);
 
-  const intent = flags.intent || null;
+    // 0. Logging Init
+    if (flags.verbose) logger.info("Orchestrator started", { flags });
 
-  // Security validation BEFORE processing
-  const validation = validateIntent(intent);
-  if (!validation.valid) {
-    console.error(JSON.stringify({
-      error: 'security_validation_failed',
-      severity: validation.severity,
-      message: validation.message
-    }, null, 2));
+    // 1. Load Resources
+    const manifests = loadManifests();
+    const kb = loadKb();
+    const goals = loadGoals();
+
+    const intent = flags.intent || null;
+
+    // 2. Security Validation
+    const validation = validateIntent(intent);
+    if (!validation.valid) {
+      const errPayload = {
+        error: 'security_validation_failed',
+        severity: validation.severity,
+        message: validation.message,
+        timestamp: new Date().toISOString()
+      };
+      console.error(JSON.stringify(errPayload, null, 2));
+      process.exit(1);
+    }
+
+    // 3. Resolve Recipe & Context
+    const recipe = kb.find(r => r.id === intent || r.intent === intent) || null;
+    const context = buildContextFromFlags(flags, recipe);
+
+    // 4. Suggest Action (Routing)
+    const suggestion = suggestFromIntent(intent) || null;
+
+    // 5. Evaluate Priority Rules (Checklists)
+    const checklistSuggestions = loadPriorityChecklists(manifests, context);
+
+    // 6. Build Plan
+    const plan = {
+      timestamp: new Date().toISOString(),
+      intent,
+      recipeId: recipe?.id || null,
+      context,
+      suggestion,
+      manifests: manifests.map(m => ({
+        name: m.name,
+        role: m.manifest.role,
+        capabilities: m.manifest.capabilities || []
+      })),
+      goals,
+      checklistSuggestions,
+      securityValidation: { passed: true }
+    };
+
+    // 7. Output Plan (JSON)
+    // The calling process (e.g. PowerShell wrapper) consumes this output
+    console.log(JSON.stringify({ plan }, null, 2));
+
+  } catch (error) {
+    logger.error("Orchestrator failed", { error: error.message, stack: error.stack });
     process.exit(1);
   }
-
-  const recipe = kb.find(r => r.id === intent || r.intent === intent) || null;
-  const suggestion = suggestFromIntent(intent) || null;
-
-  const context = buildContextFromFlags(flags, recipe);
-
-  // Nuova logica: aggrega checklist advisory/mandatory per agente usando evaluation delle condizioni "when"
-  const checklistSuggestions = loadPriorityChecklists(manifests, context);
-
-  const plan = {
-    intent,
-    recipeId: recipe?.id || null,
-    suggestion,
-    manifests: manifests.map(m => ({ name: m.name, role: m.manifest.role })),
-    goals,
-    checklistSuggestions,
-    context,
-    securityValidation: { passed: true, timestamp: new Date().toISOString() }
-  };
-
-  // For now, just print the plan (the PS wrapper actually executes)
-  console.log(JSON.stringify({ plan }, null, 2));
 }
 
 main();

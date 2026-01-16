@@ -2,7 +2,7 @@
 id: agent-manifest-indexing-best-practices
 title: Agent Manifest & Indexing - Best Practices universali
 summary: Guida per agenti su come usare manifest JSONL/CSV e ancore per cercare e aprire documenti in modo minimale e token‑friendly, indipendentemente dal progetto o dal formato.
-status: draft
+status: active
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'

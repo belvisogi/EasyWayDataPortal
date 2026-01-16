@@ -2,7 +2,7 @@
 id: ew-dr-inventory-matrix
 title: DR — Inventory & matrice componente → RTO / RPO
 summary: Template di inventory DR con matrice componenti e target RTO/RPO, usabile come input per runbook-as-code e PoC di disaster recovery.
-status: draft
+status: active
 owner: team-platform
 tags: [docs, domain/docs, layer/blueprint, audience/ops, audience/dev, privacy/internal, language/it, dr]
 llm:

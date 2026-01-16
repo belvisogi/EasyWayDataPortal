@@ -2,7 +2,7 @@
 id: ew-stats-execution-log
 title: stats execution log
 summary: 'Documento su stats execution log.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

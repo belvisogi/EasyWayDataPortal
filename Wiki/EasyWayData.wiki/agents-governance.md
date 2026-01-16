@@ -2,7 +2,7 @@
 id: ew-agents-governance
 title: Multi‑Agent & Governance – EasyWay
 summary: Struttura di agenti specializzati + control plane (gates/policy) con ADO
-status: draft
+status: active
 owner: team-platform
 tags: [agents, governance, domain/control-plane, layer/reference, audience/non-expert, audience/dev, audience/ops, privacy/internal, language/it]
 llm:

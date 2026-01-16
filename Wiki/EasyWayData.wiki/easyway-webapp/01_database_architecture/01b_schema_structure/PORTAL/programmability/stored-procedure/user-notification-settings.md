@@ -2,7 +2,7 @@
 id: ew-user-notification-settings
 title: user notification settings
 summary: 'Documento su user notification settings.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

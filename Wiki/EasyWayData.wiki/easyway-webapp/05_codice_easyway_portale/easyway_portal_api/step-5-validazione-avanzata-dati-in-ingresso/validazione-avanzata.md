@@ -4,7 +4,7 @@ title: validazione avanzata
 tags: [domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, validation, security]
 owner: team-platform
 summary: 'Documento su validazione avanzata.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

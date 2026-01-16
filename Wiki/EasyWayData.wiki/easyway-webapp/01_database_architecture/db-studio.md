@@ -2,7 +2,7 @@
 id: ew-db-studio
 title: EasyWay DB Studio – ERD & SP Catalog
 summary: Generazione automatica di documentazione DB (ERD Mermaid + Catalogo SP)
-status: draft
+status: active
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
 llm:

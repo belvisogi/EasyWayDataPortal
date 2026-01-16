@@ -2,7 +2,7 @@
 id: ew-easyway-webapp-02-logiche-easyway-logging-and-audit-readme
 title: readme
 summary: 'Documento su readme.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

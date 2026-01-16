@@ -2,7 +2,7 @@
 id: ew-esempi-flussi-avanzati-onboarding-login
 title: esempi flussi avanzati onboarding login
 summary: 'Documento su esempi flussi avanzati onboarding login.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

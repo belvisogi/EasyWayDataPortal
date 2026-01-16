@@ -2,7 +2,7 @@
 id: ew-roadmap
 title: Roadmap & Qualità Documentazione
 summary: Sezione operativa per mantenere la documentazione conforme alle best practice e pronta per agenti/LLM, con comandi locali e pipeline CI.
-status: draft
+status: active
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'

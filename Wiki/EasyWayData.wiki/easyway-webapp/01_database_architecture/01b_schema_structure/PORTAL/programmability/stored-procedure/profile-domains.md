@@ -2,7 +2,7 @@
 id: ew-profile-domains
 title: profile domains
 summary: 'Documento su profile domains.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

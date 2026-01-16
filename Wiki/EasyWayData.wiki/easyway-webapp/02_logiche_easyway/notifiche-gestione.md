@@ -2,7 +2,7 @@
 id: ew-notifiche
 title: Notifiche - Gestione
 summary: Notifiche multi-tenant (tipi, preferenze, flusso invio, best practice, logging/audit).
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

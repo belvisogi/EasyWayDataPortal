@@ -2,7 +2,7 @@
 id: ew-param-best-practices
 title: Parametrizzazione – Best Practices
 summary: Evitare hardcoded; usare env/variabili YAML e gates condizionati
-status: draft
+status: active
 owner: team-platform
 tags: [best-practice, config, domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it]
 llm:

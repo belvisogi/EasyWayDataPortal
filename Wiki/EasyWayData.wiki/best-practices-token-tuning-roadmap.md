@@ -2,7 +2,7 @@
 id: best-practices-token-tuning-roadmap
 title: Best Practices & Roadmap – Token Tuning e AI-Readiness Universale
 summary: Linee guida e piano evolutivo per ottimizzare qualsiasi knowledge base/documentazione tecnica in ottica di efficienza token, chunking, AI-readiness e governance, indipendentemente dal formato o dal progetto.
-status: draft
+status: active
 owner: team-docs
 created: '2025-10-18'
 updated: '2025-10-18'

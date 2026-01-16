@@ -4,7 +4,7 @@ title: TODO CHECKLIST
 tags: [domain/docs, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, checklist]
 owner: team-platform
 summary: 'Documento su TODO CHECKLIST.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

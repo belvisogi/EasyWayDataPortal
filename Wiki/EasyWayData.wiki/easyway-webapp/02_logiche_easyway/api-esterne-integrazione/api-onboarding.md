@@ -2,7 +2,7 @@
 id: ew-api-onboarding
 title: api onboarding
 summary: 'Documento su api onboarding.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

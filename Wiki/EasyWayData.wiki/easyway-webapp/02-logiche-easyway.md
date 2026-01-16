@@ -2,7 +2,7 @@
 id: ew-02-logiche-easyway
 title: 02 logiche easyway
 summary: Pagina top-level della documentazione.
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

@@ -2,7 +2,7 @@
 id: ew-argos-glossario
 title: ARGOS – Glossario Unificato (v1)
 summary: Glossario condiviso per ARGOS (termini chiave, enum, abbreviazioni) allineato con EasyWay.
-status: draft
+status: active
 owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/reference, audience/non-expert, audience/dev, privacy/internal, language/it]
 llm:

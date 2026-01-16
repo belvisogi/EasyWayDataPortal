@@ -4,7 +4,7 @@ tags:
 id: ew-db-sequence
 title: Sequence – NDG e convenzioni
 summary: Numeratori per codici business (TEN…, CDI…) e debug
-status: draft
+status: active
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
 llm:

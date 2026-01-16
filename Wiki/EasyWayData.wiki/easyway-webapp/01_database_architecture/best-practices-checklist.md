@@ -2,7 +2,7 @@
 id: ew-db-best-practices
 title: Database Best Practices – Checklist (EasyWay)
 summary: Tabella di controllo rapida per governance, sicurezza e DevOps
-status: draft
+status: active
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
 llm:

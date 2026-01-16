@@ -2,7 +2,7 @@
 id: ew-argos-change-versioning
 title: ARGOS – Change & Versioning (v1)
 summary: SemVer, rollout (shadow/canary/A‑B), backout e audit con best practice di pipeline.
-status: draft
+status: active
 owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, versioning]
 llm:

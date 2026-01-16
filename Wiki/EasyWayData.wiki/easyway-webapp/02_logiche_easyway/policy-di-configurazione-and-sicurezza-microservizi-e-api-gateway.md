@@ -2,7 +2,7 @@
 id: ew-policy-di-configurazione-&-sicurezza-–-microservizi-e-api-gateway
 title: Policy di Configurazione & Sicurezza – Microservizi e API Gateway
 summary: 'Documento su Policy di Configurazione & Sicurezza – Microservizi e API Gateway.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

@@ -2,7 +2,7 @@
 id: ew-endp-002
 title: GET /api/branding
 summary: Restituisce il branding (logo, colori, testi) per il tenant corrente.
-status: draft
+status: active
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'

@@ -2,7 +2,7 @@
 id: ew-dr-gaps-vs-ada
 title: Cosa integrare da ADA per EasyWayDataPortal (approccio operativo e cosa aggiungere)
 summary: Analisi operativa di cosa riusare da ADA per DR e cosa aggiungere in EasyWayDataPortal, con deliverable prioritizzati e stima fasi.
-status: draft
+status: active
 owner: team-platform
 tags: [docs, domain/docs, layer/blueprint, audience/ops, audience/dev, privacy/internal, language/it, dr]
 llm:

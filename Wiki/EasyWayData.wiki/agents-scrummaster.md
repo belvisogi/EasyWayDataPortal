@@ -2,7 +2,7 @@
 id: ew-agent-scrummaster
 title: Agent ScrumMaster – Single Owner, Multi‑Agent
 summary: Coordinamento backlog/roadmap (Azure Boards), DoD/gates, sincronizzazione KB/Wiki in modello single‑owner.
-status: draft
+status: active
 owner: team-platform
 tags: [domain/control-plane, layer/reference, audience/dev, privacy/internal, language/it, agents, governance, scrummaster]
 llm:

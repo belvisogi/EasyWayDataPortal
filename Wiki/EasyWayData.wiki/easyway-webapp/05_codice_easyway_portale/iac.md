@@ -4,7 +4,7 @@ title: iac
 tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, iac]
 owner: team-platform
 summary: 'Documento su iac.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

@@ -2,7 +2,7 @@
 id: ew-domain-frontend
 title: Dominio Frontend
 summary: Scheletro del dominio Frontend: UI, one-button UX, integrazione auth, wiring con orchestrazioni.
-status: draft
+status: active
 owner: team-frontend
 tags: [domain/frontend, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, agents, ux]
 llm:

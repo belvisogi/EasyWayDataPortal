@@ -2,7 +2,7 @@
 id: ew-section-access
 title: section access
 summary: 'Documento su section access.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

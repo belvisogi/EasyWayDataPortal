@@ -2,7 +2,7 @@
 id: ew-api-overview
 title: EasyWay Portal API – Overview
 summary: Visione e scelte architetturali del backend API (TS, multi-tenant, config YAML/DB, DevOps).
-status: draft
+status: active
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'

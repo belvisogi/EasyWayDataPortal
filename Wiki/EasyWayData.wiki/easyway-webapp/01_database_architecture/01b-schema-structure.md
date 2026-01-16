@@ -4,7 +4,7 @@ title: 01b schema structure
 tags: [domain/db, layer/spec, audience/dev, audience/dba, privacy/internal, language/it, schema]
 owner: team-platform
 summary: 'Documento su 01b schema structure.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

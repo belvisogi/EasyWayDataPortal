@@ -4,7 +4,7 @@ title: readme
 tags: [domain/frontend, layer/index, audience/dev, privacy/internal, language/it, readme]
 owner: team-platform
 summary: 'Documento su readme.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

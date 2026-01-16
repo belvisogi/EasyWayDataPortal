@@ -4,7 +4,7 @@ title: automazione export log su datalake e compliance
 tags: [domain/control-plane, layer/howto, audience/ops, audience/dev, privacy/internal, language/it]
 owner: team-platform
 summary: Automazione export dei log business/audit su Datalake (pipeline + azcopy) con security e audit trail.
-status: draft
+status: active
 llm:
   include: true
   pii: none

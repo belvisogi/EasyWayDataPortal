@@ -2,7 +2,7 @@
 id: ew-activity-log
 title: Activity Log
 summary: Diario di bordo automatico (pipeline/agents)
-status: draft
+status: active
 owner: team-platform
 tags: [activity, audit, privacy/internal, language/it]
 ---

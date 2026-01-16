@@ -4,7 +4,7 @@ title: dinamiche di manutenzione
 tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, maintenance]
 owner: team-platform
 summary: 'Documento su dinamiche di manutenzione.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

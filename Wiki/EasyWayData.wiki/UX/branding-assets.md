@@ -2,7 +2,7 @@
 id: ew-ux-branding-assets
 title: UX - Asset e Branding
 summary: Asset storici (palette, html mock, logo) e loro utilizzo.
-status: draft
+status: active
 owner: team-frontend
 tags: [domain/ux, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, ux, branding, assets]
 llm:

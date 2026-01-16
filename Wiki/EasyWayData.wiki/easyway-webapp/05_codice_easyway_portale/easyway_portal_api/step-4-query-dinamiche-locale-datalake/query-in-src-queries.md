@@ -4,7 +4,7 @@ title: query in src queries
 tags: [domain/control-plane, layer/howto, audience/dev, privacy/internal, language/it, queries]
 owner: team-platform
 summary: 'Documento su query in src queries.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

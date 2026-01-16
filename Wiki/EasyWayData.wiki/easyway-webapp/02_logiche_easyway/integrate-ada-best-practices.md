@@ -2,7 +2,7 @@
 id: ew-easyway-webapp-02-logiche-easyway-integrate-ada-best-practices
 title: Integrare le best-practice ADA in EasyWayDataPortal
 summary: 'Documento su Integrare le best-practice ADA in EasyWayDataPortal.'
-status: draft
+status: active
 owner: team-platform
 tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, docs, dr, ada]
 llm:

@@ -2,7 +2,7 @@
 id: ew-domain-docs-governance
 title: Dominio Docs & Governance
 summary: Scheletro: convenzioni doc, linter, gates, PR discipline, human-in-the-loop e activity log.
-status: draft
+status: active
 owner: team-platform
 tags: [domain/docs, layer/reference, audience/dev, audience/non-expert, privacy/internal, language/it, governance, agents]
 llm:

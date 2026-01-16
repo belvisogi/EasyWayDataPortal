@@ -12,7 +12,7 @@ llm:
   redaction: [email, phone]
 entities: []
 summary: 'Documento su Database Architecture Master.'
-status: draft
+status: active
 owner: team-platform
 updated: '2026-01-05'
 next: TODO - definire next step.

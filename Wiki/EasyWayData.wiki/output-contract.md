@@ -3,7 +3,7 @@ title: Output Contract (JSON)
 summary: Struttura standard degli output degli agenti EasyWay, comune a tutti i domini. Chiavi e significato per LLM e umani.
 tags: [agents, contracts, domain/docs, layer/reference, audience/dev, privacy/internal, language/it]
 id: ew-output-contract
-status: draft
+status: active
 owner: team-platform
 llm:
   include: true

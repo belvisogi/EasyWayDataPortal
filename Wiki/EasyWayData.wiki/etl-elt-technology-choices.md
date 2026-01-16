@@ -2,7 +2,7 @@
 id: ew-etl-elt-technology-choices
 title: ETL/ELT – Scelte Tecnologiche
 summary: Opzioni di orchestrazione/esecuzione (Airflow, Databricks, ADF) e linee guida di adozione in EasyWayDataPortal.
-status: draft
+status: active
 owner: team-data
 tags: [etl, datalake, domain/datalake, layer/spec, audience/dev, privacy/internal, language/it]
 entities: []

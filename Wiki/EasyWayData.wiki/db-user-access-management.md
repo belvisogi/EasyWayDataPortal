@@ -3,7 +3,7 @@ title: Gestione Accessi DB (Contained Users & Ruoli PORTAL)
 summary: Creazione/rotazione/revoca utenti contained per Azure SQL e ruoli PORTAL_* con agente DBA.
 tags: [dba, security, onboarding, domain/db, layer/howto, audience/dba, audience/dev, privacy/internal, language/it]
 id: ew-db-user-access-management
-status: draft
+status: active
 owner: team-platform
 llm:
   include: true

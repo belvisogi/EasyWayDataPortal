@@ -4,7 +4,7 @@ title: step 5 validazione avanzata dati in ingresso
 tags: [domain/frontend, layer/howto, audience/dev, privacy/internal, language/it]
 owner: team-platform
 summary: Validazione input con Zod: schema, middleware e best practice per API robuste.
-status: draft
+status: active
 llm:
   include: true
   pii: none

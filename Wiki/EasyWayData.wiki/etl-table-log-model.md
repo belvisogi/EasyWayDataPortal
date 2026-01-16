@@ -2,7 +2,7 @@
 id: ew-etl-table-log-model
 title: ETL – Table Log Model
 summary: Modello log tabellare per esecuzioni pipeline (run logs, task logs, metriche, allarmi) e query operative.
-status: draft
+status: active
 owner: team-data
 tags: [etl, logging, audit, domain/datalake, layer/reference, audience/dev, audience/ops, privacy/internal, language/it]
 llm:

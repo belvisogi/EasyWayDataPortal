@@ -2,7 +2,7 @@
 id: ew-qa-setup-and-test-locale
 title: QA Setup & Test Locale
 summary: Q&A di troubleshooting e setup locale (Node/NPM, API routes, headers multi-tenant).
-status: draft
+status: active
 owner: team-platform
 tags: [domain/frontend, layer/howto, audience/dev, privacy/internal, language/it, qa]
 llm:

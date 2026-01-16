@@ -4,7 +4,7 @@ title: 01a db setup
 tags: [domain/db, layer/howto, audience/dev, audience/dba, privacy/internal, language/it, setup]
 owner: team-platform
 summary: 'Documento su 01a db setup.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

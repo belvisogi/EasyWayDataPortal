@@ -4,7 +4,7 @@ title: scripts
 tags: [domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, scripts]
 owner: team-platform
 summary: 'Documento su scripts.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

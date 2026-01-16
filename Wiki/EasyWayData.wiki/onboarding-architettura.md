@@ -2,7 +2,7 @@
 id: ew-onboarding-architettura
 title: EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata)
 summary: 'Documento su EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata).'
-status: draft
+status: active
 owner: team-platform
 tags: [domain/docs, layer/index, audience/non-expert, audience/dev, privacy/internal, language/it, onboarding, architecture, docs]
 llm:

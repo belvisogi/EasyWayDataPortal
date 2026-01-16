@@ -2,11 +2,11 @@
 
 ## Contesto e Obiettivo
 - Obiettivo: fotografare lo stato attuale (API/DB/Wiki), evidenziare i punti da sistemare e proporre un piano d'azione concreto e prioritizzato per portare EasyWay Data Portal in linea con gli standard documentati.
-- Scope: repository `EasyWayDataPortal` (root), modulo `EasyWay-DataPortal/easyway-portal-api` (API), migrazioni Flyway `db/flyway/sql/` (DDL canonico), Wiki `Wiki/EasyWayData.wiki` (+ archivio `old/db/` per storici).
+- Scope: repository `EasyWayDataPortal` (root), modulo `EasyWay-DataPortal/easyway-portal-api` (API), migrazioni DB `db/migrations/` (DDL/SP canonici), Wiki `Wiki/EasyWayData.wiki` (+ archivio `old/db/` per storici).
 
 ## Fonti analizzate
 - API: `EasyWay-DataPortal/easyway-portal-api/src/...`
-- DDL canonico: `db/flyway/sql/`
+- DDL/SP canonici: `db/migrations/`
 - DDL storici (non canonici): `old/db/` (ex `DataBase/`, export `DDL_PORTAL_*`)
 - SP (documentazione): `Wiki/EasyWayData.wiki/.../PORTAL/programmability/stored-procedure.md`
 - Endpoint docs: `Wiki/EasyWayData.wiki/.../easyway_portal_api/ENDPOINT/*.md`
@@ -26,9 +26,9 @@
      - Aggiornare controller `usersController` per invocare SP (via `.execute`) e adeguare i payload a `name/surname/profile_code/status` o definire un mapping chiaro da `display_name/profile_id`.
      - Aggiornare validator Zod coerentemente.
 
-2) Config loader — colonna e filtro (PRIORITARIO)
-   - Problema: `loadDbConfig` filtra su `enabled = 1` e `section`, ma il DDL usa `is_active` e non definisce `section`.
-   - Fix: usare `is_active = 1`. Gestire `section` solo se introdotta nel modello (con DDL relativo), altrimenti rimuovere il filtro.
+2) Config loader - colonna e filtro (PRIORITARIO)
+   - Nota: questo punto risulta **già allineato** nel DDL/SP attuali: `PORTAL.CONFIGURATION` usa `enabled` e `section` e la lettura passa via `PORTAL.sp_get_config_by_tenant` con filtro su `enabled` e `section`.
+   - Azione: aggiornare Wiki/KB per riflettere il contratto reale (campi supportati, fallback/default, comportamento quando `section` è null) ed evitare regressioni.
 
 3) Notifications — route duplicate e placeholder (ALTA)
    - Problema: route `POST /subscribe` registrata più volte; import ridondanti; controller placeholder.
@@ -60,7 +60,7 @@
 
 ## Piano d’Azione (Priorità e Sequenza)
 1. Users via SP + mapping colonne coerente con DDL (blocca errori funzionali)
-2. Correzione `loadDbConfig` su `is_active` e rimozione/gestione `section`
+2. Allineare documentazione `loadDbConfig` (enabled/section) e comportamento quando `section` è null
 3. Pulizia Notifications (route duplicate) e SP per subscribe/notifiche
 4. Implementare/stub `loadSqlQueryFromBlob` (feature flag)
 5. Consolidare DDL (ufficiale vs deprecato) e aggiornare riferimenti Wiki
@@ -74,7 +74,7 @@
 - Config loader: `easyway-portal-api/src/config/dbConfigLoader.ts:1`
 - Notifications routes: `easyway-portal-api/src/routes/notifications.ts:1`
 - Query loader Blob: `easyway-portal-api/src/config/queryLoader.ts:1`
-- DDL canonico: `db/flyway/sql/:1` (migrazioni V1..Vn)
+- DDL/SP canonici: `db/migrations/:1` (migrazioni V1..Vn)
 
 ## Rinomina cartelle (proposta)
 - Rinominare `EasyWay-DataPortal` in `portal-api` (o `easyway-portal-api`).

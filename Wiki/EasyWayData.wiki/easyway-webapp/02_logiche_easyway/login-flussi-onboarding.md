@@ -2,7 +2,7 @@
 id: ew-login-onboarding
 title: Login - Flussi Onboarding
 summary: Flussi principali onboarding/login e best practice (multi-tenant, ACL, audit).
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

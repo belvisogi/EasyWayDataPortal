@@ -2,7 +2,7 @@
 id: ew-db-ddl-inventory
 title: DB PORTAL - Inventario DDL (canonico)
 summary: Inventario DB (canonico) estratto dalle migrazioni Flyway (source-of-truth) per mantenere allineata la Wiki 01_database_architecture.
-status: draft
+status: active
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, audience/dba, privacy/internal, language/it]
 llm:

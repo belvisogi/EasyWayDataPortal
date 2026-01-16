@@ -2,7 +2,7 @@
 id: ew-api-notifiche
 title: api notifiche
 summary: 'Documento su api notifiche.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

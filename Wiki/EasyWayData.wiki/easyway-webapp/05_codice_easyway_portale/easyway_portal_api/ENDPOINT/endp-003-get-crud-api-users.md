@@ -2,7 +2,7 @@
 id: ew-endp-003
 title: CRUD /api/users
 summary: Gestione utenti per tenant (elenco, creazione, aggiornamento, disattivazione).
-status: draft
+status: active
 owner: team-api
 created: '2025-01-01'
 updated: '2025-01-01'

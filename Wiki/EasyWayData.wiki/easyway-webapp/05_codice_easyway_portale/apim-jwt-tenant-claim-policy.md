@@ -2,7 +2,7 @@
 id: ew-apim-jwt-tenant-claim-policy
 title: APIM – JWT Validate & Tenant Claim
 summary: Esempio di policy APIM per validazione JWT e mappatura tenant
-status: draft
+status: active
 owner: team-platform
 tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it]
 llm:

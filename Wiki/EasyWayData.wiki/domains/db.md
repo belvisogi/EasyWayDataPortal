@@ -2,7 +2,7 @@
 id: ew-domain-db
 title: Dominio DB
 summary: Scheletro del dominio DB: migrazioni, stored procedure, generatori, drift e logging.
-status: draft
+status: active
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, audience/dba, privacy/internal, language/it, agents, flyway]
 llm:

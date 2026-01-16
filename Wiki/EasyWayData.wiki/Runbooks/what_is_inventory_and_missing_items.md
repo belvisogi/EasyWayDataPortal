@@ -2,7 +2,7 @@
 id: ew-runbooks-what-is-inventory-and-missing-items
 title: what is inventory and missing items
 summary: Spiega cos’è l’inventory (CSV/JSON), perché serve per DR e quali gap tipici emergono (runbook-as-code, SID sync, IaC, sync storage, ingress, monitoring).
-status: draft
+status: active
 owner: team-platform
 tags: [docs, domain/control-plane, layer/reference, audience/ops, privacy/internal, language/it, inventory]
 llm:

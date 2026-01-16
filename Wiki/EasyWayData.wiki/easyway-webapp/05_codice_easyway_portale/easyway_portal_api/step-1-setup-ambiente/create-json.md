@@ -4,7 +4,7 @@ title: create json
 tags: [domain/control-plane, layer/howto, audience/dev, privacy/internal, language/it, configuration]
 owner: team-platform
 summary: 'Documento su create json.'
-status: draft
+status: active
 llm:
   include: true
   pii: none

@@ -2,7 +2,7 @@
 id: ew-06-frontend-architecture
 title: 06 Frontend Architecture
 summary: Architettura frontend e integrazione con backend, multi-tenant, security e logging.
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

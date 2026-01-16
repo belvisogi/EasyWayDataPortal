@@ -2,7 +2,7 @@
 id: ew-api-invio-notifica
 title: api invio notifica
 summary: 'Documento su api invio notifica.'
-status: draft
+status: active
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'

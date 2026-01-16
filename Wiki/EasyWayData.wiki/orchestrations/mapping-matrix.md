@@ -2,7 +2,7 @@
 id: ew-mapping-matrix
 title: Mapping Matrix - Workflow → Intent → Implementazione
 summary: Tabella unica per collegare orchestrazioni, intent, agenti, entrypoint (ewctl/n8n), artefatti e doc.
-status: draft
+status: active
 owner: team-platform
 tags: [orchestration, governance, mapping, domain/control-plane, layer/reference, audience/dev, privacy/internal, language/it]
 llm:

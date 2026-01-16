@@ -2,7 +2,7 @@
 id: ew-argos-event-schema
 title: ARGOS – Event Schema Addendum (v1)
 summary: Elenco eventi canonici argos.* e note per pubblicare JSON Schema e validarli in CI.
-status: draft
+status: active
 owner: team-platform
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, event]
 llm:
