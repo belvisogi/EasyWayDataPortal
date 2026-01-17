@@ -9,14 +9,14 @@ Discover the comprehensive collection of EasyWay agents. Classified by **Strateg
 
 <table>
 <tr>
-<td><h3>🔬 Agent Chronicler (The Bard)</h3><p><b>historian</b></p><p><i>The Voice of History. Osserva l'evoluzione dell'ecosistema, registra le pietre miliari e celebra i momenti di vera innovazione ('A star is born').</i></p><br/><p>🏷️ <code>brain</code> 🧠 <code>gpt-4o</code> 📚 <code>2 docs</code></p><p><small><b>Tools:</b> <span title='GenAI: event_listener'>🔧</span> <span title='GenAI: history_writer'>🔧</span> <span title='GenAI: announcer'>🔧</span> </small></p><hr/><b>Key Skills:</b><ul><li>chronicle:record</li><li>chronicle:announce</li></ul><p><small>Owner: team-platform | ID: agent_chronicler</small></p></td>
+<td><h3>🔬 Agent Cartographer (The Navigator)</h3><p><b>mapper</b></p><p><i>Mantiene la Mappa delle Dipendenze (Knowledge Graph). Prima di ogni modifica distruttiva, viene consultato per simulare gli impatti a cascata ('Butterfly Effect Analysis').</i></p><br/><p>🏷️ <code>brain</code> 🧠 <code>gpt-4-turbo</code> 📚 <code>1 docs</code></p><p><small><b>Tools:</b> <span title='GenAI: graph_query'>🔧</span> <span title='GenAI: impact_simulator'>🔧</span> <span title='GenAI: dependency_mapper'>🔧</span> </small></p><hr/><b>Key Skills:</b><ul><li>graph:query</li><li>graph:update</li><li>impact:simulate</li></ul><p><small>Owner: team-architecture | ID: agent_cartographer</small></p></td>
+<td><h3>🔧 Agent Chronicler (The Bard)</h3><p><b>historian</b></p><p><i>The Voice of History. Osserva l'evoluzione dell'ecosistema, registra le pietre miliari e celebra i momenti di vera innovazione ('A star is born').</i></p><br/><p>🏷️ <code>brain</code> 🧠 <code>gpt-4o</code> 📚 <code>2 docs</code></p><p><small><b>Tools:</b> <span title='GenAI: event_listener'>🔧</span> <span title='GenAI: history_writer'>🔧</span> <span title='GenAI: announcer'>🔧</span> </small></p><hr/><b>Key Skills:</b><ul><li>chronicle:record</li><li>chronicle:announce</li></ul><p><small>Owner: team-platform | ID: agent_chronicler</small></p></td>
+</tr><tr>
 <td><h3>🔧 Agent_DBA</h3><p><b>Agent_DBA</b></p><p><i>Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout</i></p><br/><p>🏷️ <code>brain</code> 🧠 <code>Default</code> </p><p><small><b>Tools:</b> <span title='OS: npm'>💻</span> <span title='OS: pwsh'>💻</span> <span title='OS: sqlcmd'>💻</span> <span title='OS: az'>☁️</span> </small></p><hr/><b>Key Skills:</b><ul><li>db-user:create</li><li>db-user:rotate</li><li>db-user:revoke</li><li>db-doc:ddl-inventory</li><li>db-metadata:extract</li><li>db-metadata:diff</li><li>db-guardrails:check</li><li>db-table:create</li><li>db-blueprint:generate</li></ul><p><small>Owner: Platform Team | ID: agent_dba</small></p></td>
-</tr><tr>
 <td><h3>☁️ Agent GEDI (Guardian EasyWay Delle Intenzioni)</h3><p><b>philosophy_guardian</b></p><p><i>Custode del Manifesto EasyWay. Ricorda a tutti - agenti e umani - i principi fondamentali: qualità > velocità, misuriamo due tagliamo una, il percorso conta, lasciare impronta tangibile.</i></p><br/><p>🏷️ <code>brain</code> 🧠 <code>gpt-4o</code> 📚 <code>2 docs</code></p><p><small><b>Tools:</b> <span title='GenAI: reasoning_engine'>🔧</span> <span title='GenAI: manifesto_search'>🔧</span> </small></p><hr/><b>Key Skills:</b><ul><li>gedi:ooda.loop</li></ul><p><small>Owner: team-platform | ID: agent_gedi</small></p></td>
-<td><h3>🔧 agent_governance</h3><p><b>Agent_Governance</b></p><p><i>Policy, qualità, gates e approvazioni per DB/API/Docs</i></p><br/><p>🏷️ <code>brain</code> 🧠 <code>Default</code> </p><p><small><b>Tools:</b> <span title='OS: pwsh'>💻</span> <span title='OS: node'>💻</span> </small></p><hr/><b>Key Skills:</b><ul><li><i>Specialist Task</i></li></ul><p><small>Owner: Platform Team | ID: agent_governance</small></p></td>
 </tr><tr>
+<td><h3>🔧 agent_governance</h3><p><b>Agent_Governance</b></p><p><i>Policy, qualità, gates e approvazioni per DB/API/Docs</i></p><br/><p>🏷️ <code>brain</code> 🧠 <code>Default</code> </p><p><small><b>Tools:</b> <span title='OS: pwsh'>💻</span> <span title='OS: node'>💻</span> </small></p><hr/><b>Key Skills:</b><ul><li><i>Specialist Task</i></li></ul><p><small>Owner: Platform Team | ID: agent_governance</small></p></td>
 <td><h3>💻 agent_scrummaster</h3><p><b>Agent_ScrumMaster</b></p><p><i>Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks.</i></p><br/><p>🏷️ <code>brain</code> 🧠 <code>Default</code> </p><p><small><b>Tools:</b> <span title='OS: pwsh'>💻</span> <span title='OS: az'>☁️</span> <span title='OS: curl'>💻</span> </small></p><hr/><b>Key Skills:</b><ul><li><i>Specialist Task</i></li></ul><p><small>Owner: Platform Team | ID: agent_scrummaster</small></p></td>
-<td></td>
 </tr>
 </table>
 
@@ -58,8 +58,8 @@ Discover the comprehensive collection of EasyWay agents. Classified by **Strateg
 </table>
 
 ## 📊 Ecosystem Stats
-- **Total Agents**: 25
-- **Strategic Brains**: 5
+- **Total Agents**: 26
+- **Strategic Brains**: 6
 - **Executive Arms**: 20
 
 _(Generated via scripts/generate-agent-roster.ps1)_

@@ -1,135 +1,153 @@
 {
   "agents": [
     {
-      "role": "Agent_ADO_UserStory",
-      "id": "agent_ado_userstory",
-      "model": "Default",
-      "description": "Gestione User Story su Azure DevOps: prefetch best practices (Wiki + esterne) e creazione work item con output strutturato.",
       "tools": [],
+      "id": "agent_ado_userstory",
       "owner": "Platform Team",
       "actions": [
         "ado:bestpractice.prefetch",
         "ado:bootstrap",
         "ado:userstory.create"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_ado_userstory",
       "os_tools": [
         "pwsh"
       ],
-      "classification": "arm",
-      "name": "agent_ado_userstory"
+      "description": "Gestione User Story su Azure DevOps: prefetch best practices (Wiki + esterne) e creazione work item con output strutturato.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_ADO_UserStory"
     },
     {
-      "role": "Agent_AMS",
-      "id": "agent_ams",
-      "model": "Default",
-      "description": "Automazione operativa conversazionale (Checklist, Variable Group, deploy helpers)",
       "tools": [],
+      "id": "agent_ams",
       "owner": "Platform Team",
       "actions": [],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_ams",
       "os_tools": [
         "pwsh",
         "npm",
         "curl"
       ],
-      "classification": "arm",
-      "name": "agent_ams"
+      "description": "Automazione operativa conversazionale (Checklist, Variable Group, deploy helpers)",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_AMS"
     },
     {
-      "role": "Agent_API",
-      "id": "agent_api",
-      "model": "Default",
-      "description": "Triage e tracciamento errori API; produce output strutturato per orchestrazioni n8n.",
       "tools": [],
+      "id": "agent_api",
       "owner": "Platform Team",
       "actions": [
         "api-error:triage"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_api",
       "os_tools": [
         "pwsh"
       ],
-      "classification": "arm",
-      "name": "agent_api"
+      "description": "Triage e tracciamento errori API; produce output strutturato per orchestrazioni n8n.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_API"
     },
     {
-      "role": "Inspector",
-      "id": "agent_audit",
-      "model": "Default",
-      "description": "Responsabile della verifica di conformità architetturale degli agenti.",
       "tools": [],
+      "id": "agent_audit",
       "owner": "Platform Team",
       "actions": [
         "audit:agents.inspect"
       ],
-      "icon": "🤖",
-      "os_tools": [],
       "classification": "arm",
-      "name": "Agent_Audit"
+      "name": "Agent_Audit",
+      "os_tools": [],
+      "description": "Responsabile della verifica di conformità architetturale degli agenti.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Inspector"
     },
     {
-      "role": "Agent_Backend",
-      "id": "agent_backend",
-      "model": "Default",
-      "description": "Owner implementazione API: OpenAPI, pattern middleware auth/tenant, lint e scaffolding endpoint (distinct da agent_api triage).",
       "tools": [],
+      "id": "agent_backend",
       "owner": "Platform Team",
       "actions": [
         "api:openapi-validate"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_backend",
       "os_tools": [
         "pwsh",
         "npm"
       ],
-      "classification": "arm",
-      "name": "agent_backend"
+      "description": "Owner implementazione API: OpenAPI, pattern middleware auth/tenant, lint e scaffolding endpoint (distinct da agent_api triage).",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_Backend"
     },
     {
-      "role": "historian",
-      "id": "agent_chronicler",
-      "model": "gpt-4o",
-      "description": "The Voice of History. Osserva l'evoluzione dell'ecosistema, registra le pietre miliari e celebra i momenti di vera innovazione ('A star is born').",
+      "tools": [
+        "graph_query",
+        "impact_simulator",
+        "dependency_mapper"
+      ],
+      "id": "agent_cartographer",
+      "owner": "team-architecture",
+      "actions": [
+        "graph:query",
+        "graph:update",
+        "impact:simulate"
+      ],
+      "classification": "brain",
+      "name": "Agent Cartographer (The Navigator)",
+      "os_tools": [],
+      "description": "Mantiene la Mappa delle Dipendenze (Knowledge Graph). Prima di ogni modifica distruttiva, viene consultato per simulare gli impatti a cascata ('Butterfly Effect Analysis').",
+      "model": "gpt-4-turbo",
+      "icon": "🧠",
+      "role": "mapper"
+    },
+    {
       "tools": [
         "event_listener",
         "history_writer",
         "announcer"
       ],
+      "id": "agent_chronicler",
       "owner": "team-platform",
       "actions": [
         "chronicle:record",
         "chronicle:announce"
       ],
-      "icon": "🧠",
-      "os_tools": [],
       "classification": "brain",
-      "name": "Agent Chronicler (The Bard)"
+      "name": "Agent Chronicler (The Bard)",
+      "os_tools": [],
+      "description": "The Voice of History. Osserva l'evoluzione dell'ecosistema, registra le pietre miliari e celebra i momenti di vera innovazione ('A star is born').",
+      "model": "gpt-4o",
+      "icon": "🧠",
+      "role": "historian"
     },
     {
-      "role": "Agent_Creator",
-      "id": "agent_creator",
-      "model": "Default",
-      "description": "Scaffolding governato di nuovi agenti (manifest/templates/KB/Wiki) usando pattern canonici + contesto RAG (Azure AI Search) orchestrato da n8n.",
       "tools": [],
+      "id": "agent_creator",
       "owner": "Platform Team",
       "actions": [
         "agent:scaffold"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_creator",
       "os_tools": [
         "pwsh",
         "git"
       ],
-      "classification": "arm",
-      "name": "agent_creator"
+      "description": "Scaffolding governato di nuovi agenti (manifest/templates/KB/Wiki) usando pattern canonici + contesto RAG (Azure AI Search) orchestrato da n8n.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_Creator"
     },
     {
-      "role": "Agent_Datalake",
-      "id": "agent_datalake",
-      "model": "Default",
-      "description": "Gestione operativa e compliance del Datalake: naming, ACL, audit, retention, export log, policy.",
       "tools": [],
+      "id": "agent_datalake",
       "owner": "Platform Team",
       "actions": [
         "dlk-ensure-structure",
@@ -138,21 +156,21 @@
         "dlk-export-log",
         "etl-slo:validate"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_datalake",
       "os_tools": [
         "pwsh",
         "azcopy",
         "terraform"
       ],
-      "classification": "arm",
-      "name": "agent_datalake"
+      "description": "Gestione operativa e compliance del Datalake: naming, ACL, audit, retention, export log, policy.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_Datalake"
     },
     {
-      "role": "Agent_DBA",
-      "id": "agent_dba",
-      "model": "Default",
-      "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
       "tools": [],
+      "id": "agent_dba",
       "owner": "Platform Team",
       "actions": [
         "db-user:create",
@@ -165,37 +183,37 @@
         "db-table:create",
         "db-blueprint:generate"
       ],
-      "icon": "🧠",
+      "classification": "brain",
+      "name": "Agent_DBA",
       "os_tools": [
         "npm",
         "pwsh",
         "sqlcmd",
         "az"
       ],
-      "classification": "brain",
-      "name": "Agent_DBA"
+      "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
+      "model": "Default",
+      "icon": "🧠",
+      "role": "Agent_DBA"
     },
     {
-      "role": "Agent_Docs_Review",
-      "id": "agent_docs_review",
-      "model": "Default",
-      "description": "Revisione documentazione: normalizzazione Wiki, indici/chunk, coerenza KB, supporto aggiunta ricette.",
       "tools": [],
+      "id": "agent_docs_review",
       "owner": "Platform Team",
       "actions": [],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_docs_review",
       "os_tools": [
         "pwsh"
       ],
-      "classification": "arm",
-      "name": "agent_docs_review"
+      "description": "Revisione documentazione: normalizzazione Wiki, indici/chunk, coerenza KB, supporto aggiunta ricette.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_Docs_Review"
     },
     {
-      "role": "Agent_Docs_Sync",
-      "id": "agent_docs_sync",
-      "model": "Default",
-      "description": "Mantiene allineamento tra documentazione e codice: valida tag metadata, verifica cross-references, suggerisce aggiornamenti docs quando script cambiano.",
       "tools": [],
+      "id": "agent_docs_sync",
       "owner": "Platform Team",
       "actions": [
         "docs:check",
@@ -204,248 +222,251 @@
         "docs:sync",
         "docs:scan"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_docs_sync",
       "os_tools": [
         "pwsh"
       ],
-      "classification": "arm",
-      "name": "agent_docs_sync"
+      "description": "Mantiene allineamento tra documentazione e codice: valida tag metadata, verifica cross-references, suggerisce aggiornamenti docs quando script cambiano.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_Docs_Sync"
     },
     {
-      "role": "Blueprint",
-      "id": "agent_dq_blueprint",
-      "model": "Default",
-      "description": "Genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX/schema, integrato con ARGOS.",
       "tools": [],
+      "id": "agent_dq_blueprint",
       "owner": "Platform Team",
       "actions": [
         null
       ],
-      "icon": "🤖",
-      "os_tools": [],
       "classification": "arm",
-      "name": "agent_dq_blueprint"
+      "name": "agent_dq_blueprint",
+      "os_tools": [],
+      "description": "Genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX/schema, integrato con ARGOS.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Blueprint"
     },
     {
-      "role": "philosophy_guardian",
-      "id": "agent_gedi",
-      "model": "gpt-4o",
-      "description": "Custode del Manifesto EasyWay. Ricorda a tutti - agenti e umani - i principi fondamentali: qualità > velocità, misuriamo due tagliamo una, il percorso conta, lasciare impronta tangibile.",
       "tools": [
         "reasoning_engine",
         "manifesto_search"
       ],
+      "id": "agent_gedi",
       "owner": "team-platform",
       "actions": [
         "gedi:ooda.loop"
       ],
-      "icon": "⚖️",
-      "os_tools": [],
       "classification": "brain",
-      "name": "Agent GEDI (Guardian EasyWay Delle Intenzioni)"
+      "name": "Agent GEDI (Guardian EasyWay Delle Intenzioni)",
+      "os_tools": [],
+      "description": "Custode del Manifesto EasyWay. Ricorda a tutti - agenti e umani - i principi fondamentali: qualità > velocità, misuriamo due tagliamo una, il percorso conta, lasciare impronta tangibile.",
+      "model": "gpt-4o",
+      "icon": "⚖️",
+      "role": "philosophy_guardian"
     },
     {
-      "role": "Agent_Governance",
-      "id": "agent_governance",
-      "model": "Default",
-      "description": "Policy, qualità, gates e approvazioni per DB/API/Docs",
       "tools": [],
+      "id": "agent_governance",
       "owner": "Platform Team",
       "actions": [],
-      "icon": "🧠",
+      "classification": "brain",
+      "name": "agent_governance",
       "os_tools": [
         "pwsh",
         "node"
       ],
-      "classification": "brain",
-      "name": "agent_governance"
+      "description": "Policy, qualità, gates e approvazioni per DB/API/Docs",
+      "model": "Default",
+      "icon": "🧠",
+      "role": "Agent_Governance"
     },
     {
-      "role": "Agent_Infra",
-      "id": "agent_infra",
-      "model": "Default",
-      "description": "IaC/Terraform governato: validate/plan/apply (WhatIf-by-default), drift infra e runbook.",
       "tools": [],
+      "id": "agent_infra",
       "owner": "Platform Team",
       "actions": [
         "infra:terraform-plan"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_infra",
       "os_tools": [
         "pwsh",
         "terraform",
         "az"
       ],
-      "classification": "arm",
-      "name": "agent_infra"
+      "description": "IaC/Terraform governato: validate/plan/apply (WhatIf-by-default), drift infra e runbook.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_Infra"
     },
     {
-      "role": "Agent_Observability",
-      "id": "agent_observability",
-      "model": "Default",
-      "description": "Osservabilita': health check, standard logging, suggerimenti OTel/AppInsights e runbook troubleshooting (no secrets).",
       "tools": [],
+      "id": "agent_observability",
       "owner": "Platform Team",
       "actions": [
         "obs:healthcheck"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_observability",
       "os_tools": [
         "pwsh"
       ],
-      "classification": "arm",
-      "name": "agent_observability"
+      "description": "Osservabilita': health check, standard logging, suggerimenti OTel/AppInsights e runbook troubleshooting (no secrets).",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_Observability"
     },
     {
-      "role": "Agent_PR_Manager",
-      "id": "agent_pr_manager",
-      "model": "Default",
-      "description": "Crea e propone Pull Request agentiche con esiti gates e riferimenti artifact. Nessun merge autonomo.",
       "tools": [],
+      "id": "agent_pr_manager",
       "owner": "Platform Team",
       "actions": [],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_pr_manager",
       "os_tools": [
         "pwsh",
         "git",
         "az"
       ],
-      "classification": "arm",
-      "name": "agent_pr_manager"
+      "description": "Crea e propone Pull Request agentiche con esiti gates e riferimenti artifact. Nessun merge autonomo.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_PR_Manager"
     },
     {
-      "role": "Agent_Release",
-      "id": "agent_release",
-      "model": "Default",
-      "description": "Packaging/versioning del runtime bundle (copia parziale) per runner segregato: build artifact e publish (no segreti).",
       "tools": [],
+      "id": "agent_release",
       "owner": "Platform Team",
       "actions": [
         "runtime:bundle"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_release",
       "os_tools": [
         "pwsh",
         "git"
       ],
-      "classification": "arm",
-      "name": "agent_release"
+      "description": "Packaging/versioning del runtime bundle (copia parziale) per runner segregato: build artifact e publish (no segreti).",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_Release"
     },
     {
-      "role": "Agent_Retrieval",
-      "id": "agent_retrieval",
-      "model": "Default",
-      "description": "Gestione RAG: indicizzazione Wiki/KB, retrieval bundles, sync verso vector DB (on-demand), anti-duplicati/canonical.",
       "tools": [],
+      "id": "agent_retrieval",
       "owner": "Platform Team",
       "actions": [
         "rag:export-wiki-chunks"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_retrieval",
       "os_tools": [
         "pwsh"
       ],
-      "classification": "arm",
-      "name": "agent_retrieval"
+      "description": "Gestione RAG: indicizzazione Wiki/KB, retrieval bundles, sync verso vector DB (on-demand), anti-duplicati/canonical.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_Retrieval"
     },
     {
-      "role": "Agent_ScrumMaster",
-      "id": "agent_scrummaster",
-      "model": "Default",
-      "description": "Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks.",
       "tools": [],
+      "id": "agent_scrummaster",
       "owner": "Platform Team",
       "actions": [],
-      "icon": "🧠",
+      "classification": "brain",
+      "name": "agent_scrummaster",
       "os_tools": [
         "pwsh",
         "az",
         "curl"
       ],
-      "classification": "brain",
-      "name": "agent_scrummaster"
+      "description": "Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks.",
+      "model": "Default",
+      "icon": "🧠",
+      "role": "Agent_ScrumMaster"
     },
     {
-      "role": "Navigator",
-      "id": "agent_second_brain",
-      "model": "Default",
-      "description": "Responsabile della navigabilità semantica, Context Injection e manutenzione dei Breadcrumbs.",
       "tools": [],
+      "id": "agent_second_brain",
       "owner": "Platform Team",
       "actions": [
         "brain:breadcrumbs.generate",
         "brain:breadcrumbs.clean"
       ],
-      "icon": "🤖",
-      "os_tools": [],
       "classification": "arm",
-      "name": "agent_second_brain"
+      "name": "agent_second_brain",
+      "os_tools": [],
+      "description": "Responsabile della navigabilità semantica, Context Injection e manutenzione dei Breadcrumbs.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Navigator"
     },
     {
-      "role": "Agent_Security",
-      "id": "agent_security",
-      "model": "Default",
-      "description": "Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit e registry (no valori segreti nei log).",
       "tools": [],
+      "id": "agent_security",
       "owner": "Platform Team",
       "actions": [
         "kv-secret:set",
         "kv-secret:reference",
         "access-registry:propose"
       ],
-      "icon": "🛡️",
+      "classification": "arm",
+      "name": "agent_security",
       "os_tools": [
         "pwsh",
         "az"
       ],
-      "classification": "arm",
-      "name": "agent_security"
+      "description": "Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit e registry (no valori segreti nei log).",
+      "model": "Default",
+      "icon": "🛡️",
+      "role": "Agent_Security"
     },
     {
-      "role": "Agent_Synapse",
-      "id": "agent_synapse",
-      "model": "Default",
-      "description": "[EXPERIMENTAL - Phase 2] Gestione workspace Synapse/DataFactory: scaffolding cartelle, linting PySpark, gestione Linked Services e template standard. In valutazione per roadmap analytics avanzati.",
       "tools": [],
+      "id": "agent_synapse",
       "owner": "Platform Team",
       "actions": [
         "synapse:scaffold",
         "synapse:check-sql"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_synapse",
       "os_tools": [
         "pwsh"
       ],
-      "classification": "arm",
-      "name": "agent_synapse"
+      "description": "[EXPERIMENTAL - Phase 2] Gestione workspace Synapse/DataFactory: scaffolding cartelle, linting PySpark, gestione Linked Services e template standard. In valutazione per roadmap analytics avanzati.",
+      "model": "Default",
+      "icon": "🤖",
+      "role": "Agent_Synapse"
     },
     {
-      "role": "Template",
-      "id": "agent_template",
-      "model": "gpt-4-turbo",
-      "description": "Scheletro di agente agent-first: intent JSON, azioni idempotenti, output strutturato, allowed_paths.",
       "tools": [
         "web_search",
         "code_interpreter"
       ],
+      "id": "agent_template",
       "owner": "team-platform",
       "actions": [
         "sample:echo"
       ],
-      "icon": "🤖",
+      "classification": "arm",
+      "name": "agent_template",
       "os_tools": [
         "pwsh",
         "git",
         "az"
       ],
-      "classification": "arm",
-      "name": "agent_template"
+      "description": "Scheletro di agente agent-first: intent JSON, azioni idempotenti, output strutturato, allowed_paths.",
+      "model": "gpt-4-turbo",
+      "icon": "🤖",
+      "role": "Template"
     }
   ],
   "stats": {
-    "brains": 5,
-    "total": 24,
-    "arms": 19
+    "total": 25,
+    "arms": 19,
+    "brains": 6
   },
-  "generatedAt": "2026-01-17T19:23:51.9330555Z"
+  "generatedAt": "2026-01-17T19:42:47.3573479Z"
 }
