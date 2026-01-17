@@ -15,6 +15,8 @@ updated: '2026-01-07'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 ## Contesto
 - Source-of-truth DB (canonico): migrazioni Flyway in `db/flyway/sql/`.
 - Provisioning dev/local: wrapper `db/provisioning/apply-flyway.ps1` (human-in-the-loop).
@@ -119,4 +121,5 @@ Nota su DataBase/ vs db/
 - `db/` è la fonte canonica (DevOps-ready): migrazioni in `db/flyway/sql/`.
 - `DataBase/` e' stata rimossa; gli artefatti storici sono archiviati in `old/db/`.
 - Obiettivo: mantenere una sola referenza e rigenerare inventari/documentazione sempre da Flyway.
+
 

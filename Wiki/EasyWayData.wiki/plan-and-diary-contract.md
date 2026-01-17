@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-08'
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 # Contratto Plan + Diario di Bordo (Machine-readable)
 
 Scopo
@@ -51,4 +53,5 @@ Riferimenti
 - [Agents Registry (owner, domini, intent)](./control-plane/agents-registry.md)
 - [Orchestratore n8n (WHAT)](./orchestrations/orchestrator-n8n.md)
 - [Orchestrazione – wf.excel-csv-upload (WHAT)](./orchestrations/wf-excel-csv-upload.md)
+
 

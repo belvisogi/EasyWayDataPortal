@@ -15,6 +15,8 @@ updated: '2026-01-14'
 next: Wait for teacher input on child routines, then start Fase 1
 ---
 
+[[start-here|Home]] > [[Domain - Caa|Caa]] > [[Layer - Overview|Overview]]
+
 # EasyCAA - Comunicazione Aumentativa Alternativa
 
 **Mission**: Strumento CAA gratuito per ragazzi con autismo/DSA/disabilità comunicative.
@@ -198,3 +200,4 @@ EXEC caa.sp_validate_routine_upload
 - **ARGOS Overview**: [../argos/argos-overview.md](../argos/argos-overview.md)
 - **ARASAAC Official**: https://www.arasaac.org
 - **ISAAC Italy**: https://www.isaacitaly.it
+

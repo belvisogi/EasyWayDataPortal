@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Howto|Howto]]
+
 **Come si testa**
 -----------------
 
@@ -59,4 +61,5 @@ next: TODO - definire next step.
 - Controlla che l'output atteso (file generati, risorse create/aggiornate, response API) sia presente e coerente.
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
+
 

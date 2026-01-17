@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Spec|Spec]]
+
 Di seguito il **template standard** per documentare ogni endpoint parametrico in EasyWay Data Portal,  
 **pronto da incollare in Wiki/README** e da seguire per ogni API “vera”.
 
@@ -78,6 +80,7 @@ Pronto a produrre subito il prossimo endpoint (es: GET `/api/config` da DB)?**
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

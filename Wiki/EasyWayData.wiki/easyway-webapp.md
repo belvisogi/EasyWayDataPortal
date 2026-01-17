@@ -27,6 +27,8 @@ llm:
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+
 ## 🛠 How – Come lo facciamo
 
 - Costruiamo una piattaforma **modulare e intuitiva**, accessibile da web  
@@ -55,6 +57,7 @@ Tutto questo in un ecosistema **scalabile**, **containerizzato** (Docker), e **p
 - Quali sono i benefici chiave per i tenant e gli utenti?
 - Come è organizzata l’architettura a livello alto?
 - In che modo l’AI/AMS si integra nei flussi del portale?
+
 
 
 

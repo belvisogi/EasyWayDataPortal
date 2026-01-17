@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Estendere le relazioni esplicite (FK) quando presenti e migliorare le euristiche di inferenza.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Blueprint|Blueprint]]
+
 # Blueprint - DB PORTAL Diagram (internal viewer)
 
 ## Contesto
@@ -59,4 +61,5 @@ next: Estendere le relazioni esplicite (FK) quando presenti e migliorare le euri
 - [db-portal-tables-index](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/index.md)
 - [DB Generate Docs (WHAT)](../orchestrations/db-generate-docs.md)
 - [db-table-portal-log-audit](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-log-audit.md)
+
 

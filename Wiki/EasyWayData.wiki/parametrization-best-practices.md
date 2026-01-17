@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 Principi
 - Niente valori hardcoded: tutto parametrizzabile via env, YAML o Variable Group.
 - Config separata dal codice; default sensati in dev; sicurezza in prod (Key Vault/Variable Group).
@@ -41,6 +43,7 @@ Flyway & Terraform
 Esempi
 - Pipeline: `- template: ci/versions.yml` per versioni; `condition: eq(variables['ENABLE_*'],'true')` per gates.
 - API: `app.use(process.env.PORTAL_BASE_PATH || '/portal', portalRoutes)`; `withTenantContext` usa `RLS_CONTEXT_ENABLED`.
+
 
 
 

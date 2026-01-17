@@ -18,6 +18,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 ### a) **sp_insert_subscription**
 
 ```sql
@@ -2424,6 +2426,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

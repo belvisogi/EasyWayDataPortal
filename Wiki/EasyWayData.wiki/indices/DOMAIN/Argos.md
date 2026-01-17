@@ -6,6 +6,8 @@ summary: Index of all pages tagged with DOMAIN/Argos
 status: draft
 ---
 
+[[start-here|Home]] > [[Domain - Argos|Argos]] > [[Layer - Index|Index]]
+
 # 📄 Argos
 
 **Pillar**: DOMAIN  
@@ -16,6 +18,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

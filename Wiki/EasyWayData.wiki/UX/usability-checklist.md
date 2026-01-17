@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Howto|Howto]]
+
 # UX – Usability Checklist (One‑Button)
 
 Obiettivo
@@ -55,5 +57,6 @@ Come usarla
 - Controlla che l'output atteso (file generati, risorse create/aggiornate, response API) sia presente e coerente.
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
+
 
 

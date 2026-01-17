@@ -1,3 +1,5 @@
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 title: ARGOS – Alerting & Notifications (v1.1)
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/ops, audience/dev, privacy/internal, language/it, alerting]
 status: active
@@ -101,6 +103,7 @@ Run={run_id} | DecisionTrace={decision_trace_id}
 
 ## 10) Definition of Done (v1.1)
 - Severità e mapping completi; dedup/suppression/quiet hours; payload standard; digest; integrazione Coach/Profiling; KPI definiti.
+
 
 
 

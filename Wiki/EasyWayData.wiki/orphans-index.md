@@ -12,6 +12,8 @@ entities: []
 updated: '2026-01-09'
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+
 # Orphans Index
 
 Questa pagina collega le pagine attualmente isolate (degree=0) per ridurre i nodi scollegati nel grafo Obsidian.
@@ -19,5 +21,6 @@ Questa pagina collega le pagine attualmente isolate (degree=0) per ridurre i nod
 Rigenerazione: `pwsh scripts/wiki-orphan-index.ps1` (idempotente).
 
 Totale orfani: 0
+
 
 

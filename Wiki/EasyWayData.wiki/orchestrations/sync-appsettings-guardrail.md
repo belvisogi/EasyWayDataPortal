@@ -15,6 +15,8 @@ updated: '2026-01-08'
 next: Collegare al job CI e includere decision trace.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+
 # Sync AppSettings Guardrail (WHAT)
 
 Contratto
@@ -51,4 +53,5 @@ Entrypoint (n8n.dispatch)
 - [Predeploy Checklist (WHAT)](./predeploy-checklist.md)
 - [Deploy su Azure App Service – Pipeline & Variabili](../deploy-app-service.md)
 - [IAM Provision Access (WHAT)](./iam-provision-access.md)
+
 

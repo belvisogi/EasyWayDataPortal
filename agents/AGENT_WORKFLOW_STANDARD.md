@@ -13,6 +13,18 @@ Definire il workflow standard che **tutti gli agenti** devono seguire quando com
 
 ## 📋 Pattern Standard: 3-Step Completion
 
+### Modern Workflow: State-as-Code (Recommended)
+Per garantire precisione e tracciabilità, usare lo script `agent-task.ps1` invece dell'editing manuale di `task.md`.
+
+1. **Init**: `pwsh scripts/agent-task.ps1 -Init -Title "Task Name"`
+2. **Add**: `pwsh scripts/agent-task.ps1 -Add -Title "Step 1"`
+3. **Update**: `pwsh scripts/agent-task.ps1 -Update -Id 1 -Status completed`
+   > **💙 Proactive GEDI**: Se il task è completato, lo script eseguirà automaticamente validazioni filosofiche (Measure Twice, Quality Check) e mostrerà warning se necessario.
+4. **Task Boundary**: Aggiornare sempre anche il task boundary visivo.
+
+### Legacy Workflow: Manual Markdown
+Se non è possibile usare lo script, seguire il pattern manuale:
+
 ### Step 1: Aggiornare Task Boundary con Summary Completo
 
 **Prima di concludere**, aggiornare il task boundary con un riassunto **cumulativo** di tutto il lavoro svolto.
@@ -50,7 +62,7 @@ task_boundary({
 TaskSummary: "Updated walkthrough.md file"
 
 // ✅ CORRETTO - Cumulativo completo
-TaskSummary: "Completed comprehensive analysis of EasyWayDataPortal. Explored 26 specialized agents across all domains (datalake, dba, docs_review, governance, security, retrieval, synapse). Reviewed agent-first philosophy defined in goals.json with 7 core principles. Analyzed 338-page comprehensive Wiki covering database architecture, API patterns, ARGOS data quality framework, orchestrations, and UX. Studied innovative AI-native db-deploy-ai tool replacing Flyway with JSON API, blueprint system (ERwin alternative), and automated drift detection. Created comprehensive walkthrough.md with project overview, 8 identified strengths, 3 improvement areas, and 5 brainstorming topics with concrete questions. Updated task.md marking all analysis tasks complete."
+TaskSummary: "Completed comprehensive analysis of ADA DataProjectDataPortal. Explored 26 specialized agents across all domains (datalake, dba, docs_review, governance, security, retrieval, synapse). Reviewed agent-first philosophy defined in goals.json with 7 core principles. Analyzed 338-page comprehensive Wiki covering database architecture, API patterns, ARGOS data quality framework, orchestrations, and UX. Studied innovative AI-native db-deploy-ai tool replacing Flyway with JSON API, blueprint system (ERwin alternative), and automated drift detection. Created comprehensive walkthrough.md with project overview, 8 identified strengths, 3 improvement areas, and 5 brainstorming topics with concrete questions. Updated task.md marking all analysis tasks complete."
 ```
 
 ---
@@ -301,6 +313,7 @@ notify_user({
 
 ---
 
-**Status**: Standard Pattern per EasyWayDataPortal Agents  
+**Status**: Standard Pattern per ADA DataProjectDataPortal Agents  
 **Owner**: All Agent Developers  
 **Integrato con**: GEDI Philosophical Review Pattern
+

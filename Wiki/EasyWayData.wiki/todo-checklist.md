@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+
 # TODO - Razionalizzazione Wiki (Semplice)
 
 Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anche AI).
@@ -128,6 +130,7 @@ Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anch
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

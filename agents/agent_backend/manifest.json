@@ -36,5 +36,8 @@
         }
       }
     }
-  ]
+  ],
+  "name": "agent_backend",
+  "readme": "README.md",
+  "classification": "arm"
 }

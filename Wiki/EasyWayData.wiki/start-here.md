@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+
 # Start Here - Link Essenziali
 
 ## 🎨 Filosofia EasyWay
@@ -62,6 +64,7 @@ owner: team-platform
 7) Materiale legacy / asset
 - Contesto: `blueprints/legacy-reference-material.md`
 - Branding: `UX/branding-assets.md`
+
 
 
 

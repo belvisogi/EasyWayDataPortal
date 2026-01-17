@@ -13,10 +13,17 @@
     "agents/logs/**",
     "docs/agentic/templates/sheets/access-registry.csv"
   ],
-  "allowed_tools": ["pwsh", "az"],
-  "required_gates": ["KB_Consistency"],
+  "allowed_tools": [
+    "pwsh",
+    "az"
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
   "approvals": {
-    "prod": ["Human_Governance_Approval"]
+    "prod": [
+      "Human_Governance_Approval"
+    ]
   },
   "knowledge_sources": [
     "Wiki/EasyWayData.wiki/security/segreti-e-accessi.md",
@@ -29,27 +36,54 @@
       "name": "kv-secret:set",
       "description": "Imposta/aggiorna un secret in Azure Key Vault (non stampa il valore).",
       "params": {
-        "vaultName": { "type": "string", "required": true },
-        "secretName": { "type": "string", "required": true },
-        "secretValue": { "type": "string", "required": true },
-        "tags": { "type": "object", "required": false }
+        "vaultName": {
+          "type": "string",
+          "required": true
+        },
+        "secretName": {
+          "type": "string",
+          "required": true
+        },
+        "secretValue": {
+          "type": "string",
+          "required": true
+        },
+        "tags": {
+          "type": "object",
+          "required": false
+        }
       }
     },
     {
       "name": "kv-secret:reference",
       "description": "Genera una Key Vault reference per App Settings (non legge il valore).",
       "params": {
-        "vaultName": { "type": "string", "required": true },
-        "secretName": { "type": "string", "required": true },
-        "version": { "type": "string", "required": false }
+        "vaultName": {
+          "type": "string",
+          "required": true
+        },
+        "secretName": {
+          "type": "string",
+          "required": true
+        },
+        "version": {
+          "type": "string",
+          "required": false
+        }
       }
     },
     {
       "name": "access-registry:propose",
       "description": "Propone una riga registry accessi (audit) senza valori segreti.",
       "params": {
-        "access": { "type": "object", "required": true }
+        "access": {
+          "type": "object",
+          "required": true
+        }
       }
     }
-  ]
+  ],
+  "name": "agent_security",
+  "readme": "README.md",
+  "classification": "arm"
 }

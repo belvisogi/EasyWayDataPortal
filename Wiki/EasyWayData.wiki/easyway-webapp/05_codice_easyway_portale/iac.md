@@ -15,11 +15,14 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 ## Domande a cui risponde
 - Quali risorse IaC sono previste per il portale?
 - Come si struttura il deploy (ambiente, variabili, segreti)?
 - Dove trovare policy e naming per componenti cloud?
 - Come validare naming/ancore e tracciare i cambiamenti?
+
 
 
 

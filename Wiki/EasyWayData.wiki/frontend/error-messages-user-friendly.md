@@ -6,6 +6,8 @@ summary: Sistema di traduzione errori tecnici in messaggi user-friendly italiani
 status: draft
 ---
 
+[[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
+
 # Error Messages User-Friendly 🇮🇹
 
 > **Obiettivo**: Trasformare errori tecnici incomprensibili in messaggi chiari, umani e actionable per l'utente finale.
@@ -463,5 +465,6 @@ describe('ErrorTranslator', () => {
 
 **Tempo stimato**: ~1 giorno  
 **Beneficio**: UX dramaticamente migliore, frustrazione utente ridotta, supporto clienti più efficiente
+
 
 

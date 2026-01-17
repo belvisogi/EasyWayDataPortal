@@ -15,6 +15,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
+
 ### ENDPOINT: GET `/api/config`
 
 **Descrizione**
@@ -76,6 +78,7 @@ next: TODO - definire next step.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

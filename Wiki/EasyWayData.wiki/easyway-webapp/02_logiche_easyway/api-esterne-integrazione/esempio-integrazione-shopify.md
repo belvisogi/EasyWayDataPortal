@@ -15,6 +15,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 # Integrazione Shopify – Dettaglio & Esempio Pratico
 
 ## Overview
@@ -159,6 +161,7 @@ Nota operativa
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

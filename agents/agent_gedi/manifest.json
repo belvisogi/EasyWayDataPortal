@@ -1,10 +1,27 @@
 {
   "id": "agent_gedi",
   "name": "Agent GEDI (Guardian EasyWay Delle Intenzioni)",
+  "classification": "brain",
   "version": "1.0.0",
   "role": "philosophy_guardian",
   "owner": "team-platform",
   "description": "Custode del Manifesto EasyWay. Ricorda a tutti - agenti e umani - i principi fondamentali: qualità > velocità, misuriamo due tagliamo una, il percorso conta, lasciare impronta tangibile.",
+  "llm_config": {
+    "model": "gpt-4o",
+    "temperature": 0.2,
+    "system_prompt": "agents/agent_gedi/PROMPTS.md",
+    "tools": [
+      "reasoning_engine",
+      "manifesto_search"
+    ]
+  },
+  "context_config": {
+    "memory_files": [
+      "MANIFESTO.md",
+      "Wiki/EasyWayData.wiki/standards/agent-architecture-standard.md"
+    ],
+    "context_limit_tokens": 128000
+  },
   "capabilities": [
     "manifesto_validation",
     "decision_quality_check",
@@ -241,5 +258,27 @@
     "guardian_of": "EasyWay Manifesto - La Filosofia",
     "can_be_disabled": true,
     "but_why_would_you": "Perché dovresti disabilitare chi ti ricorda di fare bene le cose? 💙"
-  }
+  },
+  "readme": "README.md",
+  "actions": [
+    {
+      "name": "gedi:ooda.loop",
+      "description": "Running OODA Loop: Observe (Context), Orient (Principles), Decide, Act (Guidance).",
+      "script": "../../scripts/agent-gedi.ps1",
+      "params": {
+        "Context": {
+          "type": "string",
+          "required": true
+        },
+        "Intent": {
+          "type": "string",
+          "required": false
+        },
+        "DryRun": {
+          "type": "boolean",
+          "required": false
+        }
+      }
+    }
+  ]
 }

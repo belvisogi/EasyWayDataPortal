@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Spec|Spec]]
+
 # Documentazione Agentica - Audit & Policy (Canonico)
 
 Scopo: rendere la documentazione **facile da leggere per agenti** (LLM + tooling) e da umani non esperti, riducendo ambiguità, duplicati e token sprecati.
@@ -194,5 +196,6 @@ Una modifica è “done” quando:
 - [Tag Taxonomy (Controllata)](./docs-tag-taxonomy.md)
 - [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
 - [Visione Portale Agentico](./agentic-portal-vision.md)
+
 
 

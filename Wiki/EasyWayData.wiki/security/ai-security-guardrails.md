@@ -14,6 +14,8 @@ pii: none
 owner: team-security, team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Security|Security]] > [[Layer - Reference|Reference]]
+
 # AI Security Guardrails
 
 ## Contesto
@@ -276,4 +278,5 @@ python3 scripts/kb-security-scan.py agents/kb/recipes.jsonl
 **Owner**: team-security, team-platform  
 **Status**: Scripts ready, deployment pending  
 **Priority**: Deploy before Expert+Reviewer goes live
+
 

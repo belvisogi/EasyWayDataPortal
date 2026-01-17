@@ -16,11 +16,14 @@ next: TODO - definire next step.
 ---
 
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Spec|Spec]]
+
 ## Domande a cui risponde
 - Quali sono le tabelle e gli schemi principali?
 - Dove sono le convenzioni di naming e i collegamenti a programmability?
 - Quali passi minimi per aggiornare struttura e indici?
 - Dove trovare le entità correlate nel dizionario?
+
 
 
 

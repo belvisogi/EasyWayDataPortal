@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Documentare regole ACL e join principali (profiles/sections).
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 # PORTAL.PROFILE_DOMAINS — Profile domains
 
 ## Contesto
@@ -22,4 +24,5 @@ next: Documentare regole ACL e join principali (profiles/sections).
 
 ## Scopo
 - TODO: descrivere i profili e la loro relazione con i domini/aree di accesso.
+
 

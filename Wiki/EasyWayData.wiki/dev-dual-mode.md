@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Howto|Howto]]
+
 ## Obiettivo
 - Permettere sviluppo economico in locale usando `DB_MODE=mock` con file JSON, mantenendo le stesse API.
 - Passaggio zero‑rework a `DB_MODE=sql` con Azure SQL/App Service.
@@ -55,4 +57,5 @@ next: TODO - definire next step.
 ## Verify
 - Con `DB_MODE=mock` l'API risponde senza dipendenze DB.
 - Con `DB_MODE=sql` l'API risponde e le query/SP non generano errori di connessione.
+
 

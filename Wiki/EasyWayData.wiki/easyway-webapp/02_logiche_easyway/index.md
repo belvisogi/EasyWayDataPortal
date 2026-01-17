@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: Aggiornare quando si aggiungono nuove pagine o capitoli.
 ---
 
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Index|Index]]
+
 # Indice
 
 - Nota per autori: per nuove pagine usare `./_template.md`.
@@ -34,4 +36,5 @@ Breadcrumb: Home / EasyWay WebApp / Logiche EasyWay
 - Dove trovo le guide per login/onboarding e notifiche?
 - Dove sono le regole di logging/audit e le policy di sicurezza?
 - Quali pagine sono canoniche per integrazioni con API esterne?
+
 

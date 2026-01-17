@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Completare descrizioni colonne e policy (PII/RLS) per tutte le tabelle.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Index|Index]]
+
 # PORTAL — Tables (Blueprint)
 
 - Nota per autori: per nuove pagine usare `./_template.md`.
@@ -45,5 +47,6 @@ next: Completare descrizioni colonne e policy (PII/RLS) per tutte le tabelle.
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 

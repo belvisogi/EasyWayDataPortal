@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Gate|Gate]]
+
 Obiettivo
 - Verificare che i governance gates via `ewctl` e lo stage DB/Flyway funzionino su una branch non-main, con logging e artifact attesi.
 
@@ -66,4 +68,5 @@ Riferimenti
 - [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
 - [Doc Alignment Gate](./doc-alignment-gate.md)
 - [EnforcerCheck – Guardrail allowed_paths in CI](./enforcer-guardrail.md)
+
 

@@ -6,6 +6,8 @@ summary: Index of all pages tagged with DOMAIN/DB
 status: draft
 ---
 
+[[start-here|Home]] > [[domains/DB|DB]] > [[Layer - Index|Index]]
+
 # 📄 DB
 
 **Pillar**: DOMAIN  
@@ -68,6 +70,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

@@ -15,6 +15,8 @@ updated: '2026-01-16'
 next: Collegare al workflow n8n reale e aggiungere esempi artifacts[].
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Orchestration|Orchestration]]
+
 # DB Generate Docs (WHAT)
 
 ## Domande a cui risponde
@@ -53,4 +55,5 @@ Riferimenti
 - [n8n-db-table-create](./n8n-db-table-create.md)
 - [DB User Rotate (WHAT)](./db-user-rotate.md)
 - [n8n-db-ddl-inventory](./n8n-db-ddl-inventory.md)
+
 

@@ -15,6 +15,8 @@ updated: '2026-01-16'
 next: Estendere esempi DSL.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 # Dominio DB
 
 ## Domande a cui risponde
@@ -55,4 +57,5 @@ KB
 - [Dominio Docs & Governance](./docs-governance.md)
 - [DB PORTAL - Inventario DDL (canonico)](../easyway-webapp/01_database_architecture/ddl-inventory.md)
 - [db-table-portal-stats-execution-log](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-stats-execution-log.md)
+
 

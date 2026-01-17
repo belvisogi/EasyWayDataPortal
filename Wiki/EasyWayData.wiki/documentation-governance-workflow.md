@@ -6,6 +6,8 @@ summary: Workflow completo del Documentation Gardener Cycle - processo iterativo
 status: draft
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+
 # Documentation Governance Workflow 🌳
 
 > **Filosofia**: La documentazione è un giardino vivo. Non si progetta una volta, si coltiva continuamente con un processo data-driven e agent-assisted.
@@ -353,5 +355,6 @@ Solo DELETE rumore vero (`why`, `how`, acronym senza context).
 - [Tag Taxonomy Schema](./docs-tag-taxonomy.md)
 - Knowledge Graph: `agents/memory/knowledge-graph.json`
 - Master Hierarchy: `agents/memory/tag-master-hierarchy.json`
+
 
 

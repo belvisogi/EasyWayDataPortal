@@ -1,3 +1,5 @@
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 title: ARGOS – Coach Agent (v1)
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
 status: active
@@ -31,6 +33,7 @@ Open/Click, Confirm_read, Δ Noise (7/30d), Recidiva 30d; evento `argos.coach.nu
 
 ## Rollout e RACI
 Pilot 1–2 domini, KPI outcome, ownership chiara e integrazione con governance portale.
+
 
 
 

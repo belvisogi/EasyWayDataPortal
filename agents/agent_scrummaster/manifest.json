@@ -7,11 +7,21 @@
     "agents/kb/**",
     "Wiki/EasyWayData.wiki/**"
   ],
-  "allowed_tools": ["pwsh", "az", "curl"],
-  "required_gates": ["KB_Consistency"],
+  "allowed_tools": [
+    "pwsh",
+    "az",
+    "curl"
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
   "approvals": {
-    "boards": ["Human_ProductOwner_Approval"],
-    "prod": ["Human_Governance_Approval"]
+    "boards": [
+      "Human_ProductOwner_Approval"
+    ],
+    "prod": [
+      "Human_Governance_Approval"
+    ]
   },
   "knowledge_sources": [
     "agents/kb/recipes.jsonl",
@@ -20,5 +30,8 @@
     "Wiki/EasyWayData.wiki/agents-scrummaster.md",
     "scripts/ado/README.md",
     "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
-  ]
+  ],
+  "name": "agent_scrummaster",
+  "readme": "README.md",
+  "classification": "brain"
 }

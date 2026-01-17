@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Definire campi minimi e correlazione con STATS_EXECUTION_LOG.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 # PORTAL.STATS_EXECUTION_TABLE_LOG — Table execution log
 
 ## Contesto
@@ -22,4 +24,5 @@ next: Definire campi minimi e correlazione con STATS_EXECUTION_LOG.
 
 ## Scopo
 - TODO: descrivere cosa viene tracciato (insert/update/delete) e come si correla a chiamate SP/API.
+
 

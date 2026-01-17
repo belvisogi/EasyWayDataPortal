@@ -15,6 +15,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 # Logging & Audit – EasyWay Data Portal
 
 ## Lookup Logging & Audit – Microservizi & API Gateway
@@ -77,6 +79,7 @@ v
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

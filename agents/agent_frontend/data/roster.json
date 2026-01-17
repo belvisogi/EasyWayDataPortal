@@ -1,0 +1,451 @@
+{
+  "agents": [
+    {
+      "role": "Agent_ADO_UserStory",
+      "id": "agent_ado_userstory",
+      "model": "Default",
+      "description": "Gestione User Story su Azure DevOps: prefetch best practices (Wiki + esterne) e creazione work item con output strutturato.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "ado:bestpractice.prefetch",
+        "ado:bootstrap",
+        "ado:userstory.create"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh"
+      ],
+      "classification": "arm",
+      "name": "agent_ado_userstory"
+    },
+    {
+      "role": "Agent_AMS",
+      "id": "agent_ams",
+      "model": "Default",
+      "description": "Automazione operativa conversazionale (Checklist, Variable Group, deploy helpers)",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh",
+        "npm",
+        "curl"
+      ],
+      "classification": "arm",
+      "name": "agent_ams"
+    },
+    {
+      "role": "Agent_API",
+      "id": "agent_api",
+      "model": "Default",
+      "description": "Triage e tracciamento errori API; produce output strutturato per orchestrazioni n8n.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "api-error:triage"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh"
+      ],
+      "classification": "arm",
+      "name": "agent_api"
+    },
+    {
+      "role": "Inspector",
+      "id": "agent_audit",
+      "model": "Default",
+      "description": "Responsabile della verifica di conformità architetturale degli agenti.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "audit:agents.inspect"
+      ],
+      "icon": "🤖",
+      "os_tools": [],
+      "classification": "arm",
+      "name": "Agent_Audit"
+    },
+    {
+      "role": "Agent_Backend",
+      "id": "agent_backend",
+      "model": "Default",
+      "description": "Owner implementazione API: OpenAPI, pattern middleware auth/tenant, lint e scaffolding endpoint (distinct da agent_api triage).",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "api:openapi-validate"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh",
+        "npm"
+      ],
+      "classification": "arm",
+      "name": "agent_backend"
+    },
+    {
+      "role": "historian",
+      "id": "agent_chronicler",
+      "model": "gpt-4o",
+      "description": "The Voice of History. Osserva l'evoluzione dell'ecosistema, registra le pietre miliari e celebra i momenti di vera innovazione ('A star is born').",
+      "tools": [
+        "event_listener",
+        "history_writer",
+        "announcer"
+      ],
+      "owner": "team-platform",
+      "actions": [
+        "chronicle:record",
+        "chronicle:announce"
+      ],
+      "icon": "🧠",
+      "os_tools": [],
+      "classification": "brain",
+      "name": "Agent Chronicler (The Bard)"
+    },
+    {
+      "role": "Agent_Creator",
+      "id": "agent_creator",
+      "model": "Default",
+      "description": "Scaffolding governato di nuovi agenti (manifest/templates/KB/Wiki) usando pattern canonici + contesto RAG (Azure AI Search) orchestrato da n8n.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "agent:scaffold"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh",
+        "git"
+      ],
+      "classification": "arm",
+      "name": "agent_creator"
+    },
+    {
+      "role": "Agent_Datalake",
+      "id": "agent_datalake",
+      "model": "Default",
+      "description": "Gestione operativa e compliance del Datalake: naming, ACL, audit, retention, export log, policy.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "dlk-ensure-structure",
+        "dlk-apply-acl",
+        "dlk-set-retention",
+        "dlk-export-log",
+        "etl-slo:validate"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh",
+        "azcopy",
+        "terraform"
+      ],
+      "classification": "arm",
+      "name": "agent_datalake"
+    },
+    {
+      "role": "Agent_DBA",
+      "id": "agent_dba",
+      "model": "Default",
+      "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "db-user:create",
+        "db-user:rotate",
+        "db-user:revoke",
+        "db-doc:ddl-inventory",
+        "db-metadata:extract",
+        "db-metadata:diff",
+        "db-guardrails:check",
+        "db-table:create",
+        "db-blueprint:generate"
+      ],
+      "icon": "🧠",
+      "os_tools": [
+        "npm",
+        "pwsh",
+        "sqlcmd",
+        "az"
+      ],
+      "classification": "brain",
+      "name": "Agent_DBA"
+    },
+    {
+      "role": "Agent_Docs_Review",
+      "id": "agent_docs_review",
+      "model": "Default",
+      "description": "Revisione documentazione: normalizzazione Wiki, indici/chunk, coerenza KB, supporto aggiunta ricette.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh"
+      ],
+      "classification": "arm",
+      "name": "agent_docs_review"
+    },
+    {
+      "role": "Agent_Docs_Sync",
+      "id": "agent_docs_sync",
+      "model": "Default",
+      "description": "Mantiene allineamento tra documentazione e codice: valida tag metadata, verifica cross-references, suggerisce aggiornamenti docs quando script cambiano.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "docs:check",
+        "docs:validate",
+        "docs:report",
+        "docs:sync",
+        "docs:scan"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh"
+      ],
+      "classification": "arm",
+      "name": "agent_docs_sync"
+    },
+    {
+      "role": "Blueprint",
+      "id": "agent_dq_blueprint",
+      "model": "Default",
+      "description": "Genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX/schema, integrato con ARGOS.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        null
+      ],
+      "icon": "🤖",
+      "os_tools": [],
+      "classification": "arm",
+      "name": "agent_dq_blueprint"
+    },
+    {
+      "role": "philosophy_guardian",
+      "id": "agent_gedi",
+      "model": "gpt-4o",
+      "description": "Custode del Manifesto EasyWay. Ricorda a tutti - agenti e umani - i principi fondamentali: qualità > velocità, misuriamo due tagliamo una, il percorso conta, lasciare impronta tangibile.",
+      "tools": [
+        "reasoning_engine",
+        "manifesto_search"
+      ],
+      "owner": "team-platform",
+      "actions": [
+        "gedi:ooda.loop"
+      ],
+      "icon": "⚖️",
+      "os_tools": [],
+      "classification": "brain",
+      "name": "Agent GEDI (Guardian EasyWay Delle Intenzioni)"
+    },
+    {
+      "role": "Agent_Governance",
+      "id": "agent_governance",
+      "model": "Default",
+      "description": "Policy, qualità, gates e approvazioni per DB/API/Docs",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [],
+      "icon": "🧠",
+      "os_tools": [
+        "pwsh",
+        "node"
+      ],
+      "classification": "brain",
+      "name": "agent_governance"
+    },
+    {
+      "role": "Agent_Infra",
+      "id": "agent_infra",
+      "model": "Default",
+      "description": "IaC/Terraform governato: validate/plan/apply (WhatIf-by-default), drift infra e runbook.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "infra:terraform-plan"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh",
+        "terraform",
+        "az"
+      ],
+      "classification": "arm",
+      "name": "agent_infra"
+    },
+    {
+      "role": "Agent_Observability",
+      "id": "agent_observability",
+      "model": "Default",
+      "description": "Osservabilita': health check, standard logging, suggerimenti OTel/AppInsights e runbook troubleshooting (no secrets).",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "obs:healthcheck"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh"
+      ],
+      "classification": "arm",
+      "name": "agent_observability"
+    },
+    {
+      "role": "Agent_PR_Manager",
+      "id": "agent_pr_manager",
+      "model": "Default",
+      "description": "Crea e propone Pull Request agentiche con esiti gates e riferimenti artifact. Nessun merge autonomo.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh",
+        "git",
+        "az"
+      ],
+      "classification": "arm",
+      "name": "agent_pr_manager"
+    },
+    {
+      "role": "Agent_Release",
+      "id": "agent_release",
+      "model": "Default",
+      "description": "Packaging/versioning del runtime bundle (copia parziale) per runner segregato: build artifact e publish (no segreti).",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "runtime:bundle"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh",
+        "git"
+      ],
+      "classification": "arm",
+      "name": "agent_release"
+    },
+    {
+      "role": "Agent_Retrieval",
+      "id": "agent_retrieval",
+      "model": "Default",
+      "description": "Gestione RAG: indicizzazione Wiki/KB, retrieval bundles, sync verso vector DB (on-demand), anti-duplicati/canonical.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "rag:export-wiki-chunks"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh"
+      ],
+      "classification": "arm",
+      "name": "agent_retrieval"
+    },
+    {
+      "role": "Agent_ScrumMaster",
+      "id": "agent_scrummaster",
+      "model": "Default",
+      "description": "Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [],
+      "icon": "🧠",
+      "os_tools": [
+        "pwsh",
+        "az",
+        "curl"
+      ],
+      "classification": "brain",
+      "name": "agent_scrummaster"
+    },
+    {
+      "role": "Navigator",
+      "id": "agent_second_brain",
+      "model": "Default",
+      "description": "Responsabile della navigabilità semantica, Context Injection e manutenzione dei Breadcrumbs.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "brain:breadcrumbs.generate",
+        "brain:breadcrumbs.clean"
+      ],
+      "icon": "🤖",
+      "os_tools": [],
+      "classification": "arm",
+      "name": "agent_second_brain"
+    },
+    {
+      "role": "Agent_Security",
+      "id": "agent_security",
+      "model": "Default",
+      "description": "Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit e registry (no valori segreti nei log).",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "kv-secret:set",
+        "kv-secret:reference",
+        "access-registry:propose"
+      ],
+      "icon": "🛡️",
+      "os_tools": [
+        "pwsh",
+        "az"
+      ],
+      "classification": "arm",
+      "name": "agent_security"
+    },
+    {
+      "role": "Agent_Synapse",
+      "id": "agent_synapse",
+      "model": "Default",
+      "description": "[EXPERIMENTAL - Phase 2] Gestione workspace Synapse/DataFactory: scaffolding cartelle, linting PySpark, gestione Linked Services e template standard. In valutazione per roadmap analytics avanzati.",
+      "tools": [],
+      "owner": "Platform Team",
+      "actions": [
+        "synapse:scaffold",
+        "synapse:check-sql"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh"
+      ],
+      "classification": "arm",
+      "name": "agent_synapse"
+    },
+    {
+      "role": "Template",
+      "id": "agent_template",
+      "model": "gpt-4-turbo",
+      "description": "Scheletro di agente agent-first: intent JSON, azioni idempotenti, output strutturato, allowed_paths.",
+      "tools": [
+        "web_search",
+        "code_interpreter"
+      ],
+      "owner": "team-platform",
+      "actions": [
+        "sample:echo"
+      ],
+      "icon": "🤖",
+      "os_tools": [
+        "pwsh",
+        "git",
+        "az"
+      ],
+      "classification": "arm",
+      "name": "agent_template"
+    }
+  ],
+  "stats": {
+    "brains": 5,
+    "total": 24,
+    "arms": 19
+  },
+  "generatedAt": "2026-01-17T19:23:51.9330555Z"
+}

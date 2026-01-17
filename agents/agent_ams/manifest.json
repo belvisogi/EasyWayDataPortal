@@ -7,11 +7,24 @@
     "scripts/ado-set-variable-group.ps1",
     "agents/kb/recipes.jsonl"
   ],
-  "allowed_tools": ["pwsh", "npm", "curl"],
-  "required_gates": ["KB_Consistency"],
-  "approvals": { "prod": ["Human_Governance_Approval"] },
+  "allowed_tools": [
+    "pwsh",
+    "npm",
+    "curl"
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
+  "approvals": {
+    "prod": [
+      "Human_Governance_Approval"
+    ]
+  },
   "knowledge_sources": [
     "agents/kb/recipes.jsonl",
     "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
-  ]
+  ],
+  "name": "agent_ams",
+  "readme": "README.md",
+  "classification": "arm"
 }

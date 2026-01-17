@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-13'
 ---
 
+[[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
+
 # Agent Chat Interface (Teams-style)
 
 ## Vision
@@ -129,6 +131,20 @@ sequenceDiagram
 L'API `Agent Chat` è esposta da `easyway-portal-api` e:
 - Persistenza conversazioni: eventi in `PORTAL.LOG_AUDIT` (categoria `agent_chat.*`) con SP dedicate in `db/migrations/`.
 - Orchestrazione: risposta deterministica basata su `agents/core/orchestrator.js` (plan JSON) e intent esplicito (es. `intent: predeploy-checklist`) o euristiche per agente.
+- Guardrail runtime: allowlist `primary_intents`, rate limit dedicato, output validation e redazione/retention.
+
+### Variabili d'ambiente (Agent Chat)
+- `AGENT_CHAT_ENFORCE_ALLOWLIST=true|false` (default: true)
+- `AGENT_CHAT_REQUIRE_APPROVAL_ON_APPLY=true|false` (default: true)
+- `APPROVAL_TICKET_PATTERN` (default: `^CAB-\d{4}-\d{4}$`)
+- `APPROVAL_TICKET_VALIDATE_URL` (opzionale, supporta `{ticketId}`)
+- `APPROVAL_TICKET_VALIDATE_METHOD` (default: `GET`)
+- `APPROVAL_TICKET_VALIDATE_HEADER`, `APPROVAL_TICKET_VALIDATE_TOKEN` (opzionale)
+- `AGENT_CHAT_RATE_LIMIT_WINDOW_MS` (default: 60000)
+- `AGENT_CHAT_RATE_LIMIT_MAX` (default: 60)
+- `AGENT_CHAT_REDACT=true|false` (default: true)
+- `AGENT_CHAT_MAX_MESSAGE_LEN` (default: 4000)
+- `AGENT_CHAT_MAX_METADATA_LEN` (default: 4000)
 
 ### 1. GET /api/agents
 
@@ -188,6 +204,9 @@ Invia messaggio a un agent.
   "message": "Come creo una tabella USERS?",
   "conversationId": "conv-123",  // Optional: null for new conversation
   "context": {                   // Optional
+    "executionMode": "plan",     // plan|apply
+    "approved": false,           // true when human approval granted
+    "approvalId": "CAB-2026-0001",
     "branch": "main",
     "changedFiles": [],
     "tags": ["onboarding"]
@@ -227,6 +246,24 @@ Invia messaggio a un agent.
   "error": "rate_limit_exceeded",
   "message": "Troppi messaggi. Riprova tra 30 secondi.",
   "retryAfter": 30
+}
+```sql
+
+**Error 428** (Approval required):
+```json
+{
+  "error": "approval_required",
+  "message": "Approval required before apply execution",
+  "executionMode": "apply"
+}
+```sql
+
+**Error 422** (Approval invalid):
+```json
+{
+  "error": "approval_invalid",
+  "message": "Approval ticket invalid",
+  "approvalId": "CAB-2026-0001"
 }
 ```sql
 
@@ -376,6 +413,13 @@ const rateLimit = {
   agent: '100 messages / hour (global)'
 };
 ```sql
+
+### Approval Gate (Human-in-the-loop)
+
+```javascript
+// Require approval + ticket before executing apply mode
+const context = { executionMode: "apply", approved: true, approvalId: "CAB-2026-0001" };
+```
 
 ### Context Sanitization
 
@@ -633,3 +677,4 @@ curl -X POST http://localhost:3000/api/agents/agent_dba/chat \
 **Status**: Draft (Wiki spec ready, code pending)  
 **Priority**: Medium (after Wizard + Plan Viewer MVP)  
 **Estimated Effort**: 3-4 weeks (2 dev + 1 UX + 1 testing)
+

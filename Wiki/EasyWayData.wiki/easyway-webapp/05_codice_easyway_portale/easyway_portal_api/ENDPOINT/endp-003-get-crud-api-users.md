@@ -16,6 +16,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
+
 ### ENDPOINT: CRUD `/api/users`
 
 **Descrizione**
@@ -247,6 +249,7 @@ app.use("/api/users", usersRoutes);
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

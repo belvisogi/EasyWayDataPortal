@@ -15,6 +15,8 @@ llm:
 entities: []
 next: Applicare a terraform.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 # 📂 Wiki IAM - Naming Convention Utenze Tecniche e Gruppi  
 EasyWay DataPortal - Storage & Datalake  
 
@@ -124,5 +126,6 @@ Scopo: Accesso amministrazione Datalake (IAM + ACL)
 | `grp.portal.datalake.write`| `Storage Blob Data Contributor` | Scrittura dati in staging/landing per ETL e App                |
 
 ---
+
 
 

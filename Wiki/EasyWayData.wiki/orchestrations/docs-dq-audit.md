@@ -13,6 +13,8 @@ entities: []
 updated: '2026-01-09'
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Orchestration|Orchestration]]
+
 # Docs DQ Audit + Kanban (WHAT)
 
 Contratto
@@ -50,4 +52,5 @@ pwsh scripts/docs-dq-scorecard.ps1 `
 
 Rollback:
 - Ogni apply salva backup e summary in `out/docs-dq-scorecard-apply/<runId>/`.
+
 

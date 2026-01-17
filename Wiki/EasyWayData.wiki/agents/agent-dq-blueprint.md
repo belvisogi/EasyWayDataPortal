@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 # Agent – DQ Blueprint (Spec v0)
 
 Missione
@@ -80,6 +82,7 @@ Riferimenti
 - ARGOS – Policy DSL: `argos/argos-policy-dsl.md`
 - Quality Gates: `argos/argos-quality-gates.md`
 - Governance DQ: `governance-dq.md`
+
 
 
 

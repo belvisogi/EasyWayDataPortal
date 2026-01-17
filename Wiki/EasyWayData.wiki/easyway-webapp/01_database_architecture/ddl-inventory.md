@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Rendere Flyway (`db/flyway/`) la fonte incrementale e rigenerare periodicamente il DDL canonico (snapshot) se necessario; mantenere i legacy export fuori dal retrieval.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 # DB PORTAL - Inventario DDL (canonico)
 
 ## Obiettivo
@@ -74,5 +76,6 @@ Deploy operativa: usare migrazioni Flyway in `db/flyway/` (apply controllato).
 - Include provisioning (dev/local): `pwsh scripts/db-ddl-inventory.ps1 -IncludeProvisioning -WriteWiki`
 - Include snapshot DDL (legacy): `pwsh scripts/db-ddl-inventory.ps1 -IncludeSnapshot -WriteWiki`
 - Include legacy export (audit): `pwsh scripts/db-ddl-inventory.ps1 -IncludeLegacy -WriteWiki`
+
 
 

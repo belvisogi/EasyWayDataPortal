@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 Obiettivo
 - Rendere la proposta di checklist una metodologia comune a TUTTI gli agenti, ridurre “alert fatigue” e proporre checklists solo quando serve, con regole per‑agente parametriche.
 
@@ -61,5 +63,6 @@ Riferimenti
 - [Agent ScrumMaster – Single Owner, Multi‑Agent](./agents-scrummaster.md)
 - [Metodo di Lavoro Agent‑First](./agent-first-method.md)
 - [Governance DQ – RACI, Processi e Checklist](./governance-dq.md)
+
 
 

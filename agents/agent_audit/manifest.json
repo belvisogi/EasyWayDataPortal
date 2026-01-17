@@ -1,0 +1,20 @@
+{
+    "name": "Agent_Audit",
+    "classification": "arm",
+    "role": "Inspector",
+    "description": "Responsabile della verifica di conformità architetturale degli agenti.",
+    "readme": "README.md",
+    "knowledge_sources": [
+        "Wiki/EasyWayData.wiki/standards/agent-architecture-standard.md"
+    ],
+    "actions": [
+        {
+            "name": "audit:agents.inspect",
+            "description": "Esegue l'audit di tutti gli agenti registrati.",
+            "script": "../../scripts/agent-audit.ps1",
+            "params": {
+                "DryRun": false
+            }
+        }
+    ]
+}

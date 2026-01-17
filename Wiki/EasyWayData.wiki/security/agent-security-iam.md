@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 # Agent Security (IAM/KeyVault)
 
 ## Contesto (repo)
@@ -46,5 +48,6 @@ pwsh scripts/agent-security.ps1 -Action kv-secret:reference -IntentPath out/inte
 - [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
 - [Segreti e accessi (DB + Datalake)](./segreti-e-accessi.md)
 - [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
+
 
 

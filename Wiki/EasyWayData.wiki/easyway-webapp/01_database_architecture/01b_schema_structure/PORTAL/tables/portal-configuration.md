@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Compilare data dictionary (colonne, PII, tenanting) e link alle SP CRUD.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 # PORTAL.CONFIGURATION — Configuration
 
 ## Contesto
@@ -27,4 +29,5 @@ next: Compilare data dictionary (colonne, PII, tenanting) e link alle SP CRUD.
 ## Domande a cui risponde
 - Quali configurazioni esistono e come sono versionate/attivate?
 - Quali campi contengono dati sensibili (PII) o segreti (da evitare)?
+
 

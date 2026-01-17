@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 # Segregation Model (Dev vs Knowledge vs Runtime)
 
 ## Contesto (repo)
@@ -105,5 +107,6 @@ flowchart LR
 - [Roadmap agent (retrieval, observability, infra, backend, release)](./agents-missing-roadmap.md)
 - [Control Plane - Panoramica](./index.md)
 - [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+
 
 

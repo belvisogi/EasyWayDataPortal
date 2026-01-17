@@ -1,3 +1,5 @@
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 title: ARGOS – Playbook Catalog (v1)
 tags: [argos, dq, agents, domain/control-plane, layer/reference, audience/ops, audience/dev, privacy/internal, language/it]
 updated: '2026-01-16'
@@ -44,6 +46,7 @@ OWNER chiaro; manutenzione trimestrale; AUTO_SAFE solo per PB certificati.
 
 ## DoD (v1)
 Schede minime pubblicate, integrazione Alerting/Gates, KPI raccolti, flag AUTO_SAFE/guardrail/backout definiti, privacy rispettata.
+
 
 
 

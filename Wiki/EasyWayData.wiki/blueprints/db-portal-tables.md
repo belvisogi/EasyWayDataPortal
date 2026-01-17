@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Popolare logical_name/descrizioni colonne e collegare SP/endpoint per ogni tabella.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Blueprint|Blueprint]]
+
 # Blueprint - DB PORTAL Tables (previste)
 
 ## Contesto
@@ -52,4 +54,5 @@ Contesto: abbiamo già un blueprint derivabile da Flyway, quindi possiamo genera
 - [Blueprint - DB Table Create (Excel/CSV -> Intent)](./db-table-create-sheet.md)
 - [DB PORTAL - Inventario DDL (canonico)](../easyway-webapp/01_database_architecture/ddl-inventory.md)
 - [db-table-portal-log-audit](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-log-audit.md)
+
 

@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
+
 # Quest Board – Excel/CSV Upload (L1→L5)
 
 Principi
@@ -67,6 +69,7 @@ Misurazione (L1)
 
 Note
 - I livelli successivi (L2..L5) si innestano senza rompere il contratto UX/WHAT definito a L1.
+
 
 
 

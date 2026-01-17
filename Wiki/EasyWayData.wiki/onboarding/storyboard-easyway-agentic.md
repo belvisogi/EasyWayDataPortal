@@ -8,6 +8,8 @@ owner: team-platform
 updated: '2026-01-06'
 ---
 
+[[start-here|Home]]
+
 # 📖 Storyboard evolutivo: la storia “agentica” di EasyWay
 
 Una retrospettiva “aperta” degli step fondamentali che hanno trasformato EasyWay DataPortal **da una knowledge base documentale tradizionale** a una piattaforma agentica, self-improving e semantic-driven.  
@@ -132,3 +134,4 @@ Questa storia è pensata per essere blueprint per chi vuole replicare (e miglior
 - [Proposte cross-link, FAQ, edge-case, automation](proposte-crosslink-faq-edgecase.md)
 - [Scripting Best Practice](best-practice-scripting.md)
 - [Setup sandbox/Zero Trust](setup-playground-zero-trust.md)
+

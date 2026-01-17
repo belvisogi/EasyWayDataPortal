@@ -1,3 +1,5 @@
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 title: ARGOS – Policy DSL & Registry (v1.1)
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, policy, data-quality]
 updated: '2026-01-16'
@@ -49,6 +51,7 @@ Gates (severity dinamica/trace), Tech Profiling (soglie), Biz‑Learning (propos
 
 ## DoD (v1.1)
 Schema Policy completo + linter; workflow & semver; integrazioni; esempi; privacy ok.
+
 
 
 

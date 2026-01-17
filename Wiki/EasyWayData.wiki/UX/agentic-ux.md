@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
+
 Scopo
 - Fornire una specifica pratica e wireframes per le prime funzionalità UX dell’MVP: Wizard (Create table), Plan Viewer e WhatIf/Simulator.
 - Definire le API minimali necessarie al frontend per interrogare l’orchestratore e visualizzare plan completi di checklistSuggestions.
@@ -223,4 +225,5 @@ Indica quale di questi vuoi che generi immediatamente.
 - [Use Case – Entrate/Uscite (One‑Button UX)](../use-cases/entrate-uscite.md)
 - [UX – Usability Checklist (One‑Button)](./usability-checklist.md)
 - [UX - Asset e Branding](./branding-assets.md)
+
 

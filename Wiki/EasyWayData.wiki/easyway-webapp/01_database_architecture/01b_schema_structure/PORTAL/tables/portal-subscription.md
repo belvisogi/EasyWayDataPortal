@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Collegare a SP di notification e a USER_NOTIFICATION_SETTINGS.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 # PORTAL.SUBSCRIPTION — Subscription
 
 ## Contesto
@@ -22,4 +24,5 @@ next: Collegare a SP di notification e a USER_NOTIFICATION_SETTINGS.
 
 ## Scopo
 - TODO: descrivere cosa rappresenta una subscription e come viene gestita (create/update/delete).
+
 

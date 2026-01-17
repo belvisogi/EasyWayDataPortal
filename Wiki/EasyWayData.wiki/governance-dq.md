@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 # Governance DQ – RACI, Processi e Checklist
 
 Scopo
@@ -87,6 +89,7 @@ Riferimenti
 - Tech Profiling: `argos/argos-tech-profiling.md`
 - Coach Agent: `argos/argos-coach-agent.md`
 - Event Schema: `argos/argos-event-schema.md`
+
 
 
 

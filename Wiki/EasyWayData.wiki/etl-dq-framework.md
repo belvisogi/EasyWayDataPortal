@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/datalake|datalake]] > [[Layer - Spec|Spec]]
+
 # ETL – Data Quality Framework
 Breadcrumb: Home / Datalake / ETL DQ Framework
 
@@ -53,6 +55,7 @@ Riferimenti
 - ETL/ELT Inspirations (ADA Framework)
 - ETL/ELT Playbook
  - ARGOS – Overview: `argos/argos-overview.md`
+
 
 
 

@@ -6,6 +6,8 @@ summary: Index of all pages tagged with ARTIFACT/Spec
 status: draft
 ---
 
+[[start-here|Home]] > [[Layer - Index|Index]]
+
 # 📄 Spec
 
 **Pillar**: ARTIFACT  
@@ -16,6 +18,7 @@ status: draft
 ---
 
 [⬆️ Back to ARTIFACT](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

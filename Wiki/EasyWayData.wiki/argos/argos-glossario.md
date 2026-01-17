@@ -15,6 +15,8 @@ updated: '2026-01-16'
 next: Espandere le voci di glossario.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 # ARGOS – Glossario Unificato (v1)
 
 ## Domande a cui risponde
@@ -33,6 +35,7 @@ Voci iniziali (selezione)
 
 Riferimenti
 - Quality Gates, Policy DSL, Tech Profiling, Playbook, Event Schema, Coach Agent.
+
 
 
 

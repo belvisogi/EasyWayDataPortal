@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
+
 # Obsidian Vault Setup (Wiki)
 
 ## Scopo
@@ -76,5 +78,6 @@ Nota: se apri come vault la cartella `Wiki/` (non `Wiki/EasyWayData.wiki`), usa 
 - [Suggerimenti Link Correlati (Affinità)](./docs-related-links.md)
 - [Generare DDL+SP da mini-DSL (agent-aware)](./db-generate-artifacts-dsl.md)
 - [Datalake - Set Retention (Stub)](./datalake-set-retention.md)
+
 
 

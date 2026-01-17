@@ -15,6 +15,8 @@ updated: '2026-01-16'
 next: Collegare al workflow n8n reale e aggiungere esempi di output.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+
 # Release Preflight Security (WHAT)
 
 ## Domande a cui risponde
@@ -65,4 +67,5 @@ Riferimenti
 - [Predeploy Checklist (WHAT)](./predeploy-checklist.md)
 - [Agent Security (IAM/KeyVault) - overview](../security/agent-security-iam.md)
 - [n8n API Error Triage](./n8n-api-error-triage.md)
+
 

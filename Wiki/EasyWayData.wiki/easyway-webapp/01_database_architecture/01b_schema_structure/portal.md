@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Spec|Spec]]
+
 # EasyWay Data Portal - PORTAL.md
 
 > **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
@@ -322,6 +324,7 @@ CREATE TABLE PORTAL.CONFIGURATION (
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

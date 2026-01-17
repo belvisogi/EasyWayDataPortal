@@ -1,5 +1,5 @@
 param(
-  [string]$Path = "Wiki/EasyWayData.wiki",
+  [string]$Path = "Wiki/<NomeWiki>.wiki",
   [string[]]$ExcludePaths = @('logs/reports', 'old', '.attachments'),
   [string]$ScopesPath = "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
   [string]$ScopeName = "",
@@ -50,8 +50,8 @@ function Get-RelPath {
   param([string]$Root, [string]$FullName)
   $rootFull = (Resolve-Path -LiteralPath $Root).Path
   $full = (Resolve-Path -LiteralPath $FullName).Path
-  $rel = $full.Substring($rootFull.Length).TrimStart('/',[char]92)
-  return $rel.Replace([char]92,'/')
+  $rel = $full.Substring($rootFull.Length).TrimStart('/', [char]92)
+  return $rel.Replace([char]92, '/')
 }
 
 function Load-ScopeEntries {
@@ -69,10 +69,11 @@ function Is-InScope {
   foreach ($e in $ScopeEntries) {
     $p = [string]$e
     if (-not $p) { continue }
-    $p = $p.Replace('\\','/')
+    $p = $p.Replace('\\', '/')
     if ($p.EndsWith('/')) {
       if ($RelPath.StartsWith($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
-    } else {
+    }
+    else {
       if ($RelPath.Equals($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
     }
   }
@@ -109,7 +110,7 @@ $issues = New-Object System.Collections.Generic.List[object]
 $filesScanned = 0
 
 $allFiles = Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md |
-  Where-Object { -not (Is-Excluded -FullName ($_.FullName) -Prefixes $excludePrefixes) }
+Where-Object { -not (Is-Excluded -FullName ($_.FullName) -Prefixes $excludePrefixes) }
 
 foreach ($f in $allFiles) {
   $rel = Get-RelPath -Root $Path -FullName $f.FullName
@@ -135,7 +136,7 @@ foreach ($f in $allFiles) {
       $anc = $raw.Substring(1)
       $slug = Slug $anc
       if (-not $fileHeadings.ContainsKey($slug)) {
-        $issues.Add([pscustomobject]@{ file=$rel; link=$raw; issue='missing-local-anchor' })
+        $issues.Add([pscustomobject]@{ file = $rel; link = $raw; issue = 'missing-local-anchor' })
       }
       continue
     }
@@ -147,12 +148,75 @@ foreach ($f in $allFiles) {
       $target = $target.Substring(0, $target.IndexOf('#'))
     }
 
-    $target = [System.Uri]::UnescapeDataString($target)
-    $tpath = if ([IO.Path]::IsPathRooted($target)) { $target } else { Join-Path $dir $target }
+    $targetUnescaped = [System.Uri]::UnescapeDataString($target)
+    $tpath = if ([IO.Path]::IsPathRooted($targetUnescaped)) { $targetUnescaped } else { Join-Path $dir $targetUnescaped }
     try { $tfull = [System.IO.Path]::GetFullPath($tpath) } catch { $tfull = $tpath }
 
     if (-not (Test-Path -LiteralPath $tfull)) {
-      $issues.Add([pscustomobject]@{ file=$rel; link=$raw; issue='missing-file' })
+      # Fallback: Try RAW path (case where file has %20 or %2D in name literally)
+      $tpathRaw = if ([IO.Path]::IsPathRooted($target)) { $target } else { Join-Path $dir $target }
+      try { $tfullRaw = [System.IO.Path]::GetFullPath($tpathRaw) } catch { $tfullRaw = $tpathRaw }
+       
+      if (-not (Test-Path -LiteralPath $tfullRaw)) {
+        $issues.Add([pscustomobject]@{ file = $rel; link = $raw; issue = 'missing-file' })
+        continue
+      }
+      else {
+        $tfull = $tfullRaw # Use the found raw path for anchor checking
+      }
+    }
+
+    if ($anchor) {
+      $slug = Slug $anchor
+      $heads = Get-HeadingsCache -File $tfull
+      if (-not $heads.ContainsKey($slug)) {
+        $issues.Add([pscustomobject]@{ file = $rel; link = $raw; issue = 'missing-anchor' })
+      }
+    }
+  }
+
+  # --- CHECK OBSIDIAN LINKS [[Page]] or [[Page|Label]] ---
+  $obsMatches = [regex]::Matches($content, "\[\[([^\]]+)\]\]")
+  foreach ($m in $obsMatches) {
+    if (!$m.Success) { continue }
+    $raw = $m.Groups[1].Value
+    if (-not $raw) { continue }
+    
+    # Handle [[Link|Label]]
+    $target = $raw
+    if ($target.Contains('|')) {
+      $target = $target.Split('|')[0]
+    }
+    
+    # Handle Anchor [[Link#Anchor]]
+    $anchor = $null
+    if ($target.Contains('#')) {
+      $parts = $target.Split('#')
+      $target = $parts[0]
+      $anchor = $parts[1]
+    }
+
+    $target = $target.Trim()
+    
+    # Resolve path
+    # Obsidian links are usually relative to root or current file, but usually loosely matched by filename in Vault.
+    # For strict Wiki validation, we assume relative path or same-directory if not rooted.
+    
+    # Try relative to current dir first
+    $tpath = Join-Path $dir $target
+    
+    # If target has no extension, assume .md
+    if (-not [System.IO.Path]::HasExtension($target)) {
+      $tpath += ".md"
+    }
+
+    try { $tfull = [System.IO.Path]::GetFullPath($tpath) } catch { $tfull = $tpath }
+
+    if (-not (Test-Path -LiteralPath $tfull)) {
+      # Try absolute from Wiki Root if user meant root-relative (e.g. they confirm standard)
+      # But usually Obsidian links are filename based. 
+      # For now implementing simple relative check + check if file exists at that path
+      $issues.Add([pscustomobject]@{ file = $rel; link = "[[$raw]]"; issue = 'missing-file' })
       continue
     }
 
@@ -160,24 +224,25 @@ foreach ($f in $allFiles) {
       $slug = Slug $anchor
       $heads = Get-HeadingsCache -File $tfull
       if (-not $heads.ContainsKey($slug)) {
-        $issues.Add([pscustomobject]@{ file=$rel; link=$raw; issue='missing-anchor' })
+        $issues.Add([pscustomobject]@{ file = $rel; link = "[[$raw]]"; issue = 'missing-anchor' })
       }
     }
   }
 }
 
 $summary = @{
-  ok = ($issues.Count -eq 0)
-  path = $Path
-  excluded = @($ExcludePaths)
+  ok         = ($issues.Count -eq 0)
+  path       = $Path
+  excluded   = @($ExcludePaths)
   scopesPath = $ScopesPath
-  scopeName = $ScopeName
-  files = $filesScanned
-  issues = $issues.Count
-  results = @($issues.ToArray())
+  scopeName  = $ScopeName
+  files      = $filesScanned
+  issues     = $issues.Count
+  results    = @($issues.ToArray())
 }
 
 $json = $summary | ConvertTo-Json -Depth 6
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8
 Write-Output $json
 if ($FailOnError -and -not $summary.ok) { exit 1 }
+

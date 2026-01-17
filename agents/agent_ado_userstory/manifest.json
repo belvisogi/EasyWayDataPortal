@@ -18,10 +18,16 @@
     "db/**",
     "EasyWay-DataPortal/**"
   ],
-  "allowed_tools": ["pwsh"],
-  "required_gates": ["KB_Consistency"],
+  "allowed_tools": [
+    "pwsh"
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
   "approvals": {
-    "prod": ["Human_Governance_Approval"]
+    "prod": [
+      "Human_Governance_Approval"
+    ]
   },
   "knowledge_sources": [
     "Wiki/EasyWayData.wiki/onboarding/best-practice-scripting.md",
@@ -34,41 +40,122 @@
       "name": "ado:bestpractice.prefetch",
       "description": "Raccoglie best practices da Wiki locale e (opz.) scarica fonti esterne.",
       "params": {
-        "wikiRoot": { "type": "string", "required": false },
-        "outDir": { "type": "string", "required": false },
-        "downloadExternal": { "type": "boolean", "required": false },
-        "externalSources": { "type": "array", "items": { "type": "string" }, "required": false }
+        "wikiRoot": {
+          "type": "string",
+          "required": false
+        },
+        "outDir": {
+          "type": "string",
+          "required": false
+        },
+        "downloadExternal": {
+          "type": "boolean",
+          "required": false
+        },
+        "externalSources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": false
+        }
       }
     },
     {
       "name": "ado:bootstrap",
       "description": "Bootstrap Azure DevOps: crea Area/Iteration e (opz.) seed backlog per modello ibrido Kanban/Sprint.",
       "params": {
-        "ado": { "type": "object", "required": false },
-        "areas": { "type": "array", "items": { "type": "string" }, "required": false },
-        "iterations": { "type": "array", "required": false },
-        "backlog": { "type": "array", "required": false }
+        "ado": {
+          "type": "object",
+          "required": false
+        },
+        "areas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": false
+        },
+        "iterations": {
+          "type": "array",
+          "required": false
+        },
+        "backlog": {
+          "type": "array",
+          "required": false
+        }
       }
     },
     {
       "name": "ado:userstory.create",
       "description": "Crea una User Story su Azure DevOps (WhatIf-by-default) dopo il prefetch best practices.",
       "params": {
-        "ado": { "type": "object", "required": false },
-        "workItemType": { "type": "string", "required": false },
-        "title": { "type": "string", "required": true },
-        "description": { "type": "string", "required": false },
-        "acceptanceCriteria": { "type": "string", "required": false },
-        "areaPath": { "type": "string", "required": false },
-        "iterationPath": { "type": "string", "required": false },
-        "tags": { "type": "array", "items": { "type": "string" }, "required": false },
-        "fields": { "type": "object", "required": false },
-        "prefetchBestPractices": { "type": "boolean", "required": false },
-        "wikiRoot": { "type": "string", "required": false },
-        "outDir": { "type": "string", "required": false },
-        "downloadExternal": { "type": "boolean", "required": false },
-        "externalSources": { "type": "array", "items": { "type": "string" }, "required": false }
+        "ado": {
+          "type": "object",
+          "required": false
+        },
+        "workItemType": {
+          "type": "string",
+          "required": false
+        },
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "string",
+          "required": false
+        },
+        "acceptanceCriteria": {
+          "type": "string",
+          "required": false
+        },
+        "areaPath": {
+          "type": "string",
+          "required": false
+        },
+        "iterationPath": {
+          "type": "string",
+          "required": false
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": false
+        },
+        "fields": {
+          "type": "object",
+          "required": false
+        },
+        "prefetchBestPractices": {
+          "type": "boolean",
+          "required": false
+        },
+        "wikiRoot": {
+          "type": "string",
+          "required": false
+        },
+        "outDir": {
+          "type": "string",
+          "required": false
+        },
+        "downloadExternal": {
+          "type": "boolean",
+          "required": false
+        },
+        "externalSources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": false
+        }
       }
     }
-  ]
+  ],
+  "name": "agent_ado_userstory",
+  "readme": "README.md",
+  "classification": "arm"
 }

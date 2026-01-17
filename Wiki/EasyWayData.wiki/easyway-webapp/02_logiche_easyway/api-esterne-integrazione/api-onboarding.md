@@ -16,6 +16,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 ### ENDPOINT: POST `/api/onboarding`
 
 **Descrizione**  
@@ -56,6 +58,7 @@ CopyEdit
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

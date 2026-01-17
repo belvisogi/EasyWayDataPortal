@@ -15,6 +15,8 @@ llm:
   redaction: [email, phone]
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Spec|Spec]]
+
 # Agentic Readiness & Esempi (Users/Onboarding)
 
 ## Scopo
@@ -105,6 +107,7 @@ Obiettivo: confermare il pattern SP + variante DEBUG per onboarding.
 3. Aggiornare la Wiki (questa pagina) con i riferimenti a nuove SP/tabelle.
 4. Pipeline: applica migrazioni in `test`, esegue smoke test (`tests/api/rest-client/...`).
 5. Approvazione e promozione verso UAT/PROD.
+
 
 
 

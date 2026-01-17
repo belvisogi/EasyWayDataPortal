@@ -1,16 +1,44 @@
 {
   "id": "agent_template",
-  "name": "Agent Template (Skeleton)",
+  "name": "agent_template",
+  "role": "Template",
   "description": "Scheletro di agente agent-first: intent JSON, azioni idempotenti, output strutturato, allowed_paths.",
   "owner": "team-platform",
   "version": "0.1.0",
+  "llm_config": {
+    "model": "gpt-4-turbo",
+    "temperature": 0.0,
+    "system_prompt": "agents/agent_template/PROMPTS.md",
+    "tools": [
+      "web_search",
+      "code_interpreter"
+    ]
+  },
+  "context_config": {
+    "memory_files": [
+      "agents/kb/recipes.jsonl",
+      "Wiki/EasyWayData.wiki/standards/agent-architecture-standard.md"
+    ],
+    "context_limit_tokens": 128000
+  },
+  "allowed_tools": [
+    "pwsh",
+    "git",
+    "az"
+  ],
   "actions": [
     {
       "name": "sample:echo",
       "description": "Esegue un'azione di esempio: legge un intent JSON e produce un output strutturato (eco + timestamp)",
       "params": {
-        "message": { "type": "string", "required": false },
-        "workdir": { "type": "string", "required": false }
+        "message": {
+          "type": "string",
+          "required": false
+        },
+        "workdir": {
+          "type": "string",
+          "required": false
+        }
       }
     }
   ],
@@ -27,6 +55,7 @@
       "agents/logs/",
       "Wiki/EasyWayData.wiki/"
     ]
-  }
+  },
+  "readme": "README.md",
+  "classification": "arm"
 }
-

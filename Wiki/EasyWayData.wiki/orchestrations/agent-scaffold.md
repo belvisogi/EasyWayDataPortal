@@ -8,6 +8,8 @@ tags: [orchestration, agents, rag, azure-ai-search, governance, language/it]
 updated: 2026-01-07
 ---
 
+[[start-here|Home]]
+
 # Orchestrazione - Agent Scaffold (WHAT)
 
 ## Scopo
@@ -68,4 +70,5 @@ updated: 2026-01-07
 - [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
 - [Control Plane - Panoramica](../control-plane/index.md)
 - [Orchestrations - Intents Catalog (Globale)](./intents-catalog-global.md)
+
 

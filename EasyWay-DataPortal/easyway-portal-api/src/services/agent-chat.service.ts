@@ -3,6 +3,8 @@ import * as path from 'path';
 import { execFile } from 'child_process';
 import { promisify } from 'util';
 import { getAgentChatRepo } from '../repositories';
+import { logger } from '../utils/logger';
+import { validateAgentOutput } from '../middleware/security';
 
 export interface AgentInfo {
     id: string;
@@ -57,6 +59,12 @@ export class AgentChatService {
     private redactEnabled = (process.env.AGENT_CHAT_REDACT || 'true').toLowerCase() === 'true';
     private maxMessageLen = parseInt(process.env.AGENT_CHAT_MAX_MESSAGE_LEN || '4000', 10);
     private maxMetadataLen = parseInt(process.env.AGENT_CHAT_MAX_METADATA_LEN || '4000', 10);
+    private requireApprovalOnApply = (process.env.AGENT_CHAT_REQUIRE_APPROVAL_ON_APPLY || 'true').toLowerCase() === 'true';
+    private approvalTicketPattern = process.env.APPROVAL_TICKET_PATTERN || '^CAB-\\d{4}-\\d{4}$';
+    private approvalTicketValidateUrl = process.env.APPROVAL_TICKET_VALIDATE_URL || '';
+    private approvalTicketValidateMethod = (process.env.APPROVAL_TICKET_VALIDATE_METHOD || 'GET').toUpperCase();
+    private approvalTicketValidateHeader = process.env.APPROVAL_TICKET_VALIDATE_HEADER || '';
+    private approvalTicketValidateToken = process.env.APPROVAL_TICKET_VALIDATE_TOKEN || '';
 
     /**
      * List all available agents from agents/ * /manifest.json
@@ -152,6 +160,26 @@ export class AgentChatService {
             metadata: responseMetadata
         });
 
+        const outputCheck = validateAgentOutput({
+            message: response.message,
+            metadata: response.metadata,
+            suggestions: response.suggestions
+        });
+        if (!outputCheck.isValid) {
+            logger.warn({
+                event: 'agent_chat_output_blocked',
+                violations: outputCheck.violations,
+                severity: outputCheck.severity,
+                agentId,
+                userId,
+                tenantId
+            });
+            const err: any = new Error('Agent output blocked by policy');
+            err.code = 'OUTPUT_BLOCKED';
+            err.violations = outputCheck.violations;
+            throw err;
+        }
+
         return {
             conversationId: convId,
             message: response.message,
@@ -187,6 +215,24 @@ export class AgentChatService {
             }
         }
 
+        const executionMode = this.getExecutionMode(context);
+        if (executionMode === 'apply' && this.requireApprovalOnApply) {
+            const approvalId = this.getApprovalTicketId(context);
+            if (!approvalId || !this.hasApprovalFlag(context)) {
+                const err: any = new Error('Approval required before execute');
+                err.code = 'APPROVAL_REQUIRED';
+                err.executionMode = executionMode;
+                throw err;
+            }
+            const isValidApproval = await this.validateApprovalTicket(approvalId);
+            if (!isValidApproval) {
+                const err: any = new Error('Approval ticket invalid');
+                err.code = 'APPROVAL_INVALID';
+                err.approvalId = approvalId;
+                throw err;
+            }
+        }
+
         const plan = await this.runOrchestratorPlan(intent, context);
         const summary = this.formatPlanSummary(plan);
 
@@ -197,7 +243,7 @@ export class AgentChatService {
                 { label: 'Esegui via ewctl', action: 'run_ewctl', params: { engine: 'ps', intent } }
             ],
             attachments: [],
-            metadata: { confidence: 0.85, intent, plan }
+            metadata: { confidence: 0.85, intent, plan, executionMode }
         };
     }
 
@@ -217,6 +263,73 @@ export class AgentChatService {
     private extractExplicitIntent(message: string): string | null {
         const m = String(message || '').match(/^\s*(?:intent\s*:|\/intent\s+)([A-Za-z0-9_.:-]+)\s*$/i);
         return m?.[1] ? m[1] : null;
+    }
+
+    private getExecutionMode(context: any): 'plan' | 'apply' {
+        const mode = String(context?.executionMode || context?.mode || 'plan').toLowerCase();
+        return mode === 'apply' ? 'apply' : 'plan';
+    }
+
+    private hasApprovalFlag(context: any): boolean {
+        return context?.approved === true || context?.approval === true;
+    }
+
+    private getApprovalTicketId(context: any): string | null {
+        if (typeof context?.approvalId === 'string' && context.approvalId.trim().length > 0) {
+            return context.approvalId.trim();
+        }
+        return null;
+    }
+
+    private async validateApprovalTicket(approvalId: string): Promise<boolean> {
+        if (this.approvalTicketPattern) {
+            try {
+                const pattern = new RegExp(this.approvalTicketPattern);
+                if (!pattern.test(approvalId)) return false;
+            } catch {
+                return false;
+            }
+        }
+
+        if (!this.approvalTicketValidateUrl) return true;
+
+        const url = this.interpolateApprovalUrl(approvalId);
+        const headers: Record<string, string> = {};
+        if (this.approvalTicketValidateHeader && this.approvalTicketValidateToken) {
+            headers[this.approvalTicketValidateHeader] = this.approvalTicketValidateToken;
+        }
+
+        const opts = {
+            method: this.approvalTicketValidateMethod,
+            headers
+        };
+        if (this.approvalTicketValidateMethod !== 'GET') {
+            headers['Content-Type'] = 'application/json';
+            opts.body = JSON.stringify({ ticketId: approvalId });
+        }
+
+        try {
+            const res = await fetch(url, opts);
+            if (!res.ok) return false;
+            const data = await res.json().catch(() => null);
+            if (data && typeof data.valid === 'boolean') return data.valid;
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    private interpolateApprovalUrl(approvalId: string): string {
+        if (this.approvalTicketValidateUrl.includes('{ticketId}')) {
+            return this.approvalTicketValidateUrl.replace('{ticketId}', encodeURIComponent(approvalId));
+        }
+
+        if (this.approvalTicketValidateMethod === 'GET') {
+            const separator = this.approvalTicketValidateUrl.includes('?') ? '&' : '?';
+            return `${this.approvalTicketValidateUrl}${separator}ticketId=${encodeURIComponent(approvalId)}`;
+        }
+
+        return this.approvalTicketValidateUrl;
     }
 
     private async getAgentIntentAllowlist(agentId: string): Promise<string[]> {
@@ -241,6 +354,9 @@ export class AgentChatService {
     private sanitizeContext(context: any): Record<string, any> {
         if (!context || typeof context !== 'object') return {};
         const out: Record<string, any> = {};
+        if (typeof context.executionMode === 'string') out.executionMode = this.getExecutionMode(context);
+        if (typeof context.approved === 'boolean') out.approved = context.approved;
+        if (typeof context.approvalId === 'string') out.approvalId = this.sanitizeText(context.approvalId);
         if (typeof context.branch === 'string') out.branch = this.sanitizeText(context.branch);
         if (Array.isArray(context.tags)) out.tags = context.tags.map((t: any) => this.sanitizeText(String(t)));
         if (Array.isArray(context.changedPaths)) out.changedPaths = context.changedPaths.map((p: any) => this.sanitizeText(String(p)));

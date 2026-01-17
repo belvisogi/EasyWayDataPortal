@@ -10,10 +10,18 @@
     "agents/logs/**",
     "out/**"
   ],
-  "allowed_tools": ["pwsh", "terraform", "az"],
-  "required_gates": ["KB_Consistency"],
+  "allowed_tools": [
+    "pwsh",
+    "terraform",
+    "az"
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
   "approvals": {
-    "apply": ["Human_Governance_Approval"]
+    "apply": [
+      "Human_Governance_Approval"
+    ]
   },
   "knowledge_sources": [
     "Wiki/EasyWayData.wiki/deploy-app-service.md",
@@ -24,9 +32,14 @@
       "name": "infra:terraform-plan",
       "description": "Esegue terraform init/validate/plan (no apply).",
       "params": {
-        "workdir": { "type": "string", "required": false }
+        "workdir": {
+          "type": "string",
+          "required": false
+        }
       }
     }
-  ]
+  ],
+  "name": "agent_infra",
+  "readme": "README.md",
+  "classification": "arm"
 }
-

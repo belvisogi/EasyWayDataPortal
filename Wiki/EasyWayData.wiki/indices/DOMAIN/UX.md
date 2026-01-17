@@ -6,6 +6,8 @@ summary: Index of all pages tagged with DOMAIN/UX
 status: draft
 ---
 
+[[start-here|Home]] > [[Domain - UX|UX]] > [[Layer - Index|Index]]
+
 # 📄 UX
 
 **Pillar**: DOMAIN  
@@ -23,6 +25,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

@@ -16,6 +16,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 ## Convenzioni REST EasyWay
 
 - **Path sempre in minuscolo**, separatore trattino
@@ -53,6 +55,7 @@ next: TODO - definire next step.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

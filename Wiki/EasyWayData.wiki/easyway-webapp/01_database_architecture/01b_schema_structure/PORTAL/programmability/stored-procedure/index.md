@@ -18,6 +18,8 @@ llm:
 next: Aggiornare quando cambia l’elenco SP o la documentazione associata.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Index|Index]]
+
 # Indice
 
 - Nota per autori: per nuove pagine usare `./_template.md`.
@@ -39,5 +41,6 @@ Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Stored Proc
 - Dove trovare firma, input/output ed esempi di invocazione per ogni SP?
 - Quali SP gestiscono logging/audit e come validare il loro output?
 - Qual è il link canonico da usare quando referenzio una SP in altre pagine?
+
 
 

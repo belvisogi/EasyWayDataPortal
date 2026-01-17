@@ -6,6 +6,8 @@ summary: Index of all pages tagged with PROCESS/CI-CD
 status: draft
 ---
 
+[[start-here|Home]] > [[Layer - Index|Index]]
+
 # 📄 CI-CD
 
 **Pillar**: PROCESS  
@@ -16,6 +18,7 @@ status: draft
 ---
 
 [⬆️ Back to PROCESS](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 Obiettivo
 - Definire struttura, regole e best practice per le tabelle core del portale.
 
@@ -41,6 +43,7 @@ Indice & performance
 
 Note
 - RLS e funzioni predicate verranno aggiunte in una migrazione dedicata.
+
 
 
 

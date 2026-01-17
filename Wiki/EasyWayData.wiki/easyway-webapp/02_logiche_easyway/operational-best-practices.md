@@ -30,6 +30,8 @@ Sommario
   - Dove: step‑1 setup ambiente + parametrization best practices.
 - WAF / hardening rules: ruleset consigliati e checklist di hardening presi da standard sicurezza.
   - Dove: indicazioni sintetiche inserite nelle pagine di deploy e raccomandazione architetturale.
+- **Agent Architecture Standard** (Brain vs Arm): classificazione mandatoria per tutti gli agenti AI.
+  - Dove: [standards/agent-architecture-standard.md](../../standards/agent-architecture-standard.md) e [manifesto](../../agents/agent_gedi/README.md).
 
 2) Elementi standard che ho trasformato in deliverable EasyWay (nuovi o aggiornati)
 - Runbook‑as‑Code (MVP DR test) — concetto e stack proposto

@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Index|Index]]
+
 # Control Plane - Panoramica
 
 - Nota per autori: per nuove pagine usare `./_template.md`.
@@ -59,6 +61,7 @@ Riferimenti
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 
 

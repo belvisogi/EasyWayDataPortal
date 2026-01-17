@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Runbook|Runbook]]
+
 Istruzioni passo‑passo — esecuzione scripts/collect_azure_inventory.ps1 e invio azure_inventory.json
 ## Obiettivo
 - Raccogliere automaticamente l’inventory Azure utile per la Fase 0 (inventory → RTO/RPO) e incollare qui il JSON di output.
@@ -86,4 +88,5 @@ Se preferisci, posso anche generare una versione equivalente in bash/Az CLI: dim
 - [DR — Inventory & matrice componente → RTO / RPO](../dr-inventory-matrix.md)
 - [Validazione Output Agenti in CI](../agent-output-validation-ci.md)
 - [Deploy su Azure App Service – Pipeline & Variabili](../deploy-app-service.md)
+
 

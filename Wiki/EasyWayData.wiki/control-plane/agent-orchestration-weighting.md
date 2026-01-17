@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 # Multi-Agent Orchestration con Ponderazione e Round Table
 
 ## Contesto
@@ -890,4 +892,5 @@ Altrimenti: **stay con Expert + Reviewer**.
 **Status**: RECOMMENDED APPROACH (2026-01-13)  
 **Owner**: team-platform  
 **Next Review**: 2026-07-01 (6 months)
+
 

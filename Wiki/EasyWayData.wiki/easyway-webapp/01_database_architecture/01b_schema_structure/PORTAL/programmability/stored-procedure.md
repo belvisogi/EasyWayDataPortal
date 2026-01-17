@@ -16,6 +16,8 @@ entities: []
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 # EasyWay Data Portal - STORE PROCEDURE: Linee Guida, Best Practice e Template
 
 > **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG, ext_attributes, auditing, logging automatico).
@@ -3019,6 +3021,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../entities-index.md)
+
 
 
 

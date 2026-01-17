@@ -109,8 +109,24 @@ function Out-Result($obj) { $obj | ConvertTo-Json -Depth 8 | Write-Output }
 $intent = Read-Intent $IntentPath
 $now = (Get-Date).ToUniversalTime().ToString('o')
 
+$now = (Get-Date).ToUniversalTime().ToString('o')
+
+# --- GEDI OODA INTEGRATION ---
+function Invoke-GediCheck($context, $intent) {
+    if (-not (Test-Path "scripts/agent-gedi.ps1")) { return }
+    
+    Write-Host "`n💾 GEDI Consultation (Architectural Integrity)..." -ForegroundColor Cyan
+    try {
+        $gediJson = & pwsh scripts/agent-gedi.ps1 -Context $context -Intent $intent -DryRun:$true | ConvertFrom-Json
+    } catch {
+        Write-Warning "GEDI is silent (Error contacting GEDI)."
+    }
+}
+# -----------------------------
+
 switch ($Action) {
   'db-table:create' {
+    Invoke-GediCheck -context "DBA creating table in '$($p.database)'" -intent "Ensure Schema Quality"
     $p = $intent.params
     $summaryOut = if ($p.summaryOut) { [string]$p.summaryOut } else { 'out/db/db-table-create.json' }
 
@@ -227,6 +243,7 @@ switch ($Action) {
     Out-Result $result
   }
   'db-user:create' {
+    Invoke-GediCheck -context "DBA creating user '$($p.username)'" -intent "Ensure Security Principle"
     $p = $intent.params
     $username = $p.username
     $database = $p.database

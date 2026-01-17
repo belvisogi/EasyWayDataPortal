@@ -6,6 +6,8 @@ summary: Index of all pages tagged with DOMAIN/DataLake
 status: draft
 ---
 
+[[start-here|Home]] > [[domains/DataLake|DataLake]] > [[Layer - Index|Index]]
+
 # 📄 DataLake
 
 **Pillar**: DOMAIN  
@@ -31,6 +33,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Spec|Spec]]
+
 # Tag Taxonomy (Controllata)
 
 Scopo: usare tag **coerenti e machine-readable** per migliorare retrieval e clustering, riducendo token e ambiguità.
@@ -109,5 +111,6 @@ Esempi scope disponibili (casistiche):
 - [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
 - [Visione Portale Agentico](./agentic-portal-vision.md)
 - [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](./docs-conventions.md)
+
 
 

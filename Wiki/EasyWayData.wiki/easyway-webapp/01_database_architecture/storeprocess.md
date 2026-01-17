@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 Standard SP
 - Parametri chiari (in/out), `@created_by` obbligatorio
 - Transazione + TRY/CATCH
@@ -34,6 +36,7 @@ Categorie principali
 
 Prossimi passi
 - Migrazioni dedicate per SP core e versioni debug
+
 
 
 

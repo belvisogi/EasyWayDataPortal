@@ -6,6 +6,8 @@ summary: Index of all pages tagged with AUDIENCE/Non-Expert
 status: draft
 ---
 
+[[start-here|Home]] > [[Layer - Index|Index]]
+
 # 📄 Non-Expert
 
 **Pillar**: AUDIENCE  
@@ -54,6 +56,7 @@ status: draft
 ---
 
 [⬆️ Back to AUDIENCE](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

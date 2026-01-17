@@ -6,6 +6,8 @@ summary: Index of all pages tagged with DOMAIN/Docs
 status: draft
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+
 # 📄 Docs
 
 **Pillar**: DOMAIN  
@@ -56,6 +58,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

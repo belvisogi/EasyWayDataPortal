@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Security|Security]] > [[Layer - Reference|Reference]]
+
 # Segreti e accessi (DB + Datalake)
 
 ## Contesto (repo)
@@ -119,5 +121,6 @@ pwsh scripts/access-registry-template-xlsx.ps1
 - [Segregation Model (Dev vs Knowledge vs Runtime)](../control-plane/segregation-model-dev-knowledge-runtime.md)
 - [Policy di Configurazione & Sicurezza – Microservizi e API Gateway](../easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md)
 - [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
+
 
 

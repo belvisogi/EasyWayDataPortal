@@ -15,6 +15,8 @@ updated: '2026-01-16'
 next: Collegare all'esecuzione ewctl/checklist e includere output sample.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+
 # Predeploy Checklist (WHAT)
 
 ## Domande a cui risponde
@@ -75,4 +77,5 @@ In pipeline, il job `GovernanceGatesEWCTL` usa `ewctl` per eseguire Checklist/DB
 - [KB Assessment (WHAT)](./kb-assessment.md)
 - [Generate AppSettings From Env (WHAT)](./generate-appsettings-from-env.md)
 - [WHAT-first Lint (WHAT)](./whatfirst-lint.md)
+
 

@@ -13,8 +13,12 @@
     "agents/README.md",
     "out/**"
   ],
-  "allowed_tools": ["pwsh"],
-  "required_gates": ["KB_Consistency"],
+  "allowed_tools": [
+    "pwsh"
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
   "approvals": {},
   "knowledge_sources": [
     "agents/kb/recipes.jsonl",
@@ -25,5 +29,8 @@
     "scripts/intents/docs-dq-confluence-cloud-001.json",
     "docs/agentic/templates/orchestrations/docs-confluence-dq-kanban.manifest.json",
     "docs/agentic/templates/intents/docs-confluence-dq-kanban.intent.json"
-  ]
+  ],
+  "name": "agent_docs_review",
+  "readme": "README.md",
+  "classification": "arm"
 }

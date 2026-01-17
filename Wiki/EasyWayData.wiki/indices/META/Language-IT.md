@@ -6,6 +6,8 @@ summary: Index of all pages tagged with META/Language-IT
 status: draft
 ---
 
+[[start-here|Home]] > [[Layer - Index|Index]]
+
 # 📄 Language-IT
 
 **Pillar**: META  
@@ -16,6 +18,7 @@ status: draft
 ---
 
 [⬆️ Back to META](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

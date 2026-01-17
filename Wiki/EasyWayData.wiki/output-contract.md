@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+
 # Output Contract (JSON)
 Breadcrumb: Home / Metodo Agent‑First / Output Contract
 Badge: WhatIf‑Ready ✅
@@ -65,6 +67,7 @@ Riferimenti
 - `agent-first-method.md`
 - `intent-contract.md`
 - Pagine dominio (DBA, Datalake) e relative ricette KB (con `example_output`).
+
 
 
 

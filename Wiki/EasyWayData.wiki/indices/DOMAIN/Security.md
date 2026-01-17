@@ -6,6 +6,8 @@ summary: Index of all pages tagged with DOMAIN/Security
 status: draft
 ---
 
+[[start-here|Home]] > [[Domain - Security|Security]] > [[Layer - Index|Index]]
+
 # 📄 Security
 
 **Pillar**: DOMAIN  
@@ -20,6 +22,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

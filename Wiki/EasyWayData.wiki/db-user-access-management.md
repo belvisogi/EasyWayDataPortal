@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Howto|Howto]]
+
 # Gestione Accessi DB (Agent DBA)
 Breadcrumb: Home / Codice Portale / Database Access
 Badge: WhatIf‑Ready ✅
@@ -85,4 +87,5 @@ Sicurezza
 - Controlla che l'output atteso (file generati, risorse create/aggiornate, response API) sia presente e coerente.
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
+
 

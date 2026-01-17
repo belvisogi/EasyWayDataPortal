@@ -6,6 +6,8 @@ summary: Index of all pages tagged with TECH/SQL
 status: draft
 ---
 
+[[start-here|Home]] > [[Layer - Index|Index]]
+
 # 📄 SQL
 
 **Pillar**: TECH  
@@ -16,6 +18,7 @@ status: draft
 ---
 
 [⬆️ Back to TECH](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

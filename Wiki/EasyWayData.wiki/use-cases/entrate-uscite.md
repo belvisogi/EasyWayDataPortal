@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
+
 # Use Case – Entrate/Uscite (One‑Button UX)
 
 Principio guida (per tutti)
@@ -85,6 +87,7 @@ Roadmap “a livelli” (caccia al tesoro)
 - L3: Chat Q&A e widget salvabili.
 - L4: Outlier avanzati, multi‑conto, valuta.
 - L5: Template multipli, scheduler, connettori.
+
 
 
 

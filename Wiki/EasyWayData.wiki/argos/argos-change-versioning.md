@@ -15,6 +15,8 @@ updated: '2026-01-16'
 next: Dettagliare workflow di promozione.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 # ARGOS – Change & Versioning Guide (v1)
 
 ## Domande a cui risponde
@@ -31,6 +33,7 @@ Best practice EasyWay
 
 Da dettagliare
 - Workflow di promozione, freeze window, pattern compatibilità, checklist e RACI.
+
 
 
 

@@ -15,6 +15,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 # Checklist Operativa – Logging & Audit
 EasyWay Data Portal
 
@@ -66,6 +68,7 @@ Garantire che tutti i servizi, microservizi, pipeline e infrastrutture rispettin
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

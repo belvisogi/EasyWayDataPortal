@@ -8,8 +8,16 @@
     "db/flyway/sql/**",
     "scripts/agent-pr.ps1"
   ],
-  "allowed_tools": ["pwsh", "git", "az"],
-  "required_gates": ["Checklist", "DB_Drift", "KB_Consistency"],
+  "allowed_tools": [
+    "pwsh",
+    "git",
+    "az"
+  ],
+  "required_gates": [
+    "Checklist",
+    "DB_Drift",
+    "KB_Consistency"
+  ],
   "approvals": {
     "merge": "human-required"
   },
@@ -18,5 +26,8 @@
     "AGENTS.md",
     "agents/kb/recipes.jsonl",
     "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
-  ]
+  ],
+  "name": "agent_pr_manager",
+  "readme": "README.md",
+  "classification": "arm"
 }

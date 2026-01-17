@@ -13,8 +13,13 @@
     "agents/logs/**",
     "out/**"
   ],
-  "allowed_tools": ["pwsh", "git"],
-  "required_gates": ["KB_Consistency"],
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
   "approvals": {},
   "knowledge_sources": [
     "Wiki/EasyWayData.wiki/control-plane/segregation-model-dev-knowledge-runtime.md"
@@ -24,9 +29,14 @@
       "name": "runtime:bundle",
       "description": "Crea un bundle zip con subset del repo per execution runner.",
       "params": {
-        "outZip": { "type": "string", "required": false }
+        "outZip": {
+          "type": "string",
+          "required": false
+        }
       }
     }
-  ]
+  ],
+  "name": "agent_release",
+  "readme": "README.md",
+  "classification": "arm"
 }
-

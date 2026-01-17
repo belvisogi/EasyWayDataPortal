@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: Modellare workflow in n8n (Webhook -> Validate -> Gate precheck -> Generate artifacts -> (optional) Apply -> Log).
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+
 # n8n-db-table-create
 
 ## Contesto
@@ -56,3 +58,4 @@ Se l'utente compila un foglio (Excel/CSV), convertilo in intent e poi esegui l'a
 - Migrazione: `db/flyway/VYYYYMMDDHHMMSS__create_<schema>_<table>.sql`
 - Pagina Wiki tabella: `Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/01b_schema_structure/<SCHEMA>/tables/<schema>-<table>.md`
 - Artifact JSON: `db-table-create*.json` (machine-readable)
+

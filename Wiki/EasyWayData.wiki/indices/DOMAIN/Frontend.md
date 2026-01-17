@@ -6,6 +6,8 @@ summary: Index of all pages tagged with DOMAIN/Frontend
 status: draft
 ---
 
+[[start-here|Home]] > [[domains/Frontend|Frontend]] > [[Layer - Index|Index]]
+
 # 📄 Frontend
 
 **Pillar**: DOMAIN  
@@ -42,6 +44,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

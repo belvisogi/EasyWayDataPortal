@@ -59,5 +59,8 @@
     "Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md",
     "docs/agentic/templates/intents/orchestrator.n8n.dispatch.intent.json",
     "docs/agentic/templates/intents/agent.scaffold.intent.json"
-  ]
+  ],
+  "name": "agent_creator",
+  "readme": "README.md",
+  "classification": "arm"
 }

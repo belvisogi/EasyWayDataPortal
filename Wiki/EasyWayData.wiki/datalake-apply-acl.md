@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/datalake|datalake]] > [[Layer - Howto|Howto]]
+
 # Datalake - Apply ACL (Agent Datalake)
 Breadcrumb: Home / Datalake / Apply ACL
 Badge: WhatIf‑Ready ✅ (stub)
@@ -80,4 +82,5 @@ Note
 - Controlla che l'output atteso (file generati, risorse create/aggiornate, response API) sia presente e coerente.
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
+
 

@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]]
+
 # Template Data Dictionary (DB Table) - Excel
 
 ## Contesto (repo)
@@ -73,5 +75,6 @@ pwsh scripts/db-table-template-xlsx.ps1
 - [Esempi Notifiche & Template Email Configurabili](../easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md)
 - [Orchestrations – Intents Catalog (Use Case Excel/CSV)](../orchestrations/intents-catalog.md)
 - [db-howto-create-table](../easyway-webapp/01_database_architecture/howto-create-table.md)
+
 
 

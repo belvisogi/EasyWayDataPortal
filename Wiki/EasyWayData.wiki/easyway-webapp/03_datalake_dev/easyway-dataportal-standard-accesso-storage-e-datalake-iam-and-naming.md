@@ -15,6 +15,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/datalake|datalake]] > [[Layer - Spec|Spec]]
+
 # 🗂️ EasyWay DataPortal - Standard Accesso Storage e Datalake (IAM & Naming)
 
 ## 🎯 Scopo del Documento
@@ -146,6 +148,7 @@ az ad group create --display-name "grp.portal.datalake.read" --mail-nickname "gr
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

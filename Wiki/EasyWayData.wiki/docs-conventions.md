@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: Aggiornare quando cambiano taxonomy/lint o regole di naming.
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+
 # EasyWayData Portal - Regole Semplici (La Nostra Bibbia)
 
 Scopo: rendere la Wiki chiara per persone e AI. Regole brevi, esempi chiari, sempre uguali.
@@ -140,3 +142,4 @@ Regole:
 - Non creare nuove pagine "da zero": copia `_template.md` e poi compila.
 - Mantieni il frontmatter YAML completo e aggiorna `id/title/summary/owner/status/tags`.
 - Se una cartella non ha `_template.md`, crearne uno prima di aggiungere nuove pagine.
+

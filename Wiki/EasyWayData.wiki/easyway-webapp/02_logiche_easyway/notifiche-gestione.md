@@ -16,6 +16,8 @@ entities: []
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 # Gestione Notifiche - EasyWay Data Portal
 
 ## Lookup - Gestione Notifiche
@@ -94,5 +96,6 @@ next: TODO - definire next step.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 

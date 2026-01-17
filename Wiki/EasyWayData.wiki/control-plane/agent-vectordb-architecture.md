@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-13'
 ---
 
+[[start-here|Home]] > [[Domain - Architecture|Architecture]] > [[Layer - Reference|Reference]]
+
 # Agent-First Architecture con Vector Database
 
 ## Vision
@@ -648,3 +650,4 @@ Cost: ~€0.50/month
 **Status**: Design complete, implementation planned  
 **Priority**: HIGH (strategic direction)  
 **Next**: Phase 2 kickoff (Vector DB setup)
+

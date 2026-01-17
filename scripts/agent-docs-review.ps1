@@ -19,9 +19,20 @@ try {
     $goals = Get-Content $goalsPath -Raw | ConvertFrom-Json
     if ($goals.vision) { Write-Host ("[Goal] " + $goals.vision) -ForegroundColor Green }
   }
-} catch {}
+}
+catch {}
 
-$wikiRoot = 'Wiki/EasyWayData.wiki'
+# Read wikiRoot from manifest
+$manifestPath = Join-Path $PSScriptRoot '../../../../Rules/manifest.json'
+$wikiRoot = 'Wiki/AdaDataProject.wiki' # Fallback
+if (Test-Path $manifestPath) {
+  try {
+    $m = Get-Content $manifestPath -Raw | ConvertFrom-Json
+    if ($m.wikiRoot) { $wikiRoot = $m.wikiRoot }
+  }
+  catch { Write-Warning "Failed to read manifest for wikiRoot" }
+}
+
 $wikiScripts = Join-Path $wikiRoot 'scripts'
 $kbFile = 'agents/kb/recipes.jsonl'
 $kbAddScript = 'scripts/agent-kb-add.ps1'
@@ -48,12 +59,13 @@ if ($hasGit) {
     if ($LASTEXITCODE -eq 0 -and $base) {
       $changed = git diff --name-only $base HEAD
       foreach ($f in $changed) {
-        if ($f -like 'db/*' -or $f -like 'EasyWay-DataPortal/easyway-portal-api/src/*') { $changedDbApi = $true }
+        if ($f -like 'db/*' -or $f -like '<ApiPath>/src/*') { $changedDbApi = $true }
         if ($f -like 'scripts/ado/*') { $changedAdoScripts = $true }
-        if ($f -like 'Wiki/EasyWayData.wiki/agents-*.md') { $changedAgentsDocs = $true }
+        if ($f -like 'Wiki/<NomeWiki>.wiki/agents-*.md') { $changedAgentsDocs = $true }
       }
     }
-  } catch {}
+  }
+  catch {}
 }
 
 $tasks = @()
@@ -68,33 +80,35 @@ try {
       $items = @('Normalize + Review + Indici', 'Anchors/index/chunks aggiornati', 'KB + pagina Wiki pertinenti aggiornate')
     }
     $tasks += [pscustomobject]@{
-      Id = 0
-      Name = $label
-      Description = 'Checklist documentazione generata da regole priority; richiede approvazione utente.'
+      Id          = 0
+      Name        = $label
+      Description = 'Checklist documentazione generata da regole priority; l''utente approva.'
       Recommended = $true
-      Enabled = $true
-      Action = {
+      Enabled     = $true
+      Action      = {
         Write-Host ""; Write-Host '== Docs Checklist ==' -ForegroundColor Cyan
         foreach ($i in $items) { Write-Host ("- {0}" -f $i) }
         if ($Interactive) {
           $ans = Read-Host "Confermi la checklist? [Invio=SI / n=No]"
           if ($ans.Trim().ToLower() -eq 'n') { Write-Host 'Checklist docs non approvata (rimandata).'; return }
           Write-Host 'Checklist docs approvata.' -ForegroundColor Green
-        } else {
+        }
+        else {
           Write-Host 'Checklist proposta (modalità non interattiva)'
         }
       }
     }
   }
-} catch { Write-Warning ("Priority rules (docs) non applicabili: {0}" -f $_.Exception.Message) }
+}
+catch { Write-Warning ("Priority rules (docs) non applicabili: {0}" -f $_.Exception.Message) }
 if ($hasWiki) {
   $tasks += [pscustomobject]@{
-    Id = 1
-    Name = 'Wiki Normalize & Review'
+    Id          = 1
+    Name        = 'Wiki Normalize & Review'
     Description = 'Normalizza la Wiki (naming/front‑matter/ancore) e rigenera indici/chunk.'
     Recommended = $true
-    Enabled = $true
-    Action = {
+    Enabled     = $true
+    Action      = {
       if (Test-Path (Join-Path $wikiScripts 'normalize-project.ps1')) {
         pwsh (Join-Path $wikiScripts 'normalize-project.ps1') -Root $wikiRoot -EnsureFrontMatter | Out-Host
       }
@@ -120,12 +134,12 @@ if ($hasWiki) {
 if ($SyncAgentsReadme -or $All) {
   if (Test-Path 'scripts/agents-readme-sync.ps1') {
     $tasks += [pscustomobject]@{
-      Id = 4
-      Name = 'Sync Agents README'
+      Id          = 4
+      Name        = 'Sync Agents README'
       Description = 'Allinea agents/README.md con le cartelle e i manifest attuali.'
       Recommended = $true
-      Enabled = $true
-      Action = {
+      Enabled     = $true
+      Action      = {
         $out = & pwsh 'scripts/agents-readme-sync.ps1' -Mode check 2>&1 | Out-String
         if ($LASTEXITCODE -eq 0) { Write-Host $out; return }
 
@@ -155,32 +169,32 @@ if ($SyncAgentsReadme -or $All) {
 if ($AgentsManifestAudit -or $All) {
   if (Test-Path 'scripts/agents-manifest-audit.ps1') {
     $tasks += [pscustomobject]@{
-      Id = 5
-      Name = 'Agents Manifest Audit (advisory)'
+      Id          = 5
+      Name        = 'Agents Manifest Audit (advisory)'
       Description = 'Analizza agents/*/manifest.json e produce lista gap per agente (RAG-ready).'
       Recommended = $true
-      Enabled = $true
-      Action = { pwsh 'scripts/agents-manifest-audit.ps1' | Out-Host }
+      Enabled     = $true
+      Action      = { pwsh 'scripts/agents-manifest-audit.ps1' | Out-Host }
     }
   }
 }
 
 $kbRecommended = ($changedDbApi -or $changedAdoScripts -or $changedAgentsDocs)
 $tasks += [pscustomobject]@{
-  Id = 2
-  Name = 'KB Consistency (advisory)'
+  Id          = 2
+  Name        = 'KB Consistency (advisory)'
   Description = 'Suggerisce aggiornamento KB/Wiki quando cambiano DB/API/agents docs (controllo basato su git diff).'
   Recommended = $kbRecommended
-  Enabled = $hasGit
-  Action = {
+  Enabled     = $hasGit
+  Action      = {
     if (-not $hasGit) { Write-Warning 'git non disponibile, salto controllo'; return }
     try { $base = (git rev-parse HEAD~1) } catch { Write-Host 'Repo shallow o prima commit: skip'; return }
     $changed = git diff --name-only $base HEAD
     $changedDbApi = $false; $changedAdoScripts = $false; $changedAgentsDocs = $false
     foreach ($f in $changed) {
-      if ($f -like 'db/*' -or $f -like 'EasyWay-Data-Portal/easyway-portal-api/src/*' -or $f -like 'EasyWay-DataPortal/easyway-portal-api/src/*') { $changedDbApi = $true }
+      if ($f -like 'db/*' -or $f -like '<ApiPath>/src/*' -or $f -like '<ApiPath>/src/*') { $changedDbApi = $true }
       if ($f -like 'scripts/ado/*') { $changedAdoScripts = $true }
-      if ($f -like 'Wiki/EasyWayData.wiki/agents-*.md') { $changedAgentsDocs = $true }
+      if ($f -like 'Wiki/<NomeWiki>.wiki/agents-*.md') { $changedAgentsDocs = $true }
     }
     $kbChanged = $false; $wikiChanged = $false
     foreach ($f in $changed) {
@@ -189,9 +203,11 @@ $tasks += [pscustomobject]@{
     }
     if ($changedDbApi -and (-not $kbChanged -or -not $wikiChanged)) {
       Write-Host 'KB Consistency: DA FARE -> aggiorna agents/kb/recipes.jsonl e almeno una pagina Wiki' -ForegroundColor Yellow
-    } elseif (($changedAdoScripts -or $changedAgentsDocs) -and (-not $kbChanged)) {
+    }
+    elseif (($changedAdoScripts -or $changedAgentsDocs) -and (-not $kbChanged)) {
       Write-Host 'KB Consistency: DA FARE -> aggiorna agents/kb/recipes.jsonl (cambi ADO/agents)' -ForegroundColor Yellow
-    } else {
+    }
+    else {
       Write-Host 'KB Consistency: OK o non rilevante'
     }
   }
@@ -199,12 +215,12 @@ $tasks += [pscustomobject]@{
 
 if ((Test-Path $kbAddScript) -and (Test-Path $kbFile)) {
   $tasks += [pscustomobject]@{
-    Id = 3
-    Name = 'Aggiungi Ricetta KB (guidata)'
+    Id          = 3
+    Name        = 'Aggiungi Ricetta KB (guidata)'
     Description = 'Aggiunge una nuova riga in agents/kb/recipes.jsonl con parametri minimi.'
     Recommended = $false
-    Enabled = $true
-    Action = {
+    Enabled     = $true
+    Action      = {
       $id = Read-Host 'ID ricetta (es. kb-docs-001)'
       if ([string]::IsNullOrWhiteSpace($id)) { Write-Warning 'ID richiesto'; return }
       $intent = Read-Host 'Intent (es. wiki-normalize)'
@@ -240,13 +256,13 @@ function Select-Tasks($tasks) {
   foreach ($t in $tasks) {
     $flag = if ($t.Recommended) { '[R]' } else { '   ' }
     $en = if ($t.Enabled) { '' } else { '(disabilitato)' }
-    Write-Host (" {0}) {1} {2} {3}" -f $t.Id, $flag, $t.Name, $en)
-    Write-Host ("     - {0}" -f $t.Description)
+    Write-Host (" { 0 }) { 1 } { 2 } { 3 }" -f $t.Id, $flag, $t.Name, $en)
+    Write-Host ("     - { 0 }" -f $t.Description)
   }
   Write-Host ''
-  $ans = Read-Host "Seleziona attività (es: 1,3) — Invio = solo consigliate — 'all' = tutte"
+  $ans = Read-Host "Seleziona attività (es: 1, 3) - Invio = solo consigliate - 'all' = tutte"
   if ([string]::IsNullOrWhiteSpace($ans)) { return $tasks | Where-Object { $_.Enabled -and $_.Recommended } }
-  if ($ans.Trim().ToLower() -in @('all','tutte','tutto')) { return $tasks | Where-Object Enabled }
+  if ($ans.Trim().ToLower() -in @('all', 'tutte', 'tutto')) { return $tasks | Where-Object Enabled }
   $nums = $ans -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ -match '^\d+$' } | ForEach-Object { [int]$_ }
   return $tasks | Where-Object { $_.Enabled -and ($nums -contains $_.Id) }
 }
@@ -265,11 +281,11 @@ if ($LogEvent) {
   try {
     $artifacts = @()
     $maybe = @(
-      'Wiki/EasyWayData.wiki/entities-index.md',
-      'Wiki/EasyWayData.wiki/index_master.csv',
-      'Wiki/EasyWayData.wiki/index_master.jsonl',
-      'Wiki/EasyWayData.wiki/anchors_master.csv',
-      'Wiki/EasyWayData.wiki/chunks_master.jsonl'
+      'Wiki/<NomeWiki>.wiki/entities-index.md',
+      'Wiki/<NomeWiki>.wiki/index_master.csv',
+      'Wiki/<NomeWiki>.wiki/index_master.jsonl',
+      'Wiki/<NomeWiki>.wiki/anchors_master.csv',
+      'Wiki/<NomeWiki>.wiki/chunks_master.jsonl'
     )
     foreach ($p in $maybe) { if (Test-Path $p) { $artifacts += $p } }
     $intent = 'docs-review'
@@ -278,7 +294,8 @@ if ($LogEvent) {
     $outcome = 'success'; if ($script:EW_TaskError) { $outcome = 'error' }
     $notes = 'Wiki Normalize & Review'
     pwsh 'scripts/activity-log.ps1' -Intent $intent -Actor $actor -Env $envName -Outcome $outcome -Artifacts $artifacts -Notes $notes | Out-Host
-  } catch { Write-Warning "Activity log failed: $($_.Exception.Message)" }
+  }
+  catch { Write-Warning "Activity log failed: $($_.Exception.Message)" }
 }
 
 Write-Host "`nDocumentazione: attività completate." -ForegroundColor Green
@@ -292,4 +309,6 @@ try {
   pwsh 'scripts/enforcer.ps1' -Agent agent_docs_review -GitDiff -Quiet | Out-Null
   if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_docs_review'; exit 2 }
   $enforcerApplied = $true
-} catch { Write-Warning ("Enforcer preflight (docs) non applicabile: {0}" -f $_.Exception.Message) }
+}
+catch { Write-Warning ("Enforcer preflight (docs) non applicabile: { 0 }" -f $_.Exception.Message) }
+

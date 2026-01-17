@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Spec|Spec]]
+
 *   **Header “x-origin”, “x-agent-id”, “x-conversation-id”**  
     → Permettono tracing, correlazione, audit, e collegamento con chatbot/AMS/agent.
     
@@ -115,6 +117,7 @@ export async function onboarding(req: Request, res: Response) {
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

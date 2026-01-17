@@ -6,6 +6,8 @@ summary: Index of all pages tagged with META/Privacy-Confidential
 status: draft
 ---
 
+[[start-here|Home]] > [[Layer - Index|Index]]
+
 # 📄 Privacy-Confidential
 
 **Pillar**: META  
@@ -16,6 +18,7 @@ status: draft
 ---
 
 [⬆️ Back to META](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

@@ -6,6 +6,8 @@ summary: Knowledge Graph Root - Navigate documentation by semantic hierarchy
 status: draft
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+
 # 🗂️ EasyWay Knowledge Graph
 
 > **Navigate by domain, not by filename**. This index follows the semantic tag hierarchy.
@@ -25,6 +27,7 @@ status: draft
 - Total Pages: 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 - Tag Compliance: 95%+
 - Last Updated: 2026-01-14
+
 
 
 

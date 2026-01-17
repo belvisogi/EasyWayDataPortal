@@ -22,6 +22,8 @@ llm:
   pii: none
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 # ARGOS – Overview e Integrazione con EasyWayDataPortal
 
 ## Domande a cui risponde
@@ -55,6 +57,7 @@ Mappa contenuti
 - Event Schema Addendum: `./argos-event-schema.md`
 - Change & Versioning Guide: `./argos-change-versioning.md`
 - Glossario Unificato: `./argos-glossario.md`
+
 
 
 

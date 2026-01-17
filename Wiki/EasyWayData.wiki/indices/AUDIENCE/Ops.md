@@ -6,6 +6,8 @@ summary: Index of all pages tagged with AUDIENCE/Ops
 status: draft
 ---
 
+[[start-here|Home]] > [[Layer - Index|Index]]
+
 # 📄 Ops
 
 **Pillar**: AUDIENCE  
@@ -80,6 +82,7 @@ status: draft
 ---
 
 [⬆️ Back to AUDIENCE](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

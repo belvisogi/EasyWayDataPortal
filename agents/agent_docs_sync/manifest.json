@@ -1,146 +1,149 @@
 {
-    "role": "Agent_Docs_Sync",
-    "description": "Mantiene allineamento tra documentazione e codice: valida tag metadata, verifica cross-references, suggerisce aggiornamenti docs quando script cambiano.",
-    "allowed_paths": [
-        "agents/agent_docs_sync/**",
-        "agents/**",
-        "scripts/**",
-        "Rules/**",
-        "Rules.Vault/**",
-        "out/**"
-    ],
-    "allowed_tools": [
-        "pwsh"
-    ],
-    "knowledge_sources": [
-        "../../Wiki/EasyWayData.wiki/control-plane/agents-registry.md",
-        "../../Wiki/EasyWayData.wiki/agents-governance.md",
-        "../../Wiki/EasyWayData.wiki/docs-conventions.md",
-        "../../Wiki/EasyWayData.wiki/docs-agentic-audit.md",
-        "Rules/RULES_MASTER.md",
-        "Rules/EXECUTION_RULES.md",
-        "Rules/DOCS_INDEX.yaml",
-        "agents/kb/recipes.jsonl"
-    ],
-    "required_gates": [],
-    "actions": [
-        {
-            "name": "docs:check",
-            "description": "Verifica allineamento tra docs (.md) e scripts (.ps1). Controlla tag consistency, cross-references, esempi validi. Keywords: 'check documentazione', 'valida docs', 'alignment check'.",
-            "script": "../../scripts/ps/agent-docs-sync.ps1",
-            "params": {
-                "action": {
-                    "type": "string",
-                    "required": true,
-                    "description": "Azione da eseguire: 'check', 'validate', 'report', 'sync'"
-                },
-                "scope": {
-                    "type": "string",
-                    "required": false,
-                    "description": "Scope del check: 'all', 'ado', 'wiki', 'governance'. Default: 'all'"
-                }
-            },
-            "examples": [
-                {
-                    "command": "axctl --intent docs-check",
-                    "description": "Check allineamento completo docs/scripts"
-                },
-                {
-                    "command": "pwsh Rules.Vault/scripts/ps/agent-docs-sync.ps1 -Action check -Scope ado",
-                    "description": "Check solo docs ADO"
-                }
-            ]
+  "role": "Agent_Docs_Sync",
+  "description": "Mantiene allineamento tra documentazione e codice: valida tag metadata, verifica cross-references, suggerisce aggiornamenti docs quando script cambiano.",
+  "allowed_paths": [
+    "agents/agent_docs_sync/**",
+    "agents/**",
+    "scripts/**",
+    "Rules/**",
+    "Rules.Vault/**",
+    "out/**"
+  ],
+  "allowed_tools": [
+    "pwsh"
+  ],
+  "knowledge_sources": [
+    "../../Wiki/EasyWayData.wiki/control-plane/agents-registry.md",
+    "../../Wiki/EasyWayData.wiki/agents-governance.md",
+    "../../Wiki/EasyWayData.wiki/docs-conventions.md",
+    "../../Wiki/EasyWayData.wiki/docs-agentic-audit.md",
+    "Rules/RULES_MASTER.md",
+    "Rules/EXECUTION_RULES.md",
+    "Rules/DOCS_INDEX.yaml",
+    "agents/kb/recipes.jsonl"
+  ],
+  "required_gates": [],
+  "actions": [
+    {
+      "name": "docs:check",
+      "description": "Verifica allineamento tra docs (.md) e scripts (.ps1). Controlla tag consistency, cross-references, esempi validi. Keywords: 'check documentazione', 'valida docs', 'alignment check'.",
+      "script": "../../scripts/ps/agent-docs-sync.ps1",
+      "params": {
+        "action": {
+          "type": "string",
+          "required": true,
+          "description": "Azione da eseguire: 'check', 'validate', 'report', 'sync'"
         },
-        {
-            "name": "docs:validate",
-            "description": "Valida metadata YAML frontmatter e .METADATA blocks. Verifica tag taxonomy compliance. Keywords: 'valida metadata', 'check tags', 'taxonomy validation'.",
-            "script": "../../scripts/ps/agent-docs-sync.ps1",
-            "params": {
-                "action": {
-                    "type": "string",
-                    "required": true,
-                    "description": "Sempre 'validate'"
-                },
-                "path": {
-                    "type": "string",
-                    "required": false,
-                    "description": "Path specifico file da validare. Default: all"
-                }
-            },
-            "examples": [
-                {
-                    "command": "axctl --intent docs-validate",
-                    "description": "Valida tutto"
-                },
-                {
-                    "command": "pwsh Rules.Vault/scripts/ps/agent-docs-sync.ps1 -Action validate -Path Rules/ADO_EXPORT_GUIDE.md",
-                    "description": "Valida singolo file"
-                }
-            ]
-        },
-        {
-            "name": "docs:report",
-            "description": "Genera report su coverage metadata, orphaned files, tag statistics. Keywords: 'docs report', 'coverage report', 'metadata stats'.",
-            "script": "../../scripts/ps/agent-docs-sync.ps1",
-            "params": {
-                "action": {
-                    "type": "string",
-                    "required": true,
-                    "description": "Sempre 'report'"
-                },
-                "format": {
-                    "type": "string",
-                    "required": false,
-                    "description": "Formato output: 'console', 'markdown', 'json'. Default: 'console'"
-                }
-            },
-            "examples": [
-                {
-                    "command": "axctl --intent docs-report",
-                    "description": "Report console"
-                }
-            ]
-        },
-        {
-            "name": "docs:sync",
-            "description": "Sincronizza docs basandosi su script changes. Genera PR con aggiornamenti suggeriti. Richiede approval. Keywords: 'sync docs', 'update documentation', 'align docs'.",
-            "script": "../../scripts/ps/agent-docs-sync.ps1",
-            "params": {
-                "action": {
-                    "type": "string",
-                    "required": true,
-                    "description": "Sempre 'sync'"
-                },
-                "changedFile": {
-                    "type": "string",
-                    "required": false,
-                    "description": "File cambiato che ha triggerato il sync"
-                }
-            },
-            "examples": [
-                {
-                    "command": "pwsh Rules.Vault/scripts/ps/agent-docs-sync.ps1 -Action sync -ChangedFile agent-ado-userstory.ps1",
-                    "description": "Sync basato su cambio script"
-                }
-            ]
-        },
-        {
-            "name": "docs:scan",
-            "description": "Scansiona contenuto file per proporre TAG basati sul contenuto reale (Circular Flow). Richiede validazione GEDI per modifiche massive.",
-            "script": "../../scripts/ps/agent-docs-scanner.ps1",
-            "params": {
-                "action": {
-                    "type": "string",
-                    "required": true,
-                    "description": "'Scan' per indice, 'Propose' per suggerimenti"
-                }
-            },
-            "examples": [
-                {
-                    "command": "pwsh scripts/ps/agent-docs-scanner.ps1 -Action Propose",
-                    "description": "Propone tag mancanti basandosi su keywords"
-                }
-            ]
+        "scope": {
+          "type": "string",
+          "required": false,
+          "description": "Scope del check: 'all', 'ado', 'wiki', 'governance'. Default: 'all'"
         }
-    ]
+      },
+      "examples": [
+        {
+          "command": "axctl --intent docs-check",
+          "description": "Check allineamento completo docs/scripts"
+        },
+        {
+          "command": "pwsh Rules.Vault/scripts/ps/agent-docs-sync.ps1 -Action check -Scope ado",
+          "description": "Check solo docs ADO"
+        }
+      ]
+    },
+    {
+      "name": "docs:validate",
+      "description": "Valida metadata YAML frontmatter e .METADATA blocks. Verifica tag taxonomy compliance. Keywords: 'valida metadata', 'check tags', 'taxonomy validation'.",
+      "script": "../../scripts/ps/agent-docs-sync.ps1",
+      "params": {
+        "action": {
+          "type": "string",
+          "required": true,
+          "description": "Sempre 'validate'"
+        },
+        "path": {
+          "type": "string",
+          "required": false,
+          "description": "Path specifico file da validare. Default: all"
+        }
+      },
+      "examples": [
+        {
+          "command": "axctl --intent docs-validate",
+          "description": "Valida tutto"
+        },
+        {
+          "command": "pwsh Rules.Vault/scripts/ps/agent-docs-sync.ps1 -Action validate -Path Rules/ADO_EXPORT_GUIDE.md",
+          "description": "Valida singolo file"
+        }
+      ]
+    },
+    {
+      "name": "docs:report",
+      "description": "Genera report su coverage metadata, orphaned files, tag statistics. Keywords: 'docs report', 'coverage report', 'metadata stats'.",
+      "script": "../../scripts/ps/agent-docs-sync.ps1",
+      "params": {
+        "action": {
+          "type": "string",
+          "required": true,
+          "description": "Sempre 'report'"
+        },
+        "format": {
+          "type": "string",
+          "required": false,
+          "description": "Formato output: 'console', 'markdown', 'json'. Default: 'console'"
+        }
+      },
+      "examples": [
+        {
+          "command": "axctl --intent docs-report",
+          "description": "Report console"
+        }
+      ]
+    },
+    {
+      "name": "docs:sync",
+      "description": "Sincronizza docs basandosi su script changes. Genera PR con aggiornamenti suggeriti. Richiede approval. Keywords: 'sync docs', 'update documentation', 'align docs'.",
+      "script": "../../scripts/ps/agent-docs-sync.ps1",
+      "params": {
+        "action": {
+          "type": "string",
+          "required": true,
+          "description": "Sempre 'sync'"
+        },
+        "changedFile": {
+          "type": "string",
+          "required": false,
+          "description": "File cambiato che ha triggerato il sync"
+        }
+      },
+      "examples": [
+        {
+          "command": "pwsh Rules.Vault/scripts/ps/agent-docs-sync.ps1 -Action sync -ChangedFile agent-ado-userstory.ps1",
+          "description": "Sync basato su cambio script"
+        }
+      ]
+    },
+    {
+      "name": "docs:scan",
+      "description": "Scansiona contenuto file per proporre TAG basati sul contenuto reale (Circular Flow). Richiede validazione GEDI per modifiche massive.",
+      "script": "../../scripts/ps/agent-docs-scanner.ps1",
+      "params": {
+        "action": {
+          "type": "string",
+          "required": true,
+          "description": "'Scan' per indice, 'Propose' per suggerimenti"
+        }
+      },
+      "examples": [
+        {
+          "command": "pwsh scripts/ps/agent-docs-scanner.ps1 -Action Propose",
+          "description": "Propone tag mancanti basandosi su keywords"
+        }
+      ]
+    }
+  ],
+  "name": "agent_docs_sync",
+  "readme": "README.md",
+  "classification": "arm"
 }

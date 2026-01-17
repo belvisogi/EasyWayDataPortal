@@ -15,6 +15,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+
 # Lookup – Best Practice Naming & Scalabilità
 
 | Cosa vuoi                      | Cosa devi scrivere                 | Dammi il .md                              | Stato    |
@@ -93,6 +95,7 @@ Best Practice Naming & Scalabilità – EasyWay Data Portal
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

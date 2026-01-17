@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Allineare a SP di logging e definire retention.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 # PORTAL.STATS_EXECUTION_LOG — SP execution log
 
 ## Contesto
@@ -23,4 +25,5 @@ next: Allineare a SP di logging e definire retention.
 
 ## Scopo
 - TODO: descrivere il formato del log, quando viene scritto e come usarlo in troubleshooting.
+
 

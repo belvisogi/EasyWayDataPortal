@@ -6,6 +6,8 @@ summary: Index of all pages tagged with DOMAIN/Architecture
 status: draft
 ---
 
+[[start-here|Home]] > [[Domain - Architecture|Architecture]] > [[Layer - Index|Index]]
+
 # 📄 Architecture
 
 **Pillar**: DOMAIN  
@@ -17,6 +19,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

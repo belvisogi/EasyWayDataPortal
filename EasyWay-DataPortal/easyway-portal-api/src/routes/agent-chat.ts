@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import rateLimit from "express-rate-limit";
 import { AgentChatService } from '../services/agent-chat.service';
 import { validateAgentInput } from '../middleware/security';
 
@@ -59,6 +60,24 @@ function requireAuthContext(req: Request): { userId: string; tenantId: string } 
   return { userId, tenantId };
 }
 
+const chatRateWindowMs = parseInt(process.env.AGENT_CHAT_RATE_LIMIT_WINDOW_MS || "60000", 10);
+const chatRateMax = parseInt(process.env.AGENT_CHAT_RATE_LIMIT_MAX || "60", 10);
+const chatRateLimiter = rateLimit({
+  windowMs: chatRateWindowMs,
+  max: chatRateMax,
+  keyGenerator: (req: any) => `${req.tenantId || "unknown"}:${req.user?.id || req.ip || "unknown"}`,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req: any, res: any) => {
+    res.status(429).json({
+      error: 'rate_limit_exceeded',
+      message: 'Too many chat messages. Please try again later.',
+      requestId: req.requestId || null,
+      correlationId: req.correlationId || null
+    });
+  }
+});
+
 /**
  * POST /api/agents/:agentId/chat
  * Send a message to an agent
@@ -68,6 +87,7 @@ function requireAuthContext(req: Request): { userId: string; tenantId: string } 
  */
 router.post('/agents/:agentId/chat',
   validateAgentInput,  // Security Layer 1 - validates input for prompt injection
+  chatRateLimiter,
   async (req: Request, res: Response) => {
     try {
       const { agentId } = req.params;
@@ -86,11 +106,35 @@ router.post('/agents/:agentId/chat',
 
       res.json(response);
     } catch (error: any) {
+      if (error.code === 'OUTPUT_BLOCKED') {
+        return res.status(502).json({
+          error: 'output_blocked',
+          message: 'Agent output blocked by policy',
+          violations: error.violations || []
+        });
+      }
+
       if (error.code === 'INTENT_NOT_ALLOWED') {
         return res.status(403).json({
           error: 'intent_not_allowed',
           message: error.message,
           allowedIntents: error.allowedIntents || []
+        });
+      }
+
+      if (error.code === 'APPROVAL_REQUIRED') {
+        return res.status(428).json({
+          error: 'approval_required',
+          message: 'Approval required before apply execution',
+          executionMode: error.executionMode || 'apply'
+        });
+      }
+
+      if (error.code === 'APPROVAL_INVALID') {
+        return res.status(422).json({
+          error: 'approval_invalid',
+          message: 'Approval ticket invalid',
+          approvalId: error.approvalId || null
         });
       }
 

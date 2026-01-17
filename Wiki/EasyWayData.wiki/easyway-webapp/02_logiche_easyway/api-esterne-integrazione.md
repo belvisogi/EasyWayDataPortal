@@ -16,6 +16,8 @@ entities: []
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 # Integrazione API Esterne - EasyWay Data Portal
 
 ## Lookup - Integrazione API Esterne
@@ -65,5 +67,6 @@ next: TODO - definire next step.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 

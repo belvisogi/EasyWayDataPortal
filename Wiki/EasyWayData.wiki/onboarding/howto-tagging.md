@@ -8,6 +8,8 @@ owner: team-platform
 updated: '2026-01-06'
 ---
 
+[[start-here|Home]]
+
 # 🏷️ HOWTO: Tagging & Metadati in EasyWay DataPortal
 
 Una buona gestione di tag/metadati rende la knowledge base EasyWay facilmente ricercabile, automabile e “semantic-friendly” per agent, developer, LLM e workflow!
@@ -105,4 +107,5 @@ updated: '2026-01-06'
 - [Proposte Cross-link, FAQ mancanti, Ricette edge-case e automazioni](./proposte-crosslink-faq-edgecase.md)
 - [Documentazione - Contesto standard (obbligatorio)](./documentazione-contesto-standard.md)
 - [Glossario EasyWay & FAQ Errori Tipici](../glossario-errori-faq.md)
+
 

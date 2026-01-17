@@ -15,6 +15,8 @@ updated: '2026-01-08'
 next: Collegare al workflow n8n reale e aggiungere esempi settings (senza segreti).
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+
 # Apply AppSettings Starter (WHAT)
 
 Contratto
@@ -52,4 +54,5 @@ Riferimenti
 - [Deploy su Azure App Service – Pipeline & Variabili](../deploy-app-service.md)
 - [Predeploy Checklist (WHAT)](./predeploy-checklist.md)
 - [Release Preflight Security (WHAT)](./release-preflight-security.md)
+
 

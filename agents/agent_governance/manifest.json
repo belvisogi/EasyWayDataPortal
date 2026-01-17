@@ -1,4 +1,6 @@
 {
+  "name": "agent_governance",
+  "classification": "brain",
   "role": "Agent_Governance",
   "description": "Policy, qualità, gates e approvazioni per DB/API/Docs",
   "allowed_paths": [
@@ -32,5 +34,7 @@
     "scripts/intents/doc-nav-improvement-001.json",
     "agents/AGENT_WORKFLOW_STANDARD.md",
     "agents/GEDI_INTEGRATION_PATTERN.md"
-  ]
+  ],
+  "readme": "README.md",
+  "name": "agent_governance"
 }

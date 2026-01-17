@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: Consolidare convenzioni (RLS/PII/extended properties) e integrare export ERwin come artifact.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Howto|Howto]]
+
 # HowTo: creare una tabella
 
 ## Regola base (razionalizzazione)
@@ -56,3 +58,4 @@ Prima di generare, valida naming/tipi/PII/RLS:
 - Qual e' la pipeline corretta per aggiungere una tabella senza ambiguita?
 - Dove finiscono i file (Flyway, Wiki) e cosa e' canonico?
 - Come gestire PII/tenanting/RLS in modo governato?
+

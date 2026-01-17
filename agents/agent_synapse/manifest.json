@@ -38,5 +38,8 @@
   "knowledge_sources": [
     "../../Wiki/EasyWayData.wiki/control-plane/agents-registry.md",
     "../../Wiki/EasyWayData.wiki/agents-governance.md"
-  ]
+  ],
+  "name": "agent_synapse",
+  "readme": "README.md",
+  "classification": "arm"
 }

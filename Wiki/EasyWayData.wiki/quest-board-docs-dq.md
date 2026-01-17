@@ -14,6 +14,8 @@ updated: '2026-01-09'
 next: Eseguire docs-dq-scorecard e triage del backlog.
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Spec|Spec]]
+
 # Quest Board - Documentazione (DQ + Kanban)
 
 Obiettivo
@@ -34,4 +36,5 @@ Comandi
 
 - Eseguire: `pwsh scripts/docs-dq-scorecard.ps1 -UpdateQuestBoard -WhatIf:$false`
 <!-- AUTO:END -->
+
 

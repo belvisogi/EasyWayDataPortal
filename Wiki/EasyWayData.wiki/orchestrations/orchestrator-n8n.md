@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+
 # Orchestratore n8n (WHAT)
 Principio
 - Instradare intent JSON (vedi `intent-contract`) verso workflow n8n dichiarati, applicando pre-check di governance e propagando metadati (`correlationId`, `whatIf`, `decision_trace_id`).
@@ -86,5 +88,6 @@ Riferimenti
 - Manifest esempio: `docs/agentic/templates/orchestrations/wf.excel-csv-upload.manifest.json`
 - Contratti: `Wiki/EasyWayData.wiki/intent-contract.md`, `Wiki/EasyWayData.wiki/output-contract.md`
 - Governance/gates: `Wiki/EasyWayData.wiki/agents-governance.md`, `doc-alignment-gate.md`
+
 
 

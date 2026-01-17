@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Documentare logica di enforcement lato API e SP collegate.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 # PORTAL.SECTION_ACCESS — Section access
 
 ## Contesto
@@ -22,4 +24,5 @@ next: Documentare logica di enforcement lato API e SP collegate.
 
 ## Scopo
 - TODO: descrivere come vengono gestite le autorizzazioni per sezione e come sono valutate a runtime.
+
 

@@ -15,6 +15,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
+
 # EasyWay Data Portal — Manifesto Tecnologico & Analitico
 
 ## Codice
@@ -246,6 +248,7 @@ perché qui aggiungi/migliori endpoint, logica e parametrizzazione.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

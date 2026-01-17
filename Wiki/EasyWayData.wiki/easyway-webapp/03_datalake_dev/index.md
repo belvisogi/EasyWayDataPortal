@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: Aggiornare quando si aggiungono standard o runbook datalake.
 ---
 
+[[start-here|Home]] > [[domains/datalake|datalake]] > [[Layer - Index|Index]]
+
 # Indice
 
 - Nota per autori: per nuove pagine usare `./_template.md`.
@@ -27,4 +29,5 @@ Breadcrumb: Home / EasyWay WebApp / Datalake Dev
 ## Domande a cui risponde
 - Qual e lo standard per accesso e naming del datalake?
 - Dove trovo i prerequisiti IAM per lavorare sul datalake?
+
 

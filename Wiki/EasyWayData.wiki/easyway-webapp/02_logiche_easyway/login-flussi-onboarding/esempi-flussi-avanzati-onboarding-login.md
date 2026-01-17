@@ -15,6 +15,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
+
 ## Esempi Flussi Avanzati Onboarding/Login
 
 | Flusso/Variante                   | Attori                   | Step Principali                                                          | Security/ACL                        | Note Operative                                   |
@@ -75,6 +77,7 @@ next: TODO - definire next step.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

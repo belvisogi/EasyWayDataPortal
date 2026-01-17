@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
+[[start-here|Home]]
+
 **Perché lo facciamo:**
 * Vogliamo che ogni parametro (branding, label, path, preferenze) sia parametrico, centralizzato e modificabile senza deploy.
 * Serve poter cambiare "skin" e regole di business per ogni tenant senza toccare il codice, ma solo modificando un file YAML (branding) o una riga di DB (configurazione runtime).
@@ -232,3 +234,4 @@ Per garantire prevedibilità e stabilità, il sistema di configurazione rispetta
 - [checklist di test api](../../02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md)
 - [come si testa](./ENDPOINT/Template-ENDPOINT/come-si-testa.md)
 - [step 1 setup ambiente](./step-1-setup-ambiente.md)
+

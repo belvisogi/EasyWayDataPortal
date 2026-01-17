@@ -19,6 +19,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+
 ## 1. Stato attuale & gap principali
 
 - Architettura agentica, cloud-native, multi-tenant, con automazione avanzata e sicurezza by design.
@@ -92,6 +94,7 @@ Per dettagli: [docs/agentic/AGENTIC_READINESS.md](../../docs/agentic/AGENTIC_REA
 Questa pagina centralizza e razionalizza le informazioni chiave.  
 Le informazioni ridondanti sono state eliminate o rimandate ai file canonici sopra elencati.  
 Per ogni dettaglio operativo, consulta sempre questi riferimenti.
+
 
 
 

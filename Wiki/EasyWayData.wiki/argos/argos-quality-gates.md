@@ -1,3 +1,5 @@
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 title: ARGOS – Quality Gates (v1.1)
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, data-quality]
 status: active
@@ -97,6 +99,7 @@ Quarantine con TTL e retention; re‑processing programmato; safe-actions solo c
 
 ## 10) KPI dei Gates
 GPR, Blocking Rate, False PASS sample rate, Quarantine Dwell Time, Decision Trace coverage, override/backout rate, Time‑to‑decision p95.
+
 
 
 

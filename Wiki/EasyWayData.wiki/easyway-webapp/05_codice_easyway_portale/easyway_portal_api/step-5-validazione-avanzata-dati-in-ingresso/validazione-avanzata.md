@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 Dopo aver validato il **body** delle richieste (POST/PUT),  
 è **best practice** validare anche:
 *   **Querystring** (ad esempio, filtri/paginazione)
@@ -246,6 +248,7 @@ export function extractTenantId(req: Request, res: Response, next: NextFunction)
   - [ ] `../step-4-query-dinamiche-locale-datalake.md`
 - [ ] Link alla checklist di test API:
   - [ ] `../../02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md`
+
 
 
 

@@ -15,6 +15,8 @@ llm:
 entities: []
 next: Implementare flow DQ.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 # EasyWay Data Portal - Documentazione Funzionale Completa
 
   
@@ -276,6 +278,7 @@ Entrambi convivono senza conflitti.
 1. Qual è il flusso di registrazione di un nuovo utente?
 2. Qual è la differenza tra `tenant_id` (SQL) e Entra ID?
 3. Come funziona la priorità delle notifiche (email vs settings)?
+
 
 
 

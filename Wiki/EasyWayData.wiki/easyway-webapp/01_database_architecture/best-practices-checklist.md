@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 Obiettivo
 - Fornire una checklist operativa e agent‑friendly per verificare che il DB sia conforme alle linee guida EasyWay.
 
@@ -53,6 +55,7 @@ Note operative
 - RLS: abilita la security policy solo dopo aver verificato che l’app imposti `SESSION_CONTEXT('tenant_id')` (vedi `withTenantContext`).
 - Migrazioni: 1 file = 1 scopo; commento/header con scopo e ticket.
 - Documentazione: genera/aggiorna ERD & SP Catalog con `npm run db:generate-docs` dopo modifiche strutturali.
+
 
 
 

@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 Obiettivo
 - Generare documentazione aggiornata dal DB (schema attuale) in pochi secondi, pronta per wiki e agenti.
 
@@ -35,6 +37,7 @@ Pipeline
 Note
 - Gli script leggono INFORMATION_SCHEMA/sys.* e producono output idempotente.
 - Estensioni future: relazioni by columns, extended properties come descrizioni.
+
 
 
 

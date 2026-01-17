@@ -12,6 +12,8 @@ summary: Indice delle entità dichiarate in entities.yaml, raggruppate per categ
 pii: none
 chunk_hint: 400-600
 ---
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+
 # Entities Index
 
 ## Endpoints
@@ -85,6 +87,7 @@ chunk_hint: 400-600
 - Dove trovo l'elenco delle entità e i link rapidi?
 - Quali categorie di entità sono coperte?
 - Come navigo verso documenti specifici partendo dall'indice?
+
 
 
 

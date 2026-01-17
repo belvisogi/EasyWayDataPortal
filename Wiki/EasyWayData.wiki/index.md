@@ -6,6 +6,8 @@ title: Indice Globale
 summary: Punto di ingresso principale alla documentazione di EasyWay Data Portal. Contiene l'indice globale navigabile per domini, processi e audience.
 updated: 2026-01-16
 ---
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+
 # Indice Globale
 
 - Nota per autori: per nuove pagine usare `./_template.md`.
@@ -869,5 +871,6 @@ updated: 2026-01-16
   - H2: Obiettivi
   - H2: Fasi e Sequenza
   - H2: Per‑Cartella (linee guida)
+
 
 

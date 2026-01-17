@@ -18,6 +18,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 **Nota implementazione canonica**
 --------------------------------
 
@@ -2754,6 +2756,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

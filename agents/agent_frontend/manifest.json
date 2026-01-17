@@ -1,29 +1,15 @@
 {
-  "role": "Agent_Frontend",
-  "description": "Mini-portal e UI demo, integrazione branding, MSAL wiring",
-  "allowed_paths": [
-    "EasyWay-DataPortal/easyway-portal-api/src/routes/portal.ts",
-    "EasyWay-DataPortal/easyway-portal-api/datalake-sample/**",
-    "Wiki/EasyWayData.wiki/EasyWay_WebApp/05_codice_easyway_portale/**",
-    "agents/kb/recipes.jsonl"
-  ],
-  "allowed_tools": [
-    "npm",
-    "pwsh"
-  ],
-  "required_gates": [
-    "Checklist",
-    "KB_Consistency"
-  ],
-  "approvals": {
-    "prod": [
-      "Human_Governance_Approval"
-    ]
-  },
-  "knowledge_sources": [
-    "agents/kb/recipes.jsonl",
-    "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md",
-    "agents/AGENT_WORKFLOW_STANDARD.md",
-    "agents/GEDI_INTEGRATION_PATTERN.md"
+  "name": "EasyWay Agent Marketplace",
+  "short_name": "EasyAgents",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/master/assets/Bot/ic_fluent_bot_24_regular.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
   ]
 }

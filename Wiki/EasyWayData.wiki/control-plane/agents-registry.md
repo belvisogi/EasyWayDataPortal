@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 # Agents Registry (owner, domini, intent)
 
 ## Contesto (repo)
@@ -84,5 +86,6 @@ Gli agenti qui sotto erano nella lista "mancanti" e sono stati implementati con 
 - [Control Plane - Panoramica](./index.md)
 - [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
 - [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+
 
 

@@ -16,6 +16,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 **A. Obiettivo**
 ----------------
 
@@ -148,6 +150,7 @@ Risposta 200 OK, o 500 in caso di errore
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

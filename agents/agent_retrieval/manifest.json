@@ -11,8 +11,12 @@
     "agents/logs/**",
     "out/**"
   ],
-  "allowed_tools": ["pwsh"],
-  "required_gates": ["KB_Consistency"],
+  "allowed_tools": [
+    "pwsh"
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
   "approvals": {},
   "knowledge_sources": [
     "Wiki/EasyWayData.wiki/ai/knowledge-vettoriale-easyway.md",
@@ -25,10 +29,18 @@
       "name": "rag:export-wiki-chunks",
       "description": "Rigenera gli artifact Wiki (chunks/index) per ingestion RAG (no upload).",
       "params": {
-        "wikiRoot": { "type": "string", "required": false },
-        "outDir": { "type": "string", "required": false }
+        "wikiRoot": {
+          "type": "string",
+          "required": false
+        },
+        "outDir": {
+          "type": "string",
+          "required": false
+        }
       }
     }
-  ]
+  ],
+  "name": "agent_retrieval",
+  "readme": "README.md",
+  "classification": "arm"
 }
-

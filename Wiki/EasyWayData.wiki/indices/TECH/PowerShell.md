@@ -6,6 +6,8 @@ summary: Index of all pages tagged with TECH/PowerShell
 status: draft
 ---
 
+[[start-here|Home]] > [[Layer - Index|Index]]
+
 # 📄 PowerShell
 
 **Pillar**: TECH  
@@ -16,6 +18,7 @@ status: draft
 ---
 
 [⬆️ Back to TECH](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

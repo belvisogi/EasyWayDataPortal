@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Allineare con OpenAPI e aggiungere esempi per ogni endpoint critico.
 ---
 
+[[start-here|Home]] > [[Domain - Api|Api]] > [[Layer - Howto|Howto]]
+
 # QnA - Errori REST API (EasyWay Portal)
 
 ## Contesto (repo)
@@ -115,4 +117,5 @@ Le API restituiscono un payload coerente:
 - [LLM READINESS CHECKLIST](../llm-readiness-checklist.md)
 - [Gestione Accessi DB (Contained Users & Ruoli PORTAL)](../db-user-access-management.md)
 - [db-table-portal-users](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-users.md)
+
 

@@ -15,6 +15,8 @@ llm:
 entities: []
 next: Aggiungere link repo diretti.
 ---
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Index|Index]]
+
 Nel tuo Wiki puoi mappare così:
 *   **Backend:**  
     `[Codice → easyway-portal-api]` → _Doc: API/Service Reference_
@@ -33,6 +35,7 @@ Nel tuo Wiki puoi mappare così:
 1. Qual è la repository per il Backend?
 2. Dove trovo la documentazione dell'infrastruttura (IaC)?
 3. Come sono mappati i componenti codice-documentazione?
+
 
 
 

@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: Aggiornare quando si aggiunge o modifica un endpoint.
 ---
 
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Index|Index]]
+
 # Indice
 
 - Nota per autori: per nuove pagine usare `./_template.md`.
@@ -32,4 +34,5 @@ Breadcrumb: Home / EasyWay WebApp / Codice Portale / API / Endpoint
 - Quali endpoint sono documentati e dove sono le istruzioni?
 - Qual e il template canonico per aggiungere un nuovo endpoint?
 - Quali file del codice devo toccare per ogni endpoint?
+
 

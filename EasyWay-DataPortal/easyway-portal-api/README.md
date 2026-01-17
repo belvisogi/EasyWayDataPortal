@@ -42,14 +42,23 @@ DB dual-mode:
 - `DB_MODE=mock|sql` - `mock` salva i dati in `data/dev-users.json`; `sql` usa Azure SQL
 
 Obbligatorie per branding su Blob:
-- `AZURE_STORAGE_CONNECTION_STRING` – connection string dell'account di Storage
-- `BRANDING_CONTAINER` – es. `portal-assets`
-- `BRANDING_PREFIX` – default `config` (il file viene cercato come `config/branding.{tenantId}.yaml`)
-- `RLS_CONTEXT_ENABLED` – default `true`; se `false` non imposta `SESSION_CONTEXT('tenant_id')` (utile per debug)
-- `PORTAL_BASE_PATH` – default `/portal`; base path per il mini‑portale
-- `RATE_LIMIT_WINDOW_MS`, `RATE_LIMIT_MAX` – rate limiting (default 60000ms/600 req)
-- `BODY_LIMIT` – limite dimensione JSON body (default `1mb`)
-- `LOG_DIR` – directory log (default `logs`)
+- `AZURE_STORAGE_CONNECTION_STRING` - connection string dell'account di Storage
+- `BRANDING_CONTAINER` - es. `portal-assets`
+- `BRANDING_PREFIX` - default `config` (il file viene cercato come `config/branding.{tenantId}.yaml`)
+- `RLS_CONTEXT_ENABLED` - default `true`; se `false` non imposta `SESSION_CONTEXT('tenant_id')` (utile per debug)
+- `PORTAL_BASE_PATH` - default `/portal`; base path per il mini-portale
+- `RATE_LIMIT_WINDOW_MS`, `RATE_LIMIT_MAX` - rate limiting (default 60000ms/600 req)
+- `BODY_LIMIT` - limite dimensione JSON body (default `1mb`)
+- `LOG_DIR` - directory log (default `logs`)
+- `AGENT_CHAT_ENFORCE_ALLOWLIST` - abilita allowlist intent (default `true`)
+- `AGENT_CHAT_REQUIRE_APPROVAL_ON_APPLY` - richiede approval per execution mode `apply` (default `true`)
+- `APPROVAL_TICKET_PATTERN` - regex per ticket di approvazione (default `^CAB-\\d{4}-\\d{4}$`)
+- `APPROVAL_TICKET_VALIDATE_URL` - endpoint per validare il ticket (opzionale, usa `{ticketId}` oppure querystring)
+- `APPROVAL_TICKET_VALIDATE_METHOD` - metodo validazione (default `GET`)
+- `APPROVAL_TICKET_VALIDATE_HEADER`, `APPROVAL_TICKET_VALIDATE_TOKEN` - header auth per validazione (opzionale)
+- `AGENT_CHAT_RATE_LIMIT_WINDOW_MS`, `AGENT_CHAT_RATE_LIMIT_MAX` - rate limiting chat (default 60000ms/60 req)
+- `AGENT_CHAT_REDACT` - redazione contenuti chat (default `true`)
+- `AGENT_CHAT_MAX_MESSAGE_LEN`, `AGENT_CHAT_MAX_METADATA_LEN` - limiti dimensione chat (default 4000)
 
 Opzionali/consigliate:
 - `LOG_LEVEL` – default `info`
@@ -72,6 +81,20 @@ TENANT_CLAIM=ew_tenant_id
 AZURE_STORAGE_CONNECTION_STRING=UseDevelopmentStorage=true
 BRANDING_CONTAINER=portal-assets
 BRANDING_PREFIX=config
+
+# Agent Chat guardrails
+AGENT_CHAT_ENFORCE_ALLOWLIST=true
+AGENT_CHAT_REQUIRE_APPROVAL_ON_APPLY=true
+APPROVAL_TICKET_PATTERN=^CAB-\\d{4}-\\d{4}$
+APPROVAL_TICKET_VALIDATE_URL=
+APPROVAL_TICKET_VALIDATE_METHOD=GET
+APPROVAL_TICKET_VALIDATE_HEADER=
+APPROVAL_TICKET_VALIDATE_TOKEN=
+AGENT_CHAT_RATE_LIMIT_WINDOW_MS=60000
+AGENT_CHAT_RATE_LIMIT_MAX=60
+AGENT_CHAT_REDACT=true
+AGENT_CHAT_MAX_MESSAGE_LEN=4000
+AGENT_CHAT_MAX_METADATA_LEN=4000
 ```
 
 Con `UseDevelopmentStorage=true` puoi usare Azurite.

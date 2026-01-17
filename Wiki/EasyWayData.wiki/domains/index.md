@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+
 # Domini - Panoramica
 
 - Nota per autori: per nuove pagine usare `./_template.md`.
@@ -55,3 +57,4 @@ Regola
 1. Quali sono i domini principali del portale EasyWay?
 2. Dove trovo la documentazione specifica per DB o Datalake?
 3. Qual è la regola aurea per definire una nuova "capability"?
+

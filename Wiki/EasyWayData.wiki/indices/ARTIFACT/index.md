@@ -6,6 +6,8 @@ summary: Index of all pages tagged with ARTIFACT/Index
 status: draft
 ---
 
+[[start-here|Home]] > [[Layer - Index|Index]]
+
 # 📄 Index
 
 - Nota per autori: per nuove pagine usare `./_template.md`.
@@ -26,6 +28,7 @@ status: draft
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 
 

@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 Obiettivo
 - Validare il JWT in ingresso e derivare il tenant da un claim applicativo (es. `ew_tenant_id`).
 - Opzionale: impostare un header interno per compatibilità con sistemi legacy o per auditing.
@@ -57,6 +59,7 @@ Note
 - Il backend EasyWay non richiede più `X-Tenant-Id` dal client; legge il tenant dai claim del token.
 - L’header impostato da APIM può servire per audit/troubleshooting, ma non è necessario.
 - Usa prodotti/policy APIM per rate‑limit multi‑tenant, IP allowlist e mTLS secondo necessità.
+
 
 
 

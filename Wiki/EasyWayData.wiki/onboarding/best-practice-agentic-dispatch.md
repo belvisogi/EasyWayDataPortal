@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]]
+
 # Best practice - intent agentici via n8n.dispatch (RAG-ready)
 
 ## Contesto (repo)
@@ -67,5 +69,6 @@ owner: team-platform
 - [Orchestrazione - Agent Scaffold (WHAT)](../orchestrations/agent-scaffold.md)
 - [Control Plane - Panoramica](../control-plane/index.md)
 - [Segregation Model (Dev vs Knowledge vs Runtime)](../control-plane/segregation-model-dev-knowledge-runtime.md)
+
 
 

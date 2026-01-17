@@ -9,8 +9,12 @@
     "agents/logs/**",
     "out/**"
   ],
-  "allowed_tools": ["pwsh"],
-  "required_gates": ["KB_Consistency"],
+  "allowed_tools": [
+    "pwsh"
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
   "approvals": {},
   "knowledge_sources": [
     "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/security-and-observability.md",
@@ -21,9 +25,17 @@
       "name": "obs:healthcheck",
       "description": "Esegue un healthcheck locale (file/log) e produce output strutturato per n8n.",
       "params": {
-        "paths": { "type": "array", "items": { "type": "string" }, "required": false }
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": false
+        }
       }
     }
-  ]
+  ],
+  "name": "agent_observability",
+  "readme": "README.md",
+  "classification": "arm"
 }
-

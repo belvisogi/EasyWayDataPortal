@@ -15,6 +15,8 @@ updated: '2026-01-06'
 next: Compilare data dictionary e policy retention/PII.
 ---
 
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 # PORTAL.LOG_AUDIT — Audit log
 
 ## Contesto
@@ -22,4 +24,5 @@ next: Compilare data dictionary e policy retention/PII.
 
 ## Scopo
 - TODO: descrivere cosa viene loggato, chi scrive (SP/API) e retention.
+
 

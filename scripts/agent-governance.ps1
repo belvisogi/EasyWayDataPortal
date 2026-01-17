@@ -128,6 +128,26 @@ try {
   }
 } catch { Write-Warning ("Priority rules (governance) non applicabili: {0}" -f $_.Exception.Message) }
 
+# --- GEDI OODA INTEGRATION ---
+function Invoke-GediCheck($context, $intent) {
+    if (-not (Test-Path "scripts/agent-gedi.ps1")) { return }
+    Write-Host "`n👘 GEDI Consultation..." -ForegroundColor Cyan
+    try {
+        $gediJson = & pwsh scripts/agent-gedi.ps1 -Context $context -Intent $intent -DryRun:$true | ConvertFrom-Json
+        # If GEDI returns strict warning, we might pause
+        # Currently agent-gedi.ps1 provides 'ooda_state' and console output.
+        # We rely on the console output of agent-gedi for the user, but we could enforce logic here.
+    } catch {
+        Write-Warning "GEDI is silent (Error contacting GEDI)."
+    }
+}
+# -----------------------------
+
+# GEDI Probe for Governance Checklist
+if ($Checklist -or $Interactive) {
+    Invoke-GediCheck -context "Governance Checklist Approval requested on $($env:ENVIRONMENT)" -intent "Approve deployment gates"
+}
+
 if ($hasWiki) {
   $tasks += [pscustomobject]@{
     Id = 1

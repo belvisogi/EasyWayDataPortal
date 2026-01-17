@@ -13,6 +13,8 @@ entities: []
 updated: '2026-01-09'
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Orchestration|Orchestration]]
+
 # Docs DQ Kanban - Confluence Cloud (WHAT)
 
 Parametri (source of truth)
@@ -51,4 +53,5 @@ Per scrivere davvero (solo dopo approvazione):
 ```powershell
 pwsh scripts/confluence-dq-board.ps1 -IntentPath "scripts/intents/docs-dq-confluence-cloud-001.json" -Export -UpdateBoard -WhatIf:$false
 ```sql
+
 

@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+
 # Deployment decision (MVP) — EasyWay Data Portal
 
 Sintesi breve
@@ -54,6 +56,7 @@ Prossimi step raccomandati
 
 Note finali
 - La scelta App Service è già documentata nel repo; questo file rende esplicita la decisione MVP e centralizza i link utili per dev/ops.
+
 
 
 

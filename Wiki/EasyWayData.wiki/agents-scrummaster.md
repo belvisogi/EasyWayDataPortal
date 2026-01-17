@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 Modello Operativo
 - Single‑owner + multi‑agent: un unico owner umano approva; gli agenti eseguono e tracciano.
 - Azioni su Boards/Prod richiedono approvazioni esplicite e sono loggate in activity-log.md.
@@ -34,6 +36,7 @@ Strumenti
 
 Note
 - Questo documento integra agents-governance.md con il focus ScrumMaster.
+
 
 
 

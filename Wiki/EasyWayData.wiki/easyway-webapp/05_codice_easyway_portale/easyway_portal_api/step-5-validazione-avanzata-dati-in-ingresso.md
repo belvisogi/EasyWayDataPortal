@@ -14,6 +14,8 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Howto|Howto]]
+
 ### **Perché serve**
 
 *   **Blocca subito i dati errati o “sporchi”** prima che arrivino al database.
@@ -146,3 +148,4 @@ export default router;
 - [STEP 2 - Struttura src e primi file](./STEP-2-—-Struttura-src-e-primi-file.md)
 - [step 4 query dinamiche locale datalake](./step-4-query-dinamiche-locale-datalake.md)
 - [validazione avanzata](./step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md)
+

@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+
 # Orchestrazione – wf.excel-csv-upload (WHAT)
 
 Principio
@@ -58,5 +60,6 @@ Riferimenti
 - Use Case – Entrate/Uscite: `use-cases/entrate-uscite.md`
 - ARGOS – Quality Gates: `argos/argos-quality-gates.md`
 - Governance DQ: `governance-dq.md`
+
 
 

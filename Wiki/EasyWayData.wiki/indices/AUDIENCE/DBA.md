@@ -6,6 +6,8 @@ summary: Index of all pages tagged with AUDIENCE/DBA
 status: draft
 ---
 
+[[start-here|Home]] > [[Layer - Index|Index]]
+
 # 📄 DBA
 
 **Pillar**: AUDIENCE  
@@ -68,6 +70,7 @@ status: draft
 ---
 
 [⬆️ Back to AUDIENCE](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

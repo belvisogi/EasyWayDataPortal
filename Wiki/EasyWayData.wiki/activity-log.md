@@ -8,6 +8,8 @@ summary: Diario di bordo automatico (pipeline/agents)
 updated: 2026-01-16
 ---
 
+[[start-here|Home]]
+
 | Timestamp (UTC) | Actor | Intent | Env | Outcome | Gov | Refs | Artifacts | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 01/06/2026 14:52:21 | agent_governance | governance-gates | local | success |  | EasyWay-DataPortal\easyway-portal-api\drift.json | EasyWay-DataPortal\easyway-portal-api\checklist.json | Gates eseguiti: Checklist, KBConsistency |
@@ -15,4 +17,5 @@ updated: 2026-01-16
 | 01/06/2026 12:54:50 | agent_governance | governance-gates | local | success |  | EasyWay-DataPortal\easyway-portal-api\drift.json | EasyWay-DataPortal\easyway-portal-api\checklist.json | Gates eseguiti: KBConsistency |
 | 01/06/2026 12:41:58 | agent_governance | governance-gates | local | success |  | EasyWay-DataPortal\easyway-portal-api\drift.json | EasyWay-DataPortal\easyway-portal-api\checklist.json | Gates eseguiti: Checklist, DBDrift, KBConsistency |
 | 10/20/2025 11:26:45 | agent_docs_review | docs-review | local | success |  | Wiki/EasyWayData.wiki/index_master.csv | Wiki/EasyWayData.wiki/entities-index.md | Wiki Normalize & Review |
+
 

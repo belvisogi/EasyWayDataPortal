@@ -11,8 +11,12 @@
     "Wiki/EasyWayData.wiki/api/**",
     "EasyWay-DataPortal/easyway-portal-api/**"
   ],
-  "allowed_tools": ["pwsh"],
-  "required_gates": ["KB_Consistency"],
+  "allowed_tools": [
+    "pwsh"
+  ],
+  "required_gates": [
+    "KB_Consistency"
+  ],
   "approvals": {},
   "knowledge_sources": [
     "Wiki/EasyWayData.wiki/api/rest-errors-qna.md",
@@ -23,15 +27,46 @@
       "name": "api-error:triage",
       "description": "Normalizza e classifica un errore REST, genera azioni suggerite e log strutturato per n8n.",
       "params": {
-        "source": { "type": "string", "enum": ["n8n", "manual"], "required": true },
-        "service": { "type": "string", "required": true },
-        "environment": { "type": "string", "required": true },
-        "request": { "type": "object", "required": true },
-        "response": { "type": "object", "required": false },
-        "error": { "type": "object", "required": false },
-        "correlationId": { "type": "string", "required": false },
-        "decision_trace_id": { "type": "string", "required": false }
+        "source": {
+          "type": "string",
+          "enum": [
+            "n8n",
+            "manual"
+          ],
+          "required": true
+        },
+        "service": {
+          "type": "string",
+          "required": true
+        },
+        "environment": {
+          "type": "string",
+          "required": true
+        },
+        "request": {
+          "type": "object",
+          "required": true
+        },
+        "response": {
+          "type": "object",
+          "required": false
+        },
+        "error": {
+          "type": "object",
+          "required": false
+        },
+        "correlationId": {
+          "type": "string",
+          "required": false
+        },
+        "decision_trace_id": {
+          "type": "string",
+          "required": false
+        }
       }
     }
-  ]
+  ],
+  "name": "agent_api",
+  "readme": "README.md",
+  "classification": "arm"
 }

@@ -8,6 +8,8 @@ owner: team-platform
 updated: '2026-01-07'
 ---
 
+[[start-here|Home]]
+
 # 🧠 Knowledge Base Vettoriale in EasyWay DataPortal
 
 > _Questa guida spiega cosa significa, come si realizza e perché è strategica la gestione di una knowledge base “vettoriale” per la piattaforma EasyWay DataPortal. Contiene anche esempi pratici per integration agent, n8n, e best practice di automazione/aggiornamento._
@@ -174,5 +176,6 @@ Come “tenere le analisi sul vector”
 ---
 
 > _Per qualsiasi dubbio, proporre miglioramenti e contributi, commenta in questa guida o tagga nei manifest “ai-friendly”._
+
 
 

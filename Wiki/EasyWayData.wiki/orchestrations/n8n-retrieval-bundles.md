@@ -15,6 +15,8 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+
 # n8n Retrieval Bundles
 
 Obiettivo: dare a n8n (o ad altri agenti) un modo **deterministico** per decidere *quali pagine Wiki caricare* per un intent, senza "rileggere tutto" e senza includere duplicati/obsolete.
@@ -74,4 +76,5 @@ Nota: di default i bundle servono a caricare **Wiki**; `old/db/` e `db/README.md
 - [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
 - [n8n API Error Triage](./n8n-api-error-triage.md)
 - [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
+
 

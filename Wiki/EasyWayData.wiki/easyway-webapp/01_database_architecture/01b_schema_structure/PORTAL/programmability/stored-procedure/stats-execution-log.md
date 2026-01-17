@@ -18,6 +18,8 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
+[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+
 * Abbiamo definito una SP,  `sp_log_stats_execution`, con tutti i parametri necessari (proc_name, rows, status, etc).
     
 *   Nelle altre store process, al posto dell’`INSERT INTO ...` metti solo la chiamata a questa SP.
@@ -789,6 +791,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

@@ -8,6 +8,8 @@ owner: team-platform
 updated: '2026-01-06'
 ---
 
+[[start-here|Home]]
+
 # 🧩 Suggerimenti mirati: cross-link, FAQ mancanti, edge-case, automation
 
 Questa tabella suggerisce punti pratici in cui arricchire la kb repo EasyWay con link, FAQ, ricette, mock e automation — per una developer/agent experience ancora più potente e self-healing.
@@ -37,3 +39,4 @@ Questa tabella suggerisce punti pratici in cui arricchire la kb repo EasyWay con
 **Nota:** ogni patch può essere proposta via PR, segnalata come TODO o automatizzata con agent_docs_review/test-all.
 
 Suggerisci altri punti pratici via issue o PR!
+

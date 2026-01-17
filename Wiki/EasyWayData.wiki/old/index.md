@@ -14,6 +14,8 @@ pii: none
 owner: team-platform
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+
 # Archivio (old/)
 
 - Nota per autori: per nuove pagine usare `./_template.md`.
@@ -32,6 +34,7 @@ Questa cartella contiene **backup/varianti non canoniche** tenute solo per recup
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 
 

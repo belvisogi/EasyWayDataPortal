@@ -16,6 +16,8 @@ entities: []
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 # Esempi Notifiche & Template Email Configurabili (Excel su Storage)
 
 ## 1. Flusso Gestione Template Email
@@ -115,5 +117,6 @@ Ogni modifica ai template viene tracciata e può essere validata da admin. In pr
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 

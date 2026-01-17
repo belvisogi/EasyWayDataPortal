@@ -15,6 +15,8 @@ updated: '2026-01-15'
 next: TODO - definire next step.
 ---
 
+[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+
 Visione
 - Agenti specializzati (DBA, Frontend, AMS, Governance) coordinati da un control plane (Azure DevOps) con policy, gates e audit.
 
@@ -53,3 +55,4 @@ Tutti gli agenti EasyWay seguono il **pattern 3-step** per completamento task:
 
 Audit & Osservabilità
 - `PORTAL.LOG_AUDIT` per eventi agent; Application Insights/OTel per tracing e KPI (in roadmap)
+

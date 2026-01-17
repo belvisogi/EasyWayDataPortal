@@ -8,6 +8,8 @@ owner: team-platform
 updated: '2026-01-06'
 ---
 
+[[start-here|Home]]
+
 # Best Practice Scripting (PowerShell, Bash, Node.js, Linux/Windows)
 
 **EasyWay DataPortal** punta a massima portabilità: tutti gli script agentici devono poter funzionare sia su Windows che su Linux/macOS.  
@@ -67,3 +69,4 @@ if ($PSVersionTable.Platform -ne "Unix" -and $env:OS -eq $null) {
 ```sql
 
 **Se trovi uno script poco portabile, crea una issue o PR di suggestion!**
+

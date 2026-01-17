@@ -2,11 +2,11 @@
 
 ## 🦗 Il Pattern "Grillo Parlante"
 
-**Regola**: Tutti gli agent EasyWayDataPortal DEVONO chiamare `agent_gedi` a fine lavoro per feedback filosofico.
+**Regola**: Tutti gli agent ADA DataProjectDataPortal DEVONO chiamare `agent_gedi` a fine lavoro per feedback filosofico.
 
 ## 🎯 Perché?
 
-**agent_gedi** è il "Guardian EasyWay Delle Intenzioni" - custode del manifesto e dei principi:
+**agent_gedi** è il "Guardian ADA DataProject Delle Intenzioni" - custode del manifesto e dei principi:
 - Qualità > Velocità
 - Misuriamo due, tagliamo una
 - Il percorso conta
@@ -92,7 +92,7 @@ Aggiungi al manifest di ogni agent:
 
 ## 🎯 Benefit
 
-1. **Coerenza Filosofica**: Tutti gli agent seguono manifesto EasyWay
+1. **Coerenza Filosofica**: Tutti gli agent seguono manifesto ADA DataProject
 2. **Quality Reminder**: "Did we rush?" "Is this maintainable?"
 3. **Learning**: GEDI suggerisce miglioramenti per prossime iterazioni
 4. **Tracciabilità**: Log di tutte le decisioni con philosophical context
@@ -137,4 +137,5 @@ Se un agent riceve molti warning → training opportunity!
 
 **Status**: Pattern da implementare in tutti gli agent  
 **Owner**: Agent developers  
-**GEDI Approval**: 💙 "Amo questo! È esattamente lo spirito EasyWay"
+**GEDI Approval**: 💙 "Amo questo! È esattamente lo spirito ADA DataProject"
+

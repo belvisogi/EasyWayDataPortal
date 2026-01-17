@@ -13,6 +13,8 @@ entities: []
 updated: '2026-01-08'
 ---
 
+[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Orchestration|Orchestration]]
+
 # Docs Related Links Apply (WHAT)
 
 Contratto
@@ -41,4 +43,5 @@ pwsh scripts/wiki-related-links.ps1 -WikiPath "Wiki/EasyWayData.wiki" -TopK 7 -A
 
 Rollback:
 - Ogni run salva backup in `out/wiki-related-links-apply/<runId>/` e un `apply-summary.json` con la lista file/backup.
+
 
