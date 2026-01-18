@@ -1,0 +1,147 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Agent Issue Log Schema",
+    "type": "object",
+    "required": [
+        "id",
+        "timestamp",
+        "agent",
+        "severity",
+        "category",
+        "description",
+        "status"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "Unique issue ID (format: ISSUE-YYYYMMDD-XXX)",
+            "pattern": "^ISSUE-\\d{8}-\\d{3}$"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the issue occurred"
+        },
+        "agent": {
+            "type": "string",
+            "description": "Agent that encountered the issue"
+        },
+        "severity": {
+            "type": "string",
+            "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+            ],
+            "description": "Issue severity level"
+        },
+        "category": {
+            "type": "string",
+            "enum": [
+                "execution_failed",
+                "validation_error",
+                "missing_dependency",
+                "configuration_error",
+                "knowledge_gap",
+                "tool_unavailable",
+                "permission_denied",
+                "timeout",
+                "other"
+            ],
+            "description": "Issue category"
+        },
+        "description": {
+            "type": "string",
+            "description": "Human-readable issue description"
+        },
+        "context": {
+            "type": "object",
+            "description": "Additional context about the issue",
+            "properties": {
+                "user_input": {
+                    "type": "string"
+                },
+                "intent": {
+                    "type": "string"
+                },
+                "action_attempted": {
+                    "type": "string"
+                },
+                "error_message": {
+                    "type": "string"
+                },
+                "stack_trace": {
+                    "type": "string"
+                }
+            }
+        },
+        "impact": {
+            "type": "string",
+            "description": "Impact on user/system"
+        },
+        "suggested_fix": {
+            "type": "string",
+            "description": "Agent's suggestion for fixing the issue"
+        },
+        "status": {
+            "type": "string",
+            "enum": [
+                "open",
+                "in_review",
+                "planned",
+                "in_progress",
+                "resolved",
+                "wont_fix"
+            ],
+            "description": "Current status"
+        },
+        "assigned_to": {
+            "type": "string",
+            "description": "Agent or team assigned to fix"
+        },
+        "related_issues": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Related issue IDs"
+        },
+        "resolution": {
+            "type": "object",
+            "properties": {
+                "resolved_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "resolved_by": {
+                    "type": "string"
+                },
+                "solution": {
+                    "type": "string"
+                },
+                "validation": {
+                    "type": "string"
+                }
+            }
+        },
+        "metadata": {
+            "type": "object",
+            "properties": {
+                "created_by": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
