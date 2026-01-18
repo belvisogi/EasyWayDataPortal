@@ -1,29 +1,45 @@
 {
-  "name": "EasyWay Agent Marketplace",
-  "short_name": "EasyAgents",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
-  "icons": [
+  "name": "agent_frontend",
+  "classification": "arm",
+  "role": "frontend-developer",
+  "owner": "team-frontend",
+  "description": "Gestisce sviluppo e deployment frontend (UI/UX, React, static assets, portal interface)",
+  "readme": "README.md",
+  "allowed_paths": [
+    "portal-api/easyway-portal-frontend/**",
+    "Wiki/EasyWayData.wiki/UX/**",
+    "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/easyway_portal_frontend/**",
+    "docs/agentic/templates/orchestrations/frontend-*.manifest.json"
+  ],
+  "knowledge_sources": [
+    "Wiki/EasyWayData.wiki/UX/agent-chat-interface.md",
+    "Wiki/EasyWayData.wiki/UX/agentic-ux.md",
+    "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/easyway_portal_frontend/**"
+  ],
+  "actions": [
     {
-      "src": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/master/assets/Bot/ic_fluent_bot_24_regular.svg",
-      "sizes": "192x192",
-      "type": "image/svg+xml"
+      "name": "frontend:build",
+      "description": "Esegue build del frontend",
+      "script": "../../scripts/agent-frontend.ps1",
+      "params": {
+        "Action": "build"
+      }
+    },
+    {
+      "name": "frontend:deploy",
+      "description": "Deploya il frontend su Azure Static Web Apps",
+      "script": "../../scripts/agent-frontend.ps1",
+      "params": {
+        "Action": "deploy"
+      }
     }
   ],
   "allowed_tools": [
     "pwsh",
-    "git"
+    "git",
+    "npm"
   ],
   "required_gates": [
     "doc_alignment"
-  ],
-  "knowledge_sources": [
-    {
-      "priority": "low",
-      "path": "Wiki/EasyWayData.wiki/home.md",
-      "type": "document"
-    }
   ]
 }

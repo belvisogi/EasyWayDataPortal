@@ -34,6 +34,12 @@
     }
   ],
   "readme": "README.md",
+  "allowed_paths": [
+    "agents/logs/**",
+    "Wiki/EasyWayData.wiki/activity-log.md",
+    "Wiki/EasyWayData.wiki/Runbooks/**",
+    "Wiki/EasyWayData.wiki/concept/history.md"
+  ],
   "allowed_tools": [
     "pwsh",
     "git"

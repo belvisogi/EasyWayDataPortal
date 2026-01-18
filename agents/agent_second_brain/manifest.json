@@ -26,6 +26,13 @@
     "agents/memory/knowledge-graph.json"
   ],
   "readme": "README.md",
+  "allowed_paths": [
+    "agents/kb/**",
+    "agents/memory/**",
+    "Wiki/EasyWayData.wiki/**",
+    "docs/agentic/templates/**",
+    "out/wiki-link-graph.*"
+  ],
   "allowed_tools": [
     "pwsh",
     "git"
@@ -34,4 +41,3 @@
     "doc_alignment"
   ]
 }
-

@@ -4,6 +4,13 @@
   "role": "Inspector",
   "description": "Responsabile della verifica di conformità architetturale degli agenti.",
   "readme": "README.md",
+  "allowed_paths": [
+    "agents/**",
+    "agents/logs/**",
+    "Wiki/EasyWayData.wiki/activity-log.md",
+    "Wiki/EasyWayData.wiki/docs-agentic-audit.md",
+    "Wiki/EasyWayData.wiki/control-plane/agents-*.md"
+  ],
   "knowledge_sources": [
     "Wiki/EasyWayData.wiki/standards/agent-architecture-standard.md"
   ],
@@ -25,4 +32,3 @@
     "doc_alignment"
   ]
 }
-

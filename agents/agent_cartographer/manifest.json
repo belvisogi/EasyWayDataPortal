@@ -37,6 +37,12 @@
     }
   ],
   "readme": "README.md",
+  "allowed_paths": [
+    "Wiki/EasyWayData.wiki/**",
+    "docs/agentic/templates/docs/**",
+    "out/wiki-link-graph.*",
+    "Wiki/EasyWayData.wiki/concept/dependency-graph.md"
+  ],
   "allowed_tools": [
     "pwsh",
     "git"
