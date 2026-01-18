@@ -21,7 +21,8 @@ try {
     $goals = Get-Content $goalsPath -Raw | ConvertFrom-Json
     if ($goals.vision) { Write-Host ("[Goal] " + $goals.vision) -ForegroundColor Green }
   }
-} catch {}
+}
+catch {}
 
 function Test-Cmd($name) {
   try { $null = & $name --version 2>$null; return $true } catch { return $false }
@@ -53,7 +54,7 @@ $repoRoot = (Resolve-Path '.').Path
 $wikiScripts = "Wiki/EasyWayData.wiki/scripts"
 $hasWiki = Test-Path $wikiScripts
 $hasNode = Test-Cmd 'node'
-$hasNpm  = Test-Cmd 'npm'
+$hasNpm = Test-Cmd 'npm'
 $hasTerraform = Test-Cmd 'terraform'
 
 $apiExists = Test-Path $ApiPath
@@ -77,7 +78,8 @@ if ($hasGit) {
         if ($f -like 'Wiki/EasyWayData.wiki/agents-*.md') { $changedAgentsDocs = $true }
       }
     }
-  } catch {}
+  }
+  catch {}
 }
 
 # Build task catalog
@@ -108,54 +110,57 @@ try {
       )
     }
     $tasks += [pscustomobject]@{
-      Id = 0
-      Name = $label
+      Id          = 0
+      Name        = $label
       Description = $desc
       Recommended = $true
-      Enabled = $true
-      Action = {
+      Enabled     = $true
+      Action      = {
         Write-Host ""; Write-Host '== Governance Checklist ==' -ForegroundColor Cyan
         foreach ($i in $items) { Write-Host ("- {0}" -f $i) }
         if ($Interactive) {
           $ans = Read-Host "Confermi la checklist? [Invio=SI / n=No]"
           if ($ans.Trim().ToLower() -eq 'n') { Write-Host "Checklist non approvata (rimandata dall'utente)."; return }
           Write-Host "Checklist approvata dall'utente." -ForegroundColor Green
-        } else {
+        }
+        else {
           Write-Host 'Checklist proposta (modalità non interattiva): vedere i riferimenti per approvare.' -ForegroundColor Yellow
         }
       }
     }
   }
-} catch { Write-Warning ("Priority rules (governance) non applicabili: {0}" -f $_.Exception.Message) }
+}
+catch { Write-Warning ("Priority rules (governance) non applicabili: {0}" -f $_.Exception.Message) }
 
 # --- GEDI OODA INTEGRATION ---
 function Invoke-GediCheck($context, $intent) {
-    if (-not (Test-Path "scripts/pwsh/agent-gedi.ps1")) { return }
-    Write-Host "`n👘 GEDI Consultation..." -ForegroundColor Cyan
-    try {
-        $gediJson = & pwsh scripts/pwsh/agent-gedi.ps1 -Context $context -Intent $intent -DryRun:$true | ConvertFrom-Json
-        # If GEDI returns strict warning, we might pause
-        # Currently agent-gedi.ps1 provides 'ooda_state' and console output.
-        # We rely on the console output of agent-gedi for the user, but we could enforce logic here.
-    } catch {
-        Write-Warning "GEDI is silent (Error contacting GEDI)."
-    }
+  if (-not (Test-Path "scripts/pwsh/agent-gedi.ps1")) { return }
+  Write-Host "`n👘 GEDI Consultation..." -ForegroundColor Cyan
+  try {
+    $gediJson = & pwsh scripts/pwsh/agent-gedi.ps1 -Context $context -Intent $intent -DryRun:$true | ConvertFrom-Json
+    # If GEDI returns strict warning, we might pause
+    # Currently agent-gedi.ps1 provides 'ooda_state' and console output.
+    # We rely on the console output of agent-gedi for the user, but we could enforce logic here.
+  }
+  catch {
+    Write-Warning "GEDI is silent (Error contacting GEDI)."
+  }
 }
 # -----------------------------
 
 # GEDI Probe for Governance Checklist
 if ($Checklist -or $Interactive) {
-    Invoke-GediCheck -context "Governance Checklist Approval requested on $($env:ENVIRONMENT)" -intent "Approve deployment gates"
+  Invoke-GediCheck -context "Governance Checklist Approval requested on $($env:ENVIRONMENT)" -intent "Approve deployment gates"
 }
 
 if ($hasWiki) {
   $tasks += [pscustomobject]@{
-    Id = 1
-    Name = 'Wiki Normalize & Review'
+    Id          = 1
+    Name        = 'Wiki Normalize & Review'
     Description = 'Normalizza progetto Wiki (naming/front‑matter/ancore) e ricostruisce indici/chunk.'
     Recommended = $true
-    Enabled = $true
-    Action = {
+    Enabled     = $true
+    Action      = {
       if (Test-Path "$wikiScripts/normalize-project.ps1") {
         pwsh "$wikiScripts/normalize-project.ps1" -Root "Wiki/EasyWayData.wiki" -EnsureFrontMatter | Out-Host
       }
@@ -180,12 +185,12 @@ if ($hasWiki) {
 
 if ($apiExists -and $hasNode -and $hasNpm) {
   $tasks += [pscustomobject]@{
-    Id = 2
-    Name = 'Pre‑Deploy Checklist (API)'
+    Id          = 2
+    Name        = 'Pre‑Deploy Checklist (API)'
     Description = 'Esegue i check su env/Auth/DB/Blob/OpenAPI (richiede Node e variabili corrette).'
     Recommended = $hasEnvLocal
-    Enabled = $true
-    Action = {
+    Enabled     = $true
+    Action      = {
       Push-Location $ApiPath
       try {
         $env:CHECKLIST_OUTPUT = 'both'
@@ -193,36 +198,38 @@ if ($apiExists -and $hasNode -and $hasNpm) {
         $out = npm run -s check:predeploy
         $out | Out-File -FilePath checklist.json -Encoding utf8
         Write-Host "Checklist scritto in $(Join-Path (Get-Location) 'checklist.json')"
-      } finally { Pop-Location }
+      }
+      finally { Pop-Location }
     }
   }
 
   $tasks += [pscustomobject]@{
-    Id = 3
-    Name = 'DB Drift Check'
+    Id          = 3
+    Name        = 'DB Drift Check'
     Description = 'Verifica oggetti minimi DB presenti (richiede connessione DB).'
     Recommended = [bool]$hasDbConn
-    Enabled = $true
-    Action = {
+    Enabled     = $true
+    Action      = {
       Push-Location $ApiPath
       try {
         if (-not (Test-Path 'node_modules')) { npm ci }
         $out = npm run -s db:drift
         $out | Out-File -FilePath drift.json -Encoding utf8
         Write-Host "Drift report in $(Join-Path (Get-Location) 'drift.json')"
-      } finally { Pop-Location }
+      }
+      finally { Pop-Location }
     }
   }
 }
 
 $kbRecommended = ($changedDbApi -or $changedAdoScripts -or $changedAgentsDocs)
 $tasks += [pscustomobject]@{
-  Id = 4
-  Name = 'KB Consistency (advisory)'
+  Id          = 4
+  Name        = 'KB Consistency (advisory)'
   Description = 'Controlla che KB (recipes.jsonl) e almeno una pagina Wiki siano aggiornate quando cambiano DB/API/agent docs.'
   Recommended = $kbRecommended
-  Enabled = $hasGit
-  Action = {
+  Enabled     = $hasGit
+  Action      = {
     if (-not $hasGit) { Write-Warning 'git non disponibile, salto controllo'; return }
     try { $base = (git rev-parse HEAD~1) } catch { Write-Host 'Repo shallow o prima commit: skip'; return }
     $changed = git diff --name-only $base HEAD
@@ -239,9 +246,11 @@ $tasks += [pscustomobject]@{
     }
     if ($changedDbApi -and (-not $kbChanged -or -not $wikiChanged)) {
       Write-Host 'KB Consistency: DA FARE -> aggiorna agents/kb/recipes.jsonl e almeno una pagina Wiki' -ForegroundColor Yellow
-    } elseif (($changedAdoScripts -or $changedAgentsDocs) -and (-not $kbChanged)) {
+    }
+    elseif (($changedAdoScripts -or $changedAgentsDocs) -and (-not $kbChanged)) {
       Write-Host 'KB Consistency: DA FARE -> aggiorna agents/kb/recipes.jsonl (ricetta collegata ai cambi ADO/agents)' -ForegroundColor Yellow
-    } else {
+    }
+    else {
       Write-Host 'KB Consistency: OK o non rilevante'
     }
   }
@@ -249,12 +258,12 @@ $tasks += [pscustomobject]@{
 
 if ($apiExists -and (Test-Path (Join-Path $ApiPath '.env.local'))) {
   $tasks += [pscustomobject]@{
-    Id = 5
-    Name = 'Genera App Settings da .env.local'
+    Id          = 5
+    Name        = 'Genera App Settings da .env.local'
     Description = 'Crea out/appsettings.cli.json e out/appsettings.task.json a partire dal file .env.local.'
     Recommended = $true
-    Enabled = $true
-    Action = {
+    Enabled     = $true
+    Action      = {
       pwsh 'scripts/generate-appsettings.ps1' -ApiPath $ApiPath -OutDir './out'
       Get-ChildItem -Path './out' -Filter 'appsettings*.json' -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "Creato: $($_.FullName)" }
     }
@@ -263,19 +272,53 @@ if ($apiExists -and (Test-Path (Join-Path $ApiPath '.env.local'))) {
 
 if (Test-Path 'infra/terraform') {
   $tasks += [pscustomobject]@{
-    Id = 6
-    Name = 'Terraform Plan (infra)'
+    Id          = 6
+    Name        = 'Terraform Plan (infra)'
     Description = 'Esegue init/validate/plan su infra/terraform (richiede terraform).'
     Recommended = $false
-    Enabled = $hasTerraform
-    Action = {
+    Enabled     = $hasTerraform
+    Action      = {
       Push-Location 'infra/terraform'
       try {
         terraform init -input=false
         terraform validate
         Write-Host 'Eseguo terraform plan (variabili richieste: project_name, resource_group_name, storage_account_name, tenants)'
         terraform plan -input=false -out=tfplan | Out-Host
-      } finally { Pop-Location }
+      }
+      finally { Pop-Location }
+    }
+  }
+}
+
+$tasks += [pscustomobject]@{
+  Id          = 7
+  Name        = 'Review Agent Issues'
+  Description = 'Visualizza la Kanban board degli issue degli agenti e propone fix.'
+  Recommended = $true
+  Enabled     = $true
+  Action      = {
+    Write-Host "`n=== Review Agent Issues ===" -ForegroundColor Cyan
+    if (Test-Path "scripts/pwsh/kanban-manager.ps1") {
+      pwsh "scripts/pwsh/kanban-manager.ps1" -Action view
+      
+      if ($Interactive) {
+        $ans = Read-Host "`nVuoi gestire un issue? (Inserisci IssueID o premi Invio per saltare)"
+        if (-not [string]::IsNullOrWhiteSpace($ans)) {
+          $issueId = $ans.Trim()
+          $action = Read-Host "Azione (move/propose-fix)"
+          if ($action -eq 'move') {
+            $col = Read-Host "Colonna (in_review/planned/in_progress/resolved)"
+            pwsh "scripts/pwsh/kanban-manager.ps1" -Action move -IssueId $issueId -Column $col
+          }
+          elseif ($action -eq 'propose-fix') {
+            $fix = Read-Host "Fix proposto"
+            pwsh "scripts/pwsh/kanban-manager.ps1" -Action propose-fix -IssueId $issueId -ProposedFix $fix
+          }
+        }
+      }
+    }
+    else {
+      Write-Warning "kanban-manager.ps1 non trovato."
     }
   }
 }
@@ -305,7 +348,7 @@ function Select-Tasks($tasks) {
   if ([string]::IsNullOrWhiteSpace($ans)) {
     return $tasks | Where-Object { $_.Enabled -and $_.Recommended }
   }
-  if ($ans.Trim().ToLower() -in @('all','tutte','tutto')) { return $tasks | Where-Object Enabled }
+  if ($ans.Trim().ToLower() -in @('all', 'tutte', 'tutto')) { return $tasks | Where-Object Enabled }
   $nums = $ans -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ -match '^\d+$' } | ForEach-Object { [int]$_ }
   return $tasks | Where-Object { $_.Enabled -and ($nums -contains $_.Id) }
 }
@@ -332,14 +375,15 @@ if ($LogEvent) {
     $envName = $env:ENVIRONMENT; if ([string]::IsNullOrWhiteSpace($envName)) { $envName = 'local' }
     $outcome = 'success'; if ($script:EW_TaskError) { $outcome = 'error' }
     $notes = "Gates eseguiti: " + ((@(
-      ($Checklist ? 'Checklist' : $null),
-      ($DbDrift ? 'DBDrift' : $null),
-      ($KbConsistency ? 'KBConsistency' : $null),
-      ($TerraformPlan ? 'TerraformPlan' : $null),
-      ($GenAppSettings ? 'GenAppSettings' : $null)
-    ) | Where-Object { $_ }) -join ', ')
+          ($Checklist ? 'Checklist' : $null),
+          ($DbDrift ? 'DBDrift' : $null),
+          ($KbConsistency ? 'KBConsistency' : $null),
+          ($TerraformPlan ? 'TerraformPlan' : $null),
+          ($GenAppSettings ? 'GenAppSettings' : $null)
+        ) | Where-Object { $_ }) -join ', ')
     pwsh 'scripts/activity-log.ps1' -Intent $intent -Actor $actor -Env $envName -Outcome $outcome -Artifacts $artifacts -Notes $notes | Out-Host
-  } catch { Write-Warning "Activity log failed: $($_.Exception.Message)" }
+  }
+  catch { Write-Warning "Activity log failed: $($_.Exception.Message)" }
 }
 
 Write-Host "`nTutte le attività selezionate sono state elaborate." -ForegroundColor Green
@@ -350,4 +394,5 @@ try {
   pwsh 'scripts/enforcer.ps1' -Agent agent_governance -GitDiff -Quiet | Out-Null
   if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_governance'; exit 2 }
   $enforcerApplied = $true
-} catch { Write-Warning ("Enforcer preflight (governance) non applicabile: {0}" -f $_.Exception.Message) }
+}
+catch { Write-Warning ("Enforcer preflight (governance) non applicabile: {0}" -f $_.Exception.Message) }

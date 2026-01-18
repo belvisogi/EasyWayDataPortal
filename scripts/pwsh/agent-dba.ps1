@@ -1,5 +1,5 @@
 Param(
-  [ValidateSet('db-user:create','db-user:rotate','db-user:revoke','db-doc:ddl-inventory','db-table:create')]
+  [ValidateSet('db-user:create', 'db-user:rotate', 'db-user:revoke', 'db-doc:ddl-inventory', 'db-table:create')]
   [string]$Action,
   [string]$IntentPath,
   [switch]$NonInteractive,
@@ -24,15 +24,15 @@ function Parse-ConnString([string]$conn) {
   if (-not $conn) { return $null }
   $obj = @{}
   foreach ($pair in $conn.Split(';') | Where-Object { $_ -and $_.Contains('=') }) {
-    $k,$v = $pair.Split('=',2)
+    $k, $v = $pair.Split('=', 2)
     $obj[$k.Trim()] = $v.Trim()
   }
   return [ordered]@{
-    Server = ($obj['Server'] ?? $obj['Data Source'])
-    Database = ($obj['Database'] ?? $obj['Initial Catalog'])
-    UserId = ($obj['User Id'] ?? $obj['UID'])
-    Password = ($obj['Password'] ?? $obj['PWD'])
-    Encrypt = ($obj['Encrypt'] ?? 'true')
+    Server                 = ($obj['Server'] ?? $obj['Data Source'])
+    Database               = ($obj['Database'] ?? $obj['Initial Catalog'])
+    UserId                 = ($obj['User Id'] ?? $obj['UID'])
+    Password               = ($obj['Password'] ?? $obj['PWD'])
+    Encrypt                = ($obj['Encrypt'] ?? 'true')
     TrustServerCertificate = ($obj['TrustServerCertificate'] ?? 'false')
   }
 }
@@ -48,7 +48,8 @@ function Invoke-SqlcmdExec($server, $database, $adminUser, $adminPass, [switch]$
   try {
     & sqlcmd @args -b -i $tmp
     if ($LASTEXITCODE -ne 0) { throw "sqlcmd failed with exit $LASTEXITCODE" }
-  } finally { Remove-Item -Force $tmp -ErrorAction SilentlyContinue }
+  }
+  finally { Remove-Item -Force $tmp -ErrorAction SilentlyContinue }
 }
 
 function Invoke-SqlcmdQuery($server, $database, $adminUser, $adminPass, [switch]$UseAAD, $query) {
@@ -57,7 +58,7 @@ function Invoke-SqlcmdQuery($server, $database, $adminUser, $adminPass, [switch]
   if ($database) { $args += @('-d', $database) }
   if ($UseAAD) { $args += @('-G') }
   elseif ($adminUser) { $args += @('-U', $adminUser, '-P', $adminPass) }
-  $args += @('-b','-W','-s',',','-h','-1','-Q', $query)
+  $args += @('-b', '-W', '-s', ',', '-h', '-1', '-Q', $query)
   $out = & sqlcmd @args 2>&1
   if ($LASTEXITCODE -ne 0) { throw "sqlcmd query failed: $out" }
   # Normalize output to single CSV line
@@ -67,7 +68,7 @@ function Invoke-SqlcmdQuery($server, $database, $adminUser, $adminPass, [switch]
 
 function Escape-SqlLiteral([string]$s) { if ($null -eq $s) { return '' } return ($s -replace "'", "''") }
 
-function Get-DbUserState($server,$db,$adminUser,$adminPass,[switch]$UseAAD,[string]$username) {
+function Get-DbUserState($server, $db, $adminUser, $adminPass, [switch]$UseAAD, [string]$username) {
   $u = Escape-SqlLiteral $username
   $tsql = @"
 SELECT
@@ -87,7 +88,7 @@ SELECT
 "@
   $csv = Invoke-SqlcmdQuery -server $server -database $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$UseAAD -query $tsql
   $parts = ($csv -split ',') | ForEach-Object { $_.Trim() }
-  if ($parts.Count -lt 5) { return @{ readerExists=$null; writerExists=$null; userExists=$null; memberReader=$null; memberWriter=$null } }
+  if ($parts.Count -lt 5) { return @{ readerExists = $null; writerExists = $null; userExists = $null; memberReader = $null; memberWriter = $null } }
   return [ordered]@{
     readerExists = ($parts[0] -eq '1')
     writerExists = ($parts[1] -eq '1')
@@ -113,318 +114,369 @@ $now = (Get-Date).ToUniversalTime().ToString('o')
 
 # --- GEDI OODA INTEGRATION ---
 function Invoke-GediCheck($context, $intent) {
-    if (-not (Test-Path "scripts/agent-gedi.ps1")) { return }
+  if (-not (Test-Path "scripts/agent-gedi.ps1")) { return }
     
-    Write-Host "`n💾 GEDI Consultation (Architectural Integrity)..." -ForegroundColor Cyan
-    try {
-        $gediJson = & pwsh scripts/agent-gedi.ps1 -Context $context -Intent $intent -DryRun:$true | ConvertFrom-Json
-    } catch {
-        Write-Warning "GEDI is silent (Error contacting GEDI)."
-    }
+  Write-Host "`n💾 GEDI Consultation (Architectural Integrity)..." -ForegroundColor Cyan
+  try {
+    $gediJson = & pwsh scripts/agent-gedi.ps1 -Context $context -Intent $intent -DryRun:$true | ConvertFrom-Json
+  }
+  catch {
+    Write-Warning "GEDI is silent (Error contacting GEDI)."
+  }
 }
 # -----------------------------
 
-switch ($Action) {
-  'db-table:create' {
-    Invoke-GediCheck -context "DBA creating table in '$($p.database)'" -intent "Ensure Schema Quality"
-    $p = $intent.params
-    $summaryOut = if ($p.summaryOut) { [string]$p.summaryOut } else { 'out/db/db-table-create.json' }
+try {
+  switch ($Action) {
+    'db-table:create' {
+      Invoke-GediCheck -context "DBA creating table in '$($p.database)'" -intent "Ensure Schema Quality"
+      $p = $intent.params
+      $summaryOut = if ($p.summaryOut) { [string]$p.summaryOut } else { 'out/db/db-table-create.json' }
 
-    $genArgs = @('-IntentPath', $IntentPath, '-SummaryOut', $summaryOut)
-    if ($WhatIf) { $genArgs += '-WhatIf' }
+      $genArgs = @('-IntentPath', $IntentPath, '-SummaryOut', $summaryOut)
+      if ($WhatIf) { $genArgs += '-WhatIf' }
 
-    # Lint semantico (fail-fast)
-    $lintPath = 'out/db/db-table-lint.json'
-    $lintOk = $true
-    $lintRaw = ''
-    try {
-      $lintRaw = & pwsh @('scripts/db-table-lint.ps1') @('-IntentPath', $IntentPath, '-OutJson', $lintPath) 2>&1 | Out-String
-      $lint = $lintRaw | ConvertFrom-Json -ErrorAction Stop
-      $lintOk = [bool]$lint.ok
-    } catch {
-      $lintOk = $false
-      $lintRaw = ("lint failed: " + $_.Exception.Message)
-    }
-
-    $executed = $false
-    $errorMsg = $null
-    $raw = ''
-    if (-not $lintOk) {
-      $errorMsg = "db-table:create lint failed. Fix errors/warnings and re-run. Lint report: $lintPath"
-      $raw = $lintRaw
-    } else {
+      # Lint semantico (fail-fast)
+      $lintPath = 'out/db/db-table-lint.json'
+      $lintOk = $true
+      $lintRaw = ''
       try {
-        $raw = & pwsh @('scripts/db-generate-table-artifacts.ps1') @genArgs 2>&1 | Out-String
-        $executed = $true
-      } catch { $errorMsg = $_.Exception.Message; $raw = '' }
-    }
-
-    $finishedAt = (Get-Date).ToUniversalTime().ToString('o')
-    $intentCorrelationId = if ($intent -and $intent.correlationId) { $intent.correlationId } else { $null }
-    $rawTrim = if ($raw) { $raw.Trim() } else { '' }
-
-    $result = [ordered]@{
-      action = $Action
-      ok = ($errorMsg -eq $null)
-      whatIf = [bool]$WhatIf
-      nonInteractive = [bool]$NonInteractive
-      correlationId = $intentCorrelationId
-      startedAt = $now
-      finishedAt = $finishedAt
-      output = [ordered]@{
-        lint = [ordered]@{ ok = [bool]$lintOk; report = $lintPath }
-        executed = $executed
-        summaryOut = $summaryOut
-        hint = 'Questo step genera artefatti (Flyway + Wiki) ma non applica sul DB. Per apply su DB serve gate + approvazione.'
-        raw = $rawTrim
+        $lintRaw = & pwsh @('scripts/db-table-lint.ps1') @('-IntentPath', $IntentPath, '-OutJson', $lintPath) 2>&1 | Out-String
+        $lint = $lintRaw | ConvertFrom-Json -ErrorAction Stop
+        $lintOk = [bool]$lint.ok
       }
-      error = $errorMsg
-    }
-    $result.contractId = 'action-result'
-    $result.contractVersion = '1.0'
-    if ($LogEvent) { Write-Event ($result + @{ event='agent-dba'; govApproved=$false }) }
-    Out-Result $result
-  }
-  'db-doc:ddl-inventory' {
-    $p = $intent.params
-    $dbDir = if ($p.dbDir) { [string]$p.dbDir } else { 'old/db/DataBase_legacy' }
-    $includeProvisioning = if ($null -ne $p.includeProvisioning) { [bool]$p.includeProvisioning } else { $false }
-    $includeSnapshot = if ($null -ne $p.includeSnapshot) { [bool]$p.includeSnapshot } else { $false }
-    $writeWiki = if ($null -ne $p.writeWiki) { [bool]$p.writeWiki } else { $true }
-    $summaryOut = if ($p.summaryOut) { [string]$p.summaryOut } else { 'db-ddl-inventory.json' }
-
-    $args = @('-DbDir', $dbDir, '-SummaryOut', $summaryOut)
-    if ($includeProvisioning) { $args += '-IncludeProvisioning' }
-    if ($includeSnapshot) { $args += '-IncludeSnapshot' }
-    if ($writeWiki) { $args += '-WriteWiki' }
-
-    $executed = $false
-    $errorMsg = $null
-    $outJson = ''
-    if ($WhatIf) {
-      # WhatIf per questo step: non applica -WriteWiki
-      $argsWhatIf = @('-DbDir', $dbDir, '-SummaryOut', $summaryOut)
-      if ($includeProvisioning) { $argsWhatIf += '-IncludeProvisioning' }
-      if ($includeSnapshot) { $argsWhatIf += '-IncludeSnapshot' }
-      try {
-        $outJson = & pwsh @('scripts/db-ddl-inventory.ps1') @argsWhatIf 2>&1 | Out-String
-        $executed = $true
-      } catch { $errorMsg = $_.Exception.Message; $outJson = '' }
-    } else {
-      try {
-        $outJson = & pwsh @('scripts/db-ddl-inventory.ps1') @args 2>&1 | Out-String
-        $executed = $true
-      } catch { $errorMsg = $_.Exception.Message; $outJson = '' }
-    }
-
-    $result = [ordered]@{
-      action = $Action
-      ok = ($errorMsg -eq $null)
-      whatIf = [bool]$WhatIf
-      nonInteractive = [bool]$NonInteractive
-      correlationId = $intent?.correlationId
-      startedAt = $now
-      finishedAt = (Get-Date).ToUniversalTime().ToString('o')
-      output = [ordered]@{
-        dbDir = $dbDir
-        includeProvisioning = [bool]$includeProvisioning
-        includeSnapshot = [bool]$includeSnapshot
-        writeWikiRequested = [bool]$writeWiki
-        executed = $executed
-        summaryOut = $summaryOut
-        hint = 'Se whatIf=true, la Wiki non viene aggiornata: viene solo rigenerato il JSON di inventario.'
-        raw = ($outJson?.Trim())
+      catch {
+        $lintOk = $false
+        $lintRaw = ("lint failed: " + $_.Exception.Message)
       }
-      error = $errorMsg
-    }
-    $result.contractId = 'action-result'
-    $result.contractVersion = '1.0'
-    if ($LogEvent) { Write-Event ($result + @{ event='agent-dba'; govApproved=$false }) }
-    Out-Result $result
-  }
-  'db-user:create' {
-    Invoke-GediCheck -context "DBA creating user '$($p.username)'" -intent "Ensure Security Principle"
-    $p = $intent.params
-    $username = $p.username
-    $database = $p.database
-    $roles = @($p.roles)
-    $password = New-StrongPassword 40
 
-    # Connection selection: prefer intent.adminConnString, else env DB_ADMIN_CONN_STRING, else env DB_CONN_STRING, else server/user from params
-    $adminConn = $p.adminConnString
-    if (-not $adminConn) { $adminConn = $env:DB_ADMIN_CONN_STRING }
-    if (-not $adminConn) { $adminConn = $env:DB_CONN_STRING }
-    $conn = Parse-ConnString $adminConn
-    $server = if ($p.server) { $p.server } elseif ($conn) { $conn.Server } else { $null }
-    $db = if ($database) { $database } elseif ($conn) { $conn.Database } else { $null }
-    $adminUser = $conn?.UserId
-    $adminPass = $conn?.Password
-    $useAAD = $false
-    if ($p.adminAuth -eq 'aad' -or (-not $adminUser -and -not $adminPass)) { $useAAD = $true }
-
-    # Build T-SQL idempotente: ruoli + grants + utente contained + add member
-    $tsql = @()
-    $tsql += "IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'portal_reader') CREATE ROLE portal_reader;"
-    $tsql += "IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'portal_writer') CREATE ROLE portal_writer;"
-    if ($roles -contains 'portal_reader') { $tsql += "GRANT SELECT ON SCHEMA::PORTAL TO portal_reader;" }
-    if ($roles -contains 'portal_writer') { $tsql += "GRANT INSERT, UPDATE, DELETE ON SCHEMA::PORTAL TO portal_writer;" }
-    $tsql += "IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'$username') BEGIN CREATE USER [$username] WITH PASSWORD = '$password'; END ELSE BEGIN ALTER USER [$username] WITH PASSWORD = '$password'; END;"
-    if ($roles -contains 'portal_reader') { $tsql += "IF NOT EXISTS (SELECT 1 FROM sys.database_role_members rm JOIN sys.database_principals r ON rm.role_principal_id=r.principal_id JOIN sys.database_principals u ON rm.member_principal_id=u.principal_id WHERE r.name='portal_reader' AND u.name='$username') ALTER ROLE portal_reader ADD MEMBER [$username];" }
-    if ($roles -contains 'portal_writer') { $tsql += "IF NOT EXISTS (SELECT 1 FROM sys.database_role_members rm JOIN sys.database_principals r ON rm.role_principal_id=r.principal_id JOIN sys.database_principals u ON rm.member_principal_id=u.principal_id WHERE r.name='portal_writer' AND u.name='$username') ALTER ROLE portal_writer ADD MEMBER [$username];" }
-    $tsqlText = ($tsql -join "`n")
-
-    # Pre-check (WhatIf validation): stato attuale di ruoli/utente/membership
-    $stateBefore = $null
-    try { $stateBefore = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateBefore = $null }
-    $preCheck = $null
-    if ($WhatIf) {
-      try {
-        $preJson = & pwsh scripts/db-verify-connect.ps1 -ConnString $adminConn -Server $server -Database $db -AdminUser $adminUser -AdminPassword $adminPass -AAD:($useAAD) -CheckUser $username
-        if ($preJson) { $preCheck = $preJson | ConvertFrom-Json }
-      } catch { $preCheck = $null }
-    }
-
-    $executed = $false
-    $errorMsg = $null
-    if (-not $WhatIf) {
-      try {
-        Invoke-SqlcmdExec -server $server -database $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -tsql $tsqlText
-        $executed = $true
-      } catch {
-        $errorMsg = $_.Exception.Message
+      $executed = $false
+      $errorMsg = $null
+      $raw = ''
+      if (-not $lintOk) {
+        $errorMsg = "db-table:create lint failed. Fix errors/warnings and re-run. Lint report: $lintPath"
+        $raw = $lintRaw
       }
-    }
+      else {
+        try {
+          $raw = & pwsh @('scripts/db-generate-table-artifacts.ps1') @genArgs 2>&1 | Out-String
+          $executed = $true
+        }
+        catch { $errorMsg = $_.Exception.Message; $raw = '' }
+      }
 
-    # Optional Key Vault
-    $kvSet = $false
-    if ($p.storeInKeyVault -and $p.keyvault?.name -and $p.keyvault?.secretName) {
+      $finishedAt = (Get-Date).ToUniversalTime().ToString('o')
+      $intentCorrelationId = if ($intent -and $intent.correlationId) { $intent.correlationId } else { $null }
+      $rawTrim = if ($raw) { $raw.Trim() } else { '' }
+
+      $result = [ordered]@{
+        action         = $Action
+        ok             = ($errorMsg -eq $null)
+        whatIf         = [bool]$WhatIf
+        nonInteractive = [bool]$NonInteractive
+        correlationId  = $intentCorrelationId
+        startedAt      = $now
+        finishedAt     = $finishedAt
+        output         = [ordered]@{
+          lint       = [ordered]@{ ok = [bool]$lintOk; report = $lintPath }
+          executed   = $executed
+          summaryOut = $summaryOut
+          hint       = 'Questo step genera artefatti (Flyway + Wiki) ma non applica sul DB. Per apply su DB serve gate + approvazione.'
+          raw        = $rawTrim
+        }
+        error          = $errorMsg
+      }
+      $result.contractId = 'action-result'
+      $result.contractVersion = '1.0'
+      if ($LogEvent) { Write-Event ($result + @{ event = 'agent-dba'; govApproved = $false }) }
+      Out-Result $result
+    }
+    'db-doc:ddl-inventory' {
+      $p = $intent.params
+      $dbDir = if ($p.dbDir) { [string]$p.dbDir } else { 'old/db/DataBase_legacy' }
+      $includeProvisioning = if ($null -ne $p.includeProvisioning) { [bool]$p.includeProvisioning } else { $false }
+      $includeSnapshot = if ($null -ne $p.includeSnapshot) { [bool]$p.includeSnapshot } else { $false }
+      $writeWiki = if ($null -ne $p.writeWiki) { [bool]$p.writeWiki } else { $true }
+      $summaryOut = if ($p.summaryOut) { [string]$p.summaryOut } else { 'db-ddl-inventory.json' }
+
+      $args = @('-DbDir', $dbDir, '-SummaryOut', $summaryOut)
+      if ($includeProvisioning) { $args += '-IncludeProvisioning' }
+      if ($includeSnapshot) { $args += '-IncludeSnapshot' }
+      if ($writeWiki) { $args += '-WriteWiki' }
+
+      $executed = $false
+      $errorMsg = $null
+      $outJson = ''
+      if ($WhatIf) {
+        # WhatIf per questo step: non applica -WriteWiki
+        $argsWhatIf = @('-DbDir', $dbDir, '-SummaryOut', $summaryOut)
+        if ($includeProvisioning) { $argsWhatIf += '-IncludeProvisioning' }
+        if ($includeSnapshot) { $argsWhatIf += '-IncludeSnapshot' }
+        try {
+          $outJson = & pwsh @('scripts/db-ddl-inventory.ps1') @argsWhatIf 2>&1 | Out-String
+          $executed = $true
+        }
+        catch { $errorMsg = $_.Exception.Message; $outJson = '' }
+      }
+      else {
+        try {
+          $outJson = & pwsh @('scripts/db-ddl-inventory.ps1') @args 2>&1 | Out-String
+          $executed = $true
+        }
+        catch { $errorMsg = $_.Exception.Message; $outJson = '' }
+      }
+
+      $result = [ordered]@{
+        action         = $Action
+        ok             = ($errorMsg -eq $null)
+        whatIf         = [bool]$WhatIf
+        nonInteractive = [bool]$NonInteractive
+        correlationId  = $intent?.correlationId
+        startedAt      = $now
+        finishedAt     = (Get-Date).ToUniversalTime().ToString('o')
+        output         = [ordered]@{
+          dbDir               = $dbDir
+          includeProvisioning = [bool]$includeProvisioning
+          includeSnapshot     = [bool]$includeSnapshot
+          writeWikiRequested  = [bool]$writeWiki
+          executed            = $executed
+          summaryOut          = $summaryOut
+          hint                = 'Se whatIf=true, la Wiki non viene aggiornata: viene solo rigenerato il JSON di inventario.'
+          raw                 = ($outJson?.Trim())
+        }
+        error          = $errorMsg
+      }
+      $result.contractId = 'action-result'
+      $result.contractVersion = '1.0'
+      if ($LogEvent) { Write-Event ($result + @{ event = 'agent-dba'; govApproved = $false }) }
+      Out-Result $result
+    }
+    'db-user:create' {
+      Invoke-GediCheck -context "DBA creating user '$($p.username)'" -intent "Ensure Security Principle"
+      $p = $intent.params
+      $username = $p.username
+      $database = $p.database
+      $roles = @($p.roles)
+      $password = New-StrongPassword 40
+
+      # Connection selection: prefer intent.adminConnString, else env DB_ADMIN_CONN_STRING, else env DB_CONN_STRING, else server/user from params
+      $adminConn = $p.adminConnString
+      if (-not $adminConn) { $adminConn = $env:DB_ADMIN_CONN_STRING }
+      if (-not $adminConn) { $adminConn = $env:DB_CONN_STRING }
+      $conn = Parse-ConnString $adminConn
+      $server = if ($p.server) { $p.server } elseif ($conn) { $conn.Server } else { $null }
+      $db = if ($database) { $database } elseif ($conn) { $conn.Database } else { $null }
+      $adminUser = $conn?.UserId
+      $adminPass = $conn?.Password
+      $useAAD = $false
+      if ($p.adminAuth -eq 'aad' -or (-not $adminUser -and -not $adminPass)) { $useAAD = $true }
+
+      # Build T-SQL idempotente: ruoli + grants + utente contained + add member
+      $tsql = @()
+      $tsql += "IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'portal_reader') CREATE ROLE portal_reader;"
+      $tsql += "IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'portal_writer') CREATE ROLE portal_writer;"
+      if ($roles -contains 'portal_reader') { $tsql += "GRANT SELECT ON SCHEMA::PORTAL TO portal_reader;" }
+      if ($roles -contains 'portal_writer') { $tsql += "GRANT INSERT, UPDATE, DELETE ON SCHEMA::PORTAL TO portal_writer;" }
+      $tsql += "IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'$username') BEGIN CREATE USER [$username] WITH PASSWORD = '$password'; END ELSE BEGIN ALTER USER [$username] WITH PASSWORD = '$password'; END;"
+      if ($roles -contains 'portal_reader') { $tsql += "IF NOT EXISTS (SELECT 1 FROM sys.database_role_members rm JOIN sys.database_principals r ON rm.role_principal_id=r.principal_id JOIN sys.database_principals u ON rm.member_principal_id=u.principal_id WHERE r.name='portal_reader' AND u.name='$username') ALTER ROLE portal_reader ADD MEMBER [$username];" }
+      if ($roles -contains 'portal_writer') { $tsql += "IF NOT EXISTS (SELECT 1 FROM sys.database_role_members rm JOIN sys.database_principals r ON rm.role_principal_id=r.principal_id JOIN sys.database_principals u ON rm.member_principal_id=u.principal_id WHERE r.name='portal_writer' AND u.name='$username') ALTER ROLE portal_writer ADD MEMBER [$username];" }
+      $tsqlText = ($tsql -join "`n")
+
+      # Pre-check (WhatIf validation): stato attuale di ruoli/utente/membership
+      $stateBefore = $null
+      try { $stateBefore = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateBefore = $null }
+      $preCheck = $null
+      if ($WhatIf) {
+        try {
+          $preJson = & pwsh scripts/db-verify-connect.ps1 -ConnString $adminConn -Server $server -Database $db -AdminUser $adminUser -AdminPassword $adminPass -AAD:($useAAD) -CheckUser $username
+          if ($preJson) { $preCheck = $preJson | ConvertFrom-Json }
+        }
+        catch { $preCheck = $null }
+      }
+
+      $executed = $false
+      $errorMsg = $null
       if (-not $WhatIf) {
         try {
-          & az keyvault secret set --vault-name $p.keyvault.name --name $p.keyvault.secretName --value $password --tags "username=$username" "database=$db" "createdBy=agent_dba"
-          if ($LASTEXITCODE -eq 0) { $kvSet = $true }
-        } catch { $kvSet = $false }
+          Invoke-SqlcmdExec -server $server -database $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -tsql $tsqlText
+          $executed = $true
+        }
+        catch {
+          $errorMsg = $_.Exception.Message
+          if (Test-Path "scripts/pwsh/issue-logger.ps1") {
+            pwsh "scripts/pwsh/issue-logger.ps1" `
+              -Agent "agent_dba" `
+              -Severity "high" `
+              -Category "execution_failed" `
+              -Description ("Failed to create user $username : $errorMsg") `
+              -ErrorMessage $errorMsg `
+              -Intent "db-user:create"
+          }
+        }
       }
-    }
 
-    # Post-check se eseguito
-    $stateAfter = $null
-    if ($executed -and -not $errorMsg) { try { $stateAfter = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateAfter = $null } }
-
-    $result = [ordered]@{
-      action = $Action
-      ok = ($errorMsg -eq $null)
-      whatIf = [bool]$WhatIf
-      nonInteractive = [bool]$NonInteractive
-      correlationId = $intent?.correlationId
-      startedAt = $now
-      finishedAt = (Get-Date).ToUniversalTime().ToString('o')
-      output = [ordered]@{
-        server = $server
-        database = $db
-        username = $username
-        roles = $roles
-        executed = $executed
-        keyVaultSet = $kvSet
-        passwordMasked = ($password.Substring(0,4) + '…' + $password.Substring($password.Length-2))
-        tsqlPreview = $tsqlText
-        auth = ($useAAD ? 'aad' : 'sql')
-        stateBefore = $stateBefore
-        preCheck = $preCheck
-        stateAfter = $stateAfter
-        hint = 'WhatIf consigliato: verifica stateBefore/stateAfter prima di applicare in ambienti condivisi.'
-        summary = ("create user " + $username + " roles: " + ($roles -join ',') + (if ($WhatIf) { " (whatIf)" } else { " (applied)" }))
+      # Optional Key Vault
+      $kvSet = $false
+      if ($p.storeInKeyVault -and $p.keyvault?.name -and $p.keyvault?.secretName) {
+        if (-not $WhatIf) {
+          try {
+            & az keyvault secret set --vault-name $p.keyvault.name --name $p.keyvault.secretName --value $password --tags "username=$username" "database=$db" "createdBy=agent_dba"
+            if ($LASTEXITCODE -eq 0) { $kvSet = $true }
+          }
+          catch { $kvSet = $false }
+        }
       }
-      error = $errorMsg
-    }
-    $result.contractId = 'action-result'
-    $result.contractVersion = '1.0'
-    if ($LogEvent) { Write-Event ($result + @{ event='agent-dba'; govApproved=$false }) }
-    Out-Result $result
-  }
-  'db-user:rotate' {
-    $p = $intent.params
-    $username = $p.username
-    $database = $p.database
-    $password = New-StrongPassword 40
-    $adminConn = $p.adminConnString; if (-not $adminConn) { $adminConn = $env:DB_ADMIN_CONN_STRING }
-    if (-not $adminConn) { $adminConn = $env:DB_CONN_STRING }
-    $conn = Parse-ConnString $adminConn
-    $server = if ($p.server) { $p.server } elseif ($conn) { $conn.Server } else { $null }
-    $db = if ($database) { $database } elseif ($conn) { $conn.Database } else { $null }
-    $adminUser = $conn?.UserId; $adminPass = $conn?.Password
-    $useAAD = ($p.adminAuth -eq 'aad' -or (-not $adminUser -and -not $adminPass))
 
-    $tsqlText = "ALTER USER [$username] WITH PASSWORD = '$password';"
-    $stateBefore = $null
-    try { $stateBefore = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateBefore = $null }
-    $preCheck = $null
-    if ($WhatIf) {
-      try {
-        $preJson = & pwsh scripts/db-verify-connect.ps1 -ConnString $adminConn -Server $server -Database $db -AdminUser $adminUser -AdminPassword $adminPass -AAD:($useAAD) -CheckUser $username
-        if ($preJson) { $preCheck = $preJson | ConvertFrom-Json }
-      } catch { $preCheck = $null }
-    }
-    $executed = $false; $errorMsg = $null
-    if (-not $WhatIf) {
-      try { Invoke-SqlcmdExec -server $server -database $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -tsql $tsqlText; $executed=$true }
-      catch { $errorMsg = $_.Exception.Message }
-    }
-    $kvSet = $false
-    if ($p.storeInKeyVault -and $p.keyvault?.name -and $p.keyvault?.secretName -and -not $WhatIf) {
-      try { & az keyvault secret set --vault-name $p.keyvault.name --name $p.keyvault.secretName --value $password --tags "username=$username" "database=$db" "rotatedBy=agent_dba"; if ($LASTEXITCODE -eq 0) { $kvSet = $true } } catch {}
-    }
-    $stateAfter = $null
-    if ($executed -and -not $errorMsg) { try { $stateAfter = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateAfter = $null } }
-    $result = [ordered]@{
-      action=$Action; ok=($errorMsg -eq $null); whatIf=[bool]$WhatIf; nonInteractive=[bool]$NonInteractive; correlationId=$intent?.correlationId; startedAt=$now; finishedAt=(Get-Date).ToUniversalTime().ToString('o');
-      output=[ordered]@{ server=$server; database=$db; username=$username; executed=$executed; keyVaultSet=$kvSet; passwordMasked=($password.Substring(0,4)+'…'+$password.Substring($password.Length-2)); tsqlPreview=$tsqlText; auth=($useAAD ? 'aad' : 'sql'); stateBefore=$stateBefore; preCheck=$preCheck; stateAfter=$stateAfter; summary=('rotate password for ' + $username + (if ($WhatIf){' (whatIf)'} else {' (applied)'})) };
-      error=$errorMsg }
-    $result.contractId = 'action-result'
-    $result.contractVersion = '1.0'
-    if ($LogEvent) { Write-Event ($result + @{ event='agent-dba'; govApproved=$false }) }
-    Out-Result $result
-  }
-  'db-user:revoke' {
-    $p = $intent.params
-    $username = $p.username
-    $database = $p.database
-    $adminConn = $p.adminConnString; if (-not $adminConn) { $adminConn = $env:DB_ADMIN_CONN_STRING }
-    if (-not $adminConn) { $adminConn = $env:DB_CONN_STRING }
-    $conn = Parse-ConnString $adminConn
-    $server = if ($p.server) { $p.server } elseif ($conn) { $conn.Server } else { $null }
-    $db = if ($database) { $database } elseif ($conn) { $conn.Database } else { $null }
-    $adminUser = $conn?.UserId; $adminPass = $conn?.Password
-    $useAAD = ($p.adminAuth -eq 'aad' -or (-not $adminUser -and -not $adminPass))
+      # Post-check se eseguito
+      $stateAfter = $null
+      if ($executed -and -not $errorMsg) { try { $stateAfter = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateAfter = $null } }
 
-    $tsql = @()
-    $tsql += "IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'portal_reader') BEGIN BEGIN TRY ALTER ROLE portal_reader DROP MEMBER [$username]; END TRY BEGIN CATCH END CATCH END;"
-    $tsql += "IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'portal_writer') BEGIN BEGIN TRY ALTER ROLE portal_writer DROP MEMBER [$username]; END TRY BEGIN CATCH END CATCH END;"
-    $tsql += "IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'$username') BEGIN DROP USER [$username]; END;"
-    $tsqlText = ($tsql -join "`n")
+      $result = [ordered]@{
+        action         = $Action
+        ok             = ($errorMsg -eq $null)
+        whatIf         = [bool]$WhatIf
+        nonInteractive = [bool]$NonInteractive
+        correlationId  = $intent?.correlationId
+        startedAt      = $now
+        finishedAt     = (Get-Date).ToUniversalTime().ToString('o')
+        output         = [ordered]@{
+          server         = $server
+          database       = $db
+          username       = $username
+          roles          = $roles
+          executed       = $executed
+          keyVaultSet    = $kvSet
+          passwordMasked = ($password.Substring(0, 4) + '…' + $password.Substring($password.Length - 2))
+          tsqlPreview    = $tsqlText
+          auth           = ($useAAD ? 'aad' : 'sql')
+          stateBefore    = $stateBefore
+          preCheck       = $preCheck
+          stateAfter     = $stateAfter
+          hint           = 'WhatIf consigliato: verifica stateBefore/stateAfter prima di applicare in ambienti condivisi.'
+          summary        = ("create user " + $username + " roles: " + ($roles -join ',') + (if ($WhatIf) { " (whatIf)" } else { " (applied)" }))
+        }
+        error          = $errorMsg
+      }
+      $result.contractId = 'action-result'
+      $result.contractVersion = '1.0'
+      if ($LogEvent) { Write-Event ($result + @{ event = 'agent-dba'; govApproved = $false }) }
+      Out-Result $result
+    }
+    'db-user:rotate' {
+      $p = $intent.params
+      $username = $p.username
+      $database = $p.database
+      $password = New-StrongPassword 40
+      $adminConn = $p.adminConnString; if (-not $adminConn) { $adminConn = $env:DB_ADMIN_CONN_STRING }
+      if (-not $adminConn) { $adminConn = $env:DB_CONN_STRING }
+      $conn = Parse-ConnString $adminConn
+      $server = if ($p.server) { $p.server } elseif ($conn) { $conn.Server } else { $null }
+      $db = if ($database) { $database } elseif ($conn) { $conn.Database } else { $null }
+      $adminUser = $conn?.UserId; $adminPass = $conn?.Password
+      $useAAD = ($p.adminAuth -eq 'aad' -or (-not $adminUser -and -not $adminPass))
 
-    $stateBefore = $null
-    try { $stateBefore = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateBefore = $null }
-    $preCheck = $null
-    if ($WhatIf) {
-      try {
-        $preJson = & pwsh scripts/db-verify-connect.ps1 -ConnString $adminConn -Server $server -Database $db -AdminUser $adminUser -AdminPassword $adminPass -AAD:($useAAD) -CheckUser $username
-        if ($preJson) { $preCheck = $preJson | ConvertFrom-Json }
-      } catch { $preCheck = $null }
+      $tsqlText = "ALTER USER [$username] WITH PASSWORD = '$password';"
+      $stateBefore = $null
+      try { $stateBefore = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateBefore = $null }
+      $preCheck = $null
+      if ($WhatIf) {
+        try {
+          $preJson = & pwsh scripts/db-verify-connect.ps1 -ConnString $adminConn -Server $server -Database $db -AdminUser $adminUser -AdminPassword $adminPass -AAD:($useAAD) -CheckUser $username
+          if ($preJson) { $preCheck = $preJson | ConvertFrom-Json }
+        }
+        catch { $preCheck = $null }
+      }
+      $executed = $false; $errorMsg = $null
+      if (-not $WhatIf) {
+        try { Invoke-SqlcmdExec -server $server -database $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -tsql $tsqlText; $executed = $true }
+        catch { $errorMsg = $_.Exception.Message }
+      }
+      $kvSet = $false
+      if ($p.storeInKeyVault -and $p.keyvault?.name -and $p.keyvault?.secretName -and -not $WhatIf) {
+        try { & az keyvault secret set --vault-name $p.keyvault.name --name $p.keyvault.secretName --value $password --tags "username=$username" "database=$db" "rotatedBy=agent_dba"; if ($LASTEXITCODE -eq 0) { $kvSet = $true } } catch {}
+      }
+      $stateAfter = $null
+      if ($executed -and -not $errorMsg) { try { $stateAfter = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateAfter = $null } }
+      $result = [ordered]@{
+        action = $Action; ok = ($errorMsg -eq $null); whatIf = [bool]$WhatIf; nonInteractive = [bool]$NonInteractive; correlationId = $intent?.correlationId; startedAt = $now; finishedAt = (Get-Date).ToUniversalTime().ToString('o');
+        output = [ordered]@{ server = $server; database = $db; username = $username; executed = $executed; keyVaultSet = $kvSet; passwordMasked = ($password.Substring(0, 4) + '…' + $password.Substring($password.Length - 2)); tsqlPreview = $tsqlText; auth = ($useAAD ? 'aad' : 'sql'); stateBefore = $stateBefore; preCheck = $preCheck; stateAfter = $stateAfter; summary = ('rotate password for ' + $username + (if ($WhatIf) { ' (whatIf)' } else { ' (applied)' })) };
+        error = $errorMsg 
+      }
+      $result.contractId = 'action-result'
+      $result.contractVersion = '1.0'
+      if ($LogEvent) { Write-Event ($result + @{ event = 'agent-dba'; govApproved = $false }) }
+      Out-Result $result
     }
-    $executed=$false; $errorMsg=$null
-    if (-not $WhatIf) {
-      try { Invoke-SqlcmdExec -server $server -database $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -tsql $tsqlText; $executed=$true }
-      catch { $errorMsg = $_.Exception.Message }
+    'db-user:revoke' {
+      $p = $intent.params
+      $username = $p.username
+      $database = $p.database
+      $adminConn = $p.adminConnString; if (-not $adminConn) { $adminConn = $env:DB_ADMIN_CONN_STRING }
+      if (-not $adminConn) { $adminConn = $env:DB_CONN_STRING }
+      $conn = Parse-ConnString $adminConn
+      $server = if ($p.server) { $p.server } elseif ($conn) { $conn.Server } else { $null }
+      $db = if ($database) { $database } elseif ($conn) { $conn.Database } else { $null }
+      $adminUser = $conn?.UserId; $adminPass = $conn?.Password
+      $useAAD = ($p.adminAuth -eq 'aad' -or (-not $adminUser -and -not $adminPass))
+
+      $tsql = @()
+      $tsql += "IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'portal_reader') BEGIN BEGIN TRY ALTER ROLE portal_reader DROP MEMBER [$username]; END TRY BEGIN CATCH END CATCH END;"
+      $tsql += "IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'portal_writer') BEGIN BEGIN TRY ALTER ROLE portal_writer DROP MEMBER [$username]; END TRY BEGIN CATCH END CATCH END;"
+      $tsql += "IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name=N'$username') BEGIN DROP USER [$username]; END;"
+      $tsqlText = ($tsql -join "`n")
+
+      $stateBefore = $null
+      try { $stateBefore = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateBefore = $null }
+      $preCheck = $null
+      if ($WhatIf) {
+        try {
+          $preJson = & pwsh scripts/db-verify-connect.ps1 -ConnString $adminConn -Server $server -Database $db -AdminUser $adminUser -AdminPassword $adminPass -AAD:($useAAD) -CheckUser $username
+          if ($preJson) { $preCheck = $preJson | ConvertFrom-Json }
+        }
+        catch { $preCheck = $null }
+      }
+      $executed = $false; $errorMsg = $null
+      if (-not $WhatIf) {
+        try { Invoke-SqlcmdExec -server $server -database $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -tsql $tsqlText; $executed = $true }
+        catch { $errorMsg = $_.Exception.Message }
+      }
+      $stateAfter = $null
+      if ($executed -and -not $errorMsg) { try { $stateAfter = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateAfter = $null } }
+      $result = [ordered]@{
+        action = $Action; ok = ($errorMsg -eq $null); whatIf = [bool]$WhatIf; nonInteractive = [bool]$NonInteractive; correlationId = $intent?.correlationId; startedAt = $now; finishedAt = (Get-Date).ToUniversalTime().ToString('o');
+        output = [ordered]@{ server = $server; database = $db; username = $username; executed = $executed; tsqlPreview = $tsqlText; auth = ($useAAD ? 'aad' : 'sql'); stateBefore = $stateBefore; preCheck = $preCheck; stateAfter = $stateAfter; summary = ('revoke user ' + $username + (if ($WhatIf) { ' (whatIf)' } else { ' (applied)' })) };
+        error = $errorMsg 
+      }
+      $result.contractId = 'action-result'
+      $result.contractVersion = '1.0'
+      if ($LogEvent) { Write-Event ($result + @{ event = 'agent-dba'; govApproved = $false }) }
+      Out-Result $result
     }
-    $stateAfter = $null
-    if ($executed -and -not $errorMsg) { try { $stateAfter = Get-DbUserState -server $server -db $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -username $username } catch { $stateAfter = $null } }
-    $result = [ordered]@{
-      action=$Action; ok=($errorMsg -eq $null); whatIf=[bool]$WhatIf; nonInteractive=[bool]$NonInteractive; correlationId=$intent?.correlationId; startedAt=$now; finishedAt=(Get-Date).ToUniversalTime().ToString('o');
-      output=[ordered]@{ server=$server; database=$db; username=$username; executed=$executed; tsqlPreview=$tsqlText; auth=($useAAD ? 'aad' : 'sql'); stateBefore=$stateBefore; preCheck=$preCheck; stateAfter=$stateAfter; summary=('revoke user ' + $username + (if ($WhatIf){' (whatIf)'} else {' (applied)'})) };
-      error=$errorMsg }
-    $result.contractId = 'action-result'
-    $result.contractVersion = '1.0'
-    if ($LogEvent) { Write-Event ($result + @{ event='agent-dba'; govApproved=$false }) }
-    Out-Result $result
   }
 }
+catch {
+  $err = $_
+  Write-Warning "Action failed: $($err.Exception.Message). Logging issue..."
+  if (Test-Path "scripts/pwsh/issue-logger.ps1") {
+    try {
+      $pObj = if ($intent -and $intent.params) { $intent.params } else { @{} }
+      $userIn = if ($pObj.user_input) { $pObj.user_input } else { "Unknown input for $Action" }
+        
+      pwsh "scripts/pwsh/issue-logger.ps1" `
+        -Agent "agent_dba" `
+        -Severity "high" `
+        -Category "execution_failed" `
+        -Description ("DBA Action '$Action' failed: " + $err.Exception.Message) `
+        -UserInput $userIn `
+        -Intent ($IntentPath ?? "unknown") `
+        -ActionAttempted $Action `
+        -ErrorMessage $err.Exception.Message `
+        -SuggestedFix "Check database connectivity and permissions"
+    }
+    catch {
+      Write-Warning "Failed to log issue: $($_.Exception.Message)"
+    }
+  }
+  throw $err
+}
+
