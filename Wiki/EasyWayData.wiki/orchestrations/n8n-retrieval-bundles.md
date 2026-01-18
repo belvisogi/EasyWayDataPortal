@@ -11,7 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-updated: '2026-01-05'
+updated: '2026-01-18'
 next: TODO - definire next step.
 ---
 
@@ -36,15 +36,15 @@ Obiettivo: dare a n8n (o ad altri agenti) un modo **deterministico** per decider
 
 ## Bundle per Codex (sviluppo codice)
 
-Quando GPT-5.2 Codex deve implementare sotto `EasyWay-DataPortal/`, usa il bundle:
+Quando GPT-5.2 Codex deve implementare sotto `portal-api/`, usa il bundle:
 - `codex.dev.core`  contesto minimo (governance + portal + security) + entrypoints del codice.
 
 ## Bundle DB (n8n)
 
 Quando n8n deve fare operazioni sul DB (es. rigenerare inventario DDL e aggiornare la Wiki DB), usa:
-- `n8n.db.core`  contesto DB (Wiki) + root tecnico `db/flyway/` (source-of-truth canonico dei DDL).
+- `n8n.db.core` → contesto DB (Wiki) + root tecnico `db/migrations/` (source-of-truth canonico dei DDL).
 
-Per la creazione di nuove tabelle (artefatti Flyway + pagina Wiki tabella), usa:
+Per la creazione di nuove tabelle (artefatti migrazioni SQL + pagina Wiki tabella), usa:
 - `n8n.db.table.create`
 
 Nota: di default i bundle servono a caricare **Wiki**; `old/db/` e `db/README.md` sono solo per audit/compat (non doc canonica).

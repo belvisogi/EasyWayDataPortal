@@ -3,7 +3,7 @@
   "what": {
     "purpose": "Generare file appsettings.* a partire da .env.local per flusso agentico (senza segreti in repo).",
     "inputs": {
-      "apiPath": { "type": "string", "default": "EasyWay-DataPortal/easyway-portal-api" },
+      "apiPath": { "type": "string", "default": "portal-api/easyway-portal-api" },
       "outDir": { "type": "string", "default": "out" },
       "whatIf": { "type": "boolean", "default": true },
       "nonInteractive": { "type": "boolean", "default": true },

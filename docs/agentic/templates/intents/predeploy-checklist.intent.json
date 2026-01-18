@@ -4,7 +4,7 @@
     "purpose": "Eseguire la checklist pre-deploy (config/env/connessioni) e produrre un report machine-readable.",
     "inputs": {
       "targetEnv": { "type": "string", "examples": ["local", "dev", "test", "prod"] },
-      "apiPath": { "type": "string", "default": "EasyWay-DataPortal/easyway-portal-api" },
+      "apiPath": { "type": "string", "default": "portal-api/easyway-portal-api" },
       "summaryOut": { "type": "string", "default": "checklist.json" },
       "checklistOutput": { "type": "string", "default": "both", "examples": ["json", "human", "both"] },
       "whatIf": { "type": "boolean", "default": true },

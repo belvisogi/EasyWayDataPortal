@@ -2,11 +2,11 @@
 
 ## Contesto e Obiettivo
 - Obiettivo: fotografare lo stato attuale (API/DB/Wiki), evidenziare i punti da sistemare e proporre un piano d'azione concreto e prioritizzato per portare EasyWay Data Portal in linea con gli standard documentati.
-- Scope: repository `EasyWayDataPortal` (root), modulo `EasyWay-DataPortal/easyway-portal-api` (API), migrazioni DB `db/migrations/` (DDL/SP canonici), Wiki `Wiki/EasyWayData.wiki` (+ archivio `old/db/` per storici).
+- Scope: repository `EasyWayDataPortal` (root), modulo `portal-api/easyway-portal-api` (API), migrazioni DB `db/migrations/` (DDL/SP canonici), Wiki `Wiki/EasyWayData.wiki` (+ archivio `old/db/` per storici).
 
 ## Fonti analizzate
-- API: `EasyWay-DataPortal/easyway-portal-api/src/...`
-- DDL/SP canonici: `db/migrations/`
+- API: `portal-api/easyway-portal-api/src/...`
+- DDL/SP canonici: `db/migrations/` (Git + SQL diretto)
 - DDL storici (non canonici): `old/db/` (ex `DataBase/`, export `DDL_PORTAL_*`)
 - SP (documentazione): `Wiki/EasyWayData.wiki/.../PORTAL/programmability/stored-procedure.md`
 - Endpoint docs: `Wiki/EasyWayData.wiki/.../easyway_portal_api/ENDPOINT/*.md`
@@ -40,7 +40,7 @@
 
 5) DDL duplicati/obsoleti - single source of truth (MEDIA)
    - Problema: storicamente coesistevano snapshot/export diversi (DataBase/, `DDL_PORTAL_*`) creando ambiguità.
-   - Fix: fonte canonica unica = migrazioni Flyway in `db/flyway/sql/`; archiviare tutto il legacy in `old/db/` e rigenerare inventari Wiki da Flyway.
+   - Fix: fonte canonica unica = migrazioni in `db/migrations/` (Git + SQL diretto); archiviare tutto il legacy in `old/db/` e rigenerare inventari Wiki da migrations. Flyway è stato valutato e dismesso (vedi `why-not-flyway.md`).
 
 6) Logging/Auditing — aderenza a STATS_EXECUTION_LOG (MEDIA)
    - Problema: se si usano DML diretti via API, si perde il logging standard previsto dalle SP.
@@ -54,9 +54,10 @@
    - Aggiungere pipeline Azure DevOps/GitHub Actions: build, lint, test, deploy su slot/stage.
    - Introdurre test minimi (REST Client/Jest) e check DB drift (migrazioni/validatore schema).
 
-9) Documentazione & Struttura repository (MEDIA)
-   - Doppia denominazione `EasyWayDataPortal` (root) vs `EasyWay-DataPortal` (modulo): fonte di confusione.
-   - Fix proposto: rinominare `EasyWay-DataPortal` in `portal-api` o `easyway-portal-api` a livello monorepo. Mantenere `EasyWayDataPortal` come “contenitore” di cosa/come/perché (Wiki/DB/docs/infra).
+9) Documentazione & Struttura repository (COMPLETATO)
+   - Doppia denominazione `EasyWayDataPortal` (root) vs `EasyWay-DataPortal` (modulo): **✅ RISOLTA**.
+   - Fix implementato (2026-01-18): rinominato `EasyWay-DataPortal` → `portal-api`.
+   - Struttura finale: `EasyWayDataPortal` (root) contiene `portal-api/` (modulo API), `db/`, `Wiki/`, `docs/`, `tests/`.
 
 ## Piano d’Azione (Priorità e Sequenza)
 1. Users via SP + mapping colonne coerente con DDL (blocca errori funzionali)
@@ -74,12 +75,13 @@
 - Config loader: `easyway-portal-api/src/config/dbConfigLoader.ts:1`
 - Notifications routes: `easyway-portal-api/src/routes/notifications.ts:1`
 - Query loader Blob: `easyway-portal-api/src/config/queryLoader.ts:1`
-- DDL/SP canonici: `db/migrations/:1` (migrazioni V1..Vn)
+- DDL/SP canonici: `db/migrations/:1` (migrazioni V1..Vn, Git + SQL diretto)
 
-## Rinomina cartelle (proposta)
-- Rinominare `EasyWay-DataPortal` in `portal-api` (o `easyway-portal-api`).
-- Mantenere `EasyWayDataPortal` come monorepo con: `portal-api/`, `db/`, `Wiki/`, `docs/`, `tests/` (+ `old/` per archivi).
-- Eseguire rinomina in una PR dedicata per minimizzare impatti.
+## Rinomina cartelle (completata)
+- ✅ Rinominato `EasyWay-DataPortal` → `portal-api` (2026-01-18).
+- Struttura monorepo: `EasyWayDataPortal/` (root) con `portal-api/`, `db/`, `Wiki/`, `docs/`, `tests/` (+ `old/` per archivi).
+- Eseguita in commit atomico per minimizzare impatti.
+- Aggiornati ~60 file: pipeline, manifests, intents, Wiki, root docs.
 
 ## Test — Strategia iniziale
 - Aggiunta cartella `tests/` (root) per centralizzare: 

@@ -9,9 +9,9 @@ pool:
 
 variables:
   - template: ci/versions.yml
-  - group: EasyWay-Secrets  # Variable Group in ADO with AZURE_STORAGE_* and DB creds
-  - name: workingDirectory
-    value: 'EasyWay-DataPortal/easyway-portal-api'
+  - group: EasyWay-Secrets  # Variable Group in ADO with AZURE_STORAGE_* and  # Path API
+  - name: API_PATH
+    value: 'portal-api/easyway-portal-api'
   - name: ENABLE_ORCHESTRATOR
     value: 'true'
   - name: ORCHESTRATOR_INTENT
@@ -590,7 +590,7 @@ stages:
                 $changedAdoScripts = $false
                 $changedAgentsDocs = $false
                 foreach ($f in $changed) {
-                  if ($f -like 'db/*' -or $f -like 'EasyWay-DataPortal/easyway-portal-api/src/*') { $changedDbApi = $true }
+                  if ($f -like 'db/*' -or $f -like 'portal-api/easyway-portal-api/src/*') { $changedDbApi = $true }
                   if ($f -like 'scripts/ado/*') { $changedAdoScripts = $true }
                   if ($f -like 'Wiki/EasyWayData.wiki/agents-*.md') { $changedAgentsDocs = $true }
                 }
@@ -796,7 +796,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                pwsh scripts/generate-appsettings.ps1 -ApiPath EasyWay-DataPortal/easyway-portal-api -OutDir ./out
+                pwsh scripts/generate-appsettings.ps1 -ApiPath portal-api/easyway-portal-api -OutDir ./out
                 Get-Content ./out/appsettings.cli.json | Write-Host
           - task: AzureCLI@2
             displayName: 'Apply appsettings (Azure CLI)'

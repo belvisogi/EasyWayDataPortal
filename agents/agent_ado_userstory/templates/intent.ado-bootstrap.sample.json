@@ -3,7 +3,7 @@
   "params": {
     "ado": {
       "orgUrl": "https://dev.azure.com/EasyWayData",
-      "project": "EasyWay-DataPortal"
+      "project": "portal-api"
     },
     "areas": [
       "EasyWay\\AMS",

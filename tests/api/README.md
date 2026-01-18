@@ -7,6 +7,6 @@ Contenuti:
 - `rest-client/onboarding.http` — onboarding tenant+user via SP
 
 Requisiti:
-- Server locale: `npm run dev` dentro `EasyWay-DataPortal/easyway-portal-api`
+- Server locale: `npm run dev` dentro `portal-api/easyway-portal-api`
 - Header obbligatorio: `X-Tenant-Id: tenant01` (o ID valido)
 

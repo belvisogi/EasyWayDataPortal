@@ -187,7 +187,7 @@ flowchart TD
 
 7) Deliverable e file da aggiungere al repository (suggeriti)
 - Wiki/UX/agentic-ux.md (questa pagina)
-- EasyWay-DataPortal/easyway-portal-api/src/routes/plan.ts (scaffold)
+- portal-api/easyway-portal-api/src/routes/plan.ts (scaffold)
 - agents/core/templates/priority.template.json (gia' presente)
 - agents/agent_dba/priority.json (esempio)
 - frontend/src/pages/PlanViewer.jsx (prototype)
@@ -212,7 +212,7 @@ flowchart TD
 Se vuoi, procedo ora a:
 - creare i file di esempio (agents/agent_dba/priority.json, agents/agent_docs_review/priority.json),
 - aggiungere un mock plan in frontend/static/,
-- creare uno scaffold API in EasyWay-DataPortal/easyway-portal-api/src/routes/plan.ts.
+- creare uno scaffold API in portal-api/easyway-portal-api/src/routes/plan.ts.
 
 Indica quale di questi vuoi che generi immediatamente.
 

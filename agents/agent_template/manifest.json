@@ -46,7 +46,7 @@
     "read": [
       "agents/",
       "Wiki/",
-      "EasyWay-DataPortal/easyway-portal-api/",
+      "portal-api/easyway-portal-api/",
       "db/",
       "old/db/",
       "db/README.md"

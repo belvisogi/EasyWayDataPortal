@@ -1,7 +1,7 @@
 ---
 id: ew-db-ddl-inventory
 title: DB PORTAL - Inventario DDL (canonico)
-summary: Inventario DB (canonico) estratto dalle migrazioni Flyway (source-of-truth) per mantenere allineata la Wiki 01_database_architecture.
+summary: Inventario DB (canonico) estratto dalle migrazioni SQL in db/migrations/ (source-of-truth) per mantenere allineata la Wiki.
 status: active
 owner: team-data
 tags: [domain/db, layer/reference, audience/dev, audience/dba, privacy/internal, language/it]
@@ -11,8 +11,8 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-updated: '2026-01-06'
-next: Rendere Flyway (`db/flyway/`) la fonte incrementale e rigenerare periodicamente il DDL canonico (snapshot) se necessario; mantenere i legacy export fuori dal retrieval.
+updated: '2026-01-18'
+next: Automatizzare rigenerazione inventario da db/migrations/ con tool AI-friendly (db/db-deploy-ai/).
 ---
 
 [[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
@@ -21,16 +21,21 @@ next: Rendere Flyway (`db/flyway/`) la fonte incrementale e rigenerare periodica
 
 ## Obiettivo
 - Rendere esplicito l'elenco di tabelle e stored procedure usando **solo** le fonti canoniche del repo.
-- Ridurre ambiguita: un agente (o un umano) puo verificare rapidamente cosa esiste e dove e documentato.
+- Ridurre ambiguità: un agente (o un umano) può verificare rapidamente cosa esiste e dove è documentato.
 
 ## Domande a cui risponde
 - Quali tabelle/procedure esistono nello schema `PORTAL` secondo le fonti canoniche?
 - Quali file sono la fonte e come posso rigenerare questo inventario?
 
-## Source of truth (repo)
-- Flyway migrations (canonico, corrente): `db/flyway/sql`
+## Source of Truth (Repo)
 
-Deploy operativa: usare migrazioni Flyway in `db/flyway/` (apply controllato).
+**Canonico**: Migrazioni SQL in `db/migrations/`
+
+**Approccio**: Git + SQL diretto (senza Flyway)
+
+**Perché NON Flyway**: Dopo valutazione, Flyway è stato dismesso per questo progetto. Vedi [why-not-flyway.md](./why-not-flyway.md) per dettagli.
+
+**Applicazione**: Deploy operativo tramite sqlcmd, Azure Portal Query Editor, o SSMS. Vedi [db-migrations.md](./db-migrations.md) per guida completa.
 
 ## Tabelle (PORTAL) - canonico
 - `PORTAL.CONFIGURATION`
@@ -72,10 +77,28 @@ Deploy operativa: usare migrazioni Flyway in `db/flyway/` (apply controllato).
 - Logging: `easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md`
 
 ## Rigenerazione (idempotente)
-- Solo Flyway (canonico): `pwsh scripts/db-ddl-inventory.ps1 -WriteWiki`
-- Include provisioning (dev/local): `pwsh scripts/db-ddl-inventory.ps1 -IncludeProvisioning -WriteWiki`
-- Include snapshot DDL (legacy): `pwsh scripts/db-ddl-inventory.ps1 -IncludeSnapshot -WriteWiki`
-- Include legacy export (audit): `pwsh scripts/db-ddl-inventory.ps1 -IncludeLegacy -WriteWiki`
 
+```powershell
+# Rigenera inventario da db/migrations/ (canonico)
+pwsh scripts/db-ddl-inventory.ps1 -WriteWiki
+
+# Include provisioning (dev/local)
+pwsh scripts/db-ddl-inventory.ps1 -IncludeProvisioning -WriteWiki
+
+# Include snapshot DDL (legacy, solo audit)
+pwsh scripts/db-ddl-inventory.ps1 -IncludeSnapshot -WriteWiki
+
+# Include legacy export (archivio storico)
+pwsh scripts/db-ddl-inventory.ps1 -IncludeLegacy -WriteWiki
+```
+
+**Nota**: Lo script è stato aggiornato per leggere da `db/migrations/` invece di `db/flyway/`.
+
+## Riferimenti
+
+- [db-migrations.md](./db-migrations.md) - Guida gestione migrazioni (Git + SQL diretto)
+- [why-not-flyway.md](./why-not-flyway.md) - Perché NON usiamo Flyway
+- [portal.md](./portal.md) - Overview schema PORTAL
+- [db/README.md](file:///c:/old/EasyWayDataPortal/db/README.md) - README database
 
 

@@ -12,7 +12,7 @@
     "scripts/**",
     "db/**",
     "old/db/**",
-    "EasyWay-DataPortal/easyway-portal-api/**"
+    "portal-api/easyway-portal-api/**"
   ],
   "allowed_tools": [
     "pwsh",

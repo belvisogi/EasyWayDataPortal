@@ -1,15 +1,16 @@
 ---
 id: why-not-flyway
 title: Perché NON usare Flyway per questo progetto
-summary: Breve descrizione del documento.
-status: draft
+summary: Analisi e decisione di dismettere Flyway in favore di approccio Git + SQL diretto per EasyWayDataPortal.
+status: active
 owner: team-data
-created: '2025-01-01'
-updated: '2025-01-01'
+created: '2026-01-14'
+updated: '2026-01-18'
 tags:
   - layer/reference
   - privacy/internal
   - language/it
+  - decision-record
 llm:
   include: true
   pii: none
@@ -17,6 +18,16 @@ llm:
   redaction: [email, phone]
 entities: []
 ---
+
+> [!IMPORTANT]
+> **✅ Decisione Confermata: 2026-01-18**
+> 
+> Questa decisione è stata confermata e implementata. Flyway è ufficialmente dismesso per EasyWayDataPortal.
+> 
+> **Approccio attuale**: Git + SQL Diretto
+> 
+> **Guida canonica**: [db-migrations.md](./db-migrations.md)
+
 # Perché NON usare Flyway per questo progetto
 
 ## TL;DR

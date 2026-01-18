@@ -10,7 +10,7 @@
     "old/db/**",
     "db/README.md",
     "out/**",
-    "EasyWay-DataPortal/easyway-portal-api/src/tools/db/**",
+    "portal-api/easyway-portal-api/src/tools/db/**",
     "scripts/pwsh/db-ddl-inventory.ps1",
     "scripts/pwsh/db-generate-table-artifacts.ps1",
     "scripts/pwsh/db-table-intent-from-sheet.ps1",

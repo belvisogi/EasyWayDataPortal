@@ -58,13 +58,13 @@ terraform apply
   - O in alternativa `AZURE_STORAGE_CONNECTION_STRING`.
 
 4) API – Config & Run
-- Copia `EasyWay-DataPortal/easyway-portal-api/.env.example` in `.env.local` e compila:
+- Copia `portal-api/easyway-portal-api/.env.example` in `.env.local` e compila:
   - Auth: `AUTH_ISSUER`, `AUTH_JWKS_URI`, `AUTH_AUDIENCE` (opz.), `TENANT_CLAIM=ew_tenant_id`
   - Storage: `AZURE_STORAGE_CONNECTION_STRING` o `AZURE_STORAGE_ACCOUNT`, `BRANDING_CONTAINER=portal-assets`, `BRANDING_PREFIX=config`
   - DB: `DB_CONN_STRING` (oppure `DB_AAD=true` + `DB_HOST`/`DB_NAME`)
 - Avvio:
 ```sql
-cd EasyWay-DataPortal/easyway-portal-api
+cd portal-api/easyway-portal-api
 npm ci
 npm run dev
 ```sql

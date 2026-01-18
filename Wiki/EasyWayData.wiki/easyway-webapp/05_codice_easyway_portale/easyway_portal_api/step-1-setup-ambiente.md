@@ -41,7 +41,7 @@ pwsh scripts/setup-env.ps1 -TenantId <TENANT> -AuthClientId <CLIENT_ID> -DbConnS
 
 ### 2) Avvio API (dev)
 ```powershell
-cd EasyWay-DataPortal/easyway-portal-api
+cd portal-api/easyway-portal-api
 npm ci
 npm run dev
 ```sql
@@ -56,7 +56,7 @@ pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --nonin
 
 ## Terraform (opzionale)
 Doc canonica provisioning/plan:
-- `../../../blueprints/replicate-easyway-dataportal.md`
+- `../../../blueprints/replicate-portal-api.md`
 
 Shortcut (plan governato):
 ```powershell
@@ -262,5 +262,5 @@ easyway-portal-api/
 - [step 5 validazione avanzata dati in ingresso](./step-5-validazione-avanzata-dati-in-ingresso.md)
 - [Start Here - Link Essenziali](../../../start-here.md)
 - [Agents Registry (owner, domini, intent)](../../../control-plane/agents-registry.md)
-- [Blueprint - Replicate EasyWay DataPortal (Terraform)](../../../blueprints/replicate-easyway-dataportal.md)
+- [Blueprint - Replicate EasyWay DataPortal (Terraform)](../../../blueprints/replicate-portal-api.md)
 

@@ -50,12 +50,12 @@ echo 'AGENT_MODE=mock' >> .env
 
 **C) Installa le dipendenze**
 ```bash
-npm install --prefix EasyWay-DataPortal/easyway-portal-api/
+npm install --prefix portal-api/easyway-portal-api/
 ```sql
 
 **D) Avvia i servizi in modalità sandbox (mock)**
 ```bash
-cd EasyWay-DataPortal/easyway-portal-api/
+cd portal-api/easyway-portal-api/
 npm run dev:mock
 # oppure setta DB_MODE=mock e avvia:
 # DB_MODE=mock npm run dev

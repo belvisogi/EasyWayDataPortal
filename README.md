@@ -69,7 +69,7 @@ Cosa fa EasyWay Data Portal
 2. Setup ambiente  
    - Node.js 18+, npm install in `easyway-portal/easyway-portal-api/`
    - Variabili ambiente: vedi [deployment-decision-mvp.md](wiki/EasyWayData.wiki/deployment-decision-mvp.md)
-   - DB: Azure SQL, provisioning via script in `database/provisioning/`
+   - DB: Azure SQL, migrazioni in `db/migrations/` (Git + SQL diretto, vedi [db-migrations.md](wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/db-migrations.md))
 3. Avvio locale (dual‑mode)  
    - Sviluppo low‑cost: imposta `DB_MODE=mock` e usa `npm run dev:jwt` per generare token locali; dettagli in [Sviluppo Locale Dual‑Mode](wiki/EasyWayData.wiki/dev-dual-mode.md)
    - Avvio: `cd easyway-portal/easyway-portal-api/ && npm run dev`
@@ -133,7 +133,7 @@ Per dettagli:
 - [KB – DQ Blueprint Agent](agents/kb/recipes.jsonl) — id: kb-agent-dq-blueprint-201
 - [HOWTO – WHAT‑first + Diario di Bordo](wiki/EasyWayData.wiki/howto-what-first-team.md)
 - [Onboarding API](easyway-portal/easyway-portal-api/README.md)
-- [Provisioning DB](database/provisioning/README.md)
+- [Database Migrations](db/README.md)
 - [Test & QA](tests/README.md)
 
 ---

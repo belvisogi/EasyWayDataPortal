@@ -4,7 +4,7 @@
       "id": "fe-portal-branding",
       "description": "Checklist advisory quando cambiano route portal o sample branding",
       "severity": "advisory",
-      "when": { "changedPaths": ["EasyWay-DataPortal/easyway-portal-api/src/routes/portal.ts", "EasyWay-DataPortal/easyway-portal-api/datalake-sample/**"] },
+      "when": { "changedPaths": ["portal-api/easyway-portal-api/src/routes/portal.ts", "portal-api/easyway-portal-api/datalake-sample/**"] },
       "checklist": [
         "Verifica integrazione branding (yaml) in locale",
         "Aggiorna Wiki EasyWay_WebApp se necessario",

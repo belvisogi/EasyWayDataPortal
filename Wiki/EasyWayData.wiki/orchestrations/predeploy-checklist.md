@@ -53,17 +53,17 @@ pwsh scripts/ewctl.ps1 --engine ps --checklist --noninteractive --logevent
 ```sql
 
 Output/artefatti:
-- Report: `EasyWay-DataPortal/easyway-portal-api/checklist.json`
+- Report: `portal-api/easyway-portal-api/checklist.json`
 - Event log (se `--logevent`): `agents/logs/events*.jsonl` con `artifacts[]` che include il report
 
 Note:
 - `--whatif` su `ewctl`/`agent-governance` salta l’esecuzione dei task (modalità “preview”).
 
 ### Locale (runner diretto)
-Esegue `npm run check:predeploy` dentro `EasyWay-DataPortal/easyway-portal-api` (richiede Node/npm e variabili env/`.env.local`).
+Esegue `npm run check:predeploy` dentro `portal-api/easyway-portal-api` (richiede Node/npm e variabili env/`.env.local`).
 
 ```powershell
-pwsh scripts/checklist.ps1 -ApiPath EasyWay-DataPortal/easyway-portal-api
+pwsh scripts/checklist.ps1 -ApiPath portal-api/easyway-portal-api
 ```sql
 
 ### CI/CD (gating)

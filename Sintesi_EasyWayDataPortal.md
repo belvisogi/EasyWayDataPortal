@@ -38,7 +38,7 @@ EasyWay Data Portal è una piattaforma dati multi-tenant, API-first, progettata 
 ## Onboarding Rapido
 
 1. Clona la repository
-2. Installa le dipendenze Node.js in `EasyWay-DataPortal/easyway-portal-api/`
+2. Installa le dipendenze Node.js in `portal-api/easyway-portal-api/`
 3. Provisioning database tramite wrapper Flyway in `db/provisioning/` (human-in-the-loop)
 4. Avvio locale: `npm run dev` nella cartella API
 5. Consulta la documentazione e la Wiki per dettagli e best practice

@@ -20,10 +20,10 @@ next: Allineare con OpenAPI e aggiungere esempi per ogni endpoint critico.
 # QnA - Errori REST API (EasyWay Portal)
 
 ## Contesto (repo)
-- Source-of-truth API: `EasyWay-DataPortal/easyway-portal-api/openapi/openapi.yaml`
-- Implementazione API: `EasyWay-DataPortal/easyway-portal-api/src/routes/`
-- Auth middleware: `EasyWay-DataPortal/easyway-portal-api/src/middleware/auth.ts`
-- Tenant extraction: `EasyWay-DataPortal/easyway-portal-api/src/middleware/tenant.ts`
+- Source-of-truth API: `portal-api/easyway-portal-api/openapi/openapi.yaml`
+- Implementazione API: `portal-api/easyway-portal-api/src/routes/`
+- Auth middleware: `portal-api/easyway-portal-api/src/middleware/auth.ts`
+- Tenant extraction: `portal-api/easyway-portal-api/src/middleware/tenant.ts`
 - Viewer DB diagram: `GET /api/db/diagram` + `GET /portal/tools/db-diagram`
 
 ## Q&A (errori ricorrenti)
@@ -54,7 +54,7 @@ Q: Perche' ricevo 404?
 A: Endpoint o risorsa non esiste.
 Azioni:
 - Verifica path e base URL.
-- Per `/api/db/diagram`, controlla che esista `EasyWay-DataPortal/easyway-portal-api/data/db/portal-diagram.json`.
+- Per `/api/db/diagram`, controlla che esista `portal-api/easyway-portal-api/data/db/portal-diagram.json`.
 
 ### 429 Too Many Requests
 Q: Perche' ricevo 429?

@@ -215,9 +215,9 @@ Un **retrieval bundle** è una **combinazione predefinita di scopes** per un int
 **`codex.dev.core`**
 - **Intent**: `codex.dev.core`
 - **Scopes**: `governance-all`, `portal-all`, `security-all`
-- **Code roots**: `EasyWay-DataPortal/`
+- **Code roots**: `portal-api/`
 - **Code entrypoints**: `README.md`, `app.ts`, `plan-viewer.html`
-- **Uso**: GPT-5.2 Codex sviluppo sotto EasyWay-DataPortal/
+- **Uso**: GPT-5.2 Codex sviluppo sotto portal-api/
 
 #### Documentation
 

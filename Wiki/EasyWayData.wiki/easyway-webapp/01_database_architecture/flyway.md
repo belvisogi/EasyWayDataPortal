@@ -1,23 +1,42 @@
 ---
 id: ew-db-flyway
-title: Flyway - DevOps per il Database (EasyWay)
-summary: Strumento migration-based per portare DDL/SP/sequence/RLS in un flusso maturo e ripetibile
-status: active
+title: Flyway - DevOps per il Database (EasyWay) [DEPRECATO]
+summary: [DEPRECATO] Riferimento storico su Flyway. Questo approccio è stato dismesso. Vedi db-migrations.md per la guida attuale.
+status: deprecated
 owner: team-data
-tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it]
+tags: [domain/db, layer/reference, audience/dev, privacy/internal, language/it, deprecated]
 llm:
-  include: true
+  include: false
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-updated: '2026-01-07'
-next: TODO - definire next step.
+updated: '2026-01-18'
+next: Vedi db-migrations.md per approccio attuale (Git + SQL diretto).
 ---
 
 [[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
 
-## Contesto
+> [!CAUTION]
+> **⚠️ QUESTO DOCUMENTO È DEPRECATO**
+> 
+> Flyway è stato valutato e successivamente **dismesso** per EasyWayDataPortal (decisione: 2026-01-14).
+> 
+> **Motivi principali**:
+> - SQL Server con 50+ stored procedures richiede gestione complessa dei batch separator `GO`
+> - Overhead di configurazione non giustificato per team piccolo (1-2 dev)
+> - Git già fornisce versioning e tracking necessari
+> - Applicazione diretta via sqlcmd/Azure Portal è più semplice e veloce
+> 
+> **📖 Guida attuale**: [db-migrations.md](./db-migrations.md) - Gestione Migrazioni Database (Git + SQL Diretto)
+> 
+> **📋 Dettagli decisione**: [why-not-flyway.md](./why-not-flyway.md) - Analisi completa e motivazioni
+> 
+> Questo documento è mantenuto solo come **riferimento storico**.
+
+---
+
+## Contesto Storico
 - Source-of-truth DB (canonico): migrazioni Flyway in `db/flyway/sql/`.
 - Provisioning dev/local: wrapper `db/provisioning/apply-flyway.ps1` (human-in-the-loop).
 - Artefatti storici (non canonici): `old/db/` (ex `DataBase/`, export `DDL_PORTAL_*`).

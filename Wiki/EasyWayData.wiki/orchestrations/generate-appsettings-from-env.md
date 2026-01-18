@@ -31,7 +31,7 @@ Entrypoint (n8n.dispatch)
   "params": {
     "action": "generate-appsettings-from-env",
     "params": {
-      "apiPath": "EasyWay-DataPortal/easyway-portal-api",
+      "apiPath": "portal-api/easyway-portal-api",
       "outDir": "out"
     },
     "whatIf": true,

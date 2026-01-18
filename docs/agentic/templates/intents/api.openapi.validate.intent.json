@@ -3,7 +3,7 @@
   "what": {
     "purpose": "Validare la presenza/consistenza OpenAPI (MVP) e produrre output strutturato per n8n.",
     "inputs": {
-      "apiPath": { "type": "string", "default": "EasyWay-DataPortal/easyway-portal-api" },
+      "apiPath": { "type": "string", "default": "portal-api/easyway-portal-api" },
       "whatIf": { "type": "boolean", "default": true },
       "nonInteractive": { "type": "boolean", "default": false },
       "correlationId": { "type": "string" }

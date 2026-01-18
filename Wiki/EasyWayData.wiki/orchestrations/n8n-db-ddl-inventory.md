@@ -1,7 +1,7 @@
 ---
 id: ew-n8n-db-ddl-inventory
 title: n8n-db-ddl-inventory
-summary: Orchestrazione n8n per rigenerare l'inventario DB da Flyway (`db/flyway/sql/`) e aggiornare la pagina Wiki ddl-inventory (agent_dba).
+summary: Orchestrazione n8n per rigenerare l'inventario DB da migrazioni SQL (`db/migrations/`) e aggiornare la pagina Wiki ddl-inventory (agent_dba).
 status: draft
 owner: team-platform
 tags: [domain/control-plane, layer/orchestration, audience/dev, audience/dba, privacy/internal, language/it, n8n, db]
@@ -11,7 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
-updated: '2026-01-05'
+updated: '2026-01-18'
 next: Implementare workflow n8n e collegare webhook.
 ---
 
@@ -20,11 +20,16 @@ next: Implementare workflow n8n e collegare webhook.
 # n8n-db-ddl-inventory
 
 ## Contesto
-- Source-of-truth DB (canonico): migrazioni Flyway in `db/flyway/sql/`.
-- Artefatti storici (non canonici): `old/db/` (ex `DataBase/`, export `DDL_PORTAL_*`).
+
+**Source-of-truth DB (canonico)**: Migrazioni SQL in `db/migrations/`.
+
+**Approccio**: Git + SQL diretto (senza Flyway). Vedi [why-not-flyway.md](../easyway-webapp/01_database_architecture/why-not-flyway.md) per motivazioni.
+
+**Artefatti storici** (non canonici): `old/db/` (ex `DataBase/`, export `DDL_PORTAL_*`).
 
 ## Scopo
-Workflow n8n che, a partire dalle migrazioni in `db/flyway/sql/`, rigenera l'inventario DB e aggiorna la pagina canonica:
+
+Workflow n8n che, a partire dalle migrazioni in `db/migrations/`, rigenera l'inventario DB e aggiorna la pagina canonica:
 - `easyway-webapp/01_database_architecture/ddl-inventory.md`
 
 ## Domande a cui risponde

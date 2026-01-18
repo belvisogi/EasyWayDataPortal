@@ -32,17 +32,17 @@ next: Estendere le relazioni esplicite (FK) quando presenti e migliorare le euri
     - `kind=explicit`: FK fisiche presenti nel DDL (quando esistono)
     - `kind=inferred`: relazioni da convenzione (es. `tenant_id` -> `PORTAL.TENANT.tenant_id`)
 - Pubblicazione enterprise (API):
-  - Artefatto runtime (versionabile nel deploy): `EasyWay-DataPortal/easyway-portal-api/data/db/portal-diagram.json`
+  - Artefatto runtime (versionabile nel deploy): `portal-api/easyway-portal-api/data/db/portal-diagram.json`
   - Endpoint protetto (JWT): `GET /api/db/diagram?schema=PORTAL`
   - Viewer “prodotto” nel portale: `GET /portal/tools/db-diagram`
-- Viewer statico interno: `EasyWay-DataPortal/easyway-portal-frontend/static/db-diagram-viewer.html`
+- Viewer statico interno: `portal-api/easyway-portal-frontend/static/db-diagram-viewer.html`
   - Può caricare un JSON locale (file input) o un mock.
 
 ## Uso (local workflow)
 1. Genera il JSON diagramma:
    - (Repo root) `pwsh scripts/db-export-portal-diagram.ps1 -FlywaySqlDir db/flyway/sql -Schema PORTAL -OutJson out/db/portal-diagram.json`
 2. Pubblica l'artefatto enterprise (API runtime):
-   - `cd EasyWay-DataPortal/easyway-portal-api`
+   - `cd portal-api/easyway-portal-api`
    - `npm run db:diagram:refresh`
 3. Avvia l'API e usa il viewer "prodotto":
    - `npm run dev`

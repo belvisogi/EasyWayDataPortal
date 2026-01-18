@@ -79,7 +79,7 @@ exclude:
 
 Per casi d’uso DBA (stored procedure, ACL, migrazioni, query applicative) conviene includere anche sorgenti SQL “canoniche” del repo:
 - Flyway migrations: `db/flyway/sql/**/*.sql`
-- Query applicative: `EasyWay-DataPortal/easyway-portal-api/src/queries/**/*.sql`
+- Query applicative: `portal-api/easyway-portal-api/src/queries/**/*.sql`
 
 Regola canonica di include/exclude: `ai/vettorializza.yaml`.
 

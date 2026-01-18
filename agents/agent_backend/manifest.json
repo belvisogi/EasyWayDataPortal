@@ -4,7 +4,7 @@
   "allowed_paths": [
     "agents/agent_backend/**",
     "scripts/pwsh/agent-backend.ps1",
-    "EasyWay-DataPortal/easyway-portal-api/**",
+    "portal-api/easyway-portal-api/**",
     "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/**",
     "agents/kb/recipes.jsonl",
     "agents/logs/**",
@@ -20,7 +20,7 @@
   ],
   "approvals": {},
   "knowledge_sources": [
-    "EasyWay-DataPortal/easyway-portal-api/openapi/openapi.yaml",
+    "portal-api/easyway-portal-api/openapi/openapi.yaml",
     "Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md",
     "agents/AGENT_WORKFLOW_STANDARD.md",
     "agents/GEDI_INTEGRATION_PATTERN.md"

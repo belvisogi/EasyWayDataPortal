@@ -9,7 +9,7 @@
     "docs/agentic/templates/orchestrations/**",
     "Wiki/EasyWayData.wiki/orchestrations/**",
     "Wiki/EasyWayData.wiki/api/**",
-    "EasyWay-DataPortal/easyway-portal-api/**"
+    "portal-api/easyway-portal-api/**"
   ],
   "allowed_tools": [
     "pwsh"

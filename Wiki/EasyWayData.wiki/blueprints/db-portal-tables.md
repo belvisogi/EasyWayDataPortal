@@ -39,7 +39,7 @@ Output:
 ## Diagramma ER (visualizzatore interno)
 Contesto: abbiamo già un blueprint derivabile da Flyway, quindi possiamo generare un JSON di diagramma e visualizzarlo internamente (senza dipendenze esterne).
 - Generazione modello diagramma: `pwsh scripts/db-export-portal-diagram.ps1 -FlywaySqlDir db/flyway/sql -Schema PORTAL -OutJson out/db/portal-diagram.json`
-- Viewer (prototype statico): `EasyWay-DataPortal/easyway-portal-frontend/static/db-diagram-viewer.html` (carica `out/db/portal-diagram.json`)
+- Viewer (prototype statico): `portal-api/easyway-portal-frontend/static/db-diagram-viewer.html` (carica `out/db/portal-diagram.json`)
 - Specifica/uso: `blueprints/db-portal-diagram.md`
 
 ## Come mantenerlo allineato
