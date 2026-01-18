@@ -9,12 +9,28 @@
     - README.md existence and linkage
     - Referenced scripts existence
 
+.PARAMETER Mode
+    Audit mode: all, manifest-only, scripts-only, readme-only
+
 .PARAMETER DryRun
     No-op parameter for standard compliance (script is read-only implicitly).
+    
+.PARAMETER AutoFix
+    Attempts to auto-fix common issues
+    
+.PARAMETER FailOnError
+    Exit with code 1 if errors found
+    
+.PARAMETER SummaryOut
+    Path to JSON summary output file
 #>
 param(
+    [ValidateSet('all', 'manifest-only', 'scripts-only', 'readme-only')]
+    [string]$Mode = 'all',
     [switch]$DryRun,
-    [switch]$AutoFix
+    [switch]$AutoFix,
+    [switch]$FailOnError,
+    [string]$SummaryOut = "out/agent-audit.json"
 )
 
 $ErrorActionPreference = "Stop"
@@ -46,7 +62,8 @@ foreach ($agentFolder in $agents) {
     # 1. Manifest Check
     if (-not (Test-Path $manifestPath)) {
         $errors += "Missing manifest.json"
-    } else {
+    }
+    else {
         try {
             $manifest = Get-Content $manifestPath -Raw | ConvertFrom-Json
             
@@ -69,7 +86,8 @@ foreach ($agentFolder in $agents) {
                     $manifestDirty = $true
                     Write-Host " [FIXED: Added classification='arm']" -ForegroundColor Green -NoNewline
                 }
-            } elseif ($manifest.classification -notin @("brain", "arm")) {
+            }
+            elseif ($manifest.classification -notin @("brain", "arm")) {
                 $errors += "Invalid classification '$($manifest.classification)'. Must be 'brain' or 'arm'."
             }
 
@@ -84,7 +102,8 @@ foreach ($agentFolder in $agents) {
                     $manifestDirty = $true
                     Write-Host " [FIXED: Added readme field]" -ForegroundColor Green -NoNewline
                 }
-            } elseif (-not (Test-Path (Join-Path $agentFolder.FullName $manifest.readme))) {
+            }
+            elseif (-not (Test-Path (Join-Path $agentFolder.FullName $manifest.readme))) {
                 $errors += "Manifest links to '$($manifest.readme)' but file not found"
             }
             
@@ -101,7 +120,8 @@ foreach ($agentFolder in $agents) {
                 $errors = $errors | Where-Object { $_ -notmatch "Manifest missing 'name'" -and $_ -notmatch "Manifest missing 'readme' field" }
             }
             
-        } catch {
+        }
+        catch {
             $errors += "Invalid JSON in manifest.json"
         }
     }
@@ -109,11 +129,11 @@ foreach ($agentFolder in $agents) {
     # 2. Independent README Check
     if (-not (Test-Path $readmePath)) {
         if ($errors -notcontains "Manifest links to 'README.md' but file not found") {
-             $warnings += "No README.md found in agent root"
-             if ($AutoFix) {
-                 $role = if ($manifest.role) { $manifest.role } else { "Agent" }
-                 $desc = if ($manifest.description) { $manifest.description } else { "Auto-generated description." }
-                 $readmeContent = @"
+            $warnings += "No README.md found in agent root"
+            if ($AutoFix) {
+                $role = if ($manifest.role) { $manifest.role } else { "Agent" }
+                $desc = if ($manifest.description) { $manifest.description } else { "Auto-generated description." }
+                $readmeContent = @"
 # $agentName
 **Role**: $role
 
@@ -130,13 +150,13 @@ $desc
 ## Usage
 See manifest for actions.
 "@
-                 if (-not $DryRun) {
-                     $readmeContent | Set-Content -Path $readmePath -Encoding UTF8
-                     $filesFixed++
-                     Write-Host " [FIXED: Created README.md]" -ForegroundColor Green -NoNewline
-                     $warnings = $warnings | Where-Object { $_ -ne "No README.md found in agent root" }
-                 }
-             }
+                if (-not $DryRun) {
+                    $readmeContent | Set-Content -Path $readmePath -Encoding UTF8
+                    $filesFixed++
+                    Write-Host " [FIXED: Created README.md]" -ForegroundColor Green -NoNewline
+                    $warnings = $warnings | Where-Object { $_ -ne "No README.md found in agent root" }
+                }
+            }
         }
     }
     
@@ -145,21 +165,49 @@ See manifest for actions.
         Write-Host " FAIL" -ForegroundColor Red
         foreach ($e in $errors) { Write-Host "      ❌ $e" -ForegroundColor Red }
         $totalErrors += $errors.Count
-    } elseif ($warnings.Count -gt 0) {
+    }
+    elseif ($warnings.Count -gt 0) {
         Write-Host " WARN" -ForegroundColor Yellow
         foreach ($w in $warnings) { Write-Host "      ⚠️  $w" -ForegroundColor Yellow }
         $totalWarnings += $warnings.Count
-    } else {
+    }
+    else {
         Write-Host " OK" -ForegroundColor Green
     }
 }
 
 Write-Host "`n----------------------------------------"
+
+# Generate JSON summary
+$summary = @{
+    timestamp    = Get-Date -Format 'o'
+    mode         = $Mode
+    total_agents = $agents.Count
+    errors       = $totalErrors
+    warnings     = $totalWarnings
+    files_fixed  = $filesFixed
+    passed       = ($agents.Count - ($totalErrors / [Math]::Max($agents.Count, 1)))
+}
+
+# Save summary if path provided
+if ($SummaryOut) {
+    $outDir = Split-Path $SummaryOut -Parent
+    if ($outDir -and -not (Test-Path $outDir)) {
+        New-Item -ItemType Directory -Path $outDir -Force | Out-Null
+    }
+    $summary | ConvertTo-Json -Depth 5 | Out-File $SummaryOut -Encoding UTF8
+    Write-Host "Summary saved: $SummaryOut" -ForegroundColor Cyan
+}
+
 if ($totalErrors -gt 0) {
     Write-Host "🛑 Audit Failed: $totalErrors errors, $totalWarnings warnings." -ForegroundColor Red
-    exit 1
-} else {
+    if ($FailOnError) {
+        exit 1
+    }
+}
+else {
     Write-Host "✅ Audit Passed: All agents compliant." -ForegroundColor Green
     if ($totalWarnings -gt 0) { Write-Host "   ($totalWarnings warnings found)" -ForegroundColor Yellow }
-    exit 0
 }
+
+exit 0

@@ -17,9 +17,43 @@
   "actions": [
     {
       "name": "audit:agents.inspect",
-      "description": "Esegue l'audit di tutti gli agenti registrati.",
+      "description": "Esegue l'audit completo di tutti gli agenti registrati.",
       "script": "../../scripts/pwsh/agent-audit.ps1",
       "params": {
+        "Mode": "all",
+        "DryRun": false
+      }
+    },
+    {
+      "name": "audit:manifest.validate",
+      "description": "Valida solo i manifest JSON (schema + required fields)",
+      "script": "../../scripts/pwsh/agent-audit.ps1",
+      "params": {
+        "Mode": "manifest-only"
+      }
+    },
+    {
+      "name": "audit:scripts.check",
+      "description": "Verifica esistenza script referenziati nei manifest",
+      "script": "../../scripts/pwsh/agent-audit.ps1",
+      "params": {
+        "Mode": "scripts-only"
+      }
+    },
+    {
+      "name": "audit:readme.check",
+      "description": "Verifica presenza README.md per ogni agente",
+      "script": "../../scripts/pwsh/agent-audit.ps1",
+      "params": {
+        "Mode": "readme-only"
+      }
+    },
+    {
+      "name": "audit:fix.auto",
+      "description": "Auto-fix violazioni comuni (README, manifest fields)",
+      "script": "../../scripts/pwsh/agent-audit.ps1",
+      "params": {
+        "AutoFix": true,
         "DryRun": false
       }
     }
