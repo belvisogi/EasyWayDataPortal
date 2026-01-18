@@ -27,7 +27,7 @@
     {
       "name": "docs:check",
       "description": "Verifica allineamento tra docs (.md) e scripts (.ps1). Controlla tag consistency, cross-references, esempi validi. Keywords: 'check documentazione', 'valida docs', 'alignment check'.",
-      "script": "../../scripts/ps/agent-docs-sync.ps1",
+      "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
         "action": {
           "type": "string",
@@ -46,7 +46,7 @@
           "description": "Check allineamento completo docs/scripts"
         },
         {
-          "command": "pwsh Rules.Vault/scripts/ps/agent-docs-sync.ps1 -Action check -Scope ado",
+          "command": "pwsh Rules.Vault/scripts/pwsh/agent-docs-sync.ps1 -Action check -Scope ado",
           "description": "Check solo docs ADO"
         }
       ]
@@ -54,7 +54,7 @@
     {
       "name": "docs:validate",
       "description": "Valida metadata YAML frontmatter e .METADATA blocks. Verifica tag taxonomy compliance. Keywords: 'valida metadata', 'check tags', 'taxonomy validation'.",
-      "script": "../../scripts/ps/agent-docs-sync.ps1",
+      "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
         "action": {
           "type": "string",
@@ -73,7 +73,7 @@
           "description": "Valida tutto"
         },
         {
-          "command": "pwsh Rules.Vault/scripts/ps/agent-docs-sync.ps1 -Action validate -Path Rules/ADO_EXPORT_GUIDE.md",
+          "command": "pwsh Rules.Vault/scripts/pwsh/agent-docs-sync.ps1 -Action validate -Path Rules/ADO_EXPORT_GUIDE.md",
           "description": "Valida singolo file"
         }
       ]
@@ -81,7 +81,7 @@
     {
       "name": "docs:report",
       "description": "Genera report su coverage metadata, orphaned files, tag statistics. Keywords: 'docs report', 'coverage report', 'metadata stats'.",
-      "script": "../../scripts/ps/agent-docs-sync.ps1",
+      "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
         "action": {
           "type": "string",
@@ -104,7 +104,7 @@
     {
       "name": "docs:sync",
       "description": "Sincronizza docs basandosi su script changes. Genera PR con aggiornamenti suggeriti. Richiede approval. Keywords: 'sync docs', 'update documentation', 'align docs'.",
-      "script": "../../scripts/ps/agent-docs-sync.ps1",
+      "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
         "action": {
           "type": "string",
@@ -119,7 +119,7 @@
       },
       "examples": [
         {
-          "command": "pwsh Rules.Vault/scripts/ps/agent-docs-sync.ps1 -Action sync -ChangedFile agent-ado-userstory.ps1",
+          "command": "pwsh Rules.Vault/scripts/pwsh/agent-docs-sync.ps1 -Action sync -ChangedFile agent-ado-userstory.ps1",
           "description": "Sync basato su cambio script"
         }
       ]
@@ -127,7 +127,7 @@
     {
       "name": "docs:scan",
       "description": "Scansiona contenuto file per proporre TAG basati sul contenuto reale (Circular Flow). Richiede validazione GEDI per modifiche massive.",
-      "script": "../../scripts/ps/agent-docs-scanner.ps1",
+      "script": "../../scripts/pwsh/agent-docs-scanner.ps1",
       "params": {
         "action": {
           "type": "string",
@@ -137,7 +137,7 @@
       },
       "examples": [
         {
-          "command": "pwsh scripts/ps/agent-docs-scanner.ps1 -Action Propose",
+          "command": "pwsh scripts/pwsh/agent-docs-scanner.ps1 -Action Propose",
           "description": "Propone tag mancanti basandosi su keywords"
         }
       ]
@@ -147,3 +147,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

@@ -1,3 +1,14 @@
+---
+id: argos-modular-interop
+title: ARGOS – Modular Architecture & Interop (v1)
+summary: Auto-generated from filename
+status: draft
+owner: team-platform
+tags: []
+llm:
+  include: true
+  chunk_hint: 5000
+---
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 title: ARGOS – Modular Architecture & Interop (v1)
@@ -41,6 +52,7 @@ Solo M1; M1+M3; M1+M2; Full. Feature flags e NFR (latency, backpressure, RBAC & 
 
 ## RACI e roadmap modulare
 Attivazione progressiva 1) M1 2) M3 3) M2 4) Full.
+
 
 
 

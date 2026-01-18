@@ -12,7 +12,10 @@ summary: Guida pratica per team: definisci il WHAT (manifest, intents, UX), eseg
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
 
@@ -85,6 +88,7 @@ Riferimenti
 - UX Mock (diario): `UX/diary-mock-wf-excel-csv-upload.md`
 - UX Checklist: `UX/usability-checklist.md`
 - Quest Board: `quest-board-excel-csv.md`
+
 
 
 

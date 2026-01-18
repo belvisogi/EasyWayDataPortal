@@ -1,3 +1,14 @@
+---
+id: agent-roster
+title: 🤖 Agent Marketplace & Roster
+summary: Auto-generated from filename
+status: draft
+owner: team-platform
+tags: []
+llm:
+  include: true
+  chunk_hint: 5000
+---
 # 🤖 Agent Marketplace & Roster
 
 Discover the comprehensive collection of EasyWay agents. Classified by **Strategic Role (Brains)** and **Executive Function (Arms)**.
@@ -63,3 +74,4 @@ Discover the comprehensive collection of EasyWay agents. Classified by **Strateg
 - **Executive Arms**: 20
 
 _(Generated via scripts/generate-agent-roster.ps1)_
+

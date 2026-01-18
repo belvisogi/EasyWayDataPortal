@@ -12,7 +12,10 @@ summary: Procedura per rendere il job EnforcerCheck un check Required nelle PR (
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Gate|Gate]]
 
@@ -54,6 +57,7 @@ Riferimenti
 - [Validazione Output Agenti in CI](./agent-output-validation-ci.md)
 - [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
 - [Deploy su Azure App Service – Pipeline & Variabili](./deploy-app-service.md)
+
 
 
 

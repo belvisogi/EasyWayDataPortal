@@ -264,7 +264,7 @@
     {
       "name": "gedi:ooda.loop",
       "description": "Running OODA Loop: Observe (Context), Orient (Principles), Decide, Act (Guidance).",
-      "script": "../../scripts/agent-gedi.ps1",
+      "script": "../../scripts/pwsh/agent-gedi.ps1",
       "params": {
         "Context": {
           "type": "string",
@@ -280,5 +280,13 @@
         }
       }
     }
+  ],
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
+  "required_gates": [
+    "doc_alignment"
   ]
 }
+

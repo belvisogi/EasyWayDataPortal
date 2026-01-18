@@ -12,7 +12,10 @@ summary: Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, 
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
 
@@ -64,6 +67,7 @@ owner: team-platform
 7) Materiale legacy / asset
 - Contesto: `blueprints/legacy-reference-material.md`
 - Branding: `UX/branding-assets.md`
+
 
 
 

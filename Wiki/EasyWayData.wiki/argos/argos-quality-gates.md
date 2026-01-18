@@ -1,3 +1,14 @@
+---
+id: argos-quality-gates
+title: ARGOS – Quality Gates (v1.1)
+summary: Auto-generated from filename
+status: draft
+owner: team-platform
+tags: []
+llm:
+  include: true
+  chunk_hint: 5000
+---
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 title: ARGOS – Quality Gates (v1.1)
@@ -99,6 +110,7 @@ Quarantine con TTL e retention; re‑processing programmato; safe-actions solo c
 
 ## 10) KPI dei Gates
 GPR, Blocking Rate, False PASS sample rate, Quarantine Dwell Time, Decision Trace coverage, override/backout rate, Time‑to‑decision p95.
+
 
 
 

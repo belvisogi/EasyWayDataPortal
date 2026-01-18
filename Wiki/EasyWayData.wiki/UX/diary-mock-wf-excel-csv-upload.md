@@ -12,7 +12,10 @@ summary: Schermate mock (testuali) del diario di bordo per il workflow Excel/CSV
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
 
@@ -151,6 +154,7 @@ Note
 - Tutti i messaggi UX sono allineati ai `ux_prompts` del manifest (WHAT) e vanno localizzati.
 - Il diario deve essere leggibile “a colpo d’occhio”, con pulsanti chiari e un aiuto contestuale semplice.
  - Copioni localizzati: vedere `docs/agentic/templates/orchestrations/ux_prompts.it.json` e `ux_prompts.en.json`.
+
 
 
 

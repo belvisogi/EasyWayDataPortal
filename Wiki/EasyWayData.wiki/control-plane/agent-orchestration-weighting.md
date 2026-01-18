@@ -12,7 +12,10 @@ summary: Sistema di orchestrazione multi-agent con weighting qualità-focused, p
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
@@ -892,5 +895,6 @@ Altrimenti: **stay con Expert + Reviewer**.
 **Status**: RECOMMENDED APPROACH (2026-01-13)  
 **Owner**: team-platform  
 **Next Review**: 2026-07-01 (6 months)
+
 
 

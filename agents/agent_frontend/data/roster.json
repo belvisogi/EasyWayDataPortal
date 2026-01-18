@@ -1,154 +1,386 @@
 {
+  "graph": {
+    "nodes": [
+      {
+        "group": "arm",
+        "id": "agent_ado_userstory",
+        "label": "agent_ado_userstory",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_ams",
+        "label": "agent_ams",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_api",
+        "label": "agent_api",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_audit",
+        "label": "Agent_Audit",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_backend",
+        "label": "agent_backend",
+        "val": 10
+      },
+      {
+        "group": "brain",
+        "id": "agent_cartographer",
+        "label": "Agent Cartographer (The Navigator)",
+        "val": 20
+      },
+      {
+        "group": "brain",
+        "id": "agent_chronicler",
+        "label": "Agent Chronicler (The Bard)",
+        "val": 20
+      },
+      {
+        "group": "arm",
+        "id": "agent_creator",
+        "label": "agent_creator",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_datalake",
+        "label": "agent_datalake",
+        "val": 10
+      },
+      {
+        "group": "brain",
+        "id": "agent_dba",
+        "label": "Agent_DBA",
+        "val": 20
+      },
+      {
+        "group": "arm",
+        "id": "agent_docs_review",
+        "label": "agent_docs_review",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_docs_sync",
+        "label": "agent_docs_sync",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_dq_blueprint",
+        "label": "agent_dq_blueprint",
+        "val": 10
+      },
+      {
+        "group": "brain",
+        "id": "agent_gedi",
+        "label": "Agent GEDI (Guardian EasyWay Delle Intenzioni)",
+        "val": 30
+      },
+      {
+        "group": "brain",
+        "id": "agent_governance",
+        "label": "agent_governance",
+        "val": 20
+      },
+      {
+        "group": "arm",
+        "id": "agent_infra",
+        "label": "agent_infra",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_observability",
+        "label": "agent_observability",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_pr_manager",
+        "label": "agent_pr_manager",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_release",
+        "label": "agent_release",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_retrieval",
+        "label": "agent_retrieval",
+        "val": 10
+      },
+      {
+        "group": "brain",
+        "id": "agent_scrummaster",
+        "label": "agent_scrummaster",
+        "val": 20
+      },
+      {
+        "group": "arm",
+        "id": "agent_second_brain",
+        "label": "agent_second_brain",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_security",
+        "label": "agent_security",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_synapse",
+        "label": "agent_synapse",
+        "val": 10
+      },
+      {
+        "group": "arm",
+        "id": "agent_template",
+        "label": "agent_template",
+        "val": 10
+      },
+      {
+        "group": "system",
+        "id": "sys_ado",
+        "label": "Azure DevOps",
+        "val": 15
+      },
+      {
+        "group": "system",
+        "id": "sys_sql",
+        "label": "SQL Server",
+        "val": 15
+      },
+      {
+        "group": "system",
+        "id": "sys_wiki",
+        "label": "Wiki KB",
+        "val": 15
+      },
+      {
+        "group": "system",
+        "id": "sys_azure",
+        "label": "Azure Cloud",
+        "val": 15
+      }
+    ],
+    "links": [
+      {
+        "source": "agent_ado_userstory",
+        "target": "sys_ado"
+      },
+      {
+        "source": "agent_chronicler",
+        "target": "sys_wiki"
+      },
+      {
+        "source": "agent_dba",
+        "target": "sys_sql"
+      },
+      {
+        "source": "agent_dba",
+        "target": "agent_gedi",
+        "type": "strategic"
+      },
+      {
+        "source": "agent_docs_review",
+        "target": "sys_wiki"
+      },
+      {
+        "source": "agent_docs_sync",
+        "target": "sys_wiki"
+      },
+      {
+        "source": "agent_governance",
+        "target": "agent_gedi",
+        "type": "strategic"
+      },
+      {
+        "source": "agent_infra",
+        "target": "sys_azure"
+      },
+      {
+        "source": "agent_scrummaster",
+        "target": "sys_ado"
+      },
+      {
+        "source": "agent_synapse",
+        "target": "sys_azure"
+      }
+    ]
+  },
   "agents": [
     {
-      "tools": [],
-      "id": "agent_ado_userstory",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Gestione User Story su Azure DevOps: prefetch best practices (Wiki + esterne) e creazione work item con output strutturato.",
+      "model": "Default",
       "actions": [
         "ado:bestpractice.prefetch",
         "ado:bootstrap",
         "ado:userstory.create"
       ],
+      "id": "agent_ado_userstory",
       "classification": "arm",
-      "name": "agent_ado_userstory",
       "os_tools": [
         "pwsh"
       ],
-      "description": "Gestione User Story su Azure DevOps: prefetch best practices (Wiki + esterne) e creazione work item con output strutturato.",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_ado_userstory",
+      "tools": [],
       "role": "Agent_ADO_UserStory"
     },
     {
-      "tools": [],
-      "id": "agent_ams",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Automazione operativa conversazionale (Checklist, Variable Group, deploy helpers)",
+      "model": "Default",
       "actions": [],
+      "id": "agent_ams",
       "classification": "arm",
-      "name": "agent_ams",
       "os_tools": [
         "pwsh",
         "npm",
         "curl"
       ],
-      "description": "Automazione operativa conversazionale (Checklist, Variable Group, deploy helpers)",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_ams",
+      "tools": [],
       "role": "Agent_AMS"
     },
     {
-      "tools": [],
-      "id": "agent_api",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Triage e tracciamento errori API; produce output strutturato per orchestrazioni n8n.",
+      "model": "Default",
       "actions": [
         "api-error:triage"
       ],
+      "id": "agent_api",
       "classification": "arm",
-      "name": "agent_api",
       "os_tools": [
         "pwsh"
       ],
-      "description": "Triage e tracciamento errori API; produce output strutturato per orchestrazioni n8n.",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_api",
+      "tools": [],
       "role": "Agent_API"
     },
     {
-      "tools": [],
-      "id": "agent_audit",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Responsabile della verifica di conformità architetturale degli agenti.",
+      "model": "Default",
       "actions": [
         "audit:agents.inspect"
       ],
+      "id": "agent_audit",
       "classification": "arm",
+      "os_tools": [
+        "pwsh",
+        "git"
+      ],
       "name": "Agent_Audit",
-      "os_tools": [],
-      "description": "Responsabile della verifica di conformità architetturale degli agenti.",
-      "model": "Default",
-      "icon": "🤖",
+      "tools": [],
       "role": "Inspector"
     },
     {
-      "tools": [],
-      "id": "agent_backend",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Owner implementazione API: OpenAPI, pattern middleware auth/tenant, lint e scaffolding endpoint (distinct da agent_api triage).",
+      "model": "Default",
       "actions": [
         "api:openapi-validate"
       ],
+      "id": "agent_backend",
       "classification": "arm",
-      "name": "agent_backend",
       "os_tools": [
         "pwsh",
         "npm"
       ],
-      "description": "Owner implementazione API: OpenAPI, pattern middleware auth/tenant, lint e scaffolding endpoint (distinct da agent_api triage).",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_backend",
+      "tools": [],
       "role": "Agent_Backend"
     },
     {
-      "tools": [
-        "graph_query",
-        "impact_simulator",
-        "dependency_mapper"
-      ],
-      "id": "agent_cartographer",
+      "icon": "🧠",
       "owner": "team-architecture",
+      "description": "Mantiene la Mappa delle Dipendenze (Knowledge Graph). Prima di ogni modifica distruttiva, viene consultato per simulare gli impatti a cascata ('Butterfly Effect Analysis').",
+      "model": "gpt-4-turbo",
       "actions": [
         "graph:query",
         "graph:update",
         "impact:simulate"
       ],
+      "id": "agent_cartographer",
       "classification": "brain",
+      "os_tools": [
+        "pwsh",
+        "git"
+      ],
       "name": "Agent Cartographer (The Navigator)",
-      "os_tools": [],
-      "description": "Mantiene la Mappa delle Dipendenze (Knowledge Graph). Prima di ogni modifica distruttiva, viene consultato per simulare gli impatti a cascata ('Butterfly Effect Analysis').",
-      "model": "gpt-4-turbo",
-      "icon": "🧠",
+      "tools": [
+        "graph_query",
+        "impact_simulator",
+        "dependency_mapper"
+      ],
       "role": "mapper"
     },
     {
+      "icon": "🧠",
+      "owner": "team-platform",
+      "description": "The Voice of History. Osserva l'evoluzione dell'ecosistema, registra le pietre miliari e celebra i momenti di vera innovazione ('A star is born').",
+      "model": "gpt-4o",
+      "actions": [
+        "chronicle:record",
+        "chronicle:announce"
+      ],
+      "id": "agent_chronicler",
+      "classification": "brain",
+      "os_tools": [
+        "pwsh",
+        "git"
+      ],
+      "name": "Agent Chronicler (The Bard)",
       "tools": [
         "event_listener",
         "history_writer",
         "announcer"
       ],
-      "id": "agent_chronicler",
-      "owner": "team-platform",
-      "actions": [
-        "chronicle:record",
-        "chronicle:announce"
-      ],
-      "classification": "brain",
-      "name": "Agent Chronicler (The Bard)",
-      "os_tools": [],
-      "description": "The Voice of History. Osserva l'evoluzione dell'ecosistema, registra le pietre miliari e celebra i momenti di vera innovazione ('A star is born').",
-      "model": "gpt-4o",
-      "icon": "🧠",
       "role": "historian"
     },
     {
-      "tools": [],
-      "id": "agent_creator",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Scaffolding governato di nuovi agenti (manifest/templates/KB/Wiki) usando pattern canonici + contesto RAG (Azure AI Search) orchestrato da n8n.",
+      "model": "Default",
       "actions": [
         "agent:scaffold"
       ],
+      "id": "agent_creator",
       "classification": "arm",
-      "name": "agent_creator",
       "os_tools": [
         "pwsh",
         "git"
       ],
-      "description": "Scaffolding governato di nuovi agenti (manifest/templates/KB/Wiki) usando pattern canonici + contesto RAG (Azure AI Search) orchestrato da n8n.",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_creator",
+      "tools": [],
       "role": "Agent_Creator"
     },
     {
-      "tools": [],
-      "id": "agent_datalake",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Gestione operativa e compliance del Datalake: naming, ACL, audit, retention, export log, policy.",
+      "model": "Default",
       "actions": [
         "dlk-ensure-structure",
         "dlk-apply-acl",
@@ -156,22 +388,22 @@
         "dlk-export-log",
         "etl-slo:validate"
       ],
+      "id": "agent_datalake",
       "classification": "arm",
-      "name": "agent_datalake",
       "os_tools": [
         "pwsh",
         "azcopy",
         "terraform"
       ],
-      "description": "Gestione operativa e compliance del Datalake: naming, ACL, audit, retention, export log, policy.",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_datalake",
+      "tools": [],
       "role": "Agent_Datalake"
     },
     {
-      "tools": [],
-      "id": "agent_dba",
+      "icon": "🧠",
       "owner": "Platform Team",
+      "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
+      "model": "Default",
       "actions": [
         "db-user:create",
         "db-user:rotate",
@@ -183,38 +415,38 @@
         "db-table:create",
         "db-blueprint:generate"
       ],
+      "id": "agent_dba",
       "classification": "brain",
-      "name": "Agent_DBA",
       "os_tools": [
         "npm",
         "pwsh",
         "sqlcmd",
         "az"
       ],
-      "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
-      "model": "Default",
-      "icon": "🧠",
+      "name": "Agent_DBA",
+      "tools": [],
       "role": "Agent_DBA"
     },
     {
-      "tools": [],
-      "id": "agent_docs_review",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Revisione documentazione: normalizzazione Wiki, indici/chunk, coerenza KB, supporto aggiunta ricette.",
+      "model": "Default",
       "actions": [],
+      "id": "agent_docs_review",
       "classification": "arm",
-      "name": "agent_docs_review",
       "os_tools": [
         "pwsh"
       ],
-      "description": "Revisione documentazione: normalizzazione Wiki, indici/chunk, coerenza KB, supporto aggiunta ricette.",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_docs_review",
+      "tools": [],
       "role": "Agent_Docs_Review"
     },
     {
-      "tools": [],
-      "id": "agent_docs_sync",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Mantiene allineamento tra documentazione e codice: valida tag metadata, verifica cross-references, suggerisce aggiornamenti docs quando script cambiano.",
+      "model": "Default",
       "actions": [
         "docs:check",
         "docs:validate",
@@ -222,251 +454,258 @@
         "docs:sync",
         "docs:scan"
       ],
+      "id": "agent_docs_sync",
       "classification": "arm",
-      "name": "agent_docs_sync",
       "os_tools": [
         "pwsh"
       ],
-      "description": "Mantiene allineamento tra documentazione e codice: valida tag metadata, verifica cross-references, suggerisce aggiornamenti docs quando script cambiano.",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_docs_sync",
+      "tools": [],
       "role": "Agent_Docs_Sync"
     },
     {
-      "tools": [],
-      "id": "agent_dq_blueprint",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX/schema, integrato con ARGOS.",
+      "model": "Default",
       "actions": [
         null
       ],
+      "id": "agent_dq_blueprint",
       "classification": "arm",
+      "os_tools": [
+        "pwsh",
+        "git"
+      ],
       "name": "agent_dq_blueprint",
-      "os_tools": [],
-      "description": "Genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX/schema, integrato con ARGOS.",
-      "model": "Default",
-      "icon": "🤖",
+      "tools": [],
       "role": "Blueprint"
     },
     {
+      "icon": "⚖️",
+      "owner": "team-platform",
+      "description": "Custode del Manifesto EasyWay. Ricorda a tutti - agenti e umani - i principi fondamentali: qualità > velocità, misuriamo due tagliamo una, il percorso conta, lasciare impronta tangibile.",
+      "model": "gpt-4o",
+      "actions": [
+        "gedi:ooda.loop"
+      ],
+      "id": "agent_gedi",
+      "classification": "brain",
+      "os_tools": [
+        "pwsh",
+        "git"
+      ],
+      "name": "Agent GEDI (Guardian EasyWay Delle Intenzioni)",
       "tools": [
         "reasoning_engine",
         "manifesto_search"
       ],
-      "id": "agent_gedi",
-      "owner": "team-platform",
-      "actions": [
-        "gedi:ooda.loop"
-      ],
-      "classification": "brain",
-      "name": "Agent GEDI (Guardian EasyWay Delle Intenzioni)",
-      "os_tools": [],
-      "description": "Custode del Manifesto EasyWay. Ricorda a tutti - agenti e umani - i principi fondamentali: qualità > velocità, misuriamo due tagliamo una, il percorso conta, lasciare impronta tangibile.",
-      "model": "gpt-4o",
-      "icon": "⚖️",
       "role": "philosophy_guardian"
     },
     {
-      "tools": [],
-      "id": "agent_governance",
+      "icon": "🧠",
       "owner": "Platform Team",
+      "description": "Policy, qualità, gates e approvazioni per DB/API/Docs",
+      "model": "Default",
       "actions": [],
+      "id": "agent_governance",
       "classification": "brain",
-      "name": "agent_governance",
       "os_tools": [
         "pwsh",
         "node"
       ],
-      "description": "Policy, qualità, gates e approvazioni per DB/API/Docs",
-      "model": "Default",
-      "icon": "🧠",
+      "name": "agent_governance",
+      "tools": [],
       "role": "Agent_Governance"
     },
     {
-      "tools": [],
-      "id": "agent_infra",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "IaC/Terraform governato: validate/plan/apply (WhatIf-by-default), drift infra e runbook.",
+      "model": "Default",
       "actions": [
         "infra:terraform-plan"
       ],
+      "id": "agent_infra",
       "classification": "arm",
-      "name": "agent_infra",
       "os_tools": [
         "pwsh",
         "terraform",
         "az"
       ],
-      "description": "IaC/Terraform governato: validate/plan/apply (WhatIf-by-default), drift infra e runbook.",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_infra",
+      "tools": [],
       "role": "Agent_Infra"
     },
     {
-      "tools": [],
-      "id": "agent_observability",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Osservabilita': health check, standard logging, suggerimenti OTel/AppInsights e runbook troubleshooting (no secrets).",
+      "model": "Default",
       "actions": [
         "obs:healthcheck"
       ],
+      "id": "agent_observability",
       "classification": "arm",
-      "name": "agent_observability",
       "os_tools": [
         "pwsh"
       ],
-      "description": "Osservabilita': health check, standard logging, suggerimenti OTel/AppInsights e runbook troubleshooting (no secrets).",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_observability",
+      "tools": [],
       "role": "Agent_Observability"
     },
     {
-      "tools": [],
-      "id": "agent_pr_manager",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Crea e propone Pull Request agentiche con esiti gates e riferimenti artifact. Nessun merge autonomo.",
+      "model": "Default",
       "actions": [],
+      "id": "agent_pr_manager",
       "classification": "arm",
-      "name": "agent_pr_manager",
       "os_tools": [
         "pwsh",
         "git",
         "az"
       ],
-      "description": "Crea e propone Pull Request agentiche con esiti gates e riferimenti artifact. Nessun merge autonomo.",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_pr_manager",
+      "tools": [],
       "role": "Agent_PR_Manager"
     },
     {
-      "tools": [],
-      "id": "agent_release",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Packaging/versioning del runtime bundle (copia parziale) per runner segregato: build artifact e publish (no segreti).",
+      "model": "Default",
       "actions": [
         "runtime:bundle"
       ],
+      "id": "agent_release",
       "classification": "arm",
-      "name": "agent_release",
       "os_tools": [
         "pwsh",
         "git"
       ],
-      "description": "Packaging/versioning del runtime bundle (copia parziale) per runner segregato: build artifact e publish (no segreti).",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_release",
+      "tools": [],
       "role": "Agent_Release"
     },
     {
-      "tools": [],
-      "id": "agent_retrieval",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Gestione RAG: indicizzazione Wiki/KB, retrieval bundles, sync verso vector DB (on-demand), anti-duplicati/canonical.",
+      "model": "Default",
       "actions": [
         "rag:export-wiki-chunks"
       ],
+      "id": "agent_retrieval",
       "classification": "arm",
-      "name": "agent_retrieval",
       "os_tools": [
         "pwsh"
       ],
-      "description": "Gestione RAG: indicizzazione Wiki/KB, retrieval bundles, sync verso vector DB (on-demand), anti-duplicati/canonical.",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_retrieval",
+      "tools": [],
       "role": "Agent_Retrieval"
     },
     {
-      "tools": [],
-      "id": "agent_scrummaster",
+      "icon": "🧠",
       "owner": "Platform Team",
+      "description": "Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks.",
+      "model": "Default",
       "actions": [],
+      "id": "agent_scrummaster",
       "classification": "brain",
-      "name": "agent_scrummaster",
       "os_tools": [
         "pwsh",
         "az",
         "curl"
       ],
-      "description": "Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks.",
-      "model": "Default",
-      "icon": "🧠",
+      "name": "agent_scrummaster",
+      "tools": [],
       "role": "Agent_ScrumMaster"
     },
     {
-      "tools": [],
-      "id": "agent_second_brain",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "Responsabile della navigabilità semantica, Context Injection e manutenzione dei Breadcrumbs.",
+      "model": "Default",
       "actions": [
         "brain:breadcrumbs.generate",
         "brain:breadcrumbs.clean"
       ],
+      "id": "agent_second_brain",
       "classification": "arm",
+      "os_tools": [
+        "pwsh",
+        "git"
+      ],
       "name": "agent_second_brain",
-      "os_tools": [],
-      "description": "Responsabile della navigabilità semantica, Context Injection e manutenzione dei Breadcrumbs.",
-      "model": "Default",
-      "icon": "🤖",
+      "tools": [],
       "role": "Navigator"
     },
     {
-      "tools": [],
-      "id": "agent_security",
+      "icon": "🛡️",
       "owner": "Platform Team",
+      "description": "Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit e registry (no valori segreti nei log).",
+      "model": "Default",
       "actions": [
         "kv-secret:set",
         "kv-secret:reference",
         "access-registry:propose"
       ],
+      "id": "agent_security",
       "classification": "arm",
-      "name": "agent_security",
       "os_tools": [
         "pwsh",
         "az"
       ],
-      "description": "Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit e registry (no valori segreti nei log).",
-      "model": "Default",
-      "icon": "🛡️",
+      "name": "agent_security",
+      "tools": [],
       "role": "Agent_Security"
     },
     {
-      "tools": [],
-      "id": "agent_synapse",
+      "icon": "🤖",
       "owner": "Platform Team",
+      "description": "[EXPERIMENTAL - Phase 2] Gestione workspace Synapse/DataFactory: scaffolding cartelle, linting PySpark, gestione Linked Services e template standard. In valutazione per roadmap analytics avanzati.",
+      "model": "Default",
       "actions": [
-        "synapse:scaffold",
-        "synapse:check-sql"
+        "synapse:scaffold"
       ],
+      "id": "agent_synapse",
       "classification": "arm",
-      "name": "agent_synapse",
       "os_tools": [
         "pwsh"
       ],
-      "description": "[EXPERIMENTAL - Phase 2] Gestione workspace Synapse/DataFactory: scaffolding cartelle, linting PySpark, gestione Linked Services e template standard. In valutazione per roadmap analytics avanzati.",
-      "model": "Default",
-      "icon": "🤖",
+      "name": "agent_synapse",
+      "tools": [],
       "role": "Agent_Synapse"
     },
     {
-      "tools": [
-        "web_search",
-        "code_interpreter"
-      ],
-      "id": "agent_template",
+      "icon": "🤖",
       "owner": "team-platform",
+      "description": "Scheletro di agente agent-first: intent JSON, azioni idempotenti, output strutturato, allowed_paths.",
+      "model": "gpt-4-turbo",
       "actions": [
         "sample:echo"
       ],
+      "id": "agent_template",
       "classification": "arm",
-      "name": "agent_template",
       "os_tools": [
         "pwsh",
         "git",
         "az"
       ],
-      "description": "Scheletro di agente agent-first: intent JSON, azioni idempotenti, output strutturato, allowed_paths.",
-      "model": "gpt-4-turbo",
-      "icon": "🤖",
+      "name": "agent_template",
+      "tools": [
+        "web_search",
+        "code_interpreter"
+      ],
       "role": "Template"
     }
   ],
+  "generatedAt": "2026-01-17T21:16:50.2339989Z",
   "stats": {
-    "total": 25,
+    "brains": 6,
     "arms": 19,
-    "brains": 6
-  },
-  "generatedAt": "2026-01-17T19:42:47.3573479Z"
+    "total": 25
+  }
 }

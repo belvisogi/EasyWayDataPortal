@@ -12,7 +12,10 @@ summary: Vocabolario controllato per tag (domain/layer/audience/privacy/language
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Spec|Spec]]
 
@@ -111,6 +114,7 @@ Esempi scope disponibili (casistiche):
 - [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
 - [Visione Portale Agentico](./agentic-portal-vision.md)
 - [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](./docs-conventions.md)
+
 
 
 

@@ -11,5 +11,19 @@
       "sizes": "192x192",
       "type": "image/svg+xml"
     }
+  ],
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
+  "required_gates": [
+    "doc_alignment"
+  ],
+  "knowledge_sources": [
+    {
+      "priority": "low",
+      "path": "Wiki/EasyWayData.wiki/home.md",
+      "type": "document"
+    }
   ]
 }

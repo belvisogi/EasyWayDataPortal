@@ -6,7 +6,10 @@ status: draft
 title: Runbooks Index
 summary: Indice dei runbook operativi EasyWay.
 updated: 2026-01-16
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 # Runbooks Index
 
@@ -16,5 +19,6 @@ updated: 2026-01-16
 - Nota per autori: per nuove pagine usare `./_template.md`.
 
 - [Agent Chat Retention (SQL Server Agent Job)](./agent-chat-retention.md)
+
 
 

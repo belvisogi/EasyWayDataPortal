@@ -12,7 +12,10 @@ summary: Operativita' per generare automaticamente una lista di gap per agente (
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Howto|Howto]]
 
@@ -58,6 +61,7 @@ pwsh scripts/agent-docs-review.ps1 -AgentsManifestAudit
 - [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
 - [Validazione Output Agenti in CI](../agent-output-validation-ci.md)
 - [Agent Security (IAM/KeyVault) - overview](../security/agent-security-iam.md)
+
 
 
 

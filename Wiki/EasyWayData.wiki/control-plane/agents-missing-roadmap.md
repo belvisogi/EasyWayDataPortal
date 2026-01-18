@@ -12,7 +12,10 @@ summary: Pagina canonica: perche' servono questi agenti e quali intent minimi de
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Roadmap|Roadmap]]
 
@@ -52,6 +55,7 @@ Abbiamo creato gli agenti skeleton minimi per:
 - [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
 - [Control Plane - Panoramica](./index.md)
 - [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
+
 
 
 

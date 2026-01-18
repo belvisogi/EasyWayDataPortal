@@ -1,0 +1,85 @@
+version: '3.9'
+
+services:
+  # 🧠 The Brain & Arms (EasyWay Agent Runner)
+  agent-runner:
+    build:
+      context: .
+      dockerfile: agents/Dockerfile
+    container_name: easyway-runner
+    environment:
+      - EASYWAY_MODE=Framework
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - CHROMA_HOST=chromadb
+      - SQL_SERVER=sql-edge
+      - AZURITE_HOST=azurite
+    volumes:
+      - ./agents:/app/agents  # Persist Memory & Logs
+      - ./Wiki:/app/Wiki      # Live Wiki Edits
+      - ./scripts:/app/scripts # Live Script Debugging
+    depends_on:
+      - chromadb
+      - azurite
+      - sql-edge
+    networks:
+      - easyway-net
+    command: ["pwsh", "-c", "while($true){Start-Sleep 3600}"] # Keep alive for exec
+
+  # ⚡ Vector Database (Memory Cortex)
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: easyway-cortex
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+    networks:
+      - easyway-net
+
+  # 🗄️ Database (SQL Edge - ARM compatible)
+  sql-edge:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: easyway-db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${SQL_PASSWORD:-EasyWayStrongPassword1!}
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql-data:/var/opt/mssql
+    networks:
+      - easyway-net
+
+  # ☁️ Blob Storage Emulator
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: easyway-storage
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    volumes:
+      - azurite-data:/data
+    networks:
+      - easyway-net
+
+  # 🌐 Frontend (PWA)
+  frontend:
+    image: nginx:alpine
+    container_name: easyway-portal
+    volumes:
+      - ./agents/agent_frontend:/usr/share/nginx/html
+    ports:
+      - "8080:80"
+    networks:
+      - easyway-net
+
+networks:
+  easyway-net:
+    driver: bridge
+
+volumes:
+  chroma-data:
+  sql-data:
+  azurite-data:

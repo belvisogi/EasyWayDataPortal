@@ -12,7 +12,10 @@ summary: Scheletro cross-domain: DB, Datalake, Frontend, Docs/Governance con age
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
 
@@ -57,4 +60,5 @@ Regola
 1. Quali sono i domini principali del portale EasyWay?
 2. Dove trovo la documentazione specifica per DB o Datalake?
 3. Qual è la regola aurea per definire una nuova "capability"?
+
 

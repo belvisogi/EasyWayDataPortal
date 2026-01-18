@@ -1,3 +1,14 @@
+---
+id: argos-coach-agent
+title: ARGOS – Coach Agent (v1)
+summary: Auto-generated from filename
+status: draft
+owner: team-platform
+tags: []
+llm:
+  include: true
+  chunk_hint: 5000
+---
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 title: ARGOS – Coach Agent (v1)
@@ -33,6 +44,7 @@ Open/Click, Confirm_read, Δ Noise (7/30d), Recidiva 30d; evento `argos.coach.nu
 
 ## Rollout e RACI
 Pilot 1–2 domini, KPI outcome, ownership chiara e integrazione con governance portale.
+
 
 
 

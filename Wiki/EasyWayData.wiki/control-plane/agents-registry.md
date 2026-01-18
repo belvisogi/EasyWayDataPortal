@@ -12,7 +12,10 @@ summary: Registro canonico degli agenti di EasyWay DataPortal con ownership per 
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
@@ -86,6 +89,7 @@ Gli agenti qui sotto erano nella lista "mancanti" e sono stati implementati con 
 - [Control Plane - Panoramica](./index.md)
 - [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
 - [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+
 
 
 

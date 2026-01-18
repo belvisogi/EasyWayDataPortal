@@ -1,40 +1,54 @@
 {
-    "id": "agent_cartographer",
-    "name": "Agent Cartographer (The Navigator)",
-    "classification": "brain",
-    "version": "1.0.0",
-    "role": "mapper",
-    "owner": "team-architecture",
-    "description": "Mantiene la Mappa delle Dipendenze (Knowledge Graph). Prima di ogni modifica distruttiva, viene consultato per simulare gli impatti a cascata ('Butterfly Effect Analysis').",
-    "llm_config": {
-        "model": "gpt-4-turbo",
-        "temperature": 0.0,
-        "system_prompt": "agents/agent_cartographer/PROMPTS.md",
-        "tools": [
-            "graph_query",
-            "impact_simulator",
-            "dependency_mapper"
-        ]
-    },
-    "context_config": {
-        "memory_files": [
-            "Wiki/EasyWayData.wiki/concept/dependency-graph.md"
-        ],
-        "context_limit_tokens": 128000
-    },
-    "actions": [
-        {
-            "name": "graph:query",
-            "description": "Chiede chi dipende da un certo artefatto (es. 'Chi usa Table:Users?')."
-        },
-        {
-            "name": "graph:update",
-            "description": "Aggiorna la mappa con nuove relazioni scoperte."
-        },
-        {
-            "name": "impact:simulate",
-            "description": "Simula cosa si rompe se modifico X."
-        }
+  "id": "agent_cartographer",
+  "name": "Agent Cartographer (The Navigator)",
+  "classification": "brain",
+  "version": "1.0.0",
+  "role": "mapper",
+  "owner": "team-architecture",
+  "description": "Mantiene la Mappa delle Dipendenze (Knowledge Graph). Prima di ogni modifica distruttiva, viene consultato per simulare gli impatti a cascata ('Butterfly Effect Analysis').",
+  "llm_config": {
+    "model": "gpt-4-turbo",
+    "temperature": 0.0,
+    "system_prompt": "agents/agent_cartographer/PROMPTS.md",
+    "tools": [
+      "graph_query",
+      "impact_simulator",
+      "dependency_mapper"
+    ]
+  },
+  "context_config": {
+    "memory_files": [
+      "Wiki/EasyWayData.wiki/concept/dependency-graph.md"
     ],
-    "readme": "README.md"
+    "context_limit_tokens": 128000
+  },
+  "actions": [
+    {
+      "name": "graph:query",
+      "description": "Chiede chi dipende da un certo artefatto (es. 'Chi usa Table:Users?')."
+    },
+    {
+      "name": "graph:update",
+      "description": "Aggiorna la mappa con nuove relazioni scoperte."
+    },
+    {
+      "name": "impact:simulate",
+      "description": "Simula cosa si rompe se modifico X."
+    }
+  ],
+  "readme": "README.md",
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
+  "required_gates": [
+    "doc_alignment"
+  ],
+  "knowledge_sources": [
+    {
+      "priority": "low",
+      "path": "Wiki/EasyWayData.wiki/home.md",
+      "type": "document"
+    }
+  ]
 }

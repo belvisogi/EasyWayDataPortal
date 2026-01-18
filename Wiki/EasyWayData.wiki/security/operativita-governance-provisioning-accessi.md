@@ -12,7 +12,10 @@ summary: Runbook operativo per simulazione governance-driven e replica tramite a
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Security|Security]] > [[Layer - Runbook|Runbook]]
 
@@ -86,6 +89,7 @@ Per ogni agente, creare una pagina operativa equivalente:
 - [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
 - [Datalake - Ensure Structure (Stub)](../datalake-ensure-structure.md)
 - [Dominio Datalake](../domains/datalake.md)
+
 
 
 

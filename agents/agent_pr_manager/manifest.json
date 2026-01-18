@@ -6,7 +6,7 @@
     "agents/kb/**",
     "Wiki/EasyWayData.wiki/**",
     "db/flyway/sql/**",
-    "scripts/agent-pr.ps1"
+    "scripts/pwsh/agent-pr.ps1"
   ],
   "allowed_tools": [
     "pwsh",
@@ -31,3 +31,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

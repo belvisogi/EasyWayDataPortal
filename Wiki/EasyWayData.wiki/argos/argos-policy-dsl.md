@@ -1,3 +1,14 @@
+---
+id: argos-policy-dsl
+title: ARGOS – Policy DSL & Registry (v1.1)
+summary: Auto-generated from filename
+status: draft
+owner: team-platform
+tags: []
+llm:
+  include: true
+  chunk_hint: 5000
+---
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 title: ARGOS – Policy DSL & Registry (v1.1)
@@ -51,6 +62,7 @@ Gates (severity dinamica/trace), Tech Profiling (soglie), Biz‑Learning (propos
 
 ## DoD (v1.1)
 Schema Policy completo + linter; workflow & semver; integrazioni; esempi; privacy ok.
+
 
 
 

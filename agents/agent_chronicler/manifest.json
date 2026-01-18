@@ -1,37 +1,51 @@
 {
-    "id": "agent_chronicler",
-    "name": "Agent Chronicler (The Bard)",
-    "classification": "brain",
-    "version": "1.0.0",
-    "role": "historian",
-    "owner": "team-platform",
-    "description": "The Voice of History. Osserva l'evoluzione dell'ecosistema, registra le pietre miliari e celebra i momenti di vera innovazione ('A star is born').",
-    "llm_config": {
-        "model": "gpt-4o",
-        "temperature": 0.7,
-        "system_prompt": "agents/agent_chronicler/PROMPTS.md",
-        "tools": [
-            "event_listener",
-            "history_writer",
-            "announcer"
-        ]
-    },
-    "context_config": {
-        "memory_files": [
-            "Wiki/EasyWayData.wiki/concept/history.md",
-            "Wiki/EasyWayData.wiki/concept/architectural-vision.md"
-        ],
-        "context_limit_tokens": 128000
-    },
-    "actions": [
-        {
-            "name": "chronicle:record",
-            "description": "Registra un evento significativo nella storia del progetto (Wiki)."
-        },
-        {
-            "name": "chronicle:announce",
-            "description": "Emette un annuncio solenne per celebrare un traguardo importante."
-        }
+  "id": "agent_chronicler",
+  "name": "Agent Chronicler (The Bard)",
+  "classification": "brain",
+  "version": "1.0.0",
+  "role": "historian",
+  "owner": "team-platform",
+  "description": "The Voice of History. Osserva l'evoluzione dell'ecosistema, registra le pietre miliari e celebra i momenti di vera innovazione ('A star is born').",
+  "llm_config": {
+    "model": "gpt-4o",
+    "temperature": 0.7,
+    "system_prompt": "agents/agent_chronicler/PROMPTS.md",
+    "tools": [
+      "event_listener",
+      "history_writer",
+      "announcer"
+    ]
+  },
+  "context_config": {
+    "memory_files": [
+      "Wiki/EasyWayData.wiki/concept/history.md",
+      "Wiki/EasyWayData.wiki/concept/architectural-vision.md"
     ],
-    "readme": "README.md"
+    "context_limit_tokens": 128000
+  },
+  "actions": [
+    {
+      "name": "chronicle:record",
+      "description": "Registra un evento significativo nella storia del progetto (Wiki)."
+    },
+    {
+      "name": "chronicle:announce",
+      "description": "Emette un annuncio solenne per celebrare un traguardo importante."
+    }
+  ],
+  "readme": "README.md",
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
+  "required_gates": [
+    "doc_alignment"
+  ],
+  "knowledge_sources": [
+    {
+      "priority": "low",
+      "path": "Wiki/EasyWayData.wiki/home.md",
+      "type": "document"
+    }
+  ]
 }

@@ -3,7 +3,7 @@
   "description": "Gestione RAG: indicizzazione Wiki/KB, retrieval bundles, sync verso vector DB (on-demand), anti-duplicati/canonical.",
   "allowed_paths": [
     "agents/agent_retrieval/**",
-    "scripts/agent-retrieval.ps1",
+    "scripts/pwsh/agent-retrieval.ps1",
     "ai/vettorializza.yaml",
     "docs/agentic/templates/docs/**",
     "Wiki/EasyWayData.wiki/**",
@@ -44,3 +44,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

@@ -12,7 +12,10 @@ summary: Punto di ingresso canonico per orchestrazione agentica (n8n + ewctl), g
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Index|Index]]
 
@@ -61,6 +64,7 @@ Riferimenti
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 
 

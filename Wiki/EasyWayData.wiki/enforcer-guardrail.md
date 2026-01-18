@@ -12,7 +12,10 @@ summary: Guardrail CI che valida i changed files contro allowed_paths dei manife
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
@@ -54,6 +57,7 @@ Riferimenti
 - [Verifica CI – ewctl gates e Flyway (branch non-main)](./ci-verifica-ewctl-gates-e-flyway.md)
 - [Governance DQ – RACI, Processi e Checklist](./governance-dq.md)
 - [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
+
 
 
 

@@ -3,7 +3,7 @@
   "description": "Owner implementazione API: OpenAPI, pattern middleware auth/tenant, lint e scaffolding endpoint (distinct da agent_api triage).",
   "allowed_paths": [
     "agents/agent_backend/**",
-    "scripts/agent-backend.ps1",
+    "scripts/pwsh/agent-backend.ps1",
     "EasyWay-DataPortal/easyway-portal-api/**",
     "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/**",
     "agents/kb/recipes.jsonl",
@@ -41,3 +41,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

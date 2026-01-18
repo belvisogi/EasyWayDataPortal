@@ -35,6 +35,9 @@ updated: 2026-01-16
   - H2: Visione
   - H2: Principi
   - H2: Implementazione
+- [concept/agent-runtime-lifecycle.md](./concept/agent-runtime-lifecycle.md) - 🧠 Agent Runtime Lifecycle & Memory
+  - H2: The 3-Layer Memory Architecture
+  - H2: Concurrency & Locking
 - [agents-governance.md](./agents-governance.md) - Agent Workflow Standard (Pattern 3-Step)
   - H2: Agent Workflow Standard (Pattern 3-Step)
 - [agents-scrummaster.md](./agents-scrummaster.md) - agents-scrummaster

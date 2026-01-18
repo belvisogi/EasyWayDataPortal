@@ -12,7 +12,10 @@ summary: Agente per provisioning sicuro di segreti/reference e supporto a provis
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
@@ -48,6 +51,7 @@ pwsh scripts/agent-security.ps1 -Action kv-secret:reference -IntentPath out/inte
 - [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
 - [Segreti e accessi (DB + Datalake)](./segreti-e-accessi.md)
 - [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
+
 
 
 

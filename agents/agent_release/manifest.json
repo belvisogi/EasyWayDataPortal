@@ -3,7 +3,7 @@
   "description": "Packaging/versioning del runtime bundle (copia parziale) per runner segregato: build artifact e publish (no segreti).",
   "allowed_paths": [
     "agents/agent_release/**",
-    "scripts/agent-release.ps1",
+    "scripts/pwsh/agent-release.ps1",
     "ai/vettorializza.yaml",
     "scripts/**",
     "agents/**",
@@ -40,3 +40,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

@@ -2,7 +2,7 @@
   "role": "Agent_Security",
   "description": "Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit e registry (no valori segreti nei log).",
   "allowed_paths": [
-    "scripts/agent-security.ps1",
+    "scripts/pwsh/agent-security.ps1",
     "agents/agent_security/**",
     "Wiki/EasyWayData.wiki/security/**",
     "Wiki/EasyWayData.wiki/control-plane/**",
@@ -87,3 +87,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

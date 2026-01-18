@@ -4,7 +4,7 @@
   "allowed_paths": [
     "agents/agent_ado_userstory/**",
     "agents/**",
-    "scripts/agent-ado-userstory.ps1",
+    "scripts/pwsh/agent-ado-userstory.ps1",
     "scripts/**",
     "docs/agentic/templates/intents/**",
     "docs/agentic/templates/orchestrations/**",
@@ -159,3 +159,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

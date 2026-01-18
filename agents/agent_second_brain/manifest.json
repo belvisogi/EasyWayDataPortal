@@ -1,29 +1,37 @@
 {
-    "name": "agent_second_brain",
-    "classification": "arm",
-    "role": "Navigator",
-    "description": "Responsabile della navigabilità semantica, Context Injection e manutenzione dei Breadcrumbs.",
-    "actions": [
-        {
-            "name": "brain:breadcrumbs.generate",
-            "description": "Inietta bradcrumbs Obsidian-style in base al grafo.",
-            "script": "../../scripts/agent-second-brain.ps1",
-            "params": {
-                "Action": "Generate",
-                "DryRun": false
-            }
-        },
-        {
-            "name": "brain:breadcrumbs.clean",
-            "description": "Rimuove tutti i breadcrumbs generati.",
-            "script": "../../scripts/agent-second-brain.ps1",
-            "params": {
-                "Action": "Clean"
-            }
-        }
-    ],
-    "knowledge_sources": [
-        "agents/memory/knowledge-graph.json"
-    ],
-    "readme": "README.md"
+  "name": "agent_second_brain",
+  "classification": "arm",
+  "role": "Navigator",
+  "description": "Responsabile della navigabilità semantica, Context Injection e manutenzione dei Breadcrumbs.",
+  "actions": [
+    {
+      "name": "brain:breadcrumbs.generate",
+      "description": "Inietta bradcrumbs Obsidian-style in base al grafo.",
+      "script": "../../scripts/pwsh/agent-second-brain.ps1",
+      "params": {
+        "Action": "Generate",
+        "DryRun": false
+      }
+    },
+    {
+      "name": "brain:breadcrumbs.clean",
+      "description": "Rimuove tutti i breadcrumbs generati.",
+      "script": "../../scripts/pwsh/agent-second-brain.ps1",
+      "params": {
+        "Action": "Clean"
+      }
+    }
+  ],
+  "knowledge_sources": [
+    "agents/memory/knowledge-graph.json"
+  ],
+  "readme": "README.md",
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
+  "required_gates": [
+    "doc_alignment"
+  ]
 }
+

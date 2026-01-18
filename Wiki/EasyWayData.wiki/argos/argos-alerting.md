@@ -1,3 +1,14 @@
+---
+id: argos-alerting
+title: ARGOS – Alerting & Notifications (v1.1)
+summary: Auto-generated from filename
+status: draft
+owner: team-platform
+tags: []
+llm:
+  include: true
+  chunk_hint: 5000
+---
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 title: ARGOS – Alerting & Notifications (v1.1)
@@ -103,6 +114,7 @@ Run={run_id} | DecisionTrace={decision_trace_id}
 
 ## 10) Definition of Done (v1.1)
 - Severità e mapping completi; dedup/suppression/quiet hours; payload standard; digest; integrazione Coach/Profiling; KPI definiti.
+
 
 
 

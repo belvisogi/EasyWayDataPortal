@@ -5,11 +5,11 @@
     "Wiki/EasyWayData.wiki/**",
     "agents/kb/**",
     "scripts/intents/**",
-    "scripts/docs-dq-scorecard.ps1",
-    "scripts/confluence-dq-board.ps1",
-    "scripts/agent-docs-review.ps1",
-    "scripts/agents-readme-sync.ps1",
-    "scripts/agents-manifest-audit.ps1",
+    "scripts/pwsh/docs-dq-scorecard.ps1",
+    "scripts/pwsh/confluence-dq-board.ps1",
+    "scripts/pwsh/agent-docs-review.ps1",
+    "scripts/pwsh/agents-readme-sync.ps1",
+    "scripts/pwsh/agents-manifest-audit.ps1",
     "agents/README.md",
     "out/**"
   ],
@@ -34,3 +34,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

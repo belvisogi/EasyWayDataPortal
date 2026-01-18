@@ -12,7 +12,10 @@ summary: Linea guida canonica per segregare repo (evoluzione), knowledge vettori
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
@@ -107,6 +110,7 @@ flowchart LR
 - [Roadmap agent (retrieval, observability, infra, backend, release)](./agents-missing-roadmap.md)
 - [Control Plane - Panoramica](./index.md)
 - [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+
 
 
 

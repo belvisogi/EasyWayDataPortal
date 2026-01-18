@@ -12,7 +12,10 @@ summary: Catalogo degli Intent (WHAT) per gli agenti coinvolti nel workflow Exce
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Intent|Intent]]
 
@@ -44,6 +47,7 @@ Uso
 Riferimenti
 - Orchestrazione – wf.excel-csv-upload: orchestrations/wf-excel-csv-upload.md
 - Use Case – Entrate/Uscite: use-cases/entrate-uscite.md
+
 
 
 

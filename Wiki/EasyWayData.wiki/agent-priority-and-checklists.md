@@ -12,7 +12,10 @@ summary: Regole per decidere quando un agente deve proporre una checklist (manda
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
@@ -63,6 +66,7 @@ Riferimenti
 - [Agent ScrumMaster – Single Owner, Multi‑Agent](./agents-scrummaster.md)
 - [Metodo di Lavoro Agent‑First](./agent-first-method.md)
 - [Governance DQ – RACI, Processi e Checklist](./governance-dq.md)
+
 
 
 

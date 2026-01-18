@@ -12,7 +12,10 @@ summary: Modello operativo per definire, validare e rilasciare regole DQ (propos
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
@@ -89,6 +92,7 @@ Riferimenti
 - Tech Profiling: `argos/argos-tech-profiling.md`
 - Coach Agent: `argos/argos-coach-agent.md`
 - Event Schema: `argos/argos-event-schema.md`
+
 
 
 

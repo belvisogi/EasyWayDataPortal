@@ -20,7 +20,10 @@ entities: []
 include: true
 llm: 
   pii: none
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
@@ -57,6 +60,7 @@ Mappa contenuti
 - Event Schema Addendum: `./argos-event-schema.md`
 - Change & Versioning Guide: `./argos-change-versioning.md`
 - Glossario Unificato: `./argos-glossario.md`
+
 
 
 

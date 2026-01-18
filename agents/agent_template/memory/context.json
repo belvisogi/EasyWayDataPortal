@@ -1,0 +1,9 @@
+{
+    "created": "{{DATETIME}}",
+    "first_run": true,
+    "preferences": {},
+    "stats": {
+        "runs": 0,
+        "errors": 0
+    }
+}

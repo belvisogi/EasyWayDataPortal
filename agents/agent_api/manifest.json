@@ -2,7 +2,7 @@
   "role": "Agent_API",
   "description": "Triage e tracciamento errori API; produce output strutturato per orchestrazioni n8n.",
   "allowed_paths": [
-    "scripts/agent-api.ps1",
+    "scripts/pwsh/agent-api.ps1",
     "agents/logs/**",
     "agents/kb/recipes.jsonl",
     "docs/agentic/templates/intents/**",
@@ -70,3 +70,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

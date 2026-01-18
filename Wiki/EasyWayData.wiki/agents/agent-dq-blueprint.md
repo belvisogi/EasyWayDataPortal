@@ -12,7 +12,10 @@ summary: Agente che genera un blueprint iniziale di regole DQ (Policy Proposal +
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
@@ -82,6 +85,7 @@ Riferimenti
 - ARGOS – Policy DSL: `argos/argos-policy-dsl.md`
 - Quality Gates: `argos/argos-quality-gates.md`
 - Governance DQ: `governance-dq.md`
+
 
 
 

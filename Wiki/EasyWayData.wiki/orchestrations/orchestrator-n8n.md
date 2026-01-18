@@ -12,7 +12,10 @@ summary: Manifesto WHAT dell'orchestratore n8n per instradare intent agentici ve
 llm: 
 pii: none
 owner: team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
 
@@ -88,6 +91,7 @@ Riferimenti
 - Manifest esempio: `docs/agentic/templates/orchestrations/wf.excel-csv-upload.manifest.json`
 - Contratti: `Wiki/EasyWayData.wiki/intent-contract.md`, `Wiki/EasyWayData.wiki/output-contract.md`
 - Governance/gates: `Wiki/EasyWayData.wiki/agents-governance.md`, `doc-alignment-gate.md`
+
 
 
 

@@ -6,7 +6,10 @@ status: draft
 owner: team-platform
 tags: [orchestration, agents, rag, azure-ai-search, governance, language/it]
 updated: 2026-01-07
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]]
 
@@ -70,5 +73,6 @@ updated: 2026-01-07
 - [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
 - [Control Plane - Panoramica](../control-plane/index.md)
 - [Orchestrations - Intents Catalog (Globale)](./intents-catalog-global.md)
+
 
 

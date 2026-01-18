@@ -3,7 +3,7 @@
   "description": "Osservabilita': health check, standard logging, suggerimenti OTel/AppInsights e runbook troubleshooting (no secrets).",
   "allowed_paths": [
     "agents/agent_observability/**",
-    "scripts/agent-observability.ps1",
+    "scripts/pwsh/agent-observability.ps1",
     "Wiki/EasyWayData.wiki/**",
     "agents/kb/recipes.jsonl",
     "agents/logs/**",
@@ -39,3 +39,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

@@ -1,0 +1,38 @@
+{
+  "generatedAt": "2026-01-17T21:16:27.8503410Z",
+  "agents": [],
+  "stats": {
+    "total": 0,
+    "brains": 0,
+    "arms": 0
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "sys_ado",
+        "label": "Azure DevOps",
+        "val": 15,
+        "group": "system"
+      },
+      {
+        "id": "sys_sql",
+        "label": "SQL Server",
+        "val": 15,
+        "group": "system"
+      },
+      {
+        "id": "sys_wiki",
+        "label": "Wiki KB",
+        "val": 15,
+        "group": "system"
+      },
+      {
+        "id": "sys_azure",
+        "label": "Azure Cloud",
+        "val": 15,
+        "group": "system"
+      }
+    ],
+    "links": []
+  }
+}

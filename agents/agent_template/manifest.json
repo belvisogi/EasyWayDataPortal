@@ -57,5 +57,15 @@
     ]
   },
   "readme": "README.md",
-  "classification": "arm"
+  "classification": "arm",
+  "required_gates": [
+    "doc_alignment"
+  ],
+  "knowledge_sources": [
+    {
+      "priority": "low",
+      "path": "Wiki/EasyWayData.wiki/home.md",
+      "type": "document"
+    }
+  ]
 }

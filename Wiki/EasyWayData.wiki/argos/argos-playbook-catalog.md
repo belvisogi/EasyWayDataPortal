@@ -1,3 +1,14 @@
+---
+id: argos-playbook-catalog
+title: ARGOS – Playbook Catalog (v1)
+summary: Auto-generated from filename
+status: draft
+owner: team-platform
+tags: []
+llm:
+  include: true
+  chunk_hint: 5000
+---
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
 title: ARGOS – Playbook Catalog (v1)
@@ -46,6 +57,7 @@ OWNER chiaro; manutenzione trimestrale; AUTO_SAFE solo per PB certificati.
 
 ## DoD (v1)
 Schede minime pubblicate, integrazione Alerting/Gates, KPI raccolti, flag AUTO_SAFE/guardrail/backout definiti, privacy rispettata.
+
 
 
 

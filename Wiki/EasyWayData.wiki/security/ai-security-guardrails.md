@@ -12,7 +12,10 @@ summary: Sistema di protezione multi-layer contro prompt injection e attacchi AI
 llm: 
 pii: none
 owner: team-security, team-platform
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 [[start-here|Home]] > [[Domain - Security|Security]] > [[Layer - Reference|Reference]]
 
@@ -278,5 +281,6 @@ python3 scripts/kb-security-scan.py agents/kb/recipes.jsonl
 **Owner**: team-security, team-platform  
 **Status**: Scripts ready, deployment pending  
 **Priority**: Deploy before Expert+Reviewer goes live
+
 
 

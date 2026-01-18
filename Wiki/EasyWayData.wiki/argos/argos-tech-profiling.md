@@ -1,3 +1,14 @@
+---
+id: argos-tech-profiling
+title: ARGOS – Tech Profiling & Reliability (v1)
+summary: Auto-generated from filename
+status: draft
+owner: team-platform
+tags: []
+llm:
+  include: true
+  chunk_hint: 5000
+---
 [[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 title: ARGOS – Tech Profiling & Reliability (v1)
@@ -38,6 +49,7 @@ Warn/Defer su drift severo o small‑files rate elevato; routing verso RCA/Coach
 
 ## KPI & SLO IT (indicativi)
 Schema Stability ≥ 99,5%; Small Files Rate ≤ 5%; Late Partition Rate ≤ 1%; Job Success ≥ 99,9%; Throughput p95 ≥ baseline−10%.
+
 
 
 

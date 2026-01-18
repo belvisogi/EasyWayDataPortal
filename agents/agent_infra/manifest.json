@@ -3,7 +3,7 @@
   "description": "IaC/Terraform governato: validate/plan/apply (WhatIf-by-default), drift infra e runbook.",
   "allowed_paths": [
     "agents/agent_infra/**",
-    "scripts/agent-infra.ps1",
+    "scripts/pwsh/agent-infra.ps1",
     "infra/terraform/**",
     "Wiki/EasyWayData.wiki/**",
     "agents/kb/recipes.jsonl",
@@ -43,3 +43,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+

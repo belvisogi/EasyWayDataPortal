@@ -7,7 +7,10 @@ status: draft
 tags: [runbook, ops, language/it]
 created: 'YYYY-MM-DD'
 updated: 'YYYY-MM-DD'
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 # <Titolo Runbook>
 
@@ -30,3 +33,4 @@ updated: 'YYYY-MM-DD'
 
 ## Riferimenti
 - <Link a Wiki/KB/Script>
+

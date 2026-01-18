@@ -51,5 +51,19 @@
     }
   ],
   "readme": "README.md",
-  "classification": "arm"
+  "classification": "arm",
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
+  "required_gates": [
+    "doc_alignment"
+  ],
+  "knowledge_sources": [
+    {
+      "priority": "low",
+      "path": "Wiki/EasyWayData.wiki/home.md",
+      "type": "document"
+    }
+  ]
 }

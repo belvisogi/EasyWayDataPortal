@@ -6,7 +6,10 @@ status: draft
 title: Agent Chat Retention (SQL Server Agent Job)
 summary: Purge periodica dei log agent chat (LOG_AUDIT) tramite SQL Server Agent.
 updated: 2026-01-16
----
+
+llm:
+  include: true
+  chunk_hint: 5000---
 
 # Agent Chat Retention (SQL Server Agent Job)
 
@@ -62,4 +65,5 @@ GO
 
 ## Rollback
 - Disabilita o elimina il job SQL Server Agent.
+
 

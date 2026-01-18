@@ -1,20 +1,28 @@
 {
-    "name": "Agent_Audit",
-    "classification": "arm",
-    "role": "Inspector",
-    "description": "Responsabile della verifica di conformità architetturale degli agenti.",
-    "readme": "README.md",
-    "knowledge_sources": [
-        "Wiki/EasyWayData.wiki/standards/agent-architecture-standard.md"
-    ],
-    "actions": [
-        {
-            "name": "audit:agents.inspect",
-            "description": "Esegue l'audit di tutti gli agenti registrati.",
-            "script": "../../scripts/agent-audit.ps1",
-            "params": {
-                "DryRun": false
-            }
-        }
-    ]
+  "name": "Agent_Audit",
+  "classification": "arm",
+  "role": "Inspector",
+  "description": "Responsabile della verifica di conformità architetturale degli agenti.",
+  "readme": "README.md",
+  "knowledge_sources": [
+    "Wiki/EasyWayData.wiki/standards/agent-architecture-standard.md"
+  ],
+  "actions": [
+    {
+      "name": "audit:agents.inspect",
+      "description": "Esegue l'audit di tutti gli agenti registrati.",
+      "script": "../../scripts/pwsh/agent-audit.ps1",
+      "params": {
+        "DryRun": false
+      }
+    }
+  ],
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
+  "required_gates": [
+    "doc_alignment"
+  ]
 }
+

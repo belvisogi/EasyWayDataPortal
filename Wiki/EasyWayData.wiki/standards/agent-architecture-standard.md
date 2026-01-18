@@ -122,11 +122,12 @@ L'Audit Agent supporta la modalità `-AutoFix`:
 pwsh scripts/agent-audit.ps1 -AutoFix
 ```
 
-## 7. GEDI Integration (OODA)
+## 7. GEDI Integration & Runtime Lifecycle 🧠
 
-Ogni agente "intelligente" DOVREBBE consultare GEDI prima di azioni critiche (Distruttive, Major Changes).
+Per i dettagli completi su come un agente "pensa" e "ricorda", fare riferimento a:  
+👉 **[Agent Runtime Lifecycle & Memory](../concept/agent-runtime-lifecycle.md)**
 
-**Pattern OODA Integration**:
+### OODA Integration
 1.  **Observe**: L'agente raccoglie contesto.
 2.  **Call GEDI**: `pwsh scripts/agent-gedi.ps1 -Context "..."`
 3.  **Act**: Includere il consiglio di GEDI nei log o nel feedback all'utente.
@@ -147,6 +148,21 @@ Quando si crea un nuovo agente, scegliere il template in base alla classificazio
     2. Implementare `scripts/agent-NAME.ps1` con logica OODA (vedi `agent_gedi.ps1` come esempio).
     3. Integrare GEDI nelle decisioni critiche.
 
+## 9. Memory Provider & Dual Stack Strategy ☯️
+
+Il sistema opera in due modalità (`Enterprise` vs `Framework`). Gli sviluppatori NON devono scrivere logica condizionale (`if azure`) negli script degli agenti.
+
+### Il Pattern Obbligatorio
+Usare sempre e solo le funzioni astratte di `scripts/core/AgentMemory.psm1`:
+*   `Get-AgentContext`
+*   `Set-AgentContext`
+*   `Start-AgentSession`
+
+Il sistema caricherà automaticamente il **Provider** corretto (`AzureMemoryProvider` o `LocalMemoryProvider`) in base alla variabile d'ambiente `$env:EASYWAY_MODE`.
+
+> **Vietato**: Accedere direttamente a file JSON o Azure Storage negli script di logica pura. Usare sempre il modulo Memory.
+
 ---
 **Status**: Active  
 **Owner**: Platform Team
+

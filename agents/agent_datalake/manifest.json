@@ -4,7 +4,7 @@
   "allowed_paths": [
     "EasyWay_WebApp/03_datalake_dev/**",
     "infra/terraform/**",
-    "scripts/agent-datalake.ps1",
+    "scripts/pwsh/agent-datalake.ps1",
     "agents/kb/recipes.jsonl"
   ],
   "allowed_tools": [
@@ -175,3 +175,4 @@
   "readme": "README.md",
   "classification": "arm"
 }
+
