@@ -1,18 +1,8 @@
----
-owner: team-platform
-tags: ['domain/general', 'index']
-status: active
-title: Indice Globale
-summary: Punto di ingresso principale alla documentazione di EasyWay Data Portal. Contiene l'indice globale navigabile per domini, processi e audience.
-updated: 2026-01-16
----
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
-
 # Indice Globale
 
-- Nota per autori: per nuove pagine usare `./_template.md`.
-
-
+- [_template.md](./_template.md) - Titolo Pagina
+  - H2: Domande a cui risponde
+  - H2: Contenuto
 - [.obsidian.example/README.md](./.obsidian.example/README.md) - .obsidian.example
   - H2: Vedi anche
 - [activity-log.md](./activity-log.md) - activity-log
@@ -31,17 +21,33 @@ updated: 2026-01-16
   - H2: Vedi anche
 - [agent-priority-and-checklists.md](./agent-priority-and-checklists.md) - Vedi anche
   - H2: Vedi anche
-- [agentic-portal-vision.md](./agentic-portal-vision.md) - Visione
-  - H2: Visione
-  - H2: Principi
-  - H2: Implementazione
-- [concept/agent-runtime-lifecycle.md](./concept/agent-runtime-lifecycle.md) - 🧠 Agent Runtime Lifecycle & Memory
-  - H2: The 3-Layer Memory Architecture
-  - H2: Concurrency & Locking
+- [agentic-portal-vision.md](./agentic-portal-vision.md) - Workflow agentici
+  - H2: Workflow agentici
+  - H2: Esperienza utente per non esperti: proposte e spunti
 - [agents-governance.md](./agents-governance.md) - Agent Workflow Standard (Pattern 3-Step)
   - H2: Agent Workflow Standard (Pattern 3-Step)
 - [agents-scrummaster.md](./agents-scrummaster.md) - agents-scrummaster
 - [agents/agent-dq-blueprint.md](./agents/agent-dq-blueprint.md) - Agent – DQ Blueprint (Spec v0)
+- [agents/agent-roster.md](./agents/agent-roster.md) - 🤖 Agent Marketplace & Roster
+  - H2: 🧠 Brains (Strategic Agents)
+  - H2: 💪 Arms (Executive Agents)
+  - H2: 📊 Ecosystem Stats
+- [agents/agent-system-architecture-overview.md](./agents/agent-system-architecture-overview.md) - 🤖 Agent System Architecture - Complete Overview
+  - H2: Executive Summary
+  - H2: Architettura di Sistema
+  - H2: Componenti Principali
+  - H2: Workflow End-to-End
+  - H2: Agenti Disponibili
+  - H2: Governance & Quality
+  - H2: Continuous Improvement Loop
+- [agents/agent-issue-tracking-system.md](./agents/agent-issue-tracking-system.md) - Agent Issue Tracking System
+  - H2: Vision
+  - H2: Architettura
+  - H2: Componenti
+  - H2: Workflow Completo
+  - H2: Integrazione con Agenti
+  - H2: agent_governance Integration
+  - H2: Metriche & Reporting
 - [ai/knowledge-vettoriale-easyway.md](./ai/knowledge-vettoriale-easyway.md) - 🧠 Knowledge Base Vettoriale in EasyWay DataPortal
   - H2: Cos’è una knowledge base vettoriale?
   - H2: Perché serve a EasyWay
@@ -50,38 +56,46 @@ updated: 2026-01-16
   - H2: Contesto (repo)
   - H2: Q&A (errori ricorrenti)
   - H2: Note
-- [argos/argos-alerting.md](./argos/argos-alerting.md) - ARGOS – Alerting & Notifications Guide (v1.1)
+- [architecture/dual-stack-strategy.md](./architecture/dual-stack-strategy.md) - Architecture: Dual Stack Strategy (The Bridge) ☯️
+  - H2: Overview
+  - H2: The Core Concept: Provider Pattern 🧩
+  - H2: Matrix of Responsibilities
+- [argos/argos-alerting.md](./argos/argos-alerting.md) - ARGOS – Alerting & Notifications (v1.1)
+  - H2: Domande a cui risponde
   - H2: 1) Principi
   - H2: 2) Canali
-  - H2: 3) Severità & mapping
 - [argos/argos-change-versioning.md](./argos/argos-change-versioning.md) - ARGOS – Change & Versioning Guide (v1)
-- [argos/argos-coach-agent.md](./argos/argos-coach-agent.md) - ARGOS – Coach Agent (Spec v1)
+  - H2: Domande a cui risponde
+- [argos/argos-coach-agent.md](./argos/argos-coach-agent.md) - ARGOS – Coach Agent (v1)
+  - H2: Domande a cui risponde
   - H2: Trigger e segnali
   - H2: Azioni
-  - H2: Telemetria
 - [argos/argos-event-schema.md](./argos/argos-event-schema.md) - ARGOS – Event Schema Addendum (v1)
+  - H2: Domande a cui risponde
 - [argos/argos-glossario.md](./argos/argos-glossario.md) - ARGOS – Glossario Unificato (v1)
+  - H2: Domande a cui risponde
 - [argos/argos-modular-interop.md](./argos/argos-modular-interop.md) - ARGOS – Modular Architecture & Interop (v1)
+  - H2: Domande a cui risponde
   - H2: Principi di modularità
   - H2: I tre moduli (estratto)
-  - H2: Strato di correlazione
 - [argos/argos-overview.md](./argos/argos-overview.md) - ARGOS – Overview e Integrazione con EasyWayDataPortal
+  - H2: Domande a cui risponde
 - [argos/argos-playbook-catalog.md](./argos/argos-playbook-catalog.md) - ARGOS – Playbook Catalog (v1)
+  - H2: Domande a cui risponde
   - H2: Principi essenziali
   - H2: Struttura standard Playbook
-  - H2: Indice Playbook (selezione v1)
-- [argos/argos-policy-dsl.md](./argos/argos-policy-dsl.md) - ARGOS – Policy DSL & Registry Specification (v1.1)
+- [argos/argos-policy-dsl.md](./argos/argos-policy-dsl.md) - ARGOS – Policy DSL & Registry (v1.1)
+  - H2: Domande a cui risponde
   - H2: Principi
   - H2: Oggetto Policy (schema logico)
-  - H2: CHECK – costrutti DSL (estratti)
-- [argos/argos-quality-gates.md](./argos/argos-quality-gates.md) - ARGOS – Quality Gates Specification (v1.1)
+- [argos/argos-quality-gates.md](./argos/argos-quality-gates.md) - ARGOS – Quality Gates (v1.1)
+  - H2: Domande a cui risponde
   - H2: 0) Principi
   - H2: 1) Tipi di Gate
-  - H2: 2) Input minimi
-- [argos/argos-tech-profiling.md](./argos/argos-tech-profiling.md) - ARGOS – Tech Profiling & Reliability (Spec v1)
+- [argos/argos-tech-profiling.md](./argos/argos-tech-profiling.md) - ARGOS – Tech Profiling & Reliability (v1)
+  - H2: Domande a cui risponde
   - H2: Estensioni LDM (estratto)
   - H2: Viste consigliate
-  - H2: Gate «Profiling» (soft)
 - [best-practices-token-tuning-roadmap.md](./best-practices-token-tuning-roadmap.md) - Best Practices & Roadmap – Token Tuning, AI-Readiness e Governance Universale
   - H2: Obiettivo
   - H2: 1. Best Practices per la Riduzione Token e l’AI-Readiness
@@ -117,6 +131,21 @@ updated: 2026-01-16
   - H2: Vedi anche
 - [ci-verifica-ewctl-gates-e-flyway.md](./ci-verifica-ewctl-gates-e-flyway.md) - Vedi anche
   - H2: Vedi anche
+- [concept/agent-runtime-lifecycle.md](./concept/agent-runtime-lifecycle.md) - 🧠 Agent Runtime Lifecycle & Memory
+  - H2: 1. The 3-Layer Memory Architecture
+  - H2: 2. Concurrency & Locking (The "Traffic Light") 🚦
+  - H2: 3. Runtime Lifecycle (OODA Implementation)
+- [concept/architectural-vision.md](./concept/architectural-vision.md) - 🧠 L'Evoluzione Architetturale di EasyWay
+  - H2: I 5 Pilastri dell'Intuizione
+- [concept/dependency-graph.md](./concept/dependency-graph.md) - 🗺️ The Map (Dependency Knowledge Graph)
+  - H2: 🏗️ Macro Structure (The Matrix)
+  - H2: 🕵️ Crawler Findings (Auto-Generated - 01/17/2026 20:49:01)
+- [concept/history.md](./concept/history.md) - 📜 The Chronicles of EasyWay
+  - H2: 🌟 Stars Born (Milestones)
+- [concept/vector-memory.md](./concept/vector-memory.md) - Concept: Vector Memory Store (The Cortex)
+  - H2: Overview
+  - H2: Architecture
+  - H2: Components
 - [control-plane/agent-orchestration-weighting.md](./control-plane/agent-orchestration-weighting.md) - Multi-Agent Orchestration con Ponderazione e Round Table
   - H2: Contesto
   - H2: Principi Cardine
@@ -177,12 +206,11 @@ updated: 2026-01-16
 - [docs-agentic-audit.md](./docs-agentic-audit.md) - Documentazione Agentica - Audit & Policy (Canonico)
   - H2: 1) Principi anti-allucinazione
   - H2: 2) Struttura minima per pagina (RAG-first)
-  - H2: 3) Front matter YAML (obbligatorio)
+  - H2: Domande a cui risponde
 - [docs-conventions.md](./docs-conventions.md) - EasyWayData Portal - Regole Semplici (La Nostra Bibbia)
   - H2: 1) Nomi di file e cartelle
   - H2: 2) kebab-case vs snake_case
   - H2: 3) Quick check (regex)
-  - H2: 8) Template obbligatorio per nuove pagine
 - [docs-related-links.md](./docs-related-links.md) - Suggerimenti Link Correlati (Affinità)
   - H2: Come funziona
   - H2: Comando
@@ -200,18 +228,22 @@ updated: 2026-01-16
   - H2: Le 8 Azioni dello Scanner
   - H2: File Critici del Sistema
 - [domains/datalake.md](./domains/datalake.md) - Dominio Datalake
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [domains/db.md](./domains/db.md) - Dominio DB
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [domains/docs-governance.md](./domains/docs-governance.md) - Dominio Docs & Governance
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [domains/frontend.md](./domains/frontend.md) - Dominio Frontend
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [domains/index.md](./domains/index.md) - Domini - Panoramica
   - H2: Domande a cui risponde
-- [dr-gaps-vs-ada.md](./dr-gaps-vs-ada.md) - Cosa integrare da ADA per EasyWayDataPortal (approccio operativo e cosa aggiungere)
-  - H2: Vedi anche
 - [dr-inventory-matrix.md](./dr-inventory-matrix.md) - DR — Inventory & matrice componente → RTO / RPO
+  - H2: Vedi anche
+- [dr-strategy-cloud-native.md](./dr-strategy-cloud-native.md) - Strategia Cloud-Native Disaster Recovery (approccio operativo)
   - H2: Vedi anche
 - [easyway-webapp.md](./easyway-webapp.md) - 🎯 EasyWay Data Portal – Start With Why
   - H2: 🧭 Why – Perché lo facciamo
@@ -321,13 +353,17 @@ updated: 2026-01-16
 - [easyway-webapp/01_database_architecture/01b-schema-structure.md](./easyway-webapp/01_database_architecture/01b-schema-structure.md) - Domande a cui risponde
   - H2: Domande a cui risponde
 - [easyway-webapp/01_database_architecture/best-practices-checklist.md](./easyway-webapp/01_database_architecture/best-practices-checklist.md) - best-practices-checklist
+- [easyway-webapp/01_database_architecture/db-migrations.md](./easyway-webapp/01_database_architecture/db-migrations.md) - Gestione Migrazioni Database (Git + SQL Diretto)
+  - H2: Contesto
+  - H2: Come Funziona
+  - H2: Applicazione Migrazioni
 - [easyway-webapp/01_database_architecture/db-studio.md](./easyway-webapp/01_database_architecture/db-studio.md) - db-studio
 - [easyway-webapp/01_database_architecture/ddl-inventory.md](./easyway-webapp/01_database_architecture/ddl-inventory.md) - DB PORTAL - Inventario DDL (canonico)
   - H2: Obiettivo
   - H2: Domande a cui risponde
-  - H2: Source of truth (repo)
-- [easyway-webapp/01_database_architecture/flyway.md](./easyway-webapp/01_database_architecture/flyway.md) - Contesto
-  - H2: Contesto
+  - H2: Source of Truth (Repo)
+- [easyway-webapp/01_database_architecture/flyway.md](./easyway-webapp/01_database_architecture/flyway.md) - Contesto Storico
+  - H2: Contesto Storico
   - H2: Troubleshooting (Flyway)
   - H2: Provisioning dev/local (wrapper)
 - [easyway-webapp/01_database_architecture/howto-create-table.md](./easyway-webapp/01_database_architecture/howto-create-table.md) - HowTo: creare una tabella
@@ -345,9 +381,6 @@ updated: 2026-01-16
   - H2: Contesto
   - H2: Problemi Riscontrati
 - [easyway-webapp/01-database-architecture.md](./easyway-webapp/01-database-architecture.md) - EasyWay Data Portal - Database Architecture Master
-  - H2: ✅ Scopo del Documento
-  - H2: 👾 Conversational Intelligence & AMS Ready — Principi Base
-  - H2: 📂 Schemi Database Principali
 - [easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md](./easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md) - Integrazione API Esterne - EasyWay Data Portal
   - H2: Lookup - Integrazione API Esterne
   - H2: Tabella Integrazioni API Esterne
@@ -375,8 +408,6 @@ updated: 2026-01-16
   - H2: Checklist Naming & Scalabilità
 - [easyway-webapp/02_logiche_easyway/index.md](./easyway-webapp/02_logiche_easyway/index.md) - Indice
   - H2: Domande a cui risponde
-- [easyway-webapp/02_logiche_easyway/integrate-ada-best-practices.md](./easyway-webapp/02_logiche_easyway/integrate-ada-best-practices.md) - Integrare le best-practice ADA in EasyWayDataPortal
-  - H2: Vedi anche
 - [easyway-webapp/02_logiche_easyway/logging-and-audit.md](./easyway-webapp/02_logiche_easyway/logging-and-audit.md) - Logging & Audit – EasyWay Data Portal
   - H2: Lookup Logging & Audit – Microservizi & API Gateway
   - H2: Tabella Eventi/Audit da Tracciare
@@ -409,6 +440,8 @@ updated: 2026-01-16
   - H2: 1. Flusso Gestione Template Email
   - H2: 2. Struttura file Excel `email_templates.xlsx`
   - H2: 3. Esempio di codice (pseudo, architettura agnostica)
+- [easyway-webapp/02_logiche_easyway/operational-best-practices.md](./easyway-webapp/02_logiche_easyway/operational-best-practices.md) - Best Practice Operative e Integrazione
+  - H2: Vedi anche
 - [easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md](./easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md) - Policy di Configurazione & Sicurezza – Microservizi e API Gateway
   - H2: Dettaglio Implementativo Policy Chiave
   - H2: **Best Practice Operativa**
@@ -418,7 +451,6 @@ updated: 2026-01-16
 - [easyway-webapp/02-logiche-easyway.md](./easyway-webapp/02-logiche-easyway.md) - Prefazione – EasyWay Data Portal  
   - H2: Guida alla Documentazione Funzionale e Architetturale
   - H2: Macro-sezioni documentate
-  - H2: Domande a cui risponde
 - [easyway-webapp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md](./easyway-webapp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md) - 🗂️ EasyWay DataPortal - Standard Accesso Storage e Datalake (IAM & Naming)
   - H2: 🎯 Scopo del Documento
   - H2: 🔎 Differenza tra Blob Storage e Datalake HNS
@@ -557,10 +589,8 @@ updated: 2026-01-16
   - H2: Obiettivo
   - H2: Domande a cui risponde
   - H2: Prerequisiti
-- [index.md](./index.md) - Indice Globale Wiki
-  - H2: ARGOS Data Quality
-  - H2: Use Cases
-  - H2: Quest Board
+- [index.md](./index.md) - Indice Globale
+  - H2: Domande a cui risponde
 - [indices/ARTIFACT/Blueprint.md](./indices/ARTIFACT/Blueprint.md) - 📄 Blueprint
   - H2: Pages in this category
 - [indices/ARTIFACT/Contract.md](./indices/ARTIFACT/Contract.md) - 📄 Contract
@@ -638,7 +668,6 @@ updated: 2026-01-16
 - [indices/META/Privacy-Public.md](./indices/META/Privacy-Public.md) - 📄 Privacy-Public
   - H2: Pages in this category
 - [indices/META/Status-Active.md](./indices/META/Status-Active.md) - 📄 Status-Active
-- [standards/secrets-management.md](./standards/secrets-management.md) - Standard Gestione Segreti (Azure Key Vault)
   - H2: Pages in this category
 - [indices/META/Status-Deprecated.md](./indices/META/Status-Deprecated.md) - 📄 Status-Deprecated
   - H2: Pages in this category
@@ -692,7 +721,7 @@ updated: 2026-01-16
   - H2: Checklist per OGNI pagina (.md)
   - H2: Checklist NOMI (file e cartelle)
   - H2: Checklist CONTENUTI (per tipo)
-- [logs/reports/normalize-20260116051701.md](./logs/reports/normalize-20260116051701.md) - Normalize Scan Report
+- [logs/reports/normalize-20260118202042.md](./logs/reports/normalize-20260118202042.md) - Normalize Scan Report
 - [OBSIDIAN.md](./OBSIDIAN.md) - Obsidian Vault Setup (Wiki)
   - H2: Scopo
   - H2: Setup consigliato (senza committare config personali)
@@ -748,16 +777,23 @@ updated: 2026-01-16
 - [orchestrations/apply-appsettings-starter.md](./orchestrations/apply-appsettings-starter.md) - Apply AppSettings Starter (WHAT)
   - H2: Vedi anche
 - [orchestrations/db-drift-check.md](./orchestrations/db-drift-check.md) - DB Drift Check (WHAT)
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [orchestrations/db-generate-docs.md](./orchestrations/db-generate-docs.md) - DB Generate Docs (WHAT)
+  - H2: Domande a cui risponde
   - H2: Vedi anche
-- [orchestrations/db-migrate.md](./orchestrations/db-migrate.md) - DB Migrate (Flyway) (WHAT)
-  - H2: Vedi anche
+- [orchestrations/db-migrate.md](./orchestrations/db-migrate.md) - DB Migrate (SQL Diretto) (WHAT)
+  - H2: Domande a cui risponde
+  - H2: Contratto
+  - H2: Entrypoint (n8n.dispatch)
 - [orchestrations/db-user-create.md](./orchestrations/db-user-create.md) - DB User Create (WHAT)
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [orchestrations/db-user-revoke.md](./orchestrations/db-user-revoke.md) - DB User Revoke (WHAT)
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [orchestrations/db-user-rotate.md](./orchestrations/db-user-rotate.md) - DB User Rotate (WHAT)
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [orchestrations/docs-confluence-dq-kanban.md](./orchestrations/docs-confluence-dq-kanban.md) - Docs DQ Kanban - Confluence Cloud (WHAT)
   - H2: Runtime
@@ -768,6 +804,7 @@ updated: 2026-01-16
 - [orchestrations/generate-appsettings-from-env.md](./orchestrations/generate-appsettings-from-env.md) - Generate AppSettings From Env (WHAT)
   - H2: Vedi anche
 - [orchestrations/iam-provision-access.md](./orchestrations/iam-provision-access.md) - IAM Provision Access (WHAT)
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [orchestrations/intents-catalog-global.md](./orchestrations/intents-catalog-global.md) - Orchestrations - Intents Catalog (Globale)
   - H2: Domande a cui risponde
@@ -775,15 +812,16 @@ updated: 2026-01-16
 - [orchestrations/intents-catalog.md](./orchestrations/intents-catalog.md) - Orchestrations - Intents Catalog (Use Case Excel/CSV)
   - H2: Domande a cui risponde
 - [orchestrations/kb-assessment.md](./orchestrations/kb-assessment.md) - KB Assessment (WHAT)
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [orchestrations/mapping-matrix.md](./orchestrations/mapping-matrix.md) - Mapping Matrix - Workflow → Intent → Implementazione
   - H2: Control Plane
   - H2: Orchestrazioni (use case)
   - H2: Intents (già implementati via agent + ewctl)
 - [orchestrations/n8n-api-error-triage.md](./orchestrations/n8n-api-error-triage.md) - n8n API Error Triage
+  - H2: Domande a cui risponde
   - H2: Contesto
   - H2: Source of truth (WHAT-first)
-  - H2: Quando usarlo
 - [orchestrations/n8n-db-ddl-inventory.md](./orchestrations/n8n-db-ddl-inventory.md) - n8n-db-ddl-inventory
   - H2: Contesto
   - H2: Scopo
@@ -799,9 +837,11 @@ updated: 2026-01-16
 - [orchestrations/orchestrator-n8n.md](./orchestrations/orchestrator-n8n.md) - Orchestratore n8n (WHAT)
   - H2: Domande a cui risponde
 - [orchestrations/predeploy-checklist.md](./orchestrations/predeploy-checklist.md) - Predeploy Checklist (WHAT)
+  - H2: Domande a cui risponde
   - H2: Runtime (come si esegue oggi)
   - H2: Vedi anche
 - [orchestrations/release-preflight-security.md](./orchestrations/release-preflight-security.md) - Release Preflight Security (WHAT)
+  - H2: Domande a cui risponde
   - H2: Vedi anche
 - [orchestrations/sync-appsettings-guardrail.md](./orchestrations/sync-appsettings-guardrail.md) - Sync AppSettings Guardrail (WHAT)
   - H2: Vedi anche
@@ -821,6 +861,16 @@ updated: 2026-01-16
   - H2: Obiettivi
   - H2: Comandi locali (riassunto)
   - H2: Pipeline CI (Azure DevOps)
+- [Runbooks/_template.md](./Runbooks/_template.md) - <Titolo Runbook>
+  - H2: Obiettivo
+  - H2: Prerequisiti
+  - H2: Passi
+- [Runbooks/agent-chat-retention.md](./Runbooks/agent-chat-retention.md) - Agent Chat Retention (SQL Server Agent Job)
+  - H2: Scopo
+  - H2: Prerequisiti
+  - H2: Parametri
+- [Runbooks/index.md](./Runbooks/index.md) - Runbooks Index
+  - H2: Domande a cui risponde
 - [Runbooks/instructions_collect_azure_inventory.md](./Runbooks/instructions_collect_azure_inventory.md) - Obiettivo
   - H2: Obiettivo
   - H2: Domande a cui risponde
@@ -847,6 +897,25 @@ updated: 2026-01-16
   - H2: Contesto (repo)
   - H2: Principi base (non negoziabili)
   - H2: Flusso per ambiente
+- [standards/ado-workflow.md](./standards/ado-workflow.md) - ⚡ ADO Execution Rules
+  - H2: 🎯 Workflow Operativo
+  - H2: 🛠️ Tools & Scripts
+  - H2: 📋 Decision Tree (AI Logic)
+- [standards/agent-architecture-standard.md](./standards/agent-architecture-standard.md) - 🤖 Agent Architecture Standard
+  - H2: 1. Classificazione Agenti (Brain vs Arm) 🧠💪
+  - H2: 2. Struttura della Directory
+  - H2: 2. Manifest Schema (`manifest.json`)
+- [standards/db-guardrails.md](./standards/db-guardrails.md) - DB Guardrails
+  - H2: 🔴 Critical Rules (MUST)
+  - H2: 🟡 Best Practices (SHOULD)
+- [standards/docs-audit-guide.md](./standards/docs-audit-guide.md) - 📝 Documentation Audit & Review
+  - H2: 🕵️‍♂️ Consultant Mode (Audit Plan)
+  - H2: 🔗 Link Checker (Obsidian Support)
+  - H2: 🛠️ Automated Fixes
+- [standards/secrets-management.md](./standards/secrets-management.md) - Standard di Gestione Segreti (Azure Key Vault)
+  - H2: 1. Strategia Environment (Isolamento)
+  - H2: 2. Naming Convention (Secret Names)
+  - H2: 3. Gestione Accessi (RBAC)
 - [start-here.md](./start-here.md) - Start Here - Link Essenziali
   - H2: 🎨 Filosofia EasyWay
   - H2: 💙 EasyCAA - Social Impact
@@ -874,6 +943,3 @@ updated: 2026-01-16
   - H2: Obiettivi
   - H2: Fasi e Sequenza
   - H2: Per‑Cartella (linee guida)
-
-
-
