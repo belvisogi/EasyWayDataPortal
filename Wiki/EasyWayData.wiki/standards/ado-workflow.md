@@ -49,7 +49,7 @@ Le operazioni di creazione/modifica/cancellazione richiedono **sempre** conferma
 
 ## 📋 Decision Tree (AI Logic)
 
-```
+```sql
 User Request
 ├─ Richiesta di VISUALIZZAZIONE? (ID Specifico)
 │  └─ ESEGUI DIRETTO (Fast Lane)
@@ -60,4 +60,4 @@ User Request
 │
 └─ Richiesta di MODIFICA?
    └─ CHIEDI CONFERMA
-```
+```sql

@@ -88,7 +88,7 @@ foreach($r in $roots){
 ## Utility: bulk fix frontmatter (owner/status/tags)
 ```powershell
 . EasyWayData.wiki/scripts/fix-frontmatter-bulk.ps1 -WikiPath Wiki/EasyWayData.wiki -Apply
-```
+```sql
 ```sql
 
 ## Log attività (esempio)

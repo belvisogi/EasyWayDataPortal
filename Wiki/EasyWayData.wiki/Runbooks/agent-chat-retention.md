@@ -57,7 +57,7 @@ EXEC sp_attach_schedule
 EXEC sp_add_jobserver
   @job_name = N'EasyWay.AgentChat.Retention';
 GO
-```
+```sql
 
 ## Verifica
 - Esegui manualmente lo step e verifica `PORTAL.STATS_EXECUTION_LOG` per `sp_agent_chat_purge_logs`.

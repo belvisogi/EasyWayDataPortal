@@ -42,5 +42,5 @@ Usare lo script `scripts/sync-env-to-akv.ps1` per popolare massivamente i segret
 ```powershell
 # Esempio: Popolare Ambiente DEV
 ./scripts/sync-env-to-akv.ps1 -EnvFile ".env.local" -VaultName "kv-easyway-dev"
-```
+```sql
 

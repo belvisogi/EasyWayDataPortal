@@ -1,3 +1,22 @@
+---
+id: dual-stack-strategy
+title: Architecture: Dual Stack Strategy (The Bridge) ☯️
+summary: Breve descrizione del documento.
+status: draft
+owner: team-docs
+created: '2025-01-01'
+updated: '2025-01-01'
+tags:
+  - layer/reference
+  - privacy/internal
+  - language/it
+llm:
+  include: true
+  pii: none
+  chunk_hint: 400-600
+  redaction: [email, phone]
+entities: []
+---
 # Architecture: Dual Stack Strategy (The Bridge) ☯️
 
 > "Un codice, due anime."
@@ -24,7 +43,7 @@ graph TD
     D -->|Connects to| H[SQL Edge Container]
     D -->|Connects to| I[Azurite Container]
     D -->|Connects to| J[ChromaDB Vector Store]
-```
+```sql
 
 ## Matrix of Responsibilities
 
@@ -47,3 +66,4 @@ We chose **Path A (Dual Stack)** over forking the project to ensure **Antifragil
 The switch is controlled by the environment variable `$env:EASYWAY_MODE`.
 *   `'Enterprise'` (Default): Loads `AzureMemoryProvider`.
 *   `'Framework'`: Loads `LocalMemoryProvider`.
+

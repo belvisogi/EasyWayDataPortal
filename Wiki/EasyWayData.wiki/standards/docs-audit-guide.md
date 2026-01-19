@@ -21,7 +21,7 @@ Il sistema offre una modalità "Consulente" che analizza lo stato della document
 ### Come Eseguire
 ```powershell
 pwsh scripts/agent-docs-review.ps1 -Interactive
-```
+```sql
 Selezionando "Wiki Normalize & Review", l'agente genererà un **Audit Plan** in `out/docs/audit_plan_wiki.md`.
 
 ### Cosa Analizza

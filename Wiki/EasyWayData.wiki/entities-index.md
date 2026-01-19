@@ -1,19 +1,18 @@
 ---
-include: true
-entities: []
-owner: team-docs
 id: ew-entities-index
-tags: 
-status: draft
 title: Entities Index
-updated: 2026-01-16
-llm: 
 summary: Indice delle entità dichiarate in entities.yaml, raggruppate per categoria.
-pii: none
-chunk_hint: 400-600
+status: draft
+owner: team-docs
+tags:
+  - catalog
+  - language/it
+llm:
+  include: true
+  pii: none
+  chunk_hint: 400-600
+entities: []
 ---
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
-
 # Entities Index
 
 ## Endpoints
@@ -87,7 +86,5 @@ chunk_hint: 400-600
 - Dove trovo l'elenco delle entità e i link rapidi?
 - Quali categorie di entità sono coperte?
 - Come navigo verso documenti specifici partendo dall'indice?
-
-
 
 

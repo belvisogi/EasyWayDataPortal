@@ -419,7 +419,7 @@ const rateLimit = {
 ```javascript
 // Require approval + ticket before executing apply mode
 const context = { executionMode: "apply", approved: true, approvalId: "CAB-2026-0001" };
-```
+```sql
 
 ### Context Sanitization
 

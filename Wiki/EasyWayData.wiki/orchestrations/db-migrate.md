@@ -57,7 +57,7 @@ next: Collegare al workflow n8n reale (validate/apply) e allegare evidenze.
     "correlationId": "op-2026-01-18-001"
   }
 }
-```
+```sql
 
 ## Workflow (Alto Livello)
 
@@ -76,7 +76,7 @@ next: Collegare al workflow n8n reale (validate/apply) e allegare evidenze.
 sqlcmd -S $server -d $database -U $user -P $password `
        -i db/migrations/V15__add_notifications.sql `
        -n  # dry run mode
-```
+```sql
 
 ### Apply (Esecuzione Reale)
 
@@ -84,7 +84,7 @@ sqlcmd -S $server -d $database -U $user -P $password `
 # Applica migrazione
 sqlcmd -S $server -d $database -U $user -P $password `
        -i db/migrations/V15__add_notifications.sql
-```
+```sql
 
 ## Riferimenti
 

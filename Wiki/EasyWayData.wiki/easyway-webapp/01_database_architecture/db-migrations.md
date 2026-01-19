@@ -39,7 +39,7 @@ next: Sviluppare tool AI-friendly custom per automazione migrazioni (db/db-deplo
 
 ### Struttura Directory
 
-```
+```sql
 db/
 ├── migrations/              # File SQL di migrazione (SOURCE OF TRUTH)
 │   ├── V1__baseline.sql
@@ -51,7 +51,7 @@ db/
 │   └── ...
 ├── db-deploy-ai/           # Tool AI-friendly per automazione (futuro)
 └── README.md
-```
+```sql
 
 ### Naming Convention
 
@@ -99,7 +99,7 @@ sqlcmd -S $server `
        -U $user `
        -P "<password>" `
        -i db/migrations/V3__portal_core_tables.sql
-```
+```sql
 
 **Vantaggi**: Scriptabile, automazione CI/CD, batch processing.
 
@@ -125,7 +125,7 @@ cd c:\old\EasyWayDataPortal
 
 # Crea nuovo file con numero sequenziale successivo
 New-Item -Path "db/migrations/V15__add_notifications_table.sql" -ItemType File
-```
+```sql
 
 ### 2. Scrivi DDL Idempotente
 
@@ -146,7 +146,7 @@ BEGIN
   CREATE INDEX IX_PORTAL_NOTIFICATIONS_tenant_user 
     ON PORTAL.NOTIFICATIONS(tenant_id, user_id);
 END;
-```
+```sql
 
 **Principi**:
 - Sempre `IF OBJECT_ID(...) IS NULL` per evitare errori su re-run
@@ -162,7 +162,7 @@ END;
 # Opzione B: sqlcmd
 sqlcmd -S $server -d $database -U $user -P $password `
        -i db/migrations/V15__add_notifications_table.sql
-```
+```sql
 
 ### 4. Commit in Git
 
@@ -170,20 +170,20 @@ sqlcmd -S $server -d $database -U $user -P $password `
 git add db/migrations/V15__add_notifications_table.sql
 git commit -m "Migration V15: Add NOTIFICATIONS table"
 git push
-```
+```sql
 
 ### 5. Aggiorna Wiki
 
 Crea pagina documentazione tabella:
-```
+```sql
 Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/
   01b_schema_structure/PORTAL/tables/portal-notifications.md
-```
+```sql
 
 Aggiorna inventario DDL:
 ```powershell
 pwsh scripts/db-ddl-inventory.ps1 -WriteWiki
-```
+```sql
 
 ---
 
@@ -197,12 +197,12 @@ IF OBJECT_ID('PORTAL.USERS','U') IS NULL
 BEGIN
   CREATE TABLE PORTAL.USERS (...);
 END;
-```
+```sql
 
 ❌ **Errato**:
 ```sql
 CREATE TABLE PORTAL.USERS (...);  -- Fallisce se già esistente
-```
+```sql
 
 ### Stored Procedures
 
@@ -215,7 +215,7 @@ AS
 BEGIN
   -- Logic here
 END;
-```
+```sql
 
 ✅ **Corretto** (SQL Server 2014):
 ```sql
@@ -231,7 +231,7 @@ BEGIN
   -- Logic here
 END;
 GO
-```
+```sql
 
 ### Batch Separator `GO`
 
@@ -247,7 +247,7 @@ GO
 
 CREATE PROCEDURE PORTAL.sp_two AS BEGIN SELECT 2; END;
 GO
-```
+```sql
 
 ### Logging e Auditing
 
@@ -268,7 +268,7 @@ BEGIN
     @tenant_id = @tenant_id,
     @status = 'SUCCESS';
 END;
-```
+```sql
 
 ---
 
@@ -292,7 +292,7 @@ git commit -m "Migration V15: Add NOTIFICATIONS table"
 git push origin feature/add-notifications
 
 # Pull Request → Review → Merge to main
-```
+```sql
 
 ### Verifica Stato Database
 
@@ -305,7 +305,7 @@ SELECT name FROM sys.tables WHERE schema_id = SCHEMA_ID('PORTAL');
 
 -- Lista tutte le SP PORTAL
 SELECT name FROM sys.procedures WHERE schema_id = SCHEMA_ID('PORTAL');
-```
+```sql
 
 ---
 

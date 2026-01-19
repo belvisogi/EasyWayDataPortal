@@ -90,7 +90,7 @@ pwsh scripts/db-ddl-inventory.ps1 -IncludeSnapshot -WriteWiki
 
 # Include legacy export (archivio storico)
 pwsh scripts/db-ddl-inventory.ps1 -IncludeLegacy -WriteWiki
-```
+```sql
 
 **Nota**: Lo script è stato aggiornato per leggere da `db/migrations/` invece di `db/flyway/`.
 

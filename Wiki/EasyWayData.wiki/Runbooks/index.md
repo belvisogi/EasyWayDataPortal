@@ -22,3 +22,10 @@ llm:
 
 
 
+
+## Domande a cui risponde
+- Che cosa raccoglie questo indice?
+- Dove sono i documenti principali collegati?
+- Come verificare naming e ancore per questa cartella?
+- Dove trovare entità e guide correlate?
+

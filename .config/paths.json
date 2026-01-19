@@ -1,0 +1,24 @@
+{
+  "$schema": "./paths.schema.json",
+  "description": "Central path configuration for EasyWayDataPortal project",
+  "version": "1.0.0",
+  "paths": {
+    "projectRoot": "C:\\old\\EasyWayDataPortal",
+    "wiki": "C:\\old\\EasyWayDataPortal\\Wiki",
+    "wikiEasyWayData": "C:\\old\\EasyWayDataPortal\\Wiki\\EasyWayData.wiki",
+    "scripts": "C:\\old\\EasyWayDataPortal\\scripts",
+    "agents": "C:\\old\\EasyWayDataPortal\\agents",
+    "db": "C:\\old\\EasyWayDataPortal\\db",
+    "docs": "C:\\old\\EasyWayDataPortal\\docs",
+    "apps": "C:\\old\\EasyWayDataPortal\\apps",
+    "out": "C:\\old\\EasyWayDataPortal\\out"
+  },
+  "legacy": {
+    "oneDrivePath": "C:\\Users\\EBELVIGLS\\OneDrive - NTT DATA EMEAL\\Documents\\EasyWayDataPortal",
+    "note": "This path is deprecated and should not be used in new code"
+  },
+  "usage": {
+    "powershell": "Import path config: $config = Get-Content '.config/paths.json' | ConvertFrom-Json; $projectRoot = $config.paths.projectRoot",
+    "relative": "Always prefer relative paths in generated documentation to ensure portability"
+  }
+}

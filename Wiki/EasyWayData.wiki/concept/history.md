@@ -1,3 +1,22 @@
+---
+id: history
+title: 📜 The Chronicles of EasyWay
+summary: Breve descrizione del documento.
+status: draft
+owner: team-docs
+created: '2025-01-01'
+updated: '2025-01-01'
+tags:
+  - layer/reference
+  - privacy/internal
+  - language/it
+llm:
+  include: true
+  pii: none
+  chunk_hint: 400-600
+  redaction: [email, phone]
+entities: []
+---
 # 📜 The Chronicles of EasyWay
 
 > *"Ciò che non è scritto, è dimenticato. Ciò che è celebrato, vive per sempre."* - Agent Chronicler
@@ -24,3 +43,4 @@
 *   **Event**: Formazione del Consiglio e mappatura delle dipendenze.
 *   **Description**: Nascita di `agent_cartographer` e del Knowledge Graph. Risolto il problema del "Butterfly Effect" (modifica DB -> rottura PBI).
 *   **Significance**: Gli agenti ora "pensano sistemico". Prima di agire, simulano l'impatto sull'intero ecosistema.
+

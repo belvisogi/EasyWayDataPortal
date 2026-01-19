@@ -41,7 +41,7 @@ agents/agent_name/
 ├── manifest.json       # 🆔 La Carta d'Identità (Capabilities)
 ├── README.md           # 📖 Il Manuale d'Uso (Role & Usage)
 └── (optional) priority.json / memory/
-```
+```sql
 
 Gli script esecutivi (il "cervello") risiedono centralizzati in `scripts/` per favorire il riuso, ma sono referenziati dal manifest.
 
@@ -74,7 +74,7 @@ Il `manifest.json` è il contratto che l'Orchestratore usa per capire cosa sa fa
     }
   ]
 }
-```
+```sql
 
 ## 3. README Standard (`README.md`)
 
@@ -104,7 +104,7 @@ Per creare un nuovo agente conforme allo standard, usare l'agente scaffolder:
 ```powershell
 pwsh scripts/agent-creator.ps1 -Action agent:scaffold -Intent/Params @{ agentName = 'agent_audit' }
 # Oppure copia manuale da agent_template
-```
+```sql
 
 ## 6. Audit & Compliance
 
@@ -120,7 +120,7 @@ L'Audit Agent supporta la modalità `-AutoFix`:
 
 ```powershell
 pwsh scripts/agent-audit.ps1 -AutoFix
-```
+```sql
 
 ## 7. GEDI Integration & Runtime Lifecycle 🧠
 

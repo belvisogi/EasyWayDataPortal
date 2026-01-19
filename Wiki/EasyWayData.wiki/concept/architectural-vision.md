@@ -1,3 +1,22 @@
+---
+id: architectural-vision
+title: 🧠 L'Evoluzione Architetturale di EasyWay
+summary: Breve descrizione del documento.
+status: draft
+owner: team-docs
+created: '2025-01-01'
+updated: '2025-01-01'
+tags:
+  - layer/reference
+  - privacy/internal
+  - language/it
+llm:
+  include: true
+  pii: none
+  chunk_hint: 400-600
+  redaction: [email, phone]
+entities: []
+---
 # 🧠 L'Evoluzione Architetturale di EasyWay
 > *Il percorso intuitivo verso un Sistema Multi-Agente Senziente.*
 
@@ -27,3 +46,4 @@ Questo documento celebra l'intuizione architetturale che ha guidato la creazione
 
 ---
 *Documentato il: 2026-01-17*
+

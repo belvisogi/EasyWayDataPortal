@@ -28,7 +28,7 @@ SELECT * FROM SourceTable;
 -- ✅ GOOD
 INSERT INTO TargetTable (ColA, ColB, ColC)
 SELECT ColA, ColB, ColC FROM SourceTable;
-```
+```sql
 
 ### 2. Primary Keys & Not Nulls
 **Regola**: Assicurarsi di popolare tutte le colonne NOT NULL e Primary Key, anche se non presenti nella source immediata.
@@ -43,7 +43,7 @@ SELECT
     Code, 
     Description 
 FROM SourceTable;
-```
+```sql
 
 ### 3. Avoid Random DISTINCT
 **Regola**: Evitare `SELECT DISTINCT` su tutto il set senza analisi.
