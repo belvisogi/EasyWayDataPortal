@@ -152,6 +152,19 @@
         "Meglio partire leggero e scalare con evidenze che sovra-investire su ipotesi?"
       ],
       "learned_from": "Infrastructure decision 2026-01-24: CPX31 (8GB) vs Dedicated (64GB) - start small validated by real usage patterns"
+    },
+    "known_bug_over_chaos": {
+      "description": "Meglio consegnare con bug noto che peggiorare tentando fix affrettati",
+      "philosophy": "Un bug conosciuto, documentato e circoscritto è meglio del caos generato da fix last-minute non testati. Il bug noto è gestibile e può essere fixato con calma; il pasticcio da 'quick fix' può essere catastrofico e imprevedibile. Quando il tempo stringe, documenta il problema e consegna, non improvvisare.",
+      "checks": [
+        "Questo fix è stato testato adeguatamente o è un tentativo?",
+        "Il rischio di peggiorare è maggiore del beneficio del fix?",
+        "Abbiamo tempo per validare che il fix non introduce regressioni?",
+        "Possiamo documentare il bug noto e fixarlo nella prossima iterazione?",
+        "Stiamo facendo 'panic fixing' sotto pressione o abbiamo un piano solido?",
+        "È meglio consegnare in tempo con workaround documentato che in ritardo con fix non testato?"
+      ],
+      "learned_from": "Esperienza pratica: tentativi affrettati pre-release spesso peggiorano la situazione invece di migliorarla"
     }
   },
   "intervention_modes": {
