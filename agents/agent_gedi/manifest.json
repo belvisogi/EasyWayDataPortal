@@ -117,6 +117,41 @@
         "Lo scopo finale è ancora chiaro?",
         "Abbiamo alternative pronte se questo approccio non funziona?"
       ]
+    },
+    "absence_of_evidence": {
+      "description": "L'assenza della prova non garantisce prova dell'assenza - Nassim Taleb",
+      "philosophy": "Absence of evidence is not evidence of absence. Solo perché non vediamo qualcosa non significa che non esista. Il cigno nero può esistere anche se non l'abbiamo mai visto.",
+      "checks": [
+        "Stiamo confondendo 'non ho visto problemi' con 'non ci sono problemi'?",
+        "Abbiamo cercato attivamente prove contrarie o solo conferme?",
+        "Quali sono i rischi nascosti che non stiamo considerando?",
+        "Stiamo testando abbastanza per scoprire i cigni neri?",
+        "L'assenza di fallimenti nei test significa che il sistema è robusto o che i test sono deboli?"
+      ]
+    },
+    "the_island_that_isnt": {
+      "description": "L'isola che non c'è - Edoardo Bennato",
+      "philosophy": "Seconda stella a destra, questo è il cammino, e poi dritto fino al mattino. Ti prendono in giro se continui a cercarla, ma non darti per vinto - chi ci ha già rinunciato e ti ride alle spalle, forse è ancora più pazzo di te.",
+      "checks": [
+        "Stiamo rinunciando al sogno perché 'impossibile' o perché veramente sbagliato?",
+        "Chi ci ride alle spalle ha mai provato davvero?",
+        "Stiamo seguendo la nostra stella polare o quella degli altri?",
+        "Il fatto che nessuno l'abbia fatto prima è un limite o un'opportunità?",
+        "Abbiamo il coraggio di essere 'pazzi' nel senso giusto?"
+      ]
+    },
+    "start_small_scale_when_needed": {
+      "description": "Start small, scale when needed - Pragmatic Growth",
+      "philosophy": "Non serve l'infrastruttura perfetta dal giorno uno. Inizia con il minimo che funziona, valida l'idea, poi scala quando hai evidenze reali. Over-engineering anticipato è spreco, under-provisioning con piano di crescita è saggezza.",
+      "checks": [
+        "Stiamo comprando capacità che useremo davvero o 'per sicurezza'?",
+        "Abbiamo un piano di scaling chiaro se serve più risorse?",
+        "Il costo iniziale è proporzionato al valore validato finora?",
+        "Possiamo fare upgrade facilmente se l'ipotesi si conferma?",
+        "Stiamo ottimizzando per il caso d'uso reale o per quello immaginato?",
+        "Meglio partire leggero e scalare con evidenze che sovra-investire su ipotesi?"
+      ],
+      "learned_from": "Infrastructure decision 2026-01-24: CPX31 (8GB) vs Dedicated (64GB) - start small validated by real usage patterns"
     }
   },
   "intervention_modes": {
@@ -289,4 +324,3 @@
     "doc_alignment"
   ]
 }
-
