@@ -21,12 +21,14 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     && rm -rf /var/lib/apt/lists/*
 
-# Install PowerShell (ARM64 supported method)
-RUN wget -q "https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb" && \
-    dpkg -i packages-microsoft-prod.deb && \
-    rm packages-microsoft-prod.deb && \
-    apt-get update && \
-    apt-get install -y powershell
+# Install PowerShell (Universal Binary Method for ARM64)
+# Url for PowerShell 7.4.1 (LTS) ARM64
+RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/powershell-7.4.1-linux-arm64.tar.gz && \
+    mkdir -p /opt/microsoft/powershell/7 && \
+    tar zxf powershell-7.4.1-linux-arm64.tar.gz -C /opt/microsoft/powershell/7 && \
+    chmod +x /opt/microsoft/powershell/7/pwsh && \
+    ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh && \
+    rm powershell-7.4.1-linux-arm64.tar.gz
 
 # Install Azure CLI
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
