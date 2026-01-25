@@ -35,8 +35,7 @@ RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # Python Libraries (incl. ChromaDB)
 # Python Libraries (incl. ChromaDB)
-# Note: On Ubuntu 24.04+ this requires --break-system-packages, harmless in container
-RUN pip3 install --break-system-packages chromadb numpy pandas openai azure-storage-blob azure-identity
+RUN pip3 install chromadb numpy pandas openai azure-storage-blob azure-identity
 
 # Node.js Agent Dependencies (if any)
 # RUN npm install -g n8n # Optional
