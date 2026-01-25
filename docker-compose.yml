@@ -25,7 +25,7 @@ services:
       - sql-edge
     networks:
       - easyway-net
-    command: ["pwsh", "-c", "Start-Sleep -Seconds 31536000"] # Keep alive for 1 year
+    command: ["pwsh", "-c", "for() { Start-Sleep 1000 }"] # Infinite loop
 
   # ⚡ Vector Database (Memory Cortex)
   chromadb:
