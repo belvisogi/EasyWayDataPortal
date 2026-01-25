@@ -60,6 +60,8 @@ owner: team-platform
 - `Wiki/EasyWayData.wiki/intent-contract.md`
 - `Wiki/EasyWayData.wiki/security/segreti-e-accessi.md`
 - `Wiki/EasyWayData.wiki/security/operativita-governance-provisioning-accessi.md`
+- `Wiki/EasyWayData.wiki/Runbooks/index.md`
+- `Wiki/EasyWayData.wiki/Runbooks/dual-server-bootstrap.md`
 
 
 ## Vedi anche

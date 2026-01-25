@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[[../start-here.md|Home]] > [[index.md|Control-Plane]] > Reference
 
 # Agents Registry (owner, domini, intent)
 
@@ -89,6 +90,9 @@ Gli agenti qui sotto erano nella lista "mancanti" e sono stati implementati con 
 - [Control Plane - Panoramica](./index.md)
 - [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
 - [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+
+
+
 
 
 

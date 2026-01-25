@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Spec|Spec]]
+[[start-here.md|Home]] > [[domains/docs-governance.md|Docs]] > Spec
 
 # Tag Taxonomy (Controllata)
 
@@ -114,6 +115,9 @@ Esempi scope disponibili (casistiche):
 - [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
 - [Visione Portale Agentico](./agentic-portal-vision.md)
 - [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](./docs-conventions.md)
+
+
+
 
 
 

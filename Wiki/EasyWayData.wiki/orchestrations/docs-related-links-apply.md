@@ -11,9 +11,10 @@ llm:
   chunk_hint: 250-400
 entities: []
 updated: '2026-01-08'
+next: Aggiungere checklist (file backup creati, link applicati, lint OK) o un next step esplicito.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../domains/docs-governance.md|Docs]] > Orchestration
 
 # Docs Related Links Apply (WHAT)
 
@@ -43,5 +44,7 @@ pwsh scripts/wiki-related-links.ps1 -WikiPath "Wiki/EasyWayData.wiki" -TopK 7 -A
 
 Rollback:
 - Ogni run salva backup in `out/wiki-related-links-apply/<runId>/` e un `apply-summary.json` con la lista file/backup.
+
+
 
 

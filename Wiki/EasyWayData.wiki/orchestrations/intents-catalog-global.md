@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Intent|Intent]]
+[[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Intent
 
 # Orchestrations - Intents Catalog (Globale)
 
@@ -93,5 +93,7 @@ Nota
 - [Mapping Matrix - Workflow → Intent → Implementazione](./mapping-matrix.md)
 - [Orchestrazione – wf.excel-csv-upload (WHAT)](./wf-excel-csv-upload.md)
 - [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
+
+
 
 

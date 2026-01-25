@@ -102,6 +102,7 @@ Cosa fa EasyWay Data Portal
 
 Per dettagli:  
 - [Architettura Azure](docs/infra/azure-architecture.md)  
+- [🔒 Security Framework - Enterprise RBAC](docs/infra/SECURITY_FRAMEWORK.md) ← **LA BIBBIA** per sicurezza, audit, ACLs  
 - [Principi agentici](docs/agentic/AGENTIC_READINESS.md)  
 - [Valutazione stato & gap](VALUTAZIONE_EasyWayDataPortal.md)  
 - [Decisione deploy MVP](wiki/EasyWayData.wiki/deployment-decision-mvp.md)

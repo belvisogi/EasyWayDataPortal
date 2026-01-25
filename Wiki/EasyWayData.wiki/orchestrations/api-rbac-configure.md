@@ -15,7 +15,7 @@ updated: '2026-01-08'
 next: Collegare al workflow n8n reale e aggiungere output sample.
 ---
 
-[[start-here|Home]] > [[Domain - Api|Api]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../api/rest-errors-qna.md|Api]] > Orchestration
 
 # API RBAC Configure (WHAT)
 
@@ -55,5 +55,7 @@ Riferimenti
 - [DB User Create (WHAT)](./db-user-create.md)
 - [DB User Revoke (WHAT)](./db-user-revoke.md)
 - [DB User Rotate (WHAT)](./db-user-rotate.md)
+
+
 
 

@@ -2,7 +2,7 @@
 include: true
 owner: team-platform
 id: ado-bootstrap
-tags: [orchestration, domain/ado, layer/orchestration]
+tags: [orchestration, ado, domain/control-plane, layer/orchestration, audience/dev, audience/ops, privacy/internal, language/it]
 status: active
 title: Orchestration - ADO Bootstrap
 updated: 2026-01-16
@@ -12,7 +12,8 @@ chunk_hint: 500
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
 # ADO Bootstrap
 
@@ -26,5 +27,6 @@ Questa orchestrazione automatizza il setup iniziale di un progetto Azure DevOps 
 ## Riferimenti
 - Modello Operativo: [[ew-ado-operating-model|Azure DevOps Operating Model]]
 - Manifest: `ado-bootstrap.manifest.json`
+
 
 

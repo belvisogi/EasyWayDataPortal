@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: Aggiornare quando cambiano taxonomy/lint o regole di naming.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+[[start-here.md|Home]] > [[domains/docs-governance.md|Docs]] > Reference
 
 # EasyWayData Portal - Regole Semplici (La Nostra Bibbia)
 
@@ -62,7 +62,7 @@ Contenuto suggerito per il file legacy (stub):
 Questa pagina è stata rinominata (path canonico): `<percorso/relativo/al/wiki/file-canonico.md>`.
 
 Vai alla pagina canonica:
-- [Titolo canonico](./file-canonico.md)
+- Titolo canonico: `./file-canonico.md` (esempio)
 ```sql
 
 ## 2) kebab-case vs snake_case
@@ -142,4 +142,6 @@ Regole:
 - Non creare nuove pagine "da zero": copia `_template.md` e poi compila.
 - Mantieni il frontmatter YAML completo e aggiorna `id/title/summary/owner/status/tags`.
 - Se una cartella non ha `_template.md`, crearne uno prima di aggiungere nuove pagine.
+
+
 

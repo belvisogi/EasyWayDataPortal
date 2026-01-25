@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+[[start-here.md|Home]] > [[domains/docs-governance.md|Docs]] > Index
 
 # Start Here - Link Essenziali
 
@@ -67,6 +68,13 @@ llm:
 7) Materiale legacy / asset
 - Contesto: `blueprints/legacy-reference-material.md`
 - Branding: `UX/branding-assets.md`
+
+8) Runbooks (Ops)
+- Indice runbook: `Runbooks/index.md`
+- Bootstrap Dual Server (Oracle Dev/Staging + Hetzner Prod): `Runbooks/dual-server-bootstrap.md`
+
+
+
 
 
 

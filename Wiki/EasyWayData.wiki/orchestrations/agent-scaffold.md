@@ -4,14 +4,16 @@ title: Orchestrazione - Agent Scaffold (WHAT)
 summary: Workflow WHAT-first per creare un nuovo agente (es. DBA) usando pattern canonici e contesto RAG (Azure AI Search), con dispatch unico via n8n.
 status: draft
 owner: team-platform
-tags: [orchestration, agents, rag, azure-ai-search, governance, language/it]
+tags: [orchestration, domain/control-plane, layer/orchestration, audience/dev, privacy/internal, language/it, agents, rag, azure-ai-search, governance]
 updated: 2026-01-07
+next: Aggiungere una checklist o next step esplicito (es. output atteso + verify + rollback).
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]]
+[[../start-here.md|Home]]
 
 # Orchestrazione - Agent Scaffold (WHAT)
 
@@ -73,6 +75,8 @@ llm:
 - [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
 - [Control Plane - Panoramica](../control-plane/index.md)
 - [Orchestrations - Intents Catalog (Globale)](./intents-catalog-global.md)
+
+
 
 
 

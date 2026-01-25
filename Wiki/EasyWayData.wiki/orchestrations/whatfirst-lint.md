@@ -15,7 +15,7 @@ updated: '2026-01-08'
 next: Collegare a un gate CI opzionale.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../domains/docs-governance.md|Docs]] > Orchestration
 
 # WHAT-first Lint (WHAT)
 
@@ -47,5 +47,7 @@ Entrypoint (n8n.dispatch)
 - [Docs Related Links Apply (WHAT)](./docs-related-links-apply.md)
 - [Predeploy Checklist (WHAT)](./predeploy-checklist.md)
 - [Documentazione Agentica - Audit & Policy (Canonico)](../docs-agentic-audit.md)
+
+
 
 

@@ -53,7 +53,9 @@ function Extract-FrontMatter {
 function Parse-Tags {
   param([string]$FrontMatter)
   $tags = New-Object System.Collections.Generic.List[string]
-  if (-not $FrontMatter) { return $tags }
+  # Ensure callers always receive a stable array type (even for a single tag),
+  # otherwise `$tags.Count` can fail when PowerShell unwraps a single string.
+  if (-not $FrontMatter) { return ,@() }
 
   $inline = [regex]::Match($FrontMatter, '(?m)^tags\s*:\s*\[(?<v>[^\]]*)\]\s*$')
   if ($inline.Success) {
@@ -62,7 +64,7 @@ function Parse-Tags {
       $t = $p.Trim()
       if ($t) { $tags.Add($t.Trim('"',[char]39)) }
     }
-    return $tags
+    return ,($tags.ToArray())
   }
 
   $lines = $FrontMatter -split "\r?\n"
@@ -79,7 +81,7 @@ function Parse-Tags {
       if ($l -match '^[A-Za-z0-9_-]+\s*:') { break }
     }
   }
-  return $tags
+  return ,($tags.ToArray())
 }
 
 function Suggest-Facets {
@@ -127,6 +129,7 @@ function Load-CoreScope {
 
 function Is-InScope {
   param([string]$RelPath, [string[]]$ScopeEntries)
+  if ($null -eq $ScopeEntries -or $ScopeEntries.Count -eq 0) { return $true }
   foreach ($e in $ScopeEntries) {
     $p = [string]$e
     if (-not $p) { continue }
@@ -169,6 +172,7 @@ Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md |
 
     $rel = Get-RelPath -Root $Path -FullName $file
     $inScope = if ($RequireFacets -and $RequireFacetsScope -eq 'core') { Is-InScope -RelPath $rel -ScopeEntries $scopeEntries } else { $true }
+    if ($RequireFacets -and $RequireFacetsScope -eq 'core' -and -not $inScope) { return }
 
     if ($null -eq $fm) {
       $errors.Add('missing_front_matter')

@@ -15,7 +15,7 @@ updated: '2026-01-16'
 next: Integrare il report nel Quest Board DQ.
 ---
 
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../domains/db.md|db]] > Orchestration
 
 # DB Drift Check (WHAT)
 
@@ -55,5 +55,7 @@ Riferimenti
 - [DB Migrate (Flyway) (WHAT)](./db-migrate.md)
 - [DB User Revoke (WHAT)](./db-user-revoke.md)
 - [KB Assessment (WHAT)](./kb-assessment.md)
+
+
 
 

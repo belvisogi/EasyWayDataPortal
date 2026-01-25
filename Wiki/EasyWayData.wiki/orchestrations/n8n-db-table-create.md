@@ -15,7 +15,7 @@ updated: '2026-01-18'
 next: Modellare workflow in n8n (Webhook -> Validate -> Gate precheck -> Generate artifacts -> (optional) Apply -> Log).
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration
 
 # n8n-db-table-create
 
@@ -67,4 +67,6 @@ Se l'utente compila un foglio (Excel/CSV), convertilo in intent e poi esegui l'a
 - Artifact JSON: `db-table-create*.json` (machine-readable)
 
 **Nota**: Il numero versione (Vxx) viene assegnato sequenzialmente in base all'ultima migrazione esistente.
+
+
 

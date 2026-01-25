@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[[../start-here.md|Home]] > [[index.md|Control-Plane]] > Spec
 
 # Multi-Agent Orchestration con Ponderazione e Round Table
 
@@ -797,10 +798,10 @@ Ogni agent valuta le proposte degli altri con **5 criteri** (1-10):
 - `docs/agentic/templates/decision-matrix.template.json` - Decision matrix
 
 ### Wiki Correlate
-- [Orchestrator n8n (WHAT)](./orchestrations/orchestrator-n8n.md) - Dispatch unico
-- [Agent Priority Rules](./agent-priority-and-checklists.md) - Priority.json
-- [Agents Registry](./control-plane/agents-registry.md) - Lista completa agent
-- [Tag Scopes & Retrieval Bundles](./docs-tag-scopes.md) - Context loading
+- [Orchestrator n8n (WHAT)](../orchestrations/orchestrator-n8n.md) - Dispatch unico
+- [Agent Priority Rules](../agent-priority-and-checklists.md) - Priority.json
+- [Agents Registry](./agents-registry.md) - Lista completa agent
+- [Tag Scopes & Retrieval Bundles](../docs-tag-taxonomy.md) - Context loading
 
 ### External
 - [Consensus Decision Making](https://en.wikipedia.org/wiki/Consensus_decision-making)
@@ -895,6 +896,9 @@ Altrimenti: **stay con Expert + Reviewer**.
 **Status**: RECOMMENDED APPROACH (2026-01-13)  
 **Owner**: team-platform  
 **Next Review**: 2026-07-01 (6 months)
+
+
+
 
 
 

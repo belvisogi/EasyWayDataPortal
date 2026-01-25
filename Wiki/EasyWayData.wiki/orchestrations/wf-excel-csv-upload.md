@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration
 
 # Orchestrazione – wf.excel-csv-upload (WHAT)
 
@@ -63,6 +64,9 @@ Riferimenti
 - Use Case – Entrate/Uscite: `use-cases/entrate-uscite.md`
 - ARGOS – Quality Gates: `argos/argos-quality-gates.md`
 - Governance DQ: `governance-dq.md`
+
+
+
 
 
 

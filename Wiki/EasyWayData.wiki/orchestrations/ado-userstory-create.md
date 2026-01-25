@@ -4,7 +4,7 @@ title: ADO User Story Create (WHAT)
 summary: Creazione User Story su Azure DevOps con prefetch best practices (Wiki + esterne).
 status: draft
 owner: team-platform
-tags: [domain/ado, layer/orchestration, audience/dev, privacy/internal, language/it, ado]
+tags: [domain/control-plane, layer/orchestration, audience/dev, privacy/internal, language/it, ado]
 llm:
   include: true
   pii: none
@@ -15,7 +15,7 @@ updated: '2026-01-09'
 next: Aggiungere esempi output stateBefore/stateAfter.
 ---
 
-[[start-here|Home]] > [[Domain - Ado|Ado]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../ado-operating-model.md|Ado]] > Orchestration
 
 # ADO User Story Create (WHAT)
 
@@ -56,4 +56,6 @@ Riferimenti
 
 - [Agent Scaffold (WHAT)](./agent-scaffold.md)
 - [Orchestrator n8n (WHAT)](./orchestrator-n8n.md)
+
+
 

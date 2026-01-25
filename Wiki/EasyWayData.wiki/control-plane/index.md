@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Index|Index]]
+[[../start-here.md|Home]] > [[index.md|Control-Plane]] > Index
 
 # Control Plane - Panoramica
 
@@ -64,6 +65,9 @@ Riferimenti
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
+
+
 
 
 

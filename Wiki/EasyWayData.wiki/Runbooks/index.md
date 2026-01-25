@@ -19,6 +19,7 @@ llm:
 - Nota per autori: per nuove pagine usare `./_template.md`.
 
 - [Agent Chat Retention (SQL Server Agent Job)](./agent-chat-retention.md)
+- [Bootstrap Dual Server (Oracle Dev/Staging + Hetzner Prod)](./dual-server-bootstrap.md)
 
 
 

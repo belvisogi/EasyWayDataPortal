@@ -11,9 +11,10 @@ llm:
   chunk_hint: 250-400
 entities: []
 updated: '2026-01-09'
+next: Aggiungere checklist di verifica (scorecard generata, backlog generato, preview kanban) o un next step esplicito.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../domains/docs-governance.md|Docs]] > Orchestration
 
 # Docs DQ Audit + Kanban (WHAT)
 
@@ -52,5 +53,7 @@ pwsh scripts/docs-dq-scorecard.ps1 `
 
 Rollback:
 - Ogni apply salva backup e summary in `out/docs-dq-scorecard-apply/<runId>/`.
+
+
 
 

@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration
 
 # n8n API Error Triage
 
@@ -87,6 +88,9 @@ pwsh scripts/agent-api.ps1 -Action api-error:triage -IntentPath out/api-error.in
 - [n8n-db-table-create](./n8n-db-table-create.md)
 - [n8n Retrieval Bundles (riduzione token)](./n8n-retrieval-bundles.md)
 - [Release Preflight Security (WHAT)](./release-preflight-security.md)
+
+
+
 
 
 

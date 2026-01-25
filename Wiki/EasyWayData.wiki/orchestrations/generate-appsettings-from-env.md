@@ -15,7 +15,7 @@ updated: '2026-01-08'
 next: Aggiungere esempi artifacts[] e guardrail su segreti.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration
 
 # Generate AppSettings From Env (WHAT)
 
@@ -50,5 +50,7 @@ Entrypoint (n8n.dispatch)
 - [Predeploy Checklist (WHAT)](./predeploy-checklist.md)
 - [Release Preflight Security (WHAT)](./release-preflight-security.md)
 - [DB Generate Docs (WHAT)](./db-generate-docs.md)
+
+
 
 

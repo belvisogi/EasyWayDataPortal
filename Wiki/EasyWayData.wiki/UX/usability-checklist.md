@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Howto|Howto]]
+[[../start-here.md|Home]] > [[agentic-ux.md|Ux]] > Howto
 
 # UX – Usability Checklist (One‑Button)
 
@@ -60,6 +61,9 @@ Come usarla
 - Controlla che l'output atteso (file generati, risorse create/aggiornate, response API) sia presente e coerente.
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
+
+
+
 
 
 

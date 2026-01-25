@@ -15,7 +15,7 @@ updated: '2026-01-16'
 next: Completare le ricette KB.
 ---
 
-[[start-here|Home]] > [[domains/datalake|datalake]] > [[Layer - Reference|Reference]]
+[[../start-here.md|Home]] > [[datalake.md|datalake]] > Reference
 
 # Dominio Datalake
 
@@ -54,5 +54,7 @@ KB
 - [Dominio Frontend](./frontend.md)
 - [Datalake - Set Retention (Stub)](../datalake-set-retention.md)
 - [ETL/ELT Playbook](../etl-elt-playbook.md)
+
+
 
 

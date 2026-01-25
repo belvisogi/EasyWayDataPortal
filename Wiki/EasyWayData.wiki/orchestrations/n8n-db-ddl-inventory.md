@@ -15,7 +15,7 @@ updated: '2026-01-18'
 next: Implementare workflow n8n e collegare webhook.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration
 
 # n8n-db-ddl-inventory
 
@@ -62,5 +62,7 @@ Esecuzione via agent:
 - [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
 - [n8n API Error Triage](./n8n-api-error-triage.md)
 - [DB Generate Docs (WHAT)](./db-generate-docs.md)
+
+
 
 

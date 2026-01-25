@@ -306,7 +306,22 @@ docker compose version
 
 ✅ **Docker installato!**
 
+
 ---
+
+## 🔐 Next Steps: Go Production
+
+Una volta completato questo setup rapido, **DEVI** applicare il protocollo di sicurezza per la produzione.
+
+👉 **Vedi: [SERVER_BOOTSTRAP_PROTOCOL.md](SERVER_BOOTSTRAP_PROTOCOL.md)**
+
+Ti spiegherà come:
+1. 🛡️ Configurare il Firewall (UFW)
+2. 🔑 Disabilitare accesso password SSH
+3. 🌐 Whitelistare l'IP su Azure SQL
+4. 📂 Spostare tutto in structure `/opt/easyway` standard
+
+
 
 ## 🎉 Completato!
 

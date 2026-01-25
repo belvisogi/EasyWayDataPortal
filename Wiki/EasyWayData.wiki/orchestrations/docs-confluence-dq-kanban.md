@@ -11,9 +11,10 @@ llm:
   chunk_hint: 250-400
 entities: []
 updated: '2026-01-09'
+next: Aggiungere una checklist di esito (export OK, pagina aggiornata, link ai report) o un next step esplicito.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../domains/docs-governance.md|Docs]] > Orchestration
 
 # Docs DQ Kanban - Confluence Cloud (WHAT)
 
@@ -53,5 +54,7 @@ Per scrivere davvero (solo dopo approvazione):
 ```powershell
 pwsh scripts/confluence-dq-board.ps1 -IntentPath "scripts/intents/docs-dq-confluence-cloud-001.json" -Export -UpdateBoard -WhatIf:$false
 ```sql
+
+
 
 

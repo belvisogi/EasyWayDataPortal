@@ -15,7 +15,7 @@ updated: '2026-01-16'
 next: Completare audit log.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+[[../start-here.md|Home]] > [[docs-governance.md|Docs]] > Reference
 
 # Dominio Docs & Governance
 
@@ -61,5 +61,7 @@ Audit
 - [Dominio Frontend](./frontend.md)
 - [Dominio DB](./db.md)
 - [Dominio Datalake](./datalake.md)
+
+
 
 

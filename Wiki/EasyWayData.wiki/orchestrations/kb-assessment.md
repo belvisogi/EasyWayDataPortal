@@ -15,7 +15,7 @@ updated: '2026-01-16'
 next: Collegare a un gate CI opzionale.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../domains/docs-governance.md|Docs]] > Orchestration
 
 # KB Assessment (WHAT)
 
@@ -56,5 +56,7 @@ Entrypoint (n8n.dispatch)
 - [Docs Related Links Apply (WHAT)](./docs-related-links-apply.md)
 - [DB Drift Check (WHAT)](./db-drift-check.md)
 - [DB Generate Docs (WHAT)](./db-generate-docs.md)
+
+
 
 

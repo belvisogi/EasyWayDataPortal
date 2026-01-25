@@ -15,7 +15,7 @@ updated: '2026-01-18'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration
 
 # n8n Retrieval Bundles
 
@@ -76,5 +76,7 @@ Nota: di default i bundle servono a caricare **Wiki**; `old/db/` e `db/README.md
 - [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
 - [n8n API Error Triage](./n8n-api-error-triage.md)
 - [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
+
+
 
 

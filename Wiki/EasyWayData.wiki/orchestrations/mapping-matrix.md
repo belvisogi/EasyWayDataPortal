@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Reference
 
 # Mapping Matrix - Workflow → Intent → Implementazione
 
@@ -77,5 +77,7 @@ Nota
 - [Orchestrations – Intents Catalog (Use Case Excel/CSV)](./intents-catalog.md)
 - [Orchestrations - Intents Catalog (Globale)](./intents-catalog-global.md)
 - [Control Plane - Panoramica](../control-plane/index.md)
+
+
 
 

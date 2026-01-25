@@ -40,3 +40,7 @@ event-schema-validate.log
 out/**
 !out/README.md
 scripts/easyway-secrets.json
+
+scripts/infra/remote/remote.config.ps1
+
+scripts/infra/remote/remote.config.ps1

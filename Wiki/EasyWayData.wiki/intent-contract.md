@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+[[start-here.md|Home]] > [[domains/docs-governance.md|Docs]] > Reference
 
 # Contratto Intent (Mini‑DSL)
 Breadcrumb: Home / Metodo Agent‑First / Contratto Intent
@@ -87,6 +87,8 @@ Esempio - Dispatch verso agente
 Note
 - Ogni azione documenta i propri params nella pagina Wiki dedicata.
 - I manifest degli agent elencano le azioni supportate.
+
+
 
 
 

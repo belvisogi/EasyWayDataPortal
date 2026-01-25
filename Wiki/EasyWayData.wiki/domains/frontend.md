@@ -15,7 +15,7 @@ updated: '2026-01-16'
 next: Mappare tutti gli use case.
 ---
 
-[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
+[[../start-here.md|Home]] > [[frontend.md|frontend]] > Reference
 
 # Dominio Frontend
 
@@ -51,5 +51,7 @@ Gates
 - [easyway portal frontend](../easyway-webapp/05_codice_easyway_portale/easyway-portal-frontend.md)
 - [Dominio Datalake](./datalake.md)
 - [Domini - Panoramica](./index.md)
+
+
 
 

@@ -15,7 +15,7 @@ updated: '2026-01-16'
 next: Aggiungere esempi end-to-end per target db e datalake.
 ---
 
-[[start-here|Home]] > [[Domain - Security|Security]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../security/segreti-e-accessi.md|Security]] > Orchestration
 
 # IAM Provision Access (WHAT)
 
@@ -64,5 +64,7 @@ Riferimenti
 - [DB User Revoke (WHAT)](./db-user-revoke.md)
 - [DB User Rotate (WHAT)](./db-user-rotate.md)
 - [Release Preflight Security (WHAT)](./release-preflight-security.md)
+
+
 
 

@@ -164,6 +164,254 @@
       "scopes": [
         "core"
       ]
+    },
+
+    "ado-bestpractice-prefetch": {
+      "intent": "ado-bestpractice-prefetch",
+      "description": "ADO: prefetch best practices (Wiki + esterne) per creare item in modo governato.",
+      "scopes": [
+        "governance-all",
+        "security-all"
+      ]
+    },
+    "ado-bootstrap": {
+      "intent": "ado-bootstrap",
+      "description": "ADO: bootstrap progetto (area/iteration/backlog seed) con policy e governance.",
+      "scopes": [
+        "governance-all",
+        "security-all"
+      ]
+    },
+    "ado-userstory-create": {
+      "intent": "ado-userstory-create",
+      "description": "ADO: creazione User Story/Task in modo governato (con prefetch e checklist).",
+      "scopes": [
+        "governance-all",
+        "security-all"
+      ]
+    },
+    "agent.scaffold": {
+      "intent": "agent.scaffold",
+      "description": "Scaffold di un nuovo agente (WHAT-first, policy, manifest, KB/Wiki).",
+      "scopes": [
+        "governance-all",
+        "security-all",
+        "portal-all"
+      ]
+    },
+
+    "api.error.triage": {
+      "intent": "api.error.triage",
+      "description": "API: triage errori (log, cause probabili, fix e verify).",
+      "scopes": [
+        "portal-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "api.openapi.validate": {
+      "intent": "api.openapi.validate",
+      "description": "API: validazione OpenAPI e contratti (policy, error model, lint).",
+      "scopes": [
+        "portal-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "api.rbac.configure": {
+      "intent": "api.rbac.configure",
+      "description": "API: configurazione RBAC/claims/permessi (multi-tenant, security).",
+      "scopes": [
+        "portal-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+
+    "apply-appsettings-starter": {
+      "intent": "apply-appsettings-starter",
+      "description": "Applicazione appsettings starter (guardrail, sicurezza, configurazione).",
+      "scopes": [
+        "portal-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "generate-appsettings-from-env": {
+      "intent": "generate-appsettings-from-env",
+      "description": "Genera appsettings da env (guardrail e validazione).",
+      "scopes": [
+        "portal-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "sync-appsettings-guardrail": {
+      "intent": "sync-appsettings-guardrail",
+      "description": "Sync appsettings con guardrail (policy, drift, sicurezza).",
+      "scopes": [
+        "portal-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+
+    "db-drift-check": {
+      "intent": "db-drift-check",
+      "description": "DB: drift check (schema, migrazioni, policy) con evidenze.",
+      "scopes": [
+        "data-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "db-generate-docs": {
+      "intent": "db-generate-docs",
+      "description": "DB: generazione documentazione (inventario, diagrammi, reference).",
+      "scopes": [
+        "data-all",
+        "governance-all"
+      ]
+    },
+    "db-migrate": {
+      "intent": "db-migrate",
+      "description": "DB: migrazione (idempotenza, rollback, audit/log).",
+      "scopes": [
+        "data-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "db-user-create": {
+      "intent": "db-user-create",
+      "description": "DB: creazione utente/accesso (security + governance).",
+      "scopes": [
+        "data-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "db-user-revoke": {
+      "intent": "db-user-revoke",
+      "description": "DB: revoke accesso utente (security + governance).",
+      "scopes": [
+        "data-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "db-user-rotate": {
+      "intent": "db-user-rotate",
+      "description": "DB: rotazione credenziali utente (security + governance).",
+      "scopes": [
+        "data-all",
+        "security-all",
+        "governance-all"
+      ]
+    },
+
+    "docs-confluence-dq-kanban": {
+      "intent": "docs-confluence-dq-kanban",
+      "description": "Docs: board DQ (Confluence/Jira/ADO) e allineamento governance.",
+      "scopes": [
+        "governance-all"
+      ]
+    },
+    "docs-dq-audit": {
+      "intent": "docs-dq-audit",
+      "description": "Docs: audit DQ (processo, evidenze, checklist).",
+      "scopes": [
+        "governance-all"
+      ]
+    },
+    "docs-related-links-apply": {
+      "intent": "docs-related-links-apply",
+      "description": "Docs: applica link correlati e normalizza cross-ref per retrieval.",
+      "scopes": [
+        "governance-all"
+      ]
+    },
+
+    "iam.provision.access": {
+      "intent": "iam.provision.access",
+      "description": "IAM: provisioning accessi (ruoli, gruppi, segreti).",
+      "scopes": [
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "kv.secret.set": {
+      "intent": "kv.secret.set",
+      "description": "Key Vault: set secret con policy e tracciamento.",
+      "scopes": [
+        "security-all",
+        "governance-all"
+      ]
+    },
+
+    "infra.terraform.plan": {
+      "intent": "infra.terraform.plan",
+      "description": "Infra: terraform plan/apply (change control, sicurezza, rollback).",
+      "scopes": [
+        "governance-all",
+        "security-all"
+      ]
+    },
+    "obs.healthcheck": {
+      "intent": "obs.healthcheck",
+      "description": "Observability: healthcheck e diagnostica runtime (safe-by-default).",
+      "scopes": [
+        "governance-all",
+        "security-all"
+      ]
+    },
+    "predeploy-checklist": {
+      "intent": "predeploy-checklist",
+      "description": "Checklist pre-deploy (gates, sicurezza, rollback).",
+      "scopes": [
+        "governance-all",
+        "security-all"
+      ]
+    },
+    "release.preflight.security": {
+      "intent": "release.preflight.security",
+      "description": "Release: preflight security (scans, policy, approvazioni).",
+      "scopes": [
+        "security-all",
+        "governance-all"
+      ]
+    },
+    "runtime.bundle": {
+      "intent": "runtime.bundle",
+      "description": "Runtime: bundle operativo (runbooks, policy, strumenti essenziali).",
+      "scopes": [
+        "governance-all",
+        "security-all"
+      ]
+    },
+
+    "kb.assessment": {
+      "intent": "kb.assessment",
+      "description": "KB: assessment (copertura ricette, coerenza, priorita' fix).",
+      "scopes": [
+        "governance-all",
+        "core"
+      ]
+    },
+    "rag.export-wiki-chunks": {
+      "intent": "rag.export-wiki-chunks",
+      "description": "RAG: export chunk wiki per ingestion (scope e hygiene).",
+      "scopes": [
+        "governance-all"
+      ]
+    },
+    "whatfirst-lint": {
+      "intent": "whatfirst-lint",
+      "description": "WHAT-first lint (orchestrations/intents) per garantire contratti minimi.",
+      "scopes": [
+        "governance-all",
+        "core"
+      ]
     }
   }
 }

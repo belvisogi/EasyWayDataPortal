@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+[[../start-here.md|Home]] > [[docs-governance.md|Docs]] > Index
 
 # Domini - Panoramica
 
@@ -60,5 +61,8 @@ Regola
 1. Quali sono i domini principali del portale EasyWay?
 2. Dove trovo la documentazione specifica per DB o Datalake?
 3. Qual è la regola aurea per definire una nuova "capability"?
+
+
+
 
 

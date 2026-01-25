@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Reference|Reference]]
+[[../start-here.md|Home]] > [[agentic-ux.md|Ux]] > Reference
 
 # UX - Asset e Branding
 
@@ -40,5 +40,7 @@ Uso
 - [UX & API Spec — Plan Viewer, Wizard e WhatIf (bozza)](./agentic-ux.md)
 - [UX – Usability Checklist (One‑Button)](./usability-checklist.md)
 - [endp 002 get api branding](../easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md)
+
+
 
 

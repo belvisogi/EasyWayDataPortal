@@ -1,6 +1,6 @@
 ---
 title: Roadmap agent (retrieval, observability, infra, backend, release)
-tags: [domain/control-plane, layer/roadmap, audience/dev, audience/ops, privacy/internal, language/it, agents, rag, observability, infra]
+tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, agents, rag, observability, infra]
 status: active
 updated: 2026-01-16
 redaction: [email, phone, token]
@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Roadmap|Roadmap]]
+[[../start-here.md|Home]] > [[index.md|Control-Plane]] > Roadmap
 
 # Roadmap agent (retrieval, observability, infra, backend, release)
 
@@ -55,6 +56,9 @@ Abbiamo creato gli agenti skeleton minimi per:
 - [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
 - [Control Plane - Panoramica](./index.md)
 - [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
+
+
+
 
 
 

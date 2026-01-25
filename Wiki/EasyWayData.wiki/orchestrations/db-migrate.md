@@ -15,7 +15,7 @@ updated: '2026-01-18'
 next: Collegare al workflow n8n reale (validate/apply) e allegare evidenze.
 ---
 
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Orchestration|Orchestration]]
+[[../start-here.md|Home]] > [[../domains/db.md|db]] > Orchestration
 
 > [!NOTE]
 > **Approccio Migrazione Database**
@@ -99,4 +99,6 @@ sqlcmd -S $server -d $database -U $user -P $password `
 - [DB Drift Check (WHAT)](./db-drift-check.md)
 - [n8n-db-ddl-inventory](./n8n-db-ddl-inventory.md)
 - [DB User Revoke (WHAT)](./db-user-revoke.md)
+
+
 

@@ -15,9 +15,10 @@ owner: team-platform
 
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Intent|Intent]]
+[[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Intent
 
 # Orchestrations - Intents Catalog (Use Case Excel/CSV)
 
@@ -47,6 +48,9 @@ Uso
 Riferimenti
 - Orchestrazione – wf.excel-csv-upload: orchestrations/wf-excel-csv-upload.md
 - Use Case – Entrate/Uscite: use-cases/entrate-uscite.md
+
+
+
 
 
 
