@@ -4,6 +4,15 @@
   "role": "Agent_DBA",
   "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
   "readme": "README.md",
+  "security": {
+    "required_group": "easyway-admin",
+    "rationale": "DBA agent modifies database schema and configurations, requires admin-level access",
+    "can_sudo": true,
+    "allowed_directories": [
+      "/opt/easyway/config",
+      "/var/lib/easyway/db"
+    ]
+  },
   "allowed_paths": [
     "db/migrations/**",
     "db/db-deploy-ai/**",
