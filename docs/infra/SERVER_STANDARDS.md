@@ -110,3 +110,16 @@ sudo chown -R easyway:easyway /var/log/easyway
 # 4. Link simbolico per facilità (Opzionale)
 sudo ln -s /opt/easyway /home/easyway/app
 ```
+
+---
+
+## 🛠️ EasyWay Infrastructure Agent (The Builder)
+
+**Missione**: Replicare infrastrutture "come se non ci fosse un domani". Distruggere, Ricostruire, Scalare. Zero attrito.
+
+### 🧠 Competenze (Skills)
+- **Oracle Cloud Master**: Conosce a memoria i parametri delle VM ARM Ampere (Free Tier).
+- **Firewall Breaker**: Inietta automaticamente script Cloud-Init per aprire le porte (iptables) prima ancora che l'OS finisca il boot.
+- **Desktop Artificer**: Trasforma una shell Ubuntu vuota in un ambiente Desktop completo (GNOME + XRDP) in 15 minuti netti.
+- **Self-Healing**: Se una VM non risponde al ping (SSH Timeout), non aspetta: la distrugge e ne crea una nuova corretta.
+
