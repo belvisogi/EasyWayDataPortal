@@ -89,27 +89,22 @@ Per garantire sicurezza e collaborazione:
 
 ---
 
-## 🚀 Implementazione Rapida
+## 🚀 Implementazione Rapida (L'Agente)
 
-Per applicare questa struttura su un server nuovo:
+Non fare nulla a mano. Usa l'Infrastructure Agent:
 
-```bash
-# 1. Crea struttura
-sudo mkdir -p /opt/easyway/{bin,config,releases}
-sudo mkdir -p /var/lib/easyway/{db,uploads,backups}
-sudo mkdir -p /var/log/easyway
+1.  Scarica la repo sulla VM.
+2.  Lancia lo script idempotente:
+    ```bash
+    sudo ./EasyWayDataPortal/scripts/infra/setup-easyway-server.sh
+    ```
 
-# 2. Crea utente applicativo (se non esiste)
-sudo useradd -m -s /bin/bash easyway
+Questo script:
+- ✅ Crea utenti e gruppi
+- ✅ Crea la struttura `/opt` e `/var`
+- ✅ Applica i permessi corretti (775 + SGID)
+- ✅ Crea i symlink di comodità
 
-# 3. Assegna permessi
-sudo chown -R easyway:easyway /opt/easyway
-sudo chown -R easyway:easyway /var/lib/easyway
-sudo chown -R easyway:easyway /var/log/easyway
-
-# 4. Link simbolico per facilità (Opzionale)
-sudo ln -s /opt/easyway /home/easyway/app
-```
 
 ---
 
