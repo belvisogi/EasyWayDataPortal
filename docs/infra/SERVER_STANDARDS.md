@@ -70,22 +70,54 @@ Log centralizzati per facile consultazione (o via Docker logs).
 
 ## 3. Gestione Permessi
 
-Per garantire sicurezza e collaborazione:
+> [!IMPORTANT]
+> **Enterprise Security Model**: EasyWay utilizza un modello RBAC a 4 livelli con ACLs per controllo fine-grained.  
+> **📖 Documentazione Completa**: [SECURITY_FRAMEWORK.md](SECURITY_FRAMEWORK.md)
 
-1.  **Proprietario Applicazione**:
-    ```bash
-    sudo chown -R easyway:easyway /opt/easyway
-    sudo chown -R easyway:easyway /var/lib/easyway
-    ```
+### Quick Summary
 
-2.  **Gruppo Sviluppatori**:
-    Creiamo un gruppo `easyway-dev` per permettere al team di editare config/codice senza usare `sudo` ovunque.
-    ```bash
-    sudo groupadd easyway-dev
-    sudo usermod -aG easyway-dev ubuntu
-    sudo usermod -aG easyway-dev easyway
-    sudo chmod -R 775 /opt/easyway
-    ```
+Per garantire sicurezza enterprise-grade e audit compliance:
+
+**4 Gruppi di Sicurezza**:
+- `easyway-read` → Sola lettura (monitoring, auditor)
+- `easyway-ops` → Deploy e restart (CI/CD)
+- `easyway-dev` → Accesso sviluppo completo
+- `easyway-admin` → Controllo amministrativo totale
+
+**ACLs per Controllo Granulare**:
+```bash
+# Directory configs: solo admin può modificare
+/opt/easyway/config → admin: rwx, dev/ops: r--, read: r--
+
+# Directory DB: solo admin ha accesso
+/var/lib/easyway/db → admin: rwx, all others: ---
+
+# Logs: tutti possono leggere, dev+ possono scrivere
+/var/log/easyway → read: r-x, ops: r-x, dev: rwx, admin: rwx
+```
+
+### Setup Rapido
+
+**Opzione 1: Basic Model** (per team piccoli, no audit)
+```bash
+# Creazione gruppo sviluppatori semplice
+sudo groupadd easyway-dev
+sudo usermod -aG easyway-dev ubuntu
+sudo usermod -aG easyway-dev easyway
+sudo chmod -R 775 /opt/easyway
+```
+
+**Opzione 2: Enterprise Model** (consigliato per produzione)
+```bash
+# Applica framework di sicurezza completo
+sudo ./scripts/infra/setup-easyway-server.sh  # Crea utenti, gruppi, directory
+sudo ./scripts/infra/apply-acls.sh            # Applica ACLs granulari
+
+# Verifica
+sudo ./scripts/infra/security-audit.sh
+```
+
+**Per dettagli completi su RBAC, ACLs, audit compliance, e manutenzione**: vedere [SECURITY_FRAMEWORK.md](SECURITY_FRAMEWORK.md)
 
 ---
 

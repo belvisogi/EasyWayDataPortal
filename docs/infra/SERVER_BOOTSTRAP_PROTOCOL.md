@@ -3,6 +3,10 @@
 > **Obiettivo**: Trasformare un server "nudo" (Ubuntu Fresh Install) in un nodo EasyWay operativo in meno di 10 minuti.
 > **Target**: Infrastructure Agent (Umano o AI).
 
+**Scope**:
+- Production target: Hetzner (future). Questo protocollo si applica integralmente.
+- Dev/Staging current: Oracle VM. Usa `docs/infra/ORACLE_ENV_DOC.md` e `docs/infra/ORACLE_QUICK_START.md` per l'accesso, poi applica solo le parti necessarie qui.
+
 ---
 
 ## ⏱️ Tabella di Marcia (Time Budget)
@@ -24,6 +28,16 @@
 - Server Linux (Ubuntu 22.04/24.04 ARM64 o AMD64).
 - Accesso SSH root/sudoer.
 - Token Azure DevOps (PAT) per clonare la repo.
+
+### 0.1 Automazione remota da Windows (opzionale)
+Se vuoi orchestrare il bootstrap da Windows, usa gli script in:
+- `scripts/infra/remote/`
+
+Leggi prima: `scripts/infra/remote/README.md` per prerequisiti e sequenza.
+
+**Nota**: copia `scripts/infra/remote/remote.config.example.ps1` in `scripts/infra/remote/remote.config.ps1` e compila IP/Key/PatPath (oppure passa i parametri al momento dell'esecuzione).
+
+**Safety**: esegui sempre prima con `-WhatIf` (dry-run), poi senza `-WhatIf` quando la preflight e' verde.
 
 ### 1. Inizializzazione Workspace (La Cava)
 Il primo passo è portare l'intelligenza (il codice) sul server.

@@ -33,4 +33,6 @@ sudo systemctl restart xrdp
 - **Pass**: `EasyWay2026!`
 
 ---
+**Documento correlato**: vedi snapshot in `docs/infra/ORACLE_ENV_DOC.md`
+
 *Documento aggiornato automaticamente il 2026-01-25*
