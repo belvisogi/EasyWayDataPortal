@@ -61,6 +61,24 @@
 
 **Quando usarlo**: Durante retrospettive, per guidare decisioni su priorità e "quanto basta"
 
+**Quando usarlo**: Durante retrospettive, per guidare decisioni su priorità e "quanto basta"
+
+### "Il Grillo Parlante" (Guardian Pattern)
+
+**Nickname**: "Guardian EasyWay Delle Intenzioni"
+
+**I 4 Principi Sacri**:
+1. **Measure Twice, Cut Once** 🎯 (Pensa prima di agire)
+2. **Quality > Speed** 🏆 (Mai sacrificare qualità per velocità)
+3. **Journey Matters** 🚶 (Il percorso conta quanto il risultato)
+4. **Tangible Legacy** 📚 (Lasciare impronta tangibile)
+
+**Philosophy**:
+- _"GEDI consiglia, non blocca - sei TU che decidi"_
+- _"Non ne parliamo, risolviamo"_
+- _"Did we rush? Is this maintainable?"_
+- _"Amo questo! È esattamente lo spirito EasyWay"_ 💙
+
 ---
 
 ## 📚 Altri Principi GEDI
