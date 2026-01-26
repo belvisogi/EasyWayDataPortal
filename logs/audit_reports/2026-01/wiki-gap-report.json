@@ -1,0 +1,2440 @@
+{
+  "ok": false,
+  "path": "Wiki/EasyWayData.wiki",
+  "excluded": [
+    "logs/reports",
+    "old",
+    ".attachments"
+  ],
+  "scopesPath": "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+  "scopeName": "",
+  "files": 315,
+  "failures": 103,
+  "counts": {
+    "missing_owner": 0,
+    "missing_or_placeholder_summary": 1,
+    "draft_missing_hygiene": 84,
+    "deprecated_missing_redirect": 0,
+    "runbook_howto_missing_sections": 6,
+    "missing_questions": 15
+  },
+  "results": [
+    {
+      "file": "_template.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "reference",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "activity-log.md",
+      "ok": true,
+      "status": "active",
+      "layer": "",
+      "issues": []
+    },
+    {
+      "file": "ado-operating-model.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "policy",
+      "issues": []
+    },
+    {
+      "file": "agent-first-method.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "agent-manifest-and-indexing-best-practices.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "agent-output-validation-ci.md",
+      "ok": true,
+      "status": "active",
+      "layer": "gate",
+      "issues": []
+    },
+    {
+      "file": "agent-priority-and-checklists.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "agentic-portal-vision.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "agents-governance.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "agents-scrummaster.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "best-practices-token-tuning-roadmap.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "checklist-ado-required-job.md",
+      "ok": true,
+      "status": "active",
+      "layer": "gate",
+      "issues": []
+    },
+    {
+      "file": "ci-verifica-ewctl-gates-e-flyway.md",
+      "ok": true,
+      "status": "active",
+      "layer": "gate",
+      "issues": []
+    },
+    {
+      "file": "datalake-apply-acl.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "datalake-ensure-structure.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "datalake-set-retention.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "db-generate-artifacts-dsl.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "db-user-access-management.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "deploy-app-service.md",
+      "ok": true,
+      "status": "active",
+      "layer": "runbook",
+      "issues": []
+    },
+    {
+      "file": "deployment-decision-mvp.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "dev-dual-mode.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "doc-alignment-gate.md",
+      "ok": true,
+      "status": "active",
+      "layer": "gate",
+      "issues": []
+    },
+    {
+      "file": "docs-agentic-audit.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "docs-conventions.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "docs-related-links.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "draft_missing_next_or_checklist",
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify",
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "docs-tag-scopes.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "docs-tag-taxonomy.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "documentation-governance-workflow.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "reference",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "dr-gaps-vs-ada.md",
+      "ok": true,
+      "status": "active",
+      "layer": "blueprint",
+      "issues": []
+    },
+    {
+      "file": "dr-inventory-matrix.md",
+      "ok": true,
+      "status": "active",
+      "layer": "blueprint",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "enforcer-guardrail.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "entities-index.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "etl-dq-framework.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "etl-elt-playbook.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "etl-elt-technology-choices.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "etl-elt-template.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "etl-governance-sla.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "etl-inspirations.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "etl-table-log-model.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "glossario-errori-faq.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "governance-dq.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "howto-what-first-team.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "",
+      "issues": []
+    },
+    {
+      "file": "intent-contract.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "KNOWLEDGE-GRAPH.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "llm-readiness-checklist.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "OBSIDIAN.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "onboarding-architettura.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "orphans-index.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "output-contract.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "parametrization-best-practices.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "plan-and-diary-contract.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "quest-board-docs-dq.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "quest-board-excel-csv.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "roadmap.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "start-here.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "todo-checklist.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "value-proposition.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "wiki-uniformamento-roadmap.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": ".obsidian.example/README.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "agents/agent-dq-blueprint.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "ai/knowledge-vettoriale-easyway.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "api/rest-errors-qna.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify",
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "argos/argos-alerting.md",
+      "ok": false,
+      "issues": [
+        "missing_front_matter"
+      ]
+    },
+    {
+      "file": "argos/argos-change-versioning.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "argos/argos-coach-agent.md",
+      "ok": false,
+      "issues": [
+        "missing_front_matter"
+      ]
+    },
+    {
+      "file": "argos/argos-event-schema.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "argos/argos-glossario.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "argos/argos-modular-interop.md",
+      "ok": false,
+      "issues": [
+        "missing_front_matter"
+      ]
+    },
+    {
+      "file": "argos/argos-overview.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "argos/argos-playbook-catalog.md",
+      "ok": false,
+      "issues": [
+        "missing_front_matter"
+      ]
+    },
+    {
+      "file": "argos/argos-policy-dsl.md",
+      "ok": false,
+      "issues": [
+        "missing_front_matter"
+      ]
+    },
+    {
+      "file": "argos/argos-quality-gates.md",
+      "ok": false,
+      "issues": [
+        "missing_front_matter"
+      ]
+    },
+    {
+      "file": "argos/argos-tech-profiling.md",
+      "ok": false,
+      "issues": [
+        "missing_front_matter"
+      ]
+    },
+    {
+      "file": "best-practices/documentation-gardening.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "process",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "blueprints/db-portal-diagram.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "blueprint",
+      "issues": []
+    },
+    {
+      "file": "blueprints/db-portal-tables.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "blueprint",
+      "issues": []
+    },
+    {
+      "file": "blueprints/db-table-create-sheet.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "blueprint",
+      "issues": []
+    },
+    {
+      "file": "blueprints/db-table-dictionary-template.md",
+      "ok": true,
+      "status": "active",
+      "layer": "",
+      "issues": []
+    },
+    {
+      "file": "blueprints/legacy-reference-material.md",
+      "ok": true,
+      "status": "active",
+      "layer": "blueprint",
+      "issues": []
+    },
+    {
+      "file": "blueprints/replicate-easyway-dataportal.md",
+      "ok": true,
+      "status": "active",
+      "layer": "blueprint",
+      "issues": []
+    },
+    {
+      "file": "caa/easyCAA-overview.md",
+      "ok": true,
+      "status": "active",
+      "layer": "overview",
+      "issues": []
+    },
+    {
+      "file": "control-plane/agent-orchestration-weighting.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "control-plane/agent-vectordb-architecture.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "control-plane/agents-manifest-audit.md",
+      "ok": false,
+      "status": "active",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify",
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "control-plane/agents-missing-roadmap.md",
+      "ok": true,
+      "status": "active",
+      "layer": "roadmap",
+      "issues": []
+    },
+    {
+      "file": "control-plane/agents-registry.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "control-plane/index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "control-plane/segregation-model-dev-knowledge-runtime.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "domains/datalake.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "domains/db.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "domains/docs-governance.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "domains/frontend.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "domains/index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01-database-architecture.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02-logiche-easyway.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/03-datalake-dev.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/04-accesso-registrazione-notifiche.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05-codice-easyway-portale.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/06-frontend-architecture.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/07-iam-naming-utenti-gruppi.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/10-ai-agents.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01a-db-setup.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b-schema-structure.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/best-practices-checklist.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/db-studio.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/ddl-inventory.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/flyway.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/howto-create-table.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_verify"
+      ]
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/portal.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/sequence.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/storeprocess.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/why-not-flyway.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "reference",
+      "issues": [
+        "placeholder_summary",
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/portal.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/function.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/configuration.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/profile-domains.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/section-access.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/subscription.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/tenant.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/user-notification-settings.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/users.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/index.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-configuration.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-log-audit.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-masking-metadata.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-profile-domains.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-rls-metadata.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-section-access.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-stats-execution-log.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-stats-execution-table-log.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-subscription.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-tenant.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-user-notification-settings.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-users.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/best-practice-naming-and-scalability.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/integrate-ada-best-practices.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/logging-and-audit.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/notifiche-gestione.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/raccomandazione-architetturale-easyway-data-portal.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/logging-and-audit/readme.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/03_datalake_dev/index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/docs.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway-portal-api.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway-portal-frontend.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/iac.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/qa-setup-and-test-locale.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/readme.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/scripts.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/security-and-observability.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/endpoint.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-2-—-Struttura-src-e-primi-file.md",
+      "ok": false,
+      "status": "deprecated",
+      "layer": "howto",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_verify",
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001-get-api-config.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001a-get-api-config-da-db.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md",
+      "ok": true,
+      "status": "active",
+      "layer": "index",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/automazione-export-log-su-datalake-e-compliance.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/logging-conversational-ready-agent-aware.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file/conversational-and-agent-aware-ready.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    },
+    {
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "etl/atomic-flows-agentic.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "frontend/error-messages-user-friendly.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "spec",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/ARTIFACT/Blueprint.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/ARTIFACT/Contract.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/ARTIFACT/HowTo.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/ARTIFACT/index.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/ARTIFACT/Orchestration.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/ARTIFACT/Reference.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/ARTIFACT/Report.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/ARTIFACT/Runbook.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/ARTIFACT/Script.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/ARTIFACT/Spec.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/AUDIENCE/Architect.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/AUDIENCE/DBA.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/AUDIENCE/Dev.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/AUDIENCE/index.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/AUDIENCE/Non-Expert.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/AUDIENCE/Ops.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/Agents.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/API.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/Architecture.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/Argos.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/CAA.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/Control-Plane.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/DataLake.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/DB.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/Docs.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/ETL.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/Frontend.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/index.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/Security.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/DOMAIN/UX.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/META/index.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/META/Language-EN.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/META/Language-IT.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/META/Privacy-Confidential.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/META/Privacy-Internal.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/META/Privacy-Public.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/META/Status-Active.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/META/Status-Deprecated.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/META/Status-Draft.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/PROCESS/Best-Practice.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/PROCESS/Checklist.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/PROCESS/CI-CD.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/PROCESS/Deploy.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/PROCESS/DQ.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/PROCESS/Governance.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/PROCESS/index.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/PROCESS/Migration.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/PROCESS/Onboarding.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/PROCESS/Testing.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/TECH/Azure.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/TECH/Flyway.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/TECH/index.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/TECH/N8n.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/TECH/Obsidian.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/TECH/PowerShell.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/TECH/React.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/TECH/SQL.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "indices/TECH/Vector-DB.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "index",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "onboarding/best-practice-agentic-dispatch.md",
+      "ok": true,
+      "status": "active",
+      "layer": "",
+      "issues": []
+    },
+    {
+      "file": "onboarding/best-practice-scripting.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "onboarding/developer-agent-experience-upgrades.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "onboarding/documentazione-contesto-standard.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "onboarding/howto-tagging.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "onboarding/proposte-crosslink-faq-edgecase.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "onboarding/setup-playground-zero-trust.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "onboarding/storyboard-easyway-agentic.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "orchestrations/ado-bootstrap.md",
+      "ok": false,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": [
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "orchestrations/ado-userstory-create.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": [
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "orchestrations/agent-scaffold.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "orchestrations/api-rbac-configure.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": [
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "orchestrations/apply-appsettings-starter.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": [
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "orchestrations/db-drift-check.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/db-generate-docs.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/db-migrate.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/db-user-create.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/db-user-revoke.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/db-user-rotate.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/docs-confluence-dq-kanban.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": [
+        "draft_missing_next_or_checklist",
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "orchestrations/docs-dq-audit.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": [
+        "draft_missing_next_or_checklist",
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "orchestrations/docs-related-links-apply.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": [
+        "draft_missing_next_or_checklist",
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "orchestrations/generate-appsettings-from-env.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": [
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "orchestrations/iam-provision-access.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/intents-catalog-global.md",
+      "ok": true,
+      "status": "active",
+      "layer": "intent",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/intents-catalog.md",
+      "ok": true,
+      "status": "active",
+      "layer": "intent",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/kb-assessment.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/mapping-matrix.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/n8n-api-error-triage.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/n8n-db-ddl-inventory.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/n8n-db-table-create.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/n8n-retrieval-bundles.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/orchestrator-n8n.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/predeploy-checklist.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/release-preflight-security.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/sync-appsettings-guardrail.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": [
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "orchestrations/wf-excel-csv-upload.md",
+      "ok": true,
+      "status": "active",
+      "layer": "orchestration",
+      "issues": []
+    },
+    {
+      "file": "orchestrations/whatfirst-lint.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "orchestration",
+      "issues": [
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "Runbooks/_template.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "Runbooks/agent-chat-retention.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "Runbooks/index.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "Runbooks/instructions_collect_azure_inventory.md",
+      "ok": true,
+      "status": "active",
+      "layer": "runbook",
+      "issues": []
+    },
+    {
+      "file": "Runbooks/what_is_inventory_and_missing_items.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "scripts/scripts.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "security/agent-security-iam.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "security/ai-security-guardrails.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "security/operativita-governance-provisioning-accessi.md",
+      "ok": false,
+      "status": "active",
+      "layer": "runbook",
+      "issues": [
+        "missing_section_prerequisiti",
+        "missing_section_passi",
+        "missing_section_domande_a_cui_risponde"
+      ]
+    },
+    {
+      "file": "security/segreti-e-accessi.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "standards/secrets-management.md",
+      "ok": true,
+      "status": "active",
+      "layer": "security",
+      "issues": []
+    },
+    {
+      "file": "use-cases/entrate-uscite.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "UX/agent-chat-interface.md",
+      "ok": false,
+      "status": "draft",
+      "layer": "spec",
+      "issues": [
+        "draft_missing_next_or_checklist"
+      ]
+    },
+    {
+      "file": "UX/agentic-ux.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "UX/branding-assets.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "UX/diary-mock-wf-excel-csv-upload.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "UX/usability-checklist.md",
+      "ok": true,
+      "status": "active",
+      "layer": "howto",
+      "issues": []
+    }
+  ]
+}

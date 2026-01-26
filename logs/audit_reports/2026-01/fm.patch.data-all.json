@@ -1,0 +1,379 @@
+{
+  "applied": true,
+  "fixPlaceholderSummary": true,
+  "excluded": [
+    "logs/reports",
+    "old",
+    ".attachments"
+  ],
+  "scopeName": "data-all",
+  "scopesPath": "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+  "ensureDraftHygiene": true,
+  "results": [
+    {
+      "rel": "datalake-apply-acl.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "datalake-apply-acl.md"
+    },
+    {
+      "rel": "datalake-ensure-structure.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "datalake-ensure-structure.md"
+    },
+    {
+      "rel": "datalake-set-retention.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "datalake-set-retention.md"
+    },
+    {
+      "rel": "db-generate-artifacts-dsl.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "db-generate-artifacts-dsl.md"
+    },
+    {
+      "rel": "db-user-access-management.md",
+      "applied": false,
+      "action": "present",
+      "changed": false,
+      "file": "db-user-access-management.md"
+    },
+    {
+      "rel": "etl-dq-framework.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "etl-dq-framework.md"
+    },
+    {
+      "rel": "etl-elt-playbook.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "etl-elt-playbook.md"
+    },
+    {
+      "rel": "etl-elt-technology-choices.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "etl-elt-technology-choices.md"
+    },
+    {
+      "rel": "etl-elt-template.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "etl-elt-template.md"
+    },
+    {
+      "rel": "etl-governance-sla.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "etl-governance-sla.md"
+    },
+    {
+      "rel": "etl-inspirations.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "etl-inspirations.md"
+    },
+    {
+      "rel": "etl-table-log-model.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "etl-table-log-model.md"
+    },
+    {
+      "rel": "argos/argos-alerting.md",
+      "applied": false,
+      "action": "present",
+      "changed": false,
+      "file": "argos/argos-alerting.md"
+    },
+    {
+      "rel": "argos/argos-change-versioning.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "argos/argos-change-versioning.md"
+    },
+    {
+      "rel": "argos/argos-coach-agent.md",
+      "applied": false,
+      "action": "present",
+      "changed": false,
+      "file": "argos/argos-coach-agent.md"
+    },
+    {
+      "rel": "argos/argos-event-schema.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "argos/argos-event-schema.md"
+    },
+    {
+      "rel": "argos/argos-glossario.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "argos/argos-glossario.md"
+    },
+    {
+      "rel": "argos/argos-modular-interop.md",
+      "applied": false,
+      "action": "present",
+      "changed": false,
+      "file": "argos/argos-modular-interop.md"
+    },
+    {
+      "rel": "argos/argos-overview.md",
+      "applied": false,
+      "action": "present",
+      "changed": false,
+      "file": "argos/argos-overview.md"
+    },
+    {
+      "rel": "argos/argos-playbook-catalog.md",
+      "applied": false,
+      "action": "present",
+      "changed": false,
+      "file": "argos/argos-playbook-catalog.md"
+    },
+    {
+      "rel": "argos/argos-policy-dsl.md",
+      "applied": false,
+      "action": "present",
+      "changed": false,
+      "file": "argos/argos-policy-dsl.md"
+    },
+    {
+      "rel": "argos/argos-quality-gates.md",
+      "applied": false,
+      "action": "present",
+      "changed": false,
+      "file": "argos/argos-quality-gates.md"
+    },
+    {
+      "rel": "argos/argos-tech-profiling.md",
+      "applied": false,
+      "action": "present",
+      "changed": false,
+      "file": "argos/argos-tech-profiling.md"
+    },
+    {
+      "rel": "easyway-webapp/01-database-architecture.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01-database-architecture.md"
+    },
+    {
+      "rel": "easyway-webapp/03-datalake-dev.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/03-datalake-dev.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01a-db-setup.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01a-db-setup.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b-schema-structure.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b-schema-structure.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/best-practices-checklist.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/best-practices-checklist.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/db-studio.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/db-studio.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/flyway.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/flyway.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/index.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/index.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/portal.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/portal.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/sequence.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/sequence.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/storeprocess.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/storeprocess.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/portal.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/portal.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/function.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/function.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/configuration.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/configuration.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/profile-domains.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/profile-domains.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/section-access.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/section-access.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/subscription.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/subscription.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/tenant.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/tenant.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/user-notification-settings.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/user-notification-settings.md"
+    },
+    {
+      "rel": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/users.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/users.md"
+    },
+    {
+      "rel": "easyway-webapp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md"
+    },
+    {
+      "rel": "easyway-webapp/03_datalake_dev/index.md",
+      "applied": true,
+      "action": "patched",
+      "changed": true,
+      "file": "easyway-webapp/03_datalake_dev/index.md"
+    },
+    {
+      "rel": "etl/atomic-flows-agentic.md",
+      "applied": false,
+      "action": "present",
+      "changed": false,
+      "file": "etl/atomic-flows-agentic.md"
+    }
+  ],
+  "includeFullPath": false
+}

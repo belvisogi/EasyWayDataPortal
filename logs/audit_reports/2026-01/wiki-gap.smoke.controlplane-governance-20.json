@@ -1,0 +1,163 @@
+{
+  "ok": true,
+  "path": "Wiki/EasyWayData.wiki",
+  "excluded": [
+    "logs/reports",
+    "old",
+    ".attachments"
+  ],
+  "scopesPath": "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
+  "scopeName": "controlplane-governance-20",
+  "files": 20,
+  "failures": 0,
+  "counts": {
+    "missing_owner": 0,
+    "missing_or_placeholder_summary": 0,
+    "draft_missing_hygiene": 0,
+    "deprecated_missing_redirect": 0,
+    "runbook_howto_missing_sections": 0,
+    "missing_questions": 0
+  },
+  "results": [
+    {
+      "file": "agent-first-method.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "agent-manifest-and-indexing-best-practices.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "agent-output-validation-ci.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "gate",
+      "issues": []
+    },
+    {
+      "file": "agent-priority-and-checklists.md",
+      "ok": true,
+      "status": "active",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "agents-governance.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "checklist-ado-required-job.md",
+      "ok": true,
+      "status": "active",
+      "layer": "gate",
+      "issues": []
+    },
+    {
+      "file": "ci-verifica-ewctl-gates-e-flyway.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "gate",
+      "issues": []
+    },
+    {
+      "file": "deploy-app-service.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "runbook",
+      "issues": []
+    },
+    {
+      "file": "doc-alignment-gate.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "gate",
+      "issues": []
+    },
+    {
+      "file": "docs-agentic-audit.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "docs-conventions.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "dr-gaps-vs-ada.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "blueprint",
+      "issues": []
+    },
+    {
+      "file": "dr-inventory-matrix.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "blueprint",
+      "issues": []
+    },
+    {
+      "file": "enforcer-guardrail.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "governance-dq.md",
+      "ok": true,
+      "status": "active",
+      "layer": "spec",
+      "issues": []
+    },
+    {
+      "file": "parametrization-best-practices.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "roadmap.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "Runbooks/instructions_collect_azure_inventory.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "runbook",
+      "issues": []
+    },
+    {
+      "file": "Runbooks/what_is_inventory_and_missing_items.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    },
+    {
+      "file": "scripts/scripts.md",
+      "ok": true,
+      "status": "draft",
+      "layer": "reference",
+      "issues": []
+    }
+  ]
+}
