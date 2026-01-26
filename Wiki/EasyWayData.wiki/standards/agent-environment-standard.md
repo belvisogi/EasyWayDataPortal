@@ -51,9 +51,26 @@ Abbandoniamo `pip` raw per **`uv`** (di Astral).
 ### 🐚 2.3 PowerShell Management
 I moduli PowerShell devono essere definiti in un file `requirements.psd1` ed installati build-time.
 
+## 3. Dependency Management Standard (Mandatory)
+
+Per garantire la longevità del codice e proteggerci da breaking changes (es. funzioni deprecate), applichiamo queste regole a TUTTI i linguaggi:
+
+### 🛡️ Regola 1: Isolation (Mai Globali)
+*   **Python**: MAI usare `pip install` globale. Sempre dentro un **Virtual Environment** (`.venv`) gestito da `uv`.
+*   **PowerShell**: I moduli dipendenti devono essere scaricati in una cartella locale al progetto (es. `Run/Modules`) o pre-installati nell'immagine Docker.
+*   **Node.js**: Sempre `node_modules` locali.
+
+### 🔒 Regola 2: Pinning & Locking (Congelare il Tempo)
+*   Ogni progetto DEVE avere un **Lockfile** (`uv.lock`, `package-lock.json`).
+*   Questo file registra la versione ESATTA (es. `1.2.3-sha256`) di ogni libreria.
+*   **Risultato**: Il deploy di oggi sarà identico a quello tra 2 anni, indipendentemente dagli aggiornamenti esterni.
+
+### 📜 Regola 3: Explicit Deklaration
+*   Nessuna dipendenza "nascosta". Se usi una libreria, deve essere dichiarata nel manifesto (`pyproject.toml`, `package.json`, `RequiredModules.psd1`).
+
 ---
 
-## 3. Implementazione Pratica
+## 4. Implementazione Pratica
 
 ### Dockerfile "Golden Image"
 
