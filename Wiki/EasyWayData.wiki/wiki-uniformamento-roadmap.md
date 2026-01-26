@@ -16,7 +16,7 @@ llm:
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
 
 # Roadmap Uniformamento Wiki secondo docs-conventions
 
@@ -161,6 +161,7 @@ Tag base:
 - Quali strumenti/script usare e quando?
 - Quali sono i criteri di accettazione misurabili?
 - Come assegnare owner/tag e tracciare l’avanzamento?
+
 
 
 

@@ -15,7 +15,7 @@ llm:
 entities: []
 next: Prototipo agent.upload.
 ---
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 # EasyWay DataPortal – Conversational Intelligence & AMS
 
@@ -137,6 +137,7 @@ Tutti gli agenti seguono il prefisso `agent.` e il dominio funzionale:
 - `agent.dq`
 - `agent.billing`
 - `agent.audit`
+
 
 
 

@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: Aggiornare quando cambia la struttura del codice o i capitoli.
 ---
 
-[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Index|Index]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Index|Index]]
 
 # Indice
 
@@ -36,5 +36,6 @@ Breadcrumb: Home / EasyWay WebApp / Codice Portale
 - Quali capitoli descrivono API, frontend e IaC del portale?
 - Dove sono le istruzioni per QA/test locale?
 - Quali sono i link canonici per questa sezione?
+
 
 

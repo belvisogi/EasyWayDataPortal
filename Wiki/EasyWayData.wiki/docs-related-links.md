@@ -13,7 +13,7 @@ entities: []
 updated: '2026-01-08'
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
 
 # Suggerimenti Link Correlati (Affinità)
 
@@ -49,4 +49,5 @@ pwsh scripts/wiki-related-links.ps1 -WikiPath "Wiki/EasyWayData.wiki" -TopK 7 -A
 
 Rollback:
 - Ogni run crea backup in `out/wiki-related-links-apply/<runId>/` e un `apply-summary.json` con i file da ripristinare.
+
 

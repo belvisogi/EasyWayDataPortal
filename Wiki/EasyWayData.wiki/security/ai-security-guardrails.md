@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[[start-here|Home]] > [[Domain - Security|Security]] > [[Layer - Reference|Reference]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Security|Security]] > [[Layer - Reference|Reference]]
 
 # AI Security Guardrails
 
@@ -254,8 +254,8 @@ python3 scripts/kb-security-scan.py agents/kb/recipes.jsonl
 ## Risorse
 
 ### Documentazione Tecnica (docs/agentic/)
-- [AI Security Guardrails (completo)](../../docs/agentic/ai-security-guardrails.md) - Guida tecnica 5 layer
-- [Integration Guide](../../docs/agentic/ai-security-integration.md) - Orchestrator integration
+- [AI Security Guardrails (completo)](../../../docs/agentic/ai-security-guardrails.md) - Guida tecnica 5 layer
+- [Integration Guide](../../../docs/agentic/ai-security-integration.md) - Orchestrator integration
 - [Deployment Checklist](../../docs/agentic/ai-security-deployment.md) - Step-by-step deployment
 - [Quick Start](../../docs/agentic/ai-security-quickstart.md) - 10 min setup
 - [Test Suite](../../docs/agentic/ai-security-tests.md) - Validation tests
@@ -270,7 +270,7 @@ python3 scripts/kb-security-scan.py agents/kb/recipes.jsonl
 ### Wiki Correlate
 - [Multi-Agent Orchestration](../control-plane/agent-orchestration-weighting.md) - Expert + Reviewer design
 - [Agents Registry](../control-plane/agents-registry.md) - Lista agent
-- [Security & IAM](./agent-security-iam.md) - Agent permissions
+- [Security & IAM](agent-security-iam.md) - Agent permissions
 
 ### External
 - [OWASP LLM Top 10](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
@@ -281,6 +281,8 @@ python3 scripts/kb-security-scan.py agents/kb/recipes.jsonl
 **Owner**: team-security, team-platform  
 **Status**: Scripts ready, deployment pending  
 **Priority**: Deploy before Expert+Reviewer goes live
+
+
 
 
 

@@ -9,7 +9,7 @@ created: 2026-01-19
 updated: 2026-01-19
 ---
 
-[[start-here|Home]] > [[architectural-vision|Vision]] > Philosophical Foundation
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[architectural-vision|Vision]] > Philosophical Foundation
 
 # 🏛️ EasyWay - Fondamenta Filosofiche
 
@@ -383,3 +383,4 @@ Questo non è un documento tecnico. È una **dichiarazione di intenti**.
 - [[agent_gedi/README|Agent GEDI - The Guardian]]
 - [[agent_chronicler/manifest|Agent Chronicler - The Bard]]
 - [[activity-log-20260119-agent-management-console|Chronicle Entry - Agent Management Console]]
+

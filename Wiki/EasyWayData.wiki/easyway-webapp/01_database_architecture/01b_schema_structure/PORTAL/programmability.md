@@ -18,7 +18,7 @@ next: TODO - definire next step.
 ---
 
 
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
 
 ## Domande a cui risponde
 - Cosa fa questa pagina?
@@ -143,6 +143,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../entities-index.md)
+
 
 
 

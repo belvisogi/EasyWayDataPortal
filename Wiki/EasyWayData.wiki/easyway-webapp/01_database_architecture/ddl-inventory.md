@@ -15,7 +15,7 @@ updated: '2026-01-18'
 next: Automatizzare rigenerazione inventario da db/migrations/ con tool AI-friendly (db/db-deploy-ai/).
 ---
 
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
 
 # DB PORTAL - Inventario DDL (canonico)
 
@@ -100,5 +100,6 @@ pwsh scripts/db-ddl-inventory.ps1 -IncludeLegacy -WriteWiki
 - [why-not-flyway.md](./why-not-flyway.md) - Perché NON usiamo Flyway
 - [portal.md](./portal.md) - Overview schema PORTAL
 - [db/README.md](file:///c:/old/EasyWayDataPortal/db/README.md) - README database
+
 
 

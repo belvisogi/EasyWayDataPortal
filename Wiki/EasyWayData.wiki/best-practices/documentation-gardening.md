@@ -6,7 +6,7 @@ summary: Metodologia "Gardener Cycle" per la gestione evolutiva della tassonomia
 status: draft
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Process|Process]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Process|Process]]
 
 # Documentation Gardening 🌱
 
@@ -64,6 +64,7 @@ L'obiettivo è arrivare gradualmente a una struttura a 3 livelli:
 1.  **Macro-Area** (Business, Technology, Ops)
 2.  **Domain** (Data, API, UX, Security)
 3.  **Specific** (T-SQL, React, OAUTH2)
+
 
 
 

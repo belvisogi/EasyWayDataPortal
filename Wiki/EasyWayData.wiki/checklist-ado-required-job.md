@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Gate|Gate]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Gate|Gate]]
 
 Obiettivo
 - Rendere il job `EnforcerCheck` obbligatorio nelle Pull Request verso `develop`/`main` in Azure Repos.
@@ -57,6 +57,7 @@ Riferimenti
 - [Validazione Output Agenti in CI](./agent-output-validation-ci.md)
 - [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
 - [Deploy su Azure App Service – Pipeline & Variabili](./deploy-app-service.md)
+
 
 
 

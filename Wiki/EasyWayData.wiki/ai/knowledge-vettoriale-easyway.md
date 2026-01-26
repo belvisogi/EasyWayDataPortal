@@ -8,7 +8,7 @@ owner: team-platform
 updated: '2026-01-07'
 ---
 
-[[start-here|Home]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
 
 # 🧠 Knowledge Base Vettoriale in EasyWay DataPortal
 
@@ -53,7 +53,7 @@ flowchart TD
 ## Cosa vettorializzare? (spec)
 
 - Tutto ciò che serve supporto semantico rapido e aggiornato:
-    - README.md, DEVELOPER_ONBOARDING.md, agent docs, atomic_flows, scripts doc, tutte le FAQ pratiche
+    - README.md, , agent docs, atomic_flows, scripts doc, tutte le FAQ pratiche
     - Manifest degli agent, template orchestrazioni, ricette tecniche
     - Troubleshooting, cronaca edge-case, errori tipici
 
@@ -176,6 +176,8 @@ Come “tenere le analisi sul vector”
 ---
 
 > _Per qualsiasi dubbio, proporre miglioramenti e contributi, commenta in questa guida o tagga nei manifest “ai-friendly”._
+
+
 
 
 

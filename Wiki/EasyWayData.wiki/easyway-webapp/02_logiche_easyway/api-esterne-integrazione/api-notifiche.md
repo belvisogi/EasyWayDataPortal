@@ -16,7 +16,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
 **A. Obiettivo**
 ----------------
@@ -150,6 +150,7 @@ app.use("/api/notifications", notificationsRoutes);
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

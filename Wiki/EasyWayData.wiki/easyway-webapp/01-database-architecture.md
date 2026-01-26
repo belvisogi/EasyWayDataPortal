@@ -16,13 +16,14 @@ owner: team-platform
 updated: '2026-01-16'
 next: Aggiornare diagramma ERD.
 ---
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Spec|Spec]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Spec|Spec]]
 
 # EasyWay Data Portal - Database Architecture Master
 
 > **Modello in uso:** Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
 > **Conversational Intelligence & AMS ready**: tutte le procedure, tabelle, funzioni e documentazione sono progettate per essere governate anche via chatbot, automation, agent e AMS.
 ---
+
 
 
 

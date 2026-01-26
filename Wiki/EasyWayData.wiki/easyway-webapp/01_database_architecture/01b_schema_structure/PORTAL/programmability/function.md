@@ -18,7 +18,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
 
 -- Modello in uso: Nexus Multi-Tenant (anagrafiche larghe, surrogate key INT, NDG univoche, ext_attributes, RLS, auditing).
 -- Queste funzioni sono da creare nello schema PORTAL.
@@ -692,6 +692,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../entities-index.md)
+
 
 
 

@@ -20,9 +20,9 @@ next: TODO - definire next step.
 # UX - Asset e Branding
 
 Asset (root repo)
-- `logo.png`
-- `palette_EasyWay.html`
-- `home_easyway.html`
+- ``
+- ``
+- ``
 
 Uso
 - Questi file sono riferimenti/mokup; se diventano parte del prodotto devono essere copiati in una posizione canonica del frontend (e documentati).
@@ -40,6 +40,7 @@ Uso
 - [UX & API Spec — Plan Viewer, Wizard e WhatIf (bozza)](./agentic-ux.md)
 - [UX – Usability Checklist (One‑Button)](./usability-checklist.md)
 - [endp 002 get api branding](../easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md)
+
 
 
 

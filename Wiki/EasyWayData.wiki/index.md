@@ -553,7 +553,7 @@
   - H2: 🎯 Scopo del Documento  
   - H2: 🔑 Naming Convention - Utenze Tecniche di Servizio  
   - H2: 🔑 Naming Convention - Gruppi IAM (RBAC)  
-- [easyway-webapp/10-ai-agents.md](./easyway-webapp/10-ai-agents.md) - EasyWay DataPortal – Conversational Intelligence & AMS
+- [easyway-webapp/10-ai-](./easyway-webapp/10-ai-) - EasyWay DataPortal – Conversational Intelligence & AMS
   - H2: Obiettivo
   - H2: Sommario
   - H2: 1. Introduzione
@@ -625,7 +625,7 @@
   - H2: Pages in this category
 - [indices/AUDIENCE/Ops.md](./indices/AUDIENCE/Ops.md) - 📄 Ops
   - H2: Pages in this category
-- [indices/DOMAIN/Agents.md](./indices/DOMAIN/Agents.md) - 📄 Agents
+- [indices/DOMAIN/](./indices/DOMAIN/) - 📄 Agents
   - H2: Pages in this category
 - [indices/DOMAIN/API.md](./indices/DOMAIN/API.md) - 📄 API
   - H2: Pages in this category
@@ -881,11 +881,11 @@
   - H2: One-shot: rigenera tutto (root corrente)
   - H2: Multi-root: aggrega più progetti
   - H2: Multi-root: normalizzazione (scan/apply) e report
-- [security/agent-security-iam.md](./security/agent-security-iam.md) - Agent Security (IAM/KeyVault)
+- [security/agent-security-iam.md](security/agent-security-iam.md) - Agent Security (IAM/KeyVault)
   - H2: Contesto (repo)
   - H2: Cosa fa
   - H2: Esempio (manuale)
-- [security/ai-security-guardrails.md](./security/ai-security-guardrails.md) - AI Security Guardrails
+- [security/ai-security-guardrails.md](../../docs/agentic/ai-security-guardrails.md) - AI Security Guardrails
   - H2: Contesto
   - H2: 🛡️ Architettura (5 Layer)
   - H2: Layer 1: Input Validation (Pre-Execution)
@@ -943,3 +943,6 @@
   - H2: Obiettivi
   - H2: Fasi e Sequenza
   - H2: Per‑Cartella (linee guida)
+
+
+

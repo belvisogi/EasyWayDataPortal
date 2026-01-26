@@ -15,7 +15,7 @@ updated: '2026-01-06'
 next: Collegare alle regole di masking e ai vincoli security.
 ---
 
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
 
 # PORTAL.MASKING_METADATA — Masking metadata
 
@@ -24,5 +24,6 @@ next: Collegare alle regole di masking e ai vincoli security.
 
 ## Scopo
 - TODO: descrivere come viene usata per masking dinamico/controlli a runtime.
+
 
 

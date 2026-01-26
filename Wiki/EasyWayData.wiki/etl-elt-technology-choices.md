@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[domains/datalake|datalake]] > [[Layer - Spec|Spec]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > [[Layer - Spec|Spec]]
 
 # ETL/ELT – Scelte Tecnologiche
 Breadcrumb: Home / Datalake / ETL-ELT Technology
@@ -59,6 +59,7 @@ Riferimenti
 - Intent pipeline (spec): `etl-spec:create`, `etl-spec:validate`, `etl:dry-run`, `etl:deploy` (stub).
 - Logging comune: `portal-audit/etl-execution-logs/` con chiavi minime (workflow_key, status, started_at, ended_at, rows_*).
 - Ogni azione agente produce Output Contract (JSON) con `summary` + `changesPreview` (WhatIf) o `stateAfter` (apply).
+
 
 
 

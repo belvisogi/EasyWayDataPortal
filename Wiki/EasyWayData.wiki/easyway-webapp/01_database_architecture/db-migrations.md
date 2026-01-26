@@ -15,7 +15,7 @@ updated: '2026-01-18'
 next: Sviluppare tool AI-friendly custom per automazione migrazioni (db/db-deploy-ai/).
 ---
 
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
 
 # Gestione Migrazioni Database (Git + SQL Diretto)
 
@@ -368,3 +368,4 @@ Stiamo sviluppando un tool custom AI-native per automazione migrazioni:
 **Ultima revisione**: 2026-01-18  
 **Approccio**: Git + SQL Diretto  
 **Tool**: sqlcmd, Azure Portal, SSMS
+

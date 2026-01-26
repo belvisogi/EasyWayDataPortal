@@ -6,7 +6,7 @@ summary: Index of all pages tagged with PROCESS/Governance
 status: draft
 ---
 
-[[start-here|Home]] > [[Layer - Index|Index]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Layer - Index|Index]]
 
 # 📄 Governance
 
@@ -18,6 +18,7 @@ status: draft
 ---
 
 [⬆️ Back to PROCESS](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

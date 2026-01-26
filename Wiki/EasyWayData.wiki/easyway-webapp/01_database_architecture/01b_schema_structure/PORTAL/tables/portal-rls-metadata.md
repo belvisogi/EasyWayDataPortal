@@ -15,7 +15,7 @@ updated: '2026-01-06'
 next: Collegare a V5/V10 (RLS setup/config) e descrivere policy per tabella.
 ---
 
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
 
 # PORTAL.RLS_METADATA — RLS metadata
 
@@ -24,5 +24,6 @@ next: Collegare a V5/V10 (RLS setup/config) e descrivere policy per tabella.
 
 ## Scopo
 - TODO: descrivere come vengono dichiarate/applicate le policy RLS e su quali tabelle.
+
 
 

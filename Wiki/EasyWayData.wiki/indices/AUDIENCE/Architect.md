@@ -6,7 +6,7 @@ summary: Index of all pages tagged with AUDIENCE/Architect
 status: draft
 ---
 
-[[start-here|Home]] > [[Layer - Index|Index]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Layer - Index|Index]]
 
 # 📄 Architect
 
@@ -22,6 +22,7 @@ status: draft
 ---
 
 [⬆️ Back to AUDIENCE](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

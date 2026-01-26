@@ -6,7 +6,7 @@ summary: Index of all pages tagged with ARTIFACT/Index
 status: draft
 ---
 
-[[start-here|Home]] > [[Layer - Index|Index]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Layer - Index|Index]]
 
 # 📄 Index
 
@@ -28,6 +28,7 @@ status: draft
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 
 

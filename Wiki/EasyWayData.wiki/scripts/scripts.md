@@ -16,7 +16,7 @@ llm:
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
 # Scripts - One-shot e routine frequenti
 
@@ -127,6 +127,7 @@ pwsh scripts/wiki-index-lint.ps1 -Path "Wiki/EasyWayData.wiki" -ExcludePaths log
 - Come eseguire le routine multi-root e generare report?
 - Dove trovare esempi one-shot e job completi?
 - Come tracciare i risultati nei log?
+
 
 
 

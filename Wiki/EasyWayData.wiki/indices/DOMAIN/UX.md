@@ -6,7 +6,7 @@ summary: Index of all pages tagged with DOMAIN/UX
 status: draft
 ---
 
-[[start-here|Home]] > [[Domain - UX|UX]] > [[Layer - Index|Index]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - UX|UX]] > [[Layer - Index|Index]]
 
 # 📄 UX
 
@@ -25,6 +25,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

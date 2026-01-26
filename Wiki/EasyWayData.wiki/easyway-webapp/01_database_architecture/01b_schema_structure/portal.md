@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Spec|Spec]]
+[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Spec|Spec]]
 
 # EasyWay Data Portal - PORTAL.md
 
@@ -324,6 +324,7 @@ CREATE TABLE PORTAL.CONFIGURATION (
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

@@ -30,24 +30,24 @@ Documentazione completa di sicurezza EasyWayDataPortal.
 
 | Documento | Quando usare | Tempo lettura |
 |-----------|--------------|---------------|
-| **[Security Dev Checklist](../../docs/security/SECURITY_DEV_CHECKLIST.md)** | Ogni nuova feature con API/DB/Auth | 5 min |
+| **[Security Dev Checklist](../../../docs/security/SECURITY_DEV_CHECKLIST.md)** | Ogni nuova feature con API/DB/Auth | 5 min |
 | **[Quick Reference Card](../../docs/security/SECURITY_QUICK_REFERENCE.txt)** | Promemoria rapido (stampare!) | 30 sec |
-| **[AI Security Guardrails](./ai-security-guardrails.md)** | Feature con agenti AI | 10 min |
+| **[AI Security Guardrails](../../../docs/agentic/ai-security-guardrails.md)** | Feature con agenti AI | 10 min |
 
 ### 🟠 Per Operations & Admin
 
 | Documento | Quando usare | Tempo lettura |
 |-----------|--------------|---------------|
-| **[Security Framework (RBAC)](../../docs/infra/SECURITY_FRAMEWORK.md)** | Setup server, gestione utenti | 15 min |
+| **[Security Framework (RBAC)](../../../docs/infra/SECURITY_FRAMEWORK.md)** | Setup server, gestione utenti | 15 min |
 | **[Threat Analysis & Hardening](./threat-analysis-hardening.md)** | Implementare difese server | 15 min |
 | **[Segreti e Accessi](./segreti-e-accessi.md)** | Gestione credenziali, KeyVault | 5 min |
-| **[Agent Security (IAM)](./agent-security-iam.md)** | Configurare agenti con KeyVault | 5 min |
+| **[Agent Security (IAM)](agent-security-iam.md)** | Configurare agenti con KeyVault | 5 min |
 
 ### 🟡 Per Security Team & Audit
 
 | Documento | Quando usare | Tempo lettura |
 |-----------|--------------|---------------|
-| **[Security Audit (ewctl)](../../docs/architecture/SECURITY_AUDIT.md)** | Audit command injection protection | 5 min |
+| **[Security Audit (ewctl)](../../../docs/architecture/SECURITY_AUDIT.md)** | Audit command injection protection | 5 min |
 | **[Operatività Governance](./operativita-governance-provisioning-accessi.md)** | Provisioning accessi governance-driven | 5 min |
 
 ### 🎮 Roadmap & Planning
@@ -61,13 +61,13 @@ Documentazione completa di sicurezza EasyWayDataPortal.
 ## 🎯 Quick Navigation - Per Caso d'Uso
 
 ### "Sto sviluppando una nuova API"
-1. ✅ Leggi: [Security Dev Checklist](../../docs/security/SECURITY_DEV_CHECKLIST.md)
+1. ✅ Leggi: [Security Dev Checklist](../../../docs/security/SECURITY_DEV_CHECKLIST.md)
 2. ✅ Verifica: Input validation, RBAC, SQL injection protection
 3. ✅ Chiedi review: `agent-gedi.ps1 -Intent "security_review"`
 4. ✅ Usa: PR template con security checklist
 
 ### "Sto configurando un nuovo server"
-1. ✅ Leggi: [Security Framework (RBAC)](../../docs/infra/SECURITY_FRAMEWORK.md)
+1. ✅ Leggi: [Security Framework (RBAC)](../../../docs/infra/SECURITY_FRAMEWORK.md)
 2. ✅ Applica: 4-tier RBAC (read/ops/dev/admin)
 3. ✅ Implementa: [Threat Analysis - Contromisure Critiche](./threat-analysis-hardening.md)
 4. ✅ Verifica: Tutti i check completati
@@ -78,10 +78,10 @@ Documentazione completa di sicurezza EasyWayDataPortal.
 3. ✅ Documenta: Access registry (chi ha accesso a cosa)
 
 ### "Sto creando un agent AI"
-1. ✅ Leggi: [AI Security Guardrails](./ai-security-guardrails.md)
+1. ✅ Leggi: [AI Security Guardrails](../../../docs/agentic/ai-security-guardrails.md)
 2. ✅ Implementa: Input/output validation
 3. ✅ Testa: Prompt injection resistance
-4. ✅ Verifica: [Agent Security (IAM)](./agent-security-iam.md) per KeyVault
+4. ✅ Verifica: [Agent Security (IAM)](agent-security-iam.md) per KeyVault
 
 ### "Voglio fare penetration test"
 1. ✅ Leggi: [War Game Roadmap](./wargame-roadmap.md)
@@ -254,3 +254,5 @@ In caso di security incident:
 ---
 
 *"Formazione a testuggine come un solo uomo!"* 🛡️
+
+

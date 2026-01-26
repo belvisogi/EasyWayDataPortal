@@ -16,7 +16,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
+[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
 
 È il **primo vero endpoint parametrico** del backend EasyWay.  
 Mette insieme TUTTO quello che hai preparato finora (multi-tenant, lettura YAML, API REST) e lo espone come servizio.
@@ -40,6 +40,7 @@ Mette insieme TUTTO quello che hai preparato finora (multi-tenant, lettura YAML,
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

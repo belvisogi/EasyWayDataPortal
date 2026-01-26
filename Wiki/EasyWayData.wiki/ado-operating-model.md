@@ -15,7 +15,7 @@ updated: '2026-01-09'
 next: Allineare con struttura reale Area/Iteration e team ADO.
 ---
 
-[[start-here|Home]] > [[Domain - Ado|Ado]] > [[Layer - Policy|Policy]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Ado|Ado]] > [[Layer - Policy|Policy]]
 
 # Azure DevOps Operating Model (Hybrid)
 
@@ -80,5 +80,6 @@ Riferimenti:
 - Orchestrazione: `Wiki/EasyWayData.wiki/orchestrations/ado-userstory-create.md`
 - Intent/manifest: `docs/agentic/templates/intents/ado-userstory-create.intent.json`, `docs/agentic/templates/orchestrations/ado-userstory-create.manifest.json`
 - Agente: `scripts/agent-ado-userstory.ps1`
+
 
 

@@ -15,7 +15,7 @@ llm:
 entities: []
 next: Validare Terraform.
 ---
-[[start-here|Home]] > [[domains/datalake|datalake]] > [[Layer - Reference|Reference]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > [[Layer - Reference|Reference]]
 
 🎯 Obiettivo
 ------------
@@ -229,6 +229,7 @@ Integra poi gli output in Azure DevOps (Variable Group) o Key Vault.
 1. Qual è la struttura delle cartelle del Datalake (landing, staging, official)?
 2. Quali sono le retention policy per i dati grezzi e validati?
 3. Dove finiscono le righe scartate (invalid rows)?
+
 
 
 

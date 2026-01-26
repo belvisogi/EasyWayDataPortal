@@ -6,7 +6,7 @@ summary: Workflows, Lifecycles, and Governance - Category index for PROCESS pill
 status: draft
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
 
 # 📁 PROCESS
 
@@ -36,6 +36,7 @@ status: draft
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 
 

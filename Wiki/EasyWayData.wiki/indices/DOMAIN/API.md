@@ -6,7 +6,7 @@ summary: Index of all pages tagged with DOMAIN/API
 status: draft
 ---
 
-[[start-here|Home]] > [[Domain - API|API]] > [[Layer - Index|Index]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - API|API]] > [[Layer - Index|Index]]
 
 # 📄 API
 
@@ -20,6 +20,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

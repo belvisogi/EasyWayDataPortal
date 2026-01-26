@@ -14,7 +14,7 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 # Policy API/Store Procedure — EasyWay Data Portal
 
@@ -91,6 +91,7 @@ Best Practice
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

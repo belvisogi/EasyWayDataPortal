@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[domains/datalake|datalake]] > [[Layer - Reference|Reference]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > [[Layer - Reference|Reference]]
 
 # ETL – Table Log Model
 Breadcrumb: Home / Datalake / ETL Table Log
@@ -40,6 +40,7 @@ Integrazione con agenti
 Riferimenti
 - ETL/ELT Inspirations (Table Log)
 - Datalake – Ensure Structure / portal-audit
+
 
 
 

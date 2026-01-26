@@ -9,7 +9,7 @@ llm:
   include: true
   chunk_hint: 5000
 ---
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 title: ARGOS – Policy DSL & Registry (v1.1)
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, policy, data-quality]
@@ -62,6 +62,7 @@ Gates (severity dinamica/trace), Tech Profiling (soglie), Biz‑Learning (propos
 
 ## DoD (v1.1)
 Schema Policy completo + linter; workflow & semver; integrazioni; esempi; privacy ok.
+
 
 
 

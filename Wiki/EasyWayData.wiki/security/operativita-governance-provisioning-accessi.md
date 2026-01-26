@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[[start-here|Home]] > [[Domain - Security|Security]] > [[Layer - Runbook|Runbook]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Security|Security]] > [[Layer - Runbook|Runbook]]
 
 # Operativita governance-driven - provisioning accessi (DB/Datalake)
 
@@ -85,10 +85,12 @@ Per ogni agente, creare una pagina operativa equivalente:
 ## Vedi anche
 
 - [Segreti e accessi (DB + Datalake)](./segreti-e-accessi.md)
-- [Agent Security (IAM/KeyVault) - overview](./agent-security-iam.md)
+- [Agent Security (IAM/KeyVault) - overview](agent-security-iam.md)
 - [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
 - [Datalake - Ensure Structure (Stub)](../datalake-ensure-structure.md)
 - [Dominio Datalake](../domains/datalake.md)
+
+
 
 
 

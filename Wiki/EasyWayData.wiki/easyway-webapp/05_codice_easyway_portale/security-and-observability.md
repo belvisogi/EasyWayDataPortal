@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 Obiettivi
 - Hardening API: helmet, CORS ristretto, rate limiting, body limit, compression.
@@ -108,6 +108,7 @@ Usa questa checklist prima di andare in produzione (umana + agent).
 - Rate limit: per-tenant + burst configurati e verificati (429 con payload standard).
 - Gates sicurezza: SCA/SAST su PR, DAST smoke in pre-prod, pen test pianificato (almeno annuale) e dopo cambi major.
 - Docs: policy e QnA errori aggiornate; KB recipe presente per la preflight.
+
 
 
 

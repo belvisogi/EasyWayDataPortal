@@ -488,7 +488,7 @@ try {
 ### Operations
 
 - [Agent Orchestration Weighting](control-plane/agent-orchestration-weighting.md)
-- [Agent Security IAM](security/agent-security-iam.md)
+- [Agent Security IAM](../security/agent-security-iam.md)
 - [Agent Runtime Lifecycle](concept/agent-runtime-lifecycle.md)
 
 ---
@@ -663,3 +663,4 @@ Per aggiungere un nuovo agente:
 **Autore**: Agent System Team  
 **Status**: ✅ Production Ready  
 **Presentazione**: ⭐ Executive Overview
+

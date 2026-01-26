@@ -8,7 +8,7 @@ owner: team-platform
 updated: '2026-01-06'
 ---
 
-[[start-here|Home]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
 
 # 🚀 Potenziare l’alberatura: più developer-friendly, più scalabile, più agent-ready
 
@@ -101,4 +101,5 @@ Questa guida raccoglie le azioni proposte per migliorare l’esperienza di svilu
 - Facile da navigare e contribuire
 - Scalabile a molti team/feature/plugin
 - Agent-first, con discovery dinamica e automazione plug&play!**
+
 

@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
 # Capitolo - Dinamiche di Manutenzione
 
@@ -68,6 +68,7 @@ Facilita onboarding di persone e AI, riduce errori, aumenta la trasparenza e ren
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

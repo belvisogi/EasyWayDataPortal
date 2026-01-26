@@ -15,7 +15,7 @@ updated: '2026-01-14'
 next: Wait for teacher input on child routines, then start Fase 1
 ---
 
-[[start-here|Home]] > [[Domain - Caa|Caa]] > [[Layer - Overview|Overview]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Caa|Caa]] > [[Layer - Overview|Overview]]
 
 # EasyCAA - Comunicazione Aumentativa Alternativa
 
@@ -200,4 +200,5 @@ EXEC caa.sp_validate_routine_upload
 - **ARGOS Overview**: [../argos/argos-overview.md](../argos/argos-overview.md)
 - **ARASAAC Official**: https://www.arasaac.org
 - **ISAAC Italy**: https://www.isaacitaly.it
+
 

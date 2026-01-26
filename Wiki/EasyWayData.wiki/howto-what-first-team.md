@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
 
 # HOWTO – WHAT‑first + Diario di Bordo (Team)
 
@@ -82,12 +82,14 @@ Troubleshooting
 - Output mismatch → confronta con gli schemi degli intents
 
 Riferimenti
-- AGENTS.md → Metodo WHAT‑first + Diario di Bordo
+-  → Metodo WHAT‑first + Diario di Bordo
 - Orchestrazione (Excel/CSV): `orchestrations/wf-excel-csv-upload.md`
 - Intents Catalog: `orchestrations/intents-catalog.md`
 - UX Mock (diario): `UX/diary-mock-wf-excel-csv-upload.md`
 - UX Checklist: `UX/usability-checklist.md`
 - Quest Board: `quest-board-excel-csv.md`
+
+
 
 
 

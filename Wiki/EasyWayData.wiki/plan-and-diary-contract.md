@@ -14,7 +14,7 @@ entities: []
 updated: '2026-01-08'
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 # Contratto Plan + Diario di Bordo (Machine-readable)
 
@@ -40,7 +40,7 @@ Regole minime (canonico)
 - In caso di errore ricorrente: aggiornare doc + KB (vedi `docs-agentic-audit`).
 
 Riferimenti
-- Metodo WHAT-first: `AGENTS.md`
+- Metodo WHAT-first: ``
 - Output contract: `Wiki/EasyWayData.wiki/output-contract.md`
 - Intent contract: `Wiki/EasyWayData.wiki/intent-contract.md`
 - Orchestrator n8n: `Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md`
@@ -53,5 +53,7 @@ Riferimenti
 - [Agents Registry (owner, domini, intent)](./control-plane/agents-registry.md)
 - [Orchestratore n8n (WHAT)](./orchestrations/orchestrator-n8n.md)
 - [Orchestrazione – wf.excel-csv-upload (WHAT)](./orchestrations/wf-excel-csv-upload.md)
+
+
 
 

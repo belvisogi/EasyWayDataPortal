@@ -15,7 +15,7 @@ updated: '2026-01-06'
 next: Stabilizzare convenzioni (tenanting/RLS/PII) e aggiungere validazioni (lint) sui CSV.
 ---
 
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Blueprint|Blueprint]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Blueprint|Blueprint]]
 
 # Blueprint - DB Table Create (Excel/CSV -> Intent)
 
@@ -125,5 +125,6 @@ Se `writeFlyway=true` e sono presenti `logical_name`/`description` per tabella o
 - [db-howto-create-table](../easyway-webapp/01_database_architecture/howto-create-table.md)
 - [db-portal-tables-index](../easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/index.md)
 - [Template Data Dictionary (DB Table) - Excel](./db-table-dictionary-template.md)
+
 
 

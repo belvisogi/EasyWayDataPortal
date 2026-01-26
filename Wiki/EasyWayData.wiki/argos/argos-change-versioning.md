@@ -15,7 +15,7 @@ updated: '2026-01-16'
 next: Dettagliare workflow di promozione.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 # ARGOS – Change & Versioning Guide (v1)
 
@@ -33,6 +33,7 @@ Best practice EasyWay
 
 Da dettagliare
 - Workflow di promozione, freeze window, pattern compatibilità, checklist e RACI.
+
 
 
 

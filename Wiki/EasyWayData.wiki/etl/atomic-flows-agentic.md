@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[[start-here|Home]] > [[domains/datalake|datalake]] > [[Layer - Spec|Spec]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > [[Layer - Spec|Spec]]
 
 # Atomic Flows – Orchestrazione Agent‑First
 
@@ -94,6 +94,7 @@ Appendice – Connessioni Airflow
 - [ARGOS - Alerting & Notifications (v1.1)](../argos/argos-alerting.md)
 - [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
 - [Agent - DQ Blueprint (Spec v0)](../agents/agent-dq-blueprint.md)
+
 
 
 

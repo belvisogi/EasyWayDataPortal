@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[[start-here|Home]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
 
 # Template Data Dictionary (DB Table) - Excel
 
@@ -78,6 +78,7 @@ pwsh scripts/db-table-template-xlsx.ps1
 - [Esempi Notifiche & Template Email Configurabili](../easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md)
 - [Orchestrations – Intents Catalog (Use Case Excel/CSV)](../orchestrations/intents-catalog.md)
 - [db-howto-create-table](../easyway-webapp/01_database_architecture/howto-create-table.md)
+
 
 
 

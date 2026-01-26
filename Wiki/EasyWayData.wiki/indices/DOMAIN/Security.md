@@ -6,7 +6,7 @@ summary: Index of all pages tagged with DOMAIN/Security
 status: draft
 ---
 
-[[start-here|Home]] > [[Domain - Security|Security]] > [[Layer - Index|Index]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Security|Security]] > [[Layer - Index|Index]]
 
 # 📄 Security
 
@@ -22,6 +22,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

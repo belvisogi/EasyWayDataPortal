@@ -9,7 +9,7 @@ llm:
   include: true
   chunk_hint: 5000
 ---
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
 title: ARGOS – Playbook Catalog (v1)
 tags: [argos, dq, agents, domain/control-plane, layer/reference, audience/ops, audience/dev, privacy/internal, language/it]
@@ -57,6 +57,7 @@ OWNER chiaro; manutenzione trimestrale; AUTO_SAFE solo per PB certificati.
 
 ## DoD (v1)
 Schede minime pubblicate, integrazione Alerting/Gates, KPI raccolti, flag AUTO_SAFE/guardrail/backout definiti, privacy rispettata.
+
 
 
 

@@ -6,7 +6,7 @@ summary: Sistema di traduzione errori tecnici in messaggi user-friendly italiani
 status: draft
 ---
 
-[[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
 
 # Error Messages User-Friendly 🇮🇹
 
@@ -465,6 +465,7 @@ describe('ErrorTranslator', () => {
 
 **Tempo stimato**: ~1 giorno  
 **Beneficio**: UX dramaticamente migliore, frustrazione utente ridotta, supporto clienti più efficiente
+
 
 
 

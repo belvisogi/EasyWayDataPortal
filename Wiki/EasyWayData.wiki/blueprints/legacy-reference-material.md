@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Blueprint|Blueprint]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Blueprint|Blueprint]]
 
 # Materiale di riferimento (Legacy)
 
@@ -24,13 +24,13 @@ Scopo
 - Evitare che file importanti restino orfani e finiscano in `old/` per errore.
 
 Documenti (root repo)
-- `DEVELOPER_ONBOARDING.md` – onboarding per dev/agent.
-- `Sintesi_EasyWayDataPortal.md` – sintesi di progetto.
-- `VALUTAZIONE_EasyWayDataPortal.md` – valutazione/gap e piano.
-- `ADA Reference Architecture.pdf` – reference architettura (binario).
-- `ADA Reference Architecture.pptx` – slide architettura (binario).
-- `ADA_Reference_Architecture_text.txt` – estrazione testo (supporto ricerca).
-- `DR_Plan_ADA.docx` – piano DR (binario).
+- `` – onboarding per dev/agent.
+- `` – sintesi di progetto.
+- `` – valutazione/gap e piano.
+- `` – reference architettura (binario).
+- `` – slide architettura (binario).
+- `` – estrazione testo (supporto ricerca).
+- `` – piano DR (binario).
 
 Nota
 - Se un documento diventa “canonico” (operativo), va spostato/riscritto dentro `Wiki/EasyWayData.wiki/` o `docs/` e collegato da `start-here.md`.
@@ -48,5 +48,7 @@ Nota
 - [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](../docs-conventions.md)
 - [Domini - Panoramica](../domains/index.md)
 - [Roadmap Uniformamento Wiki secondo docs-conventions](../wiki-uniformamento-roadmap.md)
+
+
 
 

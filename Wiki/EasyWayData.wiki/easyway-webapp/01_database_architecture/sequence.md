@@ -17,7 +17,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
 
 Sequence principali (PORTAL)
 - SEQ_TENANT_ID → genera parte numerica di TENxxxxx (start 1000)
@@ -26,6 +26,7 @@ Sequence principali (PORTAL)
 
 Regola
 - Le SP di insert formattano il codice finale (prefisso + padding) se non fornito in input.
+
 
 
 

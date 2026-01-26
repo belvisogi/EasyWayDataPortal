@@ -8,7 +8,7 @@ owner: team-platform
 updated: '2026-01-06'
 ---
 
-[[start-here|Home]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
 
 # 🚦 Setup ambiente di test / sandbox agentica + Zero Trust
 
@@ -105,4 +105,5 @@ git reset --hard
 ---
 
 **Per dubbi, suggerisci update direttamente su questa guida via PR o issue!**
+
 

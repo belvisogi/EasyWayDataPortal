@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
 # Agent Security (IAM/KeyVault)
 
@@ -51,6 +51,7 @@ pwsh scripts/agent-security.ps1 -Action kv-secret:reference -IntentPath out/inte
 - [Agents Registry (owner, domini, intent)](../control-plane/agents-registry.md)
 - [Segreti e accessi (DB + Datalake)](./segreti-e-accessi.md)
 - [IAM Provision Access (WHAT)](../orchestrations/iam-provision-access.md)
+
 
 
 

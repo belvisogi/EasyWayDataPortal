@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 # Metodo di Lavoro (Agent‑First)
 Breadcrumb: Home / Metodo Agent‑First
@@ -55,13 +55,13 @@ Come creare/estendere una sezione
 5) Verifica gates (ewctl o pipeline)
 
 Per nuovi tool/agent (es. Cursor)
-- Leggi `AGENTS.md`, questa pagina e la “Contratto Intent”
+- Leggi ``, questa pagina e la “Contratto Intent”
 - Usa `scripts/ewctl.ps1` come front‑door
 - Rispetta `allowed_paths` dei manifest
 - Scrivi output strutturato (JSON) e aggiorna KB/Wiki insieme al codice
 
 Riferimenti
-- `AGENTS.md` (root)
+- `` (root)
 - `dev-dual-mode.md` (locale vs cloud)
 - `intent-contract.md` (schema input azioni)
  - `output-contract.md` (struttura JSON degli output)
@@ -73,6 +73,8 @@ Riferimenti
 ## Badges & Guardrail
 - WhatIf‑Ready: l’azione implementa pre‑check a secco e mostra `stateBefore` (e `stateAfter` dopo l’applicazione). È la modalità predefinita consigliata.
 - Guardrail: gli agenti devono anticipare gli errori (validazioni, limiti, anteprime), riducendo i rischi prima di eseguire modifiche.
+
+
 
 
 

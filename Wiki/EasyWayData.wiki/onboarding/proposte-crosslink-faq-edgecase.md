@@ -8,7 +8,7 @@ owner: team-platform
 updated: '2026-01-06'
 ---
 
-[[start-here|Home]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
 
 # 🧩 Suggerimenti mirati: cross-link, FAQ mancanti, edge-case, automation
 
@@ -23,7 +23,7 @@ Questa tabella suggerisce punti pratici in cui arricchire la kb repo EasyWay con
 | File/cartella target                                                             | Azione                                                          | Esempio/patch da aggiungere                                                           |
 |----------------------------------------------------------------------------------|------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | README.md (root)                                                                 | Cross-link diretto alle guide sandbox/zero-trust, best practice  | `- Setup sandbox/Zero Trust: wiki/EasyWayData.wiki/onboarding/setup-playground-zero-trust.md` <br> `- Scripting cross-platform: wiki/EasyWayData.wiki/onboarding/best-practice-scripting.md`|
-| DEVELOPER_ONBOARDING.md                                                          | Inserire blocco “Domande frequenti”/FAQ                          | `## FAQ Onboarding` <br> “Come faccio test senza DB?” <br> “Come riparto se fallisce uno script?”|
+|                                                           | Inserire blocco “Domande frequenti”/FAQ                          | `## FAQ Onboarding` <br> “Come faccio test senza DB?” <br> “Come riparto se fallisce uno script?”|
 | wiki/EasyWayData.wiki/glossario-errori-faq.md                                    | Nuove FAQ edge/casi+ricorrenti                                   | “❓ Come forzo mock sandbox se DB non disponibile?” <br> “❓ Perché lo script richiede pwsh 7+?” |
 | agents/agent_dba/README.md & agent_docs_review/README.md                         | “See also” a sandbox, setup sicurezza e script test/mock         | `- Guida sandbox/zero trust: ../wiki/EasyWayData.wiki/onboarding/setup-playground-zero-trust.md`<br> `- Mock credenziali/script: ../wiki/EasyWayData.wiki/onboarding/best-practice-scripting.md` |
 | scripts/readme.md                                                                | Indicare best practice test/locali/lint                          | “⚙️ Lancia sempre test/lint in sandbox PRIMA di run in ambiente reale.”                  |
@@ -39,4 +39,6 @@ Questa tabella suggerisce punti pratici in cui arricchire la kb repo EasyWay con
 **Nota:** ogni patch può essere proposta via PR, segnalata come TODO o automatizzata con agent_docs_review/test-all.
 
 Suggerisci altri punti pratici via issue o PR!
+
+
 

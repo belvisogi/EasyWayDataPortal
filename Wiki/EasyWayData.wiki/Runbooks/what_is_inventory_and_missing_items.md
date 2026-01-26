@@ -14,7 +14,7 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
 Che cos'è l'"inventory" e a cosa serve (breve guida operativa)
 
@@ -79,5 +79,6 @@ Indica quale azione vuoi che esegua subito (A, B, C o D) oppure conferma "proced
 - [Cosa integrare da ADA per EasyWayDataPortal (approccio operativo e cosa aggiungere)](../dr-gaps-vs-ada.md)
 - [instructions collect azure inventory](./instructions_collect_azure_inventory.md)
 - [iac](../easyway-webapp/05_codice_easyway_portale/iac.md)
+
 
 

@@ -19,12 +19,12 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
 
 ## 1. Stato attuale & gap principali
 
 - Architettura agentica, cloud-native, multi-tenant, con automazione avanzata e sicurezza by design.
-- Gap principali (vedi dettagli in [VALUTAZIONE_EasyWayDataPortal.md](../../VALUTAZIONE_EasyWayDataPortal.md)):
+- Gap principali (vedi dettagli in []()):
   - README root e onboarding: ora razionalizzati (vedi questa pagina e README.md)
   - Alcune API non usano solo SP e c’è mismatch tra nomi colonne e DDL standard (Users, Config)
   - Documentazione ricca ma dispersa: ora centralizzata qui e nella Wiki
@@ -83,7 +83,7 @@ Per dettagli: [docs/agentic/AGENTIC_READINESS.md](../../docs/agentic/AGENTIC_REA
 ## 6. File canonici (riferimento ufficiale)
 
 - [README.md](../../README.md) — Entry point e onboarding rapido
-- [VALUTAZIONE_EasyWayDataPortal.md](../../VALUTAZIONE_EasyWayDataPortal.md) — Stato, gap, azioni
+- []() — Stato, gap, azioni
 - [docs/infra/azure-architecture.md](../../docs/infra/azure-architecture.md) — Architettura cloud
 - [docs/agentic/AGENTIC_READINESS.md](../../docs/agentic/AGENTIC_READINESS.md) — Principi agentici
 - [deployment-decision-mvp.md](deployment-decision-mvp.md) — Decisione deploy MVP
@@ -94,6 +94,8 @@ Per dettagli: [docs/agentic/AGENTIC_READINESS.md](../../docs/agentic/AGENTIC_REA
 Questa pagina centralizza e razionalizza le informazioni chiave.  
 Le informazioni ridondanti sono state eliminate o rimandate ai file canonici sopra elencati.  
 Per ogni dettaglio operativo, consulta sempre questi riferimenti.
+
+
 
 
 

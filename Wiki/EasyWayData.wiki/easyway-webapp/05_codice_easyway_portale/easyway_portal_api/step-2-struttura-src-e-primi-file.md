@@ -14,7 +14,7 @@ entities: []
 updated: '2026-01-05'
 next: ./STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md
 ---
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Howto|Howto]]
+[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Howto|Howto]]
 
 **Perché lo facciamo:**
 *   Creiamo la struttura reale dove andrà **tutto il codice** dell’applicazione (API, middleware, controller, utilità).
@@ -309,4 +309,5 @@ Tipizzazione per i parametri di configurazione YAML letti da Datalake.
 - [STEP 3 - Gestione configurazioni (YAML + DB)](./STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md)
 - [query in src queries](./step-4-query-dinamiche-locale-datalake/query-in-src-queries.md)
 - [checklist di test api](../../02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md)
+
 

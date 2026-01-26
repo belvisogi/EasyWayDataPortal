@@ -15,13 +15,14 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
 ## Domande a cui risponde
 - Quali script sono disponibili per sviluppatori e operatori?
 - Come eseguire build, test, lint e normalizzazione documentale?
 - Come generare manifest, anchors e chunk per gli agenti?
 - Dove consultare i report e come interpretarli?
+
 
 
 

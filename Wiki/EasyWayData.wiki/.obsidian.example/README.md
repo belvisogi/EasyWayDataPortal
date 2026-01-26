@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: Aggiornare se cambiano i path da escludere o le impostazioni Obsidian.
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
 
 # .obsidian.example
 
@@ -38,5 +38,6 @@ Nota:
 - [Docs Related Links Apply (WHAT)](../orchestrations/docs-related-links-apply.md)
 - [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](../docs-conventions.md)
 - [Dominio Docs & Governance](../domains/docs-governance.md)
+
 
 

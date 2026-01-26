@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 Perché
 - Serve a bloccare azioni “fuori scope” in modo automatico e precoce. In pratica, verifica che i file toccati da una PR rientrino negli `allowed_paths` dell’agente responsabile (da `agents/<agent>/manifest.json`).
@@ -57,6 +57,7 @@ Riferimenti
 - [Verifica CI – ewctl gates e Flyway (branch non-main)](./ci-verifica-ewctl-gates-e-flyway.md)
 - [Governance DQ – RACI, Processi e Checklist](./governance-dq.md)
 - [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
+
 
 
 

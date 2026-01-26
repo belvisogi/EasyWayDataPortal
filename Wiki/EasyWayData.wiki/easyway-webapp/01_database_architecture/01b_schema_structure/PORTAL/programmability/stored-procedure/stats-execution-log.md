@@ -18,7 +18,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[[start-here|Home]] > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
 
 * Abbiamo definito una SP,  `sp_log_stats_execution`, con tutti i parametri necessari (proc_name, rows, status, etc).
     
@@ -791,6 +791,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

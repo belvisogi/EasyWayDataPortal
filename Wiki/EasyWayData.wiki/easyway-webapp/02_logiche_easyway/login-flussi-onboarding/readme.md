@@ -16,7 +16,7 @@ entities: []
 next: TODO - definire next step.
 ---
 
-[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
+[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
 
 # Flussi Onboarding/Login - Dettagli & Variazioni
 
@@ -74,5 +74,6 @@ Ogni variazione di stato, ruolo o tenant deve essere tracciata, notificata e sog
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 

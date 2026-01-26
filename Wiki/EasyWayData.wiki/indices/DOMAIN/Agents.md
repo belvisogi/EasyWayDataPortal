@@ -6,7 +6,7 @@ summary: Index of all pages tagged with DOMAIN/Agents
 status: draft
 ---
 
-[[start-here|Home]] > [[Domain - Agents|Agents]] > [[Layer - Index|Index]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Agents|Agents]] > [[Layer - Index|Index]]
 
 # 📄 Agents
 
@@ -18,6 +18,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

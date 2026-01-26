@@ -16,7 +16,7 @@ llm:
 next: Aggiornare quando cambiano endpoint o policy.
 ---
 
-[[start-here|Home]] > [[domains/frontend|frontend]] > [[Layer - Index|Index]]
+[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Index|Index]]
 
 # Indice
 
@@ -40,5 +40,6 @@ Breadcrumb: Home / EasyWay WebApp / Codice Portale / API
 - Quali documenti sono canonici per sviluppare e manutenere la API?
 - Dove trovare la lista endpoint e il template per nuovi endpoint?
 - Dove sono definite le regole di logging e gestione dati sensibili?
+
 
 

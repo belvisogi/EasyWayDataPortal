@@ -15,10 +15,11 @@ entities: []
 updated: '2026-01-10'
 next: ./step-2-struttura-src-e-primi-file.md
 ---
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Howto|Howto]]
+[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Howto|Howto]]
 
 > **Questa pagina è legacy / non canonica.**  
 > Usa la versione aggiornata e indicizzata per gli agent:
 >
 > - [STEP 2 — Struttura src e primi file (canonico)](./step-2-struttura-src-e-primi-file.md)
+
 

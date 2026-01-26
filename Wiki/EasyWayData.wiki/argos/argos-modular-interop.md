@@ -9,7 +9,7 @@ llm:
   include: true
   chunk_hint: 5000
 ---
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 title: ARGOS – Modular Architecture & Interop (v1)
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
@@ -52,6 +52,7 @@ Solo M1; M1+M3; M1+M2; Full. Feature flags e NFR (latency, backpressure, RBAC & 
 
 ## RACI e roadmap modulare
 Attivazione progressiva 1) M1 2) M3 3) M2 4) Full.
+
 
 
 

@@ -16,7 +16,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
 
 **EasyWay Data Portal** nasce come piattaforma SaaS multi-tenant, orientata alla scalabilità, alla sicurezza e alla modularità, con un’architettura a microservizi/container, rigorosamente separata per domini funzionali e tenant.
 
@@ -282,6 +282,7 @@ senza vincolare la crescita futura o la sicurezza operativa.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

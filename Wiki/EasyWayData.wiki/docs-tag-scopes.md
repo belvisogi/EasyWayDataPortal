@@ -14,7 +14,7 @@ pii: none
 owner: team-platform
 ---
 
-[[start-here|Home]] > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
 
 # Tag Scopes & Retrieval Bundles (Gerarchia)
 
@@ -540,6 +540,7 @@ pwsh scripts/wiki-scopes-audit.ps1 -FindOrphans
 - [Orchestrator n8n - Dispatch & Workflow](./orchestrations/orchestrator-n8n.md)
 - [Documentazione Agentica - Audit & Policy](./docs-agentic-audit.md)
 - [Retrieval Bundles - Mapping Intent → Context](./orchestrations/n8n-retrieval-bundles.md) (se esiste)
+
 
 
 

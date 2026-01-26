@@ -14,7 +14,7 @@ entities: []
 updated: '2026-01-09'
 next: Allineare le guide step-* a Start Here + ewctl.
 ---
-[[start-here|Home]] > [[Domain - Portal|Portal]] > [[Layer - Howto|Howto]]
+[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Portal|Portal]] > [[Layer - Howto|Howto]]
 
 # Step 1 - Setup ambiente (Onboarding rapido)
 
@@ -263,4 +263,5 @@ easyway-portal-api/
 - [Start Here - Link Essenziali](../../../start-here.md)
 - [Agents Registry (owner, domini, intent)](../../../control-plane/agents-registry.md)
 - [Blueprint - Replicate EasyWay DataPortal (Terraform)](../../../blueprints/replicate-portal-api.md)
+
 

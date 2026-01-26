@@ -1,5 +1,5 @@
 param(
-  [string]$Path = "Wiki/<NomeWiki>.wiki",
+  [string]$Path = "Wiki/EasyWayData.wiki",
   [string[]]$ExcludePaths = @('logs/reports', 'old', '.attachments'),
   [string]$ScopesPath = "docs/agentic/templates/docs/tag-taxonomy.scopes.json",
   [string]$ScopeName = "",

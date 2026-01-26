@@ -25,7 +25,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[[start-here|Home]] > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
 
 # ARGOS – Overview e Integrazione con EasyWayDataPortal
 
@@ -45,7 +45,7 @@ Moduli ARGOS
 Integrazione EasyWay (best practice)
 - Pipeline ADO: abilitare `USE_EWCTL_GATES=true` per Checklist/DB Drift/KB Consistency; usare `scripts/ewctl.ps1 --engine ps|ts` per orchestrazione.
 - Doc viva: aggiungere/aggiornare pagine Wiki e ricette `agents/kb/recipes.jsonl` per ogni evoluzione ARGOS (policy, gates, profiling, alerting, playbook).
-- Manifest & allowed paths: ogni agente (es. Coach/Policy) deve dichiarare `agents/<agent>/manifest.json` e rispettare `allowed_paths` (vedi `AGENTS.md`).
+- Manifest & allowed paths: ogni agente (es. Coach/Policy) deve dichiarare `agents/<agent>/manifest.json` e rispettare `allowed_paths` (vedi ``).
 - Privacy & sicurezza: sanitizzare sample/attachments e usare RBAC per viste IT; nessuna PII nelle policy/registry/events.
 - Eventi: definire JSON Schema per `argos.*` ed emettere eventi con `DECISION_TRACE_ID` per correlazione end‑to‑end.
 
@@ -60,6 +60,8 @@ Mappa contenuti
 - Event Schema Addendum: `./argos-event-schema.md`
 - Change & Versioning Guide: `./argos-change-versioning.md`
 - Glossario Unificato: `./argos-glossario.md`
+
+
 
 
 

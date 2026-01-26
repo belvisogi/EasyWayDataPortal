@@ -14,7 +14,7 @@ pii: none
 owner: team-platform
 ---
 
-[[start-here|Home]] > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
+[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
 
 # Use Case – Entrate/Uscite (One‑Button UX)
 
@@ -87,6 +87,7 @@ Roadmap “a livelli” (caccia al tesoro)
 - L3: Chat Q&A e widget salvabili.
 - L4: Outlier avanzati, multi‑conto, valuta.
 - L5: Template multipli, scheduler, connettori.
+
 
 
 
