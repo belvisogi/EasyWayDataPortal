@@ -404,11 +404,12 @@ stages:
           - NodeBuild
         steps:
           - task: PowerShell@2
-            displayName: 'Run ewctl gates (PS engine) + logevent'
+            displayName: 'Run ewctl gates (Sacred Path) + logevent'
             inputs:
               targetType: 'inline'
               script: |
-                pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent
+                # Sacred Path: Use the root wrapper with the check verb and JSON output
+                pwsh ewctl.ps1 check -Json
       - job: Orchestrator
         displayName: 'Orchestrator (Plan)'
         condition: and(succeeded(), eq(variables['ENABLE_ORCHESTRATOR'], 'true'))
@@ -422,7 +423,8 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                pwsh scripts/ewctl.ps1 --engine ts --intent "$(ORCHESTRATOR_INTENT)" --noninteractive --logevent | Out-File -FilePath orchestrator-plan.json -Encoding utf8
+                # Direct call to Node.js orchestrator (bypassing ewctl middleware for raw access)
+                node agents/core/orchestrator.js --intent "$(ORCHESTRATOR_INTENT)" --noninteractive --logevent > orchestrator-plan.json
                 Write-Host "Plan written to orchestrator-plan.json"
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: orchestrator-plan'

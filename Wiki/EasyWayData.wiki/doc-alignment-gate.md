@@ -30,8 +30,8 @@ Check eseguiti
 - Wiki: verifica presenza di pagina associata (mappatura semplice per domini noti: DBA/Datalake).
 
 Esecuzione
-- Orchestratore: `pwsh scripts/ewctl.ps1 --engine ps --intent doc-alignment`
-- Script diretto: `pwsh scripts/doc-alignment-check.ps1 [-FailOnError]`
+- Orchestratore: `pwsh ewctl.ps1 check -Json`
+- Script diretto (non raccomandato, usa ewctl): `pwsh scripts/doc-alignment-check.ps1`
 
 Output
 - JSON con `ok` e gli elenchi `missingIntentTemplates`, `missingKbRecipes`, `missingWikiPages`.

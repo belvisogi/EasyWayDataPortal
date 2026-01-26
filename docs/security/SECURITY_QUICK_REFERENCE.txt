@@ -1,0 +1,23 @@
+╔════════════════════════════════════════╗
+║   SECURITY BY DESIGN - QUICK CHECK     ║
+╠════════════════════════════════════════╣
+║                                        ║
+║  Prima di ogni commit con API/DB:      ║
+║                                        ║
+║  [ ] Input validato?                   ║
+║  [ ] Auth/RBAC verificato?             ║
+║  [ ] SQL parametrizzato?               ║
+║  [ ] Secret in KeyVault?               ║
+║  [ ] Error handling sicuro?            ║
+║  [ ] Log eventi security?              ║
+║  [ ] GEDI review fatto?                ║
+║                                        ║
+╠════════════════════════════════════════╣
+║ "Formazione a testuggine come un      ║
+║  solo uomo!" - Massimo                 ║
+║                                        ║
+║ "La vittoria si ottiene prima         ║
+║  della battaglia" - Sun Tzu            ║
+╚════════════════════════════════════════╝
+
+Full checklist: docs/security/SECURITY_DEV_CHECKLIST.md

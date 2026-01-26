@@ -63,8 +63,8 @@ npm run dev:mock
 
 **E) Prova una pipeline agentica/CLI di test**
 ```bash
-pwsh scripts/agent-dba.ps1 -WhatIf
-# non farà alcuna modifica reale!
+pwsh ewctl.ps1 check
+# Esegue controlli diagnostici in sola lettura
 ```sql
 
 ---
@@ -73,8 +73,9 @@ pwsh scripts/agent-dba.ps1 -WhatIf
 
 | Script/Agent             | Cosa fa in modalità default (mock/safe)           | Gate di sicurezza      | Come fare rollback/reset        |
 |--------------------------|---------------------------------------------------|------------------------|---------------------------------|
-| agent-dba.ps1            | Opera solo su file locali/mocking, WhatIf di default | Nessun accesso DB reale | Cancella file di output         |
-| agent_docs_review.x.ps1  | Legge doc, NON scrive in cloud o repo reale       | Solo log nel file safe | Rollback: cancella i log        |
+| ewctl check            | Esegue controlli diagnostici (DB, Docs, Governance) | Sola lettura (Safe)    | N/A                             |
+| ewctl plan             | Propone un piano d'azione (Fix)                     | Sola lettura (Safe)    | N/A                             |
+| ewctl fix              | Applica le correzioni (es. DB Drift, Wiki Normalize)| Modifica file/DB       | Reset working dir / Restore DB  |
 | agent_datalake           | Simula chiamate, non tocca Datalake reale         | Richiede AGENT_MODE=mock | Nessuna azione su Azure locale  |
 | Tutti gli script         | Se DB_MODE/mock/env non è attiva, bloccano run    | Check var. env         | Modifica .env o reset working dir |
 

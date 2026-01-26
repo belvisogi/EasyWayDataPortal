@@ -20,7 +20,7 @@ Convergenza documentazione ↔ agenti
   - almeno una pagina Wiki pertinente
 
 Orchestrazione
-- Usare `scripts/ewctl.ps1` come entrypoint. Engine: `--engine ps|ts`.
+- Usare `ewctl.ps1` come entrypoint unico. Comandi: `check`, `fix`, `plan`.
 - Gli agenti figli (docs/governance/DB/frontend) devono esporre script idempotenti e con esiti strutturati.
 - **Workflow Completion**: Tutti gli agenti devono seguire il [3-Step Standard](agents/AGENT_WORKFLOW_STANDARD.md) per chiudere i task.
 
@@ -53,7 +53,7 @@ Per realizzare workflow agentici efficaci in EasyWayDataPortal, segui questi pri
    - Ogni modifica deve essere reversibile tramite migrazione o rollback.
 
 6. **Strumenti consigliati**
-   - Wrapper di orchestrazione: scripts/ewctl.ps1
+   - Wrapper di orchestrazione: `ewctl.ps1`
    - Template SQL e SP: docs/agentic/templates/
    - Logging: agents/logs/events.jsonl
    - Validazione: lint SQL, check naming, gates CI/CD

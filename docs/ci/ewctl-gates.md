@@ -8,10 +8,14 @@ Toggle pipeline
   - `true`: esegue job `GovernanceGatesEWCTL` che lancia `ewctl` con PS engine e `--logevent`.
   - `false`: usa i job esistenti `PreDeployChecklist`, `KBConsistency`, `DBDriftCheck` e il job `ActivityLog` per il logging.
 
-Comandi usati da ewctl (PS engine)
-- `pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent`
-  - Esegue: Checklist (API), DB Drift, KB Consistency
-  - Registra evento strutturato (JSONL) e aggiorna `Wiki/EasyWayData.wiki/activity-log.md`
+Comandi usati da ewctl (Nuova Architettura)
+- `.\ewctl.ps1 check` (Locale/CI)
+  - Esegue: Checklist, DB Drift, KB Consistency in base ai file modificati.
+  - Output: JSON (CI) o Tabella (Umano).
+
+Comandi Legacy (Pipeline esistenti)
+- `pwsh scripts/ewctl.ps1 --engine ps --checklist ...`
+  - **Nota:** Questo wrapper è stato aggiornato per supportare i comandi unificati. Per retrocompatibilità, usare il vecchio script se necessario.
 
 Best practice (no rumore): Docs drift check su agents/README.md
 - Check-only (fallisce se non allineato): `pwsh scripts/ewctl.ps1 --engine ps --wiki --noninteractive`
@@ -23,9 +27,10 @@ Altre variabili utili
 - `ENABLE_CHECKLIST`, `ENABLE_DB_DRIFT`, `ENABLE_KB_CONSISTENCY` (continuano a valere per i job legacy)
 - `ENABLE_ORCHESTRATOR`, `ORCHESTRATOR_INTENT` per il job di pianificazione TS
 
-Uso locale
-- Stessi gate: `pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive --logevent`
-- Solo piano: `pwsh scripts/ewctl.ps1 --engine ts --intent governance-predeploy`
+Uso locale "Sacro"
+- Diagnosi: `.\ewctl.ps1 check`
+- Piano: `.\ewctl.ps1 plan`
+- Fix: `.\ewctl.ps1 fix`
 
 Guardrail: EnforcerCheck (PR required)
 - Perché: Serve a bloccare azioni fuori scope in modo automatico e precoce. Verifica che i file toccati rientrino negli `allowed_paths` dell’agente responsabile.

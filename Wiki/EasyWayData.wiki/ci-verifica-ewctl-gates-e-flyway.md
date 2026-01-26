@@ -29,7 +29,7 @@ Procedura
 1) Crea una branch, ad es. `ci-verify-ewctl`, e fai push.
 2) Avvia manualmente la pipeline su questa branch in Azure DevOps.
 3) Attendi i job:
-   - `GovernanceGatesEWCTL` (Checklist/DB Drift/KB Consistency via `ewctl --logevent`).
+   - `GovernanceGatesEWCTL` (Checklist/DB Drift/KB Consistency via `ewctl check -Json`).
    - `FlywayValidateAny` (validate) su tutte le branch; `FlywayMigrateDevelop` (migrate) solo su `develop`.
 4) Verifica artifact pubblicati:
    - `activity-log`: contiene `agents/logs/events.jsonl` aggiornato.

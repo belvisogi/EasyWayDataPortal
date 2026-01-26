@@ -1,344 +1,223 @@
+<#
+.SYNOPSIS
+  The Sacred Kernel of EasyWay Control (ewctl).
+  Orchestrates modular checks, fixes, and plans with strict output isolation.
+
+.DESCRIPTION
+  This script acts as a plugin loader and standardized execution environment.
+  It discovers modules in `scripts/pwsh/modules/ewctl/*.psm1`.
+  It captures all checks/fixes and guarantees pure JSON output when requested.
+
+.PARAMETER Command
+  The action to perform: check, fix, plan, describe.
+
+.PARAMETER Json
+  If set, outputs pure JSON suitable for n8n/pipelines.
+
+.EXAMPLE
+  .\ewctl.ps1 check --json
+#>
+[CmdletBinding()]
 Param(
-  [ValidateSet('ps', 'ts')]
-  [string]$Engine = 'ps',
-  [string]$Intent,
-  [switch]$All,
-  [switch]$Wiki,
-  [switch]$Checklist,
-  [switch]$DbDrift,
-  [switch]$KbConsistency,
-  [switch]$TerraformPlan,
-  [switch]$GenAppSettings,
-  [switch]$PR,
-  [switch]$NonInteractive,
-  [switch]$WhatIf,
-  [switch]$LogEvent
+  [Parameter(Mandatory = $true, Position = 0)]
+  [string]$Command,
+
+  [switch]$Json,
+  [switch]$VerboseOutput, # Force verbose to host even in JSON mode (debug only)
+  [switch]$Force # Bypass confirmations
 )
 
 $ErrorActionPreference = 'Stop'
+$ValidCommands = "check", "fix", "plan", "describe"
 
-function Show-Help {
-  @"
-ewctl - EasyWay Control CLI (agent orchestrator wrapper)
-
-Usage:
-  pwsh scripts/ewctl.ps1 [--engine ps|ts] [--intent <id>] [--all] [--wiki] [--checklist] [--dbdrift] [--kbconsistency] [--terraformplan] [--genappsettings] [--noninteractive] [--whatif]
-
-Examples:
-  # Docs review (PS engine)
-  pwsh scripts/ewctl.ps1 --engine ps --intent wiki-normalize-review
-
-  # Governance gates (PS engine)
-  pwsh scripts/ewctl.ps1 --engine ps --checklist --dbdrift --kbconsistency --noninteractive
-
-  # Orchestrator (TS engine, plan only)
-  pwsh scripts/ewctl.ps1 --engine ts --intent wiki-normalize-review
-"@ | Write-Host
+if ($Command -notin $ValidCommands) {
+  # Fallback for Legacy/Invalid commands
+  Write-Error "Invalid Command '$Command'. Valid commands are: $($ValidCommands -join ', ')."
+  exit 1
 }
 
-function Run-PSDocsReview {
-  param([switch]$Interactive)
-  try {
-    pwsh scripts/enforcer.ps1 -Agent agent_docs_review -GitDiff -Quiet
-    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_docs_review'; exit 2 }
-  }
-  catch { Write-Warning "Enforcer preflight (docs) non applicabile: $($_.Exception.Message)" }
-  $argsList = @()
-  if ($WhatIf) { $argsList += '-WhatIf' }
-  if (-not $Interactive) { $argsList += '-Interactive:$false' }
-  if ($All) { $argsList += '-All' }
-  if ($Wiki) { $argsList += '-Wiki' } else { if (-not $All) { $argsList += '-Wiki' } }
-  if ($KbConsistency) { $argsList += '-KbConsistency' }
-  $argsList += '-SyncAgentsReadme'
-  if ($LogEvent) { $argsList += '-LogEvent' }
-  pwsh scripts/agent-docs-review.ps1 @argsList
+$ModulesPath = Join-Path $PSScriptRoot "modules/ewctl"
+
+$LogPath = Join-Path $PSScriptRoot "../../logs/ewctl.debug.log"
+if (-not (Test-Path (Split-Path $LogPath))) { New-Item -ItemType Directory -Force -Path (Split-Path $LogPath) | Out-Null }
+
+function Write-KernelLog {
+  param($Message, $Type = "Info")
+  $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+  $line = "[$timestamp] [$Type] $Message"
+  Add-Content -Path $LogPath -Value $line -ErrorAction SilentlyContinue
 }
 
-function Run-PSGovernance {
-  param([switch]$Interactive)
-  try {
-    pwsh scripts/enforcer.ps1 -Agent agent_governance -GitDiff -Quiet
-    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_governance'; exit 2 }
-  }
-  catch { Write-Warning "Enforcer preflight (governance) non applicabile: $($_.Exception.Message)" }
-  $argsList = @()
-  if ($WhatIf) { $argsList += '-WhatIf' }
-  if (-not $Interactive) { $argsList += '-Interactive:$false' }
-  if ($All) { $argsList += '-All' }
-  if ($Checklist) { $argsList += '-Checklist' }
-  if ($DbDrift) { $argsList += '-DbDrift' }
-  if ($KbConsistency) { $argsList += '-KbConsistency' }
-  if ($TerraformPlan) { $argsList += '-TerraformPlan' }
-  if ($GenAppSettings) { $argsList += '-GenAppSettings' }
-  if ($LogEvent) { $argsList += '-LogEvent' }
-  pwsh scripts/agent-governance.ps1 @argsList
-}
-
-function Run-PSPrManager {
-  try {
-    pwsh scripts/enforcer.ps1 -Agent agent_pr_manager -GitDiff -Quiet
-    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_pr_manager'; exit 2 }
-  }
-  catch { Write-Warning "Enforcer preflight (pr) non applicabile: $($_.Exception.Message)" }
-  $argsList = @()
-  if ($WhatIf) { $argsList += '-WhatIf' } else { $argsList += '-WhatIf:$false' }
-  if ($LogEvent) { $argsList += '-LogEvent' }
-  pwsh scripts/agent-pr.ps1 @argsList
-}
-
-function Run-PSTemplateAgent {
-  param([string]$IntentPath, [switch]$Interactive)
-  try {
-    pwsh scripts/enforcer.ps1 -Agent agent_template -GitDiff -Quiet
-    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_template'; exit 2 }
-  }
-  catch { Write-Warning "Enforcer preflight (template) non applicabile: $($_.Exception.Message)" }
-  $argsList = @('-Action', 'sample:echo')
-  if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
-  if ($WhatIf) { $argsList += '-WhatIf' }
-  if ($LogEvent) { $argsList += '-LogEvent' }
-  if (-not $Interactive) { $argsList += '-NonInteractive' }
-  $json = pwsh scripts/agent-template.ps1 @argsList
-  if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
-}
-
-function Run-PSDBA {
-  param([string]$IntentPath, [switch]$Interactive)
-  try {
-    pwsh scripts/enforcer.ps1 -Agent agent_dba -GitDiff -Quiet
-    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_dba'; exit 2 }
-  }
-  catch { Write-Warning "Enforcer preflight (dba) non applicabile: $($_.Exception.Message)" }
-  $argsList = @('-Action', 'db-user:create')
-  if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
-  if ($WhatIf) { $argsList += '-WhatIf' }
-  if ($LogEvent) { $argsList += '-LogEvent' }
-  if (-not $Interactive) { $argsList += '-NonInteractive' }
-  $json = pwsh scripts/agent-dba.ps1 @argsList
-  if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
-}
-
-
-function Run-PSAgentCreator {
-  param([string]$IntentPath, [switch]$Interactive)
-  try {
-    pwsh scripts/enforcer.ps1 -Agent agent_creator -Quiet
-    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_creator'; exit 2 }
-  }
-  catch { Write-Warning "Enforcer preflight (agent_creator) non applicabile: $($_.Exception.Message)" }
-  $argsList = @('-Action', 'agent:scaffold')
-  if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
-  if ($WhatIf) { $argsList += '-WhatIf' }
-  if ($LogEvent) { $argsList += '-LogEvent' }
-  if (-not $Interactive) { $argsList += '-NonInteractive' }
-  $json = pwsh scripts/agent-creator.ps1 @argsList
-  if ($null -ne $json) {
-    try {
-      $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json
-      if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ', ')) }
-    }
-    catch {}
-    Write-Output $json
-  }
-}
-function Run-PSDatalake {
-  param([string]$Action, [string]$IntentPath, [switch]$Interactive)
-  try {
-    pwsh scripts/enforcer.ps1 -Agent agent_datalake -GitDiff -Quiet
-    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_datalake'; exit 2 }
-  }
-  catch { Write-Warning "Enforcer preflight (datalake) non applicabile: $($_.Exception.Message)" }
-  $argsList = @()
-  if ($Action -eq 'dlk-ensure-structure') { $argsList += '-Naming' }
-  elseif ($Action -eq 'dlk-apply-acl') { $argsList += '-ACL' }
-  elseif ($Action -eq 'dlk-set-retention') { $argsList += '-Retention' }
-  elseif ($Action -eq 'dlk-export-log') { $argsList += '-ExportLog' }
-  if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
-  if ($WhatIf) { $argsList += '-WhatIf' }
-  if ($LogEvent) { $argsList += '-LogEvent' }
-  if (-not $Interactive) { $argsList += '-NonInteractive' }
-  $json = pwsh scripts/agent-datalake.ps1 @argsList
-  if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
-}
-
-function Run-PSAdoUserStory {
-  param([string]$Action, [string]$IntentPath, [switch]$Interactive)
-  try {
-    pwsh scripts/enforcer.ps1 -Agent agent_ado_userstory -GitDiff -Quiet
-    if ($LASTEXITCODE -eq 2) { Write-Error 'Enforcer: violazioni allowed_paths per agent_ado_userstory'; exit 2 }
-  }
-  catch { Write-Warning "Enforcer preflight (ado_userstory) non applicabile: $($_.Exception.Message)" }
-  $argsList = @('-Action', $Action)
-  if ($IntentPath) { $argsList += @('-IntentPath', $IntentPath) }
-  if ($WhatIf) { $argsList += '-WhatIf' }
-  if ($LogEvent) { $argsList += '-LogEvent' }
-  if (-not $Interactive) { $argsList += '-NonInteractive' }
-  $json = pwsh scripts/agent-ado-userstory.ps1 @argsList
-  if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ", ")) } } catch {}; Write-Output $json }
-}
-
-function Validate-AgentInput {
-  param([string]$Input, [string]$AgentId)
-  
-  if (-not (Test-Path 'scripts/validate-agent-input.ps1')) {
-    Write-Warning "Security validation script not found, skipping validation"
-    return $true
-  }
-  
-  try {
-    $validationResult = & pwsh scripts/validate-agent-input.ps1 -Input $Input -AgentId $AgentId -Strictness 'medium' -ErrorAction Stop
+# --- 1. Helper: Safe Execution (The Silencer) ---
+function Invoke-EwctlSafeExecution {
+  param([ScriptBlock]$Block, [string]$Context = "Unknown")
     
-    if ($validationResult -match '"severity"\s*:\s*"(critical|high)"') {
-      Write-Error "Security validation FAILED: Input contains dangerous patterns. Aborting."
-      return $false
+  # Captures streams to prevent pollution of stdout (critical for n8n)
+  # Returns @{ Result = $res; Output = $capturedOutput }
+  try {
+    if ($Json) {
+      # In JSON mode, we hush everything unless it's the return value
+      # Write-Host uses stream 6 in PWSH. We redirect it to null.
+      # We also redirect verbose (4) and warning (3) to generate clean JSON.
+      $result = & $Block 6>$null 4>$null 3>$null
+      return @{ Result = $result; Success = $true }
     }
-    
-    if ($validationResult -match '"severity"\s*:\s*"medium"') {
-      Write-Warning "Security validation WARNING: Input may contain suspicious patterns"
+    else {
+      # In Human mode, let it flow
+      $result = & $Block
+      return @{ Result = $result; Success = $true }
     }
-    
-    return $true
   }
   catch {
-    Write-Warning "Security validation error: $($_.Exception.Message)"
-    return $true  # Fail open to avoid blocking legitimate requests
+    $err = $_
+    Write-KernelLog -Type "ERROR" -Message "CRASH in $Context : $($err.Exception.Message)`n$($err.ScriptStackTrace)"
+    return @{ Success = $false; Error = $err.Exception.Message; Source = $err.InvocationInfo.ScriptName }
   }
 }
 
-function Dispatch-Intent-PS($intent) {
-  # Security validation BEFORE dispatching
-  if (-not (Validate-AgentInput -Input $intent -AgentId 'orchestrator')) {
-    Write-Error "Intent blocked by security validation"
-    exit 1
-  }
-  
-  switch -Regex ($intent) {
+# --- 2. Module Discovery ---
+$Modules = Get-ChildItem -Path $ModulesPath -Filter "ewctl.*.psm1"
+$LoadedModules = @()
 
-    '^(wiki|docs)' {
-      return Run-PSDocsReview -Interactive:(!$NonInteractive)
+foreach ($m in $Modules) {
+  Import-Module $m.FullName -Force -Scope Local
+  $baseName = $m.BaseName
+    
+  # Duck Typing: Check capabilities
+  $canCheck = (Get-Command -Module $baseName -Name "Get-EwctlDiagnosis" -ErrorAction SilentlyContinue)
+  $canPlan = (Get-Command -Module $baseName -Name "Get-EwctlPrescription" -ErrorAction SilentlyContinue)
+  $canFix = (Get-Command -Module $baseName -Name "Invoke-EwctlTreatment" -ErrorAction SilentlyContinue)
+
+  $LoadedModules += [PSCustomObject]@{
+    Name     = $baseName
+    CanCheck = [bool]$canCheck
+    CanPlan  = [bool]$canPlan
+    CanFix   = [bool]$canFix
+  }
+}
+
+# --- 3. Execution Engine ---
+$GlobalResults = @()
+
+switch ($Command) {
+  "describe" {
+    $GlobalResults = $LoadedModules
+  }
+
+  "check" {
+    foreach ($mod in $LoadedModules) {
+      if ($mod.CanCheck) {
+        # Invoke Check
+        $call = "{0}\{1}" -f $mod.Name, "Get-EwctlDiagnosis"
+        $res = Invoke-EwctlSafeExecution -Block { & $call } -Context "$($mod.Name):Check"
+        if ($res.Success) {
+          # Flatten results
+          foreach ($r in $res.Result) {
+            $r | Add-Member -MemberType NoteProperty -Name "Module" -Value $mod.Name -Force
+            $GlobalResults += $r
+          }
+        }
+        else {
+          $GlobalResults += [PSCustomObject]@{ Status = "ERROR"; Message = "Module crashed: $($res.Error)"; Module = $mod.Name }
+        }
+      }
     }
-    '^(gov|governance|predeploy|gates)' {
-      $script:Checklist = $true; $script:DbDrift = $true; $script:KbConsistency = $true
-      return Run-PSGovernance -Interactive:(!$NonInteractive)
+  }
+
+  "plan" {
+    foreach ($mod in $LoadedModules) {
+      if ($mod.CanPlan) {
+        $call = "{0}\{1}" -f $mod.Name, "Get-EwctlPrescription"
+        $res = Invoke-EwctlSafeExecution -Block { & $call } -Context "$($mod.Name):Plan"
+        if ($res.Success) {
+          foreach ($r in $res.Result) {
+            $r | Add-Member -MemberType NoteProperty -Name "Module" -Value $mod.Name -Force
+            $GlobalResults += $r
+          }
+        }
+      }
     }
-    '^(infra|terraform)' {
-      $script:TerraformPlan = $true
-      return Run-PSGovernance -Interactive:(!$NonInteractive)
+  }
+
+  "fix" {
+    # 1. DRY RUN PHASE: Calculate Plan first
+    Write-Host "--- 🔍 DRY RUN (Planning Phase) ---" -ForegroundColor Cyan
+    $ExecutionPlan = @()
+
+    foreach ($mod in $LoadedModules) {
+      if ($mod.CanPlan) {
+        $call = "{0}\{1}" -f $mod.Name, "Get-EwctlPrescription"
+        # Run Plan safely
+        $res = Invoke-EwctlSafeExecution -Block { & $call } -Context "$($mod.Name):Plan"
+        if ($res.Success) {
+          foreach ($item in $res.Result) {
+            $ExecutionPlan += [PSCustomObject]@{
+              Module      = $mod.Name
+              Step        = $item.Step
+              Description = $item.Description
+              Automated   = $item.Automated
+            }
+          }
+        }
+      }
     }
-    '^(sample|template|echo)' {
-      $defaultIntent = 'agents/agent_template/templates/intent.sample.json'
-      return Run-PSTemplateAgent -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+
+    # 2. SHOW PLAN
+    if ($ExecutionPlan.Count -eq 0) {
+      Write-Host "✅ Nothing to fix. System is healthy." -ForegroundColor Green
+      exit 0
     }
-    '^(db-user-create|dbuser|dba)$' {
-      $defaultIntent = 'agents/agent_dba/templates/intent.db-user-create.sample.json'
-      return Run-PSDBA -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
+
+    $ExecutionPlan | Format-Table -AutoSize | Out-String | Write-Host
+
+    # 3. INTERACTIVE GATE (The Kill Switch)
+    if (-not $Force -and -not $Json) {
+      Write-Host "⚠️  Ready to execute $($ExecutionPlan.Count) actions." -ForegroundColor Yellow
+      $confirm = Read-Host "🚀 PRESS 'Y' TO EXECUTE, ANY OTHER KEY TO ABORT"
+      if ($confirm -ne 'y') { 
+        Write-Host "🛑 Aborted by user." -ForegroundColor Red
+        exit 0 
+      }
     }
-    '^(db-user-rotate)$' {
-      $defaultIntent = 'agents/agent_dba/templates/intent.db-user-rotate.sample.json'
-      $json = (pwsh scripts/agent-dba.ps1 -Action 'db-user:rotate' -IntentPath $defaultIntent -NonInteractive:($NonInteractive) -WhatIf:($WhatIf) -LogEvent:($LogEvent))
-      if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ', ')) } } catch {}; Write-Output $json }
-      return
-    }
-    '^(db-user-revoke)$' {
-      $defaultIntent = 'agents/agent_dba/templates/intent.db-user-revoke.sample.json'
-      $json = (pwsh scripts/agent-dba.ps1 -Action 'db-user:revoke' -IntentPath $defaultIntent -NonInteractive:($NonInteractive) -WhatIf:($WhatIf) -LogEvent:($LogEvent))
-      if ($null -ne $json) { try { $val = pwsh scripts/validate-action-output.ps1 -InputJson $json | ConvertFrom-Json; if (-not $val.ok) { Write-Warning ("Output contract issues: " + ($val.missing -join ', ')) } } catch {}; Write-Output $json }
-      return
-    }
-    '^(dlk-ensure-structure)$' {
-      $defaultIntent = 'agents/agent_datalake/templates/intent.dlk-ensure-structure.sample.json'
-      return Run-PSDatalake -Action 'dlk-ensure-structure' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
-    }
-    '^(dlk-apply-acl)$' {
-      $defaultIntent = 'agents/agent_datalake/templates/intent.dlk-apply-acl.sample.json'
-      return Run-PSDatalake -Action 'dlk-apply-acl' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
-    }
-    '^(dlk-set-retention)$' {
-      $defaultIntent = 'agents/agent_datalake/templates/intent.dlk-set-retention.sample.json'
-      return Run-PSDatalake -Action 'dlk-set-retention' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
-    }
-    '^(dlk-export-log)$' {
-      $defaultIntent = 'agents/agent_datalake/templates/intent.dlk-export-log.sample.json'
-      return Run-PSDatalake -Action 'dlk-export-log' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
-    }
-    '^(etl-slo-validate)$' {
-      $defaultIntent = 'agents/agent_datalake/templates/intent.etl-slo-validate.sample.json'
-      return Run-PSDatalake -Action 'etl-slo:validate' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
-    }
-    '^(ado-userstory-create|ado-userstory)$' {
-      $defaultIntent = 'agents/agent_ado_userstory/templates/intent.ado-userstory-create.sample.json'
-      return Run-PSAdoUserStory -Action 'ado:userstory.create' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
-    }
-    '^(ado-bestpractice-prefetch)$' {
-      $defaultIntent = 'agents/agent_ado_userstory/templates/intent.ado-bestpractice-prefetch.sample.json'
-      return Run-PSAdoUserStory -Action 'ado:bestpractice.prefetch' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
-    }
-    '^(ado-bootstrap)$' {
-      $defaultIntent = 'agents/agent_ado_userstory/templates/intent.ado-bootstrap.sample.json'
-      return Run-PSAdoUserStory -Action 'ado:bootstrap' -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
-    }
-    '^(doc-alignment|docs-gate)$' {
-      $json = (pwsh scripts/doc-alignment-check.ps1)
-      Write-Output $json; return
-    }
-    '^(docs-dq|docs-dq-audit|doc-dq)$' {
-      $argsList = @()
-      if ($WhatIf) { $argsList += '-WhatIf' }
-      if ($NonInteractive) { $argsList += '-NonInteractive' }
-      $json = (pwsh scripts/docs-dq-scorecard.ps1 @argsList)
-      Write-Output $json; return
-    }
-    '^(docs-confluence|confluence-dq|confluence-kanban)$' {
-      # Plan-only by default to avoid network access in wrappers; run the script directly for export/apply.
-      $json = (pwsh scripts/confluence-dq-board.ps1 -IntentPath 'scripts/intents/docs-dq-confluence-cloud-001.json' -PlanOnly)
-      Write-Output $json; return
-    }
-    '^(agent-scaffold|agent-create|agent-creator)$' {
-      $defaultIntent = 'agents/agent_creator/templates/intent.agent-scaffold.sample.json'
-      return Run-PSAgentCreator -IntentPath $defaultIntent -Interactive:(!$NonInteractive)
-    }
-    default {
-      Write-Warning "Intent sconosciuto: $intent. Uso PS governance interattivo."; return Run-PSGovernance -Interactive:(!$NonInteractive)
+
+    # 4. EXECUTION PHASE
+    Write-Host "--- 🔨 EXECUTION PHASE ---" -ForegroundColor Cyan
+    foreach ($mod in $LoadedModules) {
+      if ($mod.CanFix) {
+        # Filter: In real implementation we should pass the specific plan items to fix
+        # For now, we trust the module knows what to do based on current state
+        $call = "{0}\{1}" -f $mod.Name, "Invoke-EwctlTreatment"
+        $res = Invoke-EwctlSafeExecution -Block { & $call -Confirm:$false } -Context "$($mod.Name):Fix"
+        $GlobalResults += [PSCustomObject]@{
+          Module  = $mod.Name
+          Action  = "Fix"
+          Success = $res.Success
+          Result  = $res.Result
+        }
+      }
     }
   }
 }
 
-if ($Engine -eq 'ps') {
-  if ($PSBoundParameters.ContainsKey('Intent') -and $Intent) {
-    Dispatch-Intent-PS $Intent
-    exit $LASTEXITCODE
+# --- 4. Render Output ---
+if ($Json) {
+  $GlobalResults | ConvertTo-Json -Depth 5 -Compress
+}
+else {
+  # Human Friendly Output
+  if ($Command -eq 'check') {
+    $GlobalResults | Format-Table -Property Status, Module, Message -AutoSize
   }
-  if ($All -or $Wiki) {
-    Run-PSDocsReview -Interactive:(!$NonInteractive); if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+  elseif ($Command -eq 'describe') {
+    $GlobalResults | Format-Table -AutoSize
   }
-  if ($All -or $Checklist -or $DbDrift -or $KbConsistency -or $TerraformPlan -or $GenAppSettings) {
-    Run-PSGovernance -Interactive:(!$NonInteractive); exit $LASTEXITCODE
+  else {
+    $GlobalResults | Format-List
   }
-  if ($PR) {
-    Run-PSPrManager; exit $LASTEXITCODE
-  }
-  Show-Help; exit 0
 }
 
-# TS engine (Node orchestrator)
-if ($Engine -eq 'ts') {
-  if (-not (Get-Command node -ErrorAction SilentlyContinue)) { Write-Error 'Node non trovato. Usa --engine ps'; exit 1 }
-  $argv = @()
-  if ($Intent) { $argv += @('--intent', $Intent) }
-  if ($All) { $argv += '--all' }
-  if ($Wiki) { $argv += '--wiki' }
-  if ($Checklist) { $argv += '--checklist' }
-  if ($DbDrift) { $argv += '--dbdrift' }
-  if ($KbConsistency) { $argv += '--kbconsistency' }
-  if ($TerraformPlan) { $argv += '--terraformplan' }
-  if ($GenAppSettings) { $argv += '--genappsettings' }
-  if ($NonInteractive) { $argv += '--noninteractive' }
-  if ($WhatIf) { $argv += '--whatif' }
-  node "agents/core/orchestrator.js" @argv
-  exit $LASTEXITCODE
-}
-
-
-
-
-
+# --- 5. Exit Code ---
+# If any operation failed or result has Status='Error', exit 1
+$hasError = $GlobalResults | Where-Object { $_.Status -eq 'Error' -or $_.Success -eq $false }
+if ($hasError) { exit 1 }
+exit 0

@@ -1,0 +1,12 @@
+[2026-01-25 21:32:00] [ERROR] CRASH in ewctl.docs:Check : Kernel Panic Test
+at Get-EwctlDiagnosis, C:\old\EasyWayDataPortal\scripts\pwsh\modules\ewctl\ewctl.docs.psm1: line 16
+at <ScriptBlock>, C:\old\EasyWayDataPortal\scripts\pwsh\ewctl.ps1: line 112
+at Invoke-EwctlSafeExecution, C:\old\EasyWayDataPortal\scripts\pwsh\ewctl.ps1: line 67
+at <ScriptBlock>, C:\old\EasyWayDataPortal\scripts\pwsh\ewctl.ps1: line 112
+at <ScriptBlock>, C:\old\EasyWayDataPortal\ewctl.ps1: line 11
+[2026-01-25 21:57:57] [ERROR] CRASH in ewctl.chaos:Fix : Chaos Monkey Threw a Wrench! 🔧
+at Invoke-EwctlTreatment, C:\old\EasyWayDataPortal\scripts\pwsh\modules\ewctl\ewctl.chaos.psm1: line 34
+at <ScriptBlock>, C:\old\EasyWayDataPortal\scripts\pwsh\ewctl.ps1: line 190
+at Invoke-EwctlSafeExecution, C:\old\EasyWayDataPortal\scripts\pwsh\ewctl.ps1: line 62
+at <ScriptBlock>, C:\old\EasyWayDataPortal\scripts\pwsh\ewctl.ps1: line 190
+at <ScriptBlock>, C:\old\EasyWayDataPortal\ewctl.ps1: line 11

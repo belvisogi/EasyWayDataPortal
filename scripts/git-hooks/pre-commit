@@ -1,0 +1,64 @@
+#!/bin/bash
+# Security checklist reminder - Git pre-commit hook
+# Install: cp scripts/git-hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
+echo "🛡️ Security Pre-Commit Check..."
+
+# Check if code changes include new API, DB, or Agent files
+CHANGED_FILES=$(git diff --cached --name-only)
+
+SECURITY_RELEVANT=0
+
+# Check for API changes
+if echo "$CHANGED_FILES" | grep -qE "api/|endpoints/|routes/"; then
+    echo "⚠️  API changes detected"
+    SECURITY_RELEVANT=1
+fi
+
+# Check for DB changes
+if echo "$CHANGED_FILES" | grep -qE "db/migrations/|sql$|stored.*proc"; then
+    echo "⚠️  Database changes detected"
+    SECURITY_RELEVANT=1
+fi
+
+# Check for Agent changes
+if echo "$CHANGED_FILES" | grep -qE "agents/.*\.ps1$|agents/.*\.py$"; then
+    echo "⚠️  Agent script changes detected"
+    SECURITY_RELEVANT=1
+fi
+
+# Check for auth/security files
+if echo "$CHANGED_FILES" | grep -qE "auth|security|rbac|rls"; then
+    echo "⚠️  Security-related changes detected"
+    SECURITY_RELEVANT=1
+fi
+
+if [ $SECURITY_RELEVANT -eq 1 ]; then
+    echo ""
+    echo "╔════════════════════════════════════════════════╗"
+    echo "║ SECURITY CHECKLIST REMINDER                    ║"
+    echo "╠════════════════════════════════════════════════╣"
+    echo "║ Have you verified:                             ║"
+    echo "║ [ ] Input validation?                          ║"
+    echo "║ [ ] Auth/RBAC?                                 ║"
+    echo "║ [ ] SQL injection protection?                  ║"
+    echo "║ [ ] Secrets in KeyVault?                       ║"
+    echo "║ [ ] GEDI security review?                      ║"
+    echo "╚════════════════════════════════════════════════╝"
+    echo ""
+    echo "📋 Full checklist: docs/security/SECURITY_DEV_CHECKLIST.md"
+    echo ""
+    
+    # Optional: require confirmation
+    # Uncomment to enable interactive check
+    # read -p "Security checklist completed? (y/n) " -n 1 -r
+    # echo
+    # if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    #     echo "❌ Commit cancelled. Complete security checklist first."
+    #     exit 1
+    # fi
+    
+    echo "✅ Reminder shown. Proceeding with commit..."
+fi
+
+exit 0

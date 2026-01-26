@@ -81,7 +81,7 @@ Gates e controlli
 - Audit: log in `agents/logs/events.jsonl` e (opz.) forwarding verso Activity Log.
 
 Nodi standard n8n (raccomandati)
-- Receive Intent (Webhook/API Key) → Validate Intent (JSON Schema) → Gate Precheck (`ewctl`/script) → Dispatch (Command node: `pwsh scripts/ewctl.ps1 --engine ps --intent <action> --params <json> --noninteractive`) → Parse Output/Validate → Log → Notify (Teams/Email opz.).
+- Receive Intent (Webhook/API Key) → Validate Intent (JSON Schema) → Gate Precheck (`ewctl`/script) → Dispatch (Command node: `pwsh ewctl.ps1 check -Json`) → Parse Output/Validate → Log → Notify (Teams/Email opz.).
 
 Osservabilità
 - Propagare `decision_trace_id` se presente nel payload (es. DQ Gate) e includerlo nel log eventi.

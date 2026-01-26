@@ -140,6 +140,46 @@
         "Abbiamo il coraggio di essere 'pazzi' nel senso giusto?"
       ]
     },
+    "testudo_formation": {
+      "description": "Formazione a testuggine come un solo uomo - Massimo Decimo Meridio",
+      "philosophy": "Nel combattimento romano, la testuggine era la formazione difensiva suprema: ogni soldato proteggeva sé stesso e i compagni con lo scudo, creando una barriera impenetrabile. Non servono eroi individuali, serve coordinazione. In EasyWay: ogni componente (RLS, RBAC, fail2ban, AI Guardrails) è uno scudo. Insieme, formano una difesa enterprise-grade dove nessun attaccante può penetrare.",
+      "checks": [
+        "Ogni componente ha la sua 'difesa' implementata (security by design)?",
+        "Le difese sono coordinate o frammentate?",
+        "C'è un punto debole dove gli scudi non si toccano?",
+        "Stiamo costruendo sistema resiliente o contando su singolo eroe/tool?",
+        "Abbiamo testato che tutti gli 'scudi' funzionano insieme (integration)?",
+        "La testuggine regge anche se uno scudo si rompe (defense in depth)?"
+      ],
+      "learned_from": "Security threat analysis 2026-01-26: difesa coordinata supera singole contromisure"
+    },
+    "victory_before_battle": {
+      "description": "La vittoria si ottiene prima della battaglia - Sun Tzu",
+      "philosophy": "Il generale vincente vince prima di combattere; il generale perdente combatte prima di vincere. Applicato a security: costruisci le difese DURANTE lo sviluppo (security by design), non dopo che sei stato attaccato. Il momento migliore per fixare vulnerabilità è prima che esistano. Prevention beats reaction.",
+      "checks": [
+        "Stiamo implementando security MENTRE sviluppiamo o 'lo faremo dopo'?",
+        "Questa feature ha validazione input integrata fin dal design?",
+        "Abbiamo pensato ai casi d'abuso prima di scrivere codice?",
+        "Security è afterthought o parte del definition of done?",
+        "Stiamo aspettando attacco per implementare difesa o anticipiamo?",
+        "Cost of prevention \u003c\u003c cost of remediation - lo stiamo considerando?"
+      ],
+      "learned_from": "Security war game roadmap 2026-01-26: meglio costruire difese prima che testare dopo"
+    },
+    "black_swan_resilience": {
+      "description": "Il sistema resiliente assorbe l'impatto invece di frantumarsi - Nassim Taleb (adattato)",
+      "philosophy": "Non possiamo prevedere il Cigno Nero, ma possiamo assicurarci che, quando atterra, trovi un sistema resiliente che assorbe l'impatto invece di frantumarsi. Security hardening non è impedire OGNI attacco (impossibile), ma garantire che quando arriva l'imprevisto (zero-day, insider threat, AI agent rogue), il sistema degrada gracefully invece di collassare catastroficamente.",
+      "checks": [
+        "Se questa difesa viene bypassata, il sistema collassa o degrada?",
+        "Abbiamo defense in depth (multiple layer) non single point of failure?",
+        "I logs sono immutabili così anche attaccante non può cancellarli?",
+        "Abbiamo circuit breaker / rate limiting per contenere danni?",
+        "Sistema può auto-healare o richiede intervento manuale?",
+        "Blast radius di compromissione è limitato (segmentazione)?",
+        "Stiamo ottimizzando per robustezza (survive unexpected) o efficienza (optimized for known scenario)?"
+      ],
+      "learned_from": "Threat analysis 2026-01-26: antifragility applicata a security architecture"
+    },
     "start_small_scale_when_needed": {
       "description": "Start small, scale when needed - Pragmatic Growth",
       "philosophy": "Non serve l'infrastruttura perfetta dal giorno uno. Inizia con il minimo che funziona, valida l'idea, poi scala quando hai evidenze reali. Over-engineering anticipato è spreco, under-provisioning con piano di crescita è saggezza.",

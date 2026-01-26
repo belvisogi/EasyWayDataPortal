@@ -25,7 +25,7 @@ llm:
 - Obiettivo: centralizzare credenziali tecniche e accessi in modo sicuro e auditabile.
 - Source of truth: Azure Key Vault (valori dei segreti).
 - Registry non-segreto (metadati): tabelle/elenchi in questa pagina (niente valori).
-- Entrypoint agentico: `scripts/ewctl.ps1`
+- Entrypoint agentico: `ewctl.ps1`
 - Log eventi: `agents/logs/events.jsonl`
 - KB: `agents/kb/recipes.jsonl`
 - Goals: `agents/goals.json`
