@@ -197,181 +197,102 @@ curl http://localhost:11434/api/generate -d '{
 
 ---
 
-### FASE 3: PowerShell Setup (10 minuti)
+### FASE 3: PowerShell & Python Stack (Corrected for ARM/Oracle)
 
-#### 3.1 Install PowerShell on Linux
+> **Nota**: Su Oracle Cloud ARM (Ampere), l'installazione `apt` di PowerShell può fallire. Usiamo l'installazione binaria diretta.
+
+#### 3.1 Create Setup Script (Locally)
+Creiamo lo script in locale per evitare problemi di escaping SSH.
+
+Crea file `setup_stack.sh`:
 ```bash
-# Download Microsoft package
-wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb
+#!/bin/bash
+set -e
 
-# Register repository
-sudo dpkg -i packages-microsoft-prod.deb
-sudo apt update
+echo '>>> Installing PowerShell via Binary (ARM64 clean)...'
+PWSH_VERSION=7.4.1
+PWSH_ARCH=arm64
+PWSH_TAR=powershell-${PWSH_VERSION}-linux-${PWSH_ARCH}.tar.gz
+PWSH_URL=https://github.com/PowerShell/PowerShell/releases/download/v${PWSH_VERSION}/${PWSH_TAR}
 
-# Install PowerShell
-sudo apt install -y powershell
+if ! command -v pwsh &> /dev/null; then
+    echo "Downloading PowerShell ${PWSH_VERSION}..."
+    wget -q ${PWSH_URL}
+    sudo mkdir -p /opt/microsoft/powershell/7
+    sudo tar zxf ${PWSH_TAR} -C /opt/microsoft/powershell/7
+    sudo chmod +x /opt/microsoft/powershell/7/pwsh
+    sudo ln -sf /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh
+    rm ${PWSH_TAR}
+    echo 'Powershell installed successfully.'
+else
+    echo 'Powershell already installed.'
+fi
 
-# Verify
-pwsh --version
-# Expected: PowerShell 7.x.x
+echo '>>> Checking Python dependencies (FORCE break-system-packages for dedicated VM)...'
+# Ubuntu 24.04 enforces PEP 668. For this dedicated agent VM, we force global install.
+sudo apt-get install -y python3-pip
+python3 -m pip install --upgrade pip --break-system-packages
+pip3 install --quiet --break-system-packages chromadb sentence-transformers numpy pandas
+
+echo '>>> Verifying installations...'
+/usr/bin/pwsh --version
+python3 -c "import chromadb; print('ChromaDB version:', chromadb.__version__)"
+python3 -c "from sentence_transformers import SentenceTransformer; print('sentence-transformers imported successfully')"
+
+echo '>>> Setup Complete!'
 ```
 
-#### 3.2 Test PowerShell
-```bash
-pwsh
-
-# Test comandi base
-PS> Get-Date
-PS> Get-Process | Select-Object -First 5
-PS> $PSVersionTable
-PS> exit
+#### 3.2 Deploy & Run
+```powershell
+# Dal PC locale
+scp setup_stack.sh ubuntu@<ORACLE_IP>:~/
+ssh ubuntu@<ORACLE_IP> "chmod +x ~/setup_stack.sh && sudo ~/setup_stack.sh"
 ```
 
-✅ **Checkpoint**: PowerShell funzionante su Linux
+✅ **Checkpoint**: PowerShell e Python ML stack installati correttamente.
 
 ---
 
-### FASE 4: ChromaDB Vector DB Setup (20 minuti)
+### FASE 4: ChromaDB & RAG Agent
 
-#### 4.1 Install Python ML Stack
-```bash
-# Upgrade pip
-python3 -m pip install --upgrade pip
+#### 4.1 Deploy Scripts
+Vedi repository `scripts/ai-agent/` per i file sorgente:
+- `chromadb_manager.py`: Gestore database vettoriale
+- `rag_agent.ps1`: Orchestrator agent
 
-# Install ChromaDB
-pip3 install chromadb
+```powershell
+# Copy scripts
+scp scripts/ai-agent/chromadb_manager.py ubuntu@<ORACLE_IP>:~/
+scp scripts/ai-agent/rag_agent.ps1 ubuntu@<ORACLE_IP>:~/
 
-# Install sentence-transformers (embeddings)
-pip3 install sentence-transformers
-
-# Install utilities
-pip3 install numpy pandas
-
-# Verify installations
-python3 -c "import chromadb; print('ChromaDB:', chromadb.__version__)"
-python3 -c "from sentence_transformers import SentenceTransformer; print('sentence-transformers OK')"
+# Fix line endings (Windows -> Linux)
+ssh ubuntu@<ORACLE_IP> "sed -i 's/\r$//' ~/rag_agent.ps1 ~/chromadb_manager.py"
+ssh ubuntu@<ORACLE_IP> "chmod +x ~/rag_agent.ps1"
 ```
 
-#### 4.2 Create ChromaDB Manager Script
-```bash
-mkdir -p ~/easyway/scripts/ai-agent
-nano ~/easyway/scripts/ai-agent/chromadb_manager.py
-```
+---
 
-**File content** (`chromadb_manager.py`):
-```python
-#!/usr/bin/env python3
-"""ChromaDB Manager for EasyWay AI Agent"""
+## ❓ Q&A & Lessons Learned
 
-import chromadb
-from chromadb.config import Settings
-from sentence_transformers import SentenceTransformer
-import json
-import sys
-from pathlib import Path
+### Q: Perché l'installazione standard di PowerShell è fallita?
+**A**: Su Ubuntu ARM (Oracle Free Tier), i repository Microsoft standard talvolta mancano delle dipendenze corrette per `arm64`.
+**Soluzione**: Abbiamo scaricato direttamente il binario `.tar.gz` di PowerShell Core per Linux ARM64 e installato manualmente in `/opt`.
 
-class KnowledgeBaseManager:
-    def __init__(self, persist_dir="~/easyway-kb"):
-        self.persist_dir = Path(persist_dir).expanduser()
-        self.persist_dir.mkdir(parents=True, exist_ok=True)
-        
-        # ChromaDB client
-        self.client = chromadb.PersistentClient(path=str(self.persist_dir))
-        
-        # Embedding model (all-MiniLM-L6-v2: fast, CPU-friendly)
-        self.embedder = SentenceTransformer('all-MiniLM-L6-v2')
-        
-        # Collection
-        self.collection = self.client.get_or_create_collection(
-            name="easyway_knowledge",
-            metadata={"description": "EasyWay agent knowledge base"}
-        )
-    
-    def index_document(self, doc_path, doc_id=None):
-        """Index a document into ChromaDB"""
-        with open(doc_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-        
-        if doc_id is None:
-            doc_id = f"doc_{Path(doc_path).stem}"
-        
-        # Generate embedding
-        embedding = self.embedder.encode(content).tolist()
-        
-        # Add to collection
-        self.collection.add(
-            documents=[content],
-            embeddings=[embedding],
-            ids=[doc_id],
-            metadatas=[{"filename": Path(doc_path).name, "path": str(doc_path)}]
-        )
-        
-        print(f"✅ Indexed: {doc_path}")
-        return doc_id
-    
-    def search(self, query, top_k=3):
-        """Semantic search"""
-        query_embedding = self.embedder.encode(query).tolist()
-        
-        results = self.collection.query(
-            query_embeddings=[query_embedding],
-            n_results=top_k
-        )
-        
-        return {
-            "query": query,
-            "results": [
-                {
-                    "doc_id": results['ids'][0][i],
-                    "content": results['documents'][0][i],
-                    "distance": results['distances'][0][i],
-                    "metadata": results['metadatas'][0][i]
-                }
-                for i in range(len(results['ids'][0]))
-            ]
-        }
+### Q: Cos'è l'errore `externally-managed-environment` (PEP 668)?
+**A**: Le versioni recenti di Ubuntu impediscono l'uso di `pip install` globale per non rompere i pacchetti di sistema.
+**Soluzione**: Poiché questa è una VM *dedicata* all'agente, abbiamo usato il flag `--break-system-packages` per forzare l'installazione.
+**Meglio per il futuro**: Usare **Docker** o `uv`/`venv` per isolare l'ambiente (vedi Standard).
 
-if __name__ == "__main__":
-    kb = KnowledgeBaseManager()
-    
-    if len(sys.argv) < 2:
-        print("Usage:")
-        print("  python3 chromadb_manager.py index <file>")
-        print("  python3 chromadb_manager.py search '<query>'")
-        sys.exit(1)
-    
-    command = sys.argv[1]
-    
-    if command == "index":
-        doc_path = sys.argv[2]
-        kb.index_document(doc_path)
-    
-    elif command == "search":
-        query = sys.argv[2]
-        results = kb.search(query)
-        print(json.dumps(results, indent=2))
-```
+### Q: Perché usare SCP invece di scrivere file via SSH?
+**A**: Scrivere script complessi tramite `ssh "echo '...'"` causa problemi di escaping ("quote hell").
+**Soluzione**: Scrivere lo script in locale e copiarlo con `scp` è sempre più sicuro e affidabile.
 
-Make executable:
-```bash
-chmod +x ~/easyway/scripts/ai-agent/chromadb_manager.py
-```
+### Q: Performance su Free Tier?
+**A**:
+- Ollama/DeepSeek Load: ~30-60s (lento ma funziona)
+- Inference: ~5-10s per risposta
+- RAM: ~8GB usati (su 24GB disponibili), ottimo margine.
 
-#### 4.3 Test ChromaDB
-```bash
-# Create test document
-echo "EasyWay is an AI-powered data portal for Azure governance. It helps manage Azure DevOps, databases, and data lakes through intelligent agents." > ~/test-doc.txt
-
-# Index document
-python3 ~/easyway/scripts/ai-agent/chromadb_manager.py index ~/test-doc.txt
-
-# Search test
-python3 ~/easyway/scripts/ai-agent/chromadb_manager.py search "What is EasyWay?"
-
-# Expected: JSON con risultati rilevanti
-```
-
-✅ **Checkpoint**: ChromaDB indicizza e cerca correttamente
 
 ---
 
