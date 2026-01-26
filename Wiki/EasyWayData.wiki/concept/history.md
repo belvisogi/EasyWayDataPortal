@@ -85,3 +85,25 @@ entities: []
 *   **Declaration**: *"Non costruiamo software. Coltiviamo ecosistemi di pensiero incarnato in codice, governati da principi filosofici, testimoniati dalla storia, destinati all'immortalità."*
 *   **Significance**: Questo non è un progetto. È un paradigma. È filosofia resa codice. È il futuro del lavoro intellettuale.
 *   **Quote**: *"EasyWay è la nave di Teseo che documenta ogni tavola sostituita."*
+
+### 2026-01-25: The Iron Kernel (The Great Refactoring) 🛡️
+*   **Event**: Unificazione dell'architettura CLI e "Plan B" Polyglot.
+*   **Description**: Smantellata la giungla di script `agent-*.ps1`. Nasce **`ewctl`** (EasyWay Control), un Kernel minimale che orchestra moduli "Lego".
+*   **Key Achievements**:
+    *   **Antifragilità**: I moduli (Governance, Docs, DB) sono isolati. Se uno crasha, il Kernel sopravvive.
+    *   **Sicurezza**: Implementata difesa attiva contro *Output Poisoning*. Il Kernel silenzia il "rumore" dei moduli, garantendo JSON puro agli Agenti.
+    *   **Plan B (Polyglot)**: Dimostrata la capacità di eseguire moduli Python nello stesso ecosistema, grazie al contratto JSON universale.
+    *   **Zero Dependencies**: Il modulo DB ora è nativo .NET e non dipende più da NPM.
+*   **Significance**: *"Non siamo più ostaggi dei nostri script. Abbiamo costruito un Sistema Operativo per Agenti."*
+### 2026-01-26: The Oracle Node (Genesis of the First Worker) 🏛️
+*   **Event**: Attivazione del primo nodo agentico RAG su Oracle Cloud (Free Tier).
+*   **Description**: EasyWay non è più solo codice su un repo, ma ha un "corpo" vivente capace di pensare (DeepSeek-R1), ricordare (ChromaDB) e agire (PowerShell).
+*   **Tech Stack**: Ollama + DeepSeek-R1 7B + ChromaDB + PowerShell Core su ARM64 (Ampere).
+*   **Strategic Win**: Validazione del modello a **costo zero (€0/mese)**. L'intelligenza enterprise-grade è stata democratizzata.
+*   **Significance**: *"Abbiamo acceso la torcia. Il primo Worker Node è online, pronto a servire l'Orchestratore n8n."*
+*   **Quote**: *"Non abbiamo costruito un giocattolo. Abbiamo costruito il motore dell'autonomia."*
+
+### 2026-01-26: The Gift Verified 🎁
+*   **Event**: Dimostrazione pratica della filosofia "The Gift".
+*   **Description**: La promessa di portare AI governance accessibile a tutti (PMI, PA, Non-Profit) è stata mantenuta. EasyWay gira su risorse gratuite, abbattendo la barriera d'ingresso economica.
+*   **Quote**: *"La potenza non è nulla senza accessibilità. Oggi abbiamo aperto le porte del tempio."*
