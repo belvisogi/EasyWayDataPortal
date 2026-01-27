@@ -1,46 +1,82 @@
 import './style.css'
 
-console.log('EasyWay Portal Initialized. System Status: Nominal.');
+// Main Entry Point - EasyWay One (Sovereign Intelligence)
+console.log("EasyWay Sovereign System: Initializing...");
 
-const engageBtn = document.getElementById('btn-engage');
-const gedi = document.getElementById('gedi-guardian');
+const btnEngage = document.getElementById('btn-engage');
+const marketingLayer = document.getElementById('marketing-layer');
+const operatorLayer = document.getElementById('operator-layer');
+const heroText = document.getElementById('hero-text');
+const features = document.getElementById('features-section');
+const cortexInput = document.getElementById('cortex-input') as HTMLInputElement;
 
-if (engageBtn) {
-    engageBtn.addEventListener('click', (e) => {
+// --- STATE MANAGEMENT ---
+if (btnEngage) {
+    btnEngage.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log('User requested system initialization...');
-        alert('System Initialization Sequence Started... [Demo Mode]');
+        initiateProtocol();
     });
 }
 
-if (gedi) {
-    let themeStep = 0;
-    const themes = ['', 'theme-shield', 'theme-terminal'];
+function initiateProtocol() {
+    console.log("Protocol Initiated.");
 
-    gedi.addEventListener('click', () => {
-        console.log('GEDI Interaction: Cycling Visual Concepts...');
+    // 1. Fade out Marketing
+    heroText?.classList.add('fade-out-down');
+    features?.classList.add('fade-out-down');
 
-        // Cycle themes
-        themeStep = (themeStep + 1) % themes.length;
-        document.body.className = themes[themeStep];
+    // 2. Reveal Operator UI (after delay)
+    setTimeout(() => {
+        operatorLayer?.classList.remove('hidden');
+        cortexInput?.focus();
 
-        // Visual feedback
-        gedi.style.transform = 'scale(0.9)';
+        // Simulate "System Boot" messages
+        typeToCortex("SYSTEM.CORE // ONLINE");
+        setTimeout(() => typeToCortex("INTELLIGENCE // SOVEREIGN"), 800);
+        setTimeout(() => typeToCortex("AWAITING DIRECTIVE..."), 1600);
+    }, 800);
+}
 
-        let modeName = "Pulse";
-        if (themeStep === 1) modeName = "Shield";
-        if (themeStep === 2) modeName = "Terminal";
+// --- CORTEX LOGIC ---
+if (cortexInput) {
+    cortexInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && cortexInput.value.trim() !== "") {
+            const cmd = cortexInput.value.toUpperCase();
+            cortexInput.value = "";
 
-        console.log(`Switched to Concept: ${modeName}`);
+            // User Msg
+            typeToCortex(`> ${cmd}`, 'user');
 
-        // Update engage button text for fun
-        if (engageBtn) {
-            if (themeStep === 2) engageBtn.textContent = "> EXECUTE_INIT";
-            else engageBtn.textContent = "access_protocol.init()";
+            // AI Response Sim
+            setTimeout(() => {
+                respondToCommand(cmd);
+            }, 500);
         }
-
-        setTimeout(() => {
-            gedi.style.transform = 'scale(1)';
-        }, 200);
     });
+}
+
+function typeToCortex(text: string, type: 'system' | 'user' | 'ai' = 'system') {
+    const history = document.getElementById('cortex-history');
+    if (!history) return;
+
+    const div = document.createElement('div');
+    div.className = `msg ${type}`;
+    div.innerText = text;
+
+    if (type === 'ai') div.style.color = 'var(--accent-neural-cyan)';
+    if (type === 'user') div.style.color = 'var(--text-sovereign-gold)';
+
+    history.appendChild(div);
+    history.scrollTop = history.scrollHeight;
+}
+
+function respondToCommand(cmd: string) {
+    let response = "COMMAND NOT RECOGNIZED. TRY 'STATUS' OR 'AGENTS'.";
+
+    if (cmd.includes("STATUS")) response = "SYSTEM NOMINAL. CPU: 45%. RAM: 12GB. NETWORK: SECURE.";
+    if (cmd.includes("AGENTS") || cmd.includes("GRID")) response = "AVAILABLE OPERATIVES: GEDI, SQL-EDGE, ARCHITECT.";
+    if (cmd.includes("HELLO") || cmd.includes("HI")) response = "GREETINGS, ADMINISTRATOR.";
+    if (cmd.includes("HELP")) response = "COMMANDS: STATUS, AGENTS, SCAN, DEPLOY.";
+
+    typeToCortex(response, 'ai');
 }
