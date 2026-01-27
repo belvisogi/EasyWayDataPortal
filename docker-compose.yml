@@ -76,6 +76,25 @@ services:
     networks:
       - easyway-net
 
+  # 🤖 Orchestrator (n8n - The Portable Brain)
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: easyway-orchestrator
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=n8n
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://localhost:5678/
+      - GENERIC_TIMEZONE=Europe/Rome
+    volumes:
+      - n8n-data:/home/node/.n8n
+      - ./agents/core/n8n:/home/node/workflows # Pre-load workflows from repo?
+    networks:
+      - easyway-net
+
 networks:
   easyway-net:
     driver: bridge
@@ -84,3 +103,4 @@ volumes:
   chroma-data:
   sql-data:
   azurite-data:
+  n8n-data:
