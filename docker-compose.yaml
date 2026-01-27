@@ -1,0 +1,138 @@
+services:
+    copyparty:
+        image: copyparty/ac:latest # (include ffmpeg per anteprime multimediali)
+        container_name: copyparty
+        hostname: copyparty
+        restart: no
+        user: "0:0"
+        mem_limit: 2048m
+        mem_reservation: 256m
+        cpus: 8.0
+        ports:
+            - 3923:3923
+        volumes:
+            - ./copyparty/config:/cfg # Cartella per la configurazione persistente (*.conf)
+            - /:/w # Mappa l'intero disco host su /w (Simile a come hai fatto per file-browser)
+        environment:
+            - TZ=${TIMEZONE}
+            # Opzionale: Scommenta la riga sotto per performance migliori (richiede più RAM)
+            # - LD_PRELOAD=/usr/lib/libmimalloc-secure.so.2 
+        dns:
+            - 192.168.178.41  
+        # Healthcheck raccomandato dalla documentazione ufficiale
+        healthcheck:
+            test: ["CMD-SHELL", "wget --spider -q 127.0.0.1:3923/?reset=/._"]
+            interval: 1m
+            timeout: 2s
+            retries: 5
+            start_period: 15s
+
+    it-tools: # Defines a service named 'it-tools'
+        image: corentinth/it-tools:latest # Uses the latest version of the 'corentinth/it-tools' image from Docker Hub
+        container_name: it-tools # Sets a custom name for the container
+        hostname: it-tools
+        restart: no
+        mem_limit: 512m
+        mem_reservation: 256m
+        cpus: 0.50
+        ports:
+            - 8282:80 # Maps port 8282 on the host to port 80 inside the container
+        environment:
+            - PUID=${PUID} # Sets the user ID inside the container (useful for file permissions)
+            - PGID=${PGID} # Sets the group ID inside the container (useful for file permissions)
+            - TZ=${TIMEZONE} # Sets the timezone to UTC
+        dns:
+            - 192.168.178.41
+
+    # cyberchef:
+    #     image: mpepping/cyberchef:latest
+    #     container_name: cyberchef
+    #     mem_limit: 512m
+    #     mem_reservation: 256m
+    #     cpus: 1.0
+    #     ports:
+    #         - 8089:8000
+    #     networks:
+    #         - default
+    #     restart: unless-stopped
+
+    # stirling-pdf:
+    #     image: stirlingtools/stirling-pdf:latest
+    #     container_name: stirling-pdf
+    #     mem_limit: 512m
+    #     mem_reservation: 256m
+    #     cpus: 2.0
+    #     ports:
+    #         - '8585:8080'
+    #     volumes:
+    #         - ./stirling/trainingData:/usr/share/tesseract-ocr/4.00/tessdata 
+    #         - ./stirling/extraConfigs:/configs
+    #     environment:
+    #         - DOCKER_ENABLE_SECURITY=false
+    #         - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=false
+    #         - LANGS=it_IT
+    #         - SYSTEM_DEFAULT_LOCALE=it_IT
+    #     restart: unless-stopped
+
+    n8n:
+        image: n8nio/n8n:latest
+        container_name: n8n
+        restart: no
+        ports:
+            - 5678:5678
+        environment:
+            # --- PERMESSI & SISTEMA ---
+            # Usiamo le variabili del .env (che sono 1000:1000)
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TIMEZONE}
+            - GENERIC_TIMEZONE=${TIMEZONE}
+            # --- RETE & WEBHOOK ---
+            # Indirizzo pubblico per i Webhook. 
+            # Se usi il dominio locale, puoi mettere: http://n8n.macmini.home
+            - WEBHOOK_URL=http://192.168.178.41:5678
+            #- N8N_HOST=192.168.178.41
+            - N8N_PORT=5678
+            - N8N_Listen_ADDRESS=0.0.0.0
+            # Disabilita cookie sicuri (necessario su HTTP locale)
+            - N8N_SECURE_COOKIE=false
+            # --- PERFORMANCE & HDD (CRITICO) ---
+            # Timeout alto per evitare crash quando il disco è lento
+            - DB_SQLITE_BUSY_TIMEOUT=10000
+            # Niente pulizia all'avvio (troppo lenta)
+            - DB_SQLITE_VACUUM_ON_STARTUP=false
+            # Modalità scrittura veloce
+            - DB_SQLITE_JOURNAL_MODE=WAL
+            # Pool connessioni limitato per risparmiare RAM
+            - DB_SQLITE_POOL_SIZE=10
+            # --- PULIZIA & LOG ---
+            # Mantiene il DB piccolo cancellando esecuzioni vecchie di 7 giorni
+            - EXECUTIONS_DATA_PRUNE=true
+            - EXECUTIONS_DATA_MAX_AGE=168
+            # Meno log = meno disco usato
+            - N8N_LOG_LEVEL=warn
+            - N8N_DIAGNOSTICS_ENABLED=false
+            - N8N_VERSION_NOTIFICATIONS_ENABLED=false
+            # --- FUNZIONALITÀ ---
+            - N8N_RUNNERS_ENABLED=true
+            # Permette di usare variabili d'ambiente nei nodi Function (utile)
+            - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+            # Sicurezza Git
+            - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+            - N8N_GIT_NODE_DISABLE_BARE_REPOS=true
+        volumes:
+            # CONFIGURAZIONE
+            - ./n8n/data:/home/node/.n8n
+            # ACCESSO AI FILE DEL SERVER
+            - /DATA:/files
+            # Accesso ai dischi esterni (SD/USB)
+            - /mnt:/mnt
+        # GABBIA RISORSE (Anti-Crash)
+        mem_limit: 2048m
+        mem_reservation: 256m
+        cpus: 8.0
+
+networks:
+  default:
+    name: docker-general-network
+    external: true
