@@ -160,3 +160,30 @@ Per ogni azione distruttiva o critica (es. cancellare un DB, riavviare un nodo):
     *   *Output*: Differenziazione visiva tra "Dati Grezzi" (grigio) e "Insight" (oro/cyan).
 *   **Rationale**: Scoraggiare il chitchat inutile, incoraggiare prompt strutturati e direttivi.
 
+### Wave 2: Deep Dive Concepts
+
+### Concept D: The Access Ritual (Login)
+*   **Obiettivo**: Rendere il login un evento solenne, non una formalità.
+*   **Metafora**: Apertura di un Caveau o Lancio Missilistico.
+*   **Design Elements**:
+    *   *Multi-Step*: Non "User/Pass" insieme. Prima identifichi l'utente, poi scansione "Biometrica" (simulata), poi "Key Activation".
+    *   *Visual*: Cerchi concentrici che si sbloccano. Suono (feedback aptico visivo).
+    *   *Rationale*: Sicurezza percepita = Fiducia.
+
+### Concept E: The Vector Void (Memory Explorer)
+*   **Obiettivo**: Visualizzare la conoscenza.
+*   **Metafora**: Navigare tra le stelle.
+*   **Design Elements**:
+    *   *Particle System*: Ogni documento è una stella. I documenti simili sono vicini (cluster).
+    *   *Interaction*: Hover per vedere snippet. Click per "viaggiare" nel documento.
+    *   *Rationale*: Rendere tangibile l'AI astratta.
+
+### Concept F: The Pipe (Automation Flow)
+*   **Obiettivo**: Visualizzare il lavoro sporco (n8n).
+*   **Metafora**: Tubi trasparenti o Circuiti idraulici.
+*   **Design Elements**:
+    *   *Flow*: Dati che scorrono visibilmente da un nodo all'altro.
+    *   *Status*: Valvole che si aprono/chiudono.
+    *   *Rationale*: Trasparenza operativa.
+
+

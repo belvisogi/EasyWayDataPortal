@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Access Protocol | EasyWay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Format+Mono:wght@400&family=JetBrains+Mono:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="login-body">
+    <div class="bg-grid"></div>
+
+    <main class="gate-container">
+
+        <!-- Phase 1: Identity Assertion -->
+        <div id="phase-identity" class="gate-phase active">
+            <div class="gate-header">
+                <div class="mini-core"></div>
+                <h1>SOVEREIGN GATE</h1>
+                <p>This infrastructure is private property.<br>Assert identity to proceed.</p>
+            </div>
+
+            <div class="input-group">
+                <label>OPERATOR HANDLE</label>
+                <input type="text" id="input-identity" placeholder=">_" autocomplete="off">
+            </div>
+        </div>
+
+        <!-- Phase 2: Bio-Metric Scan (Simulated) -->
+        <div id="phase-scan" class="gate-phase">
+            <div class="scan-visual">
+                <div class="scan-ring r1"></div>
+                <div class="scan-ring r2"></div>
+                <div class="scan-line"></div>
+                <div class="scan-target">SCANNING...</div>
+            </div>
+            <p class="scan-status" id="scan-text">Reading biometric signature...</p>
+        </div>
+
+        <!-- Phase 3: Cryptographic Handshake -->
+        <div id="phase-key" class="gate-phase">
+            <div class="key-hole">
+                <div class="lock-circle"></div>
+            </div>
+            <p>Identity Confirmed: <span class="text-sovereign-gold" id="confirmed-user">ADMIN</span></p>
+
+            <div class="input-group">
+                <label>MASTER KEY</label>
+                <input type="password" id="input-key" placeholder="******" autocomplete="off">
+            </div>
+
+            <button id="btn-unlock" class="btn-unlock">
+                <span class="btn-content">INITIATE SESSION</span>
+                <div class="btn-glitch"></div>
+            </button>
+        </div>
+
+    </main>
+
+    <div class="legal-footer">
+        SECURE PROTOCOL v0.1 // UNAUTHORIZED ACCESS IS A VIOLATION OF SOVEREIGNTY
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

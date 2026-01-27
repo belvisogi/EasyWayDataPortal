@@ -11,6 +11,7 @@ export default defineConfig({
         monitor: resolve(__dirname, 'monitor.html'),
         agents: resolve(__dirname, 'agents.html'),
         cortex: resolve(__dirname, 'cortex.html'),
+        login: resolve(__dirname, 'login.html'),
       },
     },
   },
