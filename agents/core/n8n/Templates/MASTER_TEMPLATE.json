@@ -1,0 +1,125 @@
+{
+    "name": "MASTER_TEMPLATE",
+    "nodes": [
+        {
+            "parameters": {},
+            "name": "Start",
+            "type": "n8n-nodes-base.start",
+            "typeVersion": 1,
+            "position": [
+                240,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "values": {
+                    "string": [
+                        {
+                            "name": "description",
+                            "value": "DESCRIBE_ME: What does this workflow do?"
+                        },
+                        {
+                            "name": "domain",
+                            "value": "Common/Business/Infra"
+                        },
+                        {
+                            "name": "owner",
+                            "value": "DevTeam"
+                        },
+                        {
+                            "name": "version",
+                            "value": "1.0.0"
+                        }
+                    ],
+                    "stringArray": [
+                        {
+                            "name": "dependencies",
+                            "value": [
+                                "Common/Global_Error_Handler"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "name": "__METADATA__",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                460,
+                300
+            ],
+            "notes": "🆔 Identity Card"
+        },
+        {
+            "parameters": {},
+            "name": "Try",
+            "type": "n8n-nodes-base.splitInBatches",
+            "typeVersion": 1,
+            "position": [
+                680,
+                300
+            ],
+            "notes": "Start of Safe Zone"
+        },
+        {
+            "parameters": {
+                "functionCode": "// 📝 LOGIC GOES HERE\n// Keep it modular.\nreturn items;"
+            },
+            "name": "Core_Logic_Placeholder",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                900,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "workflowId": "Common/Global_Error_Handler"
+            },
+            "name": "On_Error_Call_Global_Handler",
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1,
+            "position": [
+                900,
+                500
+            ]
+        }
+    ],
+    "connections": {
+        "Start": {
+            "main": [
+                [
+                    {
+                        "node": "__METADATA__",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "__METADATA__": {
+            "main": [
+                [
+                    {
+                        "node": "Try",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Try": {
+            "main": [
+                [
+                    {
+                        "node": "Core_Logic_Placeholder",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

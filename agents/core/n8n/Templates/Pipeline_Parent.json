@@ -1,0 +1,90 @@
+{
+    "name": "TEMPLATE_Pipeline_Parent",
+    "nodes": [
+        {
+            "parameters": {},
+            "name": "Start_Trigger",
+            "type": "n8n-nodes-base.start",
+            "typeVersion": 1,
+            "position": [
+                240,
+                300
+            ],
+            "notes": "Webhook or Schedule"
+        },
+        {
+            "parameters": {
+                "workflowId": "Business/Step_1_Ingest_File"
+            },
+            "name": "Step_1_Ingest",
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1,
+            "position": [
+                460,
+                300
+            ],
+            "notes": "Child 1: Returns File ID"
+        },
+        {
+            "parameters": {
+                "workflowId": "Business/Step_2_Analyze_Content"
+            },
+            "name": "Step_2_Analyze",
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1,
+            "position": [
+                680,
+                300
+            ],
+            "notes": "Child 2: Uses File ID"
+        },
+        {
+            "parameters": {
+                "workflowId": "Common/Send_Email"
+            },
+            "name": "Step_3_Notify",
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1,
+            "position": [
+                900,
+                300
+            ],
+            "notes": "Child 3: Shared Utility"
+        }
+    ],
+    "connections": {
+        "Start_Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Step_1_Ingest",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Step_1_Ingest": {
+            "main": [
+                [
+                    {
+                        "node": "Step_2_Analyze",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Step_2_Analyze": {
+            "main": [
+                [
+                    {
+                        "node": "Step_3_Notify",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

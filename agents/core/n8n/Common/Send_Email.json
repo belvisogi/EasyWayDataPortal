@@ -1,0 +1,91 @@
+{
+    "name": "Send_System_Email",
+    "nodes": [
+        {
+            "parameters": {},
+            "name": "Start",
+            "type": "n8n-nodes-base.start",
+            "typeVersion": 1,
+            "position": [
+                240,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "values": {
+                    "string": [
+                        {
+                            "name": "to_email",
+                            "value": "={{$json[\"to\"]}}"
+                        },
+                        {
+                            "name": "subject_line",
+                            "value": "=[EasyWay] {{$json[\"subject\"]}}"
+                        }
+                    ]
+                }
+            },
+            "name": "Normalize_Input",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                460,
+                300
+            ],
+            "notes": "Enforce [EasyWay] Prefix"
+        },
+        {
+            "parameters": {
+                "fromEmail": "system@easyway.local",
+                "toEmail": "={{$node[\"Normalize_Input\"].json[\"to_email\"]}}",
+                "subject": "={{$node[\"Normalize_Input\"].json[\"subject_line\"]}}",
+                "text": "={{$json[\"body\"]}}",
+                "options": {}
+            },
+            "name": "SMTP_Send",
+            "type": "n8n-nodes-base.emailSend",
+            "typeVersion": 1,
+            "position": [
+                680,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "workflowId": "Global_Error_Handler"
+            },
+            "name": "On_Error_Call_Handler",
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1,
+            "position": [
+                680,
+                500
+            ]
+        }
+    ],
+    "connections": {
+        "Start": {
+            "main": [
+                [
+                    {
+                        "node": "Normalize_Input",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Normalize_Input": {
+            "main": [
+                [
+                    {
+                        "node": "SMTP_Send",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

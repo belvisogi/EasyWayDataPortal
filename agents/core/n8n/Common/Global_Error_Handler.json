@@ -1,0 +1,103 @@
+{
+    "name": "Global_Error_Handler",
+    "nodes": [
+        {
+            "parameters": {},
+            "name": "Start",
+            "type": "n8n-nodes-base.start",
+            "typeVersion": 1,
+            "position": [
+                240,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "values": {
+                    "string": [
+                        {
+                            "name": "error_message",
+                            "value": "={{$json[\"error\"]}}"
+                        },
+                        {
+                            "name": "source_workflow",
+                            "value": "={{$workflow.name}}"
+                        }
+                    ]
+                }
+            },
+            "name": "Extract_Context",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                460,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "executeQuery",
+                "query": "INSERT INTO system_logs (level, message, source, timestamp) VALUES ('ERROR', $1, $2, GETDATE());",
+                "additionalFields": {
+                    "queryParams": "={{$json[\"error_message\"]}},{{$json[\"source_workflow\"]}}"
+                }
+            },
+            "name": "Log_To_SQL",
+            "type": "n8n-nodes-base.microsoftSql",
+            "typeVersion": 1,
+            "position": [
+                680,
+                300
+            ],
+            "notes": "Persist to SQL Edge"
+        },
+        {
+            "parameters": {
+                "content": "🚨 *System Alert*\nError in workflow: {{$json[\"source_workflow\"]}}\nReason: {{$json[\"error_message\"]}}"
+            },
+            "name": "Mock_Slack_Alert",
+            "type": "n8n-nodes-base.slack",
+            "typeVersion": 1,
+            "position": [
+                880,
+                300
+            ],
+            "notes": "Notify Humans"
+        }
+    ],
+    "connections": {
+        "Start": {
+            "main": [
+                [
+                    {
+                        "node": "Extract_Context",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Extract_Context": {
+            "main": [
+                [
+                    {
+                        "node": "Log_To_SQL",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Log_To_SQL": {
+            "main": [
+                [
+                    {
+                        "node": "Mock_Slack_Alert",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

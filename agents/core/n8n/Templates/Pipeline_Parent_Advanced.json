@@ -1,0 +1,189 @@
+{
+    "name": "TEMPLATE_Pipeline_Parent_Advanced",
+    "nodes": [
+        {
+            "parameters": {},
+            "name": "Start_Trigger",
+            "type": "n8n-nodes-base.start",
+            "typeVersion": 1,
+            "position": [
+                240,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "values": {
+                    "string": [
+                        {
+                            "name": "description",
+                            "value": "PIPELINE: Coordinates [Step 1] and [Step 2]"
+                        },
+                        {
+                            "name": "domain",
+                            "value": "Business"
+                        },
+                        {
+                            "name": "version",
+                            "value": "1.0.0"
+                        }
+                    ],
+                    "stringArray": [
+                        {
+                            "name": "dependencies",
+                            "value": [
+                                "Business/Step_1_Ingest_File",
+                                "Common/Global_Error_Handler"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "name": "__METADATA__",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                460,
+                300
+            ],
+            "notes": "🆔 Identity Card"
+        },
+        {
+            "parameters": {},
+            "name": "Try_Execute_Step_1",
+            "type": "n8n-nodes-base.splitInBatches",
+            "typeVersion": 1,
+            "position": [
+                680,
+                300
+            ],
+            "notes": "🛡️ Safety Net 1"
+        },
+        {
+            "parameters": {
+                "workflowId": "Business/Step_1_Ingest_File"
+            },
+            "name": "Call_Ingest_File",
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1,
+            "position": [
+                900,
+                200
+            ],
+            "onError": "continueErrorOutput"
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "boolean": [
+                        {
+                            "value1": "={{$json[\"error\"]}}",
+                            "value2": true
+                        }
+                    ]
+                }
+            },
+            "name": "Check_Success_Step_1",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                1100,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "functionCode": "return [{\n  json: {\n    technical_error: items[0].json.error.message,\n    friendly_message: \"Ops! Non riesco a leggere il file. È un PDF valido? 📄\",\n    source_step: \"Ingest_File\"\n  }\n}];"
+            },
+            "name": "Format_Error_Message",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                1300,
+                400
+            ],
+            "notes": "🧸 Make it Cuddly"
+        },
+        {
+            "parameters": {
+                "workflowId": "Common/Global_Error_Handler"
+            },
+            "name": "Log_And_Alert",
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1,
+            "position": [
+                1500,
+                400
+            ]
+        }
+    ],
+    "connections": {
+        "Start_Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "__METADATA__",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "__METADATA__": {
+            "main": [
+                [
+                    {
+                        "node": "Try_Execute_Step_1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Try_Execute_Step_1": {
+            "main": [
+                [
+                    {
+                        "node": "Call_Ingest_File",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Call_Ingest_File": {
+            "main": [
+                [
+                    {
+                        "node": "Check_Success_Step_1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check_Success_Step_1": {
+            "main": [
+                null,
+                [
+                    {
+                        "node": "Format_Error_Message",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Format_Error_Message": {
+            "main": [
+                [
+                    {
+                        "node": "Log_And_Alert",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
