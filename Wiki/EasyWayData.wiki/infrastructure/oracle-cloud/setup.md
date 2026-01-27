@@ -258,16 +258,16 @@ ssh ubuntu@<ORACLE_IP> "chmod +x ~/setup_stack.sh && sudo ~/setup_stack.sh"
 #### 4.1 Deploy Scripts
 Vedi repository `scripts/ai-agent/` per i file sorgente:
 - `chromadb_manager.py`: Gestore database vettoriale
-- `rag_agent.ps1`: Orchestrator agent
+- `agent-retrieval.ps1`: Orchestrator agent (Standard)
 
 ```powershell
 # Copy scripts
 scp scripts/ai-agent/chromadb_manager.py ubuntu@<ORACLE_IP>:~/
-scp scripts/ai-agent/rag_agent.ps1 ubuntu@<ORACLE_IP>:~/
+scp scripts/ai-agent/agent-retrieval.ps1 ubuntu@<ORACLE_IP>:~/
 
 # Fix line endings (Windows -> Linux)
-ssh ubuntu@<ORACLE_IP> "sed -i 's/\r$//' ~/rag_agent.ps1 ~/chromadb_manager.py"
-ssh ubuntu@<ORACLE_IP> "chmod +x ~/rag_agent.ps1"
+ssh ubuntu@<ORACLE_IP> "sed -i 's/\r$//' ~/agent-retrieval.ps1 ~/chromadb_manager.py"
+ssh ubuntu@<ORACLE_IP> "chmod +x ~/agent-retrieval.ps1"
 ```
 
 ---
@@ -300,7 +300,7 @@ ssh ubuntu@<ORACLE_IP> "chmod +x ~/rag_agent.ps1"
 
 #### 5.1 Create Orchestrator Script
 ```bash
-nano ~/easyway/scripts/ai-agent/rag_agent.ps1
+nano ~/easyway/scripts/ai-agent/agent-retrieval.ps1
 ```
 
 **File content** (`rag_agent.ps1`):
@@ -433,7 +433,7 @@ Write-Host "✅ Logged execution #$executionId" -ForegroundColor Green
 
 Make executable:
 ```bash
-chmod +x ~/easyway/scripts/ai-agent/rag_agent.ps1
+chmod +x ~/easyway/scripts/ai-agent/agent-retrieval.ps1
 ```
 
 ✅ **Checkpoint**: Orchestrator script creato
@@ -500,7 +500,7 @@ curl http://localhost:11434/api/generate -d '{
 
 #### 6.3 Test Case 2: Query WITH RAG (Enhanced)
 ```bash
-pwsh ~/easyway/scripts/ai-agent/rag_agent.ps1 -Query "How do I export user stories from EasyWay?" -Verbose
+pwsh ~/easyway/scripts/ai-agent/agent-retrieval.ps1 -Action rag:ask -Query "How do I export user stories from EasyWay?" -Verbose
 
 # Expected:
 # - Trova agent-howto.md

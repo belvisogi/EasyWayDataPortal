@@ -188,12 +188,12 @@ pandas
 
 ## 🛠️ Custom Scripts (EasyWay Agent)
 
-### 1. rag_agent.ps1
+### 1. agent-retrieval.ps1
 **Scopo**: Orchestrator principale RAG pipeline
 
 | Proprietà | Valore |
 |-----------|--------|
-| **Path** | `~/rag_agent.ps1` |
+| **Path** | `~/agent-retrieval.ps1` |
 | **Autore** | EasyWay Team |
 | **Versione** | 1.0 (2026-01-26) |
 | **Licenza** | Proprietaria EasyWay |

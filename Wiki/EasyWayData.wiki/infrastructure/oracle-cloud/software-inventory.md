@@ -102,7 +102,7 @@ updated: 2026-01-26
 
 | Script | Path | Scopo |
 |--------|------|-------|
-| **rag_agent.ps1** | `~/rag_agent.ps1` | RAG orchestrator |
+| **agent-retrieval.ps1** | `~/agent-retrieval.ps1` | RAG orchestrator (Standard) |
 | **chromadb_manager.py** | `~/chromadb_manager.py` | Vector DB wrapper |
 | **check-agent-health.sh** | `~/check-agent-health.sh` | Health check |
 | **setup_stack.sh** | `~/setup_stack.sh` | Deployment script |

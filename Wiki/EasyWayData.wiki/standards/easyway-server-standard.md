@@ -417,7 +417,7 @@ sudo groupadd easyway || true
 sudo useradd -r -g easyway -s /bin/bash -d /opt/easyway easyway || true
 
 # 3. Move scripts
-sudo mv ~/rag_agent.ps1 /opt/easyway/bin/easyway-agent
+sudo mv ~/agent-retrieval.ps1 /opt/easyway/bin/easyway-agent
 sudo mv ~/chromadb_manager.py /opt/easyway/lib/scripts/
 sudo mv ~/check-agent-health.sh /opt/easyway/bin/easyway-status
 

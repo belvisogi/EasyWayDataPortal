@@ -96,7 +96,7 @@ RUN uv venv && uv pip install -r pyproject.toml
 COPY scripts/ /app/scripts/
 
 # 5. Entrypoint
-CMD ["pwsh", "/app/scripts/ai-agent/rag_agent.ps1"]
+CMD ["pwsh", "/app/scripts/ai-agent/agent-retrieval.ps1"]
 ```
 
 ## 4. Workflow
