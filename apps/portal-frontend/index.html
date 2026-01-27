@@ -1,13 +1,66 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portal-frontend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EasyWay | Sovereign Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body>
+  <div class="bg-grid"></div>
+
+  <main class="hero">
+    <div class="container">
+      <h1>Sovereign <span class="text-gradient">Intelligence</span></h1>
+      <p class="tagline">Smetti di affittare l'intelligenza. Inizia a possederla.<br>L'infrastruttura Enterprise per chi
+        non accetta compromessi.</p>
+
+      <div class="actions">
+        <a href="#" class="btn btn-primary" id="btn-engage">Inizializza Sistema</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- The Relief & Purpose -->
+  <section class="container" style="padding-bottom: 4rem;">
+    <div class="glass-panel" style="padding: 3rem; margin-top: -2rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+
+        <!-- Feature 1: Sovereignty -->
+        <div>
+          <h3 class="text-gold" style="margin-bottom: 1rem;">🔒 Sovereign Data</h3>
+          <p style="color: var(--text-secondary);">Air-Gapped by Design. Il tuo server è il tuo castello. Nessun dato
+            lascia mai il perimetro senza la tua autorizzazione esplicita.</p>
+        </div>
+
+        <!-- Feature 2: Infrastructure -->
+        <div>
+          <h3 class="text-cyan" style="margin-bottom: 1rem;">⚡ Neural Infrastructure</h3>
+          <p style="color: var(--text-secondary);">Non un semplice chatbot, ma un sistema operativo cognitivo. n8n,
+            Vector DB e LLM orchestrati localmente per la massima potenza.</p>
+        </div>
+
+        <!-- Feature 3: Legacy -->
+        <div>
+          <h3 class="text-primary" style="margin-bottom: 1rem;">🏛️ Built for Legacy</h3>
+          <p style="color: var(--text-secondary);">Software artigianale, progettato per durare un decennio. Ingegneria
+            di precisione per chi costruisce il futuro su fondamenta solide.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GEDI Guardian Container -->
+  <div id="gedi-guardian" title="GEDI: Active"></div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

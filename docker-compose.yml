@@ -67,10 +67,10 @@ services:
 
   # 🌐 Frontend (PWA)
   frontend:
-    image: nginx:alpine
+    build:
+      context: ./apps/portal-frontend
+      dockerfile: Dockerfile
     container_name: easyway-portal
-    volumes:
-      - ./agents/agent_frontend:/usr/share/nginx/html
     ports:
       - "8080:80"
     networks:
