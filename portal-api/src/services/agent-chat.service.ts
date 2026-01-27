@@ -299,7 +299,7 @@ export class AgentChatService {
             headers[this.approvalTicketValidateHeader] = this.approvalTicketValidateToken;
         }
 
-        const opts = {
+        const opts: any = {
             method: this.approvalTicketValidateMethod,
             headers
         };
