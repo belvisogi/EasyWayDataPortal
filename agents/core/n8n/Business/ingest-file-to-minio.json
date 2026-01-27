@@ -1,0 +1,244 @@
+{
+    "name": "ingest-file-to-minio",
+    "active": true,
+    "nodes": [
+        {
+            "parameters": {},
+            "name": "Start_Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                240,
+                300
+            ],
+            "webhookId": "ingest-file",
+            "path": "ingest",
+            "httpMethod": "POST",
+            "responseMode": "lastNode",
+            "options": {
+                "binaryData": true
+            },
+            "notes": "Receives File from Pulse"
+        },
+        {
+            "parameters": {
+                "values": {
+                    "string": [
+                        {
+                            "name": "description",
+                            "value": "Ingests a file from the Frontend Pulse and saves it to MinIO Sovereign Storage."
+                        },
+                        {
+                            "name": "domain",
+                            "value": "Business"
+                        },
+                        {
+                            "name": "version",
+                            "value": "1.0.0"
+                        }
+                    ],
+                    "stringArray": [
+                        {
+                            "name": "dependencies",
+                            "value": [
+                                "Common/global-error-handler"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "name": "__METADATA__",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                460,
+                300
+            ],
+            "notes": "🆔 Identity Card"
+        },
+        {
+            "parameters": {},
+            "name": "Try_Upload_To_MinIO",
+            "type": "n8n-nodes-base.splitInBatches",
+            "typeVersion": 1,
+            "position": [
+                680,
+                300
+            ],
+            "notes": "🛡️ Safety Net"
+        },
+        {
+            "parameters": {
+                "authentication": "s3",
+                "s3Api": "s3",
+                "bucketName": "documents",
+                "uploadKey": "=/inbox/{{$binary.data.fileName}}",
+                "content": "binary",
+                "binaryPropertyName": "data"
+            },
+            "name": "Upload_File_To_Storage",
+            "type": "n8n-nodes-base.s3",
+            "typeVersion": 1,
+            "position": [
+                900,
+                200
+            ],
+            "onError": "continueErrorOutput",
+            "credentials": {
+                "s3": {
+                    "id": "minio-sovereign-creds",
+                    "name": "MinIO Sovereign Storage"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "boolean": [
+                        {
+                            "value1": "={{$json[\"error\"]}}",
+                            "value2": true
+                        }
+                    ]
+                }
+            },
+            "name": "Check_Upload_Success",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                1100,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "functionCode": "return [{\n  json: {\n    technical_error: items[0].json.error.message,\n    friendly_message: \"Ops! MinIO non ha accettato il file. È troppo pesante o il Vault è chiuso? 🔒\",\n    source_step: \"Upload_File_To_Storage\"\n  }\n}];"
+            },
+            "name": "Format_Error_Message",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                1300,
+                400
+            ],
+            "notes": "🧸 Cuddly Error"
+        },
+        {
+            "parameters": {
+                "workflowId": "Common/global-error-handler"
+            },
+            "name": "Log_And_Alert",
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1,
+            "position": [
+                1500,
+                400
+            ]
+        },
+        {
+            "parameters": {
+                "keepOnlySet": true,
+                "values": {
+                    "string": [
+                        {
+                            "name": "status",
+                            "value": "success"
+                        },
+                        {
+                            "name": "message",
+                            "value": "File safely stored in the Sovereign Vault. 🏦"
+                        },
+                        {
+                            "name": "file_path",
+                            "value": "={{$node[\"Upload_File_To_Storage\"].json[\"uploadKey\"]}}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Format_Success_Response",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                1300,
+                200
+            ],
+            "notes": "Reply to Frontend"
+        }
+    ],
+    "connections": {
+        "Start_Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "__METADATA__",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "__METADATA__": {
+            "main": [
+                [
+                    {
+                        "node": "Try_Upload_To_MinIO",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Try_Upload_To_MinIO": {
+            "main": [
+                [
+                    {
+                        "node": "Upload_File_To_Storage",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Upload_File_To_Storage": {
+            "main": [
+                [
+                    {
+                        "node": "Check_Upload_Success",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check_Upload_Success": {
+            "main": [
+                [
+                    {
+                        "node": "Format_Success_Response",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Format_Error_Message",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Format_Error_Message": {
+            "main": [
+                [
+                    {
+                        "node": "Log_And_Alert",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

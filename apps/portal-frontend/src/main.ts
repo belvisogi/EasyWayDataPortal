@@ -70,13 +70,61 @@ function preventDefaults(e: Event) {
     e.stopPropagation();
 }
 
-function handleFiles(files: FileList) {
-    // Simulate Absorption
-    typeToCortex(`DETECTED ${files.length} NEW ARTIFACTS. ABSORBING...`, 'system');
+async function handleFiles(files: FileList) {
+    if (files.length === 0) return;
 
-    setTimeout(() => {
-        typeToCortex("VECTOR EMBEDDING GENERATED. KNOWLEDGE INTEGRATED.", 'ai');
-    }, 1500);
+    const file = files[0];
+    typeToCortex(`DETECTED ARTIFACT: ${file.name}. INITIATING TRANSFER...`, 'system');
+
+    // 1. Visual Feedack: Pulsing Gold
+    const core = document.querySelector('.neural-core') as HTMLElement;
+    if (core) core.style.animation = "pulse-gold 1s infinite";
+
+    // 2. Prepare Payload
+    const formData = new FormData();
+    formData.append('data', file);
+
+    try {
+        // 3. The Transmission
+        // NOTE: Port 5678 must be open on Oracle Cloud Security List
+        const webhookUrl = "http://80.225.86.168:5678/webhook/ingest";
+
+        typeToCortex(`UPLOADING TO VAULT (MinIO)...`, 'system');
+
+        // Real Fetch
+        const response = await fetch(webhookUrl, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            typeToCortex("✅ UPLOAD COMPLETE. ARTIFACT SECURED.", 'ai');
+            if (core) {
+                core.style.borderColor = "var(--sovereign-success)";
+                core.style.boxShadow = "0 0 50px var(--sovereign-success)";
+                setTimeout(() => {
+                    core.style.borderColor = "";
+                    core.style.boxShadow = "";
+                    core.style.animation = "";
+                }, 2000);
+            }
+        } else {
+            throw new Error(`Server rejected: ${response.status}`);
+        }
+
+    } catch (error) {
+        typeToCortex(`❌ UPLOAD FAILED: ${(error as Error).message}`, 'system');
+        typeToCortex(`HINT: Is Port 5678 Open?`, 'system');
+
+        if (core) {
+            core.style.borderColor = "var(--sovereign-error)";
+            core.style.animation = "shake 0.5s";
+            setTimeout(() => {
+                core.style.borderColor = "";
+                core.style.animation = "";
+            }, 2000);
+        }
+    }
 }
 
 // --- CORTEX LOGIC ---

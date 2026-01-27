@@ -24,6 +24,9 @@
 - [agentic-portal-vision.md](./agentic-portal-vision.md) - Workflow agentici
   - H2: Workflow agentici
   - H2: Esperienza utente per non esperti: proposte e spunti
+- [sovereign-architecture.md](./sovereign-architecture.md) - Sovereign Architecture (The Brain)
+  - H2: Core Concepts
+  - H2: Architecture Reference
 - [agents-governance.md](./agents-governance.md) - Agent Workflow Standard (Pattern 3-Step)
   - H2: Agent Workflow Standard (Pattern 3-Step)
 - [agents-scrummaster.md](./agents-scrummaster.md) - agents-scrummaster
