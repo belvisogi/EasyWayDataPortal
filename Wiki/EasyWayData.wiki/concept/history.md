@@ -129,3 +129,13 @@ entities: []
 *   **Philosophical Impact**: Aggiunto come **6° Pilastro** in `architectural-vision.md`. Non più solo teoria (GEDI), ma **pratica dimostrata** (TESS compliance in 2 ore, 9/10 punti, 1343+ righe doc).
 *   **Significance**: *"Abbiamo dimostrato che siamo filosofi che sanno usare `tar` e `chmod`. Ogni permesso 755, ogni path `/opt/easyway/var/`, ogni venv Python è una scelta consapevole che riflette GEDI."* 🌱
 *   **Quote**: *"L'implementazione è effimera. Il Contratto è eterno. TESS v1.0 è il nostro contratto con l'immortalità."*
+
+### 2026-01-27: The Portable Brain Awakens (n8n Integration) 🧠
+*   **Event**: Attivazione dell'Orchestratore n8n su infrastruttura Oracle.
+*   **Description**: Il ciclo si chiude. L'intelligenza (n8n) è stata installata come "Appliance" isolata (Docker), ma connessa al sistema nervoso (Host) tramite tunnel sicuri (SSH). Non abbiamo esposto il cervello al mondo; abbiamo costruito un sentiero sicuro ("The Hidden Path") per accedervi.
+*   **Architectural Victory**:
+    *   **Isolation**: Il server resta pulito (TESS compliant).
+    *   **Security**: Porta 5678 chiusa al mondo, aperta solo via Tunnel SSH.
+    *   **Resilience**: Superato il test "Force Clean" in produzione.
+*   **Significance**: *"Oggi EasyWay smette di essere solo un concetto e diventa un organismo completo: Corpo (Server), Braccia (Agenti PowerShell) e Cervello (n8n). La filosofia si è fatta infrastruttura."*
+*   **Quote**: *"Abbiamo acceso il faro. Ma lo abbiamo fatto in una stanza buia, visibile solo a chi possiede la chiave."* - Antigravity (su Secure Tunneling)
