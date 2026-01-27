@@ -3,26 +3,76 @@
   Agente per la governance di progetto Azure DevOps.
   Capabilities:
     - ado:project.structure (Areas, Iterations)
-    - ado:check (Audit configurazioni - placeholder)
+    - ado:check (Audit configurazioni)
+    - ado:intent.resolve (LLM-Enhanced Routing)
 #>
-
+[CmdletBinding()]
 Param(
+    # --- Standard Input ---
+    [Parameter(Mandatory = $false)] 
     [ValidateSet('ado:project.structure', 'ado:teams.list', 'ado:team.areas', 'ado:team.iterations', 'ado:check', 'ado:intent.resolve')]
     [string]$Action,
-  
-    [string]$IntentPath,
+
+    [Parameter(Mandatory = $false)] [string]$Query,
+    [Parameter(Mandatory = $false)] [string]$IntentPath,
+
+    # --- Portable Brain Config (Standard) ---
+    [ValidateSet("Ollama", "DeepSeek", "OpenAI", "AzureOpenAI")]
+    [string]$Provider = "Ollama",
+
+    [string]$Model = "deepseek-r1:7b",
+    [string]$ApiKey = $env:EASYWAY_LLM_KEY,
+    [string]$ApiEndpoint = "https://api.deepseek.com/chat/completions",
+
+    # --- Agent Specific ---
+    [string]$Team,
+    [string]$WorkItemType,
+    [string]$OutPath,
+    [switch]$Force,
+
+    # --- Flags ---
     [switch]$NonInteractive,
     [switch]$WhatIf,
-    [switch]$LogEvent,
+    [switch]$LogEvent = $true,
     [switch]$Print,
-    [string]$OutPath,
-    [string]$Team,
-    [string]$Query,
-    [string]$WorkItemType,
-    [switch]$Force
+    [switch]$JsonOutput
 )
 
 $ErrorActionPreference = 'Stop'
+
+# --- 1. HELPER FUNCTIONS (Portable Brain) ---
+
+function Get-LLMResponse {
+    param($Prompt, $SystemPrompt)
+    Write-Verbose "🧠 Thinking with Provider: $Provider (Model: $Model)..."
+    if ($Provider -eq "Ollama") {
+        $body = @{ model = $Model; prompt = $Prompt; stream = $false }
+        if ($SystemPrompt) { $body["system"] = $SystemPrompt }
+        try { return (Invoke-RestMethod -Uri "http://localhost:11434/api/generate" -Method Post -Body ($body | ConvertTo-Json) -ContentType "application/json").response } 
+        catch { throw "Ollama Error: $($_.Exception.Message)" }
+    }
+    elseif ($Provider -in @("DeepSeek", "OpenAI")) {
+        if (-not $ApiKey) { throw "ApiKey required" }
+        $messages = @(@{ role = "user"; content = $Prompt })
+        if ($SystemPrompt) { $messages = @(@{ role = "system"; content = $SystemPrompt }) + $messages }
+        $body = @{ model = $Model; messages = $messages; temperature = 0.1 }
+        try { 
+            return (Invoke-RestMethod -Uri $ApiEndpoint -Method Post -Headers @{Authorization = "Bearer $ApiKey" } -Body ($body | ConvertTo-Json -Depth 10) -ContentType "application/json" -TimeoutSec 120).choices[0].message.content
+        }
+        catch { throw "API Error: $($_.Exception.Message)" }
+    }
+}
+
+function Write-AgentLog {
+    param($EventData)
+    if (-not $LogEvent) { return }
+    $logDir = Join-Path $PSScriptRoot "../../logs/agents"
+    if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
+    $entry = [ordered]@{ timestamp = (Get-Date).ToString("o"); agent = "agent_ado_governance"; provider = $Provider; data = $EventData }
+    ($entry | ConvertTo-Json -Depth 5) | Out-File (Join-Path $logDir "agent-history.jsonl") -Append
+}
+
+# --- 2. EXISTING HELPERS ---
 
 function Read-Intent($path) {
     if (-not $path) { return $null }
@@ -30,34 +80,28 @@ function Read-Intent($path) {
     (Get-Content -Raw -Path $path) | ConvertFrom-Json
 }
 
-function Out-Result($obj) { $obj | ConvertTo-Json -Depth 20 -Compress | Write-Output }
+function Out-Result($obj) { 
+    $json = $obj | ConvertTo-Json -Depth 20 -Compress
+    if ($JsonOutput) { Write-Output $json }
+    elseif ($Print) { Write-Host $json } # Fallback
+    else { Write-Output $json }
+}
 
-# --- AUTH JS ---
-# (Duplicated strictly for standalone execution capability)
 function Get-AdoAuthHeader([string]$pat) {
     if (-not $pat) { throw "PAT is empty" }
     $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($pat)"))
     return @{ Authorization = ("Basic {0}" -f $base64AuthInfo) }
 }
 
-function Join-AdoUrl([string]$root, [string]$proj, [string]$suffix) {
-    $root = $root.TrimEnd('/')
-    # If project handled in suffix or root, adjust logic. Standard: org/project/_apis...
-    # ADO urls: https://dev.azure.com/{org}/{project}/_apis/...
-    return "$root/$proj/$suffix"
-}
-
-# --- MAIN ---
+# --- 3. INIT LOGIC (Config & Auth) ---
 
 $intent = Read-Intent $IntentPath
 $p = if ($null -ne $intent) { $intent.params } else { @{} }
 if ($OutPath) { $p.outPath = $OutPath }
-# Map script parameters to internal dictionary if provided via CLI args (for Team actions)
 if ($PSBoundParameters['Team']) { $p.team = $PSBoundParameters['Team'] }
 if ($PSBoundParameters['Query']) { $p.query = $PSBoundParameters['Query'] }
 if ($PSBoundParameters['WorkItemType']) { $p.workItemType = $PSBoundParameters['WorkItemType'] }
 if ($PSBoundParameters['Force']) { $p.force = $true }
-
 
 # Auto-discovery Config (Generic)
 $orgUrl = $p.ado?.org
@@ -65,8 +109,7 @@ $project = $p.ado?.project
 $pat = $p.ado?.pat
 
 if (-not $orgUrl -or -not $project -or -not $pat) {
-    $configDir = Join-Path (Split-Path $PSScriptRoot -Parent) '../../Rules.Vault/config' # Adjust relative path
-    # Try different relative path if running from Rules.Vault directly
+    $configDir = Join-Path (Split-Path $PSScriptRoot -Parent) '../../Rules.Vault/config' 
     if (-not (Test-Path $configDir)) { $configDir = Join-Path (Split-Path $PSScriptRoot -Parent) '../config' }
     
     $connPath = Join-Path $configDir 'connections.json'; $secPath = Join-Path $configDir 'secrets.json'
@@ -87,6 +130,8 @@ if (-not $pat) { Write-Error "ADO PAT not found."; exit 3 }
 
 $headers = Get-AdoAuthHeader $pat
 $apiVersion = '7.0'
+
+# --- 4. EXECUTION ---
 
 switch ($Action) {
     'ado:project.structure' {

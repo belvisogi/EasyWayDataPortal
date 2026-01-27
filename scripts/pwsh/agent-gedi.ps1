@@ -1,35 +1,81 @@
 <#
 .SYNOPSIS
-    Agent GEDI: OODA Loop Implementation (Memory-Enhanced)
+    Agent GEDI: OODA Loop Implementation (Portable Brain Standard)
     Observe, Orient, Decide, Act - Philosophical Guardian for EasyWay.
-
 .DESCRIPTION
-    This script operationalizes the GEDI philosophy by running an OODA loop:
-    1. Observe: Takes Context and Intent as input.
-    2. Orient: Matches input against EasyWay principles AND Memory Context.
-    3. Decide: Determines severity and intervention mode.
-    4. Act: Outputs guidance and updates Memory (Stats/Session).
-
-.PARAMETER Context
-    The situation description (e.g. "Planning sprint", "Deployment failure").
-
-.PARAMETER Intent
-    The proposed action (e.g. "Skip tests", "Force push").
-
-.PARAMETER DryRun
-    Simulation mode.
+    Operationalizes GEDI philosophy with a Provider-Agnostic design.
+    Features:
+    - OODA Loop (Observe-Orient-Decide-Act)
+    - Hybrid Intelligence (Local/Cloud Provider)
+    - n8n Ready (JSON Output)
 #>
-param(
-    [string]$Context,
-    [string]$Intent,
-    [switch]$DryRun
+[CmdletBinding()]
+Param(
+    # --- Standard Input ---
+    [Parameter(Mandatory = $false)] [string]$Query,  # In GEDI terms: "Intent"
+    [Parameter(Mandatory = $false)] [string]$Action, # e.g. "validate"
+    [Parameter(Mandatory = $false)] [string]$IntentPath,
+    [Parameter(Mandatory = $false)] [string]$Context, # Additional context
+
+    # --- Portable Brain Config (Standard) ---
+    [ValidateSet("Ollama", "DeepSeek", "OpenAI", "AzureOpenAI")]
+    [string]$Provider = "Ollama",
+
+    [string]$Model = "deepseek-r1:7b",
+    
+    [string]$ApiKey = $env:EASYWAY_LLM_KEY,
+    [string]$ApiEndpoint = "https://api.deepseek.com/chat/completions",
+
+    # --- Flags ---
+    [switch]$NonInteractive,
+    [switch]$WhatIf,
+    [switch]$LogEvent = $true,
+    [switch]$JsonOutput
 )
 
-$ErrorActionPreference = "Stop"
-$ManifestPath = "agents/agent_gedi/manifest.json"
+$ErrorActionPreference = 'Stop'
+$ManifestPath = Join-Path $PSScriptRoot "../../agents/agent_gedi/manifest.json"
 
-# Import Memory Core
-Import-Module (Join-Path $PSScriptRoot "core/AgentMemory.psm1") -Force
+# --- 1. HELPER FUNCTIONS (Portable Brain) ---
+
+function Get-LLMResponse {
+    param($Prompt, $SystemPrompt)
+    Write-Verbose "🧠 Thinking with Provider: $Provider (Model: $Model)..."
+
+    if ($Provider -eq "Ollama") {
+        # OLLAMA ADAPTER
+        $body = @{ model = $Model; prompt = $Prompt; stream = $false }
+        if ($SystemPrompt) { $body["system"] = $SystemPrompt }
+        try {
+            $response = Invoke-RestMethod -Uri "http://localhost:11434/api/generate" -Method Post -Body ($body | ConvertTo-Json) -ContentType "application/json"
+            return $response.response
+        }
+        catch { throw "Ollama Error: $($_.Exception.Message)" }
+    }
+    elseif ($Provider -in @("DeepSeek", "OpenAI")) {
+        # API ADAPTER
+        if (-not $ApiKey) { throw "ApiKey required for $Provider" }
+        $messages = @(@{ role = "user"; content = $Prompt })
+        if ($SystemPrompt) { $messages = @(@{ role = "system"; content = $SystemPrompt }) + $messages }
+        $body = @{ model = $Model; messages = $messages; temperature = 0.1 }
+        try {
+            $response = Invoke-RestMethod -Uri $ApiEndpoint -Method Post -Headers @{Authorization = "Bearer $ApiKey" } -Body ($body | ConvertTo-Json -Depth 10) -ContentType "application/json" -TimeoutSec 120
+            return $response.choices[0].message.content
+        }
+        catch { throw "API Error: $($_.Exception.Message)" }
+    }
+}
+
+function Write-AgentLog {
+    param($EventData)
+    if (-not $LogEvent) { return }
+    $logDir = Join-Path $PSScriptRoot "../../logs/agents"
+    if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
+    $entry = [ordered]@{ timestamp = (Get-Date).ToString("o"); agent = "agent_gedi"; provider = $Provider; data = $EventData }
+    ($entry | ConvertTo-Json -Depth 5) | Out-File (Join-Path $logDir "agent-history.jsonl") -Append
+}
+
+# --- 2. GEDI LOGIC (The Soul) ---
 
 function Get-Principles {
     if (Test-Path $ManifestPath) {
@@ -43,80 +89,96 @@ function Orient-Principles {
     param($Principles, $Text)
     $foundPrinciples = @()
     if (-not $Principles) { return $foundPrinciples }
-
-    $Text = "$Context $Intent".ToLower()
+    $Text = $Text.ToLower()
     
-    # Heuristic Matching
+    # Heuristic Matching (Simple Orient)
     if ($Text -match "speed|fast|quick|rush|deadline|asap") { $foundPrinciples += $Principles.quality_over_speed }
     if ($Text -match "deploy|release|prod|live") { $foundPrinciples += $Principles.measure_twice_cut_once }
     if ($Text -match "doc|wiki|explain|why") { $foundPrinciples += $Principles.journey_matters }
     if ($Text -match "code|refactor|legacy|clean") { $foundPrinciples += $Principles.tangible_legacy }
-    if ($Text -match "fix|bug|issue|problem") { $foundPrinciples += $Principles.pragmatic_action }
+    if ($Text -match "provider|cloud|lock-in|portabl") { $foundPrinciples += $Principles.electrical_socket_pattern }
     
-    # Serendipity
-    if ($foundPrinciples.Count -eq 0) {
-        $names = $Principles.PSObject.Properties.Name
-        $randomName = $names | Get-Random
-        $foundPrinciples += $Principles.$randomName
-    }
+    # AI Enrichment (Orient-II)
+    # If using a Smart Provider (DeepSeek), we can ask it to verify relevance?
+    # For now, stick to heuristics to keep it fast/deterministic, LLM used for "Advice Generation".
     
     return $foundPrinciples
 }
 
-# --- Runtime Start ---
-$AgentName = "agent_gedi"
-$AgentsDir = "agents" # Relative from project root assumption
-
-# 1. Boot & Memory Init
-Initialize-AgentMemory -AgentName $AgentName -AgentsDir $AgentsDir
-$session = Start-AgentSession -AgentName $AgentName -Intent "$Intent (Context: $Context)" -AgentsDir $AgentsDir
-$ctx = Get-AgentContext -AgentName $AgentName -AgentsDir $AgentsDir
-
-Write-Host "🥋 GEDI (OODA Loop): Active | Run #$($ctx.stats.runs)" -ForegroundColor Cyan
-if ($ctx.philosophy_context.current_mood) {
-    Write-Host "   🧘 Mood: $($ctx.philosophy_context.current_mood)" -ForegroundColor DarkGray
+# --- 3. INPUT NORMALIZATION ---
+$IntentData = $null
+if ($IntentPath -and (Test-Path $IntentPath)) {
+    $IntentData = Get-Content $IntentPath -Raw | ConvertFrom-Json
+    if (-not $Query) { $Query = $IntentData.intent } # GEDI specific mapping
+    if (-not $Context) { $Context = $IntentData.context }
 }
 
-Write-Host "   👁️  Observe: Context='$Context', Intent='$Intent'" -ForegroundColor Gray
-Update-AgentSession -AgentName $AgentName -StepDescription "Observed Context/Intent" -AgentsDir $AgentsDir
+if (-not $Query -and -not $Context) {
+    Write-Error "GEDI requires -Query (Intent) or -Context."
+    exit 1
+}
 
-# 2. Orient
-$principles = Get-Principles
-$relevantPrinciples = Orient-Principles -Principles $principles -Text "$Context $Intent"
-Update-AgentSession -AgentName $AgentName -StepDescription "Oriented Principles: $($relevantPrinciples.Count) found" -AgentsDir $AgentsDir
-
-# 3. Decide & Act
-$interventions = 0
-foreach ($p in $relevantPrinciples) {
-    Write-Host "   🧭 Orient: Principle Selected - $($p.description)" -ForegroundColor Yellow
-    Update-AgentSession -AgentName $AgentName -StepDescription "Principle Selected: $($p.description)" -AgentsDir $AgentsDir
+# --- 4. EXECUTION ---
+try {
+    Write-Host "🥋 GEDI (Hybrid OODA Loop): Active" -ForegroundColor Cyan
     
-    Write-Host "   ⚖️  Decide: Advice Generated" -ForegroundColor Gray
-    Write-Host "   ⚡ Act:" -ForegroundColor Green
-    Write-Host "      💬 Philosophy: $($p.philosophy)" -ForegroundColor Cyan
-    Write-Host "      ❓ Check: $($p.checks[0])" -ForegroundColor White
+    # 1. OBSERVE
+    $FullSituation = "Context: $Context | Intent: $Query"
+    Write-Host "   👁️  Observe: $FullSituation" -ForegroundColor Gray
     
-    $interventions++
+    # 2. ORIENT
+    $Principles = Get-Principles
+    $RelevantPrinciples = Orient-Principles -Principles $Principles -Text $FullSituation
     
-    # Update Context Stats (Persistent)
-    $pName = $p.PSObject.Properties.Name # This might need refinement depending on object structure
-    # For now, simplistic stats update
-    $ctx.stats.interventions_count++
-}
+    $Guidance = @()
+    
+    # 3. DECIDE & ACT
+    foreach ($p in $RelevantPrinciples) {
+        Write-Host "   🧭 Orient: Principle Selected - $($p.description)" -ForegroundColor Yellow
+        $Prompt = "You are Agent GEDI, guardian of the EasyWay Philosophy.
+        Principle to Apply: '$($p.philosophy)'
+        Checks available: $($p.checks -join ', ')
+        
+        Situation: $FullSituation
+        
+        Task: Provide a short, wise guidance message based ONLY on this principle. Be concise but profound."
+        
+        # ACT: Use the Portable Brain
+        $Advice = Get-LLMResponse -Prompt $Prompt -SystemPrompt "You are a wise Philosophy Guardian."
+        
+        $Guidance += @{
+            principle = $p.description
+            advice    = $Advice
+        }
+        
+        Write-Host "   ⚡ Act: $Advice" -ForegroundColor Green
+    }
+    
+    if ($RelevantPrinciples.Count -eq 0) {
+        Write-Host "   🧘 No specific principle violated. Proceed with awareness." -ForegroundColor DarkGray
+        $Guidance += "No objection."
+    }
+    
+    $Result = @{
+        ooda_state = "complete"
+        guidance   = $Guidance
+    }
 
-# 4. Reflect (End Session)
-if ($interventions -gt 0) {
-    $ctx.philosophy_context.last_wisdom_dispensed = (Get-Date).ToString("o")
-}
-Set-AgentContext -AgentName $AgentName -Context $ctx -AgentsDir $AgentsDir
-Stop-AgentSession -AgentName $AgentName -AgentsDir $AgentsDir
+    $Output = @{
+        success  = $true
+        agent    = "agent_gedi"
+        result   = $Result
+        metadata = @{ provider = $Provider }
+    }
+    
+    Write-AgentLog -EventData $Output
+    
+    if ($JsonOutput) { $Output | ConvertTo-Json -Depth 5 }
 
-# JSON Output
-$result = @{
-    ooda_state = "complete"
-    context = $Context
-    principles_applied = $relevantPrinciples.description
-    memory_stats = $ctx.stats
 }
-
-return $result
+catch {
+    $ErrorMsg = $_.Exception.Message
+    Write-Error "GEDI Error: $ErrorMsg"
+    Write-AgentLog -EventData @{ success = $false; error = $ErrorMsg }
+    exit 1
+}

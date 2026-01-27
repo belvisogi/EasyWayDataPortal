@@ -10,7 +10,15 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$Query,
     
-    [int]$TopK = 3
+    [int]$TopK = 3,
+
+    [string]$Model = "deepseek-r1:7b",
+    
+    [ValidateSet("Ollama", "DeepSeek", "OpenAI")]
+    [string]$Provider = "Ollama",
+
+    [string]$ApiKey = $env:EASYWAY_LLM_KEY,
+    [string]$ApiEndpoint = "https://api.deepseek.com/chat/completions"
 )
 
 $ErrorActionPreference = 'Stop'
@@ -88,25 +96,67 @@ Provide accurate answer based on context. If insufficient, say so.
 "@
 
 # STEP 3: LLM Generation
-Write-Verbose "`n💬 STEP 3: Querying LLM (DeepSeek)..."
+Write-Verbose "`n💬 STEP 3: Querying LLM ($Provider - $Model)..."
 
-$ollamaRequest = @{
-    model  = "deepseek-r1:7b"
-    prompt = $llmPrompt
-    stream = $false
-} | ConvertTo-Json -Depth 10
+$answer = ""
 
-try {
-    $llmResponse = Invoke-RestMethod -Uri "http://localhost:11434/api/generate" `
-        -Method Post `
-        -Body $ollamaRequest `
-        -ContentType "application/json"
-    
-    $answer = $llmResponse.response
+if ($Provider -eq "Ollama") {
+    $ollamaRequest = @{
+        model  = $Model
+        prompt = $llmPrompt
+        stream = $false
+    } | ConvertTo-Json -Depth 10
+
+    try {
+        $llmResponse = Invoke-RestMethod -Uri "http://localhost:11434/api/generate" `
+            -Method Post `
+            -Body $ollamaRequest `
+            -ContentType "application/json"
+        
+        $answer = $llmResponse.response
+    }
+    catch {
+        Write-Warning "Ollama Call Failed: $($_.Exception.Message)"
+        $answer = "Error: Ollama Unreachable"
+    }
 }
-catch {
-    Write-Warning "LLM Call Failed. Ensure Ollama is running."
-    $answer = "Error generating response: $($_.Exception.Message)"
+elseif ($Provider -in @("DeepSeek", "OpenAI")) {
+    if ([string]::IsNullOrEmpty($ApiKey)) {
+        Write-Error "API Key is required for provider $Provider. Set -ApiKey or env:EASYWAY_LLM_KEY"
+    }
+
+    $messages = @(
+        @{ role = "system"; content = "You are EasyWay AI, an expert on Azure DevOps and Data Governance. Answer based strictly on the provided Context." },
+        @{ role = "user"; content = $llmPrompt }
+    )
+
+    $payload = @{
+        model       = $Model
+        messages    = $messages
+        temperature = 0.1
+    } | ConvertTo-Json -Depth 10
+
+    $headers = @{
+        "Authorization" = "Bearer $ApiKey"
+        "Content-Type"  = "application/json"
+    }
+
+    try {
+        $response = Invoke-RestMethod -Uri $ApiEndpoint `
+            -Method Post `
+            -Headers $headers `
+            -Body $payload `
+            -TimeoutSec 60
+
+        # OpenAI/DeepSeek format: choices[0].message.content
+        $answer = $response.choices[0].message.content
+    }
+    catch {
+        Write-Error "API Call Failed: $($_.Exception.Message)"
+        # Try to read response body for details
+        if ($_.ErrorDetails) { Write-Error "Details: $($_.ErrorDetails.Message)" }
+        exit 1
+    }
 }
 
 # STEP 4: Display

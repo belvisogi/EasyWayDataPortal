@@ -205,6 +205,17 @@
         "È meglio consegnare in tempo con workaround documentato che in ritardo con fix non testato?"
       ],
       "learned_from": "Esperienza pratica: tentativi affrettati pre-release spesso peggiorano la situazione invece di migliorarla"
+    },
+    "electrical_socket_pattern": {
+      "description": "Standard Interface over Implementation Details",
+      "philosophy": "È il principio della 'Presa Elettrica': non importa se l'energia viene dal nucleare, dal solare o dal carbone (Locale o Cloud), basta che la presa sia standard (Input/Output).",
+      "checks": [
+        "Stiamo mascherando la complessità dietro un'interfaccia standard?",
+        "Possiamo cambiare il provider (Locale/Cloud) senza toccare il 'cabaggio' (Codice)?",
+        "Il sistema è agnostico rispetto alla fonte di 'energia' (Intelligence)?",
+        "Abbiamo definito chiaramente Input/Output?"
+      ],
+      "learned_from": "Oracle Agent Deployment 2026-01-27: decoupling RAG body from LLM brain"
     }
   },
   "intervention_modes": {

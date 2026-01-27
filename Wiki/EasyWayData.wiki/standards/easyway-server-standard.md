@@ -209,7 +209,41 @@ Import-Module /opt/easyway/lib/powershell/Modules/EasyWayCore
 
 ---
 
-## 📋 OPERATIONAL STANDARD
+## 🐳 DOCKER STANDARD (The Appliance Layer)
+
+> **"Gli Elettrodomestici."**
+> I container sono "Elettrodomestici": si attaccano alla presa, fanno il lavoro, si staccano.
+> Non devono MAI sporcare il "Muro" (Host OS).
+
+### Directory Structure
+```
+/opt/easyway/containers/           # Container Root
+├── n8n/
+│   ├── docker-compose.yml         # Definition
+│   ├── .env                       # Config (Secrets via variable)
+│   └── data/                      # Persistent Volume (Mapped)
+└── chromadb/                      # (Optional if not using process)
+```
+
+### Naming Convention
+- **Container**: `easyway-{service}` (es. `easyway-n8n`)
+- **Network**: `easyway-net` (Internal bridge)
+- **Volumes**: `easyway-{service}-data`
+
+### Integration Pattern: "The Remote Brain"
+Come fa un Container (n8n) a lanciare script sull'Host (Agenti)?
+**Protocollo**: SSH.
+
+1. Il Container (n8n) ha una chiave SSH privata.
+2. L'Host ha la chiave pubblica in `/home/easyway/.ssh/authorized_keys`.
+3. n8n esegue: `ssh easyway@host.docker.internal '/opt/easyway/bin/agent-gedi ...'`
+
+**Perché?**
+- Mantiene l'Host pulito (niente Node.js/Python dependencies di n8n sull'OS).
+- Mantiene l'isolamento (Il container non vede il filesystem host se non via SSH limitato).
+- È "Portable": n8n potrebbe essere su un altro server domani.
+
+---
 
 ### Aliases (Canonical)
 
