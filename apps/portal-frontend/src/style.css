@@ -254,3 +254,85 @@ body {
         transform: rotate(-360deg);
     }
 }
+
+/* --- CONCEPT 2: THE SHIELD --- */
+body.theme-shield {
+    --accent-neural-cyan: #eab308;
+    /* Gold override */
+    font-family: 'Outfit', sans-serif;
+    background-color: #020408;
+}
+
+body.theme-shield .neural-core {
+    background: transparent;
+    border: 2px solid var(--text-sovereign-gold);
+    border-radius: 0;
+    transform: rotate(45deg);
+    /* Diamond shape */
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+}
+
+body.theme-shield .neural-core::after {
+    background: var(--text-sovereign-gold);
+    border-radius: 2px;
+    animation: none;
+    box-shadow: 0 0 20px var(--text-sovereign-gold);
+}
+
+body.theme-shield .orbital-ring {
+    border-radius: 0;
+    border: 1px solid rgba(234, 179, 8, 0.1);
+}
+
+body.theme-shield .ring-1 {
+    width: 120px;
+    height: 120px;
+    animation: spin 20s linear infinite;
+    border: 1px solid var(--text-sovereign-gold);
+}
+
+/* --- CONCEPT 3: THE TERMINAL --- */
+body.theme-terminal {
+    --bg-deep-void: #000000;
+    --text-primary: #00ff00;
+    /* Green Matrix */
+    --text-secondary: #008f00;
+    --accent-neural-cyan: #00ff00;
+    --text-sovereign-gold: #00ff00;
+    font-family: 'Courier New', monospace;
+}
+
+body.theme-terminal .bg-grid {
+    display: none;
+}
+
+body.theme-terminal .hero h1 {
+    text-transform: lowercase;
+    letter-spacing: -2px;
+}
+
+body.theme-terminal .text-gradient {
+    background: none;
+    -webkit-text-fill-color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+body.theme-terminal .neural-core-container {
+    display: none;
+    /* No logo in terminal */
+}
+
+body.theme-terminal .hero::before {
+    content: ">_ SYSTEM.READY";
+    font-size: 2rem;
+    color: #00ff00;
+    margin-bottom: 2rem;
+    display: block;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}

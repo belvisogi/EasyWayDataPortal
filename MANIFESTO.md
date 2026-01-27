@@ -102,6 +102,26 @@ Stiamo costruendo **eredità da lasciare**.
 
 ---
 
+## 🔒 Sovereign Engineering (Il Codice Sovrano)
+
+Non è solo privacy. È **proprietà**.
+
+1.  **Zero "Phone Home"**
+    *   Il nostro frontend non "chiama casa".
+    *   Niente telemetria occulta. Niente script di tracciamento terzi.
+    *   Se stacchi il cavo internet, EasyWay deve funzionare (lato LAN).
+
+2.  **Your Infrastructure, Your Rules**
+    *   Non dipendiamo da cloud proprietari per il rendering (no Vercel/Netlify lock-in).
+    *   Usiamo container standard (Docker) che girano ovunque, dal Raspberry Pi al Mainframe.
+
+3.  **Digital Craftsmanship**
+    *   Non usiamo librerie pesanti per fare cose semplici.
+    *   Il "Pulse" non è un video loop: è codice calcolato live. È vivo.
+    *   Ogni byte è giustificato.
+
+---
+
 ## Per Chi Costruisce EasyWay
 
 ### Se sei un **developer**:

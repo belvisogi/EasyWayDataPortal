@@ -116,3 +116,16 @@ Per ogni azione distruttiva o critica (es. cancellare un DB, riavviare un nodo):
 *   **Performance**: Niente librerie JS pesanti (niente Three.js se non ottimizzato). L'appliance può girare su hardware modesto.
 
 > *"Fallo sembrare qualcosa che Tony Stark costruirebbe per la sua intranet privata."*
+
+## 6. Design Rationale (I Perché delle Scelte)
+
+### Perché Vanilla Vite e non React/Next.js?
+*   **Sovranità Tecnica**: Eliminare il "bloatware" e la complessità inutile.
+*   **Longevità**: L'HTML/CSS standard funzionerà tra 10 anni. Un framework JS odierno sarà obsoleto tra 2.
+*   **No Telemetry**: Controllo totale su ogni richiesta di rete in uscita.
+
+### Perché il "Pulse"?
+*   Rappresenta il **Cuore** del sistema.
+*   Non è un logo statico aziendale (che rappresenta un'entità legale).
+*   È un indicatore di stato (che rappresenta un'entità operativa).
+
