@@ -129,3 +129,34 @@ Per ogni azione distruttiva o critica (es. cancellare un DB, riavviare un nodo):
 *   Non è un logo statico aziendale (che rappresenta un'entità legale).
 *   È un indicatore di stato (che rappresenta un'entità operativa).
 
+---
+
+## 7. Future Concepts (Prototyping)
+
+### Concept A: The Neural Monitor (System Dashboard)
+*   **Obiettivo**: Dare all'utente la sensazione fisica di controllare l'infrastruttura.
+*   **Metifora**: La sala macchine di un sottomarino nucleare.
+*   **Design Elements**:
+    *   *Real-time Metrics*: CPU/RAM visualizzati non come grafici Excel, ma come oscilloscopi.
+    *   *Log Stream*: Flusso dati continuo (stile Matrix, ma leggibile) per mostrare che il sistema "pensa".
+    *   *No White Space*: Density elevata di informazioni. "Horror Vacui" tecnologico.
+*   **Rationale**: L'utente Enterprise vuole vedere dove vanno i suoi soldi (risorse).
+
+### Concept B: The Agent Grid (The Armory)
+*   **Obiettivo**: Mostrare la "Squadra" di intelligenze a disposizione.
+*   **Metafora**: Selezione personaggio in un RPG Cyberpunk.
+*   **Design Elements**:
+    *   *Hero Cards*: Ogni agente (GEDI, SQL-Edge, Architect) ha una carta olografica.
+    *   *Stats*: IQ, Task completati, Specializzazione.
+    *   *State*: Indicatore "Idle" (dormiente) o "Computing" (pulsante).
+*   **Rationale**: Umanizzare (o "Alienizzare") gli agenti per creare attaccamento emotivo e fiducia.
+
+### Concept C: The Cortex (Chat Interface)
+*   **Obiettivo**: Elevare la chat da "Messaggistica" a "Interrogazione".
+*   **Metafora**: Terminale di comando avanzato / Oracolo.
+*   **Design Elements**:
+    *   *Typerwriter Effect*: Il testo non appare a blocchi, ma viene "battuto" o "decifrato" velocemente.
+    *   *Input*: Non una textbox rotonda, ma una riga di comando `>_`.
+    *   *Output*: Differenziazione visiva tra "Dati Grezzi" (grigio) e "Insight" (oro/cyan).
+*   **Rationale**: Scoraggiare il chitchat inutile, incoraggiare prompt strutturati e direttivi.
+
