@@ -15,58 +15,85 @@
 <body>
   <div class="bg-grid"></div>
 
-  <main class="hero">
+  <!-- MARKETING LAYER (Visible on Land) -->
+  <main class="hero" id="marketing-layer">
     <div class="container">
-
-      <!-- The Pulse (Concept 1) -->
-      <div class="neural-core-container">
+      <div class="neural-core-container" id="core-visual">
         <div class="neural-core"></div>
         <div class="orbital-ring ring-1"></div>
         <div class="orbital-ring ring-2"></div>
       </div>
 
-      <h1>Sovereign <span class="text-gradient">Intelligence</span></h1>
-      <p class="tagline">Smetti di affittare l'intelligenza. Inizia a possederla.<br>L'infrastruttura Enterprise per chi
-        non accetta compromessi.</p>
-
-      <div class="actions">
-        <a href="#" class="btn btn-primary" id="btn-engage">access_protocol.init()</a>
+      <div id="hero-text">
+        <h1>Sovereign <span class="text-gradient">Intelligence</span></h1>
+        <p class="tagline">Smetti di affittare l'intelligenza. Inizia a possederla.<br>L'infrastruttura Enterprise per
+          chi non accetta compromessi.</p>
+        <div class="actions">
+          <button class="btn btn-primary" id="btn-engage">access_protocol.init()</button>
+        </div>
       </div>
     </div>
+
+    <!-- Relief Section -->
+    <section class="container" id="features-section" style="padding-bottom: 4rem; margin-top: 4rem;">
+      <div class="glass-panel" style="padding: 3rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+          <div>
+            <h3 class="text-gold">🔒 Sovereign Data</h3>
+            <p style="color:var(--text-secondary)">Air-Gapped by Design.</p>
+          </div>
+          <div>
+            <h3 class="text-cyan">⚡ Neural Infrastructure</h3>
+            <p style="color:var(--text-secondary)">Cognitive OS.</p>
+          </div>
+          <div>
+            <h3 class="text-primary">🏛️ Built for Legacy</h3>
+            <p style="color:var(--text-secondary)">Craftsmanship.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- The Relief & Purpose -->
-  <section class="container" style="padding-bottom: 4rem;">
-    <div class="glass-panel" style="padding: 3rem; margin-top: -2rem;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+  <!-- OPERATOR LAYER (Hidden by Default) -->
+  <div id="operator-layer" class="operator-ui hidden">
 
-        <!-- Feature 1: Sovereignty -->
-        <div>
-          <h3 class="text-gold" style="margin-bottom: 1rem;">🔒 Sovereign Data</h3>
-          <p style="color: var(--text-secondary);">Air-Gapped by Design. Il tuo server è il tuo castello. Nessun dato
-            lascia mai il perimetro senza la tua autorizzazione esplicita.</p>
+    <!-- HUD: Monitor Stats (Floating) -->
+    <div class="hud-panel hud-left">
+      <div class="hud-block">
+        <span class="hud-label">CPU.CORE</span>
+        <div class="hud-bar">
+          <div class="fill" style="width: 45%"></div>
         </div>
-
-        <!-- Feature 2: Infrastructure -->
-        <div>
-          <h3 class="text-cyan" style="margin-bottom: 1rem;">⚡ Neural Infrastructure</h3>
-          <p style="color: var(--text-secondary);">Non un semplice chatbot, ma un sistema operativo cognitivo. n8n,
-            Vector DB e LLM orchestrati localmente per la massima potenza.</p>
+        <span class="hud-value">45%</span>
+      </div>
+      <div class="hud-block">
+        <span class="hud-label">RAM.ALLOC</span>
+        <div class="hud-bar">
+          <div class="fill" style="width: 62%"></div>
         </div>
-
-        <!-- Feature 3: Legacy -->
-        <div>
-          <h3 class="text-primary" style="margin-bottom: 1rem;">🏛️ Built for Legacy</h3>
-          <p style="color: var(--text-secondary);">Software artigianale, progettato per durare un decennio. Ingegneria
-            di precisione per chi costruisce il futuro su fondamenta solide.</p>
-        </div>
-
+        <span class="hud-value">12GB</span>
       </div>
     </div>
-  </section>
 
-  <!-- GEDI Guardian Container -->
-  <div id="gedi-guardian" title="GEDI: Active"></div>
+    <!-- HUD: Agent Orbit (Floating Right) -->
+    <div class="hud-panel hud-right">
+      <div class="agent-list">
+        <div class="agent-item active" title="GEDI">G</div>
+        <div class="agent-item" title="SQL">S</div>
+        <div class="agent-item" title="ARCHITECT">A</div>
+      </div>
+    </div>
+
+    <!-- CORTEX: Chat Overlay (Bottom) -->
+    <div class="cortex-overlay">
+      <div class="cortex-history" id="cortex-history">
+        <div class="msg system"><span>SYSTEM READY. AWAITING INPUT.</span></div>
+      </div>
+      <input type="text" class="cortex-input" placeholder="COMMAND PROMPT..." id="cortex-input" autocomplete="off">
+    </div>
+
+  </div>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

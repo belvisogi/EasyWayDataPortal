@@ -192,4 +192,25 @@ Per ogni azione distruttiva o critica (es. cancellare un DB, riavviare un nodo):
     *   *Status*: Valvole che si aprono/chiudono.
     *   *Rationale*: Trasparenza operativa.
 
+### Concept G: The Strategic Command (Cortex v2)
+*   **Obiettivo**: Superare la CLI. Controllo tattico moderno.
+*   **Metafora**: HUD di Iron Man / Minority Report (Glass Cockpit).
+*   **Visual**:
+    *   *Hybrid*: Chat centrale + Widget laterali dinamici.
+    *   *Rich Media*: L'AI non risponde solo con testo, ma "proietta" card, grafici e mappe sull'HUD.
+    *   *Glassmorphism*: Pannelli semitrasparenti sospesi nel vuoto.
+*   **Rationale**: Unire la potenza del testo con l'intuitività della GUI.
+
+### Concept H: EasyWay One (The Unified Void) - *Proposed Recommendation*
+*   **Obiettivo**: Portare la qualità della "Home" ovunque.
+*   **Filosofia**: "Il Pulse è il Re".
+*   **Struttura**: Single Page assoluta.
+    *   **CENTER**: Il Neural Pulse (Home) non sparisce mai.
+    *   **ORBIT**: Gli Agenti orbitano attorno al Pulse.
+    *   **OVERLAY**: Il Cortex è un vetro che cala sopra il Pulse.
+    *   **HUD**: Il Monitor sono numeri che fluttuano nel vuoto attorno al Pulse.
+*   **Rationale**: Eliminare la frammentazione. Massimizzare l'eleganza.
+
+
+
 
