@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  # 🧠 The Brain & Arms (EasyWay Agent Runner)
+  agent-runner:
+    build:
+      context: .
+      dockerfile: agents/Dockerfile
+    container_name: easyway-runner
+    environment:
+      - EASYWAY_MODE=Framework
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - CHROMA_HOST=chromadb
+      - SQL_SERVER=sql-edge
+      - AZURITE_HOST=azurite
+      - MINIO_ENDPOINT=minio:9000
+    volumes:
+      - ./agents:/app/agents
+      - ./Wiki:/app/Wiki
+      - ./scripts:/app/scripts
+    networks:
+      - easyway-net
+    command: ["pwsh", "-c", "for() { Start-Sleep 1000 }"]
+
+  # 🌐 Frontend (PWA)
+  frontend:
+    build:
+      context: ./apps/portal-frontend
+      dockerfile: Dockerfile
+    container_name: easyway-portal
+    ports:
+      - "8080:80"
+    networks:
+      - easyway-net
+
+  # 🤖 Orchestrator (n8n - The Portable Brain)
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: easyway-orchestrator
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=n8n
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://localhost:5678/
+      - GENERIC_TIMEZONE=Europe/Rome
+    volumes:
+      - n8n-data:/home/node/.n8n
+      - ./agents/core/n8n:/home/node/workflows
+    networks:
+      - easyway-net
+
+networks:
+  easyway-net:
+    external: true
+
+volumes:
+  n8n-data:
