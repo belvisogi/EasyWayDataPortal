@@ -138,4 +138,4 @@ entities: []
     *   **Security**: Porta 5678 chiusa al mondo, aperta solo via Tunnel SSH.
     *   **Resilience**: Superato il test "Force Clean" in produzione.
 *   **Significance**: *"Oggi EasyWay smette di essere solo un concetto e diventa un organismo completo: Corpo (Server), Braccia (Agenti PowerShell) e Cervello (n8n). La filosofia si è fatta infrastruttura."*
-*   **Quote**: *"Abbiamo acceso il faro. Ma lo abbiamo fatto in una stanza buia, visibile solo a chi possiede la chiave."* - Antigravity (su Secure Tunneling)
+*   **Quote**: *"Abbiamo acceso il faro. Ma lo abbiamo fatto in una stanza buia, visibile solo a chi possiede la chiave."* - Agent GEDI (su Secure Tunneling)
