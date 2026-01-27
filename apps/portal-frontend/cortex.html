@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cortex Terminal | EasyWay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="cortex-body">
+    <div class="bg-grid"></div>
+
+    <!-- Header -->
+    <header class="monitor-header">
+        <div class="brand">
+            <div class="mini-core"></div>
+            <span>EASYWAY <span class="text-cyan">OS</span> // CORTEX UPLINK</span>
+        </div>
+        <a href="/agents.html" class="btn-text" style="font-size: 0.8rem;">
+            < AGENT.GRID</a>
+    </header>
+
+    <main class="terminal-container">
+
+        <!-- Output/History Area -->
+        <div class="terminal-output" id="chat-output">
+            <div class="msg system">
+                <span class="prefix">SYS.INIT</span>
+                <span class="content">Secure Uplink Established. Verified User: ADMIN.</span>
+            </div>
+            <div class="msg system">
+                <span class="prefix">CORTEX</span>
+                <span class="content">Listening...</span>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="terminal-input-line">
+            <span class="prompt">ADMIN@NODE-01 ></span>
+            <input type="text" id="chat-input" class="cmd-input" placeholder="Enter command..." autocomplete="off"
+                autofocus>
+        </div>
+
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
