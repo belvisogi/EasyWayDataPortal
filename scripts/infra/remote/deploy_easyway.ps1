@@ -1,5 +1,3 @@
-$ErrorActionPreference = "Stop"
-
 param(
     [string]$ConfigPath = "C:\\old\\EasyWayDataPortal\\scripts\\infra\\remote\\remote.config.ps1",
     [string]$IP,
@@ -7,6 +5,8 @@ param(
     [string]$PatPath,
     [switch]$WhatIf
 )
+
+$ErrorActionPreference = "Stop"
 
 # Config
 if (Test-Path $ConfigPath) { . $ConfigPath }

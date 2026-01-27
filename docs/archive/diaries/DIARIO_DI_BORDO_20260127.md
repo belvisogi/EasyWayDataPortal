@@ -42,3 +42,21 @@ Abbiamo risolto l'eterno dilemma "sporcare il server vs avere feature":
 Oggi abbiamo costruito non solo un sistema funzionante, ma un'architettura che può sopravvivere per anni. È "Sartoria Napoletana": elegante, durevole, su misura.
 
 *Missione Compiuta.* 🥂
+
+---
+
+### 🚨 UPDATE: Deployment Lessons (The force-clean Issue)
+
+**Q: Ho avuto errori "Container name conflict" durante il deploy. Perché?**
+*A: Se esistono vecchi container creati manualmente (o con nomi diversi), Docker Compose non riesce a sovrascriverli "gentilmente". È successo con `easyway-db` e `easyway-storage`.*
+
+**Q: Come si risolve? (Il metodo "Force Clean")**
+*A: Se il server è impazzito o ha container zombie, usa l'opzione nucleare:*
+```bash
+sudo docker rm -f $(sudo docker ps -a -q)  # Rimuove TUTTI i container
+sudo docker network prune -f               # Rimuove network zombie
+```
+*Poi rilancia il deploy. Nota: Questo spegne tutto per un attimo, ma garantisce pulizia.*
+
+**Q: Devo farlo su ogni nuovo server?**
+*A: No. Solo se stai migrando da un'installazione "sporca" o manuale a una gestita. Su un server vergine, lo script `setup-easyway-server.sh` funziona al primo colpo.*

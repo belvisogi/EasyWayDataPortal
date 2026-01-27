@@ -254,12 +254,29 @@ sudo docker logs -f easyway-runner
 
 ## 📊 Known Issues / TODO
 
-- [ ] Documentare versione OS esatta (`lsb_release -a`)
+- [x] Documentare versione OS esatta (`lsb_release -a`)
 - [x] Documentare lista completa containers Docker (fatto!)
-- [ ] **Aggiungere n8n al docker-compose** (attualmente solo in Wiki)
+- [x] **Aggiungere n8n al docker-compose** (FATTO 2026-01-27)
 - [ ] Verificare se c'è reverse proxy (nginx/Caddy?) per HTTPS
 - [ ] Documentare Azure SQL connection string location (se usato)
 - [ ] Setup SSL certificates (Let's Encrypt?)
+
+## 🛠️ Troubleshooting
+
+### Container Name Conflicts ("Bind for ... failed")
+Se durante il deploy ricevi errori come:
+`Error response from daemon: Conflict. The container name "/easyway-db" is already in use`
+
+Significa che ci sono vecchi container (creati manualmente) che bloccano il nuovo deploy.
+**Soluzione (Force Clean)**:
+```bash
+# ATTENZIONE: Questo cancella TUTTI i container attivi sul server!
+sudo docker rm -f $(sudo docker ps -a -q)
+sudo docker network prune -f
+
+# Rilancia il deploy
+cd ~/EasyWayDataPortal && sudo docker compose up -d
+```
 
 
 
