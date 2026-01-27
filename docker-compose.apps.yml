@@ -20,9 +20,30 @@ services:
       - ./agents:/app/agents
       - ./Wiki:/app/Wiki
       - ./scripts:/app/scripts
-    networks:
       - easyway-net
     command: ["pwsh", "-c", "for() { Start-Sleep 1000 }"]
+
+  # 🔌 API Backend
+  api:
+    build:
+      context: ./portal-api
+      dockerfile: Dockerfile
+    container_name: easyway-api
+    environment:
+      - PORT=3000
+      - DB_SERVER=sql-edge
+      - DB_USER=sa
+      - DB_PASS=${SQL_PASSWORD:-EasyWayStrongPassword1!}
+      - DB_NAME=EasyWay
+      - TENANT_ID_HEADER=x-tenant-id
+    ports:
+      - "3000:3000"
+    networks:
+      - easyway-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`api.portal.local`)"
+      - "traefik.http.services.api.loadbalancer.server.port=3000"
 
   # 🌐 Frontend (PWA)
   frontend:
@@ -34,6 +55,10 @@ services:
       - "8080:80"
     networks:
       - easyway-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`portal.local`)"
+      - "traefik.http.services.frontend.loadbalancer.server.port=80"
 
   # 🤖 Orchestrator (n8n - The Portable Brain)
   n8n:
@@ -54,6 +79,10 @@ services:
       - ./agents/core/n8n:/home/node/workflows
     networks:
       - easyway-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n.rule=Host(`n8n.portal.local`)"
+      - "traefik.http.services.n8n.loadbalancer.server.port=5678"
 
 networks:
   easyway-net:

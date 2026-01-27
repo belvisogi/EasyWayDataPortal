@@ -1,6 +1,22 @@
 version: '3.9'
 
 services:
+  # 🚦 Reverse Proxy (Gateway)
+  traefik:
+    image: traefik:v3.0
+    container_name: easyway-gateway
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - easyway-net
   # ⚡ Vector Database (Memory Cortex)
   chromadb:
     image: chromadb/chroma:latest
