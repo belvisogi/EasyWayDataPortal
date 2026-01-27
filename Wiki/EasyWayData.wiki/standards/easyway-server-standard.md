@@ -113,17 +113,23 @@ Questo documento definisce **LO STANDARD CANONICO** per tutti i server EasyWay (
 | `/opt/easyway/var/` | `easyway:easyway` | `755` | App scrive runtime data |
 | `/opt/easyway/var/logs/` | `easyway:easyway` | `750` | Read-only per audit |
 
-### User & Group Policy
+### User & Group Policy (The Lego Role Model)
 
-```bash
-# Utente dedicato (NO root runtime)
-sudo groupadd easyway
-sudo useradd -r -g easyway -s /bin/bash -d /opt/easyway easyway
+> **"A ogni mattoncino il suo incastro."**
 
-# SSH user (admin)
-# Ubuntu user: SSH access only, can sudo
-# easyway user: Runtime only, NO sudo
-```
+| User | Role | Sudo? | Lego Metaphor |
+|------|------|-------|---------------|
+| `root` | **The Architect** | YES | Il terreno su cui si costruisce. Usato SOLO per setup iniziale (mount dischi, install package). MAI per runtime. |
+| `ubuntu` | **The Builder** (Admin) | YES | Il costruttore. Usa `sudo` per assemblare i pezzi grossi. Non esegue l'applicazione. |
+| `easyway` | **The Inhabitant** (Service) | **NO** | L'abitante. Vive nella casa (`/opt/easyway`). Accende le luci (Agenti, n8n). Non può abbattere i muri. |
+| `ollama` | **The Furnace** (Daemon) | **NO** | La caldaia. Sta in cantina (Systemd). Fa una sola cosa (LLM). Isolato da tutto il resto. |
+
+**Regola d'Oro**:
+- **Setup**: `ubuntu` con `sudo`.
+- **Runtime**: `easyway` senza `sudo`.
+- **Emergenza**: `root` (console access).
+
+### Secret Management
 
 ### Secret Management
 
@@ -229,6 +235,15 @@ Import-Module /opt/easyway/lib/powershell/Modules/EasyWayCore
 - **Container**: `easyway-{service}` (es. `easyway-n8n`)
 - **Network**: `easyway-net` (Internal bridge)
 - **Volumes**: `easyway-{service}-data`
+- **Storage Type**: **BIND MOUNT** (su host) preferito rispetto a Docker Volume.
+  - *Rationale*: Configurazione e dati devono essere visibili/editabili da agenti sull'host.
+  - Path: `./data:/home/node/.n8n` (relative to compose file)
+
+### User Identity (The 1000 Problem)
+I container DEVONO girare con UID/GID dell'utente `easyway` (es. 1003:1004) per evitare file root.
+```yaml
+user: "1003:1004" # Match host easyway user
+```
 
 ### Integration Pattern: "The Remote Brain"
 Come fa un Container (n8n) a lanciare script sull'Host (Agenti)?
