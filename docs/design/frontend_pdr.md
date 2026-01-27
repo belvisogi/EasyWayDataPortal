@@ -162,13 +162,19 @@ Per ogni azione distruttiva o critica (es. cancellare un DB, riavviare un nodo):
 
 ### Wave 2: Deep Dive Concepts
 
-### Concept D: The Access Ritual (Login)
+### Wave 2: Deep Dive Concepts
+
+### Concept D: The Access Ritual (Login) - *Implemented & Approved*
 *   **Obiettivo**: Rendere il login un evento solenne, non una formalità.
-*   **Metafora**: Apertura di un Caveau o Lancio Missilistico.
-*   **Design Elements**:
-    *   *Multi-Step*: Non "User/Pass" insieme. Prima identifichi l'utente, poi scansione "Biometrica" (simulata), poi "Key Activation".
-    *   *Visual*: Cerchi concentrici che si sbloccano. Suono (feedback aptico visivo).
-    *   *Rationale*: Sicurezza percepita = Fiducia.
+*   **Nome in Codice**: "The Gate".
+*   **Struttura**: "I Tre Sigilli".
+    1.  **Identity Assertion**: Inserimento Handle (Chi sei?).
+    2.  **Bio-Metric Scan**: Scansione simulata del "DNA Digitale" (Animazione concentrica).
+    3.  **Cryptographic Key**: Inserimento chiave segreta per l'unlock finale.
+*   **Rationale**: 
+    *   Sicurezza percepita = Fiducia.
+    *   Il dato non viene "consumato", viene "conquistato".
+    *   Esperienza user-centric che enfatizza la sovranità.
 
 ### Concept E: The Vector Void (Memory Explorer)
 *   **Obiettivo**: Visualizzare la conoscenza.

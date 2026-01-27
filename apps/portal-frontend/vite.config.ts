@@ -12,6 +12,7 @@ export default defineConfig({
         agents: resolve(__dirname, 'agents.html'),
         cortex: resolve(__dirname, 'cortex.html'),
         login: resolve(__dirname, 'login.html'),
+        memory: resolve(__dirname, 'memory.html'),
       },
     },
   },
