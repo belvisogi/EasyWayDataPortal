@@ -9,6 +9,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         monitor: resolve(__dirname, 'monitor.html'),
+        agents: resolve(__dirname, 'agents.html'),
       },
     },
   },
