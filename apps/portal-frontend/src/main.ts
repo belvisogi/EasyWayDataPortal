@@ -1,7 +1,7 @@
 import './style.css'
 
 // Main Entry Point - EasyWay One (Sovereign Intelligence)
-console.log("EasyWay Sovereign System: Initializing...");
+console.log("EasyWay Sovereign System: Initializing... [v0.2.1]");
 
 const btnEngage = document.getElementById('btn-engage');
 const marketingLayer = document.getElementById('marketing-layer');
