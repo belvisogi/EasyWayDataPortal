@@ -52,6 +52,10 @@ Vogliamo incutere **Rispetto e Fiducia**.
     *   Rappresentazioni 3D astratte di reti neurali, ma "ingabbiate" o "protette" (simbolo di controllo).
     *   Terminali / Codice che scorre (simbolo di potere esecutivo).
     *   **The Blue Pulse (GEDI)**: Una luce pulsante soffusa (Neon Cyan) sempre presente. È il "respiro" del sistema.
+    *   **[EXPERIMENTAL] Visual Concepts**:
+        *   *Concept 1: The Pulse*. Logo come nodo neurale vivo. Focus su "AI Attiva".
+        *   *Concept 2: The Shield*. Logo come stemma araldico/esagono. Focus su "Sicurezza".
+        *   *Concept 3: The Terminal*. Logo ASCII/Monospace. Focus su "Engineering".
 
 ---
 
@@ -96,6 +100,13 @@ Per ogni azione distruttiva o critica (es. cancellare un DB, riavviare un nodo):
 4.  **L'Incontro (The Guardian)**: Nota GEDI. *"Chi è quello?"*. Legge *"Guardian of Intentions"*. Sorride. *"Ah, questi fanno sul serio."*
 5.  **La Rivelazione (The Purpose)**: Legge la sezione "Democratization". Capisce che non sta solo comprando un tool, ma aderendo a un movimento. *"Giustizia Tecnica"*.
 6.  **L'Azione (The Contact)**: Non c'è "Sign Up". C'è "Schedule Demo" o "Join the Movement". È un club esclusivo, ma con un cuore.
+
+## 6. Access Storyboard (Il Rituale di Ingresso)
+> *Work in Progress - Vedi `docs/design/storyboard_access.md`*
+
+1.  **The Gate**: Non una login form standard. Un "riconoscimento biometrico" metaforico o un check di sistema.
+2.  **The Handshake**: Il sistema saluta l'utente non come "User", ma come "Operator" o "Architect".
+3.  **The Dashboard**: Non grafici a torta, ma stato dei "sensori". Come la dashboard di un'auto sportiva o di un reattore.
 
 ---
 
