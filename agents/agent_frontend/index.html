@@ -1,173 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EasyWay Agent Marketplace</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0f172a">
+    <title>EasyWay | The Sovereign AI Infrastructure</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <div class="app-container">
-        <!-- Header -->
-        <header>
-            <div class="logo">
-                <h1>🤖 EasyWay Marketplace</h1>
-                <span class="badge">BETA</span>
-            </div>
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search agents (e.g. 'SQL', 'OODA', 'GEDI')...">
-            </div>
-        </header>
+    <div class="gradient-blob"></div>
 
-        <!-- Stats & Filters -->
-        <div class="dashboard-controls">
-            <div class="stats-card">
-                <div class="stat-item">
-                    <span class="stat-val" id="totalAgents">-</span>
-                    <span class="stat-label">Total Agents</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-val brain" id="totalBrains">-</span>
-                    <span class="stat-label">Brains 🧠</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-val arm" id="totalArms">-</span>
-                    <span class="stat-label">Arms 💪</span>
-                </div>
-            </div>
+    <!-- Navigation -->
+    <nav style="padding: 2rem; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+        <div style="font-weight: 700; font-size: 1.5rem;">EasyWay<span style="color: var(--primary);">.</span></div>
+        <div>
+            <a href="#" class="btn btn-outline" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Contact Sales</a>
+        </div>
+    </nav>
 
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="brain">Brains 🧠</button>
-                <button class="filter-btn" data-filter="arm">Arms 💪</button>
-            </div>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div style="margin-bottom: 1rem; color: var(--accent); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem;">
+            Enterprise AI • On-Premise • Sovereign
+        </div>
+        <h1>
+            Your Data. Your Rules.<br>
+            <span style="color: var(--primary);">Sovereign AI.</span>
+        </h1>
+        <p>
+            Stop renting intelligence. Start owning it. <br>
+            The only AI infrastructure that installs <strong>inside</strong> your perimeter, 
+            executes real tasks, and keeps your secrets 100% private.
+        </p>
+        <div style="display: flex; gap: 1rem;">
+            <a href="#" class="btn btn-primary">Schedule Demo</a>
+            <a href="#" class="btn btn-outline">Read Manifesto</a>
+        </div>
+    </header>
 
-            <div class="view-controls">
-                <button class="view-btn active" data-view="grid">Grid ⊞</button>
-                <button class="view-btn" data-view="network">Network 🕸️</button>
-                <button class="view-btn" data-view="settings">Settings ⚙️</button>
+    <!-- The Problem / Solution -->
+    <section>
+        <div class="grid-3">
+            <div class="glass-card">
+                <span class="feature-icon">🛡️</span>
+                <h3>Air-Gapped Privacy</h3>
+                <p>No data leaves your server. Run LLMs locally (Ollama) or via private endpoints. Finally, AI safe for Legal, Health, and Finance.</p>
+            </div>
+            <div class="glass-card">
+                <span class="feature-icon">🧠</span>
+                <h3>Transparent Brains</h3>
+                <p>No "Black Box" magic. Inspect every thought, step, and decision via our <strong>n8n Visual Orchestrator</strong>. Traceability is native.</p>
+            </div>
+            <div class="glass-card">
+                <span class="feature-icon">🦾</span>
+                <h3>Real Executive Power</h3>
+                <p>Chatbots just talk. EasyWay acts. With <strong>PowerShell Arms</strong>, it manages infrastructure, databases, and files. It doesn't just suggest work; it does it.</p>
             </div>
         </div>
+    </section>
 
-        <!-- Grid -->
-        <main id="agentGrid" class="agent-grid">
-            <!-- Cards will be injected here -->
-            <div class="loading">Loading Agents...</div>
-        </main>
+    <!-- Philosophy/Social Proof -->
+    <section style="text-align: center; margin-top: 4rem;">
+        <h2 style="font-size: 2rem;">"The Iron Man Suit for your Business"</h2>
+        <p style="max-width: 800px; margin: 0 auto; color: var(--text-mute);">
+            We don't sell a chat subscription. We build your proprietary Intelligence Infrastructure.
+            <br><br>
+            <em>"We turned philosophy into infrastructure. A system that thinks, remembers, and acts, solely for you."</em>
+        </p>
+    </section>
 
-        <main id="networkView" class="network-view hidden">
-            <canvas id="networkCanvas"></canvas>
-            <div class="network-legend">
-                <span class="legend-item"><span class="dot brain"></span> Brain</span>
-                <span class="legend-item"><span class="dot arm"></span> Arm</span>
-                <span class="legend-item"><span class="dot system"></span> System</span>
-            </div>
-            <div id="nodeTooltip" class="tooltip hidden"></div>
-        </main>
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 EasyWay Data Portal. Built with Philosophy & Code.</p>
+    </footer>
 
-        <main id="settingsView" class="settings-view hidden">
-            <div class="settings-container">
-                <h2>🛠️ Model Configurator</h2>
-                <p>Choose the intelligence profile for your framework. Copy the config below into your <code>.env</code>
-                    file.</p>
-
-                <div class="profiles">
-                    <div class="profile-card active" data-profile="budget">
-                        <div class="profile-icon">👑</div>
-                        <h3>Budget King</h3>
-                        <p>DeepSeek (Brain) + Gemini (Arm)</p>
-                        <div class="price-tag">~$12/mo</div>
-                    </div>
-                    <div class="profile-card" data-profile="deepseek_all">
-                        <div class="profile-icon">🦄</div>
-                        <h3>DeepSeek Pure</h3>
-                        <p>DeepSeek (Brain) + DeepSeek (Arm)</p>
-                        <div class="price-tag">~$15/mo</div>
-                    </div>
-                    <div class="profile-card" data-profile="azure">
-                        <div class="profile-icon">💼</div>
-                        <h3>Enterprise</h3>
-                        <p>GPT-4o (Brain) + GPT-4o-mini (Arm)</p>
-                        <div class="price-tag">~$150/mo</div>
-                    </div>
-                </div>
-
-                <h3>📊 Cost Matrix (Per 1M Tokens)</h3>
-                <table class="cost-table">
-                    <thead>
-                        <tr>
-                            <th>Model</th>
-                            <th>Role</th>
-                            <th>Input</th>
-                            <th>Output</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>DeepSeek V3</td>
-                            <td>Brain 🧠</td>
-                            <td>$0.14</td>
-                            <td>$0.28</td>
-                        </tr>
-                        <tr>
-                            <td>Gemini Flash</td>
-                            <td>Arm 💪</td>
-                            <td>$0.075</td>
-                            <td>$0.30</td>
-                        </tr>
-                        <tr>
-                            <td>GPT-4o</td>
-                            <td>Brain 🧠</td>
-                            <td>$2.50</td>
-                            <td>$10.00</td>
-                        </tr>
-                        <tr>
-                            <td>GPT-4o-mini</td>
-                            <td>Arm 💪</td>
-                            <td>$0.15</td>
-                            <td>$0.60</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>📝 Generated Config (.env)</h3>
-                <textarea id="envConfigOutput" readonly class="env-output">
-# EasyWay Framework Configuration
-EASYWAY_MODE=Framework
-BRAIN_MODEL=deepseek-chat
-ARM_MODEL=gemini-1.5-flash
-# Keys
-DEEPSEEK_API_KEY=sk-...
-GEMINI_API_KEY=sk-...
-                </textarea>
-                <div class="action-row">
-                    <button id="copyConfigBtn" class="primary-btn">Copy Config</button>
-                    <span id="copyFeedback" class="hidden">Copied! ✅</span>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Details Modal -->
-    <div id="agentModal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div id="modalBody"></div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('SW Registered'))
-                .catch(err => console.log('SW Failed', err));
-        }
-    </script>
 </body>
-
 </html>
