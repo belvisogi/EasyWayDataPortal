@@ -23,12 +23,20 @@
     <div class="header-container">
       <div class="logo">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"
-          style="margin-right: 8px;">
-          <path d="M16 2L2 9V23L16 30L30 23V9L16 2Z" stroke="var(--text-sovereign-gold)" stroke-width="2"
-            fill="rgba(6, 11, 19, 0.5)" />
-          <path d="M16 6V12M16 12L11 14.5M16 12L21 14.5M11 14.5V20M21 14.5V20M11 20L16 22.5M21 20L16 22.5M16 22.5V26"
-            stroke="var(--accent-neural-cyan)" stroke-width="2" stroke-linecap="round" />
-          <circle cx="16" cy="16" r="2" fill="var(--text-sovereign-gold)" />
+          style="margin-right: 12px; filter: drop-shadow(0 0 5px rgba(10, 200, 185, 0.3));">
+          <!-- Outer Shield/Frame (Gold) -->
+          <rect x="2" y="2" width="28" height="28" rx="2" stroke="var(--text-sovereign-gold)" stroke-width="2"
+            fill="rgba(6, 11, 19, 0.8)" />
+
+          <!-- Labyrinth Path (Cyan - The EasyWay) -->
+          <path d="M16 6V12H22M10 16H6M26 16H22M16 26V20H10" stroke="var(--accent-neural-cyan)" stroke-width="2"
+            stroke-linecap="round" />
+          <path d="M10 10H6V22H10" stroke="var(--text-secondary)" stroke-width="1.5" stroke-opacity="0.5" />
+          <path d="M22 10H26V22H22" stroke="var(--text-secondary)" stroke-width="1.5" stroke-opacity="0.5" />
+
+          <!-- The Core (Gold) -->
+          <circle cx="16" cy="16" r="3" fill="var(--text-sovereign-gold)" stroke="var(--accent-neural-cyan)"
+            stroke-width="1" />
         </svg>
         EasyWay
       </div>
