@@ -1003,9 +1003,13 @@ body.theme-terminal .hero::before {
     width: 100%;
     z-index: 1000;
     padding: 1rem 0;
-    background: rgba(5, 11, 20, 0.8);
+    background: rgba(5, 11, 20, 0.95);
+    /* Higher opacity for contrast */
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    /* Stronger border */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    /* Shadow for depth */
 }
 
 .header-container {
@@ -1066,4 +1070,13 @@ body.theme-terminal .hero::before {
 .hero .container {
     max-width: 1000px;
     /* Tighter focus */
+}
+
+.hero {
+    padding-top: 140px;
+    /* Ensure Pulse clears header on zoom */
+    min-height: 90vh;
+    /* Adjust height */
+    align-items: flex-start;
+    /* Start from top + padding, avoids clipping top on zoom */
 }
