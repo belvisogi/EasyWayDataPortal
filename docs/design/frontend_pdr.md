@@ -127,3 +127,26 @@ Per colmare il gap visivo:
 *   **Focus**: Restringere la larghezza della Hero Section. Non spanciare su schermi wide.
 *   **Centering**: Tutto il contenuto critico (Titolo, Core, CTA) deve essere perfettamente centrato visivamente.
 *   **Weights**: Usare pesi font più decisi (`600`, `800`) per i titoli per compensare lo sfondo scuro.
+
+---
+
+## 7. The Hextech Framework Architecture (Evolution)
+*Refactoring for scalability and white-labeling.*
+
+### 🦴 The Skeleton (`framework.css`)
+Contiene i componenti strutturali riutilizzabili. È l'armatura base, agnostica rispetto al brand.
+*   Griglie, Card, Glass Panels, Bottoni, Tipografia base.
+
+### 🧬 The Skin (`theme.css`)
+Il file di configurazione dell'identità.
+*   **Variabili CSS**: definisce `colors`, `fonts`, `spacings`.
+*   **Purpose**: Cambiando solo questo file, l'intero sistema muta "Anima" (es. da "Cyber Enterprise" a "Druid Guardian").
+
+### 🔮 Cortex Genesis Protocol (The Agent)
+L'Identità non si sceglie a caso, si "scopre".
+*   **Interactive Setup**: Un wizard CLI integrato nella console (`INITIATE GENESIS`).
+*   **Workflow**: L'Agente intervista l'utente (Archetipo? Nemico? Colore?) e genera automaticamente il blocco CSS per il `theme.css`.
+
+## 8. Brand Identity Standards
+*   **Logo**: "The Target Scope". Quadrato dorato (Protezione) + Mirino Ciano (Precisione).
+*   **Favicon**: "The Labyrinth". Variante semplificata per alta leggibilità su tab browser.
