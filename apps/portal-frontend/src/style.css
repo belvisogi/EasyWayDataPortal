@@ -1,70 +1,7 @@
-:root {
-    /* Palette - Hextech Evolution (Arcane Inspired) */
-    --bg-deep-void: #060b13;
-    /* Dark Piltover Night */
-    --text-sovereign-gold: #c8aa6e;
-    /* Hextech Gold/Brass */
-    --accent-neural-cyan: #0ac8b9;
-    /* Hextech Glow */
-    --glass-border: rgba(200, 170, 110, 0.15);
-    /* Gold Tint */
-    --glass-bg: rgba(6, 11, 19, 0.7);
-    --text-primary: #f0f2f5;
-    --text-secondary: #94a3b8;
+/* --- EASYWAY PORTAL SPECIFIC STYLES --- */
+/* (Generic Framework loaded from framework.css) */
 
-    /* Typography */
-    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    background-color: var(--bg-deep-void);
-    color: var(--text-primary);
-    font-family: var(--font-family);
-    line-height: 1.6;
-    overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Utilities */
-.glass-panel {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-}
-
-.text-gold {
-    color: var(--text-sovereign-gold);
-}
-
-.text-cyan {
-    color: var(--accent-neural-cyan);
-}
-
-.text-gradient {
-    background: linear-gradient(135deg, var(--text-sovereign-gold), var(--accent-neural-cyan));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* Layout */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-/* Hero Section */
+/* Hero Section (Landing) */
 .hero {
     min-height: 80vh;
     display: flex;
@@ -72,6 +9,15 @@ body {
     justify-content: center;
     position: relative;
     text-align: center;
+    /* Improvements from Phase 10 */
+    padding-top: 140px;
+    min-height: 90vh;
+    align-items: flex-start;
+}
+
+.hero .container {
+    max-width: 1000px;
+    /* Tighter focus */
 }
 
 .hero h1 {
@@ -86,29 +32,6 @@ body {
     color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto 3rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 1rem 2rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: 1px solid transparent;
-}
-
-.btn-primary {
-    background: rgba(14, 165, 233, 0.1);
-    border-color: var(--accent-neural-cyan);
-    color: var(--accent-neural-cyan);
-}
-
-.btn-primary:hover {
-    background: var(--accent-neural-cyan);
-    color: var(--bg-deep-void);
-    box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
 }
 
 /* GEDI Guardian */
@@ -174,15 +97,12 @@ body {
     border-radius: 50%;
     position: relative;
     z-index: 2;
-    box-shadow:
-        0 0 20px rgba(14, 165, 233, 0.3),
-        inset 0 0 10px rgba(14, 165, 233, 0.2);
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.3), inset 0 0 10px rgba(14, 165, 233, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Inner nucleus */
 .neural-core::after {
     content: '';
     width: 20px;
@@ -216,28 +136,6 @@ body {
     opacity: 0.5;
 }
 
-/* Grid Background */
-.bg-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Electric Foundation + Grid */
-    background: radial-gradient(circle at 50% 30%, #0f2538 0%, #060b13 70%);
-    background-image:
-        linear-gradient(rgba(10, 200, 185, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(10, 200, 185, 0.05) 1px, transparent 1px),
-        radial-gradient(circle at 50% 30%, #0f2538 0%, #060b13 70%);
-    /* Layered */
-    background-size: 50px 50px, 50px 50px, 100% 100%;
-    background-repeat: repeat, repeat, no-repeat;
-    z-index: -1;
-    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-    /* Extended reach */
-}
-
-/* Animations */
 @keyframes core-breath {
 
     0%,
@@ -265,10 +163,10 @@ body {
     }
 }
 
-/* --- CONCEPT 2: THE SHIELD --- */
+/* --- THEME VARIANTS (SHIELD/TERMINAL) --- */
+/* Kept here as they are specific overrides used in logic */
 body.theme-shield {
     --accent-neural-cyan: #eab308;
-    /* Gold override */
     font-family: 'Outfit', sans-serif;
     background-color: #020408;
 }
@@ -278,7 +176,6 @@ body.theme-shield .neural-core {
     border: 2px solid var(--text-sovereign-gold);
     border-radius: 0;
     transform: rotate(45deg);
-    /* Diamond shape */
     box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
 }
 
@@ -301,11 +198,9 @@ body.theme-shield .ring-1 {
     border: 1px solid var(--text-sovereign-gold);
 }
 
-/* --- CONCEPT 3: THE TERMINAL --- */
 body.theme-terminal {
     --bg-deep-void: #000000;
     --text-primary: #00ff00;
-    /* Green Matrix */
     --text-secondary: #008f00;
     --accent-neural-cyan: #00ff00;
     --text-sovereign-gold: #00ff00;
@@ -329,7 +224,6 @@ body.theme-terminal .text-gradient {
 
 body.theme-terminal .neural-core-container {
     display: none;
-    /* No logo in terminal */
 }
 
 body.theme-terminal .hero::before {
@@ -347,238 +241,8 @@ body.theme-terminal .hero::before {
     }
 }
 
-/* --- PHASE 2: NEURAL MONITOR --- */
-.monitor-body {
-    overflow: hidden;
-    /* App like feel */
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
-
-.monitor-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(5, 11, 20, 0.8);
-    backdrop-filter: blur(10px);
-}
-
-.monitor-header .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-.mini-core {
-    width: 12px;
-    height: 12px;
-    background: var(--accent-neural-cyan);
-    border-radius: 50%;
-    box-shadow: 0 0 10px var(--accent-neural-cyan);
-    animation: core-breath 2s infinite;
-}
-
-.monitor-grid {
-    display: grid;
-    grid-template-columns: 300px 1fr 350px;
-    gap: 1rem;
-    padding: 1rem;
-    flex: 1;
-    overflow: hidden;
-}
-
-@media (max-width: 1024px) {
-    .monitor-grid {
-        grid-template-columns: 1fr;
-        overflow-y: auto;
-    }
-}
-
-.panel {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.panel-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 0.5rem;
-}
-
-/* Resource Bars */
-.metric-container {
-    margin-bottom: 2rem;
-}
-
-.metric-container label {
-    display: block;
-    font-size: 0.75rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-secondary);
-}
-
-.bar-chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 2px;
-    height: 40px;
-    margin-bottom: 0.5rem;
-}
-
-.bar {
-    flex: 1;
-    background: var(--accent-neural-cyan);
-    opacity: 0.3;
-    transition: height 0.2s;
-}
-
-.progress-bar {
-    height: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    overflow: hidden;
-    margin-bottom: 0.5rem;
-}
-
-.progress-bar .fill {
-    height: 100%;
-    background: var(--text-sovereign-gold);
-    transition: width 0.5s;
-}
-
-.metric-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    text-align: right;
-}
-
-/* Agent Cards */
-.agent-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.agent-card {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
-    transition: all 0.3s;
-}
-
-.agent-card:hover,
-.agent-card.active {
-    border-color: var(--accent-neural-cyan);
-    background: rgba(14, 165, 233, 0.05);
-}
-
-.agent-icon {
-    width: 32px;
-    height: 32px;
-    background: rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    margin-right: 1rem;
-    font-weight: bold;
-}
-
-.agent-info {
-    flex: 1;
-}
-
-.agent-info .name {
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.agent-info .status {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-}
-
-.pulse-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--accent-neural-cyan);
-    border-radius: 50%;
-    box-shadow: 0 0 5px var(--accent-neural-cyan);
-}
-
-.pulse-dot.idle {
-    background: var(--text-secondary);
-    box-shadow: none;
-}
-
-/* Log Stream */
-.log-stream {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    line-height: 1.6;
-    color: #ccc;
-    overflow-y: auto;
-    flex: 1;
-    scrollbar-width: thin;
-    scrollbar-color: var(--text-secondary) transparent;
-}
-
-.log-line {
-    margin-bottom: 4px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.log-line .ts {
-    color: var(--text-secondary);
-    margin-right: 8px;
-}
-
-.log-line .info {
-    color: var(--accent-neural-cyan);
-}
-
-.log-line .warn {
-    color: var(--text-sovereign-gold);
-}
-
-.log-line .err {
-    color: #ef4444;
-}
-
-.monitor-footer {
-    padding: 1rem 2rem;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.btn-text {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    transition: color 0.3s;
-}
-
-.btn-text:hover {
-    color: white;
-}
-
-/* --- PHASE 7: EASYWAY ONE (UNIFIED) --- */
+/* --- APP UI (Monitor, Cortex, Operator) --- */
+/* These are complex layouts specific to the Portal App */
 
 .operator-ui {
     position: fixed;
@@ -587,7 +251,6 @@ body.theme-terminal .hero::before {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    /* Allow clicks through to core */
     z-index: 10;
     opacity: 1;
     transition: opacity 1s ease;
@@ -598,7 +261,6 @@ body.theme-terminal .hero::before {
     pointer-events: none;
 }
 
-/* HUD Panels */
 .hud-panel {
     position: absolute;
     top: 50%;
@@ -647,30 +309,6 @@ body.theme-terminal .hero::before {
     background: var(--text-sovereign-gold);
 }
 
-/* Agent List (Orbit) */
-.agent-item {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    font-family: 'JetBrains Mono';
-    margin-bottom: 1rem;
-    transition: all 0.3s;
-    cursor: pointer;
-    pointer-events: all;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.agent-item.active {
-    border-color: var(--accent-neural-cyan);
-    color: var(--accent-neural-cyan);
-    box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
-}
-
 /* Cortex Overlay */
 .cortex-overlay {
     position: absolute;
@@ -692,7 +330,6 @@ body.theme-terminal .hero::before {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    /* fade out top */
     mask-image: linear-gradient(to bottom, transparent, black 20%);
 }
 
@@ -724,7 +361,6 @@ body.theme-terminal .hero::before {
     border-color: var(--accent-neural-cyan);
 }
 
-/* Animations for Marketing Fade Out */
 .fade-out-down {
     animation: fadeOutDown 0.8s forwards;
 }
@@ -737,7 +373,6 @@ body.theme-terminal .hero::before {
     }
 }
 
-/* --- PHASE 8: DATA INTERACTION --- */
 #vector-canvas {
     position: fixed;
     top: 0;
@@ -745,7 +380,6 @@ body.theme-terminal .hero::before {
     width: 100%;
     height: 100%;
     z-index: 5;
-    /* Behind Operator UI (10) but above BG */
     background: black;
     opacity: 1;
     transition: opacity 1s ease;
@@ -756,7 +390,6 @@ body.theme-terminal .hero::before {
     pointer-events: none;
 }
 
-/* Drag & Drop Feedback on Core */
 .neural-core.drag-over {
     border: 2px solid var(--text-sovereign-gold);
     box-shadow: 0 0 30px var(--text-sovereign-gold);
@@ -770,379 +403,5 @@ body.theme-terminal .hero::before {
 
     to {
         transform: scale(1.2);
-    }
-}
-
-/* --- PHASE 9: TRAEFIK DNA (CATALOG & COMPARISON) --- */
-
-/* Catalog Grid */
-.catalog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-}
-
-.card-plugin {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    padding: 1.5rem;
-    display: flex;
-    gap: 1.5rem;
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.card-plugin:hover {
-    transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.card-icon {
-    width: 48px;
-    height: 48px;
-    background: rgba(5, 11, 20, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-}
-
-.icon-gedi {
-    color: var(--accent-neural-cyan);
-    border-color: rgba(14, 165, 233, 0.3);
-}
-
-.icon-sql {
-    color: var(--text-sovereign-gold);
-    border-color: rgba(234, 179, 8, 0.3);
-}
-
-.icon-arch {
-    color: #8b5cf6;
-    border-color: rgba(139, 92, 246, 0.3);
-}
-
-.card-body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
-
-.card-header h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.badge {
-    font-size: 0.65rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
-
-.badge-rag {
-    background: rgba(14, 165, 233, 0.15);
-    color: var(--accent-neural-cyan);
-}
-
-.badge-sql {
-    background: rgba(234, 179, 8, 0.15);
-    color: var(--text-sovereign-gold);
-}
-
-.badge-sys {
-    background: rgba(139, 92, 246, 0.15);
-    color: #a78bfa;
-}
-
-.card-desc {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
-}
-
-.card-footer {
-    margin-top: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-}
-
-.status-dot.online {
-    background: #10b981;
-    box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
-}
-
-.status-dot.offline {
-    background: #64748b;
-}
-
-.btn-sm {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-primary);
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.btn-sm:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Comparison Section */
-.comparison-section {
-    padding: 4rem 0;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.comparison-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.comparison-header h2 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-}
-
-.comparison-header .vs {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--text-secondary);
-    font-size: 1.5rem;
-    margin: 0 1rem;
-    opacity: 0.5;
-}
-
-.comparison-table {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.col-easyway {
-    background: linear-gradient(180deg, rgba(14, 165, 233, 0.05) 0%, rgba(5, 11, 20, 0) 100%);
-    border: 1px solid var(--accent-neural-cyan);
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 0 30px rgba(14, 165, 233, 0.1);
-}
-
-.col-cloud {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 2rem;
-    opacity: 0.7;
-}
-
-.logo-box {
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
-
-.logo-box.cloud {
-    color: var(--text-secondary);
-}
-
-.col-easyway ul,
-.col-cloud ul {
-    list-style: none;
-    padding: 0;
-}
-
-.col-easyway li,
-.col-cloud li {
-    padding: 0.8rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-size: 0.95rem;
-}
-
-.check {
-    color: var(--text-primary);
-}
-
-.cross {
-    color: var(--text-secondary);
-    text-decoration: line-through;
-    opacity: 0.6;
-}
-
-/* --- PHASE 10: TRAEFIK HEADER Polish --- */
-.site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    padding: 1rem 0;
-    background: rgba(6, 11, 19, 0.85);
-    /* Deep Piltover Glass */
-    backdrop-filter: blur(16px);
-    /* Hextech Power Line: Gradient Border */
-    border-bottom: 1px solid transparent;
-    border-image: linear-gradient(90deg, transparent, var(--text-sovereign-gold), transparent) 1;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    /* Heavier shadow */
-}
-
-.header-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-weight: 800;
-    font-size: 2rem;
-    /* Upscaled from 1.6rem */
-    letter-spacing: -0.05em;
-    color: var(--text-sovereign-gold);
-    /* Gold for visibility */
-    text-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
-    /* Glow */
-}
-
-.nav-links {
-    display: flex;
-    gap: 2.5rem;
-}
-
-.nav-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: color 0.2s;
-}
-
-.nav-links a:hover {
-    color: var(--accent-neural-cyan);
-    text-shadow: 0 0 10px rgba(10, 200, 185, 0.5);
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-}
-
-.btn-glass {
-    padding: 0.6rem 1.2rem;
-    border: 1px solid var(--accent-neural-cyan);
-    border-radius: 4px;
-    /* More angular */
-    color: var(--accent-neural-cyan);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: all 0.3s;
-    box-shadow: 0 0 10px rgba(10, 200, 185, 0.1);
-    letter-spacing: 0.5px;
-}
-
-.btn-glass:hover {
-    background: var(--accent-neural-cyan);
-    color: var(--bg-deep-void);
-    box-shadow: 0 0 20px rgba(10, 200, 185, 0.6);
-}
-
-/* Layout Refinement */
-.hero .container {
-    max-width: 1000px;
-    /* Tighter focus */
-}
-
-.hero {
-    padding-top: 140px;
-    /* Ensure Pulse clears header on zoom */
-    min-height: 90vh;
-    /* Adjust height */
-    align-items: flex-start;
-    /* Start from top + padding, avoids clipping top on zoom */
-}
-
-/* --- RESPONSIVE AUTOFIT --- */
-
-/* Tablet / Zoomed Desktop (900px and below) */
-@media (max-width: 900px) {
-    .site-header {
-        padding: 0.8rem 0;
-    }
-
-    .header-container {
-        padding: 0 1.5rem;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-    }
-
-    .logo svg {
-        width: 32px;
-        height: 32px;
-    }
-
-    /* Compact Nav */
-    .nav-links {
-        gap: 1rem;
-    }
-
-    .nav-links a {
-        font-size: 0.85rem;
-    }
-}
-
-/* Mobile (500px and below) - Only then hide/collapse columns */
-@media (max-width: 500px) {
-    .nav-links {
-        display: none;
-        /* Hide nav only on very small screens/phones */
-    }
-
-    .logo span {
-        display: none;
-        /* Hide text, keep icon on super small screens */
     }
 }
