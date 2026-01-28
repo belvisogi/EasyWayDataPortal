@@ -1003,11 +1003,12 @@ body.theme-terminal .hero::before {
     width: 100%;
     z-index: 1000;
     padding: 1rem 0;
-    background: rgba(5, 11, 20, 0.95);
-    /* Higher opacity for contrast */
+    background: rgba(30, 41, 59, 0.8);
+    /* Lighter Glass */
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    /* Stronger border */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* Break the void */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     /* Shadow for depth */
 }
@@ -1023,9 +1024,12 @@ body.theme-terminal .hero::before {
 
 .logo {
     font-weight: 800;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     letter-spacing: -0.05em;
-    color: var(--text-primary);
+    color: var(--text-sovereign-gold);
+    /* Gold for visibility */
+    text-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
+    /* Glow */
 }
 
 .nav-links {
