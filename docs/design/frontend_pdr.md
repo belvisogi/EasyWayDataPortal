@@ -55,6 +55,7 @@ Vogliamo incutere **Rispetto e Fiducia**.
 
 ### 🖼️ Visual Benchmark (Inspirations)
 *   **Traefik Labs**: Per la pulizia del "Deep Void", i diagrammi architetturali luminosi e il senso di "Infrastruttura Solida".
+    *   *Nota Tecnica*: Il loro sito è fatto in Go/Hugo (Statico), non WordPress. Ecco perché è così veloce. **Vogliamo la stessa velocità.**
 *   **Linear**: Per la gestione delle ombre e dei gradienti sottili.
 *   **Stripe (Dark Mode)**: Per la tipografia e la leggibilità.
 
