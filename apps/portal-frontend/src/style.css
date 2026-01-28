@@ -1,11 +1,15 @@
 :root {
-    /* Palette - Dark Premium Enterprise */
-    --bg-deep-void: #050b14;
-    --text-sovereign-gold: #eab308;
-    --accent-neural-cyan: #0ea5e9;
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-bg: rgba(5, 11, 20, 0.7);
-    --text-primary: #f8fafc;
+    /* Palette - Hextech Evolution (Arcane Inspired) */
+    --bg-deep-void: #060b13;
+    /* Dark Piltover Night */
+    --text-sovereign-gold: #c8aa6e;
+    /* Hextech Gold/Brass */
+    --accent-neural-cyan: #0ac8b9;
+    /* Hextech Glow */
+    --glass-border: rgba(200, 170, 110, 0.15);
+    /* Gold Tint */
+    --glass-bg: rgba(6, 11, 19, 0.7);
+    --text-primary: #f0f2f5;
     --text-secondary: #94a3b8;
 
     /* Typography */
@@ -1023,6 +1027,8 @@ body.theme-terminal .hero::before {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
     font-weight: 800;
     font-size: 1.6rem;
     letter-spacing: -0.05em;
