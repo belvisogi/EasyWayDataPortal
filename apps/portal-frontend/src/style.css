@@ -1013,14 +1013,14 @@ body.theme-terminal .hero::before {
     width: 100%;
     z-index: 1000;
     padding: 1rem 0;
-    background: rgba(30, 41, 59, 0.8);
-    /* Lighter Glass */
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    /* Break the void */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    /* Shadow for depth */
+    background: rgba(6, 11, 19, 0.85);
+    /* Deep Piltover Glass */
+    backdrop-filter: blur(16px);
+    /* Hextech Power Line: Gradient Border */
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(90deg, transparent, var(--text-sovereign-gold), transparent) 1;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    /* Heavier shadow */
 }
 
 .header-container {
@@ -1058,7 +1058,8 @@ body.theme-terminal .hero::before {
 }
 
 .nav-links a:hover {
-    color: var(--text-primary);
+    color: var(--accent-neural-cyan);
+    text-shadow: 0 0 10px rgba(10, 200, 185, 0.5);
 }
 
 .header-actions {
@@ -1068,18 +1069,22 @@ body.theme-terminal .hero::before {
 
 .btn-glass {
     padding: 0.6rem 1.2rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
-    color: var(--text-primary);
+    border: 1px solid var(--accent-neural-cyan);
+    border-radius: 4px;
+    /* More angular */
+    color: var(--accent-neural-cyan);
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 600;
-    transition: all 0.2s;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(10, 200, 185, 0.1);
+    letter-spacing: 0.5px;
 }
 
 .btn-glass:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: var(--accent-neural-cyan);
+    color: var(--bg-deep-void);
+    box-shadow: 0 0 20px rgba(10, 200, 185, 0.6);
 }
 
 /* Layout Refinement */
