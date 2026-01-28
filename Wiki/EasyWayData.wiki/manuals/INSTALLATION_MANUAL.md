@@ -47,10 +47,12 @@ All services usage `restart: unless-stopped`.
 ## 4. n8n GitOps ("The Factory") 🏭
 
 We do **not** edit workflows directly on the server. We use a **GitOps** flow.
+(See **[n8n GitOps Strategy](../architecture/N8N_GITOPS_STRATEGY.md)** for details).
 
 ### A. Structure
 -   `~/EasyWayDataPortal`: The Appliance (Runtime).
 -   `~/Work-space-n8n`: The Factory (Source Code of workflows).
+
 
 ### B. Deployment
 To update workflows on the server:
