@@ -806,9 +806,20 @@ body.theme-terminal .hero::before {
     flex-shrink: 0;
 }
 
-.icon-gedi { color: var(--accent-neural-cyan); border-color: rgba(14, 165, 233, 0.3); }
-.icon-sql { color: var(--text-sovereign-gold); border-color: rgba(234, 179, 8, 0.3); }
-.icon-arch { color: #8b5cf6; border-color: rgba(139, 92, 246, 0.3); }
+.icon-gedi {
+    color: var(--accent-neural-cyan);
+    border-color: rgba(14, 165, 233, 0.3);
+}
+
+.icon-sql {
+    color: var(--text-sovereign-gold);
+    border-color: rgba(234, 179, 8, 0.3);
+}
+
+.icon-arch {
+    color: #8b5cf6;
+    border-color: rgba(139, 92, 246, 0.3);
+}
 
 .card-body {
     flex: 1;
@@ -838,9 +849,20 @@ body.theme-terminal .hero::before {
     text-transform: uppercase;
 }
 
-.badge-rag { background: rgba(14, 165, 233, 0.15); color: var(--accent-neural-cyan); }
-.badge-sql { background: rgba(234, 179, 8, 0.15); color: var(--text-sovereign-gold); }
-.badge-sys { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+.badge-rag {
+    background: rgba(14, 165, 233, 0.15);
+    color: var(--accent-neural-cyan);
+}
+
+.badge-sql {
+    background: rgba(234, 179, 8, 0.15);
+    color: var(--text-sovereign-gold);
+}
+
+.badge-sys {
+    background: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+}
 
 .card-desc {
     font-size: 0.85rem;
@@ -861,8 +883,15 @@ body.theme-terminal .hero::before {
     height: 6px;
     border-radius: 50%;
 }
-.status-dot.online { background: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.4); }
-.status-dot.offline { background: #64748b; }
+
+.status-dot.online {
+    background: #10b981;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+.status-dot.offline {
+    background: #64748b;
+}
 
 .btn-sm {
     background: transparent;
@@ -941,12 +970,14 @@ body.theme-terminal .hero::before {
     color: var(--text-secondary);
 }
 
-.col-easyway ul, .col-cloud ul {
+.col-easyway ul,
+.col-cloud ul {
     list-style: none;
     padding: 0;
 }
 
-.col-easyway li, .col-cloud li {
+.col-easyway li,
+.col-cloud li {
     padding: 0.8rem 0;
     display: flex;
     align-items: center;
@@ -954,5 +985,85 @@ body.theme-terminal .hero::before {
     font-size: 0.95rem;
 }
 
-.check { color: var(--text-primary); }
-.cross { color: var(--text-secondary); text-decoration: line-through; opacity: 0.6; }
+.check {
+    color: var(--text-primary);
+}
+
+.cross {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* --- PHASE 10: TRAEFIK HEADER Polish --- */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1rem 0;
+    background: rgba(5, 11, 20, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.05em;
+    color: var(--text-primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.btn-glass {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-glass:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Layout Refinement */
+.hero .container {
+    max-width: 1000px;
+    /* Tighter focus */
+}

@@ -111,3 +111,19 @@ Per ogni azione distruttiva o critica (es. cancellare un DB, riavviare un nodo):
 *   **Performance**: Niente librerie JS pesanti (niente Three.js se non ottimizzato). L'appliance può girare su hardware modesto.
 
 > *"Fallo sembrare qualcosa che Tony Stark costruirebbe per la sua intranet privata."*
+
+## 6. Visual Refinement (Traefik Polish)
+*Requirements added iteratively to match "Traefik Labs" aesthetic benchmark.*
+
+### 🎩 The Header
+L'assenza di header ci fa sembrare "non finiti". Implementare un header solido e funzionale:
+*   **Logo**: "EasyWay" (Text-based, strong font) a sinistra.
+*   **Navigation**: Centralizzata, pulita (`Products`, `Solutions`, `Docs`).
+*   **CTA**: Bottone "Connect" o "Request Demo" a destra, stile "Glass/Outline" che si illumina all'hover.
+*   **Behavior**: Sticky on top, background blur (frosted glass).
+
+### 📐 Layout & Typography Alignment
+Per colmare il gap visivo:
+*   **Focus**: Restringere la larghezza della Hero Section. Non spanciare su schermi wide.
+*   **Centering**: Tutto il contenuto critico (Titolo, Core, CTA) deve essere perfettamente centrato visivamente.
+*   **Weights**: Usare pesi font più decisi (`600`, `800`) per i titoli per compensare lo sfondo scuro.
