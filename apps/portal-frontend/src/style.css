@@ -405,3 +405,114 @@ body.theme-terminal .hero::before {
         transform: scale(1.2);
     }
 }
+
+/* --- RESTORED: COMPARISON SECTION (Traefik vs Cloud) --- */
+.comparison-section {
+    margin: 4rem auto;
+    max-width: 1000px;
+}
+
+.comparison-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+}
+
+.comparison-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.comparison-header .vs {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-neural-cyan);
+    font-size: 1.5rem;
+    padding: 0 1rem;
+}
+
+.comparison-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+    .comparison-table {
+        grid-template-columns: 1fr;
+    }
+}
+
+.col-easyway {
+    background: linear-gradient(180deg, rgba(6, 11, 19, 0.8) 0%, rgba(10, 200, 185, 0.05) 100%);
+    border: 1px solid var(--accent-neural-cyan);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 0 30px rgba(10, 200, 185, 0.1);
+}
+
+.col-easyway::before {
+    content: 'RECOMMENDED';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-deep-void);
+    border: 1px solid var(--accent-neural-cyan);
+    color: var(--accent-neural-cyan);
+    padding: 0.25rem 1rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 20px;
+    letter-spacing: 1px;
+}
+
+.col-cloud {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    opacity: 0.7;
+}
+
+.logo-box {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    color: var(--text-sovereign-gold);
+}
+
+.logo-box.cloud {
+    color: var(--text-secondary);
+}
+
+.comparison-table ul {
+    list-style: none;
+    padding: 0;
+}
+
+.comparison-table li {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1rem;
+}
+
+.comparison-table li.check {
+    color: var(--text-primary);
+}
+
+.col-cloud li {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    /* Strikethrough for Cloud defects */
+}
+
+/* --- CONTRAST FIX: NAVIGATION --- */
+/* Improve contrast for menu links */
+.nav-links a {
+    color: #e2e8f0 !important;
+    /* Slate-200: Much brighter than Slate-400 */
+}
