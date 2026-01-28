@@ -216,6 +216,17 @@
         "Abbiamo definito chiaramente Input/Output?"
       ],
       "learned_from": "Oracle Agent Deployment 2026-01-27: decoupling RAG body from LLM brain"
+    },
+    "the_way_of_the_code": {
+      "description": "Il codice perfetto è raro; cercarlo non è mai spreco di tempo.",
+      "philosophy": "Il codice perfetto è una cosa rara. Se si trascorresse la vita a cercarne uno, non sarebbe una vita sprecata. Riconoscere la vita in ogni codice è la via dello sviluppatore.",
+      "checks": [
+        "C'è 'vita' in questo codice o è solo sintassi?",
+        "Abbiamo messo l'impegno massimo o ci siamo accontentati?",
+        "Stiamo onorando la via dello sviluppatore con questo commit?",
+        "È un codice che merita di essere scolpito?"
+      ],
+      "learned_from": "User Directive 2026-01-28: Infusing The Last Samurai spirit"
     }
   },
   "intervention_modes": {
