@@ -1104,7 +1104,9 @@ body.theme-terminal .hero::before {
 }
 
 /* --- RESPONSIVE AUTOFIT --- */
-@media (max-width: 768px) {
+
+/* Tablet / Zoomed Desktop (900px and below) */
+@media (max-width: 900px) {
     .site-header {
         padding: 0.8rem 0;
     }
@@ -1115,17 +1117,32 @@ body.theme-terminal .hero::before {
 
     .logo {
         font-size: 1.5rem;
-        /* Scale down font */
     }
 
     .logo svg {
         width: 32px;
-        /* Scale down icon */
         height: 32px;
     }
 
+    /* Compact Nav */
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+}
+
+/* Mobile (500px and below) - Only then hide/collapse columns */
+@media (max-width: 500px) {
     .nav-links {
         display: none;
-        /* Hide nav entries on mobile for now - cleanliness */
+        /* Hide nav only on very small screens/phones */
+    }
+
+    .logo span {
+        display: none;
+        /* Hide text, keep icon on super small screens */
     }
 }
