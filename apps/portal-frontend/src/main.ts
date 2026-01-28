@@ -160,13 +160,54 @@ function typeToCortex(text: string, type: 'system' | 'user' | 'ai' = 'system') {
     history.scrollTop = history.scrollHeight;
 }
 
+// --- GEDI: MEASURE TWICE PROTOCOL ---
+let gediState = {
+    awaitingConfirmation: false,
+    pendingCommand: ""
+};
+
 function respondToCommand(cmd: string) {
+    // 1. Check for Pending Confirmation (Measure Twice)
+    if (gediState.awaitingConfirmation) {
+        if (cmd === "CONFERMO DISTRUZIONE") {
+            typeToCortex("⚠️ ACTION AUTHORIZED. EXECUTING...", 'warn');
+            // Execute actual destructive logic here
+            setTimeout(() => {
+                const core = document.querySelector('.neural-core') as HTMLElement;
+                if (core) core.style.background = "#ef4444"; // Red Flash
+                typeToCortex("💥 PROTOCOL EXECUTED. SYSTEM RESET.", 'system');
+                setTimeout(() => location.reload(), 2000);
+            }, 1000);
+            gediState.awaitingConfirmation = false;
+        } else {
+            typeToCortex("❌ CONFIRMATION FAILED. ABORTING.", 'system');
+            gediState.awaitingConfirmation = false;
+        }
+        return;
+    }
+
     let response = "COMMAND NOT RECOGNIZED. TRY 'STATUS' OR 'AGENTS'.";
 
+    // 2. Critical Commands -> Trigger Measure Twice
+    if (cmd === "DESTROY" || cmd === "RESET" || cmd === "DELETE") {
+        gediState.awaitingConfirmation = true;
+        gediState.pendingCommand = cmd;
+        
+        // UI Freeze Effect
+        document.body.style.filter = "grayscale(100%)";
+        setTimeout(() => document.body.style.filter = "", 200);
+
+        typeToCortex("🛑 CRITICAL ACTION DETECTED. GEDI INTERVENTION.", 'warn');
+        typeToCortex("GEDI: 'Hai misurato due volte? Questa azione è irreversibile.'", 'ai');
+        setTimeout(() => typeToCortex("TYPE 'CONFERMO DISTRUZIONE' TO PROCEED.", 'system'), 500);
+        return;
+    }
+
+    // 3. Standard Commands
     if (cmd.includes("STATUS")) response = "SYSTEM NOMINAL. CPU: 45%. RAM: 12GB. NETWORK: SECURE.";
     if (cmd.includes("AGENTS") || cmd.includes("GRID")) response = "AVAILABLE OPERATIVES: GEDI, SQL-EDGE, ARCHITECT.";
     if (cmd.includes("HELLO") || cmd.includes("HI")) response = "GREETINGS, ADMINISTRATOR.";
-    if (cmd.includes("HELP")) response = "COMMANDS: STATUS, AGENTS, MATRIX, EXIT.";
+    if (cmd.includes("HELP")) response = "COMMANDS: STATUS, AGENTS, MATRIX, DESTROY, EXIT.";
 
     // Data Interaction
     if (cmd === "MATRIX") {

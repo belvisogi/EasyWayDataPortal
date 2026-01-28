@@ -8,8 +8,11 @@
   <title>EasyWay | Sovereign Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css">
+  <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
@@ -36,19 +39,80 @@
 
     <!-- Relief Section -->
     <section class="container" id="features-section" style="padding-bottom: 4rem; margin-top: 4rem;">
-      <div class="glass-panel" style="padding: 3rem;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-          <div>
-            <h3 class="text-gold">🔒 Sovereign Data</h3>
-            <p style="color:var(--text-secondary)">Air-Gapped by Design.</p>
+      <!-- AGENT CATALOG (Traefik Plugin Style) -->
+      <div class="catalog-grid">
+        <!-- Card 1: GEDI -->
+        <div class="card-plugin">
+          <div class="card-icon icon-gedi">G</div>
+          <div class="card-body">
+            <div class="card-header">
+              <h4>GEDI Guardian</h4>
+              <span class="badge badge-rag">RAG</span>
+            </div>
+            <p class="card-desc">Guardian of Intentions. Ethical oversight for sensitive operations.</p>
+            <div class="card-footer">
+              <span class="status-dot online"></span>
+              <button class="btn-sm">Connect</button>
+            </div>
           </div>
-          <div>
-            <h3 class="text-cyan">⚡ Neural Infrastructure</h3>
-            <p style="color:var(--text-secondary)">Cognitive OS.</p>
+        </div>
+
+        <!-- Card 2: SQL Edge -->
+        <div class="card-plugin">
+          <div class="card-icon icon-sql">S</div>
+          <div class="card-body">
+            <div class="card-header">
+              <h4>SQL Edge</h4>
+              <span class="badge badge-sql">SQL</span>
+            </div>
+            <p class="card-desc">Direct database interface with read-only safety protocols.</p>
+            <div class="card-footer">
+              <span class="status-dot online"></span>
+              <button class="btn-sm">Connect</button>
+            </div>
           </div>
-          <div>
-            <h3 class="text-primary">🏛️ Built for Legacy</h3>
-            <p style="color:var(--text-secondary)">Craftsmanship.</p>
+        </div>
+
+        <!-- Card 3: Architect -->
+        <div class="card-plugin">
+          <div class="card-icon icon-arch">A</div>
+          <div class="card-body">
+            <div class="card-header">
+              <h4>Architect</h4>
+              <span class="badge badge-sys">SYS</span>
+            </div>
+            <p class="card-desc">Infrastructure planning and docker-compose generation.</p>
+            <div class="card-footer">
+              <span class="status-dot offline"></span>
+              <button class="btn-sm">Wake</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARISON (Traefik vs Apigee Style) -->
+      <div class="comparison-section">
+        <div class="comparison-header">
+          <h2>EasyWay <span class="vs">vs</span> The Cloud</h2>
+          <p>Sovereign Intelligence is not a feature. It's an architecture.</p>
+        </div>
+
+        <div class="comparison-table">
+          <div class="col-easyway">
+            <div class="logo-box">EasyWay</div>
+            <ul>
+              <li class="check">✅ 100% On-Premise Data</li>
+              <li class="check">✅ Zero Egress Policy</li>
+              <li class="check">✅ One-Time License</li>
+            </ul>
+          </div>
+          <div class="col-cloud">
+            <div class="logo-box cloud">Public AI</div>
+            <ul>
+              <li class="cross">❌ Data Training usage</li>
+              <li class="cross">❌ API Latency</li>
+              <li class="cross">❌ Monthly Subscription</li>
+            </ul>
           </div>
         </div>
       </div>
