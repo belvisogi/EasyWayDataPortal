@@ -192,7 +192,7 @@ function respondToCommand(cmd: string) {
     if (cmd === "DESTROY" || cmd === "RESET" || cmd === "DELETE") {
         gediState.awaitingConfirmation = true;
         gediState.pendingCommand = cmd;
-        
+
         // UI Freeze Effect
         document.body.style.filter = "grayscale(100%)";
         setTimeout(() => document.body.style.filter = "", 200);
@@ -219,7 +219,94 @@ function respondToCommand(cmd: string) {
         toggleMatrix(false);
     }
 
+    // --- GENESIS PROTOCOL (Interactive Setup) ---
+    if (cmd === "INITIATE GENESIS") {
+        startGenesis();
+        return;
+    }
+
+    if (genesisState.active) {
+        handleGenesisInput(cmd);
+        return;
+    }
+
     typeToCortex(response, 'ai');
+}
+
+// --- GENESIS LOGIC ---
+let genesisState = {
+    active: false,
+    step: 0,
+    data: {
+        archetype: "",
+        enemy: "",
+        color: ""
+    }
+};
+
+function startGenesis() {
+    genesisState.active = true;
+    genesisState.step = 1;
+    typeToCortex("--- GENESIS PROTOCOL INITIATED ---", 'system');
+    setTimeout(() => typeToCortex("I AM THE ARCHITECT. LET US DEFINE YOUR IDENTITY.", 'ai'), 500);
+    setTimeout(() => typeToCortex("QUESTION 1: WHAT IS YOUR ARCHETYPE? (Warrior / Mage / Rogue / Sovereign)", 'ai'), 1500);
+}
+
+function handleGenesisInput(cmd: string) {
+    // Step 1: Archetype
+    if (genesisState.step === 1) {
+        genesisState.data.archetype = cmd;
+        typeToCortex(`ARCHETYPE REGISTERED: ${cmd}.`, 'system');
+        setTimeout(() => typeToCortex("QUESTION 2: WHO IS THE ENEMY? (Chaos / Bureaucracy / Silence / The Void)", 'ai'), 800);
+        genesisState.step = 2;
+        return;
+    }
+
+    // Step 2: Enemy (Mood)
+    if (genesisState.step === 2) {
+        genesisState.data.enemy = cmd;
+        typeToCortex(`TARGET LOCKED: ${cmd}.`, 'system');
+        setTimeout(() => typeToCortex("QUESTION 3: DEFINE YOUR POWER COLOR. (Hex Code, e.g., #FF0000 or 'GOLD')", 'ai'), 800);
+        genesisState.step = 3;
+        return;
+    }
+
+    // Step 3: Color -> Generate
+    if (genesisState.step === 3) {
+        genesisState.data.color = cmd;
+        typeToCortex(`POWER SOURCE: ${cmd}.`, 'system');
+        setTimeout(() => typeToCortex("CALCULATING SOUL CONFIGURATION...", 'system'), 500);
+
+        setTimeout(() => {
+            generateTheme(genesisState.data);
+            genesisState.active = false;
+            genesisState.step = 0;
+        }, 1500);
+        return;
+    }
+}
+
+function generateTheme(data: any) {
+    const color = data.color.startsWith('#') ? data.color : '#c8aa6e'; // Default to gold if invalid
+
+    const themeConfig = `
+/* COPY THIS INTO src/theme.css */
+:root {
+    /* IDENTITY: ${data.archetype} vs ${data.enemy} */
+    --bg-deep-void: #060b13; /* Standard Base */
+    --text-sovereign-gold: ${color}; /* Authority */
+    --accent-neural-cyan: ${color}; /* Power Source */
+    
+    --glass-border: ${color}26; /* 15% Opacity */
+    --glass-bg: rgba(6, 11, 19, 0.7);
+}
+    `;
+
+    typeToCortex("--- CONFIGURATION COMPLETE ---", 'system');
+    typeToCortex("COPY THE FOLLOWING CSS BLOCK:", 'ai');
+    typeToCortex(themeConfig, 'system');
+    console.log(themeConfig); // Also log to console for easy copy
+    setTimeout(() => typeToCortex("PROOTCOL FINISHED. WELCOME HOME.", 'ai'), 1000);
 }
 
 // --- VECTOR VOID (MATRIX) ---
