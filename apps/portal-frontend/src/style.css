@@ -1102,3 +1102,30 @@ body.theme-terminal .hero::before {
     align-items: flex-start;
     /* Start from top + padding, avoids clipping top on zoom */
 }
+
+/* --- RESPONSIVE AUTOFIT --- */
+@media (max-width: 768px) {
+    .site-header {
+        padding: 0.8rem 0;
+    }
+
+    .header-container {
+        padding: 0 1.5rem;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        /* Scale down font */
+    }
+
+    .logo svg {
+        width: 32px;
+        /* Scale down icon */
+        height: 32px;
+    }
+
+    .nav-links {
+        display: none;
+        /* Hide nav entries on mobile for now - cleanliness */
+    }
+}
