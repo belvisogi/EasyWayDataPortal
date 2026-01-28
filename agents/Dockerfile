@@ -30,8 +30,8 @@ RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/po
     ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh && \
     rm powershell-7.4.1-linux-arm64.tar.gz
 
-# Install Azure CLI
-RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+# Install Azure CLI (Temporarily disabled for faster build/ARM64 stability)
+# RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # Python Libraries (incl. ChromaDB)
 # Python Libraries (incl. ChromaDB)
@@ -40,16 +40,23 @@ RUN pip3 install chromadb numpy pandas openai azure-storage-blob azure-identity
 # Node.js Agent Dependencies (if any)
 # RUN npm install -g n8n # Optional
 
+# Create App User (UID 1000) for Security
+RUN groupadd -g 1000 easyway && \
+    useradd -m -u 1000 -g easyway -s /bin/bash easyway
+
 # Environment Setup
 ENV EASYWAY_MODE="Framework"
 ENV AGENTS_DIR="/app/agents"
 ENV SCRIPTS_DIR="/app/scripts"
 
-# Copy EasyWay Ecosystem
+# Copy EasyWay Ecosystem with correct ownership
 WORKDIR /app
-COPY scripts /app/scripts
-COPY agents /app/agents
-COPY Wiki /app/Wiki
+COPY --chown=easyway:easyway scripts /app/scripts
+COPY --chown=easyway:easyway agents /app/agents
+COPY --chown=easyway:easyway Wiki /app/Wiki
+
+# Switch to non-root user
+USER easyway
 
 # Default Entrypoint: PowerShell
 CMD [ "pwsh" ]

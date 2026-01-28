@@ -7,6 +7,7 @@ services:
       context: .
       dockerfile: agents/Dockerfile
     container_name: easyway-runner
+    restart: unless-stopped
     environment:
       - EASYWAY_MODE=Framework
       - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -30,6 +31,7 @@ services:
       context: ./portal-api
       dockerfile: Dockerfile
     container_name: easyway-api
+    restart: unless-stopped
     environment:
       - PORT=3000
       - DB_SERVER=sql-edge
@@ -52,6 +54,7 @@ services:
       context: ./apps/portal-frontend
       dockerfile: Dockerfile
     container_name: easyway-portal
+    restart: unless-stopped
     networks:
       - easyway-net
     labels:
@@ -63,6 +66,8 @@ services:
   n8n:
     image: n8nio/n8n:latest
     container_name: easyway-orchestrator
+    restart: unless-stopped
+    user: "1000:1000"
     ports:
       - "5678:5678"
     environment:
