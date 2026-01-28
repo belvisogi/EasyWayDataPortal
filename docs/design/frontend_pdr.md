@@ -52,10 +52,11 @@ Vogliamo incutere **Rispetto e Fiducia**.
     *   Rappresentazioni 3D astratte di reti neurali, ma "ingabbiate" o "protette" (simbolo di controllo).
     *   Terminali / Codice che scorre (simbolo di potere esecutivo).
     *   **The Blue Pulse (GEDI)**: Una luce pulsante soffusa (Neon Cyan) sempre presente. È il "respiro" del sistema.
-    *   **[EXPERIMENTAL] Visual Concepts**:
-        *   *Concept 1: The Pulse*. Logo come nodo neurale vivo. Focus su "AI Attiva".
-        *   *Concept 2: The Shield*. Logo come stemma araldico/esagono. Focus su "Sicurezza".
-        *   *Concept 3: The Terminal*. Logo ASCII/Monospace. Focus su "Engineering".
+
+### 🖼️ Visual Benchmark (Inspirations)
+*   **Traefik Labs**: Per la pulizia del "Deep Void", i diagrammi architetturali luminosi e il senso di "Infrastruttura Solida".
+*   **Linear**: Per la gestione delle ombre e dei gradienti sottili.
+*   **Stripe (Dark Mode)**: Per la tipografia e la leggibilità.
 
 ---
 
@@ -101,13 +102,6 @@ Per ogni azione distruttiva o critica (es. cancellare un DB, riavviare un nodo):
 5.  **La Rivelazione (The Purpose)**: Legge la sezione "Democratization". Capisce che non sta solo comprando un tool, ma aderendo a un movimento. *"Giustizia Tecnica"*.
 6.  **L'Azione (The Contact)**: Non c'è "Sign Up". C'è "Schedule Demo" o "Join the Movement". È un club esclusivo, ma con un cuore.
 
-## 6. Access Storyboard (Il Rituale di Ingresso)
-> *Work in Progress - Vedi `docs/design/storyboard_access.md`*
-
-1.  **The Gate**: Non una login form standard. Un "riconoscimento biometrico" metaforico o un check di sistema.
-2.  **The Handshake**: Il sistema saluta l'utente non come "User", ma come "Operator" o "Architect".
-3.  **The Dashboard**: Non grafici a torta, ma stato dei "sensori". Come la dashboard di un'auto sportiva o di un reattore.
-
 ---
 
 ## 5. Technical Constraints for the Designer
@@ -116,101 +110,3 @@ Per ogni azione distruttiva o critica (es. cancellare un DB, riavviare un nodo):
 *   **Performance**: Niente librerie JS pesanti (niente Three.js se non ottimizzato). L'appliance può girare su hardware modesto.
 
 > *"Fallo sembrare qualcosa che Tony Stark costruirebbe per la sua intranet privata."*
-
-## 6. Design Rationale (I Perché delle Scelte)
-
-### Perché Vanilla Vite e non React/Next.js?
-*   **Sovranità Tecnica**: Eliminare il "bloatware" e la complessità inutile.
-*   **Longevità**: L'HTML/CSS standard funzionerà tra 10 anni. Un framework JS odierno sarà obsoleto tra 2.
-*   **No Telemetry**: Controllo totale su ogni richiesta di rete in uscita.
-
-### Perché il "Pulse"?
-*   Rappresenta il **Cuore** del sistema.
-*   Non è un logo statico aziendale (che rappresenta un'entità legale).
-*   È un indicatore di stato (che rappresenta un'entità operativa).
-
----
-
-## 7. Future Concepts (Prototyping)
-
-### Concept A: The Neural Monitor (System Dashboard)
-*   **Obiettivo**: Dare all'utente la sensazione fisica di controllare l'infrastruttura.
-*   **Metifora**: La sala macchine di un sottomarino nucleare.
-*   **Design Elements**:
-    *   *Real-time Metrics*: CPU/RAM visualizzati non come grafici Excel, ma come oscilloscopi.
-    *   *Log Stream*: Flusso dati continuo (stile Matrix, ma leggibile) per mostrare che il sistema "pensa".
-    *   *No White Space*: Density elevata di informazioni. "Horror Vacui" tecnologico.
-*   **Rationale**: L'utente Enterprise vuole vedere dove vanno i suoi soldi (risorse).
-
-### Concept B: The Agent Grid (The Armory)
-*   **Obiettivo**: Mostrare la "Squadra" di intelligenze a disposizione.
-*   **Metafora**: Selezione personaggio in un RPG Cyberpunk.
-*   **Design Elements**:
-    *   *Hero Cards*: Ogni agente (GEDI, SQL-Edge, Architect) ha una carta olografica.
-    *   *Stats*: IQ, Task completati, Specializzazione.
-    *   *State*: Indicatore "Idle" (dormiente) o "Computing" (pulsante).
-*   **Rationale**: Umanizzare (o "Alienizzare") gli agenti per creare attaccamento emotivo e fiducia.
-
-### Concept C: The Cortex (Chat Interface)
-*   **Obiettivo**: Elevare la chat da "Messaggistica" a "Interrogazione".
-*   **Metafora**: Terminale di comando avanzato / Oracolo.
-*   **Design Elements**:
-    *   *Typerwriter Effect*: Il testo non appare a blocchi, ma viene "battuto" o "decifrato" velocemente.
-    *   *Input*: Non una textbox rotonda, ma una riga di comando `>_`.
-    *   *Output*: Differenziazione visiva tra "Dati Grezzi" (grigio) e "Insight" (oro/cyan).
-*   **Rationale**: Scoraggiare il chitchat inutile, incoraggiare prompt strutturati e direttivi.
-
-### Wave 2: Deep Dive Concepts
-
-### Wave 2: Deep Dive Concepts
-
-### Concept D: The Access Ritual (Login) - *Implemented & Approved*
-*   **Obiettivo**: Rendere il login un evento solenne, non una formalità.
-*   **Nome in Codice**: "The Gate".
-*   **Struttura**: "I Tre Sigilli".
-    1.  **Identity Assertion**: Inserimento Handle (Chi sei?).
-    2.  **Bio-Metric Scan**: Scansione simulata del "DNA Digitale" (Animazione concentrica).
-    3.  **Cryptographic Key**: Inserimento chiave segreta per l'unlock finale.
-*   **Rationale**: 
-    *   Sicurezza percepita = Fiducia.
-    *   Il dato non viene "consumato", viene "conquistato".
-    *   Esperienza user-centric che enfatizza la sovranità.
-
-### Concept E: The Vector Void (Memory Explorer)
-*   **Obiettivo**: Visualizzare la conoscenza.
-*   **Metafora**: Navigare tra le stelle.
-*   **Design Elements**:
-    *   *Particle System*: Ogni documento è una stella. I documenti simili sono vicini (cluster).
-    *   *Interaction*: Hover per vedere snippet. Click per "viaggiare" nel documento.
-    *   *Rationale*: Rendere tangibile l'AI astratta.
-
-### Concept F: The Pipe (Automation Flow)
-*   **Obiettivo**: Visualizzare il lavoro sporco (n8n).
-*   **Metafora**: Tubi trasparenti o Circuiti idraulici.
-*   **Design Elements**:
-    *   *Flow*: Dati che scorrono visibilmente da un nodo all'altro.
-    *   *Status*: Valvole che si aprono/chiudono.
-    *   *Rationale*: Trasparenza operativa.
-
-### Concept G: The Strategic Command (Cortex v2)
-*   **Obiettivo**: Superare la CLI. Controllo tattico moderno.
-*   **Metafora**: HUD di Iron Man / Minority Report (Glass Cockpit).
-*   **Visual**:
-    *   *Hybrid*: Chat centrale + Widget laterali dinamici.
-    *   *Rich Media*: L'AI non risponde solo con testo, ma "proietta" card, grafici e mappe sull'HUD.
-    *   *Glassmorphism*: Pannelli semitrasparenti sospesi nel vuoto.
-*   **Rationale**: Unire la potenza del testo con l'intuitività della GUI.
-
-### Concept H: EasyWay One (The Unified Void) - *Proposed Recommendation*
-*   **Obiettivo**: Portare la qualità della "Home" ovunque.
-*   **Filosofia**: "Il Pulse è il Re".
-*   **Struttura**: Single Page assoluta.
-    *   **CENTER**: Il Neural Pulse (Home) non sparisce mai.
-    *   **ORBIT**: Gli Agenti orbitano attorno al Pulse.
-    *   **OVERLAY**: Il Cortex è un vetro che cala sopra il Pulse.
-    *   **HUD**: Il Monitor sono numeri che fluttuano nel vuoto attorno al Pulse.
-*   **Rationale**: Eliminare la frammentazione. Massimizzare l'eleganza.
-
-
-
-
