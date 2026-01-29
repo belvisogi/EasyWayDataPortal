@@ -50,7 +50,7 @@
     <section class="container" id="features-section" style="padding-bottom: 4rem; margin-top: 4rem;">
       <!-- AGENT CATALOG (Traefik Plugin Style) -->
       <div class="catalog-grid">
-        <!-- Card 1: GEDI -->
+        <!-- Card 1: GEDI (Main Agent) -->
         <div class="card-plugin">
           <div class="card-icon icon-gedi">G</div>
           <div class="card-body">
@@ -61,39 +61,39 @@
             <p class="card-desc">Guardian of Intentions. Ethical oversight for sensitive operations.</p>
             <div class="card-footer">
               <span class="status-dot online"></span>
-              <button class="btn-sm">Connect</button>
+              <button class="btn btn-glass">Connect</button>
             </div>
           </div>
         </div>
 
-        <!-- Card 2: SQL Edge -->
+        <!-- Card 2: MEMORY (New!) -->
         <div class="card-plugin">
-          <div class="card-icon icon-sql">S</div>
+          <div class="card-icon icon-sql">M</div>
           <div class="card-body">
             <div class="card-header">
-              <h4>SQL Edge</h4>
-              <span class="badge badge-sql">SQL</span>
+              <h4>Sovereign Memory</h4>
+              <span class="badge badge-sql">VECTOR</span>
             </div>
-            <p class="card-desc">Direct database interface with read-only safety protocols.</p>
+            <p class="card-desc">Visual Interface for Qdrant. Inspect embeddings and recall.</p>
             <div class="card-footer">
               <span class="status-dot online"></span>
-              <button class="btn-sm">Connect</button>
+              <a href="/memory.html" class="btn btn-glass">Visualize</a>
             </div>
           </div>
         </div>
 
-        <!-- Card 3: Architect -->
+        <!-- Card 3: INBOUND (Demo) -->
         <div class="card-plugin">
-          <div class="card-icon icon-arch">A</div>
+          <div class="card-icon icon-arch">D</div>
           <div class="card-body">
             <div class="card-header">
-              <h4>Architect</h4>
-              <span class="badge badge-sys">SYS</span>
+              <h4>Inbound Flow</h4>
+              <span class="badge badge-sys">CRM</span>
             </div>
-            <p class="card-desc">Infrastructure planning and docker-compose generation.</p>
+            <p class="card-desc">Request Demo Module. Captures leads via n8n webhook.</p>
             <div class="card-footer">
-              <span class="status-dot offline"></span>
-              <button class="btn-sm">Wake</button>
+              <span class="status-dot online"></span>
+              <a href="/demo.html" class="btn btn-glass">Open</a>
             </div>
           </div>
         </div>
@@ -168,11 +168,11 @@
 
   </div>
 
-  <!-- VECTOR VOID LAYER (Hidden) -->
-  <canvas id="vector-canvas" class="hidden"></canvas>
+  <sovereign-footer></sovereign-footer>
 
   <script src="/config.js"></script>
   <script type="module" src="/src/main.ts"></script>
+  <script type="module" src="/src/components/sovereign-footer.ts"></script>
 </body>
 
 </html>

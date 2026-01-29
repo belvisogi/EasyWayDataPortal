@@ -8,7 +8,9 @@
     <!-- Google Fonts for Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/src/theme.css">
     <link rel="stylesheet" href="/src/framework.css">
     <script type="module" src="/src/components/sovereign-header.ts"></script>
@@ -21,10 +23,11 @@
             padding: 0;
         }
 
+        /* --- LIGHT THEME OVERRIDE --- */
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg-deep-void);
-            color: var(--text-main);
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -34,7 +37,7 @@
             position: relative;
         }
 
-        /* Hextech Background Grid */
+        /* Adjust Background Grid for Light Mode */
         body::before {
             content: '';
             position: absolute;
@@ -43,12 +46,12 @@
             right: 0;
             bottom: 0;
             background-image:
-                linear-gradient(rgba(10, 200, 185, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(10, 200, 185, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(10, 200, 185, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(10, 200, 185, 0.05) 1px, transparent 1px);
             background-size: 50px 50px;
             z-index: -1;
             pointer-events: none;
-            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            /* No radial mask needed for light mode, full grid looks clean */
         }
 
         .container {
@@ -74,18 +77,21 @@
             font-weight: 700;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            color: var(--text-sovereign-gold);
-            text-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
+            color: #0f172a;
+            /* Dark Heading */
+            /* Removed gold shadow for clean look */
         }
 
         p.lead {
             font-size: 1.25rem;
             line-height: 1.6;
-            color: var(--text-muted);
+            color: #475569;
+            /* Slate-600 */
             margin-bottom: 3rem;
             max-width: 500px;
         }
 
+        /* Badges Light Mode */
         .badges {
             display: flex;
             gap: 1.5rem;
@@ -93,9 +99,8 @@
         }
 
         .badge {
-            background: rgba(10, 200, 185, 0.05);
-            /* Cyan tint */
-            border: 1px solid var(--glass-border);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
             padding: 1rem;
             display: flex;
@@ -106,15 +111,15 @@
             height: 100px;
             text-align: center;
             font-size: 0.8rem;
-            color: var(--text-secondary);
-            backdrop-filter: blur(10px);
+            color: #64748b;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
         }
 
         .badge:hover {
             transform: translateY(-5px);
             border-color: var(--accent-neural-cyan);
-            box-shadow: 0 0 15px rgba(10, 200, 185, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         .badge i,
@@ -122,7 +127,18 @@
             display: block;
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
-            color: var(--text-sovereign-gold);
+            color: #d97706;
+            /* Amber-600 (Darker Gold) */
+        }
+
+        /* Testimonial Box */
+        .testimonial-box {
+            margin-top: 4rem;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-neural-cyan);
+            background: #f1f5f9;
+            /* Slate-100 */
+            border-radius: 0 8px 8px 0;
         }
 
         /* Right Column (Form) */
@@ -133,13 +149,12 @@
         }
 
         .card {
-            background: rgba(6, 11, 19, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 2.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            color: var(--text-primary);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            color: #0f172a;
         }
 
         .form-row {
@@ -158,7 +173,8 @@
         label {
             font-size: 0.875rem;
             font-weight: 600;
-            color: var(--text-sovereign-gold);
+            color: #334155;
+            /* Slate-700 */
         }
 
         label::after {
@@ -170,9 +186,9 @@
         select,
         textarea {
             padding: 0.75rem 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--glass-border);
-            color: var(--text-primary);
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
             border-radius: 6px;
             font-family: inherit;
             font-size: 1rem;
@@ -185,13 +201,14 @@
         textarea:focus {
             outline: none;
             border-color: var(--accent-neural-cyan);
-            box-shadow: 0 0 0 2px rgba(10, 200, 185, 0.1);
+            box-shadow: 0 0 0 3px rgba(10, 200, 185, 0.1);
+            background: #fff;
         }
 
-        /* Select styling override for dark mode */
+        /* Select styling override for light mode */
         select option {
-            background: var(--bg-deep-void);
-            color: var(--text-primary);
+            background: #fff;
+            color: #0f172a;
         }
 
         textarea {
@@ -202,9 +219,9 @@
         .btn-submit {
             width: 100%;
             padding: 1rem;
-            background: rgba(10, 200, 185, 0.1);
+            background: var(--accent-neural-cyan);
             border: 1px solid var(--accent-neural-cyan);
-            color: var(--accent-neural-cyan);
+            color: #ffffff;
             border-radius: 6px;
             font-size: 1rem;
             font-weight: 600;
@@ -213,18 +230,18 @@
             margin-top: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(10, 200, 185, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(10, 200, 185, 0.3);
         }
 
         .btn-submit:hover {
-            background: var(--accent-neural-cyan);
-            color: var(--bg-deep-void);
-            box-shadow: 0 0 20px rgba(10, 200, 185, 0.4);
+            background: #0d9488;
+            /* Teal-600 */
+            box-shadow: 0 10px 15px -3px rgba(10, 200, 185, 0.4);
         }
 
         .legal-text {
             font-size: 0.75rem;
-            color: var(--text-secondary);
+            color: #64748b;
             margin-top: 1.5rem;
             line-height: 1.5;
         }
@@ -232,6 +249,7 @@
         .legal-text a {
             color: var(--accent-neural-cyan);
             text-decoration: none;
+            font-weight: 500;
         }
 
         /* Status Message */
@@ -245,15 +263,17 @@
         }
 
         .success {
-            background: rgba(16, 185, 129, 0.1);
+            background: #dcfce7;
+            /* Green-100 */
             border: 1px solid #10B981;
-            color: #10B981;
+            color: #166534;
+            /* Green-800 */
         }
 
         .error {
-            background: rgba(239, 68, 68, 0.1);
+            background: #fee2e2;
             border: 1px solid #EF4444;
-            color: #EF4444;
+            color: #991b1b;
         }
     </style>
 </head>
@@ -291,12 +311,11 @@
                 </div>
             </div>
 
-            <div
-                style="margin-top: 4rem; padding: 1.5rem; border-left: 4px solid var(--accent-neural-cyan); background: rgba(255,255,255,0.03);">
-                <i style="font-style: italic; font-size: 1.1rem; color: var(--text-primary);">
+            <div class="testimonial-box">
+                <i style="font-style: italic; font-size: 1.1rem; color: #475569;">
                     "Finally, a platform that gives us control back. No more vendor lock-in, just pure efficiency."
                 </i>
-                <div style="margin-top: 1rem; font-weight: 600; color: var(--text-sovereign-gold);">
+                <div style="margin-top: 1rem; font-weight: 600; color: #0f172a;">
                     — EasyWay Pioneer
                 </div>
             </div>
@@ -381,6 +400,7 @@
         </div>
     </div>
 
+    <script type="module" src="/src/components/sovereign-footer.ts"></script>
     <script>
         document.getElementById('demo-form').addEventListener('submit', async function (e) {
             e.preventDefault();
@@ -423,6 +443,8 @@
             }
         });
     </script>
+
+    <sovereign-footer></sovereign-footer>
 </body>
 
 </html>

@@ -7,7 +7,9 @@
     <title>EasyWay - Vector Memory</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/src/theme.css">
     <link rel="stylesheet" href="/src/framework.css">
     <script type="module" src="/src/components/sovereign-header.ts"></script>
@@ -249,9 +251,41 @@
                 Powered by Qdrant, governed by You.
             </p>
             <div>
-                <a href="#" class="btn-cta">Explore Collections</a>
+                <a href="#" class="btn-cta">Explore Collections <span id="col-count"
+                        style="background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px; font-size: 0.8em; margin-left: 8px;">...</span></a>
                 <a href="#" class="btn-outline">Read Docs</a>
             </div>
+            <div id="server-status"
+                style="margin-top: 1rem; color: var(--accent-neural-cyan); font-size: 0.9rem; opacity: 0;">
+                ● Connected to Sovereign Brain
+            </div>
+        </section>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                const countEl = document.getElementById('col-count');
+                const statusEl = document.getElementById('server-status');
+
+                try {
+                    // Fetch from Nginx Proxy -> Qdrant
+                    const res = await fetch('/api/qdrant/collections');
+                    if (res.ok) {
+                        const data = await res.json();
+                        // Assume Qdrant format: { result: { collections: [] } }
+                        const count = data.result?.collections?.length || 0;
+                        countEl.textContent = count + ' Found';
+
+                        statusEl.style.opacity = '1';
+                    } else {
+                        countEl.textContent = 'Offline';
+                        countEl.style.color = '#ff5f56';
+                    }
+                } catch (e) {
+                    console.error("Brain disconnect:", e);
+                    countEl.textContent = 'Err';
+                }
+            });
+        </script>
         </section>
 
         <section class="grid-section">
@@ -327,6 +361,9 @@
 
     </div>
 
+    <sovereign-footer></sovereign-footer>
+
+    <script type="module" src="/src/components/sovereign-footer.ts"></script>
 </body>
 
 </html>

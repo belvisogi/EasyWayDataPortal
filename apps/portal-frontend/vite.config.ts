@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
+
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -7,11 +7,9 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        input: {
-          main: 'index.html',
-          demo: 'demo.html',
-          memory: 'memory.html',
-        },
+        main: 'index.html',
+        demo: 'demo.html',
+        memory: 'memory.html',
       },
     },
   },

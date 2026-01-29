@@ -18,6 +18,14 @@ Questa sezione documenta l'infrastruttura "Sovereign" di EasyWay One.
 *   **[n8n Workflow Standards](../docs/standards/n8n_workflow_standard.md)**: Naming convention, Error Handling, e struttura delle cartelle.
 *   **[Templates](../agents/core/n8n/Templates)**: I pattern standard da clonare (Master, Pipeline).
 
-## 4. Operational Manuals
-*   **Porte Firewall**: 9000 (API), 9001 (Console MinIO), 8080 (Frontend), 5678 (n8n).
-*   **Utenti Default**: `easywayadmin` (MinIO).
+## 4. Production Environment (Oracle ARM) ☁️
+*   **Infrastructure**: Oracle Cloud Free Tier (ARM Ampere).
+*   **IP**: `80.225.86.168`
+*   **Reverse Proxy**: Nginx (Custom Config) preventing port exposure.
+*   **[Frontend Architecture](../frontend/hextech_ui_framework.md)**: The "Hextech" Design System & Page Catalog.
+*   **[🚨 DISASTER RECOVERY PROTOCOL](../Runbooks/SERVER-REBUILD-PROTOCOL.md)**: How to rebuild the server in < 15 mins.
+
+## 5. Operational Manuals
+*   **Porte Firewall**: 80/443 (Public), others blocked by UFW.
+*   **Utenti Default**: `ubuntu` (SSH), `easywayadmin` (MinIO).
+
