@@ -1,25 +1,35 @@
 #!/usr/bin/env pwsh
 <#
 .SYNOPSIS
-    Apre un tunnel sicuro verso EasyWay Portal (Oracle Cloud)
+    Connects to EasyWay Remote Server (Frontend Only).
 .DESCRIPTION
-    Il portale è esposto internamente. Usiamo questo tunnel per accedere in sicurezza.
-    Mappa la porta locale 8080 alla porta remota 8080.
-    Una volta avviato, apri: http://localhost:8080
+    Forwards:
+    - 80   -> 80   (Traefik HTTP EntryPoint)
+    - 8080 -> 8080 (Traefik Dashboard)
 #>
 
-Write-Host "🚇 Apertura Tunnel Sicuro verso EasyWay Portal (Oracle)..." -ForegroundColor Cyan
-Write-Host "   Local:  http://localhost:8080" -ForegroundColor Green
-Write-Host "   Remote: Ubuntu@80.225.86.168:8080" -ForegroundColor Gray
-Write-Host ""
-Write-Host "ℹ️  Lascia questa finestra aperta finché vuoi usare il Portale." -ForegroundColor Yellow
-Write-Host "   (Premi Ctrl+C per chiudere)" -ForegroundColor Gray
-Write-Host ""
+param(
+    [Parameter(Mandatory = $false)] [string]$TargetIP = $env:ORACLE_IP,
+    [Parameter(Mandatory = $false)] [string]$KeyPath = $env:ORACLE_KEY
+)
 
-# Nota: -o StrictHostKeyChecking=no aggiunto per evitare blocchi interattivi
-ssh -i "C:\old\Virtual-machine\ssh-key-2026-01-25.key" -o StrictHostKeyChecking=no -L 8080:127.0.0.1:8080 ubuntu@80.225.86.168 -N
+$ErrorActionPreference = "Stop"
 
-Write-Host ""
-Write-Host "⚠️  Il tunnel si è chiuso (o non è partito)." -ForegroundColor Red
-Write-Host "   Controlla se ci sono errori qui sopra (es. 'Permission denied', 'Address in use')." -ForegroundColor Gray
-Read-Host "Premi Invio per uscire"
+if (-not $TargetIP) { Write-Error "Hostname/IP is required. Set ORACLE_IP env var or pass -TargetIP." }
+if (-not $KeyPath) { Write-Error "SSH Key path is required. Set ORACLE_KEY env var or pass -KeyPath." }
+
+Write-Host "🌍 Connecting to EasyWay Remote Server (Frontend Only on $TargetIP)..." -ForegroundColor Cyan
+Write-Host "   Forwarding Ports:"
+Write-Host "   - 80   (HTTP Routing)" -ForegroundColor Green
+Write-Host "   - 8080 (Dashboard)" -ForegroundColor Green
+
+$remoteHost = "ubuntu@$TargetIP"
+
+# SSH Tunnel Command
+ssh -i $KeyPath -o StrictHostKeyChecking=no `
+    -L 80:127.0.0.1:80 `
+    -L 8080:127.0.0.1:8080 `
+    $remoteHost -N
+
+Write-Host "❌ Tunnel closed." -ForegroundColor Red
+Read-Host "Press Enter to exit"

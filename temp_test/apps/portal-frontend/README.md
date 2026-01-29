@@ -1,0 +1,50 @@
+# EasyWay Portal Frontend
+### *Sovereign Intelligence Interface*
+
+> **"The Iron Man Suit for Business"**
+
+This is the official frontend for the EasyWay Data Portal. It is a **Sovereign, Air-Gapped-Ready** interface designed to provide a premium, robust experience without the bloat of modern frameworks.
+
+## 🏛️ Architecture
+- **Framework**: Vanilla TypeScript + Vite (No React, No Angular).
+- **Styling**: Pure CSS3 with Custom Properties (Variables).
+  - Theme: "Dark Premium Enterprise" (`Deep Void` + `Sovereign Gold`).
+  - Effect: Glassmorphism ("White Box").
+- **Deployment**: Docker Multi-stage + Nginx Alpine.
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 22+
+- Docker (optional, for containerized run)
+
+### Local Development
+```bash
+# Install dependencies
+npm install
+
+# Start Dev Server
+npm run dev
+```
+
+### Build for Production
+```bash
+npm run build
+# Output located in /dist
+```
+
+### Docker Deployment
+```bash
+docker-compose up -d --build frontend
+```
+
+## 🎨 Design Philosophy (PDR)
+This frontend implements the **Product Design Requirement** defined in `docs/design/frontend_pdr.md`.
+
+*   **Identity**: "Sovereign Intelligence". You own the machine.
+*   **Visuals**: Dark, Serious, Engineering-focused.
+*   **GEDI**: The "Guardian" is integrated as a visual copilot.
+
+## 🛡️ Security
+*   **Headers**: Nginx is configured with strictly enforced security headers (HSTS, No-Sniff).
+*   **Dependency-Free**: Minimized attack surface by removing complex UI libraries.

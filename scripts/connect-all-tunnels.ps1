@@ -4,25 +4,33 @@
     Connects to EasyWay Remote Server and forwards all necessary ports.
 .DESCRIPTION
     Forwards:
-    - 80   -> 80   (Traefik HTTP EntryPoint - portal.local, api.portal.local)
-    - 8080 -> 8080 (Traefik Dashboard / Alternative)
+    - 80   -> 80   (Traefik HTTP EntryPoint)
+    - 8080 -> 8080 (Traefik Dashboard)
     - 5678 -> 5678 (n8n Direct Access)
     - 3000 -> 3000 (API Direct Access - Debug)
 #>
 
-Write-Host "🌍 Connecting to EasyWay Remote Server..." -ForegroundColor Cyan
+param(
+    [Parameter(Mandatory = $false)] [string]$TargetIP = $env:ORACLE_IP,
+    [Parameter(Mandatory = $false)] [string]$KeyPath = $env:ORACLE_KEY
+)
+
+$ErrorActionPreference = "Stop"
+
+if (-not $TargetIP) { Write-Error "Hostname/IP is required. Set ORACLE_IP env var or pass -TargetIP." }
+if (-not $KeyPath) { Write-Error "SSH Key path is required. Set ORACLE_KEY env var or pass -KeyPath." }
+
+Write-Host "🌍 Connecting to EasyWay Remote Server ($TargetIP)..." -ForegroundColor Cyan
 Write-Host "   Forwarding Ports:"
 Write-Host "   - 80   (HTTP Routing)" -ForegroundColor Green
 Write-Host "   - 8080 (Dashboard)" -ForegroundColor Green
 Write-Host "   - 5678 (n8n)" -ForegroundColor Green
 Write-Host "   - 3000 (API Direct)" -ForegroundColor Green
 
-$keyPath = "C:\old\Virtual-machine\ssh-key-2026-01-25.key"
-$remoteHost = "ubuntu@80.225.86.168"
+$remoteHost = "ubuntu@$TargetIP"
 
 # SSH Tunnel Command
-# -L local_port:remote_host:remote_port
-ssh -i $keyPath -o StrictHostKeyChecking=no `
+ssh -i $KeyPath -o StrictHostKeyChecking=no `
     -L 80:127.0.0.1:80 `
     -L 8080:127.0.0.1:8080 `
     -L 5678:127.0.0.1:5678 `

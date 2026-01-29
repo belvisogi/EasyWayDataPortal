@@ -1,0 +1,129 @@
+version: '3.9'
+
+# 🏛️ EASYWAY SOVEREIGN PRODUCTION (Oracle ARM)
+# Optimized for Security & Performance
+
+services:
+  # 🚦 Reverse Proxy (Gateway)
+  traefik:
+    image: traefik:v2.11
+    container_name: easyway-gateway
+    restart: always
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.dashboard=false" # Disable insecure dashboard
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      # TODO: Enable HTTPS with LetsEncrypt once domain is mapped
+      # - "--entrypoints.websecure.address=:443"
+    environment:
+      - DOCKER_API_VERSION=1.45
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - easyway-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.localhost`)" # Local usage only
+
+  # 🌐 Frontend (Sovereign UI)
+  frontend:
+    build:
+      context: ./apps/portal-frontend
+      dockerfile: Dockerfile
+    image: easyway/frontend:latest
+    container_name: easyway-portal
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.services.frontend.loadbalancer.server.port=8080"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - easyway-net
+    volumes:
+      - ./config.js:/usr/share/nginx/html/config.js:ro
+
+  # 🤖 Orchestrator (n8n)
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: easyway-orchestrator
+    restart: always
+    environment:
+      - N8N_HOST=${DOMAIN_NAME:-localhost}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://${DOMAIN_NAME:-localhost}/webhook/
+      - GENERIC_TIMEZONE=Europe/Rome
+      # Security
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_USER}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASS}
+      # Integrations
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASS}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n.rule=PathPrefix(`/n8n`)"
+      - "traefik.http.routers.n8n.priority=100"
+      - "traefik.http.routers.n8n.entrypoints=web"
+      - "traefik.http.routers.n8n.middlewares=n8n-strip"
+      - "traefik.http.middlewares.n8n-strip.stripprefix.prefixes=/n8n"
+      - "traefik.http.services.n8n.loadbalancer.server.port=5678"
+    depends_on:
+      - postgres
+    networks:
+      - easyway-net
+
+  # 🧠 Vector Memory (Qdrant)
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: easyway-memory
+    restart: always
+    expose:
+      - 6333
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - easyway-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.qdrant.rule=PathPrefix(`/collections`)"
+      - "traefik.http.services.qdrant.loadbalancer.server.port=6333"
+
+  # 🐘 N8N Database (PostgreSQL)
+  postgres:
+    image: postgres:15-alpine
+    container_name: easyway-meta-db
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_DB=n8n
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - easyway-net
+
+networks:
+  easyway-net:
+    driver: bridge
+
+volumes:
+  qdrant-data:
+  postgres-data:
+  n8n-data:

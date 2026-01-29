@@ -1,0 +1,16 @@
+{
+  "name": "EasyWay One",
+  "short_name": "EasyWay",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050b14",
+  "theme_color": "#050b14",
+  "description": "Sovereign Intelligence Appliance",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

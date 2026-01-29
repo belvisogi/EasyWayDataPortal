@@ -1,15 +1,27 @@
+param(
+    [Parameter(Mandatory = $false)]
+    [string]$TargetIP = $env:ORACLE_IP,
+
+    [Parameter(Mandatory = $false)]
+    [string]$KeyPath = $env:ORACLE_KEY
+)
+
 $ErrorActionPreference = "Stop"
 
-$IP = "80.225.86.168"
-$Key = "C:\old\Virtual-machine\ssh-key-2026-01-25.key"
+if (-not $TargetIP) {
+    Write-Error "Hostname/IP is required. Set ORACLE_IP env var or pass -TargetIP."
+}
+if (-not $KeyPath) {
+    Write-Error "SSH Key path is required. Set ORACLE_KEY env var or pass -KeyPath."
+}
 
-Write-Host "🔍 Checking ChromaDB Status on Oracle Server..." -ForegroundColor Cyan
+Write-Host "🔍 Checking ChromaDB Status on Oracle Server ($TargetIP)..." -ForegroundColor Cyan
 Write-Host "="*60
 Write-Host ""
 
 # Test 1: Is ChromaDB container running?
 Write-Host "[1] Container Status:" -ForegroundColor Yellow
-$containerStatus = ssh -i $Key -o StrictHostKeyChecking=no ubuntu@$IP "sudo docker ps --filter 'name=chromadb' --format '{{.Names}}\t{{.Status}}'"
+$containerStatus = ssh -i $KeyPath -o StrictHostKeyChecking=no ubuntu@$TargetIP "sudo docker ps --filter 'name=chromadb' --format '{{.Names}}\t{{.Status}}'"
 if ($containerStatus) {
     Write-Host "   ✅ $containerStatus" -ForegroundColor Green
 }
@@ -22,7 +34,7 @@ Write-Host ""
 
 # Test 2: Is ChromaDB API responding?
 Write-Host "[2] API Health Check:" -ForegroundColor Yellow
-$healthCheck = ssh -i $Key -o StrictHostKeyChecking=no ubuntu@$IP "curl -s http://localhost:8000/api/v1/heartbeat 2>&1"
+$healthCheck = ssh -i $KeyPath -o StrictHostKeyChecking=no ubuntu@$TargetIP "curl -s http://localhost:8000/api/v1/heartbeat 2>&1"
 if ($healthCheck -match "heartbeat") {
     Write-Host "   ✅ API is responding: $healthCheck" -ForegroundColor Green
 }
@@ -34,7 +46,7 @@ Write-Host ""
 
 # Test 3: List Collections (are there any?)
 Write-Host "[3] Collections in ChromaDB:" -ForegroundColor Yellow
-$collections = ssh -i $Key -o StrictHostKeyChecking=no ubuntu@$IP "curl -s http://localhost:8000/api/v1/collections 2>&1"
+$collections = ssh -i $KeyPath -o StrictHostKeyChecking=no ubuntu@$TargetIP "curl -s http://localhost:8000/api/v1/collections 2>&1"
 Write-Host "   Raw response: $collections"
 
 # Try to parse collections
@@ -57,7 +69,7 @@ Write-Host ""
 
 # Test 4: Check persistent volume
 Write-Host "[4] Persistent Data Volume:" -ForegroundColor Yellow
-$volumeSize = ssh -i $Key -o StrictHostKeyChecking=no ubuntu@$IP "sudo docker exec chromadb du -sh /chroma/chroma 2>&1 || echo 'Cannot access volume'"
+$volumeSize = ssh -i $KeyPath -o StrictHostKeyChecking=no ubuntu@$TargetIP "sudo docker exec chromadb du -sh /chroma/chroma 2>&1 || echo 'Cannot access volume'"
 Write-Host "   Volume size: $volumeSize"
 
 if ($volumeSize -match "^\s*\d+K" -or $volumeSize -match "^\s*0") {

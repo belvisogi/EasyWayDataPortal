@@ -1,0 +1,46 @@
+{
+  "plan": {
+    "id": "plan-20251020-001",
+    "intent": "create_table_users",
+    "recipeId": "kb-portal-create-user-001",
+    "suggestion": {
+      "agent": "agent_dba",
+      "action": "ps",
+      "args": ["scripts/agent-dba.ps1"]
+    },
+    "manifests": [
+      { "name": "agent_dba", "role": "dba" },
+      { "name": "agent_docs_review", "role": "docs" }
+    ],
+    "goals": {
+      "goal": "Keep portal agentic and usable by non-experts"
+    },
+    "checklistSuggestions": {
+      "agent_dba": {
+        "mandatory": [
+          "[seq-ndg-check] Verificare presenza sequence SEQ_USER_ID",
+          "[naming] Controllare prefissi PORTAL."
+        ],
+        "advisory": [
+          "[perf] Considerare index su tenant_id",
+          "[doc] Aggiungere extended properties per colonne chiave"
+        ]
+      },
+      "agent_docs_review": {
+        "mandatory": [],
+        "advisory": [
+          "[doc-1] Aggiornare Wiki: USAGE/USERS.md"
+        ]
+      }
+    },
+    "preview": {
+      "sql": "CREATE TABLE PORTAL.USERS ( user_id NVARCHAR(50) NOT NULL, tenant_id NVARCHAR(50) NOT NULL, email NVARCHAR(255) NOT NULL );",
+      "diff": "---\n+++ Add PORTAL.USERS\n@@\n+ CREATE TABLE PORTAL.USERS (...)\n",
+      "runlog": [
+        { "step": "generate-ddl", "outcome": "simulated", "details": "DDL generation OK" }
+      ]
+    },
+    "timestamp": "2025-10-20T20:00:00Z",
+    "author": "wizard@easyway"
+  }
+}

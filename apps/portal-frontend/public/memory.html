@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyWay - Vector Memory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Hextech Palette - Strict Sovereignty */
+            --bg-deep-void: #060b13;
+            --text-sovereign-gold: #c8aa6e;
+            --accent-neural-cyan: #0ac8b9;
+            --glass-border: rgba(200, 170, 110, 0.15);
+            --text-primary: #f0f2f5;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(6, 11, 19, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep-void);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-top: 80px;
+            /* Header Space */
+        }
+
+        /* --- STANDARD HEADER CSS --- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            background: rgba(6, 11, 19, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--text-sovereign-gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-neural-cyan);
+        }
+
+        .btn-glass {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--accent-neural-cyan);
+            border-radius: 4px;
+            color: var(--accent-neural-cyan);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-glass:hover {
+            background: var(--accent-neural-cyan);
+            color: var(--bg-deep-void);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* --- END HEADER CSS --- */
+
+        /* --- Vector Space Background --- */
+        .vector-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 50% -20%, #0f2538 0%, var(--bg-deep-void) 80%),
+                linear-gradient(rgba(10, 200, 185, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(10, 200, 185, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+        }
+
+        .orb {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(10, 200, 185, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            filter: blur(60px);
+            z-index: -1;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-30px, 30px);
+            }
+        }
+
+        /* --- Layout --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--text-sovereign-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        .btn-cta {
+            background: var(--accent-neural-cyan);
+            color: var(--bg-deep-void);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(10, 200, 185, 0.3);
+            border: 1px solid transparent;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(10, 200, 185, 0.6);
+            background: #08a094;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--text-sovereign-gold);
+            color: var(--text-sovereign-gold);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: rgba(200, 170, 110, 0.1);
+            box-shadow: 0 0 15px rgba(200, 170, 110, 0.3);
+        }
+
+        /* --- Feature Grid --- */
+        .grid-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 8rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-neural-cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 1rem;
+            background: rgba(10, 200, 185, 0.1);
+            border-radius: 12px;
+            color: var(--accent-neural-cyan);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* --- Code Block --- */
+        .code-section {
+            background: #03060a;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #a5d6ff;
+            font-size: 0.9rem;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #333;
+        }
+
+        .keyword {
+            color: #ff7b72;
+        }
+
+        .string {
+            color: #a5d6ff;
+        }
+
+        .function {
+            color: #d2a8ff;
+        }
+
+        .comment {
+            color: #8b949e;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="vector-bg"></div>
+    <div class="orb"></div>
+
+    <!-- STANDARD HEADER -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    style="margin-right: 12px;">
+                    <rect x="4" y="4" width="32" height="32" rx="6" stroke="var(--text-sovereign-gold)" stroke-width="3"
+                        fill="rgba(6, 11, 19, 0.9)" />
+                    <path d="M14 12H10V28H14" stroke="var(--accent-neural-cyan)" stroke-width="3"
+                        stroke-linecap="round" />
+                    <path d="M26 12H30V28H26" stroke="var(--accent-neural-cyan)" stroke-width="3"
+                        stroke-linecap="round" />
+                    <path d="M20 10V30" stroke="var(--accent-neural-cyan)" stroke-width="3" stroke-linecap="round" />
+                    <path d="M10 20H30" stroke="var(--accent-neural-cyan)" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="20" cy="20" r="4" fill="var(--text-sovereign-gold)" stroke="none" />
+                </svg>
+                EasyWay
+            </a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/memory.html">Memory</a>
+                <a href="/n8n/">N8N</a>
+                <a href="#docs">Docs</a>
+            </nav>
+            <div class="header-actions">
+                <a href="/demo.html" class="btn-glass">Request Demo</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section class="hero">
+            <h1>Sovereign Memory<br>At Scale</h1>
+            <p class="tagline">
+                Navigate your enterprise knowledge with high-performance vector search.
+                Powered by Qdrant, governed by You.
+            </p>
+            <div>
+                <a href="#" class="btn-cta">Explore Collections</a>
+                <a href="#" class="btn-outline">Read Docs</a>
+            </div>
+        </section>
+
+        <section class="grid-section">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3 class="feature-title">Semantic Search</h3>
+                <p class="feature-desc">
+                    Don't just match keywords. Understand intent. Our vector engine finds the
+                    <span style="color: var(--accent-neural-cyan);">meaning</span> behind your data across millions of
+                    documents.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Blazing Fast</h3>
+                <p class="feature-desc">
+                    Written in Rust for extreme performance. Query localized embeddings in milliseconds
+                    without ever leaving your sovereign infrastructure.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">Role-Based Access</h3>
+                <p class="feature-desc">
+                    Your vectors respect your hierarchy. Filter search results based on user permissions,
+                    ensuring sensitive data remains segmented.
+                </p>
+            </div>
+        </section>
+
+        <!-- "Code" Visual -->
+        <div style="display: flex; gap: 4rem; align-items: center; margin-bottom: 8rem; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px;">
+                <h2
+                    style="font-family: 'Outfit', sans-serif; font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-primary);">
+                    Developer First API
+                </h2>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 2rem;">
+                    Integrate memory into your agents with a simple, declarative API.
+                    Whether it's Python, TypeScript, or Go, your memory is just one HTTP call away.
+                </p>
+                <div style="display: flex; gap: 1rem; color: var(--text-sovereign-gold);">
+                    <span>✔ Filterable</span>
+                    <span>✔ Scalable</span>
+                    <span>✔ Persistent</span>
+                </div>
+            </div>
+
+            <div style="flex: 1; min-width: 300px;">
+                <div class="code-section">
+                    <div class="code-header">
+                        <div class="dot" style="background: #ff5f56;"></div>
+                        <div class="dot" style="background: #ffbd2e;"></div>
+                        <div class="dot" style="background: #27c93f;"></div>
+                    </div>
+                    <pre><code><span class="keyword">const</span> <span class="function">search</span> = <span class="keyword">await</span> client.<span class="function">query</span>({
+    collection: <span class="string">'enterprise_docs'</span>,
+    vector: embedding,
+    limit: <span class="keyword">5</span>,
+    filter: {
+        must: [
+            { key: <span class="string">'department'</span>, match: { value: <span class="string">'legal'</span> } }
+        ]
+    }
+});
+
+<span class="comment">// Result: 0.003s ⚡</span></code></pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyWay - Request Demo</title>
+    <!-- Google Fonts for Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Hextech Palette */
+            --bg-deep-void: #060b13;
+            --text-sovereign-gold: #c8aa6e;
+            --accent-neural-cyan: #0ac8b9;
+            --glass-border: rgba(200, 170, 110, 0.15);
+            --text-primary: #f0f2f5;
+            --text-secondary: #94a3b8;
+
+            --primary: var(--accent-neural-cyan);
+            --primary-dark: #08a094;
+            --bg-gradient: radial-gradient(circle at 50% 30%, #0f2538 0%, var(--bg-deep-void) 70%);
+            --text-main: var(--text-primary);
+            --text-muted: var(--text-secondary);
+            --card-bg: rgba(6, 11, 19, 0.7);
+            --input-border: var(--glass-border);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-deep-void);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Hextech Background Grid */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(10, 200, 185, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(10, 200, 185, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            pointer-events: none;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            width: 100%;
+            gap: 4rem;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        /* Left Column */
+        .content-side {
+            flex: 1;
+            min-width: 300px;
+            padding-top: 2rem;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text-sovereign-gold);
+            text-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
+        }
+
+        p.lead {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .badge {
+            background: rgba(10, 200, 185, 0.05);
+            /* Cyan tint */
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s;
+        }
+
+        .badge:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-neural-cyan);
+            box-shadow: 0 0 15px rgba(10, 200, 185, 0.2);
+        }
+
+        .badge i,
+        .stars {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-sovereign-gold);
+        }
+
+        /* Right Column (Form) */
+        .form-side {
+            flex: 1;
+            max-width: 550px;
+            min-width: 300px;
+        }
+
+        .card {
+            background: rgba(6, 11, 19, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            color: var(--text-primary);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-sovereign-gold);
+        }
+
+        label::after {
+            content: " *";
+            color: #EF4444;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-neural-cyan);
+            box-shadow: 0 0 0 2px rgba(10, 200, 185, 0.1);
+        }
+
+        /* Select styling override for dark mode */
+        select option {
+            background: var(--bg-deep-void);
+            color: var(--text-primary);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(10, 200, 185, 0.1);
+            border: 1px solid var(--accent-neural-cyan);
+            color: var(--accent-neural-cyan);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(10, 200, 185, 0.1);
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-neural-cyan);
+            color: var(--bg-deep-void);
+            box-shadow: 0 0 20px rgba(10, 200, 185, 0.4);
+        }
+
+        .legal-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .legal-text a {
+            color: var(--accent-neural-cyan);
+            text-decoration: none;
+        }
+
+        /* Status Message */
+        #status-msg {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10B981;
+            color: #10B981;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #EF4444;
+            color: #EF4444;
+        }
+
+        /* --- STANDARD HEADER CSS (Copied from Framework) --- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            background: rgba(6, 11, 19, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--text-sovereign-gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-neural-cyan);
+        }
+
+        .btn-glass {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--accent-neural-cyan);
+            border-radius: 4px;
+            color: var(--accent-neural-cyan);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-glass:hover {
+            background: var(--accent-neural-cyan);
+            color: var(--bg-deep-void);
+        }
+
+        /* Mobile Responsive for Header */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Adjust main container to avoid header overlap */
+        body {
+            padding-top: 80px;
+        }
+
+        /* --- END HEADER CSS --- */
+    </style>
+</head>
+
+<body>
+
+    <!-- STANDARD HEADER -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    style="margin-right: 12px;">
+                    <rect x="4" y="4" width="32" height="32" rx="6" stroke="var(--text-sovereign-gold)" stroke-width="3"
+                        fill="rgba(6, 11, 19, 0.9)" />
+                    <path d="M14 12H10V28H14" stroke="var(--accent-neural-cyan)" stroke-width="3"
+                        stroke-linecap="round" />
+                    <path d="M26 12H30V28H26" stroke="var(--accent-neural-cyan)" stroke-width="3"
+                        stroke-linecap="round" />
+                    <path d="M20 10V30" stroke="var(--accent-neural-cyan)" stroke-width="3" stroke-linecap="round" />
+                    <path d="M10 20H30" stroke="var(--accent-neural-cyan)" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="20" cy="20" r="4" fill="var(--text-sovereign-gold)" stroke="none" />
+                </svg>
+                EasyWay
+            </a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/memory.html">Memory</a>
+                <a href="/n8n/">N8N</a>
+                <a href="#docs">Docs</a>
+            </nav>
+            <div class="header-actions">
+                <a href="/demo.html" class="btn-glass">Request Demo</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Content Side -->
+        <div class="content-side">
+            <h1>Start Your Sovereign Journey</h1>
+            <p class="lead">
+                Experience the power of EasyWay. Total data ownership, automated workflows, and AI-driven insights on
+                your own infrastructure.
+            </p>
+
+            <div class="badges">
+                <div class="badge">
+                    <div class="stars">★★★★★</div>
+                    <strong>Sovereign</strong>
+                    Certified
+                </div>
+                <div class="badge">
+                    <div style="font-size: 24px; margin-bottom: 5px;">🚀</div>
+                    <strong>N8N</strong>
+                    Powered
+                </div>
+                <div class="badge">
+                    <div style="font-size: 24px; margin-bottom: 5px;">🔒</div>
+                    <strong>Oracle</strong>
+                    Secured
+                </div>
+            </div>
+
+            <div
+                style="margin-top: 4rem; padding: 1.5rem; border-left: 4px solid var(--accent-neural-cyan); background: rgba(255,255,255,0.03);">
+                <i style="font-style: italic; font-size: 1.1rem; color: var(--text-primary);">
+                    "Finally, a platform that gives us control back. No more vendor lock-in, just pure efficiency."
+                </i>
+                <div style="margin-top: 1rem; font-weight: 600; color: var(--text-sovereign-gold);">
+                    — EasyWay Pioneer
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Side -->
+        <div class="form-side">
+            <div class="card">
+                <form id="demo-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" name="firstName" placeholder="Jane" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" name="lastName" placeholder="Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" name="company" placeholder="Acme Corp" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Company Size</label>
+                            <select name="companySize" required>
+                                <option value="" disabled selected>Please Select</option>
+                                <option>1-10</option>
+                                <option>11-50</option>
+                                <option>51-200</option>
+                                <option>201+</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Work Email</label>
+                            <input type="email" name="email" placeholder="jane@company.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Job Title</label>
+                            <input type="text" name="jobTitle" placeholder="CTO" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label>Demo Interest</label>
+                        <select name="interest" required>
+                            <option value="" disabled selected>Please Select</option>
+                            <option>Sovereign Cloud Deployment</option>
+                            <option>N8N GitOps Automation</option>
+                            <option>API Gateway Management</option>
+                            <option>General Inquiry</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label>Brief Use Case Description (Optional)</label>
+                        <textarea name="description" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group"
+                        style="flex-direction: row; align-items: flex-start; gap: 0.5rem; margin-bottom: 1.5rem;">
+                        <input type="checkbox" required style="width: auto; margin-top: 4px;">
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">
+                            I agree to receive communications from EasyWay.
+                        </span>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Request Demo</button>
+                    <div id="status-msg"></div>
+
+                    <p class="legal-text">
+                        By submitting this form, you acknowledge that your data will be processed in accordance with our
+                        <a href="#">Sovereign Privacy Policy</a>.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('demo-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const btn = this.querySelector('.btn-submit');
+            const msg = document.getElementById('status-msg');
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            msg.style.display = 'none';
+
+            try {
+                // Post to N8N Webhook (Sovereign Integration)
+                const response = await fetch('/webhook/demo-request', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    msg.className = 'success';
+                    msg.textContent = 'Success! Your request has been sent to our Sovereign Agent.';
+                    msg.style.display = 'block';
+                    this.reset();
+                } else {
+                    throw new Error('Server returned ' + response.status);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Fallback for demo (Simulate success if webhook not active yet)
+                msg.className = 'success';
+                msg.textContent = 'Request Recieved! (Simulated Mode - Webhook not yet active)';
+                msg.style.display = 'block';
+                // msg.className = 'error';
+                // msg.textContent = 'Error sending request. Please try again.';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Request Demo';
+            }
+        });
+    </script>
+</body>
+
+</html>

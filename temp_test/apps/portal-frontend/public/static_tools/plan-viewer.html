@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <title>Plan Viewer - Prototype</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; color:#222; }
+    header { margin-bottom: 16px; }
+    .badge { display:inline-block; padding:4px 8px; border-radius:4px; font-size:12px; margin-right:6px; }
+    .mandatory { background:#ffdddd; color:#900; border:1px solid #f88; }
+    .advisory { background:#e6f0ff; color:#034; border:1px solid #9ec; }
+    .agent-card { border:1px solid #ddd; padding:12px; border-radius:6px; margin-bottom:12px; }
+    .section { margin-bottom:18px; }
+    pre { background:#f7f7f7; padding:10px; border-radius:4px; overflow:auto; }
+    .muted { color:#666; font-size:13px; }
+    .actions button { margin-right:8px; }
+    .list { margin:8px 0 0 0; padding-left:18px; }
+    .flex { display:flex; gap:12px; align-items:center; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Plan Viewer — Prototype</h1>
+    <div class="muted">Carica un mock plan o usa il piano di default.</div>
+  </header>
+
+  <div class="section">
+    <label for="fileInput">Carica plan JSON (opzionale): </label>
+    <input id="fileInput" type="file" accept=".json" />
+    <button id="loadMock">Carica mock plan</button>
+  </div>
+
+  <div id="content"></div>
+
+  <script>
+    const mockUrl = './mock/plan-sample.json';
+
+    async function loadMock() {
+      try {
+        const r = await fetch(mockUrl);
+        const j = await r.json();
+        renderPlan(j.plan);
+      } catch (e) {
+        showError('Impossibile caricare mock plan: ' + e.message);
+      }
+    }
+
+    function showError(msg) {
+      document.getElementById('content').innerHTML = '<div style="color:#900">'+msg+'</div>';
+    }
+
+    function renderPlan(plan) {
+      if (!plan) { showError('Plan non valido'); return; }
+      const el = document.getElementById('content');
+      el.innerHTML = '';
+
+      // Header
+      const hdr = document.createElement('div');
+      hdr.className = 'section';
+      hdr.innerHTML = '<h2>' + escapeHtml(plan.intent) + ' <span class="muted">(' + plan.id + ')</span></h2>' +
+        '<div class="muted">recipe: ' + (plan.recipeId || '-') + ' • author: ' + (plan.author||'-') + ' • ' + (plan.timestamp||'-') + '</div>';
+      el.appendChild(hdr);
+
+      // Manifests / agents
+      const manifests = document.createElement('div');
+      manifests.className = 'section';
+      manifests.innerHTML = '<h3>Agenti coinvolti</h3>';
+      plan.manifests.forEach(m => {
+        const mdiv = document.createElement('div');
+        mdiv.className = 'agent-card';
+        mdiv.innerHTML = '<div class="flex"><strong>' + escapeHtml(m.name) + '</strong><div class="muted">' + escapeHtml(m.role || '') + '</div></div>';
+        manifests.appendChild(mdiv);
+      });
+      el.appendChild(manifests);
+
+      // ChecklistSuggestions
+      const checklist = document.createElement('div');
+      checklist.className = 'section';
+      checklist.innerHTML = '<h3>Checklist suggestions</h3>';
+      const cs = plan.checklistSuggestions || {};
+      if (Object.keys(cs).length === 0) {
+        checklist.innerHTML += '<div class="muted">Nessuna checklist suggerita</div>';
+      } else {
+        Object.keys(cs).forEach(agent => {
+          const ag = cs[agent];
+          const agentBox = document.createElement('div');
+          agentBox.className = 'agent-card';
+          const title = '<strong>' + escapeHtml(agent) + '</strong>';
+          const mandatoryCount = (ag.mandatory||[]).length;
+          const advisoryCount = (ag.advisory||[]).length;
+          agentBox.innerHTML = title + ' <div class="muted">M:' + mandatoryCount + ' A:' + advisoryCount + '</div>';
+          if (mandatoryCount > 0) {
+            const mTitle = document.createElement('div');
+            mTitle.innerHTML = '<div style="margin-top:8px;"><span class="badge mandatory">MANDATORY</span></div>';
+            agentBox.appendChild(mTitle);
+            const ul = document.createElement('ul'); ul.className='list';
+            (ag.mandatory||[]).forEach(i => {
+              const li = document.createElement('li'); li.textContent = i; ul.appendChild(li);
+            });
+            agentBox.appendChild(ul);
+          }
+          if (advisoryCount > 0) {
+            const aTitle = document.createElement('div');
+            aTitle.innerHTML = '<div style="margin-top:8px;"><span class="badge advisory">ADVISORY</span></div>';
+            agentBox.appendChild(aTitle);
+            const ul2 = document.createElement('ul'); ul2.className='list';
+            (ag.advisory||[]).forEach(i => {
+              const li = document.createElement('li'); li.textContent = i; ul2.appendChild(li);
+            });
+            agentBox.appendChild(ul2);
+          }
+          checklist.appendChild(agentBox);
+        });
+      }
+      el.appendChild(checklist);
+
+      // Preview / WhatIf
+      const preview = document.createElement('div');
+      preview.className = 'section';
+      preview.innerHTML = '<h3>Preview / WhatIf</h3>';
+      const sql = plan.preview?.sql || '';
+      const diff = plan.preview?.diff || '';
+      const runlog = plan.preview?.runlog || [];
+      preview.innerHTML += '<div><strong>SQL (preview):</strong></div><pre>' + escapeHtml(sql) + '</pre>';
+      preview.innerHTML += '<div><strong>Diff (preview):</strong></div><pre>' + escapeHtml(diff) + '</pre>';
+      if (runlog.length) {
+        preview.innerHTML += '<div><strong>Runlog (simulated):</strong></div>';
+        const ul = document.createElement('ul'); ul.className='list';
+        runlog.forEach(r => {
+          const li = document.createElement('li'); li.textContent = r.step + ' → ' + r.outcome + ' (' + (r.details||'') + ')'; ul.appendChild(li);
+        });
+        preview.appendChild(ul);
+      }
+      el.appendChild(preview);
+
+      // Actions
+      const actions = document.createElement('div');
+      actions.className = 'section actions';
+      actions.innerHTML = '<h3>Azioni</h3>';
+      const btnSim = document.createElement('button'); btnSim.textContent = 'Simula (WhatIf)'; btnSim.onclick = () => alert('Simulazione chiamerebbe POST /api/simulate con il plan');
+      const btnPR = document.createElement('button'); btnPR.textContent = 'Proponi PR'; btnPR.onclick = () => alert('Creerebbe una bozza PR in repo (simulato)');
+      const btnExplain = document.createElement('button'); btnExplain.textContent = 'Chiedi spiegazione (Assistant)'; btnExplain.onclick = () => alert('Aprirebbe assistant conversazionale con contesto del plan');
+      actions.appendChild(btnSim); actions.appendChild(btnPR); actions.appendChild(btnExplain);
+      el.appendChild(actions);
+    }
+
+    function escapeHtml(s) {
+      if (!s && s !== '') return '';
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c]));
+    }
+
+    document.getElementById('loadMock').addEventListener('click', loadMock);
+
+    document.getElementById('fileInput').addEventListener('change', (ev) => {
+      const f = ev.target.files[0];
+      if (!f) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const j = JSON.parse(e.target.result);
+          // support both {plan:...} and direct plan object
+          renderPlan(j.plan || j);
+        } catch (err) {
+          showError('JSON non valido: ' + err.message);
+        }
+      };
+      reader.readAsText(f);
+    });
+
+    // auto-load mock on open
+    loadMock();
+  </script>
+</body>
+</html>

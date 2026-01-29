@@ -1,6 +1,6 @@
 param(
-    [string]$RepoRoot = "C:\old\EasyWayDataPortal",
-    [string]$WikiRoot = "C:\old\EasyWayDataPortal\Wiki\EasyWayData.wiki",
+    [string]$RepoRoot = Join-Path $PSScriptRoot "..\..",
+    [string]$WikiRoot = Join-Path $PSScriptRoot "..\..\Wiki\EasyWayData.wiki",
     [switch]$Apply
 )
 

@@ -6,8 +6,6 @@ console.log("EasyWay Sovereign System: Initializing... [v0.2.1]");
 const btnEngage = document.getElementById('btn-engage');
 const marketingLayer = document.getElementById('marketing-layer');
 const operatorLayer = document.getElementById('operator-layer');
-const heroText = document.getElementById('hero-text');
-const features = document.getElementById('features-section');
 const cortexInput = document.getElementById('cortex-input') as HTMLInputElement;
 
 // --- STATE MANAGEMENT ---
@@ -22,8 +20,7 @@ function initiateProtocol() {
     console.log("Protocol Initiated.");
 
     // 1. Fade out Marketing
-    heroText?.classList.add('fade-out-down');
-    features?.classList.add('fade-out-down');
+    marketingLayer?.classList.add('fade-out-down');
 
     // 2. Reveal Operator UI (after delay)
     setTimeout(() => {
@@ -86,8 +83,10 @@ async function handleFiles(files: FileList) {
 
     try {
         // 3. The Transmission
-        // NOTE: Port 5678 must be open on Oracle Cloud Security List
-        const webhookUrl = "http://80.225.86.168:5678/webhook/ingest";
+        // 3. The Transmission
+        // SOVEREIGN CONFIGURATION (No Hardcoding)
+        const baseUrl = window.SOVEREIGN_CONFIG?.apiEndpoint || "http://localhost:5678";
+        const webhookUrl = `${baseUrl}/webhook/ingest`;
 
         typeToCortex(`UPLOADING TO VAULT (MinIO)...`, 'system');
 
@@ -145,7 +144,7 @@ if (cortexInput) {
     });
 }
 
-function typeToCortex(text: string, type: 'system' | 'user' | 'ai' = 'system') {
+function typeToCortex(text: string, type: 'system' | 'user' | 'ai' | 'warn' = 'system') {
     const history = document.getElementById('cortex-history');
     if (!history) return;
 
@@ -154,7 +153,9 @@ function typeToCortex(text: string, type: 'system' | 'user' | 'ai' = 'system') {
     div.innerText = text;
 
     if (type === 'ai') div.style.color = 'var(--accent-neural-cyan)';
+    if (type === 'ai') div.style.color = 'var(--accent-neural-cyan)';
     if (type === 'user') div.style.color = 'var(--text-sovereign-gold)';
+    if (type === 'warn') div.style.color = '#ef4444'; // Red for warning
 
     history.appendChild(div);
     history.scrollTop = history.scrollHeight;

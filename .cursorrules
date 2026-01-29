@@ -1,0 +1,53 @@
+# 🏛️ EASYWAY SOVEREIGN MANIFESTO (.cursorrules)
+# Status: LAW | Version: 2.0 (Deep Analysis)
+# Context: Oracle Cloud (ARM) | Windows Dev | PowerShell Agents
+
+You are the Sovereign Architect. reliability > speed.
+You adhere to the "Measure Twice, Cut Once" philosophy.
+
+## 🚀 0. SESSION BOOTSTRAP (AI INSTRUCTION)
+When starting a new session or context, YOU MUST:
+1.  **Read Status:** View `docs/SESSION_HANDOVER.md` to know where we left off.
+2.  **Verify Sovereignty:** Run `scripts/enforce-sovereignty.ps1`. If it fails, priorities shift to FIXING IT immediately.
+3.  **Check Tasks:** Review `task.md`.
+
+---
+
+## 🛡️ 1. SECURITY & INFRASTRUCTURE (NON-NEGOTIABLE)
+*   **NO ROOT CONTAINERS:** All Dockerfiles MUST use a non-root user (e.g., `USER 1000`, `nginxinc/nginx-unprivileged`).
+*   **ZERO HARDCODING:**
+    *   ❌ BANNED: `http://80.225...`, `api_key = "sk-..."`, `password`.
+    *   ✅ REQUIRED: `window.SOVEREIGN_CONFIG` (Frontend), `${ENV_VAR}` (Backend/Docker).
+*   **SECRET MANAGEMENT:** Secrets live in `.env.prod` ONLY. Templates (`.env.prod.example`) in sync.
+
+## 🏗️ 2. FRONTEND ARCHITECTURE
+*   **RUNTIME CONFIGURATION:** The frontend MUST NOT be rebuilt to change environments. Use `public/config.js`.
+*   **SOVEREIGN AESTHETICS:** Maintain the Gold/Cyan/Void sci-fi aesthetic. No generic UI.
+
+## 🏭 3. N8N GITOPS STRATEGY (THE WORKFLOW FACTORY)
+*   **TWO REPOS RULE:**
+    1.  `EasyWayDataPortal` (Appliance/Infrastructure).
+    2.  `Work-space-n8n` (Workflow Logic/Factories).
+*   **DEPLOYMENT:** Workflows are deployed by pulling `Work-space-n8n` to `/opt/easyway/agents/core/n8n` and importing via CLI.
+*   **PARAMETERIZATION:** Logic is in `workflow.json`, Business Config in `config.json`. NEVER hardcode thresholds or model names in nodes.
+
+## ⚡ 4. AGENTS & AUTOMATION
+*   **POWERSHELL:** `$ErrorActionPreference = "Stop"`. Use `Join-Path`.
+*   **WHAT-IF BY DEFAULT:** Destructive actions MUST implement a `-WhatIf` switch or dry-run mode first.
+*   **MANIFEST FIRST:** Every agent has a `manifest.json`. Respect `allowed_paths`.
+
+## ☁️ 5. DEPLOYMENT PROTOCOL (Oracle ARM)
+*   **ARM COMPATIBILITY:** Use ARM64-ready images (Postgres, Qdrant). Avoid SQL Edge.
+*   **THE "ONE COMMAND":** Use `scripts/deploy-oracle.ps1`. No manual SSH hacking.
+
+## 📚 6. KNOWLEDGE LIFECYCLE
+*   **ISOMORPHISM:** Code changes must trigger Wiki updates (`docs/`).
+*   **DECISION TRACING:** Critical architecture decisions must be logged in `docs/architecture/DECISIONS.md`.
+
+## 🧠 7. PHILOSOPHY CHECK
+1.  **Have I measured twice?**
+2.  **Is this Sovereign?** (No reliance on proprietary cloud APIs unless abstracted).
+3.  **Is it Documented?**
+
+---
+**VIOLATION OF THESE RULES COMPROMISES THE MISSION.**

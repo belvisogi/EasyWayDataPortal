@@ -1,0 +1,12 @@
+{
+    "id": "agent_knowledge_curator",
+    "name": "Knowledge Curator",
+    "description": "Orchestrates wiki updates and semantic linking.",
+    "status": "concept",
+    "version": "0.0.1",
+    "allowed_paths": [],
+    "capabilities": [
+        "wiki_indexing"
+    ],
+    "owner": "team-docs"
+}

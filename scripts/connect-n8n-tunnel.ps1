@@ -8,15 +8,28 @@
     Una volta avviato, apri: http://localhost:5678
 #>
 
-Write-Host "🚇 Apertura Tunnel Sicuro verso easyway-orchestrator (Oracle)..." -ForegroundColor Cyan
+param(
+    [Parameter(Mandatory = $false)] [string]$TargetIP = $env:ORACLE_IP,
+    [Parameter(Mandatory = $false)] [string]$KeyPath = $env:ORACLE_KEY
+)
+
+$ErrorActionPreference = "Stop"
+
+if (-not $TargetIP) { Write-Error "Hostname/IP is required. Set ORACLE_IP env var or pass -TargetIP." }
+if (-not $KeyPath) { Write-Error "SSH Key path is required. Set ORACLE_KEY env var or pass -KeyPath." }
+
+Write-Host "🚇 Apertura Tunnel Sicuro verso easyway-orchestrator ($TargetIP)..." -ForegroundColor Cyan
 Write-Host "   Local:  http://localhost:5678" -ForegroundColor Green
-Write-Host "   Remote: Ubuntu@80.225.86.168:5678" -ForegroundColor Gray
+Write-Host "   Remote: Ubuntu@$TargetIP:5678" -ForegroundColor Gray
 Write-Host ""
 Write-Host "ℹ️  Lascia questa finestra aperta finché vuoi usare n8n." -ForegroundColor Yellow
 Write-Host "   (Premi Ctrl+C per chiudere)" -ForegroundColor Gray
 Write-Host ""
 
-ssh -i "C:\old\Virtual-machine\ssh-key-2026-01-25.key" -L 5678:127.0.0.1:5678 ubuntu@80.225.86.168 -N
+$remoteHost = "ubuntu@$TargetIP"
+
+# SSH Tunnel Command
+ssh -i $KeyPath -o StrictHostKeyChecking=no -L 5678:127.0.0.1:5678 $remoteHost -N
 
 Write-Host ""
 Write-Host "⚠️  Il tunnel si è chiuso (o non è partito)." -ForegroundColor Red
