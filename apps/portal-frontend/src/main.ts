@@ -1,4 +1,5 @@
 import './style.css'
+import './components/sovereign-header'; // Register Web Component
 
 // Main Entry Point - EasyWay One (Sovereign Intelligence)
 console.log("EasyWay Sovereign System: Initializing... [v0.2.1]");

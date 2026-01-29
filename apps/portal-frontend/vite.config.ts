@@ -7,7 +7,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
+        input: {
+          main: 'index.html',
+          demo: 'demo.html',
+          memory: 'memory.html',
+        },
       },
     },
   },

@@ -7,21 +7,11 @@
     <title>EasyWay - Vector Memory</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
+    rel="stylesheet">
+    <link rel="stylesheet" href="/src/theme.css">
+    <link rel="stylesheet" href="/src/framework.css">
+    <script type="module" src="/src/components/sovereign-header.ts"></script>
     <style>
-        :root {
-            /* Hextech Palette - Strict Sovereignty */
-            --bg-deep-void: #060b13;
-            --text-sovereign-gold: #c8aa6e;
-            --accent-neural-cyan: #0ac8b9;
-            --glass-border: rgba(200, 170, 110, 0.15);
-            --text-primary: #f0f2f5;
-            --text-secondary: #94a3b8;
-            --card-bg: rgba(6, 11, 19, 0.7);
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -38,77 +28,7 @@
             /* Header Space */
         }
 
-        /* --- STANDARD HEADER CSS --- */
-        .site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1rem 0;
-            background: rgba(6, 11, 19, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--glass-border);
-        }
 
-        .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: var(--text-sovereign-gold);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-neural-cyan);
-        }
-
-        .btn-glass {
-            padding: 0.6rem 1.2rem;
-            border: 1px solid var(--accent-neural-cyan);
-            border-radius: 4px;
-            color: var(--accent-neural-cyan);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-glass:hover {
-            background: var(--accent-neural-cyan);
-            color: var(--bg-deep-void);
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-        }
-
-        /* --- END HEADER CSS --- */
 
         /* --- Vector Space Background --- */
         .vector-bg {
@@ -317,34 +237,8 @@
     <div class="orb"></div>
 
     <!-- STANDARD HEADER -->
-    <header class="site-header">
-        <div class="header-container">
-            <a href="/" class="logo">
-                <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    style="margin-right: 12px;">
-                    <rect x="4" y="4" width="32" height="32" rx="6" stroke="var(--text-sovereign-gold)" stroke-width="3"
-                        fill="rgba(6, 11, 19, 0.9)" />
-                    <path d="M14 12H10V28H14" stroke="var(--accent-neural-cyan)" stroke-width="3"
-                        stroke-linecap="round" />
-                    <path d="M26 12H30V28H26" stroke="var(--accent-neural-cyan)" stroke-width="3"
-                        stroke-linecap="round" />
-                    <path d="M20 10V30" stroke="var(--accent-neural-cyan)" stroke-width="3" stroke-linecap="round" />
-                    <path d="M10 20H30" stroke="var(--accent-neural-cyan)" stroke-width="3" stroke-linecap="round" />
-                    <circle cx="20" cy="20" r="4" fill="var(--text-sovereign-gold)" stroke="none" />
-                </svg>
-                EasyWay
-            </a>
-            <nav class="nav-links">
-                <a href="/">Home</a>
-                <a href="/memory.html">Memory</a>
-                <a href="/n8n/">N8N</a>
-                <a href="#docs">Docs</a>
-            </nav>
-            <div class="header-actions">
-                <a href="/demo.html" class="btn-glass">Request Demo</a>
-            </div>
-        </div>
-    </header>
+    <!-- STANDARD HEADER -->
+    <sovereign-header active-page="memory"></sovereign-header>
 
     <div class="container">
 
