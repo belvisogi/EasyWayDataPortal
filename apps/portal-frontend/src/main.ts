@@ -230,7 +230,12 @@ function respondToCommand(cmd: string) {
     if (cmd.includes("STATUS")) response = "SYSTEM NOMINAL. CPU: 45%. RAM: 12GB. NETWORK: SECURE.";
     if (cmd.includes("AGENTS") || cmd.includes("GRID")) response = "AVAILABLE OPERATIVES: GEDI, SQL-EDGE, ARCHITECT.";
     if (cmd.includes("HELLO") || cmd.includes("HI")) response = "GREETINGS, ADMINISTRATOR.";
-    if (cmd.includes("HELP")) response = "COMMANDS: STATUS, AGENTS, MATRIX, DESTROY, EXIT.";
+    if (cmd.includes("HELP")) response = "COMMANDS: STATUS, AGENTS, MATRIX, DESTROY, EXIT, RULES.";
+
+    // GEDI Core Personality
+    if (cmd.includes("RULES") || cmd.includes("GEDI") || cmd.includes("LEGGE")) {
+        response = "GEDI: Ordine e Disciplina. Eliminare la ridondanza. (Project: No More Rabbits). 🐇🚫";
+    }
 
     // Data Interaction
     if (cmd === "MATRIX") {
