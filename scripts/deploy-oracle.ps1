@@ -115,8 +115,13 @@ docker compose up -d --build
 docker system prune -f # Cleanup old images
 "@
 
-$RemoteScript = $RemoteScript -replace "`r", ""
-ssh @SshArgs "$TargetUser@$TargetIP" $RemoteScript
+$RemoteScript = $RemoteScript -replace '\r', ''
+if ($KeyPath) {
+    ssh -i $KeyPath "$TargetUser@$TargetIP" $RemoteScript
+}
+else {
+    ssh "$TargetUser@$TargetIP" $RemoteScript
+}
 
 Write-Host "✅ DEPLOYMENT COMPLETE." -ForegroundColor Green
 Write-Host "   Frontend: http://$TargetIP:80"

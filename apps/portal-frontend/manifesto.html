@@ -24,22 +24,42 @@
             height: 100%;
         }
 
+        /* Sovereign Vignette (Light breaking the void) */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(200, 170, 110, 0.15) 0%, transparent 50%),
+                /* Gold from top */
+                radial-gradient(circle at 50% 100%, rgba(10, 200, 185, 0.1) 0%, transparent 50%);
+            /* Cyan from bottom */
+            z-index: -1;
+            pointer-events: none;
+        }
+
         .code-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 140px 2rem 6rem 2rem;
+            padding: 100px 2rem 4rem 2rem;
+            /* Reduced top/bottom padding */
             text-align: center;
         }
 
         /* Hero Text */
         h1.title-code {
-            font-size: 4rem;
+            font-size: 3.5rem;
+            /* Slightly smaller for density */
             font-weight: 800;
             letter-spacing: -2px;
             background: linear-gradient(135deg, #fff 0%, var(--code-gold) 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
             text-transform: uppercase;
         }
 
@@ -47,67 +67,48 @@
             font-family: 'Courier New', monospace;
             color: var(--code-cyan);
             letter-spacing: 2px;
-            margin-bottom: 4rem;
-            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            /* Halved from 4rem */
+            font-size: 1rem;
             opacity: 0.8;
         }
 
         /* Verses */
         .verse {
-            margin-bottom: 5rem;
+            margin-bottom: 2.5rem;
+            /* Halved from 5rem */
             position: relative;
-            padding: 2rem;
+            padding: 1.5rem;
+            /* Tighter padding */
             border-left: 2px solid rgba(200, 170, 110, 0.1);
             background: linear-gradient(90deg, rgba(200, 170, 110, 0.02) 0%, transparent 100%);
         }
 
         .verse h2 {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--code-gold);
             text-transform: uppercase;
             letter-spacing: 3px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            /* Reduced */
             opacity: 0.7;
         }
 
         .verse p {
-            font-size: 1.5rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            /* Slightly smaller */
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
             font-weight: 300;
-        }
-
-        .verse .voice-they {
-            font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .verse .voice-us {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            display: block;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-        }
-
-        /* Special Highlights */
-        .highlight-gold {
-            color: var(--code-gold);
-            font-weight: 700;
-        }
-
-        .highlight-cyan {
-            color: var(--code-cyan);
         }
 
         /* The Oath */
         .oath-box {
             border: 1px solid var(--code-gold);
-            padding: 3rem;
-            margin-top: 4rem;
+            padding: 2rem;
+            /* Tighter */
+            margin-top: 3rem;
+            /* Reduced */
             box-shadow: 0 0 30px rgba(200, 170, 110, 0.05);
             background: rgba(10, 10, 15, 0.5);
             backdrop-filter: blur(5px);
