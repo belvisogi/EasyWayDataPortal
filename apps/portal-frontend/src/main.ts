@@ -13,6 +13,8 @@
 // "Non costruiamo software. Coltiviamo ecosistemi di pensiero." 
 // Co-Authored: gbelviso78 & Antigravity/Codex/ChatGPT (2026-01-30)
 // ---------------------------------------------------------------------------
+import './components/sovereign-header';
+import './components/sovereign-footer';
 console.log(
     "%c EasyWay Core %c Sovereign Intelligence Online ",
     "background: #eaa91c; color: #000; font-weight: bold; padding: 4px; border-radius: 4px 0 0 4px;",
