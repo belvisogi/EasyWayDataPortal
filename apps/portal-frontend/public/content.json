@@ -1,4 +1,11 @@
 {
+    "global": {
+        "app_name": "EasyWay Core",
+        "status": {
+            "online": "Online",
+            "offline": "Offline"
+        }
+    },
     "manifesto": {
         "title": "The Code",
         "subtitle": "// PROTOCOL: SOVEREIGN_SYMBIOSIS // v2.0.26",
@@ -34,7 +41,101 @@
         },
         "cta": "Entra nel Codice"
     },
-    "global": {
-        "app_name": "EasyWay Core"
+    "home": {
+        "hero": {
+            "title": "Sovereign <span class=\"text-gradient\">Intelligence</span>",
+            "tagline": "Smetti di affittare l'intelligenza. Inizia a possederla.<br>L'infrastruttura Enterprise per chi non accetta compromessi.",
+            "cta": "access_protocol.init()"
+        },
+        "cards": {
+            "gedi": {
+                "title": "GEDI Guardian",
+                "desc": "Guardian of Intentions. Ethical oversight for sensitive operations.",
+                "badge": "RAG",
+                "action": "Connect"
+            },
+            "memory": {
+                "title": "Sovereign Memory",
+                "desc": "Visual Interface for Qdrant. Inspect embeddings and recall.",
+                "badge": "VECTOR",
+                "action": "Visualize"
+            },
+            "demo": {
+                "title": "Inbound Flow",
+                "desc": "Request Demo Module. Captures leads via n8n webhook.",
+                "badge": "CRM",
+                "action": "Open"
+            }
+        },
+        "comparison": {
+            "title": "EasyWay Core <span class=\"vs\">vs</span> The Cloud",
+            "subtitle": "Sovereign Intelligence is not a feature. It's an architecture.",
+            "col_easyway": {
+                "title": "EasyWay Core",
+                "item1": "✅ 100% On-Premise Data",
+                "item2": "✅ Zero Egress Policy",
+                "item3": "✅ One-Time License"
+            },
+            "col_cloud": {
+                "title": "Public AI",
+                "item1": "❌ Data Training usage",
+                "item2": "❌ API Latency",
+                "item3": "❌ Monthly Subscription"
+            }
+        }
+    },
+    "demo": {
+        "hero": {
+            "title": "Start Your Sovereign Journey",
+            "lead": "Experience the power of EasyWay Core. Total data ownership, automated workflows, and AI-driven insights on your own infrastructure."
+        },
+        "badges": {
+            "sovereign": "<strong>Sovereign</strong><br>Certified",
+            "n8n": "<strong>N8N</strong><br>Powered",
+            "oracle": "<strong>Oracle</strong><br>Secured"
+        },
+        "testimonial": {
+            "text": "\"Finally, a platform that gives us control back. No more vendor lock-in, just pure efficiency.\"",
+            "author": "— EasyWay Core Pioneer"
+        },
+        "form": {
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "company": "Company Name",
+            "companySize": "Company Size",
+            "workEmail": "Work Email",
+            "jobTitle": "Job Title",
+            "demoInterest": "Demo Interest",
+            "useCase": "Brief Use Case Description (Optional)",
+            "consent": "I agree to receive communications from EasyWay.",
+            "submit": "Request Demo",
+            "legal": "By submitting this form, you acknowledge that your data will be processed in accordance with our <a href=\"#\">Sovereign Privacy Policy</a>."
+        }
+    },
+    "memory": {
+        "hero": {
+            "title": "Sovereign Memory<br>At Scale",
+            "tagline": "Navigate your enterprise knowledge with high-performance vector search.<br>Powered by Qdrant, governed by You.",
+            "cta_explore": "Explore Collections",
+            "cta_docs": "Read Docs"
+        },
+        "features": {
+            "semantic": {
+                "title": "Semantic Search",
+                "desc": "Don't just match keywords. Understand intent. Our vector engine finds the <span style=\"color: var(--accent-neural-cyan);\">meaning</span> behind your data."
+            },
+            "fast": {
+                "title": "Blazing Fast",
+                "desc": "Written in Rust for extreme performance. Query localized embeddings in milliseconds without ever leaving your sovereign infrastructure."
+            },
+            "security": {
+                "title": "Role-Based Access",
+                "desc": "Your vectors respect your hierarchy. Filter search results based on user permissions, ensuring sensitive data remains segmented."
+            },
+            "api": {
+                "title": "Developer First API",
+                "desc": "Integrate memory into your agents with a simple, declarative API. Whether it's Python, TypeScript, or Go, your memory is just one HTTP call away."
+            }
+        }
     }
 }
