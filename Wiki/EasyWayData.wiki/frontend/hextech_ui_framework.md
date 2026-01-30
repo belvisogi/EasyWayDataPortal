@@ -7,6 +7,7 @@ This document describes the Frontend Architecture of EasyWay One. Unlike modern 
 ## 1. Architecture: The "Vanilla Sovereign" Stack
 
 *   **Build Tool**: Vite (Multi-Page App Mode).
+*   **[Sovereign Framework Guide](./sovereign-framework-guide.md)**: Guida all'uso del motore dinamico per Temi (`branding.json`) e Contenuti (`content.json`).
 *   **Framework**: None (Vanilla TypeScript).
 *   **Components**: Native Web Components (`customElements.define`).
 *   **CSS**: CSS Variables for Theming (`theme.css`) + Utility Classes (`framework.css`).
