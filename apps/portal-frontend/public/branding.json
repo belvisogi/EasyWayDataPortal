@@ -9,7 +9,14 @@
             "--code-text": "#c0c0c0",
             "--code-gold": "#c8aa6e",
             "--code-cyan": "#0ac8b9",
-            "--code-highlight-gold-rgb": "200, 170, 110"
+            "--code-highlight-gold-rgb": "200, 170, 110",
+            "--bg-paper": "#ffffff",
+            "--bg-main": "#f8fafc",
+            "--text-primary": "#0f172a",
+            "--text-secondary": "#475569",
+            "--border-color": "#e2e8f0",
+            "--form-input-bg": "#f8fafc",
+            "--form-border": "#cbd5e1"
         },
         "fonts": {
             "--font-primary": "'Inter', sans-serif",

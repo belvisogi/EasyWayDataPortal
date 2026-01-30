@@ -23,23 +23,21 @@
             padding: 0;
         }
 
-        /* --- LIGHT THEME OVERRIDE --- */
+        /* --- LIGHT THEME OVERRIDE (Now Configurable) --- */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc !important;
-            color: #0f172a !important;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary) !important;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            /* Was center, fixed prevents overlap */
             padding: 140px 2rem 4rem 2rem;
-            /* Added top padding for Header */
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Adjust Background Grid for Light Mode */
+        /* Adjust Background Grid */
         body::before {
             content: '';
             position: absolute;
@@ -53,16 +51,13 @@
             background-size: 50px 50px;
             z-index: -1;
             pointer-events: none;
-            /* No radial mask needed for light mode, full grid looks clean */
         }
 
         /* Mobile Optimization */
         @media (max-width: 768px) {
             body {
                 padding: 100px 1rem 2rem 1rem;
-                /* Less padding on mobile */
                 align-items: center;
-                /* Center content when stacked */
             }
 
             .container {
@@ -71,7 +66,6 @@
 
             h1 {
                 font-size: 2.5rem;
-                /* Smaller Title */
             }
         }
 
@@ -98,21 +92,18 @@
             font-weight: 700;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            color: #0f172a;
-            /* Dark Heading */
-            /* Removed gold shadow for clean look */
+            color: var(--text-primary);
         }
 
         p.lead {
             font-size: 1.25rem;
             line-height: 1.6;
-            color: #475569;
-            /* Slate-600 */
+            color: var(--text-secondary);
             margin-bottom: 3rem;
             max-width: 500px;
         }
 
-        /* Badges Light Mode */
+        /* Badges */
         .badges {
             display: flex;
             gap: 1.5rem;
@@ -120,8 +111,8 @@
         }
 
         .badge {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: var(--bg-paper);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 1rem;
             display: flex;
@@ -132,14 +123,14 @@
             height: 100px;
             text-align: center;
             font-size: 0.8rem;
-            color: #64748b;
+            color: var(--text-secondary);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
         }
 
         .badge:hover {
             transform: translateY(-5px);
-            border-color: var(--accent-neural-cyan);
+            border-color: var(--code-cyan);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
@@ -148,17 +139,16 @@
             display: block;
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
-            color: #d97706;
-            /* Amber-600 (Darker Gold) */
+            color: var(--code-gold);
         }
 
         /* Testimonial Box */
         .testimonial-box {
             margin-top: 4rem;
             padding: 1.5rem;
-            border-left: 4px solid var(--accent-neural-cyan);
-            background: #f1f5f9;
-            /* Slate-100 */
+            border-left: 4px solid var(--code-cyan);
+            background: rgba(255, 255, 255, 0.5);
+            /* Semi-transparent */
             border-radius: 0 8px 8px 0;
         }
 
@@ -170,12 +160,12 @@
         }
 
         .card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: var(--bg-paper);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 2.5rem;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            color: #0f172a;
+            color: var(--text-primary);
         }
 
         .form-row {
@@ -194,8 +184,7 @@
         label {
             font-size: 0.875rem;
             font-weight: 600;
-            color: #334155;
-            /* Slate-700 */
+            color: var(--text-secondary);
         }
 
         label::after {
@@ -207,9 +196,9 @@
         select,
         textarea {
             padding: 0.75rem 1rem;
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            color: #0f172a;
+            background: var(--form-input-bg);
+            border: 1px solid var(--form-border);
+            color: var(--text-primary);
             border-radius: 6px;
             font-family: inherit;
             font-size: 1rem;
@@ -221,15 +210,15 @@
         select:focus,
         textarea:focus {
             outline: none;
-            border-color: var(--accent-neural-cyan);
+            border-color: var(--code-cyan);
             box-shadow: 0 0 0 3px rgba(10, 200, 185, 0.1);
-            background: #fff;
+            background: var(--bg-paper);
         }
 
-        /* Select styling override for light mode */
+        /* Select styling override */
         select option {
-            background: #fff;
-            color: #0f172a;
+            background: var(--bg-paper);
+            color: var(--text-primary);
         }
 
         textarea {
@@ -240,8 +229,8 @@
         .btn-submit {
             width: 100%;
             padding: 1rem;
-            background: var(--accent-neural-cyan);
-            border: 1px solid var(--accent-neural-cyan);
+            background: var(--code-cyan);
+            border: 1px solid var(--code-cyan);
             color: #ffffff;
             border-radius: 6px;
             font-size: 1rem;
@@ -255,20 +244,19 @@
         }
 
         .btn-submit:hover {
-            background: #0d9488;
-            /* Teal-600 */
+            opacity: 0.9;
             box-shadow: 0 10px 15px -3px rgba(10, 200, 185, 0.4);
         }
 
         .legal-text {
             font-size: 0.75rem;
-            color: #64748b;
+            color: var(--text-secondary);
             margin-top: 1.5rem;
             line-height: 1.5;
         }
 
         .legal-text a {
-            color: var(--accent-neural-cyan);
+            color: var(--code-cyan);
             text-decoration: none;
             font-weight: 500;
         }
@@ -285,10 +273,8 @@
 
         .success {
             background: #dcfce7;
-            /* Green-100 */
             border: 1px solid #10B981;
             color: #166534;
-            /* Green-800 */
         }
 
         .error {
