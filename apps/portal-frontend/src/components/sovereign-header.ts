@@ -29,6 +29,7 @@ export class SovereignHeader extends HTMLElement {
             </a>
             <nav class="nav-links">
                 <a href="/" class="${activePage === 'home' ? 'active' : ''}">Home</a>
+                <a href="/manifesto.html" class="${activePage === 'manifesto' ? 'active' : ''}">Manifesto</a>
                 <a href="/memory.html" class="${activePage === 'memory' ? 'active' : ''}">Memory</a>
                 <a href="/n8n/" class="${activePage === 'n8n' ? 'active' : ''}">N8N</a>
                 <a href="#docs">Docs</a>

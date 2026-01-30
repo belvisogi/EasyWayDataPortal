@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyWay Core - The Sovereign Tribe</title>
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="/src/framework.css">
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/components/sovereign-footer.ts"></script>
+</head>
+
+<body>
+    <!-- HEADER (Sovereign Web Component) -->
+    <sovereign-header active-page="manifesto"></sovereign-header>
+
+    <main class="container">
+        <!-- HERO -->
+        <section class="hero text-center" style="margin-top: 60px;">
+            <div class="logo-large-container">
+                <!-- Using same SVG as hero but static for impact -->
+                <svg width="120" height="120" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="32" height="32" rx="6" stroke="var(--text-sovereign-gold)" stroke-width="2"
+                        fill="rgba(6, 11, 19, 0.9)" />
+                    <path d="M14 12H10V28H14" stroke="var(--accent-neural-cyan)" stroke-width="2"
+                        stroke-linecap="round" />
+                    <path d="M26 12H30V28H26" stroke="var(--accent-neural-cyan)" stroke-width="2"
+                        stroke-linecap="round" />
+                    <path d="M20 10V30" stroke="var(--accent-neural-cyan)" stroke-width="2" stroke-linecap="round" />
+                    <path d="M10 20H30" stroke="var(--accent-neural-cyan)" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="20" cy="20" r="3" fill="var(--text-sovereign-gold)" stroke="none" />
+                </svg>
+            </div>
+
+            <h1 class="gradient-text-gold">Sovereign Intelligence</h1>
+            <p class="subtitle">Smetti di affittare l'intelligenza. Inizia a possederla.</p>
+        </section>
+
+        <!-- THE STORY (Timeline/Path) -->
+        <section class="grid-2-cols" style="margin-top: 4rem;">
+            <div class="card-glass">
+                <h3 class="text-gold">2026: The Great Pivot</h3>
+                <p>
+                    Per anni abbiamo seguito la corrente. Cloud, SaaS, abbonamenti.
+                    Era facile. Era comodo. Era <em>sbagliato</em>.
+                </p>
+                <p>
+                    Abbiamo capito che la vera innovazione non sta nel delegare il pensiero a una Big Tech,
+                    ma nel costruire la propria "Galleria del Vento".
+                    Così abbiamo distrutto tutto. E abbiamo ricostruito <strong>EasyWay Core</strong>.
+                </p>
+            </div>
+            <div class="card-glass">
+                <h3 class="text-cyan">Il Nostro Perché</h3>
+                <p>
+                    Crediamo che l'Intelligenza Artificiale debba essere un Diritto costituzionale dell'impresa,
+                    non una commodity da affittare a ore.
+                </p>
+                <p>
+                    Vogliamo un mondo dove i dati restano dove nascono.
+                    Dove la Privacy non è una policy, ma un'architettura.
+                    Dove sei tu il <strong>Sovrano</strong> del tuo destino digitale.
+                </p>
+            </div>
+        </section>
+
+        <!-- THE TRIBE (Community) -->
+        <section class="text-center" style="margin: 6rem 0;">
+            <h2 class="text-white">Non Siamo Vendor. Siamo una Tribù.</h2>
+            <p class="text-gray" style="max-width: 600px; margin: 1rem auto;">
+                In EasyWay non ci sono "clienti" e "fornitori".
+                Ci sono Pionieri che condividono un codice d'onore:
+            </p>
+
+            <div class="grid-3-cols" style="margin-top: 2rem;">
+                <div class="feature-card">
+                    <div class="icon-box">🛡️</div>
+                    <h4>1. Protection</h4>
+                    <p>I dati non escono mai dal perimetro (Zero Egress).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">🦅</div>
+                    <h4>2. Freedom</h4>
+                    <p>Nessun vendor lock-in. Il codice è tuo. La macchina è tua.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">⚖️</div>
+                    <h4>3. Discipline</h4>
+                    <p>"Ordine e Disciplina". Niente feature inutili (No More Rabbits).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="hero text-center">
+            <h3>Sei pronto a unirti alla Resistenza?</h3>
+            <p style="margin-bottom: 2rem;">Non vendiamo software. Armiamo i ribelli.</p>
+            <a href="/demo.html?ref=manifesto" class="btn-primary">Entra nella Tribù</a>
+        </section>
+
+    </main>
+
+    <footer style="margin-top: auto;">
+        <!-- Footer injected by sovereign-footer.ts -->
+        <sovereign-footer></sovereign-footer>
+    </footer>
+
+    <style>
+        /* Manifesto specific overrides if needed */
+        .text-gold {
+            color: var(--text-sovereign-gold);
+        }
+
+        .text-cyan {
+            color: var(--accent-neural-cyan);
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .text-gray {
+            color: #8899a6;
+        }
+    </style>
+</body>
+
+</html>
