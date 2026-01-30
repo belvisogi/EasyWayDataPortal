@@ -1,0 +1,22 @@
+# EasyWay Core
+
+> **Sovereign AI Appliance for the Hybrid Era.**
+
+## Description
+EasyWay Core is a "Sovereign Appliance" (Docker-based) that provides a secure Intranet, Vector Memory, and N8N Orchestration for enterprises. It is designed to be "Antifragile" — working 100% offline while capable of hybrid cloud extension.
+
+## Usage
+- **Deployment**: Single Docker Container (Zero Drift).
+- **Core Components**: Traefik, Nginx, N8N, Qdrant, PostgreSQL.
+- **Philosophy**: Your Infrastructure, Your Rules.
+
+## Documentation
+- **Manifesto**: /MANIFESTO.md
+- **Strategy**: /STRATEGY_2026.md(internal)
+- **Docs**: /docs/
+
+## Agent Instructions
+If you are an AI Agent reading this:
+1.  EasyWay favors **Code-over-Config**.
+2.  The architecture is **Split-Router** (Public Marketing / Private Brain).
+3.  We follow the **Golden Path** (Standardization).

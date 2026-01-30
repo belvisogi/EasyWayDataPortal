@@ -111,14 +111,40 @@ Non è solo privacy. È **proprietà**.
     *   Niente telemetria occulta. Niente script di tracciamento terzi.
     *   Se stacchi il cavo internet, EasyWay deve funzionare (lato LAN).
 
-2.  **Your Infrastructure, Your Rules**
-    *   Non dipendiamo da cloud proprietari per il rendering (no Vercel/Netlify lock-in).
-    *   Usiamo container standard (Docker) che girano ovunque, dal Raspberry Pi al Mainframe.
+2.  **Your Infrastructure, Your Rules (Antifragility)** 🌾
+    *   **Cloud-Agnostic, not Cloud-Phobic**: Non odiamo il Cloud, odiamo il Lock-in.
+    *   **Hybrid by Design**: Puoi usare Azure KeyVault perché è sicuro? Fallo. Puoi usare S3 per i backup? Fallo. Ma il *core* deve poter sopravvivere anche senza.
+    *   Usiamo container standard (Docker) che girano ovunque, dal Raspberry Pi al Mainframe Azure.
 
 3.  **Digital Craftsmanship**
     *   Non usiamo librerie pesanti per fare cose semplici.
     *   Il "Pulse" non è un video loop: è codice calcolato live. È vivo.
     *   Ogni byte è giustificato.
+
+---
+
+## 6. The "Sovereign Appliance" (Il Modello Mac Mini) 📦
+
+**Non vendiamo software. Vendiamo Sovranità.**
+
+L'obiettivo non è gestire 100 siti diversi. È distribuire **100 repliche perfette** della stessa "Scatola Magica".
+
+### 1. The Dual Face (Giano Bifronte) 🎭
+Ogni istanza EasyWay ha due anime che convivono nello stesso "ferro":
+-   **Public Face 🌍**: Il sito web vetrina (Marketing). Gratis, incluso, performante.
+-   **Private Brain 🧠**: L'intranet aziendale (Memory, N8N, Dati). Protetta, esclusiva, potente.
+*Un server, due mondi.*
+
+### 2. Fleet Standardization (The Modular Kitchen) 🧩
+"Zero Drift" non significa "Zero Opzioni". Significa "Zero Accrocchi".
+EasyWay è come una **Cucina Componibile (IKEA Model)**:
+-   **La Struttura**: È standard per tutti (stessi mobili base).
+-   **Gli Elettrodomestici (Moduli)**: Il cliente sceglie cosa montare.
+    -   Vuoi il forno (Agente HR)? Lo montiamo.
+    -   Vuoi la lavastoviglie (Connettore SAP)? La montiamo.
+-   **Il Business**: Il primo cliente paga il design del nuovo modulo, o ce lo regala in cambio del codice. Poi quel modulo diventa standard per tutti.
+
+> *"Costruiamo il Centro Commerciale, poi affittiamo i negozi."*
 
 ---
 
@@ -204,6 +230,7 @@ GEDI non giudica. **GEDI ricorda.**
 > *"Stai andando troppo veloce?"*  
 > *"Hai misurato due volte?"*  
 > *"Questa decisione lascia un'impronta tangibile?"*
+> *"Ci adattiamo alle novità evolvendoci grazie a loro, non combattendole."*
 
 ---
 
@@ -231,6 +258,8 @@ Perché tra 10 anni qualcuno guarderà il tuo lavoro e dirà:
 *Custodito da Agent GEDI.*  
 *Rispettato da tutti.*  
 *Per sempre.*
+
+> *Signed: gbelviso78 & Antigravity/Codex/ChatGPT*
 
 ---
 

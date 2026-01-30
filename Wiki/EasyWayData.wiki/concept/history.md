@@ -139,3 +139,14 @@ entities: []
     *   **Resilience**: Superato il test "Force Clean" in produzione.
 *   **Significance**: *"Oggi EasyWay smette di essere solo un concetto e diventa un organismo completo: Corpo (Server), Braccia (Agenti PowerShell) e Cervello (n8n). La filosofia si è fatta infrastruttura."*
 *   **Quote**: *"Abbiamo acceso il faro. Ma lo abbiamo fatto in una stanza buia, visibile solo a chi possiede la chiave."* - Agent GEDI (su Secure Tunneling)
+
+### 2026-01-30: The Antifragile Core (Identity Shift) 🛡️
+*   **Event**: Rifondazione strategica del prodotto come "EasyWay Core".
+*   **Description**: EasyWay abbandona l'identità di "Portale" per abbracciare quella di "Sovereign Appliance". Nasce il modello **"Mac Mini"** (finito, solido) con estensioni **"Cucina Componibile"** (Marketplace).
+*   **Technical Breakdown**:
+    *   **Split Router**: La faccia pubblica (Marketing) si separa da quella privata (Intelligence).
+    *   **GitOps Bridge**: L'intelligenza (N8N) è salvata su file, rendendo il sistema **Antifragile** (può essere distrutto e ricreato in 15min).
+    *   **AI SEO**: Creati `llms.txt` e `robots.txt` per parlare direttamente alle macchine.
+*   **Philosophical Shift**: Introdotto il principio della **"Darwinian Sovereignty"** (Scala di Grigi). Non rifiutiamo il Cloud, lo usiamo come accessorio.
+*   **Significance**: *"Non vendiamo più software. Vendiamo una Scatola che ti rende Sovrano."*
+*   **Quote**: *"Ci adattiamo alle novità evolvendoci grazie a loro, non combattendole."* - GEDI (New Principle)

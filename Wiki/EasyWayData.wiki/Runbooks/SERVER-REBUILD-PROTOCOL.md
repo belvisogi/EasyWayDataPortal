@@ -35,11 +35,26 @@ Open PowerShell in `c:\old\EasyWayDataPortal\scripts`
 3.  **Transfer:** Uploads package to `/opt/easyway`.
 4.  **Ignition:** Starts the Sovereign Stack with `docker compose up`.
 
+### 🧩 Phase 1.5: Restore Intelligence (GitOps)
+
+After the stack is running, we must injection the "brain" (N8N Workflows).
+
+1.  **Run the Bridge Script:**
+    ```powershell
+    .\scripts\ops\deploy-n8n-workflows.ps1 -SourcePath "..\Work-space-n8n"
+    ```
+2.  **Verify:** Check n8n UI for imported workflows.
+
 ### 🧪 Phase 2: Smoke Test (5 mins)
 
-1.  **Frontend:** Open `http://80.225.86.168` -> Does the UI load?
-2.  **n8n Webhook:** Open `http://80.225.86.168/webhook/health` (if workflow exists) or check n8n UI at `http://80.225.86.168/n8n/`.
-3.  **Qdrant:** `curl http://80.225.86.168/collections` (via Traefik if exposed) or internal check.
+1.  **Public Zone (Marketing):**
+    *   Open `http://80.225.86.168` -> Should load Home (NO Auth).
+    *   Open `http://80.225.86.168/demo.html` -> Should load Demo Form (NO Auth).
+2.  **Private Zone (Intranet):**
+    *   Open `http://80.225.86.168/memory.html` -> Should ask for **Login**.
+    *   Open `http://80.225.86.168/n8n/` -> Should ask for **Login**.
+    *   *Creds:* `test` / `test` (or whatever is in `.env`).
+3.  **Qdrant:** `curl http://80.225.86.168/collections` (Protected).
 
 ### ♻️ Phase 3: Data Restoration (Optional)
 

@@ -10,6 +10,7 @@ Questa sezione documenta l'infrastruttura "Sovereign" di EasyWay One.
 *   **[RAG Visual Flow](../docs/design/rag_visual_flow.md)**: Come un documento diventa intelligenza (Diagramma).
 
 ## 2. Architecture Reference
+*   **[Sovereign Appliance Model](architecture/appliance_model.md)**: The "Mac Mini" Concept. One Server = Public Website + Private Intranet.
 *   **[Sovereign Stack Overview](../docs/architecture/sovereign_stack_overview.md)**: MinIO + ChromaDB + n8n + Docker.
 *   **[Docker Compose (Infra)](../docker-compose.infra.yml)**: La definizione dello stack "Ferro".
 *   **[Docker Compose (Apps)](../docker-compose.apps.yml)**: La definizione dello stack "Applicativo".
@@ -21,7 +22,9 @@ Questa sezione documenta l'infrastruttura "Sovereign" di EasyWay One.
 ## 4. Production Environment (Oracle ARM) ☁️
 *   **Infrastructure**: Oracle Cloud Free Tier (ARM Ampere).
 *   **IP**: `80.225.86.168`
-*   **Reverse Proxy**: Nginx (Custom Config) preventing port exposure.
+*   **Access Control (Split-Router Strategy)**:
+    *   **Public Zone** (`/`, `/demo.html`): Marketing Website (Free Access).
+    *   **Private Zone** (`/memory.html`, `/n8n/`): Sovereign Intranet (Protected by Basic Auth).
 *   **[Frontend Architecture](../frontend/hextech_ui_framework.md)**: The "Hextech" Design System & Page Catalog.
 *   **[🚨 DISASTER RECOVERY PROTOCOL](../Runbooks/SERVER-REBUILD-PROTOCOL.md)**: How to rebuild the server in < 15 mins.
 

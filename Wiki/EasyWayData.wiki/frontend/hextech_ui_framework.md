@@ -27,11 +27,13 @@ We use a "Magic vs Tech" aesthetic inspired by Arcane/Hextech.
 
 ### Reusable Components
 *   **`<sovereign-header>`**: Single source of truth for global navigation. Defined in `src/components/sovereign-header.ts`.
+*   **`<sovereign-footer>`**: Standardized footer (Brand, Platform, Legal). Defined in `src/components/sovereign-footer.ts`.
 
 ## 3. Page Catalog
 
 ### 🏠 Home (`index.html`)
 *   **Role**: Landing Page & Operator Console.
+*   **Access**: 🌍 Public.
 *   **Features**:
     *   Status Dashboard (Agents, System Health).
     *   "Protocol" Activation (Hero Button).
@@ -40,13 +42,16 @@ We use a "Magic vs Tech" aesthetic inspired by Arcane/Hextech.
 ### 🧠 Memory (`memory.html`)
 *   **Theme**: "Deep Space" (Darker, star-field background).
 *   **Role**: Visualization of the Vector Database (Qdrant).
+*   **Access**: 🔒 Private (Login Required).
 *   **Features**:
     *   Explains Long-term Memory vs Short-term Context.
     *   Visual representation of "Embeddings".
 
 ### 🚀 Request Demo (`demo.html`)
-*   **Theme**: "Traefik Modern" (Clean, Form-focused).
+*   **Theme**: "Business Light" (White Background, Clean Form).
+    *   *Note*: Overrides default Dark Mode via `!important` CSS classes for professional appeal.
 *   **Role**: Inbound Lead Capture.
+*   **Access**: 🌍 Public.
 *   **Features**:
     *   Multi-step Form.
     *   **Integration**: POST to `n8n` Webhook (`/webhook/demo-request`).

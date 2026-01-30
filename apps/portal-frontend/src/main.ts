@@ -1,5 +1,24 @@
-import './style.css'
-import './components/sovereign-header'; // Register Web Component
+/**
+ * easyway-core (main.ts)
+ * ----------------------
+ * @branding EasyWay Core
+ * @codebase EasyWayDataPortal
+ * 
+ * ARCHITECTURAL NOTE:
+ * We intentionally keep the 'EasyWayDataPortal' namespace in code to ensure
+ * backward compatibility with Docker volumes and GitOps scripts.
+ * The UI renders "EasyWay Core".
+ */
+// ---------------------------------------------------------------------------
+// "Non costruiamo software. Coltiviamo ecosistemi di pensiero." 
+// Co-Authored: gbelviso78 & Antigravity/Codex/ChatGPT (2026-01-30)
+// ---------------------------------------------------------------------------
+console.log(
+    "%c EasyWay Core %c Sovereign Intelligence Online ",
+    "background: #eaa91c; color: #000; font-weight: bold; padding: 4px; border-radius: 4px 0 0 4px;",
+    "background: #060b13; color: #4deeea; padding: 4px; border-radius: 0 4px 4px 0;"
+);
+console.log("%c > Ci adattiamo alle novità evolvendoci grazie a loro.", "color: #888; font-style: italic;");
 
 // Main Entry Point - EasyWay One (Sovereign Intelligence)
 console.log("EasyWay Sovereign System: Initializing... [v0.2.1]");

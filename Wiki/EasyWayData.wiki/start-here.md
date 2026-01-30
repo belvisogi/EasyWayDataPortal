@@ -55,6 +55,12 @@ llm:
 - Indice runbook: `Runbooks/index.md`
 - Bootstrap Dual Server (Oracle Dev/Staging + Hetzner Prod): `Runbooks/dual-server-bootstrap.md`
 
+---
+
+### ✍️ Authors
+> **gbelviso78** & **Antigravity/Codex/ChatGPT** (The Agents)
+> *"Ci adattiamo alle novità evolvendoci grazie a loro."*
+
 
 
 

@@ -16,7 +16,7 @@ export class SovereignHeader extends HTMLElement {
         this.innerHTML = `
     <header class="site-header">
         <div class="header-container">
-            <a href="/" class="logo">
+            <a href="/" class="logo" id="egg-trigger">
                 <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 12px;">
                     <rect x="4" y="4" width="32" height="32" rx="6" stroke="var(--text-sovereign-gold)" stroke-width="3" fill="rgba(6, 11, 19, 0.9)"/>
                     <path d="M14 12H10V28H14" stroke="var(--accent-neural-cyan)" stroke-width="3" stroke-linecap="round"/>
@@ -25,7 +25,7 @@ export class SovereignHeader extends HTMLElement {
                     <path d="M10 20H30" stroke="var(--accent-neural-cyan)" stroke-width="3" stroke-linecap="round"/>
                     <circle cx="20" cy="20" r="4" fill="var(--text-sovereign-gold)" stroke="none"/>
                 </svg>
-                EasyWay
+                EasyWay Core
             </a>
             <nav class="nav-links">
                 <a href="/" class="${activePage === 'home' ? 'active' : ''}">Home</a>
@@ -39,6 +39,17 @@ export class SovereignHeader extends HTMLElement {
         </div>
     </header>
         `;
+
+        // 🥚 EASTER EGG: The Warren Robinett Tribute
+        let clicks = 0;
+        this.querySelector('#egg-trigger')?.addEventListener('click', (e) => {
+            clicks++;
+            if (clicks === 5) {
+                e.preventDefault();
+                alert("🕹️ SECRET FOUND\n\nCreated by gbelviso78\n& Antigravity/Codex/ChatGPT\n\n(The Sovereign Architects)");
+                clicks = 0;
+            }
+        });
     }
 }
 

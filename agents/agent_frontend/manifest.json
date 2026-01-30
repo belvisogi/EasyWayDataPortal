@@ -6,10 +6,14 @@
   "description": "Gestisce sviluppo e deployment frontend (UI/UX, React, static assets, portal interface)",
   "readme": "README.md",
   "allowed_paths": [
-    "portal-api/easyway-portal-frontend/**",
+    "apps/portal-frontend/src/**",
+    "apps/portal-frontend/public/**",
+    "apps/portal-frontend/*.json",
+    "apps/portal-frontend/*.ts",
+    "apps/portal-frontend/*.html",
+    "apps/portal-frontend/*.js",
     "Wiki/EasyWayData.wiki/UX/**",
-    "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/easyway_portal_frontend/**",
-    "docs/agentic/templates/orchestrations/frontend-*.manifest.json"
+    "Wiki/EasyWayData.wiki/frontend/**"
   ],
   "knowledge_sources": [
     "Wiki/EasyWayData.wiki/UX/agent-chat-interface.md",

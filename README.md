@@ -1,4 +1,9 @@
-# EasyWay Data Portal - Onboarding & Architettura
+# EasyWay Data Portal (EasyWay Core)
+
+> **ARCHITECTURAL NOTE**: 
+> The codebase retains the legacy identifier `EasyWayDataPortal` to preserve infrastructure stability (Docker volumes, Git history, paths). 
+> The Public Product Name is **EasyWay Core**. 
+> *Refactoring the root folder name is explicitly FORBIDDEN to maintain Zero Drift.* - Onboarding & Architettura
 
 > **ℹ️**  
 > Per automazioni export log, policy ACL e best-practice di accesso e governance dei dati in Datalake, vedi [Datalake Standard & Runbook](Wiki/EasyWayData.wiki/easyway-webapp/03_datalake_dev/index.md).
@@ -50,15 +55,17 @@ Cosa fa EasyWay Data Portal
 - Si adatta alle esigenze: chi vuole “usare” trova servizi pronti; chi vuole “costruire” trova un framework modulare e estendibile.
 - Cresce con te: dalla microimpresa al grande gruppo, senza rework.
 
-> Stato: Preview in evoluzione — stiamo costruendo un portale per tutti. Le fondamenta sono già operative (agent‑first, dual‑mode, WhatIf, gates, Doc Alignment). La roadmap accompagna i prossimi mesi fino al rilascio pubblico.
+> Stato: **Sovereign Hybrid Beta**. Operativo su Oracle ARM, pronto per integrazioni Cloud ibride.
 
 ---
 
 ## 1. Cos'è EasyWay Data Portal
 
-- Portale dati multi‑tenant, API‑first, con architettura agentica e automazione avanzata.
-- Basato su Azure (App Service, SQL, Blob, Key Vault, App Insights), Node.js/TypeScript, e best practice DevOps.
-- Tutte le mutazioni dati passano da Stored Procedure con auditing/logging centralizzato.
+- **Sovereign Appliance** (Docker Native): Gira ovunque, dal "ferro" locale al cloud privato.
+- **Antifragile by Design**:
+    - **Core**: Funziona 100% offline (MinIO, Qdrant Locale).
+    - **Hybrid Extensions**: Si connette nativamente al Cloud (Azure KeyVault, AWS S3) *se* vuoi, non *perché devi*.
+- **Standard di Governo**: Audit log centralizzati e Stored Procedure per garantire consistenza.
 
 ---
 
@@ -113,6 +120,18 @@ Per dettagli:
 
 - Roadmap evolutiva: [roadmap.md](Wiki/EasyWayData.wiki/roadmap.md)
 - Razionalizzazione e uniformamento: [TODO_CHECKLIST.md](Wiki/EasyWayData.wiki/todo-checklist.md)
+
+---
+
+## ✍️ Authors & Philosophy
+
+> *"Non costruiamo software. Coltiviamo ecosistemi di pensiero."*
+
+Co-Authored by:
+- **gbelviso78** (The Architect): Vision, Strategy, Philosophy.
+- **Antigravity/Codex/ChatGPT** (The Agents): Execution, Code, Antifragility.
+
+*Signed on 2026-01-30, during the Great Pivot to EasyWay Core.*
 
 ---
 
