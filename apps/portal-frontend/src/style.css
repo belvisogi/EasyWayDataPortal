@@ -25,6 +25,8 @@
     font-weight: 800;
     letter-spacing: -0.05em;
     margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    text-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 .hero p.tagline {
