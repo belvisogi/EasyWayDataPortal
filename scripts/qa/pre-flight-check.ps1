@@ -1,0 +1,76 @@
+<#
+.SYNOPSIS
+    EasyWay Core - Pre-Flight Check (QA)
+    Verifies code integrity, imports, and mobile readiness before deployment.
+
+.EXAMPLE
+    .\pre-flight-check.ps1
+#>
+
+$ErrorActionPreference = "Continue"
+
+Write-Host "🕵️  STARTING PRE-FLIGHT CHECK..." -ForegroundColor Cyan
+
+$RootPath = Resolve-Path "$PSScriptRoot\..\.."
+$FrontendPath = "$RootPath\apps\portal-frontend"
+$Failures = 0
+
+# 1. CHECK IMPORTS IN MAIN.TS
+$MainTs = "$FrontendPath\src\main.ts"
+if (Test-Path $MainTs) {
+    $Content = Get-Content $MainTs -Raw
+    if ($Content -match "import.*sovereign-header") {
+        Write-Host "✅ Main.ts imports Header" -ForegroundColor Green
+    }
+    else {
+        Write-Host "❌ Main.ts MISSING Header Import!" -ForegroundColor Red
+        $Failures++
+    }
+    if ($Content -match "import.*sovereign-footer") {
+        Write-Host "✅ Main.ts imports Footer" -ForegroundColor Green
+    }
+    else {
+        Write-Host "❌ Main.ts MISSING Footer Import!" -ForegroundColor Red
+        $Failures++
+    }
+}
+else {
+    Write-Host "❌ src/main.ts Not Found!" -ForegroundColor Red
+    $Failures++
+}
+
+# 2. CHECK HTML FILES FOR MOBILE VIEWPORT
+$HtmlFiles = Get-ChildItem $FrontendPath -Filter "*.html"
+foreach ($file in $HtmlFiles) {
+    $Content = Get-Content $file.FullName -Raw
+    if ($Content -match '<meta name="viewport"') {
+        Write-Host "✅ $($file.Name): Mobile Viewport OK" -ForegroundColor Green
+    }
+    else {
+        Write-Host "❌ $($file.Name): MISSING Viewport Meta Tag!" -ForegroundColor Red
+        $Failures++
+    }
+    
+    if ($Content -match '<title>EasyWay') {
+        Write-Host "✅ $($file.Name): Title Correct" -ForegroundColor Green
+    }
+    else {
+        Write-Host "⚠️ $($file.Name): Title might differ from standard." -ForegroundColor Yellow
+    }
+}
+
+# 3. CHECK PACKAGE.JSON VERSION
+$PkgJson = "$FrontendPath\package.json"
+if (Test-Path $PkgJson) {
+    $Json = Get-Content $PkgJson | ConvertFrom-Json
+    Write-Host "📦 Current Version: $($Json.version)" -ForegroundColor Magenta
+}
+
+Write-Host "------------------------------------------------"
+if ($Failures -eq 0) {
+    Write-Host "🚀 PRE-FLIGHT PASSED. READY FOR DEPLOY." -ForegroundColor Green
+}
+else {
+    Write-Host "🛑 PRE-FLIGHT FAILED. FIX $Failures ERRORS." -ForegroundColor Red
+    exit 1
+}
