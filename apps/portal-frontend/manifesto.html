@@ -18,11 +18,15 @@
             --code-cyan: #0ac8b9;
         }
 
-        body {
-            background-color: var(--code-bg);
-            color: var(--code-text);
+        body,
+        html {
+            background-color: var(--code-bg) !important;
+            color: var(--code-text) !important;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
 
         .code-container {
