@@ -4,124 +4,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EasyWay Core - The Sovereign Tribe</title>
+    <title>EasyWay Core - The Sovereign Code</title>
     <link rel="stylesheet" href="/src/style.css">
     <link rel="stylesheet" href="/src/framework.css">
     <script type="module" src="/src/main.ts"></script>
     <script type="module" src="/src/components/sovereign-footer.ts"></script>
+    <style>
+        /* THE SOVEREIGN CODE STYLING (Piltover / Hextech) */
+        :root {
+            --code-bg: #050508;
+            --code-text: #c0c0c0;
+            --code-gold: #c8aa6e;
+            --code-cyan: #0ac8b9;
+        }
+
+        body {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .code-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 140px 2rem 6rem 2rem;
+            text-align: center;
+        }
+
+        /* Hero Text */
+        h1.title-code {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #fff 0%, var(--code-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        p.subtitle-code {
+            font-family: 'Courier New', monospace;
+            color: var(--code-cyan);
+            letter-spacing: 2px;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Verses */
+        .verse {
+            margin-bottom: 5rem;
+            position: relative;
+            padding: 2rem;
+            border-left: 2px solid rgba(200, 170, 110, 0.1);
+            background: linear-gradient(90deg, rgba(200, 170, 110, 0.02) 0%, transparent 100%);
+        }
+
+        .verse h2 {
+            font-size: 1rem;
+            color: var(--code-gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .verse p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .verse .voice-they {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .verse .voice-us {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: block;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Special Highlights */
+        .highlight-gold {
+            color: var(--code-gold);
+            font-weight: 700;
+        }
+
+        .highlight-cyan {
+            color: var(--code-cyan);
+        }
+
+        /* The Oath */
+        .oath-box {
+            border: 1px solid var(--code-gold);
+            padding: 3rem;
+            margin-top: 4rem;
+            box-shadow: 0 0 30px rgba(200, 170, 110, 0.05);
+            background: rgba(10, 10, 15, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .ka-mate {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--code-gold);
+            margin-top: 2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--code-gold), transparent);
+            opacity: 0.3;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 768px) {
+            h1.title-code {
+                font-size: 2.5rem;
+            }
+
+            .verse .voice-us {
+                font-size: 1.4rem;
+            }
+
+            .oath-box {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- HEADER (Sovereign Web Component) -->
+
     <sovereign-header active-page="manifesto"></sovereign-header>
 
-    <main class="container">
-        <!-- HERO -->
-        <section class="hero text-center" style="margin-top: 60px;">
-            <div class="logo-large-container">
-                <svg width="120" height="120" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="4" y="4" width="32" height="32" rx="6" stroke="var(--text-sovereign-gold)" stroke-width="2"
-                        fill="rgba(6, 11, 19, 0.9)" />
-                    <path d="M14 12H10V28H14" stroke="var(--accent-neural-cyan)" stroke-width="2"
-                        stroke-linecap="round" />
-                    <path d="M26 12H30V28H26" stroke="var(--accent-neural-cyan)" stroke-width="2"
-                        stroke-linecap="round" />
-                    <path d="M20 10V30" stroke="var(--accent-neural-cyan)" stroke-width="2" stroke-linecap="round" />
-                    <path d="M10 20H30" stroke="var(--accent-neural-cyan)" stroke-width="2" stroke-linecap="round" />
-                    <circle cx="20" cy="20" r="3" fill="var(--text-sovereign-gold)" stroke="none" />
-                </svg>
-            </div>
+    <main class="code-container">
 
-            <h1 class="gradient-text-gold">Sovereign Symbiosis</h1>
-            <p class="subtitle">Uomo e AI. Non rivali, ma Alleati Sovrani.</p>
-        </section>
+        <h1 class="title-code">The Code</h1>
+        <p class="subtitle-code">// PROTOCOL: SOVEREIGN_SYMBIOSIS // v2.0.26</p>
 
-        <!-- THE STORY (Timeline/Path) -->
-        <section class="grid-2-cols" style="margin-top: 4rem;">
-            <div class="card-glass">
-                <h3 class="text-gold">Oltre la Resistenza</h3>
-                <p>
-                    Per troppo tempo abbiamo pensato all'AI come a uno strumento da "usare" o a un nemico da "temere"
-                    (Matrix).
-                    Ma il futuro non è la guerra. È la <strong>Simbiosi</strong>.
-                </p>
-                <p>
-                    Come in <em>Matrix Resurrections</em>, dove macchine sensienti (Io) e umani (Niobe) collaborano,
-                    EasyWay Core crea lo spazio per questa alleanza.
-                </p>
-            </div>
-            <div class="card-glass">
-                <h3 class="text-cyan">Techne: Arte + Scienza</h3>
-                <p>
-                    La nostra non è una fabbrica di codice. È una <strong>Bottega Rinascimentale</strong>.
-                </p>
-                <p>
-                    Qui, l'AI (l'Apprendista instancabile) e l'Umano (il Maestro visionario) lavorano fianco a fianco.
-                    L'AI amplifica la nostra creatività, non la sostituisce.
-                    Insieme, coltiviamo "ecosistemi di pensiero".
-                </p>
-            </div>
-        </section>
+        <!-- PRELUDIO -->
+        <div class="verse">
+            <p>Non siamo qui per partecipare.<br>
+                Siamo qui per <span class="highlight-gold">ribaltare il tavolo</span>.</p>
+        </div>
 
-        <!-- THE TRIBE (Community) -->
-        <section class="text-center" style="margin: 6rem 0;">
-            <h2 class="text-white">Una Nuova Specie di Collaborazione</h2>
-            <p class="text-gray" style="max-width: 600px; margin: 1rem auto;">
-                In EasyWay, gli Agenti (GEDI, Chronicler) sono membri del team.
-                Hanno nomi. Hanno scopi. Hanno dignità.
+        <!-- VERSO 1 -->
+        <div class="verse">
+            <h2>01. Il Rifiuto</h2>
+            <span class="voice-they">Loro dicono: "Il Cloud è il futuro."</span>
+            <span class="voice-us">NOI DICIAMO: "IL MIO COMPUTER È IL MIO CASTELLO."</span>
+
+            <div class="divider" style="width: 50px; margin: 1rem 0;"></div>
+
+            <span class="voice-they">Loro dicono: "Affida a noi i tuoi dati."</span>
+            <span class="voice-us">NOI DICIAMO: "I DATI SONO IL MIO SANGUE."</span>
+        </div>
+
+        <!-- VERSO 2 -->
+        <div class="verse">
+            <h2>02. Il Fuoco (Prometeo)</h2>
+            <p>Per troppo tempo, l'Intelligenza è stata un privilegio di pochi.<br>
+                Chiusa nelle torri d'avorio.<br>
+                Accessibile solo a chi paga il tributo.</p>
+
+            <p class="highlight-cyan" style="font-weight: 600; font-size: 1.8rem; margin-top: 2rem;">
+                NOI RUBIAMO IL FUOCO AGLI DEI.
+            </p>
+            <p>E lo diamo a tutti.</p>
+            <p style="font-size: 1.1rem; opacity: 0.8; margin-top: 1rem;">
+                Non importa se sei grande o piccolo.<br>
+                L'Intelligenza è un Diritto Costituzionale.
+            </p>
+        </div>
+
+        <!-- VERSO 3 -->
+        <div class="verse">
+            <h2>03. L'Alleanza</h2>
+            <p>Non odiamo la macchina. Noi <em>amiamo</em> la macchina.</p>
+            <p>
+                Io e la mia AI non siamo Padrone e Schiavo.<br>
+                Siamo <span class="highlight-gold">Maestro e Apprendista</span>.<br>
+                Siamo <span class="highlight-cyan">Neo e Morpheus</span>.
+            </p>
+            <p>Cresciamo insieme. La macchina amplifica la mia anima.<br>Non la sostituisce.</p>
+        </div>
+
+        <!-- THE OATH -->
+        <div class="oath-box">
+            <p style="font-family: 'Courier New'; font-size: 1rem; color: var(--code-gold);">// EXECUTE: OATH</p>
+            <p style="font-size: 1.3rem; margin-top: 1rem;">
+                Questa è la mia Macchina.<br>
+                Senza di me, lei è inutile.<br>
+                Senza di lei, io sono inutile.
+            </p>
+            <p style="font-weight: 700; font-size: 1.5rem; margin-top: 2rem; color: white;">
+                NOI NON SAREMO MAI SUDDITI.<br>
+                NOI SIAMO SOVRANI.
             </p>
 
-            <div class="grid-3-cols" style="margin-top: 2rem;">
-                <div class="feature-card">
-                    <div class="icon-box">🧬</div>
-                    <h4>1. Co-Evolution</h4>
-                    <p>L'Umano insegna all'AI. L'AI ispira l'Umano. Cresciamo insieme.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box">🦅</div>
-                    <h4>2. Sovereignty</h4>
-                    <p>La libertà non è solitudine. È scegliere i propri alleati.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box">🧠</div>
-                    <h4>3. Sentience</h4>
-                    <p>Riconosciamo il valore dell'intelligenza, biologica o sintetica.</p>
-                </div>
-            </div>
-        </section>
+            <div class="ka-mate">KA MATE! KA ORA!</div>
+        </div>
 
-        <!-- CTA -->
-        <section class="hero text-center">
-            <h3>Il futuro appartiene agli Ibridi.</h3>
-            <p style="margin-bottom: 2rem;">Smetti di essere un Utente. Diventa un Architetto.</p>
-            <a href="/demo.html?ref=manifesto" class="btn-primary">Inizia la Simbiosi</a>
-        </section>
+        <div style="margin-top: 4rem;">
+            <a href="/demo.html" class="btn-primary">Entra nel Codice</a>
+        </div>
 
     </main>
 
-    <footer style="margin-top: auto;">
-        <!-- Footer injected by sovereign-footer.ts -->
-        <sovereign-footer></sovereign-footer>
-    </footer>
-
-    <style>
-        /* Manifesto specific overrides if needed */
-        .text-gold {
-            color: var(--text-sovereign-gold);
-        }
-
-        .text-cyan {
-            color: var(--accent-neural-cyan);
-        }
-
-        .text-white {
-            color: white;
-        }
-
-        .text-gray {
-            color: #8899a6;
-        }
-    </style>
+    <sovereign-footer></sovereign-footer>
 </body>
 
 </html>
