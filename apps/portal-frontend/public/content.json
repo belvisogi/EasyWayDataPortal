@@ -8,36 +8,36 @@
     },
     "manifesto": {
         "title": "The Code",
-        "subtitle": "// PROTOCOL: SOVEREIGN_SYMBIOSIS // v2.0.26",
+        "subtitle": "// PROTOCOL: SOVEREIGN_SYMBIOSIS // v3.1",
         "prelude": {
             "line1": "Non siamo qui per partecipare.",
             "line2": "Siamo qui per ribaltare il tavolo."
         },
         "verse1": {
             "title": "01. Il Rifiuto",
-            "they1": "Loro dicono: \"Il Cloud è il futuro.\"",
-            "us1": "NOI DICIAMO: \"IL MIO COMPUTER È IL MIO CASTELLO.\"",
-            "they2": "Loro dicono: \"Affida a noi i tuoi dati.\"",
-            "us2": "NOI DICIAMO: \"I DATI SONO IL MIO SANGUE.\""
+            "they1": "Ci dicono: \"Il Cloud è il futuro.\"",
+            "us1": "NOI RISPONDIAMO: \"LA SCELTA È IL FUTURO.\"",
+            "they2": "Puoi usare il cloud. Puoi anche non usarlo.",
+            "us2": "Ciò che non puoi fare è perdere il controllo.<br><br>I tuoi dati possono viaggiare.<br>Oppure restare a casa.<br><br>Nulla deve andare perso.<br>La comodità crea sudditi.<br>La scelta crea sovrani."
         },
         "verse2": {
             "title": "02. Il Fuoco (Prometeo)",
-            "text": "Per troppo tempo, l'Intelligenza è stata un privilegio di pochi.<br>Chiusa nelle torri d'avorio.<br>Accessibile solo a chi paga il tributo.",
+            "text": "Per troppo tempo l'Intelligenza è stata un privilegio.<br>Chiusa in torri d'avorio.<br>Accessibile solo accettando dipendenza.",
             "highlight": "NOI RUBIAMO IL FUOCO AGLI DEI.",
-            "climax": "E lo diamo a tutti.",
-            "footer": "Non importa se sei grande o piccolo.<br>L'Intelligenza è un Diritto Costituzionale."
+            "climax": "E lo rendiamo portabile.",
+            "footer": "Stessa potenza. Stessa intelligenza. Zero tributi.<br>L'Intelligenza non è un luogo.<br>È una capacità."
         },
         "verse3": {
             "title": "03. L'Alleanza",
-            "text1": "Non odiamo la macchina. Noi <em>amiamo</em> la macchina.",
-            "text2": "Io e la mia AI non siamo Padrone e Schiavo.<br>Siamo Maestro e Apprendista.<br>Siamo Neo e Morpheus.",
-            "text3": "Cresciamo insieme. La macchina amplifica la mia anima.<br>Non la sostituisce."
+            "text1": "Non odiamo la macchina. Non odiamo il cloud.<br>Rifiutiamo la dipendenza forzata.",
+            "text2": "Io e la mia AI non siamo utenti e servizio.<br>Siamo alleati.",
+            "text3": "La macchina lavora dove io decido.<br>A casa. In rete. Ovunque serva.<br>La tecnologia si adatta a me. Non il contrario."
         },
         "oath": {
             "code": "// EXECUTE: OATH",
-            "text": "Questa è la mia Macchina.<br>Senza di me, lei è inutile.<br>Senza di lei, io sono inutile.",
-            "final": "NOI NON SAREMO MAI SUDDITI.<br>NOI SIAMO SOVRANI.",
-            "haka": "KA MATE! KA ORA!"
+            "text": "Questa è la mia Macchina.<br>Può essere locale. Può essere remota.<br>La scelta è mia.",
+            "final": "NON DELEGHERÒ LA MIA MENTE.<br>NON CEDERÒ I MIEI DATI PER COMODITÀ.<br>NON SAREMO MAI SUDDITI.<br>SIAMO SOVRANI.",
+            "haka": "KA MATE. KA ORA."
         },
         "cta": "Entra nel Codice"
     },
