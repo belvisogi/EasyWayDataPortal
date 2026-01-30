@@ -10,6 +10,7 @@ export default defineConfig({
         main: 'index.html',
         demo: 'demo.html',
         memory: 'memory.html',
+        manifesto: 'manifesto.html',
       },
     },
   },

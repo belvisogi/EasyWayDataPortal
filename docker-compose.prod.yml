@@ -50,7 +50,7 @@ services:
       - "traefik.http.middlewares.auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/" 
 
       # ROUTER 1: Public (Marketing Site)
-      - "traefik.http.routers.frontend-public.rule=Path(`/`) || Path(`/demo.html`) || PathPrefix(`/assets`) || PathPrefix(`/src`) || PathPrefix(`/vite.svg`) || Path(`/config.js`)"
+      - "traefik.http.routers.frontend-public.rule=Path(`/`) || Path(`/demo.html`) || Path(`/manifesto.html`) || PathPrefix(`/assets`) || PathPrefix(`/src`) || PathPrefix(`/vite.svg`) || Path(`/config.js`)"
       - "traefik.http.routers.frontend-public.entrypoints=web"
       - "traefik.http.routers.frontend-public.service=frontend-svc"
 
