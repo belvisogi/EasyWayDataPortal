@@ -14,11 +14,13 @@
 // Co-Authored: gbelviso78 & Antigravity/Codex/ChatGPT (2026-01-30)
 // ---------------------------------------------------------------------------
 import { loadBranding } from './utils/theme-loader';
+import { loadContent } from './utils/content-loader';
 import './components/sovereign-header';
 import './components/sovereign-footer';
 
-// Initialize Branding (Dynamic Theme)
+// Initialize Branding (Styles) & Content (Text)
 loadBranding();
+loadContent();
 console.log(
     "%c EasyWay Core %c Sovereign Intelligence Online ",
     "background: #eaa91c; color: #000; font-weight: bold; padding: 4px; border-radius: 4px 0 0 4px;",
