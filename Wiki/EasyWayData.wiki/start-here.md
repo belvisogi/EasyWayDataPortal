@@ -21,6 +21,11 @@ llm:
 [[start-here.md|Home]] > [[domains/docs-governance.md|Docs]] > Index
 
 # Start Here - Link Essenziali
+1) Strategy & Philosophy (The Core) 🧭
+- **Master Strategy**: `concept/STRATEGY_2026.md` (EasyWay Core + Marketplace)
+- Manifesto: `/MANIFESTO.md` (Repo Root)
+- History: `concept/history.md` (The Chronicles)
+
 2) Intents Catalog (WHAT)
 - Use case Excel/CSV: `orchestrations/intents-catalog.md`
 - Globale (cross-domain): `orchestrations/intents-catalog-global.md`

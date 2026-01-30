@@ -59,6 +59,7 @@ Ogni pagina canonica dovrebbe avere:
 Lista preferita (anti-sinonimi):
 - `agents` (non ~~agentic~~)
 - `dq` (non ~~data-quality~~)
+- `strategy`, `antifragility`, `core`
 - `n8n`, `ewctl`, `flyway`, `rag`, `keyvault` (non ~~key-vault~~), `rbac`, `otel`, `terraform`
 - `argos`, `wiki`, `kb`, `manifest`
 - `orchestration`, `intents`, `governance`, `compliance`, `audit`
