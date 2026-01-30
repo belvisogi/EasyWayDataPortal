@@ -89,5 +89,5 @@ ssh ubuntu@80.225.86.168 "docker compose down"
 ```
 
 ---
-**Protocol Owner:** Sovereign Architect
-**Last Verified:** 2026-01-29
+**Protocol Owner:** gbelviso78 & Antigravity
+**Last Verified:** 2026-01-30
