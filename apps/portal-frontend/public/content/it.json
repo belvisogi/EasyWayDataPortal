@@ -3,6 +3,7 @@
     "home": "Home",
     "manifesto": "Manifesto",
     "memory": "Memory",
+    "pricing": "Pricing",
     "demo": "Demo",
     "cta_demo": "Request Demo"
   },
@@ -10,7 +11,7 @@
     "home": { "title": "EasyWay | Sovereign Intelligence" },
     "manifesto": { "title": "EasyWay | Manifesto" },
     "memory": { "title": "EasyWay | Memory" },
+    "pricing": { "title": "EasyWay | Pricing" },
     "demo": { "title": "EasyWay | Demo" }
   }
 }
-

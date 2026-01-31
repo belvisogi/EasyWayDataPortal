@@ -24,6 +24,13 @@
       "nav": { "labelKey": "nav.memory", "order": 30 }
     },
     {
+      "id": "pricing",
+      "route": "/pricing",
+      "titleKey": "page.pricing.title",
+      "spec": "/pages/pricing.json",
+      "nav": { "labelKey": "nav.pricing", "order": 35 }
+    },
+    {
       "id": "demo",
       "route": "/demo.html",
       "titleKey": "page.demo.title",

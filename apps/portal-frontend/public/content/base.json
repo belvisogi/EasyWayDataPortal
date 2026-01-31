@@ -97,6 +97,56 @@
             "secondary": "Leggi il Manifesto"
         }
     },
+    "pricing": {
+        "hero": {
+            "title": "Pricing Sovrano",
+            "tagline": "Scegli un percorso. Mantieni il controllo. Nessun lock‑in.",
+            "cta": "Request Demo"
+        },
+        "tiers": {
+            "start": {
+                "title": "Start",
+                "badge": "PILOT",
+                "desc": "<strong>Ideale per:</strong> team piccoli o primi proof of value.<br><br>• Setup guidato<br>• Portal + Memory base<br>• 1 ambiente<br><br><strong>Prezzo:</strong> su richiesta",
+                "action": "Talk to us"
+            },
+            "grow": {
+                "title": "Grow",
+                "badge": "SCALE",
+                "desc": "<strong>Ideale per:</strong> aziende in crescita e workload reali.<br><br>• Memory avanzata<br>• Orchestrator n8n<br>• 2+ ambienti<br><br><strong>Prezzo:</strong> su richiesta",
+                "action": "Get a quote"
+            },
+            "sov": {
+                "title": "Sovereign",
+                "badge": "ENTERPRISE",
+                "desc": "<strong>Ideale per:</strong> governance completa e ambienti mission‑critical.<br><br>• Air‑gapped ready<br>• Policy e audit<br>• Supporto dedicato<br><br><strong>Prezzo:</strong> custom",
+                "action": "Book demo"
+            }
+        },
+        "included": {
+            "security": {
+                "title": "Sicurezza & Governance",
+                "badge": "SECURE",
+                "desc": "Controllo accessi, isolamento dati, policy di audit."
+            },
+            "ops": {
+                "title": "Operatività",
+                "badge": "OPS",
+                "desc": "Deploy rapido, monitoraggio essenziale, backup guidati."
+            },
+            "support": {
+                "title": "Supporto",
+                "badge": "HUMAN",
+                "desc": "Onboarding e assistenza tecnica con SLA chiari."
+            }
+        },
+        "social": {
+            "title": "Sconto Sociale",
+            "body": "Se investi nel sociale (scuole, biblioteche, logopedia, psicomotricità, enti non‑profit), applichiamo un pricing dedicato. Lo facciamo per scelta, non per marketing.",
+            "primary": "Richiedi sconto sociale",
+            "secondary": "Leggi il Manifesto"
+        }
+    },
     "demo": {
         "hero": {
             "title": "Start Your Sovereign Journey",
