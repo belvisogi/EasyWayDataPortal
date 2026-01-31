@@ -3,7 +3,7 @@ version: '3.9'
 services:
   # 🚦 Reverse Proxy (Gateway)
   traefik:
-    image: traefik:v3.0
+    image: traefik:v2.11
     container_name: easyway-gateway
     restart: unless-stopped
     command:
