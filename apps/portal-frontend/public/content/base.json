@@ -44,7 +44,7 @@
     "home": {
         "hero": {
             "title": "<span class=\"text-gold\">Sovereign</span> <span class=\"text-gradient\">Intelligence</span>",
-            "tagline": "Smetti di affittare l'intelligenza. Inizia a possederla.<br>L'infrastruttura Enterprise per chi non accetta compromessi.",
+            "tagline": "Non affittare l'intelligenza. Possiedila.<br>L'infrastruttura enterprise per chi non accetta compromessi.",
             "cta": "access_protocol.init()"
         },
         "cards": {

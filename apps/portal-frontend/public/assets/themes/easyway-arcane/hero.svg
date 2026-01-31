@@ -24,18 +24,18 @@
   <rect width="1920" height="1080" fill="url(#glowGold)" />
 
   <!-- Subtle arcane rings -->
-  <g opacity="0.35" stroke="#0ac8b9" stroke-width="2">
+  <g opacity="0.24" stroke="#0ac8b9" stroke-width="2">
     <circle cx="960" cy="260" r="120" />
-    <circle cx="960" cy="260" r="180" stroke-opacity="0.5" />
-    <circle cx="960" cy="260" r="250" stroke-opacity="0.25" />
+    <circle cx="960" cy="260" r="180" stroke-opacity="0.35" />
+    <circle cx="960" cy="260" r="250" stroke-opacity="0.18" />
   </g>
-  <g opacity="0.2" stroke="#c8aa6e" stroke-width="2">
+  <g opacity="0.14" stroke="#c8aa6e" stroke-width="2">
     <circle cx="960" cy="520" r="220" />
-    <circle cx="960" cy="520" r="320" stroke-opacity="0.5" />
+    <circle cx="960" cy="520" r="320" stroke-opacity="0.35" />
   </g>
 
   <!-- Circuit lines -->
-  <g stroke="#0ac8b9" stroke-opacity="0.15" stroke-width="2">
+  <g stroke="#0ac8b9" stroke-opacity="0.12" stroke-width="2">
     <path d="M320 360H640M1280 360H1600" />
     <path d="M260 520H520M1400 520H1660" />
     <path d="M420 700H760M1160 700H1500" />
