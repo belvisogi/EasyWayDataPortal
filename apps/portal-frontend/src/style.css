@@ -75,15 +75,15 @@
 
 @keyframes pulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
+        box-shadow: 0 0 0 0 rgba(26, 167, 255, 0.4);
     }
 
     70% {
-        box-shadow: 0 0 0 20px rgba(14, 165, 233, 0);
+        box-shadow: 0 0 0 20px rgba(26, 167, 255, 0);
     }
 
     100% {
-        box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+        box-shadow: 0 0 0 0 rgba(26, 167, 255, 0);
     }
 }
 
@@ -104,7 +104,7 @@
     border-radius: 50%;
     position: relative;
     z-index: 2;
-    box-shadow: 0 0 26px rgba(14, 165, 233, 0.45), inset 0 0 12px rgba(14, 165, 233, 0.25);
+    box-shadow: 0 0 26px rgba(26, 167, 255, 0.45), inset 0 0 12px rgba(26, 167, 255, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -124,8 +124,8 @@
 .orbital-ring {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(14, 165, 233, 0.14);
-    box-shadow: 0 0 14px rgba(14, 165, 233, 0.08);
+    border: 1px solid rgba(26, 167, 255, 0.14);
+    box-shadow: 0 0 14px rgba(26, 167, 255, 0.08);
 }
 
 .ring-1 {

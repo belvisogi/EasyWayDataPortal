@@ -43,7 +43,7 @@
     },
     "home": {
         "hero": {
-            "title": "<span class=\"text-gold\">Sovereign</span> <span class=\"text-gradient\">Intelligence</span>",
+            "title": "<span style=\"color: var(--text-primary);\">Sovereign</span> <span class=\"text-gradient\">Intelligence</span>",
             "tagline": "Non affittare l'intelligenza. Possiedila.<br>L'infrastruttura enterprise per chi non accetta compromessi.",
             "cta": "access_protocol.init()"
         },

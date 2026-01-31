@@ -2,9 +2,9 @@
   <defs>
     <radialGradient id="glowCyan" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
       gradientTransform="translate(960 260) rotate(90) scale(480 720)">
-      <stop offset="0" stop-color="#0ac8b9" stop-opacity="0.28" />
-      <stop offset="0.5" stop-color="#0ac8b9" stop-opacity="0.08" />
-      <stop offset="1" stop-color="#0ac8b9" stop-opacity="0" />
+      <stop offset="0" stop-color="#1aa7ff" stop-opacity="0.28" />
+      <stop offset="0.5" stop-color="#1aa7ff" stop-opacity="0.08" />
+      <stop offset="1" stop-color="#1aa7ff" stop-opacity="0" />
     </radialGradient>
     <radialGradient id="glowGold" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
       gradientTransform="translate(960 520) rotate(90) scale(520 860)">
@@ -24,7 +24,7 @@
   <rect width="1920" height="1080" fill="url(#glowGold)" />
 
   <!-- Subtle arcane rings -->
-  <g opacity="0.24" stroke="#0ac8b9" stroke-width="2">
+  <g opacity="0.24" stroke="#1aa7ff" stroke-width="2">
     <circle cx="960" cy="260" r="120" />
     <circle cx="960" cy="260" r="180" stroke-opacity="0.35" />
     <circle cx="960" cy="260" r="250" stroke-opacity="0.18" />
@@ -35,14 +35,14 @@
   </g>
 
   <!-- Circuit lines -->
-  <g stroke="#0ac8b9" stroke-opacity="0.12" stroke-width="2">
+  <g stroke="#1aa7ff" stroke-opacity="0.12" stroke-width="2">
     <path d="M320 360H640M1280 360H1600" />
     <path d="M260 520H520M1400 520H1660" />
     <path d="M420 700H760M1160 700H1500" />
-    <circle cx="640" cy="360" r="6" fill="#0ac8b9" fill-opacity="0.35" stroke="none" />
-    <circle cx="1280" cy="360" r="6" fill="#0ac8b9" fill-opacity="0.35" stroke="none" />
-    <circle cx="520" cy="520" r="6" fill="#0ac8b9" fill-opacity="0.35" stroke="none" />
-    <circle cx="1400" cy="520" r="6" fill="#0ac8b9" fill-opacity="0.35" stroke="none" />
+    <circle cx="640" cy="360" r="6" fill="#1aa7ff" fill-opacity="0.35" stroke="none" />
+    <circle cx="1280" cy="360" r="6" fill="#1aa7ff" fill-opacity="0.35" stroke="none" />
+    <circle cx="520" cy="520" r="6" fill="#1aa7ff" fill-opacity="0.35" stroke="none" />
+    <circle cx="1400" cy="520" r="6" fill="#1aa7ff" fill-opacity="0.35" stroke="none" />
   </g>
 
   <!-- Vignette -->
