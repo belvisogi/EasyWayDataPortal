@@ -9,7 +9,7 @@
     "--glass-border": "rgba(200, 170, 110, 0.15)",
     "--glass-bg": "rgba(6, 11, 19, 0.7)",
     "--text-primary": "#f0f2f5",
-    "--text-secondary": "#a3afc2",
+    "--text-secondary": "#c2cddd",
     "--font-family": "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
   },
   "assets": {
