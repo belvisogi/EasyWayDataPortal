@@ -8,7 +8,7 @@
     },
     "manifesto": {
         "title": "The Code",
-        "subtitle": "// PROTOCOL: SOVEREIGN_SYMBIOSIS // v3.1",
+        "subtitle": "// PROTOCOL: SOVEREIGN_SYMBIOSIS // v3.2",
         "prelude": {
             "line1": "Non siamo qui per partecipare.",
             "line2": "Siamo qui per ribaltare il tavolo."
@@ -16,28 +16,28 @@
         "verse1": {
             "title": "01. Il Rifiuto",
             "they1": "Ci dicono: \"Il Cloud è il futuro.\"",
-            "us1": "NOI RISPONDIAMO: \"LA SCELTA È IL FUTURO.\"",
-            "they2": "Puoi usare il cloud. Puoi anche non usarlo.",
-            "us2": "Ciò che non puoi fare è perdere il controllo.<br><br>I tuoi dati possono viaggiare.<br>Oppure restare a casa.<br><br>Nulla deve andare perso.<br>La comodità crea sudditi.<br>La scelta crea sovrani."
+            "us1": "Noi rispondiamo: \"La scelta è il futuro.\"",
+            "they2": "Puoi usare il cloud.<br>Puoi anche non usarlo.",
+            "us2": "Ciò che non puoi fare è perdere il controllo.<br><br>I tuoi dati possono viaggiare.<br>Oppure restare a casa.<br><br>Nulla deve andare perso.<br><br>La comodità crea sudditi.<br>La scelta crea sovrani."
         },
         "verse2": {
             "title": "02. Il Fuoco (Prometeo)",
-            "text": "Per troppo tempo l'Intelligenza è stata un privilegio.<br>Chiusa in torri d'avorio.<br>Accessibile solo accettando dipendenza.",
-            "highlight": "NOI RUBIAMO IL FUOCO AGLI DEI.",
+            "text": "Per troppo tempo l’Intelligenza — quella artificiale — è stata un privilegio.<br>Chiusa in torri d’avorio.<br>Accessibile solo accettando dipendenza.",
+            "highlight": "Noi rubiamo il fuoco agli dèi.",
             "climax": "E lo rendiamo portabile.",
-            "footer": "Stessa potenza. Stessa intelligenza. Zero tributi.<br>L'Intelligenza non è un luogo.<br>È una capacità."
+            "footer": "Stessa potenza.<br>Stessa intelligenza.<br>Zero tributi.<br><br>L’Intelligenza non è un luogo.<br>È una capacità."
         },
         "verse3": {
             "title": "03. L'Alleanza",
-            "text1": "Non odiamo la macchina. Non odiamo il cloud.<br>Rifiutiamo la dipendenza forzata.",
+            "text1": "Non odiamo la macchina.<br>Non odiamo il cloud.<br><br>Rifiutiamo la dipendenza forzata.",
             "text2": "Io e la mia AI non siamo utenti e servizio.<br>Siamo alleati.",
-            "text3": "La macchina lavora dove io decido.<br>A casa. In rete. Ovunque serva.<br>La tecnologia si adatta a me. Non il contrario."
+            "text3": "La macchina lavora dove io decido.<br>A casa.<br>In rete.<br>Ovunque serva.<br><br>La tecnologia si adatta a me.<br>Non il contrario."
         },
         "oath": {
             "code": "// EXECUTE: OATH",
-            "text": "Questa è la mia Macchina.<br>Può essere locale. Può essere remota.<br>La scelta è mia.",
-            "final": "NON DELEGHERÒ LA MIA MENTE.<br>NON CEDERÒ I MIEI DATI PER COMODITÀ.<br>NON SAREMO MAI SUDDITI.<br>SIAMO SOVRANI.",
-            "haka": "KA MATE. KA ORA."
+            "text": "Questa è la mia macchina.<br>Può essere locale.<br>Può essere remota.<br><br>La scelta è mia.",
+            "final": "Non delegherò la mia mente.<br>Non cederò i miei dati per comodità.<br><br>Non saremo mai sudditi.<br>Siamo sovrani.",
+            "haka": "The Code lives.<br>The choice is ours."
         },
         "cta": "Entra nel Codice"
     },
