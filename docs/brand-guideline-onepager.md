@@ -46,3 +46,11 @@ Se l’organizzazione investe nel sociale (scuole, biblioteche, logopedia, psico
 
 ---
 Documento minimo. Coerenza massima.
+
+## Ultra‑short (6 righe)
+1) **Sovereign Intelligence** = controllo, non promessa.
+2) Titolo: **no gradient**, peso 600.
+3) Colori: Deep Void + Jinx Blue + Gold + Violet.
+4) Griglia + orbite = precisione, architettura.
+5) CTA: `access_protocol.init()` + `Request Demo`.
+6) Pricing sociale: sconto per scuole, biblioteche, terapisti, non‑profit.
