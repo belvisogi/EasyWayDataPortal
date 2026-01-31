@@ -3,6 +3,7 @@ import datetime
 import os
 import re
 import shutil
+import subprocess
 import sys
 
 
@@ -56,15 +57,24 @@ private_rule = (
 )
 
 def replace_label_rule(s: str, label_key: str, new_rule: str) -> str:
-    # Replace the rule value inside the quoted label line:
-    # - "traefik.http.routers.frontend-public.rule=<...>"
-    pattern = re.compile(
-        rf'(?m)^(?P<indent>\s*-\s+")(?P<key>{re.escape(label_key)}\.rule=)(?P<val>[^"]*)(")\s*$'
-    )
-    m = pattern.search(s)
-    if not m:
+    needle = f'{label_key}.rule='
+    out_lines = []
+    replaced = False
+
+    for line in s.splitlines(True):
+        if needle in line:
+            m = re.match(r'^(\s*)-\s+"', line)
+            if not m:
+                die(f"label line for {label_key}.rule has unexpected format")
+            indent = m.group(1)
+            out_lines.append(f'{indent}- "{label_key}.rule={new_rule}"\n')
+            replaced = True
+        else:
+            out_lines.append(line)
+
+    if not replaced:
         die(f"label rule not found: {label_key}.rule")
-    return pattern.sub(rf"\g<indent>\g<key>{new_rule}\"", s, count=1)
+    return "".join(out_lines)
 
 
 front_block = replace_label_rule(front_block, "traefik.http.routers.frontend-public", public_rule)
@@ -111,4 +121,26 @@ else:
 text = text[:front_start] + front_block + text[front_end:]
 
 open(compose_path, "w", encoding="utf-8").write(text)
+print("[patch-compose] validating compose via docker compose config ...")
+
+tmp_path = f"/tmp/docker-compose.patched.{ts}.yml"
+open(tmp_path, "w", encoding="utf-8").write(text)
+
+try:
+    subprocess.run(
+        ["docker", "compose", "-f", tmp_path, "config"],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+except Exception:
+    # Restore backup on failure.
+    shutil.copy2(backup_path, compose_path)
+    die(f"patched compose is invalid; restored backup {backup_path}")
+finally:
+    try:
+        os.remove(tmp_path)
+    except OSError:
+        pass
+
 print("[patch-compose] OK patched compose file.")
