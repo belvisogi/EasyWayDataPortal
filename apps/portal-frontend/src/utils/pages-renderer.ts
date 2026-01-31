@@ -59,13 +59,24 @@ function renderHero(section: HeroSection): HTMLElement {
         heroText.appendChild(p);
     }
 
-    if (section.cta) {
+    if (section.cta || section.ctaSecondary) {
         const actions = el('div', 'actions');
-        const label = getContentValue(section.cta.labelKey);
-        const btn = el('a', 'btn btn-primary', label) as HTMLAnchorElement;
-        if (section.cta.action.type === 'link') btn.href = section.cta.action.href;
-        btn.id = 'btn-engage';
-        actions.appendChild(btn);
+
+        if (section.cta) {
+            const label = getContentValue(section.cta.labelKey);
+            const btn = el('a', 'btn btn-primary', label) as HTMLAnchorElement;
+            if (section.cta.action.type === 'link') btn.href = section.cta.action.href;
+            btn.id = 'btn-engage';
+            actions.appendChild(btn);
+        }
+
+        if (section.ctaSecondary) {
+            const label = getContentValue(section.ctaSecondary.labelKey);
+            const btn = el('a', 'btn btn-glass', label) as HTMLAnchorElement;
+            if (section.ctaSecondary.action.type === 'link') btn.href = section.ctaSecondary.action.href;
+            actions.appendChild(btn);
+        }
+
         heroText.appendChild(actions);
     }
 

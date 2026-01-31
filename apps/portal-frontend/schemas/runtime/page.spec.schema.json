@@ -51,6 +51,35 @@
                     ]
                   }
                 }
+              },
+              "ctaSecondary": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["labelKey", "action"],
+                "properties": {
+                  "labelKey": { "type": "string" },
+                  "action": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["type", "href"],
+                        "properties": {
+                          "type": { "const": "link" },
+                          "href": { "type": "string", "pattern": "^/.*$" }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["type"],
+                        "properties": {
+                          "type": { "const": "noop" }
+                        }
+                      }
+                    ]
+                  }
+                }
               }
             }
           },
@@ -218,4 +247,3 @@
     }
   }
 }
-

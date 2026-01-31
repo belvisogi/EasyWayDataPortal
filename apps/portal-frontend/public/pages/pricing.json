@@ -37,6 +37,48 @@
       ]
     },
     {
+      "type": "comparison",
+      "titleKey": "pricing.compare.title",
+      "subtitleKey": "pricing.compare.subtitle",
+      "left": {
+        "titleKey": "pricing.compare.left.title",
+        "itemsKeys": [
+          "pricing.compare.left.item1",
+          "pricing.compare.left.item2",
+          "pricing.compare.left.item3"
+        ]
+      },
+      "right": {
+        "titleKey": "pricing.compare.right.title",
+        "itemsKeys": [
+          "pricing.compare.right.item1",
+          "pricing.compare.right.item2",
+          "pricing.compare.right.item3"
+        ]
+      }
+    },
+    {
+      "type": "cards",
+      "variant": "catalog",
+      "items": [
+        {
+          "iconText": "Q1",
+          "titleKey": "pricing.faq.q1.title",
+          "descKey": "pricing.faq.q1.desc"
+        },
+        {
+          "iconText": "Q2",
+          "titleKey": "pricing.faq.q2.title",
+          "descKey": "pricing.faq.q2.desc"
+        },
+        {
+          "iconText": "Q3",
+          "titleKey": "pricing.faq.q3.title",
+          "descKey": "pricing.faq.q3.desc"
+        }
+      ]
+    },
+    {
       "type": "cards",
       "variant": "catalog",
       "items": [

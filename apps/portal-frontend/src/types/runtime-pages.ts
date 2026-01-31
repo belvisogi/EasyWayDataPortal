@@ -12,6 +12,7 @@ export type HeroSection = {
     titleKey: string;
     taglineKey?: string;
     cta?: CtaSpec;
+    ctaSecondary?: CtaSpec;
 };
 
 export type CardsCatalogItem = {

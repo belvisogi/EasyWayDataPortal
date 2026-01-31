@@ -89,11 +89,19 @@ export class SovereignHeader extends HTMLElement {
             .filter(p => !!p.nav)
             .sort((a, b) => (a.nav?.order ?? 0) - (b.nav?.order ?? 0));
 
+        const hoverCopy: Record<string, string> = {
+            manifesto: 'Principi e visione',
+            memory: 'Your data. Your intelligence.',
+            demo: 'See it in action',
+            pricing: 'Piani & sconto sociale'
+        };
+
         nav.innerHTML = '';
         for (const p of pages) {
             const a = document.createElement('a');
             a.href = p.route;
             a.textContent = getContentValue(p.nav!.labelKey, p.id);
+            if (hoverCopy[p.id]) a.title = hoverCopy[p.id];
             if (activePage === p.id) a.classList.add('active');
             nav.appendChild(a);
         }

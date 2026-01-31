@@ -6,6 +6,7 @@
     "--bg-deep-void": "#060b13",
     "--text-sovereign-gold": "#c8aa6e",
     "--accent-neural-cyan": "#1aa7ff",
+    "--accent-violet": "#8b5cf6",
     "--glass-border": "rgba(200, 170, 110, 0.15)",
     "--glass-bg": "rgba(6, 11, 19, 0.7)",
     "--text-primary": "#f0f2f5",

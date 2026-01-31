@@ -44,8 +44,9 @@
     "home": {
         "hero": {
             "title": "<span style=\"color: var(--text-primary);\">Sovereign</span> <span class=\"text-gradient\">Intelligence</span>",
-            "tagline": "Non affittare l'intelligenza. Possiedila.<br>L'infrastruttura enterprise per chi non accetta compromessi.",
-            "cta": "access_protocol.init()"
+            "tagline": "Non affittare l'intelligenza. Possiedila.<br>L'infrastruttura enterprise per chi non delega il controllo.",
+            "cta": "access_protocol.init()",
+            "cta_secondary": "Request Demo"
         },
         "cta": {
             "title": "Una piattaforma. Tre pilastri.",
@@ -138,6 +139,36 @@
                 "title": "Supporto",
                 "badge": "HUMAN",
                 "desc": "Onboarding e assistenza tecnica con SLA chiari."
+            }
+        },
+        "compare": {
+            "title": "EasyWay Core <span class=\"vs\">vs</span> Public AI",
+            "subtitle": "Confronto rapido: controllo, costi, sovranità.",
+            "left": {
+                "title": "EasyWay Core",
+                "item1": "✅ Dati e modelli sotto il tuo controllo",
+                "item2": "✅ Costi prevedibili",
+                "item3": "✅ Zero egress by design"
+            },
+            "right": {
+                "title": "Public AI",
+                "item1": "❌ Dati in transito verso terzi",
+                "item2": "❌ Costi variabili e a consumo",
+                "item3": "❌ Policy non personalizzabili"
+            }
+        },
+        "faq": {
+            "q1": {
+                "title": "Serve Internet?",
+                "desc": "No. EasyWay Core può funzionare offline o in ambienti air‑gapped."
+            },
+            "q2": {
+                "title": "Posso usare i miei modelli?",
+                "desc": "Sì. Supportiamo modelli locali e integrazioni custom."
+            },
+            "q3": {
+                "title": "Cosa include lo sconto sociale?",
+                "desc": "Pricing dedicato per scuole, biblioteche, logopedia, psicomotricità e non‑profit."
             }
         },
         "social": {

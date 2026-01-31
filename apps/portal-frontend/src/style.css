@@ -41,6 +41,23 @@
     margin: 0 auto 3rem;
 }
 
+.hero .actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 1200px) {
+    .hero h1 {
+        font-size: 4.6rem;
+    }
+
+    .hero p.tagline {
+        font-size: 1.65rem;
+    }
+}
+
 /* GEDI Guardian */
 #gedi-guardian {
     position: fixed;

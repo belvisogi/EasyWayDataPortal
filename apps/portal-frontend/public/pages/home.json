@@ -7,7 +7,8 @@
       "type": "hero",
       "titleKey": "home.hero.title",
       "taglineKey": "home.hero.tagline",
-      "cta": { "labelKey": "home.hero.cta", "action": { "type": "link", "href": "/demo.html" } }
+      "cta": { "labelKey": "home.hero.cta", "action": { "type": "link", "href": "/demo.html" } },
+      "ctaSecondary": { "labelKey": "home.hero.cta_secondary", "action": { "type": "link", "href": "/demo.html" } }
     },
     {
       "type": "cta",

@@ -36,10 +36,14 @@ body {
 }
 
 .text-gradient {
-    background: linear-gradient(135deg, var(--text-sovereign-gold), var(--accent-neural-cyan));
+    background: linear-gradient(135deg, var(--text-sovereign-gold), var(--accent-neural-cyan), var(--accent-violet));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.text-violet {
+    color: var(--accent-violet);
 }
 
 .container {
