@@ -1,0 +1,10 @@
+services:
+  frontend:
+    # Mount pages + content as runtime content (no rebuild of the frontend image).
+    #
+    # Set WORKSPACE_FRONTEND to your local folder path, e.g.
+    # - Windows: WORKSPACE_FRONTEND=C:/old/Work-space-frontend
+    volumes:
+      - ${WORKSPACE_FRONTEND}/pages:/usr/share/nginx/html/pages:ro
+      - ${WORKSPACE_FRONTEND}/content:/usr/share/nginx/html/content:ro
+

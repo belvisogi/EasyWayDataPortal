@@ -40,7 +40,7 @@ export class SovereignFooter extends HTMLElement {
                 <ul>
                     <li><a href="#">Sovereign Cloud</a></li>
                     <li><a href="/n8n/">N8N Pipelines</a></li>
-                    <li><a href="/memory.html">Vector Memory</a></li>
+                    <li><a href="/memory">Vector Memory</a></li>
                     <li><a href="#">Security Protocol</a></li>
                 </ul>
             </div>
@@ -60,9 +60,9 @@ export class SovereignFooter extends HTMLElement {
             <div class="footer-col">
                 <h4>Company</h4>
                 <ul>
-                    <li><a href="#">Manifesto</a></li>
+                    <li><a href="/manifesto">Manifesto</a></li>
                     <li><a href="#">Roadmap</a></li>
-                    <li><a href="/demo.html">Request Demo</a></li>
+                    <li><a href="/demo">Request Demo</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
             </div>
@@ -85,7 +85,7 @@ export class SovereignFooter extends HTMLElement {
             padding: 4rem 0 2rem;
             margin-top: auto;
             color: var(--text-secondary);
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-family);
             position: relative;
             z-index: 10;
         }
@@ -101,7 +101,7 @@ export class SovereignFooter extends HTMLElement {
 
         .footer-col h4 {
             color: var(--text-sovereign-gold);
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-family);
             margin-bottom: 1.5rem;
             font-size: 1rem;
             letter-spacing: 0.05em;
@@ -131,7 +131,7 @@ export class SovereignFooter extends HTMLElement {
 
         .brand-col .footer-logo {
             color: var(--text-sovereign-gold);
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-family);
             font-weight: 800;
             font-size: 1.5rem;
             display: flex;
@@ -153,7 +153,7 @@ export class SovereignFooter extends HTMLElement {
         }
 
         .social-links a {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
             font-size: 0.8rem;
             border: 1px solid rgba(255,255,255,0.1);
             padding: 0.4rem 0.8rem;

@@ -5,14 +5,39 @@
  * Usage: <sovereign-header active-page="home|memory|n8n|docs"></sovereign-header>
  */
 
+import { getContentValue } from '../utils/content';
+import type { PagesManifestV1 } from '../types/runtime-pages';
+
 export class SovereignHeader extends HTMLElement {
+    private manifest: PagesManifestV1 | null = null;
+
     constructor() {
         super();
     }
 
     connectedCallback() {
         const activePage = this.getAttribute('active-page') || 'home';
+        this.renderShell(activePage);
 
+        this.loadManifestAndRenderNav(activePage).catch(console.error);
+        window.addEventListener('sovereign:content-loaded', () => {
+            this.renderNav(activePage);
+        });
+
+        // 🥚 EASTER EGG: The Warren Robinett Tribute
+        let clicks = 0;
+        this.querySelector('#egg-icon')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation(); // Stop Navigation
+            clicks++;
+            if (clicks === 5) {
+                alert("🕹️ SECRET FOUND\n\nCreated by gbelviso78\n& Antigravity/Codex/ChatGPT\n\n(The Sovereign Architects)");
+                clicks = 0;
+            }
+        });
+    }
+
+    private renderShell(activePage: string) {
         this.innerHTML = `
     <header class="site-header">
         <div class="header-container">
@@ -27,31 +52,51 @@ export class SovereignHeader extends HTMLElement {
                 </svg>
                 EasyWay Core
             </a>
-            <nav class="nav-links">
-                <a href="/" class="${activePage === 'home' ? 'active' : ''}">Home</a>
-                <a href="/manifesto.html" class="${activePage === 'manifesto' ? 'active' : ''}">Manifesto</a>
-                <a href="/memory.html" class="${activePage === 'memory' ? 'active' : ''}">Memory</a>
-                <a href="/n8n/" class="${activePage === 'n8n' ? 'active' : ''}">N8N</a>
-                <a href="#docs">Docs</a>
-            </nav>
+            <nav class="nav-links" id="nav-links"></nav>
             <div class="header-actions">
-                <a href="/demo.html?ref=nav" class="btn-glass ${activePage === 'demo' ? 'active-btn' : ''}">Request Demo</a>
+                <a href="/demo" class="btn-glass ${activePage === 'demo' ? 'active-btn' : ''}">${getContentValue('nav.cta_demo', 'Request Demo')}</a>
             </div>
         </div>
     </header>
         `;
+    }
 
-        // 🥚 EASTER EGG: The Warren Robinett Tribute
-        let clicks = 0;
-        this.querySelector('#egg-icon')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation(); // Stop Navigation
-            clicks++;
-            if (clicks === 5) {
-                alert("🕹️ SECRET FOUND\n\nCreated by gbelviso78\n& Antigravity/Codex/ChatGPT\n\n(The Sovereign Architects)");
-                clicks = 0;
-            }
-        });
+    private async loadManifestAndRenderNav(activePage: string) {
+        try {
+            const res = await fetch('/pages/pages.manifest.json', { cache: 'no-store' });
+            if (!res.ok) return;
+            this.manifest = await res.json();
+            this.renderNav(activePage);
+        } catch {
+            // Best-effort: keep header usable even if runtime content is missing.
+        }
+    }
+
+    private renderNav(activePage: string) {
+        const nav = this.querySelector('#nav-links');
+        if (!nav) return;
+
+        if (!this.manifest?.pages?.length) {
+            nav.innerHTML = `
+                <a href="/" class="${activePage === 'home' ? 'active' : ''}">Home</a>
+                <a href="/manifesto" class="${activePage === 'manifesto' ? 'active' : ''}">Manifesto</a>
+                <a href="/demo" class="${activePage === 'demo' ? 'active' : ''}">Demo</a>
+            `;
+            return;
+        }
+
+        const pages = this.manifest.pages
+            .filter(p => !!p.nav)
+            .sort((a, b) => (a.nav?.order ?? 0) - (b.nav?.order ?? 0));
+
+        nav.innerHTML = '';
+        for (const p of pages) {
+            const a = document.createElement('a');
+            a.href = p.route;
+            a.textContent = getContentValue(p.nav!.labelKey, p.id);
+            if (activePage === p.id) a.classList.add('active');
+            nav.appendChild(a);
+        }
     }
 }
 

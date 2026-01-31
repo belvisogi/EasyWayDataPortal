@@ -1,0 +1,34 @@
+{
+  "version": "1",
+  "defaultLanguage": "it",
+  "pages": [
+    {
+      "id": "home",
+      "route": "/",
+      "titleKey": "page.home.title",
+      "spec": "/pages/home.json",
+      "nav": { "labelKey": "nav.home", "order": 10 }
+    },
+    {
+      "id": "manifesto",
+      "route": "/manifesto",
+      "titleKey": "page.manifesto.title",
+      "spec": "/pages/manifesto.json",
+      "nav": { "labelKey": "nav.manifesto", "order": 20 }
+    },
+    {
+      "id": "memory",
+      "route": "/memory",
+      "titleKey": "page.memory.title",
+      "spec": "/pages/memory.json",
+      "nav": { "labelKey": "nav.memory", "order": 30 }
+    },
+    {
+      "id": "demo",
+      "route": "/demo",
+      "titleKey": "page.demo.title",
+      "spec": "/pages/demo.json",
+      "nav": { "labelKey": "nav.demo", "order": 40 }
+    }
+  ]
+}

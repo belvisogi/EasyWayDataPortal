@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "images": {
+    "bg.arcane.hero": "/assets/themes/easyway-arcane/hero.svg",
+    "bg.utilitaria.hero": "/assets/themes/utilitaria/hero.svg",
+    "bg.fuoriserie.hero": "/assets/themes/fuoriserie/hero.svg",
+    "bg.accoglienza.hero": "/assets/themes/accoglienza/hero.svg"
+  }
+}

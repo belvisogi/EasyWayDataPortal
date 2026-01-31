@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "easyway.theme-pack.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "id"],
+  "properties": {
+    "version": { "const": "1" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "label": { "type": "string" },
+    "cssVars": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "properties": {
+        "heroBgId": { "type": "string" }
+      }
+    }
+  }
+}
+

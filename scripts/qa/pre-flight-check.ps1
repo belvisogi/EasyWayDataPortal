@@ -67,6 +67,29 @@ if (Test-Path $PkgJson) {
 }
 
 Write-Host "------------------------------------------------"
+# 4. VALIDATE RUNTIME JSON CONTRACTS (Pages/Themes/Assets)
+try {
+    if (Test-Path $PkgJson) {
+        Push-Location $FrontendPath
+        Write-Host "🧾 Validating runtime JSON (AJV)..." -ForegroundColor Cyan
+        npm run validate:runtime | Out-Null
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "✅ Runtime JSON contracts OK" -ForegroundColor Green
+        }
+        else {
+            Write-Host "❌ Runtime JSON validation failed" -ForegroundColor Red
+            $Failures++
+        }
+    }
+}
+catch {
+    Write-Host "⚠️  Runtime JSON validation skipped/failed: $($_.Exception.Message)" -ForegroundColor Yellow
+    $Failures++
+}
+finally {
+    Pop-Location -ErrorAction SilentlyContinue
+}
+
 if ($Failures -eq 0) {
     Write-Host "🚀 PRE-FLIGHT PASSED. READY FOR DEPLOY." -ForegroundColor Green
 }

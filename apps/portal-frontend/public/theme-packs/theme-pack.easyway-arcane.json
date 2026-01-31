@@ -1,0 +1,19 @@
+{
+  "version": "1",
+  "id": "easyway-arcane",
+  "label": "EasyWay (Arcane)",
+  "cssVars": {
+    "--bg-deep-void": "#060b13",
+    "--text-sovereign-gold": "#c8aa6e",
+    "--accent-neural-cyan": "#0ac8b9",
+    "--glass-border": "rgba(200, 170, 110, 0.15)",
+    "--glass-bg": "rgba(6, 11, 19, 0.7)",
+    "--text-primary": "#f0f2f5",
+    "--text-secondary": "#94a3b8",
+    "--font-family": "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+  },
+  "assets": {
+    "heroBgId": "bg.arcane.hero"
+  }
+}
+

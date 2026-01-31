@@ -48,3 +48,8 @@ This frontend implements the **Product Design Requirement** defined in `docs/des
 ## 🛡️ Security
 *   **Headers**: Nginx is configured with strictly enforced security headers (HSTS, No-Sniff).
 *   **Dependency-Free**: Minimized attack surface by removing complex UI libraries.
+
+## 🧩 Runtime Pages (No Rebuild)
+To add/modify pages without rebuilding the app/image, see:
+- `RUNTIME_PAGES.md`
+- `START_HERE_RUNTIME_FRONTEND.md`

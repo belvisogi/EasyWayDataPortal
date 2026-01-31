@@ -1,0 +1,13 @@
+services:
+  frontend:
+    # Mount theme packs + assets as runtime content (no rebuild of the frontend image).
+    #
+    # Set WORKSPACE_FRONTEND to your local folder path, e.g.
+    # - Windows: WORKSPACE_FRONTEND=C:/old/Work-space-frontend
+    # - Linux:   WORKSPACE_FRONTEND=/opt/easyway/workspace-frontend
+    volumes:
+      - ${WORKSPACE_FRONTEND}/theme-packs.manifest.json:/usr/share/nginx/html/theme-packs.manifest.json:ro
+      - ${WORKSPACE_FRONTEND}/assets.manifest.json:/usr/share/nginx/html/assets.manifest.json:ro
+      - ${WORKSPACE_FRONTEND}/theme-packs:/usr/share/nginx/html/theme-packs:ro
+      - ${WORKSPACE_FRONTEND}/assets/themes:/usr/share/nginx/html/assets/themes:ro
+

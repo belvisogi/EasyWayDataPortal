@@ -5,6 +5,22 @@
  */
 
 window.SOVEREIGN_CONFIG = {
+    // i18n
+    i18n: {
+        // Default language for content overlays (content.<lang>.json)
+        lang: "it"
+    },
+
+    // Theme packs (runtime). A page can override via PageSpec.themeId.
+    theme: {
+        defaultId: "easyway-arcane",
+
+        // Precedence of CSS var sources:
+        // - "branding_over_theme": theme packs first, then branding.json (customer/instance overrides win)
+        // - "theme_over_branding": branding.json first, then theme packs (theme packs win)
+        precedence: "branding_over_theme"
+    },
+
     // Infrastructure
     // Default to localhost for dev, overwrite in prod
     apiEndpoint: "http://localhost:5678",

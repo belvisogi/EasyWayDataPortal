@@ -193,6 +193,81 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
+.card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: var(--bg-deep-void);
+    background: linear-gradient(135deg, var(--text-sovereign-gold), var(--accent-neural-cyan));
+    box-shadow: 0 0 20px rgba(10, 200, 185, 0.12);
+    flex: 0 0 auto;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-header h4 {
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-neural-cyan);
+    border: 1px solid rgba(10, 200, 185, 0.25);
+    background: rgba(10, 200, 185, 0.08);
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.card-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0.25rem 0 1.25rem;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.6);
+    box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.12);
+}
+
+.status-dot.online {
+    background: rgba(34, 197, 94, 0.95);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12), 0 0 18px rgba(34, 197, 94, 0.18);
+}
+
 /* Responsive Framework Rules */
 /* Tablet / Zoomed Desktop (900px and below) */
 @media (max-width: 900px) {

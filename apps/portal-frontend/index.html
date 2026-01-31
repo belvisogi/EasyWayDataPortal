@@ -6,11 +6,6 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EasyWay | Sovereign Intelligence</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
-    rel="stylesheet">
   <link rel="stylesheet" href="/src/theme.css">
   <link rel="stylesheet" href="/src/framework.css">
   <link rel="stylesheet" href="/src/style.css">
@@ -23,155 +18,13 @@
   <!-- HEADER (Sovereign Web Component) -->
   <sovereign-header active-page="home"></sovereign-header>
 
-  <!-- MARKETING LAYER (Visible on Land) -->
-  <!-- MARKETING LAYER (Visible on Land) -->
-  <main id="marketing-layer">
-    <!-- Hero Section (Pulse + Text) -->
-    <section class="hero">
-      <div class="container">
-        <div class="neural-core-container" id="core-visual">
-          <div class="neural-core"></div>
-          <div class="orbital-ring ring-1"></div>
-          <div class="orbital-ring ring-2"></div>
-        </div>
-
-        <div id="hero-text">
-          <h1 data-key="home.hero.title">Loading...</h1>
-          <p class="tagline" data-key="home.hero.tagline">...</p>
-          <div class="actions">
-            <button class="btn btn-primary" id="btn-engage" data-key="home.hero.cta">...</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Relief Section (Features below fold) -->
-    <section class="container" id="features-section" style="padding-bottom: 4rem; margin-top: 4rem;">
-      <!-- AGENT CATALOG (Traefik Plugin Style) -->
-      <div class="catalog-grid">
-        <!-- Card 1: GEDI (Main Agent) -->
-        <div class="card-plugin">
-          <div class="card-icon icon-gedi">G</div>
-          <div class="card-body">
-            <div class="card-header">
-              <h4 data-key="home.cards.gedi.title">...</h4>
-              <span class="badge badge-rag" data-key="home.cards.gedi.badge">...</span>
-            </div>
-            <p class="card-desc" data-key="home.cards.gedi.desc">...</p>
-            <div class="card-footer">
-              <span class="status-dot online"></span>
-              <button class="btn btn-glass" data-key="home.cards.gedi.action">...</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2: MEMORY (New!) -->
-        <div class="card-plugin">
-          <div class="card-icon icon-sql">M</div>
-          <div class="card-body">
-            <div class="card-header">
-              <h4 data-key="home.cards.memory.title">...</h4>
-              <span class="badge badge-sql" data-key="home.cards.memory.badge">...</span>
-            </div>
-            <p class="card-desc" data-key="home.cards.memory.desc">...</p>
-            <div class="card-footer">
-              <span class="status-dot online"></span>
-              <a href="/memory.html" class="btn btn-glass" data-key="home.cards.memory.action">...</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3: INBOUND (Demo) -->
-        <div class="card-plugin">
-          <div class="card-icon icon-arch">D</div>
-          <div class="card-body">
-            <div class="card-header">
-              <h4 data-key="home.cards.demo.title">...</h4>
-              <span class="badge badge-sys" data-key="home.cards.demo.badge">...</span>
-            </div>
-            <p class="card-desc" data-key="home.cards.demo.desc">...</p>
-            <div class="card-footer">
-              <span class="status-dot online"></span>
-              <a href="/demo.html" class="btn btn-glass" data-key="home.cards.demo.action">...</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMPARISON (Traefik vs Apigee Style) -->
-      <div class="comparison-section">
-        <div class="comparison-header">
-          <h2 data-key="home.comparison.title">...</h2>
-          <p data-key="home.comparison.subtitle">...</p>
-        </div>
-
-        <div class="comparison-table">
-          <div class="col-easyway">
-            <div class="logo-box" data-key="home.comparison.col_easyway.title">...</div>
-            <ul>
-              <li class="check" data-key="home.comparison.col_easyway.item1">...</li>
-              <li class="check" data-key="home.comparison.col_easyway.item2">...</li>
-              <li class="check" data-key="home.comparison.col_easyway.item3">...</li>
-            </ul>
-          </div>
-          <div class="col-cloud">
-            <div class="logo-box cloud" data-key="home.comparison.col_cloud.title">...</div>
-            <ul>
-              <li class="cross" data-key="home.comparison.col_cloud.item1">...</li>
-              <li class="cross" data-key="home.comparison.col_cloud.item2">...</li>
-              <li class="cross" data-key="home.comparison.col_cloud.item3">...</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- OPERATOR LAYER (Hidden by Default) -->
-  <div id="operator-layer" class="operator-ui hidden">
-
-    <!-- HUD: Monitor Stats (Floating) -->
-    <div class="hud-panel hud-left">
-      <div class="hud-block">
-        <span class="hud-label">CPU.CORE</span>
-        <div class="hud-bar">
-          <div class="fill" style="width: 45%"></div>
-        </div>
-        <span class="hud-value">45%</span>
-      </div>
-      <div class="hud-block">
-        <span class="hud-label">RAM.ALLOC</span>
-        <div class="hud-bar">
-          <div class="fill" style="width: 62%"></div>
-        </div>
-        <span class="hud-value">12GB</span>
-      </div>
-    </div>
-
-    <!-- HUD: Agent Orbit (Floating Right) -->
-    <div class="hud-panel hud-right">
-      <div class="agent-list">
-        <div class="agent-item active" title="GEDI">G</div>
-        <div class="agent-item" title="SQL">S</div>
-        <div class="agent-item" title="ARCHITECT">A</div>
-      </div>
-    </div>
-
-    <!-- CORTEX: Chat Overlay (Bottom) -->
-    <div class="cortex-overlay">
-      <div class="cortex-history" id="cortex-history">
-        <div class="msg system"><span>SYSTEM READY. AWAITING INPUT.</span></div>
-      </div>
-      <input type="text" class="cortex-input" placeholder="COMMAND PROMPT..." id="cortex-input" autocomplete="off">
-    </div>
-
-  </div>
+  <!-- Single-shell App Root: all pages are rendered at runtime from /pages/*.json -->
+  <main id="page-root"></main>
 
   <sovereign-footer></sovereign-footer>
 
   <script src="/config.js"></script>
   <script type="module" src="/src/main.ts"></script>
-  <script type="module" src="/src/components/sovereign-footer.ts"></script>
 </body>
 
 </html>

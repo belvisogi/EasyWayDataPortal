@@ -1,0 +1,63 @@
+{
+  "version": "1",
+  "id": "home",
+  "activeNav": "home",
+  "sections": [
+    {
+      "type": "hero",
+      "titleKey": "home.hero.title",
+      "taglineKey": "home.hero.tagline",
+      "cta": { "labelKey": "home.hero.cta", "action": { "type": "link", "href": "/demo" } }
+    },
+    {
+      "type": "cards",
+      "variant": "catalog",
+      "items": [
+        {
+          "iconText": "G",
+          "titleKey": "home.cards.gedi.title",
+          "badgeKey": "home.cards.gedi.badge",
+          "descKey": "home.cards.gedi.desc",
+          "action": { "labelKey": "home.cards.gedi.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
+        },
+        {
+          "iconText": "M",
+          "titleKey": "home.cards.memory.title",
+          "badgeKey": "home.cards.memory.badge",
+          "descKey": "home.cards.memory.desc",
+          "action": { "labelKey": "home.cards.memory.action", "variant": "glass", "action": { "type": "link", "href": "/memory" } }
+        },
+        {
+          "iconText": "D",
+          "titleKey": "home.cards.demo.title",
+          "badgeKey": "home.cards.demo.badge",
+          "descKey": "home.cards.demo.desc",
+          "action": { "labelKey": "home.cards.demo.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
+        }
+      ]
+    },
+    {
+      "type": "comparison",
+      "titleKey": "home.comparison.title",
+      "subtitleKey": "home.comparison.subtitle",
+      "left": {
+        "titleKey": "home.comparison.col_easyway.title",
+        "itemsKeys": [
+          "home.comparison.col_easyway.item1",
+          "home.comparison.col_easyway.item2",
+          "home.comparison.col_easyway.item3"
+        ]
+      },
+      "right": {
+        "titleKey": "home.comparison.col_cloud.title",
+        "itemsKeys": [
+          "home.comparison.col_cloud.item1",
+          "home.comparison.col_cloud.item2",
+          "home.comparison.col_cloud.item3"
+        ]
+      }
+    },
+    { "type": "spacer", "size": "lg" }
+  ]
+}
+

@@ -1,0 +1,40 @@
+{
+  "version": "1",
+  "id": "memory",
+  "activeNav": "memory",
+  "sections": [
+    {
+      "type": "hero",
+      "titleKey": "memory.hero.title",
+      "taglineKey": "memory.hero.tagline",
+      "cta": { "labelKey": "memory.hero.cta_docs", "action": { "type": "link", "href": "/memory" } }
+    },
+    {
+      "type": "cards",
+      "variant": "catalog",
+      "items": [
+        {
+          "iconText": "S",
+          "titleKey": "memory.features.semantic.title",
+          "descKey": "memory.features.semantic.desc"
+        },
+        {
+          "iconText": "F",
+          "titleKey": "memory.features.fast.title",
+          "descKey": "memory.features.fast.desc"
+        },
+        {
+          "iconText": "SEC",
+          "titleKey": "memory.features.security.title",
+          "descKey": "memory.features.security.desc"
+        },
+        {
+          "iconText": "API",
+          "titleKey": "memory.features.api.title",
+          "descKey": "memory.features.api.desc"
+        }
+      ]
+    },
+    { "type": "spacer", "size": "lg" }
+  ]
+}

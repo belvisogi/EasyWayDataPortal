@@ -1,0 +1,80 @@
+export type ActionSpec =
+    | { type: 'link'; href: string }
+    | { type: 'noop' };
+
+export type CtaSpec = {
+    labelKey: string;
+    action: ActionSpec;
+};
+
+export type HeroSection = {
+    type: 'hero';
+    titleKey: string;
+    taglineKey?: string;
+    cta?: CtaSpec;
+};
+
+export type CardsCatalogItem = {
+    iconText?: string;
+    titleKey: string;
+    badgeKey?: string;
+    descKey?: string;
+    action?: (CtaSpec & { variant?: 'glass' | 'primary' });
+};
+
+export type CardsSection = {
+    type: 'cards';
+    variant: 'catalog';
+    items: CardsCatalogItem[];
+};
+
+export type ComparisonSection = {
+    type: 'comparison';
+    titleKey: string;
+    subtitleKey?: string;
+    left: { titleKey: string; itemsKeys: string[] };
+    right: { titleKey: string; itemsKeys: string[] };
+};
+
+export type CtaSection = {
+    type: 'cta';
+    titleKey: string;
+    bodyKey?: string;
+    primary?: CtaSpec;
+    secondary?: CtaSpec;
+};
+
+export type SpacerSection = {
+    type: 'spacer';
+    size?: 'sm' | 'md' | 'lg';
+};
+
+export type SectionSpec =
+    | HeroSection
+    | CardsSection
+    | ComparisonSection
+    | CtaSection
+    | SpacerSection;
+
+export type PageSpecV1 = {
+    version: '1';
+    id: string;
+    activeNav?: string;
+    titleKey?: string;
+    themeId?: string;
+    sections: SectionSpec[];
+};
+
+export type ManifestPageV1 = {
+    id: string;
+    route: string;
+    titleKey?: string;
+    spec: string;
+    nav?: { labelKey: string; order: number };
+};
+
+export type PagesManifestV1 = {
+    version: '1';
+    defaultLanguage?: string;
+    pages: ManifestPageV1[];
+};

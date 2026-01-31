@@ -60,7 +60,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`portal.local`) || Host(`localhost`) || Host(`127.0.0.1`) || Host(`80.225.86.168`)"
-      - "traefik.http.services.frontend.loadbalancer.server.port=80"
+      - "traefik.http.services.frontend.loadbalancer.server.port=8080"
 
   # 🤖 Orchestrator (n8n - The Portable Brain)
   n8n:

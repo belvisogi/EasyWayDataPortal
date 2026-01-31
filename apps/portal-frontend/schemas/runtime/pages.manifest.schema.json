@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "easyway.pages.manifest.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "pages"],
+  "properties": {
+    "version": { "const": "1" },
+    "defaultLanguage": { "type": "string", "pattern": "^[a-z]{2}$" },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "route", "spec"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "route": { "type": "string", "pattern": "^/.*$" },
+          "titleKey": { "type": "string" },
+          "spec": { "type": "string", "pattern": "^/pages/[a-z0-9]+(?:-[a-z0-9]+)*\\.json$" },
+          "nav": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["labelKey", "order"],
+            "properties": {
+              "labelKey": { "type": "string" },
+              "order": { "type": "integer" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

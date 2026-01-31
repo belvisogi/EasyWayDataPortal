@@ -1,0 +1,10 @@
+{
+  "version": "1",
+  "defaultId": "easyway-arcane",
+  "packs": {
+    "easyway-arcane": "/theme-packs/theme-pack.easyway-arcane.json",
+    "utilitaria": "/theme-packs/theme-pack.utilitaria.json",
+    "fuoriserie": "/theme-packs/theme-pack.fuoriserie.json",
+    "accoglienza": "/theme-packs/theme-pack.accoglienza.json"
+  }
+}

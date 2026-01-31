@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "home": "Home",
+    "manifesto": "Manifesto",
+    "memory": "Memory",
+    "demo": "Demo",
+    "cta_demo": "Request Demo"
+  },
+  "page": {
+    "home": { "title": "EasyWay | Sovereign Intelligence" },
+    "manifesto": { "title": "EasyWay | Manifesto" },
+    "memory": { "title": "EasyWay | Memory" },
+    "demo": { "title": "EasyWay | Demo" }
+  }
+}
+
