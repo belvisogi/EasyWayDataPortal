@@ -1,15 +1,50 @@
-<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- OUTER SHELL: Rounded Gold Square -->
-  <rect x="4" y="4" width="32" height="32" rx="6" stroke="#c8aa6e" stroke-width="3" fill="rgba(6, 11, 19, 0.9)" />
-  
-  <!-- INNER SCOPE: Cyan Brackets -->
-  <path d="M14 12H10V28H14" stroke="#0ac8b9" stroke-width="3" stroke-linecap="round" />
-  <path d="M26 12H30V28H26" stroke="#0ac8b9" stroke-width="3" stroke-linecap="round" />
-  
-  <!-- CROSSHAIR: Cyan Plus -->
-  <path d="M20 10V30" stroke="#0ac8b9" stroke-width="3" stroke-linecap="round" />
-  <path d="M10 20H30" stroke="#0ac8b9" stroke-width="3" stroke-linecap="round" />
-  
-  <!-- CORE: Gold Dot -->
-  <circle cx="20" cy="20" r="4" fill="#c8aa6e" stroke="none" />
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glowCyan" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(960 260) rotate(90) scale(480 720)">
+      <stop offset="0" stop-color="#0ac8b9" stop-opacity="0.28" />
+      <stop offset="0.5" stop-color="#0ac8b9" stop-opacity="0.08" />
+      <stop offset="1" stop-color="#0ac8b9" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glowGold" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(960 520) rotate(90) scale(520 860)">
+      <stop offset="0" stop-color="#c8aa6e" stop-opacity="0.18" />
+      <stop offset="0.55" stop-color="#c8aa6e" stop-opacity="0.06" />
+      <stop offset="1" stop-color="#c8aa6e" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="vignette" x1="960" y1="0" x2="960" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000000" stop-opacity="0" />
+      <stop offset="0.7" stop-color="#000000" stop-opacity="0.18" />
+      <stop offset="1" stop-color="#000000" stop-opacity="0.32" />
+    </linearGradient>
+  </defs>
+
+  <!-- Soft glows (keep grid visible underneath) -->
+  <rect width="1920" height="1080" fill="url(#glowCyan)" />
+  <rect width="1920" height="1080" fill="url(#glowGold)" />
+
+  <!-- Subtle arcane rings -->
+  <g opacity="0.35" stroke="#0ac8b9" stroke-width="2">
+    <circle cx="960" cy="260" r="120" />
+    <circle cx="960" cy="260" r="180" stroke-opacity="0.5" />
+    <circle cx="960" cy="260" r="250" stroke-opacity="0.25" />
+  </g>
+  <g opacity="0.2" stroke="#c8aa6e" stroke-width="2">
+    <circle cx="960" cy="520" r="220" />
+    <circle cx="960" cy="520" r="320" stroke-opacity="0.5" />
+  </g>
+
+  <!-- Circuit lines -->
+  <g stroke="#0ac8b9" stroke-opacity="0.15" stroke-width="2">
+    <path d="M320 360H640M1280 360H1600" />
+    <path d="M260 520H520M1400 520H1660" />
+    <path d="M420 700H760M1160 700H1500" />
+    <circle cx="640" cy="360" r="6" fill="#0ac8b9" fill-opacity="0.35" stroke="none" />
+    <circle cx="1280" cy="360" r="6" fill="#0ac8b9" fill-opacity="0.35" stroke="none" />
+    <circle cx="520" cy="520" r="6" fill="#0ac8b9" fill-opacity="0.35" stroke="none" />
+    <circle cx="1400" cy="520" r="6" fill="#0ac8b9" fill-opacity="0.35" stroke="none" />
+  </g>
+
+  <!-- Vignette -->
+  <rect width="1920" height="1080" fill="url(#vignette)" />
 </svg>
