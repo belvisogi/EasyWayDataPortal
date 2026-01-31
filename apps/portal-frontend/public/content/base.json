@@ -43,7 +43,7 @@
     },
     "home": {
         "hero": {
-            "title": "<span style=\"color: var(--text-primary);\">Sovereign</span> <span class=\"text-gradient\">Intelligence</span>",
+            "title": "<span class=\"hero-title__sovereign\">Sovereign</span> <span class=\"hero-title__intelligence\">Intelligence</span>",
             "tagline": "Non affittare l'intelligenza. Possiedila.<br>L'infrastruttura enterprise per chi non delega il controllo.",
             "cta": "access_protocol.init()",
             "cta_secondary": "Request Demo"
@@ -147,14 +147,16 @@
             "left": {
                 "title": "EasyWay Core",
                 "item1": "✅ Dati e modelli sotto il tuo controllo",
-                "item2": "✅ Costi prevedibili",
-                "item3": "✅ Zero egress by design"
+                "item2": "✅ Deploy on‑prem o hybrid",
+                "item3": "✅ Costi prevedibili",
+                "item4": "✅ Zero egress by design"
             },
             "right": {
                 "title": "Public AI",
                 "item1": "❌ Dati in transito verso terzi",
-                "item2": "❌ Costi variabili e a consumo",
-                "item3": "❌ Policy non personalizzabili"
+                "item2": "❌ Policy non personalizzabili",
+                "item3": "❌ Costi variabili e a consumo",
+                "item4": "❌ Dipendenza dal provider"
             }
         },
         "faq": {

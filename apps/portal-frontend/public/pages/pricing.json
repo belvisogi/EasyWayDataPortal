@@ -46,6 +46,8 @@
           "pricing.compare.left.item1",
           "pricing.compare.left.item2",
           "pricing.compare.left.item3"
+          ,
+          "pricing.compare.left.item4"
         ]
       },
       "right": {
@@ -53,7 +55,8 @@
         "itemsKeys": [
           "pricing.compare.right.item1",
           "pricing.compare.right.item2",
-          "pricing.compare.right.item3"
+          "pricing.compare.right.item3",
+          "pricing.compare.right.item4"
         ]
       }
     },
