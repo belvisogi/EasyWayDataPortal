@@ -10,54 +10,69 @@
       "cta": { "labelKey": "home.hero.cta", "action": { "type": "link", "href": "/demo" } }
     },
     {
+      "type": "cta",
+      "titleKey": "home.cta.title",
+      "bodyKey": "home.cta.body",
+      "primary": { "labelKey": "home.cta.primary", "action": { "type": "link", "href": "/demo" } },
+      "secondary": { "labelKey": "home.cta.secondary", "action": { "type": "link", "href": "/manifesto" } }
+    },
+    {
       "type": "cards",
       "variant": "catalog",
       "items": [
         {
-          "iconText": "G",
-          "titleKey": "home.cards.gedi.title",
-          "badgeKey": "home.cards.gedi.badge",
-          "descKey": "home.cards.gedi.desc",
-          "action": { "labelKey": "home.cards.gedi.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
+          "iconText": "P",
+          "titleKey": "home.pillars.portal.title",
+          "badgeKey": "home.pillars.portal.badge",
+          "descKey": "home.pillars.portal.desc",
+          "action": { "labelKey": "home.pillars.portal.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
         },
         {
           "iconText": "M",
-          "titleKey": "home.cards.memory.title",
-          "badgeKey": "home.cards.memory.badge",
-          "descKey": "home.cards.memory.desc",
-          "action": { "labelKey": "home.cards.memory.action", "variant": "glass", "action": { "type": "link", "href": "/memory" } }
+          "titleKey": "home.pillars.memory.title",
+          "badgeKey": "home.pillars.memory.badge",
+          "descKey": "home.pillars.memory.desc",
+          "action": { "labelKey": "home.pillars.memory.action", "variant": "glass", "action": { "type": "link", "href": "/memory" } }
         },
         {
-          "iconText": "D",
-          "titleKey": "home.cards.demo.title",
-          "badgeKey": "home.cards.demo.badge",
-          "descKey": "home.cards.demo.desc",
-          "action": { "labelKey": "home.cards.demo.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
+          "iconText": "O",
+          "titleKey": "home.pillars.orchestrator.title",
+          "badgeKey": "home.pillars.orchestrator.badge",
+          "descKey": "home.pillars.orchestrator.desc",
+          "action": { "labelKey": "home.pillars.orchestrator.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
         }
       ]
     },
     {
-      "type": "comparison",
-      "titleKey": "home.comparison.title",
-      "subtitleKey": "home.comparison.subtitle",
-      "left": {
-        "titleKey": "home.comparison.col_easyway.title",
-        "itemsKeys": [
-          "home.comparison.col_easyway.item1",
-          "home.comparison.col_easyway.item2",
-          "home.comparison.col_easyway.item3"
-        ]
-      },
-      "right": {
-        "titleKey": "home.comparison.col_cloud.title",
-        "itemsKeys": [
-          "home.comparison.col_cloud.item1",
-          "home.comparison.col_cloud.item2",
-          "home.comparison.col_cloud.item3"
-        ]
-      }
+      "type": "cards",
+      "variant": "catalog",
+      "items": [
+        {
+          "iconText": "SEC",
+          "titleKey": "home.proof.security.title",
+          "badgeKey": "home.proof.security.badge",
+          "descKey": "home.proof.security.desc"
+        },
+        {
+          "iconText": "AIR",
+          "titleKey": "home.proof.airgap.title",
+          "badgeKey": "home.proof.airgap.badge",
+          "descKey": "home.proof.airgap.desc"
+        },
+        {
+          "iconText": "ZERO",
+          "titleKey": "home.proof.egress.title",
+          "badgeKey": "home.proof.egress.badge",
+          "descKey": "home.proof.egress.desc"
+        }
+      ]
     },
-    { "type": "spacer", "size": "lg" }
+    {
+      "type": "cta",
+      "titleKey": "home.cta_final.title",
+      "bodyKey": "home.cta_final.body",
+      "primary": { "labelKey": "home.cta_final.primary", "action": { "type": "link", "href": "/demo" } },
+      "secondary": { "labelKey": "home.cta_final.secondary", "action": { "type": "link", "href": "/manifesto" } }
+    }
   ]
 }
-

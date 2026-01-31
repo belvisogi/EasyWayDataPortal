@@ -47,41 +47,54 @@
             "tagline": "Non affittare l'intelligenza. Possiedila.<br>L'infrastruttura enterprise per chi non accetta compromessi.",
             "cta": "access_protocol.init()"
         },
-        "cards": {
-            "gedi": {
-                "title": "GEDI Guardian",
-                "desc": "Guardian of Intentions. Ethical oversight for sensitive operations.",
-                "badge": "RAG",
-                "action": "Connect"
+        "cta": {
+            "title": "Una piattaforma. Tre pilastri.",
+            "body": "Portal, Memory e Orchestrator lavorano insieme per darti controllo, velocità e autonomia.",
+            "primary": "Request Demo",
+            "secondary": "Leggi il Manifesto"
+        },
+        "pillars": {
+            "portal": {
+                "title": "Sovereign Portal",
+                "desc": "Interfaccia operativa per la tua infrastruttura: chiara, solida, pronta per il business.",
+                "badge": "PORTAL",
+                "action": "Open Portal"
             },
             "memory": {
                 "title": "Sovereign Memory",
-                "desc": "Visual Interface for Qdrant. Inspect embeddings and recall.",
+                "desc": "Vector search governata da te. Embedding locali, latenza minima, zero dipendenze.",
                 "badge": "VECTOR",
-                "action": "Visualize"
+                "action": "Explore Memory"
             },
-            "demo": {
-                "title": "Inbound Flow",
-                "desc": "Request Demo Module. Captures leads via n8n webhook.",
-                "badge": "CRM",
-                "action": "Open"
+            "orchestrator": {
+                "title": "Sovereign Orchestrator",
+                "desc": "Automazioni e workflow n8n integrati. La tua AI lavora dove decidi tu.",
+                "badge": "N8N",
+                "action": "Orchestrate"
             }
         },
-        "comparison": {
-            "title": "EasyWay Core <span class=\"vs\">vs</span> The Cloud",
-            "subtitle": "Sovereign Intelligence is not a feature. It's an architecture.",
-            "col_easyway": {
-                "title": "EasyWay Core",
-                "item1": "✅ 100% On-Premise Data",
-                "item2": "✅ Zero Egress Policy",
-                "item3": "✅ One-Time License"
+        "proof": {
+            "security": {
+                "title": "Sicurezza by design",
+                "desc": "Controllo accessi, isolamento dati, policy chiare.",
+                "badge": "SECURE"
             },
-            "col_cloud": {
-                "title": "Public AI",
-                "item1": "❌ Data Training usage",
-                "item2": "❌ API Latency",
-                "item3": "❌ Monthly Subscription"
+            "airgap": {
+                "title": "Air‑gapped ready",
+                "desc": "Funziona offline e resta operativo anche senza Internet.",
+                "badge": "OFFLINE"
+            },
+            "egress": {
+                "title": "Zero egress",
+                "desc": "I dati non escono. Punto.",
+                "badge": "ZERO"
             }
+        },
+        "cta_final": {
+            "title": "Pronto a possedere la tua intelligenza?",
+            "body": "Parliamone. Ti mostriamo EasyWay Core in 15 minuti.",
+            "primary": "Request Demo",
+            "secondary": "Leggi il Manifesto"
         }
     },
     "demo": {
