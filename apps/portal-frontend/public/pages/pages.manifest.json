@@ -25,7 +25,7 @@
     },
     {
       "id": "demo",
-      "route": "/demo",
+      "route": "/demo.html",
       "titleKey": "page.demo.title",
       "spec": "/pages/demo.json",
       "nav": { "labelKey": "nav.demo", "order": 40 }
