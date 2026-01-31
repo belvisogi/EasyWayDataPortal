@@ -59,6 +59,19 @@ services:
     networks:
       - easyway-net
 
+  # 🧠 Vector Database (Qdrant Memory)
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: easyway-memory
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - easyway-net
+
   # 🗄️ Sovereign Storage (MinIO)
   minio:
     image: minio/minio:latest
@@ -86,3 +99,4 @@ volumes:
   sql-data:
   azurite-data:
   minio-data:
+  qdrant-data:
