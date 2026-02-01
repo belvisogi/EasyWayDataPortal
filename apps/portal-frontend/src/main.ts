@@ -55,7 +55,7 @@ async function bootstrap() {
 
     if (precedence === 'theme_over_branding') {
         // branding.json first, theme packs after (theme wins)
-        loadBranding();
+        await loadBranding();
         await initRuntimePages();
         bindGlobalRuntimeNav();
         return;
@@ -64,7 +64,7 @@ async function bootstrap() {
     // Default: theme packs first, branding.json last (branding wins)
     await initRuntimePages();
     bindGlobalRuntimeNav();
-    loadBranding();
+    await loadBranding();
 }
 
 bootstrap().catch((err) => console.error('[Sovereign] Bootstrap failed', err));

@@ -563,3 +563,14 @@ body.theme-terminal .hero::before {
     opacity: 1;
     transition: opacity 0.15s ease;
 }
+
+.site-header.header-pending .header-actions,
+.site-header.header-pending .logo {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.site-header:not(.header-pending) .header-actions,
+.site-header:not(.header-pending) .logo {
+    opacity: 1;
+}

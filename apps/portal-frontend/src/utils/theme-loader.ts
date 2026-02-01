@@ -1,6 +1,6 @@
-export async function loadBranding() {
+export async function loadBranding(): Promise<void> {
     try {
-        const response = await fetch('/branding.json');
+        const response = await fetch('/branding.json', { cache: 'no-store' });
         if (!response.ok) throw new Error('Failed to load branding');
 
         const config = await response.json();
@@ -23,5 +23,8 @@ export async function loadBranding() {
         console.log(`🦅 [SovereignTheme] Identity Loaded: ${config.meta.name}`);
     } catch (error) {
         console.warn('⚠️ [SovereignTheme] Fallback to default styles.', error);
+    } finally {
+        (window as any).SOVEREIGN_BRANDING_READY = true;
+        window.dispatchEvent(new CustomEvent('sovereign:branding-loaded'));
     }
 }

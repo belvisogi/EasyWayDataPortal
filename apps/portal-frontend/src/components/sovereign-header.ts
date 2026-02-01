@@ -11,6 +11,7 @@ import type { PagesManifestV1 } from '../types/runtime-pages';
 export class SovereignHeader extends HTMLElement {
     private manifest: PagesManifestV1 | null = null;
     private manifestReady = false;
+    private brandingReady = false;
 
     constructor() {
         super();
@@ -22,6 +23,10 @@ export class SovereignHeader extends HTMLElement {
 
         this.loadManifestAndRenderNav(activePage).catch(console.error);
         window.addEventListener('sovereign:content-loaded', () => {
+            this.maybeRenderNav(activePage);
+        });
+        window.addEventListener('sovereign:branding-loaded', () => {
+            this.brandingReady = true;
             this.maybeRenderNav(activePage);
         });
 
@@ -40,7 +45,7 @@ export class SovereignHeader extends HTMLElement {
 
     private renderShell(activePage: string) {
         this.innerHTML = `
-    <header class="site-header">
+    <header class="site-header header-pending">
         <div class="header-container">
             <a href="/" class="logo">
                 <svg id="egg-icon" width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 12px; cursor: pointer;">
@@ -68,6 +73,7 @@ export class SovereignHeader extends HTMLElement {
             if (!res.ok) return;
             this.manifest = await res.json();
             this.manifestReady = true;
+            this.brandingReady = !!(window as any).SOVEREIGN_BRANDING_READY;
             this.maybeRenderNav(activePage);
         } catch {
             // Best-effort: keep header usable even if runtime content is missing.
@@ -81,7 +87,10 @@ export class SovereignHeader extends HTMLElement {
     private maybeRenderNav(activePage: string) {
         if (!this.manifestReady) return;
         if (!this.isContentReady()) return;
+        if (!this.brandingReady && (window as any).SOVEREIGN_BRANDING_READY !== true) return;
         this.renderNav(activePage);
+        const header = this.querySelector('.site-header');
+        header?.classList.remove('header-pending');
         const nav = this.querySelector('#nav-links');
         nav?.classList.remove('nav-pending');
         nav?.classList.add('nav-ready');
