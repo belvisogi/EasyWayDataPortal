@@ -10,6 +10,7 @@ import type { PagesManifestV1 } from '../types/runtime-pages';
 
 export class SovereignHeader extends HTMLElement {
     private manifest: PagesManifestV1 | null = null;
+    private manifestReady = false;
 
     constructor() {
         super();
@@ -21,7 +22,7 @@ export class SovereignHeader extends HTMLElement {
 
         this.loadManifestAndRenderNav(activePage).catch(console.error);
         window.addEventListener('sovereign:content-loaded', () => {
-            this.renderNav(activePage);
+            this.maybeRenderNav(activePage);
         });
 
         // 🥚 EASTER EGG: The Warren Robinett Tribute
@@ -52,7 +53,7 @@ export class SovereignHeader extends HTMLElement {
                 </svg>
                 EasyWay Core
             </a>
-            <nav class="nav-links" id="nav-links"></nav>
+            <nav class="nav-links nav-pending" id="nav-links" aria-hidden="true"></nav>
             <div class="header-actions">
                 <a href="/demo.html" class="btn-glass ${activePage === 'demo' ? 'active-btn' : ''}">${getContentValue('nav.cta_demo', 'Request Demo')}</a>
             </div>
@@ -66,10 +67,25 @@ export class SovereignHeader extends HTMLElement {
             const res = await fetch('/pages/pages.manifest.json', { cache: 'no-store' });
             if (!res.ok) return;
             this.manifest = await res.json();
-            this.renderNav(activePage);
+            this.manifestReady = true;
+            this.maybeRenderNav(activePage);
         } catch {
             // Best-effort: keep header usable even if runtime content is missing.
         }
+    }
+
+    private isContentReady(): boolean {
+        return !!(window as any).SOVEREIGN_CONTENT_READY;
+    }
+
+    private maybeRenderNav(activePage: string) {
+        if (!this.manifestReady) return;
+        if (!this.isContentReady()) return;
+        this.renderNav(activePage);
+        const nav = this.querySelector('#nav-links');
+        nav?.classList.remove('nav-pending');
+        nav?.classList.add('nav-ready');
+        nav?.setAttribute('aria-hidden', 'false');
     }
 
     private renderNav(activePage: string) {

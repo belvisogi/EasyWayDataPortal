@@ -58,6 +58,7 @@ export async function loadContent(): Promise<any> {
     const data = deepMerge(base, overlay || {});
 
     window.SOVEREIGN_CONTENT = data;
+    (window as any).SOVEREIGN_CONTENT_READY = true;
     window.dispatchEvent(new CustomEvent('sovereign:content-loaded', { detail: { lang } }));
 
     // Back-compat: inject into any static markup that still uses data-key.

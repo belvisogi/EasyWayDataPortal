@@ -46,26 +46,27 @@ foreach ($file in $HtmlFiles) {
         $Failures++
     }
 
-    $FontMatches = [regex]::Matches($Content, "font-family\s*:\s*([^;]+);", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+    $FontMatches = [regex]::Matches($Content, 'font-family\s*:\s*([^;]+);', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
     foreach ($match in $FontMatches) {
         $Value = $match.Groups[1].Value.Trim()
-        if ($Value -notmatch "var\\(--font-family\\)" -and $Value -notmatch "monospace" -and $Value -notmatch "inherit") {
+        $ValueLower = $Value.ToLowerInvariant()
+        if ($ValueLower -notlike "*var(--font-family)*" -and $ValueLower -notlike "*var(--font-mono)*" -and $ValueLower -notlike "*monospace*" -and $ValueLower -notlike "*inherit*") {
             Write-Host "❌ $($file.Name): Hardcoded font-family -> $Value" -ForegroundColor Red
             $Failures++
         }
     }
 
-    $H1Matches = [regex]::Matches($Content, "<h1[^>]*>", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+    $H1Matches = [regex]::Matches($Content, '<h1[^>]*>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
     foreach ($match in $H1Matches) {
-        if ($match.Value -notmatch "class\s*=\s*\"[^\"]*\bh1\b") {
+        if ($match.Value -notmatch 'class\s*=\s*\"[^\"]*\bh1\b') {
             Write-Host "❌ $($file.Name): H1 missing .h1 class -> $($match.Value)" -ForegroundColor Red
             $Failures++
         }
     }
 
-    $H2Matches = [regex]::Matches($Content, "<h2[^>]*>", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+    $H2Matches = [regex]::Matches($Content, '<h2[^>]*>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
     foreach ($match in $H2Matches) {
-        if ($match.Value -notmatch "class\s*=\s*\"[^\"]*\bh2\b") {
+        if ($match.Value -notmatch 'class\s*=\s*\"[^\"]*\bh2\b') {
             Write-Host "❌ $($file.Name): H2 missing .h2 class -> $($match.Value)" -ForegroundColor Red
             $Failures++
         }
