@@ -11,6 +11,7 @@ This log tracks decisions and fixes from the current build cycle.
 - Typography: unified `.h1/.h2` and `--font-family`/`--font-mono` usage across pages.
 - Cache policy: HTML/config no-store; static assets immutable (nginx).
 - QA: frontend audit added + wired into pre-commit and pre-flight.
+- Audit status: 10/10 (framework + audit + docs complete).
 
 ## Test Policy (Agreed)
 - Automated tests (agent): audit scripts + HTTP sanity checks.

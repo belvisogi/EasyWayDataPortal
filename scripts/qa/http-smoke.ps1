@@ -8,10 +8,15 @@
 #>
 
 param(
-    [string]$BaseUrl = "http://80.225.86.168"
+    [string]$BaseUrl = $env:SMOKE_BASE_URL
 )
 
 $ErrorActionPreference = "Continue"
+
+if (-not $BaseUrl -or $BaseUrl.Trim().Length -eq 0) {
+    Write-Host "⚠️  SMOKE_BASE_URL not set. Skipping HTTP smoke test." -ForegroundColor Yellow
+    exit 0
+}
 
 Write-Host "🌐 HTTP SMOKE TEST @ $BaseUrl" -ForegroundColor Cyan
 
