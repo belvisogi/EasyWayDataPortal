@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   # 🧠 The Brain & Arms (EasyWay Agent Runner)
   agent-runner:
