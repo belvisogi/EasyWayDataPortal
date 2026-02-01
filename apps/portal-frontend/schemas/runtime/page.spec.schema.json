@@ -236,6 +236,42 @@
           {
             "type": "object",
             "additionalProperties": false,
+            "required": ["type", "titleKey", "fields", "submitKey"],
+            "properties": {
+              "type": { "const": "form" },
+              "variant": { "enum": ["demo"] },
+              "titleKey": { "type": "string" },
+              "leadKey": { "type": "string" },
+              "badgesKeys": { "type": "array", "items": { "type": "string" } },
+              "testimonialTextKey": { "type": "string" },
+              "testimonialAuthorKey": { "type": "string" },
+              "consentKey": { "type": "string" },
+              "submitKey": { "type": "string" },
+              "legalKey": { "type": "string" },
+              "fields": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["name", "type", "labelKey"],
+                  "properties": {
+                    "name": { "type": "string" },
+                    "type": { "enum": ["text", "email", "select", "textarea", "checkbox"] },
+                    "labelKey": { "type": "string" },
+                    "placeholderKey": { "type": "string" },
+                    "required": { "type": "boolean" },
+                    "optionsKey": { "type": "string" },
+                    "rows": { "type": "number" },
+                    "width": { "enum": ["half", "full"] }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
             "required": ["type"],
             "properties": {
               "type": { "const": "spacer" },

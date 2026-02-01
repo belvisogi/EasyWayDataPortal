@@ -32,7 +32,7 @@
     },
     {
       "id": "demo",
-      "route": "/demo.html",
+      "route": "/demo",
       "titleKey": "page.demo.title",
       "spec": "/pages/demo.json",
       "nav": { "labelKey": "nav.demo", "order": 40 }

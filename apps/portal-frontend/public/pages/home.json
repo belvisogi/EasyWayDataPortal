@@ -7,14 +7,14 @@
       "type": "hero",
       "titleKey": "home.hero.title",
       "taglineKey": "home.hero.tagline",
-      "cta": { "labelKey": "home.hero.cta", "action": { "type": "link", "href": "/demo.html" } },
-      "ctaSecondary": { "labelKey": "home.hero.cta_secondary", "action": { "type": "link", "href": "/demo.html" } }
+      "cta": { "labelKey": "home.hero.cta", "action": { "type": "link", "href": "/demo" } },
+      "ctaSecondary": { "labelKey": "home.hero.cta_secondary", "action": { "type": "link", "href": "/demo" } }
     },
     {
       "type": "cta",
       "titleKey": "home.cta.title",
       "bodyKey": "home.cta.body",
-      "primary": { "labelKey": "home.cta.primary", "action": { "type": "link", "href": "/demo.html" } },
+      "primary": { "labelKey": "home.cta.primary", "action": { "type": "link", "href": "/demo" } },
       "secondary": { "labelKey": "home.cta.secondary", "action": { "type": "link", "href": "/manifesto" } }
     },
     {
@@ -26,7 +26,7 @@
           "titleKey": "home.pillars.portal.title",
           "badgeKey": "home.pillars.portal.badge",
           "descKey": "home.pillars.portal.desc",
-          "action": { "labelKey": "home.pillars.portal.action", "variant": "glass", "action": { "type": "link", "href": "/demo.html" } }
+          "action": { "labelKey": "home.pillars.portal.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
         },
         {
           "iconText": "M",
@@ -40,7 +40,7 @@
           "titleKey": "home.pillars.orchestrator.title",
           "badgeKey": "home.pillars.orchestrator.badge",
           "descKey": "home.pillars.orchestrator.desc",
-          "action": { "labelKey": "home.pillars.orchestrator.action", "variant": "glass", "action": { "type": "link", "href": "/demo.html" } }
+          "action": { "labelKey": "home.pillars.orchestrator.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
         }
       ]
     },
@@ -72,7 +72,7 @@
       "type": "cta",
       "titleKey": "home.cta_final.title",
       "bodyKey": "home.cta_final.body",
-      "primary": { "labelKey": "home.cta_final.primary", "action": { "type": "link", "href": "/demo.html" } },
+      "primary": { "labelKey": "home.cta_final.primary", "action": { "type": "link", "href": "/demo" } },
       "secondary": { "labelKey": "home.cta_final.secondary", "action": { "type": "link", "href": "/manifesto" } }
     }
   ]

@@ -26,3 +26,11 @@ Decision:
 
 Why:
 - Fast updates for content; stable caching for assets.
+
+## 2026-02-01 — Demo as Runtime Page
+Decision:
+- Move Demo to runtime routing (`/demo`) and keep `/demo.html` as redirect fallback.
+
+Why:
+- Removes full reload flicker and keeps single-shell consistency.
+- Aligns with antifragile UI governance.

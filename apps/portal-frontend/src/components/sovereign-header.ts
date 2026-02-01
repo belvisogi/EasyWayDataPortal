@@ -65,7 +65,7 @@ export class SovereignHeader extends HTMLElement {
             </a>
             <nav class="nav-links nav-pending" id="nav-links" aria-hidden="true"></nav>
             <div class="header-actions">
-                <a href="/demo.html" class="btn-glass ${activePage === 'demo' ? 'active-btn' : ''}">${getContentValue('nav.cta_demo', 'Request Demo')}</a>
+                <a href="/demo" class="btn-glass ${activePage === 'demo' ? 'active-btn' : ''}">${getContentValue('nav.cta_demo', 'Request Demo')}</a>
             </div>
         </div>
     </header>

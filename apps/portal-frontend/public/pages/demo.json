@@ -6,37 +6,92 @@
     {
       "type": "hero",
       "titleKey": "demo.hero.title",
-      "taglineKey": "demo.hero.lead",
-      "cta": { "labelKey": "demo.form.submit", "action": { "type": "link", "href": "/demo" } }
+      "taglineKey": "demo.hero.lead"
     },
     {
-      "type": "cards",
-      "variant": "catalog",
-      "items": [
+      "type": "form",
+      "variant": "demo",
+      "titleKey": "demo.form.title",
+      "leadKey": "demo.hero.lead",
+      "badgesKeys": ["demo.badges.sovereign", "demo.badges.n8n", "demo.badges.oracle"],
+      "testimonialTextKey": "demo.testimonial.text",
+      "testimonialAuthorKey": "demo.testimonial.author",
+      "fields": [
         {
-          "iconText": "S",
-          "titleKey": "demo.badges.sovereign",
-          "descKey": "demo.testimonial.text"
+          "name": "firstName",
+          "type": "text",
+          "labelKey": "demo.form.firstName",
+          "placeholderKey": "demo.form.firstNamePlaceholder",
+          "required": true,
+          "width": "half"
         },
         {
-          "iconText": "N",
-          "titleKey": "demo.badges.n8n",
-          "descKey": "demo.testimonial.author"
+          "name": "lastName",
+          "type": "text",
+          "labelKey": "demo.form.lastName",
+          "placeholderKey": "demo.form.lastNamePlaceholder",
+          "required": true,
+          "width": "half"
         },
         {
-          "iconText": "O",
-          "titleKey": "demo.badges.oracle",
-          "descKey": "demo.hero.lead"
+          "name": "company",
+          "type": "text",
+          "labelKey": "demo.form.company",
+          "placeholderKey": "demo.form.companyPlaceholder",
+          "required": true,
+          "width": "half"
+        },
+        {
+          "name": "companySize",
+          "type": "select",
+          "labelKey": "demo.form.companySize",
+          "optionsKey": "demo.form.companySizeOptions",
+          "required": true,
+          "width": "half"
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "labelKey": "demo.form.workEmail",
+          "placeholderKey": "demo.form.workEmailPlaceholder",
+          "required": true,
+          "width": "half"
+        },
+        {
+          "name": "jobTitle",
+          "type": "text",
+          "labelKey": "demo.form.jobTitle",
+          "placeholderKey": "demo.form.jobTitlePlaceholder",
+          "required": true,
+          "width": "half"
+        },
+        {
+          "name": "interest",
+          "type": "select",
+          "labelKey": "demo.form.demoInterest",
+          "optionsKey": "demo.form.demoInterestOptions",
+          "required": true,
+          "width": "full"
+        },
+        {
+          "name": "description",
+          "type": "textarea",
+          "labelKey": "demo.form.useCase",
+          "placeholderKey": "demo.form.useCasePlaceholder",
+          "rows": 3,
+          "width": "full"
+        },
+        {
+          "name": "consent",
+          "type": "checkbox",
+          "labelKey": "demo.form.consent",
+          "required": true,
+          "width": "full"
         }
-      ]
-    },
-    {
-      "type": "cta",
-      "titleKey": "demo.form.legal",
-      "primary": { "labelKey": "demo.form.submit", "action": { "type": "link", "href": "/demo" } },
-      "secondary": { "labelKey": "nav.home", "action": { "type": "link", "href": "/" } }
+      ],
+      "submitKey": "demo.form.submit",
+      "legalKey": "demo.form.legal"
     },
     { "type": "spacer", "size": "lg" }
   ]
 }
-

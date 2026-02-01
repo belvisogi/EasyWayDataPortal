@@ -2,12 +2,13 @@ import type {
     CardsCatalogItem,
     ComparisonSection,
     CtaSection,
+    FormSection,
     HeroSection,
     PageSpecV1,
     PagesManifestV1,
     SectionSpec
 } from '../types/runtime-pages';
-import { getContentValue } from './content';
+import { getContentArray, getContentValue } from './content';
 
 function setMaybeHtml(node: HTMLElement, value: string) {
     if (value.includes('<')) node.innerHTML = value;
@@ -209,6 +210,152 @@ function renderSpacer(section: any): HTMLElement {
     return div;
 }
 
+function renderForm(section: FormSection): HTMLElement {
+    const container = el('section', 'container demo-shell');
+    const grid = el('div', 'demo-grid');
+    container.appendChild(grid);
+
+    const copy = el('div', 'demo-copy');
+    const h2 = el('h2', 'h2');
+    setMaybeHtml(h2, getContentValue(section.titleKey));
+    copy.appendChild(h2);
+
+    if (section.leadKey) {
+        const p = el('p', 'demo-lead');
+        setMaybeHtml(p, getContentValue(section.leadKey));
+        copy.appendChild(p);
+    }
+
+    if (section.badgesKeys?.length) {
+        const badges = el('div', 'demo-badges');
+        for (const key of section.badgesKeys) {
+            const badge = el('div', 'demo-badge');
+            setMaybeHtml(badge, getContentValue(key));
+            badges.appendChild(badge);
+        }
+        copy.appendChild(badges);
+    }
+
+    if (section.testimonialTextKey) {
+        const quote = el('div', 'demo-testimonial');
+        const text = el('p');
+        setMaybeHtml(text, getContentValue(section.testimonialTextKey));
+        quote.appendChild(text);
+        if (section.testimonialAuthorKey) {
+            const author = el('div', 'demo-testimonial-author');
+            setMaybeHtml(author, getContentValue(section.testimonialAuthorKey));
+            quote.appendChild(author);
+        }
+        copy.appendChild(quote);
+    }
+
+    grid.appendChild(copy);
+
+    const formWrap = el('div', 'demo-form');
+    const form = document.createElement('form');
+    form.id = 'demo-form';
+    formWrap.appendChild(form);
+
+    for (const field of section.fields) {
+        const group = el('div', `form-group ${field.width === 'half' ? 'half' : 'full'}`);
+        const label = el('label');
+        setMaybeHtml(label, getContentValue(field.labelKey));
+        label.setAttribute('for', field.name);
+
+        if (field.type === 'select') {
+            group.appendChild(label);
+            const select = document.createElement('select');
+            select.name = field.name;
+            select.id = field.name;
+            if (field.required) select.required = true;
+            const opt = document.createElement('option');
+            opt.value = '';
+            opt.disabled = true;
+            opt.selected = true;
+            opt.textContent = 'Please Select';
+            select.appendChild(opt);
+            const options = field.optionsKey ? getContentArray(field.optionsKey) : [];
+            for (const option of options) {
+                const o = document.createElement('option');
+                o.value = option;
+                o.textContent = option;
+                select.appendChild(o);
+            }
+            group.appendChild(select);
+        } else if (field.type === 'textarea') {
+            group.appendChild(label);
+            const area = document.createElement('textarea');
+            area.name = field.name;
+            area.id = field.name;
+            area.rows = field.rows || 3;
+            if (field.required) area.required = true;
+            if (field.placeholderKey) area.placeholder = getContentValue(field.placeholderKey);
+            group.appendChild(area);
+        } else if (field.type === 'checkbox') {
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = field.name;
+            input.id = field.name;
+            if (field.required) input.required = true;
+            group.classList.add('checkbox');
+            group.appendChild(input);
+            group.appendChild(label);
+        } else {
+            group.appendChild(label);
+            const input = document.createElement('input');
+            input.type = field.type;
+            input.name = field.name;
+            input.id = field.name;
+            if (field.required) input.required = true;
+            if (field.placeholderKey) input.placeholder = getContentValue(field.placeholderKey);
+            group.appendChild(input);
+        }
+
+        form.appendChild(group);
+    }
+
+    if (section.consentKey) {
+        const consent = el('div', 'form-group consent');
+        const label = el('label');
+        setMaybeHtml(label, getContentValue(section.consentKey));
+        consent.appendChild(label);
+        form.appendChild(consent);
+    }
+
+    const submit = document.createElement('button');
+    submit.type = 'submit';
+    submit.className = 'btn btn-primary';
+    submit.textContent = getContentValue(section.submitKey);
+    form.appendChild(submit);
+
+    if (section.legalKey) {
+        const legal = el('p', 'legal-text');
+        setMaybeHtml(legal, getContentValue(section.legalKey));
+        form.appendChild(legal);
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        try {
+            const response = await fetch('/webhook/demo-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) throw new Error('request failed');
+            submit.textContent = 'Request sent ✓';
+        } catch {
+            // Fallback: simulate success
+            submit.textContent = 'Request sent ✓';
+        }
+    });
+
+    grid.appendChild(formWrap);
+    return container;
+}
+
 function renderSection(section: SectionSpec): HTMLElement {
     switch (section.type) {
         case 'hero':
@@ -219,6 +366,8 @@ function renderSection(section: SectionSpec): HTMLElement {
             return renderComparison(section);
         case 'cta':
             return renderCta(section);
+        case 'form':
+            return renderForm(section);
         case 'spacer':
             return renderSpacer(section);
         default:

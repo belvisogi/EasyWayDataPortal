@@ -195,6 +195,7 @@
             "author": "— EasyWay Core Pioneer"
         },
         "form": {
+            "title": "Get your demo",
             "firstName": "First Name",
             "lastName": "Last Name",
             "company": "Company Name",
@@ -205,7 +206,15 @@
             "useCase": "Brief Use Case Description (Optional)",
             "consent": "I agree to receive communications from EasyWay.",
             "submit": "Request Demo",
-            "legal": "By submitting this form, you acknowledge that your data will be processed in accordance with our <a href=\"#\">Sovereign Privacy Policy</a>."
+            "legal": "By submitting this form, you acknowledge that your data will be processed in accordance with our <a href=\"#\">Sovereign Privacy Policy</a>.",
+            "firstNamePlaceholder": "Jane",
+            "lastNamePlaceholder": "Doe",
+            "companyPlaceholder": "Acme Corp",
+            "workEmailPlaceholder": "jane@company.com",
+            "jobTitlePlaceholder": "CTO",
+            "useCasePlaceholder": "Describe your use case...",
+            "companySizeOptions": ["1-10", "11-50", "51-200", "201-1000", "1000+"],
+            "demoInterestOptions": ["Sovereign Portal", "Sovereign Memory", "Orchestrator", "Full Stack"]
         }
     },
     "memory": {

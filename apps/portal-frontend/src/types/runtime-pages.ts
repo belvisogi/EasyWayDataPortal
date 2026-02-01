@@ -45,6 +45,31 @@ export type CtaSection = {
     secondary?: CtaSpec;
 };
 
+export type FormFieldSpec = {
+    name: string;
+    type: 'text' | 'email' | 'select' | 'textarea' | 'checkbox';
+    labelKey: string;
+    placeholderKey?: string;
+    required?: boolean;
+    optionsKey?: string;
+    rows?: number;
+    width?: 'half' | 'full';
+};
+
+export type FormSection = {
+    type: 'form';
+    variant?: 'demo';
+    titleKey: string;
+    leadKey?: string;
+    badgesKeys?: string[];
+    testimonialTextKey?: string;
+    testimonialAuthorKey?: string;
+    fields: FormFieldSpec[];
+    consentKey?: string;
+    submitKey: string;
+    legalKey?: string;
+};
+
 export type SpacerSection = {
     type: 'spacer';
     size?: 'sm' | 'md' | 'lg';
@@ -55,6 +80,7 @@ export type SectionSpec =
     | CardsSection
     | ComparisonSection
     | CtaSection
+    | FormSection
     | SpacerSection;
 
 export type PageSpecV1 = {

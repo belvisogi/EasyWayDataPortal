@@ -7,7 +7,7 @@
       "type": "hero",
       "titleKey": "pricing.hero.title",
       "taglineKey": "pricing.hero.tagline",
-      "cta": { "labelKey": "pricing.hero.cta", "action": { "type": "link", "href": "/demo.html" } }
+      "cta": { "labelKey": "pricing.hero.cta", "action": { "type": "link", "href": "/demo" } }
     },
     {
       "type": "cards",
@@ -18,21 +18,21 @@
           "titleKey": "pricing.tiers.start.title",
           "badgeKey": "pricing.tiers.start.badge",
           "descKey": "pricing.tiers.start.desc",
-          "action": { "labelKey": "pricing.tiers.start.action", "variant": "glass", "action": { "type": "link", "href": "/demo.html" } }
+          "action": { "labelKey": "pricing.tiers.start.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
         },
         {
           "iconText": "GROW",
           "titleKey": "pricing.tiers.grow.title",
           "badgeKey": "pricing.tiers.grow.badge",
           "descKey": "pricing.tiers.grow.desc",
-          "action": { "labelKey": "pricing.tiers.grow.action", "variant": "glass", "action": { "type": "link", "href": "/demo.html" } }
+          "action": { "labelKey": "pricing.tiers.grow.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
         },
         {
           "iconText": "SOV",
           "titleKey": "pricing.tiers.sov.title",
           "badgeKey": "pricing.tiers.sov.badge",
           "descKey": "pricing.tiers.sov.desc",
-          "action": { "labelKey": "pricing.tiers.sov.action", "variant": "glass", "action": { "type": "link", "href": "/demo.html" } }
+          "action": { "labelKey": "pricing.tiers.sov.action", "variant": "glass", "action": { "type": "link", "href": "/demo" } }
         }
       ]
     },
@@ -109,7 +109,7 @@
       "type": "cta",
       "titleKey": "pricing.social.title",
       "bodyKey": "pricing.social.body",
-      "primary": { "labelKey": "pricing.social.primary", "action": { "type": "link", "href": "/demo.html" } },
+      "primary": { "labelKey": "pricing.social.primary", "action": { "type": "link", "href": "/demo" } },
       "secondary": { "labelKey": "pricing.social.secondary", "action": { "type": "link", "href": "/manifesto" } }
     }
   ]

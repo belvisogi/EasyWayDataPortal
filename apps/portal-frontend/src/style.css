@@ -579,3 +579,136 @@ body.theme-terminal .hero::before {
 .site-header:not(.header-pending) .logo {
     opacity: 1;
 }
+
+/* --- Demo Form (Runtime) --- */
+.demo-shell {
+    padding: 4rem 2rem;
+}
+
+.demo-grid {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr);
+    gap: 3rem;
+    align-items: start;
+}
+
+.demo-copy h2 {
+    margin-bottom: 1rem;
+}
+
+.demo-lead {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.demo-badges {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.demo-badge {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    text-align: center;
+    min-width: 110px;
+}
+
+.demo-testimonial {
+    margin-top: 1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.demo-testimonial-author {
+    margin-top: 0.5rem;
+    color: var(--text-primary);
+    font-style: normal;
+    font-weight: 600;
+}
+
+.demo-form {
+    background: rgba(3, 6, 10, 0.6);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.demo-form form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.demo-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.demo-form .form-group.half {
+    width: 100%;
+}
+
+.demo-form .form-group.full,
+.demo-form .form-group.checkbox,
+.demo-form .legal-text,
+.demo-form button {
+    grid-column: 1 / -1;
+}
+
+.demo-form label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.demo-form input,
+.demo-form select,
+.demo-form textarea {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--form-border, rgba(200, 170, 110, 0.3));
+    border-radius: 8px;
+    padding: 0.75rem 0.85rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.demo-form input:focus,
+.demo-form select:focus,
+.demo-form textarea:focus {
+    border-color: var(--accent-neural-cyan);
+    box-shadow: 0 0 0 2px rgba(26, 167, 255, 0.2);
+}
+
+.demo-form .form-group.checkbox {
+    flex-direction: row;
+    align-items: center;
+}
+
+.demo-form .form-group.checkbox input {
+    width: auto;
+}
+
+.demo-form .legal-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.8rem;
+}
+
+@media (max-width: 900px) {
+    .demo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .demo-form form {
+        grid-template-columns: 1fr;
+    }
+}

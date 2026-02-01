@@ -7,6 +7,7 @@ This log tracks decisions and fixes from the current build cycle.
 - SPA nav: global runtime link interception to avoid full reloads.
 - Footer flash: runtime preload guard to prevent layout jump on navigation.
 - Header stability: nav renders only after content + branding ready (prevents flicker).
+- Demo moved to runtime (`/demo`) with form section; `/demo.html` redirects.
 - Typography: unified `.h1/.h2` and `--font-family`/`--font-mono` usage across pages.
 - Cache policy: HTML/config no-store; static assets immutable (nginx).
 - QA: frontend audit added + wired into pre-commit and pre-flight.
