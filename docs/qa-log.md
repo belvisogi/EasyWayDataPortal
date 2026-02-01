@@ -12,6 +12,10 @@ This log tracks decisions and fixes from the current build cycle.
 - Cache policy: HTML/config no-store; static assets immutable (nginx).
 - QA: frontend audit added + wired into pre-commit and pre-flight.
 
+## Test Policy (Agreed)
+- Automated tests (agent): audit scripts + HTTP sanity checks.
+- Manual tests (owner): UI/UX visual validation.
+
 ## Notes
 - Goal: "change skin in minutes" with minimal hardcoded styling.
 - Rule: framework + audit + docs for antifragility.

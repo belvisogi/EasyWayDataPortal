@@ -55,3 +55,13 @@ These guidelines keep the UI consistent, antifragile, and easy to maintain by hu
 - [ ] Text in `content/base.json` + language file
 - [ ] Runtime pages registered in `pages.manifest.json`
 - [ ] Nav links stay SPA (no full reload for runtime routes)
+
+## Tests (must do)
+Automated (agent)
+- Run `scripts/qa/audit-frontend.ps1`
+- HTTP checks for `/`, `/demo`, `/manifesto`, `/memory`, `/pricing`
+
+Manual (owner)
+- Visual nav stability (no flicker)
+- CTA color consistency (Home vs Demo)
+- Manifesto readability + theming
