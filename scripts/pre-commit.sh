@@ -63,6 +63,14 @@ if git diff --cached --name-only | grep -q "^apps/portal-frontend/"; then
             exit 1
         fi
         echo "✅ Frontend audit passed"
+
+        echo "🌐 Running HTTP smoke..."
+        pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/qa/http-smoke.ps1
+        if [ $? -ne 0 ]; then
+            echo "❌ HTTP smoke FAILED"
+            exit 1
+        fi
+        echo "✅ HTTP smoke passed"
     else
         echo "⚠️  pwsh not found, skipping frontend audit"
     fi
