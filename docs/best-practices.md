@@ -71,3 +71,6 @@ Manual (owner)
 - Use `aria-current="page"` on active nav items.
 - Use `aria-busy="true"` while SPA is loading.
 - Focus the main heading after SPA navigation.
+
+## Error glossary
+- See `docs/errors-glossary.md` (human‑readable error descriptions + fixes).
