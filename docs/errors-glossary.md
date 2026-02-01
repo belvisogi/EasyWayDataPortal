@@ -2,6 +2,12 @@
 
 This glossary describes common errors in plain language and how to fix them.
 
+## Template (use for new entries)
+**Short title**
+- Symptom: "Exact message or close variant"
+- Meaning: One line plain explanation.
+- Fix: One line actionable remediation.
+
 ## Content / i18n
 **Missing content key**
 - Symptom: Console warning like `[ContentLoader] Missing key: ...`
