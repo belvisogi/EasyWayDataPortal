@@ -19,6 +19,33 @@ import { initRuntimePages } from './utils/runtime-pages';
 import './components/sovereign-header';
 import './components/sovereign-footer';
 
+let navBound = false;
+
+function bindGlobalRuntimeNav() {
+    if (navBound) return;
+    const root = document.getElementById('page-root');
+    if (!root) return;
+
+    navBound = true;
+    document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement | null;
+        const anchor = target?.closest('a') as HTMLAnchorElement | null;
+        if (!anchor) return;
+        if (anchor.target === '_blank') return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+        const href = anchor.getAttribute('href');
+        if (!href) return;
+        if (href.startsWith('http') || href.startsWith('#') || anchor.hasAttribute('download')) return;
+        if (!href.startsWith('/')) return;
+        if (href.endsWith('.html')) return;
+
+        e.preventDefault();
+        window.history.pushState({}, '', href);
+        initRuntimePages().catch(console.error);
+    });
+}
+
 async function bootstrap() {
     const precedence = window.SOVEREIGN_CONFIG?.theme?.precedence || 'branding_over_theme';
 
@@ -29,11 +56,13 @@ async function bootstrap() {
         // branding.json first, theme packs after (theme wins)
         loadBranding();
         await initRuntimePages();
+        bindGlobalRuntimeNav();
         return;
     }
 
     // Default: theme packs first, branding.json last (branding wins)
     await initRuntimePages();
+    bindGlobalRuntimeNav();
     loadBranding();
 }
 

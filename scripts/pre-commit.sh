@@ -52,4 +52,20 @@ if [ $SCAN_FAILED -ne 0 ]; then
 fi
 
 echo "✅ KB integrity check passed"
+
+# Optional: Frontend audit (only if frontend files are staged)
+if git diff --cached --name-only | grep -q "^apps/portal-frontend/"; then
+    if command -v pwsh &> /dev/null; then
+        echo "🔎 Running frontend audit..."
+        pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/qa/audit-frontend.ps1
+        if [ $? -ne 0 ]; then
+            echo "❌ Frontend audit FAILED"
+            exit 1
+        fi
+        echo "✅ Frontend audit passed"
+    else
+        echo "⚠️  pwsh not found, skipping frontend audit"
+    fi
+fi
+
 exit 0
