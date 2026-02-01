@@ -50,7 +50,7 @@ function renderHero(section: HeroSection): HTMLElement {
     heroText.id = 'hero-text';
     container.appendChild(heroText);
 
-    const h1 = el('h1');
+    const h1 = el('h1', 'h1');
     setMaybeHtml(h1, getContentValue(section.titleKey));
     heroText.appendChild(h1);
     if (section.taglineKey) {
@@ -143,7 +143,7 @@ function renderComparison(section: ComparisonSection): HTMLElement {
     const wrapper = el('div', 'comparison-section');
 
     const header = el('div', 'comparison-header');
-    const h2 = el('h2');
+    const h2 = el('h2', 'h2');
     setMaybeHtml(h2, getContentValue(section.titleKey));
     header.appendChild(h2);
     if (section.subtitleKey) header.appendChild(el('p', '', getContentValue(section.subtitleKey)));
@@ -183,7 +183,7 @@ function renderCta(section: CtaSection): HTMLElement {
     panel.style.padding = '2rem';
     container.appendChild(panel);
 
-    const h2 = el('h2');
+    const h2 = el('h2', 'h2');
     setMaybeHtml(h2, getContentValue(section.titleKey));
     panel.appendChild(h2);
     if (section.bodyKey) {

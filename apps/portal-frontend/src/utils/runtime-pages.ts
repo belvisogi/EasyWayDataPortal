@@ -8,10 +8,20 @@ function setHeaderActive(active: string) {
     header.setAttribute('active-page', active);
 }
 
+function scrollToTop(): void {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+}
+
 export async function initRuntimePages(): Promise<void> {
     const root = document.getElementById('page-root');
     if (!root) {
         console.warn('[RuntimePages] Missing #page-root. Skipping runtime pages init.');
+        return;
+    }
+
+    const pathname = normalizePathname(window.location.pathname);
+    if (pathname === '/manifesto') {
+        window.location.replace('/manifesto.html');
         return;
     }
 
@@ -24,7 +34,6 @@ export async function initRuntimePages(): Promise<void> {
         return;
     }
 
-    const pathname = normalizePathname(window.location.pathname);
     const pageId = resolvePageIdByRoute(manifest, pathname) || resolvePageIdByRoute(manifest, '/');
     if (!pageId) {
         root.textContent = 'No pages configured.';
@@ -51,6 +60,7 @@ export async function initRuntimePages(): Promise<void> {
 
     setHeaderActive(pageSpec.activeNav || pageSpec.id);
     renderPage(root, pageSpec, manifest);
+    scrollToTop();
 
     // Bind navigation once per session.
     const anyRoot = root as any;
@@ -76,10 +86,12 @@ export async function initRuntimePages(): Promise<void> {
 
             e.preventDefault();
             window.history.pushState({}, '', href);
+            scrollToTop();
             initRuntimePages().catch(console.error);
         });
 
         window.addEventListener('popstate', () => {
+            scrollToTop();
             initRuntimePages().catch(console.error);
         });
     }

@@ -59,6 +59,21 @@ foreach ($file in $HtmlFiles) {
     }
 }
 
+# 2.1 FRONTEND FRAMEWORK AUDIT
+$AuditScript = "$PSScriptRoot\audit-frontend.ps1"
+if (Test-Path $AuditScript) {
+    Write-Host "------------------------------------------------"
+    Write-Host "🔎 Running frontend framework audit..." -ForegroundColor Cyan
+    & $AuditScript
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "❌ Frontend audit failed" -ForegroundColor Red
+        $Failures++
+    }
+}
+else {
+    Write-Host "⚠️  Frontend audit script not found" -ForegroundColor Yellow
+}
+
 # 3. CHECK PACKAGE.JSON VERSION
 $PkgJson = "$FrontendPath\package.json"
 if (Test-Path $PkgJson) {

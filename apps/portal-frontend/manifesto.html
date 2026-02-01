@@ -52,8 +52,6 @@
 
         /* Hero Text */
         h1.title-code {
-            font-size: 3.2rem;
-            font-weight: 700;
             letter-spacing: -1px;
             color: var(--text-primary);
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
@@ -62,7 +60,7 @@
         }
 
         p.subtitle-code {
-            font-family: 'Courier New', monospace;
+            font-family: var(--font-family);
             color: var(--code-cyan);
             letter-spacing: 2px;
             margin-bottom: 2rem;
@@ -82,8 +80,7 @@
             background: linear-gradient(90deg, rgba(200, 170, 110, 0.02) 0%, transparent 100%);
         }
 
-        .verse h2 {
-            font-size: 2rem;
+        .verse .h2 {
             color: var(--text-primary);
             text-transform: none;
             letter-spacing: 0.5px;
@@ -150,7 +147,7 @@
 
     <main class="code-container">
 
-        <h1 class="title-code" data-key="manifesto.title">Loading...</h1>
+        <h1 class="title-code h1" data-key="manifesto.title">Loading...</h1>
         <p class="subtitle-code" data-key="manifesto.subtitle">...</p>
 
         <!-- PRELUDIO -->
@@ -162,7 +159,7 @@
 
         <!-- VERSO 1 -->
         <div class="verse">
-            <h2 data-key="manifesto.verse1.title"></h2>
+            <h2 class="h2" data-key="manifesto.verse1.title"></h2>
             <span class="voice-they" data-key="manifesto.verse1.they1"></span>
             <span class="voice-us" data-key="manifesto.verse1.us1"></span>
 
@@ -174,7 +171,7 @@
 
         <!-- VERSO 2 -->
         <div class="verse">
-            <h2 data-key="manifesto.verse2.title"></h2>
+            <h2 class="h2" data-key="manifesto.verse2.title"></h2>
             <p data-key="manifesto.verse2.text"></p>
 
             <p class="highlight-cyan" style="font-weight: 600; font-size: 1.8rem; margin-top: 2rem;"
@@ -187,7 +184,7 @@
 
         <!-- VERSO 3 -->
         <div class="verse">
-            <h2 data-key="manifesto.verse3.title"></h2>
+            <h2 class="h2" data-key="manifesto.verse3.title"></h2>
             <p data-key="manifesto.verse3.text1"></p>
             <p data-key="manifesto.verse3.text2">
             </p>

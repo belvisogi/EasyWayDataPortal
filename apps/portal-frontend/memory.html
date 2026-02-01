@@ -82,7 +82,7 @@
             position: relative;
         }
 
-        h1 {
+        .h1 {
             font-family: var(--font-family);
             font-size: 3.2rem;
             line-height: 1.1;
@@ -171,9 +171,14 @@
 
         .feature-title {
             font-size: 1.5rem;
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-family);
             color: var(--text-primary);
             margin-bottom: 1rem;
+        }
+
+        .section-title {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
         }
 
         .feature-desc {
@@ -239,7 +244,7 @@
     <div class="container">
 
         <section class="hero">
-            <h1 data-key="memory.hero.title">...</h1>
+            <h1 class="h1" data-key="memory.hero.title">...</h1>
             <p class="tagline" data-key="memory.hero.tagline">...</p>
             <div>
                 <a href="#" class="btn-cta" data-key="memory.hero.cta_explore">... <span id="col-count"
@@ -302,8 +307,7 @@
         <!-- "Code" Visual -->
         <div style="display: flex; gap: 4rem; align-items: center; margin-bottom: 8rem; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 300px;">
-                <h2 style="font-family: var(--font-family); font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-primary);"
-                    data-key="memory.features.api.title">
+                <h2 class="h2 section-title" data-key="memory.features.api.title">
                     ...
                 </h2>
                 <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 2rem;"
