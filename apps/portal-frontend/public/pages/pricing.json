@@ -110,7 +110,7 @@
       "titleKey": "pricing.social.title",
       "bodyKey": "pricing.social.body",
       "primary": { "labelKey": "pricing.social.primary", "action": { "type": "link", "href": "/demo" } },
-      "secondary": { "labelKey": "pricing.social.secondary", "action": { "type": "link", "href": "/manifesto" } }
+      "secondary": { "labelKey": "pricing.social.secondary", "action": { "type": "link", "href": "/manifesto.html" } }
     }
   ]
 }

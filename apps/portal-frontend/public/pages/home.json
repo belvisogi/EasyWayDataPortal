@@ -15,7 +15,7 @@
       "titleKey": "home.cta.title",
       "bodyKey": "home.cta.body",
       "primary": { "labelKey": "home.cta.primary", "action": { "type": "link", "href": "/demo" } },
-      "secondary": { "labelKey": "home.cta.secondary", "action": { "type": "link", "href": "/manifesto" } }
+      "secondary": { "labelKey": "home.cta.secondary", "action": { "type": "link", "href": "/manifesto.html" } }
     },
     {
       "type": "cards",
@@ -73,7 +73,7 @@
       "titleKey": "home.cta_final.title",
       "bodyKey": "home.cta_final.body",
       "primary": { "labelKey": "home.cta_final.primary", "action": { "type": "link", "href": "/demo" } },
-      "secondary": { "labelKey": "home.cta_final.secondary", "action": { "type": "link", "href": "/manifesto" } }
+      "secondary": { "labelKey": "home.cta_final.secondary", "action": { "type": "link", "href": "/manifesto.html" } }
     }
   ]
 }

@@ -38,7 +38,7 @@ function bindGlobalRuntimeNav() {
         if (!href) return;
         if (href.startsWith('http') || href.startsWith('#') || anchor.hasAttribute('download')) return;
         if (!href.startsWith('/')) return;
-        if (href.endsWith('.html')) return;
+        if (href.endsWith('.html') || href === '/manifesto') return;
 
         e.preventDefault();
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
