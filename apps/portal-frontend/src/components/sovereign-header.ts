@@ -19,6 +19,7 @@ export class SovereignHeader extends HTMLElement {
 
     connectedCallback() {
         const activePage = this.getAttribute('active-page') || 'home';
+        document.body.classList.add('header-freeze');
         this.renderShell(activePage);
 
         this.loadManifestAndRenderNav(activePage).catch(console.error);
@@ -29,6 +30,10 @@ export class SovereignHeader extends HTMLElement {
             this.brandingReady = true;
             this.maybeRenderNav(activePage);
         });
+
+        window.setTimeout(() => {
+            document.body.classList.remove('header-freeze');
+        }, 3000);
 
         // 🥚 EASTER EGG: The Warren Robinett Tribute
         let clicks = 0;
@@ -91,6 +96,7 @@ export class SovereignHeader extends HTMLElement {
         this.renderNav(activePage);
         const header = this.querySelector('.site-header');
         header?.classList.remove('header-pending');
+        document.body.classList.remove('header-freeze');
         const nav = this.querySelector('#nav-links');
         nav?.classList.remove('nav-pending');
         nav?.classList.add('nav-ready');

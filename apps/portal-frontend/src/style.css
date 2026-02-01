@@ -564,6 +564,11 @@ body.theme-terminal .hero::before {
     transition: opacity 0.15s ease;
 }
 
+.header-freeze .site-header {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .site-header.header-pending .header-actions,
 .site-header.header-pending .logo {
     opacity: 0;
