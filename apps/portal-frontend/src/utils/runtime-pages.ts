@@ -68,6 +68,11 @@ export async function initRuntimePages(): Promise<void> {
     await applyThemePacksForPage(pageSpec);
 
     setHeaderActive(pageSpec.activeNav || pageSpec.id);
+    const body = document.body;
+    const prevPage = body.getAttribute('data-page');
+    if (prevPage) body.classList.remove(`page-${prevPage}`);
+    body.setAttribute('data-page', pageSpec.id);
+    body.classList.add(`page-${pageSpec.id}`);
     renderPage(root, pageSpec, manifest);
     scrollToTop();
 

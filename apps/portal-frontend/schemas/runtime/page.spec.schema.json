@@ -278,6 +278,15 @@
               "size": { "enum": ["sm", "md", "lg"] }
             }
           }
+          ,
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": { "const": "manifesto" }
+            }
+          }
         ]
       }
     }

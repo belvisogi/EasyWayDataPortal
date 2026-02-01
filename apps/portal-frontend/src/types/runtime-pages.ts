@@ -75,12 +75,17 @@ export type SpacerSection = {
     size?: 'sm' | 'md' | 'lg';
 };
 
+export type ManifestoSection = {
+    type: 'manifesto';
+};
+
 export type SectionSpec =
     | HeroSection
     | CardsSection
     | ComparisonSection
     | CtaSection
     | FormSection
+    | ManifestoSection
     | SpacerSection;
 
 export type PageSpecV1 = {

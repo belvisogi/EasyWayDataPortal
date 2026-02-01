@@ -4,6 +4,7 @@ import type {
     CtaSection,
     FormSection,
     HeroSection,
+    ManifestoSection,
     PageSpecV1,
     PagesManifestV1,
     SectionSpec
@@ -368,6 +369,102 @@ function renderForm(section: FormSection): HTMLElement {
     return container;
 }
 
+function renderManifesto(_section: ManifestoSection): HTMLElement {
+    const wrapper = el('section', 'manifesto-section');
+    const container = el('div', 'code-container');
+    wrapper.appendChild(container);
+
+    const h1 = el('h1', 'title-code h1');
+    setMaybeHtml(h1, getContentValue('manifesto.title'));
+    container.appendChild(h1);
+
+    const subtitle = el('p', 'subtitle-code');
+    setMaybeHtml(subtitle, getContentValue('manifesto.subtitle'));
+    container.appendChild(subtitle);
+
+    const prelude = el('div', 'prelude');
+    const preludeLine1 = el('p');
+    const preludeLine2 = el('span', 'highlight-gold');
+    setMaybeHtml(preludeLine1, getContentValue('manifesto.prelude.line1'));
+    setMaybeHtml(preludeLine2, getContentValue('manifesto.prelude.line2'));
+    preludeLine1.appendChild(document.createElement('br'));
+    preludeLine1.appendChild(preludeLine2);
+    prelude.appendChild(preludeLine1);
+    container.appendChild(prelude);
+
+    const verse1 = el('div', 'verse');
+    const v1h = el('h2', 'h2');
+    setMaybeHtml(v1h, getContentValue('manifesto.verse1.title'));
+    verse1.appendChild(v1h);
+    const v1t1 = el('span', 'voice-they');
+    setMaybeHtml(v1t1, getContentValue('manifesto.verse1.they1'));
+    verse1.appendChild(v1t1);
+    const v1u1 = el('span', 'voice-us');
+    setMaybeHtml(v1u1, getContentValue('manifesto.verse1.us1'));
+    verse1.appendChild(v1u1);
+    const v1t2 = el('span', 'voice-they');
+    setMaybeHtml(v1t2, getContentValue('manifesto.verse1.they2'));
+    verse1.appendChild(v1t2);
+    const v1u2 = el('span', 'voice-us');
+    setMaybeHtml(v1u2, getContentValue('manifesto.verse1.us2'));
+    verse1.appendChild(v1u2);
+    container.appendChild(verse1);
+
+    const verse2 = el('div', 'verse');
+    const v2h = el('h2', 'h2');
+    setMaybeHtml(v2h, getContentValue('manifesto.verse2.title'));
+    verse2.appendChild(v2h);
+    const v2t = el('p');
+    setMaybeHtml(v2t, getContentValue('manifesto.verse2.text'));
+    verse2.appendChild(v2t);
+    const v2hl = el('div', 'verse-highlight');
+    setMaybeHtml(v2hl, getContentValue('manifesto.verse2.highlight'));
+    verse2.appendChild(v2hl);
+    const v2c = el('p');
+    setMaybeHtml(v2c, getContentValue('manifesto.verse2.climax'));
+    verse2.appendChild(v2c);
+    const v2f = el('p', 'verse-footer');
+    setMaybeHtml(v2f, getContentValue('manifesto.verse2.footer'));
+    verse2.appendChild(v2f);
+    container.appendChild(verse2);
+
+    const verse3 = el('div', 'verse');
+    const v3h = el('h2', 'h2');
+    setMaybeHtml(v3h, getContentValue('manifesto.verse3.title'));
+    verse3.appendChild(v3h);
+    const v3t1 = el('p');
+    setMaybeHtml(v3t1, getContentValue('manifesto.verse3.text1'));
+    verse3.appendChild(v3t1);
+    const v3t2 = el('p');
+    setMaybeHtml(v3t2, getContentValue('manifesto.verse3.text2'));
+    verse3.appendChild(v3t2);
+    const v3t3 = el('p');
+    setMaybeHtml(v3t3, getContentValue('manifesto.verse3.text3'));
+    verse3.appendChild(v3t3);
+    container.appendChild(verse3);
+
+    const oath = el('div', 'oath-box');
+    const oathCode = el('p', 'oath-code');
+    setMaybeHtml(oathCode, getContentValue('manifesto.oath.code'));
+    oath.appendChild(oathCode);
+    const oathText = el('p', 'oath-text');
+    setMaybeHtml(oathText, getContentValue('manifesto.oath.text'));
+    oath.appendChild(oathText);
+    const oathFinal = el('p', 'oath-final');
+    setMaybeHtml(oathFinal, getContentValue('manifesto.oath.final'));
+    oath.appendChild(oathFinal);
+    const haka = el('div', 'ka-mate');
+    setMaybeHtml(haka, getContentValue('manifesto.oath.haka'));
+    oath.appendChild(haka);
+    container.appendChild(oath);
+
+    const cta = el('a', 'btn-primary', getContentValue('manifesto.cta')) as HTMLAnchorElement;
+    cta.href = '/demo';
+    container.appendChild(cta);
+
+    return wrapper;
+}
+
 function renderSection(section: SectionSpec): HTMLElement {
     switch (section.type) {
         case 'hero':
@@ -380,6 +477,8 @@ function renderSection(section: SectionSpec): HTMLElement {
             return renderCta(section);
         case 'form':
             return renderForm(section);
+        case 'manifesto':
+            return renderManifesto(section);
         case 'spacer':
             return renderSpacer(section);
         default:

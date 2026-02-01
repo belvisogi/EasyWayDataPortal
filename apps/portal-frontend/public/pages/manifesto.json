@@ -3,19 +3,6 @@
   "id": "manifesto",
   "activeNav": "manifesto",
   "sections": [
-    {
-      "type": "hero",
-      "titleKey": "manifesto.title",
-      "taglineKey": "manifesto.subtitle",
-      "cta": { "labelKey": "manifesto.cta", "action": { "type": "link", "href": "/#manifesto" } }
-    },
-    {
-      "type": "cta",
-      "titleKey": "manifesto.prelude.line1",
-      "bodyKey": "manifesto.prelude.line2",
-      "primary": { "labelKey": "nav.home", "action": { "type": "link", "href": "/" } }
-    },
-    { "type": "spacer", "size": "lg" }
+    { "type": "manifesto" }
   ]
 }
-

@@ -11,7 +11,7 @@
     },
     {
       "id": "manifesto",
-      "route": "/manifesto.html",
+      "route": "/manifesto",
       "titleKey": "page.manifesto.title",
       "spec": "/pages/manifesto.json",
       "nav": { "labelKey": "nav.manifesto", "order": 20 }
