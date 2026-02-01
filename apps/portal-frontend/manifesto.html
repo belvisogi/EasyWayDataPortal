@@ -8,8 +8,14 @@
     <link rel="stylesheet" href="/src/theme.css">
     <link rel="stylesheet" href="/src/style.css">
     <link rel="stylesheet" href="/src/framework.css">
-    <script type="module" src="/src/main.ts"></script>
-    <script type="module" src="/src/components/sovereign-footer.ts"></script>
+    <script type="module">
+        import { loadContent } from '/src/utils/content-loader.ts';
+        import { loadBranding } from '/src/utils/theme-loader.ts';
+        import '/src/components/sovereign-header.ts';
+        import '/src/components/sovereign-footer.ts';
+        loadContent();
+        loadBranding();
+    </script>
     <style>
         /* THE SOVEREIGN CODE STYLING (Piltover / Hextech) */
         /* Variables are loaded from branding.json via theme-loader.ts */
