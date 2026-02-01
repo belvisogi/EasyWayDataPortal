@@ -23,6 +23,34 @@ body {
     min-height: 70vh;
 }
 
+/* Runtime loading guard (prevents footer flash on SPA nav) */
+body.runtime-loading #page-root {
+    min-height: 80vh;
+}
+
+body.runtime-loading #page-root::after {
+    content: '';
+    display: block;
+    height: 160px;
+    margin: 2rem auto 0;
+    max-width: 900px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, rgba(15, 30, 45, 0.4), rgba(15, 30, 45, 0.1), rgba(15, 30, 45, 0.4));
+    background-size: 200% 100%;
+    animation: runtime-sheen 1.4s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+body.runtime-loading sovereign-footer {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes runtime-sheen {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
 /* Heading scale (framework standard) */
 .h1 {
     font-size: 3.2rem;
