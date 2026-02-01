@@ -74,6 +74,21 @@ else {
     Write-Host "⚠️  Frontend audit script not found" -ForegroundColor Yellow
 }
 
+# 2.2 HTTP SMOKE TEST (optional)
+$SmokeScript = "$PSScriptRoot\http-smoke.ps1"
+if (Test-Path $SmokeScript) {
+    Write-Host "------------------------------------------------"
+    Write-Host "🌐 Running HTTP smoke test..." -ForegroundColor Cyan
+    & $SmokeScript
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "❌ HTTP smoke failed" -ForegroundColor Red
+        $Failures++
+    }
+}
+else {
+    Write-Host "⚠️  HTTP smoke script not found" -ForegroundColor Yellow
+}
+
 # 3. CHECK PACKAGE.JSON VERSION
 $PkgJson = "$FrontendPath\package.json"
 if (Test-Path $PkgJson) {
