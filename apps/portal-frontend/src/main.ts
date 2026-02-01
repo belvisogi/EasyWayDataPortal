@@ -41,6 +41,7 @@ function bindGlobalRuntimeNav() {
         if (href.endsWith('.html')) return;
 
         e.preventDefault();
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
         window.history.pushState({}, '', href);
         initRuntimePages().catch(console.error);
     });

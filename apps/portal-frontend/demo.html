@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="/src/theme.css">
     <link rel="stylesheet" href="/src/framework.css">
     <link rel="stylesheet" href="/src/style.css">
+    <script type="module">
+        import { loadContent } from '/src/utils/content-loader.ts';
+        import { loadBranding } from '/src/utils/theme-loader.ts';
+        loadContent();
+        loadBranding();
+    </script>
     <script type="module" src="/src/components/sovereign-header.ts"></script>
     <style>
     * {

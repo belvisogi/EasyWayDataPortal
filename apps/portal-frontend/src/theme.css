@@ -14,6 +14,20 @@
     --text-primary: #f0f2f5;
     --text-secondary: #94a3b8;
 
+    /* Manifesto code palette (fallbacks before branding.json loads) */
+    --code-bg: #050508;
+    --code-text: #c0c0c0;
+    --code-gold: #c8aa6e;
+    --code-cyan: #0ac8b9;
+    --code-highlight-gold-rgb: 200, 170, 110;
+
+    /* Form/background helpers */
+    --bg-paper: #0b1221;
+    --bg-main: #060b13;
+    --border-color: rgba(200, 170, 110, 0.2);
+    --form-input-bg: rgba(0, 0, 0, 0.3);
+    --form-border: rgba(200, 170, 110, 0.3);
+
     /* Theme-pack controlled artwork (optional) */
     --sovereign-hero-bg-image: none;
 

@@ -47,3 +47,11 @@ These guidelines keep the UI consistent, antifragile, and easy to maintain by hu
   - Include theme/framework/style CSS
   - Use `.h1/.h2` classes
   - Ensure header/footer are present
+
+## Mini checklist (quick scan)
+- [ ] Uses `/src/theme.css`, `/src/framework.css`, `/src/style.css`
+- [ ] H1/H2 use `.h1` / `.h2`
+- [ ] No hardcoded `font-family` (except code blocks)
+- [ ] Text in `content/base.json` + language file
+- [ ] Runtime pages registered in `pages.manifest.json`
+- [ ] Nav links stay SPA (no full reload for runtime routes)
