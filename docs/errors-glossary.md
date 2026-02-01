@@ -14,8 +14,18 @@ This glossary describes common errors in plain language and how to fix them.
 - Meaning: `/pages/pages.manifest.json` is missing or not reachable.
 - Fix: Ensure the file exists in `public/pages/` and is copied in build.
 
+**Runtime root missing**
+- Symptom: “[RuntimePages] Missing #page-root. Skipping runtime pages init.”
+- Meaning: The SPA root `<main id="page-root">` is missing in the HTML shell.
+- Fix: Ensure `index.html` contains `#page-root`.
+
+**Manifest load failed**
+- Symptom: “[RuntimePages] Failed to load pages manifest”
+- Meaning: Network/JSON error while loading the manifest.
+- Fix: Check `/pages/pages.manifest.json` exists and is valid JSON.
+
 **Page spec failed to load**
-- Symptom: “Failed to load page spec: /pages/xyz.json”
+- Symptom: “Failed to load page spec: /pages/xyz.json” or “[RuntimePages] Failed to load page spec”
 - Meaning: The page JSON is missing or invalid.
 - Fix: Confirm the file path in `pages.manifest.json` and validate JSON schema.
 
@@ -24,9 +34,15 @@ This glossary describes common errors in plain language and how to fix them.
 - Meaning: JSON contains syntax errors.
 - Fix: Fix JSON syntax and re-run `npm run validate:runtime`.
 
+## Boot / App init
+**Bootstrap failed**
+- Symptom: “[Sovereign] Bootstrap failed”
+- Meaning: Startup failed due to earlier runtime errors.
+- Fix: Check console logs above for the first failure.
+
 ## Branding / Theme
 **Branding fallback**
-- Symptom: Warning `Fallback to default styles.`
+- Symptom: Warning `Fallback to default styles.` or `⚠️ [SovereignTheme] Fallback to default styles.`
 - Meaning: `branding.json` missing or unreadable.
 - Fix: Ensure `public/branding.json` exists and is valid JSON.
 

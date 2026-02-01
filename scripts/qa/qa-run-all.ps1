@@ -11,6 +11,9 @@ Write-Host "✅ Running Frontend Audit..." -ForegroundColor Cyan
 Write-Host "✅ Running HTTP Smoke Test..." -ForegroundColor Cyan
 & "$PSScriptRoot\http-smoke.ps1"
 
+Write-Host "✅ Running Error Glossary Check..." -ForegroundColor Cyan
+& "$PSScriptRoot\error-glossary-check.ps1"
+
 Write-Host "✅ Running Runtime JSON Validation..." -ForegroundColor Cyan
 Push-Location "$PSScriptRoot\..\..\apps\portal-frontend"
 npm run validate:runtime | Out-Null

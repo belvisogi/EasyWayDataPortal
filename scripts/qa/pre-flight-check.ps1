@@ -89,6 +89,21 @@ else {
     Write-Host "⚠️  HTTP smoke script not found" -ForegroundColor Yellow
 }
 
+# 2.3 ERROR GLOSSARY COVERAGE
+$GlossaryScript = "$PSScriptRoot\error-glossary-check.ps1"
+if (Test-Path $GlossaryScript) {
+    Write-Host "------------------------------------------------"
+    Write-Host "📘 Running error glossary check..." -ForegroundColor Cyan
+    & $GlossaryScript
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "❌ Error glossary check failed" -ForegroundColor Red
+        $Failures++
+    }
+}
+else {
+    Write-Host "⚠️  Error glossary script not found" -ForegroundColor Yellow
+}
+
 # 3. CHECK PACKAGE.JSON VERSION
 $PkgJson = "$FrontendPath\package.json"
 if (Test-Path $PkgJson) {

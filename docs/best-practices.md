@@ -61,6 +61,7 @@ Automated (agent)
 - Run `scripts/qa/audit-frontend.ps1`
 - HTTP checks for `/`, `/demo`, `/manifesto`, `/memory`, `/pricing`
 - Run all: `scripts/qa/qa-run-all.ps1`
+- Error glossary check: `scripts/qa/error-glossary-check.ps1`
 
 Manual (owner)
 - Visual nav stability (no flicker)
