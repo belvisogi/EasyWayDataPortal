@@ -47,8 +47,13 @@ body.runtime-loading sovereign-footer {
 }
 
 @keyframes runtime-sheen {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
 }
 
 /* Heading scale (framework standard) */
@@ -338,6 +343,7 @@ body.runtime-loading sovereign-footer {
         height: 32px;
     }
 
+
     .nav-links {
         gap: 1rem;
     }
@@ -355,5 +361,138 @@ body.runtime-loading sovereign-footer {
 
     .logo span {
         display: none;
+    }
+}
+
+/* --- GRID SYSTEM (Antifragile Layout) --- */
+/* Responsive grid without external dependencies */
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+}
+
+.row.no-gap {
+    gap: 0;
+}
+
+.row.gap-sm {
+    gap: 0.5rem;
+}
+
+.row.gap-lg {
+    gap: 2rem;
+}
+
+/* Column widths */
+.col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.col-11 {
+    flex: 0 0 calc(91.666% - 0.917rem);
+    max-width: calc(91.666% - 0.917rem);
+}
+
+.col-10 {
+    flex: 0 0 calc(83.333% - 0.833rem);
+    max-width: calc(83.333% - 0.833rem);
+}
+
+.col-9 {
+    flex: 0 0 calc(75% - 0.75rem);
+    max-width: calc(75% - 0.75rem);
+}
+
+.col-8 {
+    flex: 0 0 calc(66.666% - 0.667rem);
+    max-width: calc(66.666% - 0.667rem);
+}
+
+.col-7 {
+    flex: 0 0 calc(58.333% - 0.583rem);
+    max-width: calc(58.333% - 0.583rem);
+}
+
+.col-6 {
+    flex: 0 0 calc(50% - 0.5rem);
+    max-width: calc(50% - 0.5rem);
+}
+
+.col-5 {
+    flex: 0 0 calc(41.666% - 0.417rem);
+    max-width: calc(41.666% - 0.417rem);
+}
+
+.col-4 {
+    flex: 0 0 calc(33.333% - 0.667rem);
+    max-width: calc(33.333% - 0.667rem);
+}
+
+.col-3 {
+    flex: 0 0 calc(25% - 0.75rem);
+    max-width: calc(25% - 0.75rem);
+}
+
+.col-2 {
+    flex: 0 0 calc(16.666% - 0.833rem);
+    max-width: calc(16.666% - 0.833rem);
+}
+
+.col-1 {
+    flex: 0 0 calc(8.333% - 0.917rem);
+    max-width: calc(8.333% - 0.917rem);
+}
+
+/* Auto width */
+.col-auto {
+    flex: 0 0 auto;
+    width: auto;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+
+    .col-6,
+    .col-4,
+    .col-3,
+    .col-2,
+    .col-1,
+    .col-5,
+    .col-7,
+    .col-8,
+    .col-9,
+    .col-10,
+    .col-11 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    /* Tablet-specific columns */
+    .col-md-6 {
+        flex: 0 0 calc(50% - 0.5rem);
+        max-width: calc(50% - 0.5rem);
+    }
+
+    .col-md-4 {
+        flex: 0 0 calc(33.333% - 0.667rem);
+        max-width: calc(33.333% - 0.667rem);
+    }
+
+    .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .col-md-6,
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }

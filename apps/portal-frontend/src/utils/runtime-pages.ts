@@ -29,10 +29,6 @@ export async function initRuntimePages(): Promise<void> {
     setRuntimeLoading(true);
 
     const pathname = normalizePathname(window.location.pathname);
-    if (pathname === '/manifesto') {
-        window.location.replace('/manifesto.html');
-        return;
-    }
 
     let manifest;
     try {
