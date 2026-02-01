@@ -66,3 +66,8 @@ Manual (owner)
 - Visual nav stability (no flicker)
 - CTA color consistency (Home vs Demo)
 - Manifesto readability + theming
+
+## Accessibility (baseline)
+- Use `aria-current="page"` on active nav items.
+- Use `aria-busy="true"` while SPA is loading.
+- Focus the main heading after SPA navigation.

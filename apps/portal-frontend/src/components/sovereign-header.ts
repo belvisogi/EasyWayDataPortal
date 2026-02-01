@@ -52,7 +52,7 @@ export class SovereignHeader extends HTMLElement {
         this.innerHTML = `
     <header class="site-header header-pending">
         <div class="header-container">
-            <a href="/" class="logo">
+            <a href="/" class="logo" aria-label="EasyWay Core Home">
                 <svg id="egg-icon" width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 12px; cursor: pointer;">
                     <rect x="4" y="4" width="32" height="32" rx="6" stroke="var(--text-sovereign-gold)" stroke-width="3" fill="rgba(6, 11, 19, 0.9)"/>
                     <path d="M14 12H10V28H14" stroke="var(--accent-neural-cyan)" stroke-width="3" stroke-linecap="round"/>
@@ -63,7 +63,7 @@ export class SovereignHeader extends HTMLElement {
                 </svg>
                 EasyWay Core
             </a>
-            <nav class="nav-links nav-pending" id="nav-links" aria-hidden="true"></nav>
+            <nav class="nav-links nav-pending" id="nav-links" aria-hidden="true" aria-label="Primary"></nav>
             <div class="header-actions">
                 <a href="/demo" class="btn-glass ${activePage === 'demo' ? 'active-btn' : ''}">${getContentValue('nav.cta_demo', 'Request Demo')}</a>
             </div>
@@ -133,7 +133,10 @@ export class SovereignHeader extends HTMLElement {
             a.href = p.route;
             a.textContent = getContentValue(p.nav!.labelKey, p.id);
             if (hoverCopy[p.id]) a.title = hoverCopy[p.id];
-            if (activePage === p.id) a.classList.add('active');
+            if (activePage === p.id) {
+                a.classList.add('active');
+                a.setAttribute('aria-current', 'page');
+            }
             nav.appendChild(a);
         }
     }

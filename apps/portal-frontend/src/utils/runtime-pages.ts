@@ -15,6 +15,8 @@ function scrollToTop(): void {
 function setRuntimeLoading(isLoading: boolean): void {
     if (isLoading) document.body.classList.add('runtime-loading');
     else document.body.classList.remove('runtime-loading');
+    const root = document.getElementById('page-root');
+    if (root) root.setAttribute('aria-busy', isLoading ? 'true' : 'false');
 }
 
 export async function initRuntimePages(): Promise<void> {

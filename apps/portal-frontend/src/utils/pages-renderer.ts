@@ -267,7 +267,10 @@ function renderForm(section: FormSection): HTMLElement {
             const select = document.createElement('select');
             select.name = field.name;
             select.id = field.name;
-            if (field.required) select.required = true;
+            if (field.required) {
+                select.required = true;
+                select.setAttribute('aria-required', 'true');
+            }
             const opt = document.createElement('option');
             opt.value = '';
             opt.disabled = true;
@@ -288,7 +291,10 @@ function renderForm(section: FormSection): HTMLElement {
             area.name = field.name;
             area.id = field.name;
             area.rows = field.rows || 3;
-            if (field.required) area.required = true;
+            if (field.required) {
+                area.required = true;
+                area.setAttribute('aria-required', 'true');
+            }
             if (field.placeholderKey) area.placeholder = getContentValue(field.placeholderKey);
             group.appendChild(area);
         } else if (field.type === 'checkbox') {
@@ -296,7 +302,10 @@ function renderForm(section: FormSection): HTMLElement {
             input.type = 'checkbox';
             input.name = field.name;
             input.id = field.name;
-            if (field.required) input.required = true;
+            if (field.required) {
+                input.required = true;
+                input.setAttribute('aria-required', 'true');
+            }
             group.classList.add('checkbox');
             group.appendChild(input);
             group.appendChild(label);
@@ -306,7 +315,10 @@ function renderForm(section: FormSection): HTMLElement {
             input.type = field.type;
             input.name = field.name;
             input.id = field.name;
-            if (field.required) input.required = true;
+            if (field.required) {
+                input.required = true;
+                input.setAttribute('aria-required', 'true');
+            }
             if (field.placeholderKey) input.placeholder = getContentValue(field.placeholderKey);
             group.appendChild(input);
         }
@@ -377,6 +389,7 @@ function renderSection(section: SectionSpec): HTMLElement {
 
 export function renderPage(root: HTMLElement, page: PageSpecV1, manifest: PagesManifestV1): void {
     root.innerHTML = '';
+    root.setAttribute('role', 'main');
 
     // Title: page.titleKey overrides manifest.titleKey.
     const titleKey = page.titleKey || manifest.pages.find(p => p.id === page.id)?.titleKey;
@@ -384,5 +397,14 @@ export function renderPage(root: HTMLElement, page: PageSpecV1, manifest: PagesM
 
     for (const section of page.sections) {
         root.appendChild(renderSection(section));
+    }
+
+    const h1 = root.querySelector('h1');
+    if (h1) {
+        h1.setAttribute('tabindex', '-1');
+        (h1 as HTMLElement).focus({ preventScroll: true });
+    } else {
+        root.setAttribute('tabindex', '-1');
+        root.focus({ preventScroll: true });
     }
 }

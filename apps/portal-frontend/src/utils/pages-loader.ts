@@ -1,9 +1,20 @@
 import type { PageSpecV1, PagesManifestV1 } from '../types/runtime-pages';
 
 async function fetchJson<T>(path: string): Promise<T> {
-    const res = await fetch(path, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`Failed to fetch ${path} (${res.status})`);
-    return await res.json() as T;
+    try {
+        const res = await fetch(path, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Failed to fetch ${path} (${res.status})`);
+        const raw = await res.text();
+        try {
+            return JSON.parse(raw) as T;
+        } catch (err) {
+            console.error(`[PagesLoader] Invalid JSON at ${path}`, err);
+            throw err;
+        }
+    } catch (err) {
+        console.error(`[PagesLoader] Fetch failed for ${path}`, err);
+        throw err;
+    }
 }
 
 export async function loadPagesManifest(): Promise<PagesManifestV1> {
