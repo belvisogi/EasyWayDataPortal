@@ -4,22 +4,6 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Copy package files
-COPY package.json package-lock.json ./
-
-# Install dependencies
-RUN npm ci
-
-# Copy source code including config files
-COPY . .
-
-# Build
-RUN npm run build
-
-# Stage 2: Serve
-FROM nginxinc/nginx-unprivileged:alpine AS production
-
-# Add OCI labels
-LABEL org.opencontainers.image.source="https://github.com/EasyWayDataPortal/portal-frontend"
 LABEL org.opencontainers.image.description="EasyWay Sovereign Frontend"
 
 # Copy custom nginx config
