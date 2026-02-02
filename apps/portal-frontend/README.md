@@ -1,15 +1,3 @@
-# EasyWay Portal Frontend
-### *Sovereign Intelligence Interface*
-
-> **"The Iron Man Suit for Business"**
-
-This is the official frontend for the EasyWay Data Portal. It is a **Sovereign, Air-Gapped-Ready** interface designed to provide a premium, robust experience without the bloat of modern frameworks.
-
-## 🏛️ Architecture
-- **Framework**: Vanilla TypeScript + Vite (No React, No Angular).
-- **Styling**: Pure CSS3 with Custom Properties (Variables).
-  - Theme: "Dark Premium Enterprise" (`Deep Void` + `Sovereign Gold`).
-  - Effect: Glassmorphism ("White Box").
 - **Deployment**: Docker Multi-stage + Nginx Alpine.
 
 ## 🚀 Quick Start

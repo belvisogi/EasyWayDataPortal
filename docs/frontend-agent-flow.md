@@ -1,6 +1,6 @@
-# Frontend Agent Operational Flow
+# Valentino Framework Operational Flow
 
-> **Purpose**: Definire il ciclo di vita operativo del Frontend EasyWay, stabilendo "Chi fa Cosa", il flusso di validazione e i protocolli di remediation.
+> **Purpose**: Definire il ciclo di vita operativo del **Valentino Framework** (EasyWay Frontend), stabilendo "Chi fa Cosa", il flusso di validazione e i protocolli di remediation.
 > **Scope**: Development, Testing, Deployment, Incident Response.
 
 ---
