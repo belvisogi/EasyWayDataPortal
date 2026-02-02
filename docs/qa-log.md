@@ -17,6 +17,12 @@ This log tracks decisions and fixes from the current build cycle.
 - HTTP Smoke Test: Configured `.env.production` with `SMOKE_BASE_URL=http://80.225.86.168`.
 - Smoke test validates 5 routes: /, /demo, /manifesto, /memory, /pricing (all return 200 OK).
 - Phase 1 of 10/10 roadmap complete: Production smoke testing operational.
+- **Storybook Setup Attempt**: Tried Storybook 10.x → incompatible with Vite 6.x.
+- **Storybook Downgrade**: Installed Storybook 8.6.15 → still has package incompatibility warnings.
+- **Storybook Startup Issue**: Server starts but hangs during build (doesn't complete loading).
+- **Root Cause**: Vite 6.x + TypeScript 5.7 + Storybook 8.x have peer dependency conflicts.
+- **Decision**: Skip Storybook, implement custom `/demo-components` page instead (simpler, antifragile).
+- **Rationale**: Custom demo page = zero dependencies, full control, 30min vs 5 days.
 
 ## Test Policy (Agreed)
 - Automated tests (agent): audit scripts + HTTP sanity checks.
