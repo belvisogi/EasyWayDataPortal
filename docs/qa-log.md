@@ -59,6 +59,64 @@ This log tracks decisions and fixes from the current build cycle.
 - Migration guide: `docs/storybook-migration.md`
 - Demo page acts as bridge, not dead-end
 
+---
+
+### Docker Deployment Process (2026-02-02)
+
+**Context**: Deploying component showcase to production server (80.225.86.168).
+
+**Server Architecture**:
+- **Git Repo**: `/home/ubuntu/EasyWayDataPortal` (development copy)
+- **Production Code**: `/opt/easyway` (Docker mounts from here)
+- **Docker Service**: `frontend` (container name: `easyway-portal`)
+- **Reverse Proxy**: Traefik handles routing (see `docs/nginx-antifragile-pattern.md`)
+
+**Deployment Workflow**:
+1. **Local**: Commit + push to `origin/main`
+2. **Server**: 
+   ```bash
+   cd /home/ubuntu/EasyWayDataPortal && git pull origin/main
+   sudo rsync -av apps/portal-frontend/ /opt/easyway/apps/portal-frontend/ --exclude node_modules --exclude dist
+   cd /opt/easyway && sudo docker compose build frontend && sudo docker compose up -d frontend
+   ```
+
+**Issue Encountered**: Docker build failed with `npm ci` error (lock file out of sync after Storybook deps added).
+
+**Solution**: Changed Dockerfile from `npm ci` to `npm install --production=false` for robustness.
+
+**Rationale**:
+- `npm ci` requires exact lock file match (fragile)
+- `npm install` tolerates minor mismatches (antifragile)
+- Production builds should prioritize stability over strict reproducibility
+
+**Dockerfile Change**:
+```diff
+- RUN npm ci
++ RUN npm install --production=false
+```
+
+**Verification**:
+```bash
+curl -I http://80.225.86.168/demo-components
+# HTTP/1.1 200 OK ✅
+```
+
+**Lessons Learned**:
+1. **Always check docs first** (README, deployment guides) before trial & error
+2. **Server has dual repo structure**: `/home/ubuntu` (git) + `/opt/easyway` (production)
+3. **Docker service names** ≠ container names (service: `frontend`, container: `easyway-portal`)
+4. **Rsync required** to sync from git repo to production directory
+5. **npm install > npm ci** for Docker builds (more robust)
+
+**Documentation References**:
+- Architecture: `README.md` (Docker Native, Traefik routing)
+- Nginx pattern: `docs/nginx-antifragile-pattern.md`
+- Deployment decision: `Wiki/EasyWayData.wiki/deployment-decision-mvp.md` (Azure App Service, not Docker Compose)
+
+**Note**: Production deployment docs focus on Azure App Service. Docker Compose workflow now documented here for future reference.
+
+---
+
 **Q&A**:
 - **Q**: Why not just use markdown docs?
   **A**: Most developers don't read `.md`. Visual/interactive = better adoption.
