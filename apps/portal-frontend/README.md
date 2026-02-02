@@ -33,6 +33,19 @@ This frontend implements the **Product Design Requirement** defined in `docs/des
 *   **Visuals**: Dark, Serious, Engineering-focused.
 *   **GEDI**: The "Guardian" is integrated as a visual copilot.
 
+## 🏛️ Architecture & Blueprints (The "Valentino" Standard)
+
+To prevent technical debt, **ALWAYS** use the official blueprints when creating new files.
+Do not invent new patterns. Clone and adapt these templates:
+
+- 📄 **Pages**: `src/_blueprints/page.blueprint.ts`
+- 🧩 **Components**: `src/_blueprints/component.blueprint.ts`
+- 🔌 **Services**: `src/_blueprints/service.blueprint.ts`
+
+### Core Principles
+- **Framework**: Vanilla TypeScript + Vite (No React, No Angular).
+- **Styling**: Pure CSS3 with Custom Properties (Variables).
+
 ## 🛡️ Security
 *   **Headers**: Nginx is configured with strictly enforced security headers (HSTS, No-Sniff).
 *   **Dependency-Free**: Minimized attack surface by removing complex UI libraries.
