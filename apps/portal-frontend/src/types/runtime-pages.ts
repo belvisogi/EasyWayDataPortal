@@ -79,6 +79,28 @@ export type ManifestoSection = {
     type: 'manifesto';
 };
 
+export type ComponentVariant = {
+    name: string;
+    spec: Record<string, unknown>;
+};
+
+export type ComponentShowcaseItem = {
+    id: string;
+    name: string;
+    variants: ComponentVariant[];
+};
+
+export type ShowcaseIntroSection = {
+    type: 'showcase-intro';
+    titleKey: string;
+    descriptionKey: string;
+};
+
+export type ComponentShowcaseSection = {
+    type: 'component-showcase';
+    components: ComponentShowcaseItem[];
+};
+
 export type SectionSpec =
     | HeroSection
     | CardsSection
@@ -86,7 +108,9 @@ export type SectionSpec =
     | CtaSection
     | FormSection
     | ManifestoSection
-    | SpacerSection;
+    | SpacerSection
+    | ShowcaseIntroSection
+    | ComponentShowcaseSection;
 
 export type PageSpecV1 = {
     version: '1';

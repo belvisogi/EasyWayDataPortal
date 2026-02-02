@@ -7,35 +7,56 @@
       "route": "/",
       "titleKey": "page.home.title",
       "spec": "/pages/home.json",
-      "nav": { "labelKey": "nav.home", "order": 10 }
+      "nav": {
+        "labelKey": "nav.home",
+        "order": 10
+      }
     },
     {
       "id": "manifesto",
       "route": "/manifesto",
       "titleKey": "page.manifesto.title",
       "spec": "/pages/manifesto.json",
-      "nav": { "labelKey": "nav.manifesto", "order": 20 }
+      "nav": {
+        "labelKey": "nav.manifesto",
+        "order": 20
+      }
     },
     {
       "id": "memory",
       "route": "/memory",
       "titleKey": "page.memory.title",
       "spec": "/pages/memory.json",
-      "nav": { "labelKey": "nav.memory", "order": 30 }
+      "nav": {
+        "labelKey": "nav.memory",
+        "order": 30
+      }
     },
     {
       "id": "pricing",
       "route": "/pricing",
       "titleKey": "page.pricing.title",
       "spec": "/pages/pricing.json",
-      "nav": { "labelKey": "nav.pricing", "order": 35 }
+      "nav": {
+        "labelKey": "nav.pricing",
+        "order": 35
+      }
+    },
+    {
+      "id": "demo-components",
+      "route": "/demo-components",
+      "titleKey": "page.demo-components.title",
+      "spec": "/pages/demo-components.json"
     },
     {
       "id": "demo",
       "route": "/demo",
       "titleKey": "page.demo.title",
       "spec": "/pages/demo.json",
-      "nav": { "labelKey": "nav.demo", "order": 40 }
+      "nav": {
+        "labelKey": "nav.demo",
+        "order": 40
+      }
     }
   ]
 }

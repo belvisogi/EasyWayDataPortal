@@ -213,8 +213,78 @@
             "workEmailPlaceholder": "jane@company.com",
             "jobTitlePlaceholder": "CTO",
             "useCasePlaceholder": "Describe your use case...",
-            "companySizeOptions": ["1-10", "11-50", "51-200", "201-1000", "1000+"],
-            "demoInterestOptions": ["Sovereign Portal", "Sovereign Memory", "Orchestrator", "Full Stack"]
+            "companySizeOptions": [
+                "1-10",
+                "11-50",
+                "51-200",
+                "201-1000",
+                "1000+"
+            ],
+            "demoInterestOptions": [
+                "Sovereign Portal",
+                "Sovereign Memory",
+                "Orchestrator",
+                "Full Stack"
+            ]
+        }
+    },
+    "demo-components": {
+        "hero": {
+            "title": "Component Showcase",
+            "tagline": "Interactive examples of all 5 canonical sections.<br>Live previews + copyable JSON specs."
+        },
+        "intro": {
+            "title": "Runtime Pages Framework",
+            "description": "This page showcases the 5 canonical sections you can use to build pages. Each component has multiple variants with live previews and copyable JSON specifications."
+        },
+        "example": {
+            "hero": {
+                "title": "Sovereign Intelligence",
+                "tagline": "Build powerful pages without rebuilding",
+                "cta": "Get Started"
+            },
+            "cards": {
+                "title": "Features",
+                "shield": {
+                    "title": "Antifragile",
+                    "description": "Zero dependencies, full control"
+                },
+                "speed": {
+                    "title": "Fast",
+                    "description": "Runtime pages load instantly"
+                },
+                "precision": {
+                    "title": "Precise",
+                    "description": "TypeScript + JSON Schema validation"
+                }
+            },
+            "comparison": {
+                "title": "Runtime Pages vs Traditional",
+                "left": "Runtime Pages",
+                "right": "Traditional",
+                "row1": {
+                    "left": "✅ No rebuild needed",
+                    "right": "❌ Rebuild for every change"
+                },
+                "row2": {
+                    "left": "✅ JSON-based content",
+                    "right": "❌ Hardcoded HTML"
+                }
+            },
+            "cta": {
+                "title": "Ready to build?",
+                "button": "Start Now",
+                "primary": "Get Started",
+                "secondary": "View Docs"
+            },
+            "form": {
+                "title": "Contact Us",
+                "description": "Get in touch with our team",
+                "name": "Name",
+                "email": "Email",
+                "message": "Message",
+                "submit": "Send"
+            }
         }
     },
     "memory": {

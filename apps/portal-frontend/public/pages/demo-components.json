@@ -1,0 +1,205 @@
+{
+    "sections": [
+        {
+            "type": "hero",
+            "titleKey": "demo.hero.title",
+            "taglineKey": "demo.hero.tagline"
+        },
+        {
+            "type": "showcase-intro",
+            "titleKey": "demo.intro.title",
+            "descriptionKey": "demo.intro.description"
+        },
+        {
+            "type": "component-showcase",
+            "components": [
+                {
+                    "id": "hero",
+                    "name": "Hero Section",
+                    "variants": [
+                        {
+                            "name": "Default (with CTA)",
+                            "spec": {
+                                "type": "hero",
+                                "titleKey": "example.hero.title",
+                                "taglineKey": "example.hero.tagline",
+                                "cta": {
+                                    "labelKey": "example.hero.cta",
+                                    "action": {
+                                        "type": "link",
+                                        "href": "/demo"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "Without CTA",
+                            "spec": {
+                                "type": "hero",
+                                "titleKey": "example.hero.title",
+                                "taglineKey": "example.hero.tagline"
+                            }
+                        },
+                        {
+                            "name": "Minimal (title only)",
+                            "spec": {
+                                "type": "hero",
+                                "titleKey": "example.hero.title"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "cards",
+                    "name": "Cards Section",
+                    "variants": [
+                        {
+                            "name": "2 Cards",
+                            "spec": {
+                                "type": "cards-catalog",
+                                "titleKey": "example.cards.title",
+                                "items": [
+                                    {
+                                        "iconText": "🛡️",
+                                        "titleKey": "example.cards.shield.title",
+                                        "descriptionKey": "example.cards.shield.description"
+                                    },
+                                    {
+                                        "iconText": "⚡",
+                                        "titleKey": "example.cards.speed.title",
+                                        "descriptionKey": "example.cards.speed.description"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "3 Cards",
+                            "spec": {
+                                "type": "cards-catalog",
+                                "titleKey": "example.cards.title",
+                                "items": [
+                                    {
+                                        "iconText": "🛡️",
+                                        "titleKey": "example.cards.shield.title",
+                                        "descriptionKey": "example.cards.shield.description"
+                                    },
+                                    {
+                                        "iconText": "⚡",
+                                        "titleKey": "example.cards.speed.title",
+                                        "descriptionKey": "example.cards.speed.description"
+                                    },
+                                    {
+                                        "iconText": "🎯",
+                                        "titleKey": "example.cards.precision.title",
+                                        "descriptionKey": "example.cards.precision.description"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "comparison",
+                    "name": "Comparison Section",
+                    "variants": [
+                        {
+                            "name": "Default",
+                            "spec": {
+                                "type": "comparison",
+                                "titleKey": "example.comparison.title",
+                                "leftColumnKey": "example.comparison.left",
+                                "rightColumnKey": "example.comparison.right",
+                                "rows": [
+                                    {
+                                        "leftKey": "example.comparison.row1.left",
+                                        "rightKey": "example.comparison.row1.right"
+                                    },
+                                    {
+                                        "leftKey": "example.comparison.row2.left",
+                                        "rightKey": "example.comparison.row2.right"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "cta",
+                    "name": "CTA Section",
+                    "variants": [
+                        {
+                            "name": "Single CTA",
+                            "spec": {
+                                "type": "cta",
+                                "titleKey": "example.cta.title",
+                                "cta": {
+                                    "labelKey": "example.cta.button",
+                                    "action": {
+                                        "type": "link",
+                                        "href": "/demo"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "With Secondary",
+                            "spec": {
+                                "type": "cta",
+                                "titleKey": "example.cta.title",
+                                "cta": {
+                                    "labelKey": "example.cta.primary",
+                                    "action": {
+                                        "type": "link",
+                                        "href": "/demo"
+                                    }
+                                },
+                                "ctaSecondary": {
+                                    "labelKey": "example.cta.secondary",
+                                    "action": {
+                                        "type": "link",
+                                        "href": "/pricing"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "form",
+                    "name": "Form Section",
+                    "variants": [
+                        {
+                            "name": "Demo Request",
+                            "spec": {
+                                "type": "form",
+                                "titleKey": "example.form.title",
+                                "descriptionKey": "example.form.description",
+                                "fields": [
+                                    {
+                                        "name": "name",
+                                        "labelKey": "example.form.name",
+                                        "type": "text",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "email",
+                                        "labelKey": "example.form.email",
+                                        "type": "email",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "message",
+                                        "labelKey": "example.form.message",
+                                        "type": "textarea",
+                                        "required": false
+                                    }
+                                ],
+                                "submitKey": "example.form.submit"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

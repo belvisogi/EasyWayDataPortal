@@ -8,10 +8,23 @@
     "cta_demo": "Request Demo"
   },
   "page": {
-    "home": { "title": "EasyWay | Sovereign Intelligence" },
-    "manifesto": { "title": "EasyWay | Manifesto" },
-    "memory": { "title": "EasyWay | Memory" },
-    "pricing": { "title": "EasyWay | Pricing" },
-    "demo": { "title": "EasyWay | Demo" }
+    "home": {
+      "title": "EasyWay | Sovereign Intelligence"
+    },
+    "manifesto": {
+      "title": "EasyWay | Manifesto"
+    },
+    "memory": {
+      "title": "EasyWay | Memory"
+    },
+    "pricing": {
+      "title": "EasyWay | Pricing"
+    },
+    "demo-components": {
+      "title": "EasyWay | Component Showcase"
+    },
+    "demo": {
+      "title": "EasyWay | Demo"
+    }
   }
 }

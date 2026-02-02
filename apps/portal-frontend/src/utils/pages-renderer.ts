@@ -465,6 +465,89 @@ function renderManifesto(_section: ManifestoSection): HTMLElement {
     return wrapper;
 }
 
+function renderShowcaseIntro(section: import('../types/runtime-pages').ShowcaseIntroSection): HTMLElement {
+    const intro = el('section', 'showcase-intro');
+    const container = el('div', 'container');
+    intro.appendChild(container);
+
+    const title = el('h2', 'h2');
+    setMaybeHtml(title, getContentValue(section.titleKey));
+    container.appendChild(title);
+
+    const description = el('p', 'lead');
+    setMaybeHtml(description, getContentValue(section.descriptionKey));
+    container.appendChild(description);
+
+    return intro;
+}
+
+function renderComponentShowcase(section: import('../types/runtime-pages').ComponentShowcaseSection): HTMLElement {
+    const showcase = el('section', 'component-showcase');
+    const container = el('div', 'container');
+    showcase.appendChild(container);
+
+    for (const component of section.components) {
+        const componentBlock = el('div', 'component-block');
+        componentBlock.id = `component-${component.id}`;
+
+        // Component header
+        const header = el('div', 'component-header');
+        const componentTitle = el('h3', 'h3', component.name);
+        header.appendChild(componentTitle);
+        componentBlock.appendChild(header);
+
+        // Variants
+        for (const variant of component.variants) {
+            const variantBlock = el('div', 'variant-block');
+
+            // Variant name
+            const variantName = el('h4', 'h4', variant.name);
+            variantBlock.appendChild(variantName);
+
+            // JSON spec (copyable)
+            const specContainer = el('div', 'spec-container');
+            const specPre = el('pre', 'spec-json');
+            const specCode = el('code');
+            specCode.textContent = JSON.stringify(variant.spec, null, 2);
+            specPre.appendChild(specCode);
+
+            const copyBtn = el('button', 'btn btn-glass btn-sm copy-json', '📋 Copy JSON');
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(JSON.stringify(variant.spec, null, 2));
+                copyBtn.textContent = '✅ Copied!';
+                setTimeout(() => { copyBtn.textContent = '📋 Copy JSON'; }, 2000);
+            });
+
+            specContainer.appendChild(copyBtn);
+            specContainer.appendChild(specPre);
+            variantBlock.appendChild(specContainer);
+
+            // Live preview
+            const previewContainer = el('div', 'preview-container');
+            const previewLabel = el('div', 'preview-label', 'Live Preview:');
+            previewContainer.appendChild(previewLabel);
+
+            const preview = el('div', 'preview-content');
+            try {
+                // Render the component using existing renderers
+                const renderedComponent = renderSection(variant.spec as any);
+                preview.appendChild(renderedComponent);
+            } catch (err) {
+                preview.textContent = `Error rendering preview: ${err}`;
+                preview.className = 'preview-error';
+            }
+            previewContainer.appendChild(preview);
+            variantBlock.appendChild(previewContainer);
+
+            componentBlock.appendChild(variantBlock);
+        }
+
+        container.appendChild(componentBlock);
+    }
+
+    return showcase;
+}
+
 function renderSection(section: SectionSpec): HTMLElement {
     switch (section.type) {
         case 'hero':
@@ -481,6 +564,10 @@ function renderSection(section: SectionSpec): HTMLElement {
             return renderManifesto(section);
         case 'spacer':
             return renderSpacer(section);
+        case 'showcase-intro':
+            return renderShowcaseIntro(section);
+        case 'component-showcase':
+            return renderComponentShowcase(section);
         default:
             return el('div');
     }
