@@ -1,11 +1,9 @@
-import { renderHeader } from '../components/sovereign-header';
-
 /**
  * [PAGE NAME] Page
  * Blueprint Version: 1.0 (Valentino Framework)
  * 
  * Rules:
- * 1. Always use renderHeader for navigation consistency
+ * 1. Always use <sovereign-header> for navigation consistency
  * 2. Keep state local if possible
  * 3. Use BEM naming for classes: .page-name__element
  */
@@ -17,7 +15,7 @@ export function renderPageName() {
 
     // 2. Render Structure (Sovereign Header + Main Content)
     app.innerHTML = `
-        ${renderHeader('page-id')}
+        <sovereign-header active-page="page-id"></sovereign-header>
         <main class="page-name fade-in">
             <div class="sovereign-container">
                 <header class="page-name__header">
