@@ -117,6 +117,52 @@ curl -I http://80.225.86.168/demo-components
 
 ---
 
+### E2E Testing with Playwright (2026-02-02)
+
+**Context**: Implementing Phase 3 of Framework 10/10 roadmap - E2E tests.
+
+**Setup**:
+- ✅ Playwright installed (`@playwright/test` + chromium browser)
+- ✅ Configuration created (`playwright.config.ts`)
+- ✅ Test scripts added to `package.json`
+- ✅ TypeScript types installed (`@types/node`)
+
+**Tests Created**:
+1. **Navigation Tests** (5 tests): Verify pages load correctly
+   - Home, Demo, Manifesto, Pricing, Demo-components
+2. **Form Validation Tests** (4 tests): Verify form fields and validation
+   - Required fields present, empty validation, email format
+
+**Challenges Encountered**:
+1. **Dynamic Navigation Links**: Links rendered after manifest loads → Cannot reliably test clicks
+2. **Form Submission**: Not fully implemented → Cannot test end-to-end flow
+3. **All Tests Failing**: Even simplified tests fail (0/9 passing)
+
+**Root Cause Analysis**:
+- Tests simplified 3 times (complex → selectors fixed → basic page loads)
+- All iterations failed → Deeper issue than selectors
+- Likely causes: Dev server startup, timeout, or page structure
+
+**Solution Approach**:
+- Created comprehensive troubleshooting guide (`docs/e2e-testing.md`)
+- Documented step-by-step debugging process
+- Documented known issues and workarounds
+- Tests committed to repo for future debugging
+
+**Lessons Learned**:
+1. **Start Simple**: Begin with 1 basic test, not 10 complex tests
+2. **Debug Early**: Use Playwright UI mode from the start
+3. **Document Process**: Troubleshooting guide helps future debugging
+4. **Pragmatic Approach**: E2E can be Phase 4 if blocked
+
+**Documentation Created**:
+- `docs/e2e-testing.md`: Complete workflow + troubleshooting (7 sections, 400+ lines)
+- Covers: Setup, Running, Writing, Troubleshooting, Debugging, CI/CD, Known Issues
+
+**Status**: Tests created but not passing. Framework has HTTP smoke tests (Phase 1) and component showcase (Phase 2) working. E2E tests documented for future completion.
+
+---
+
 **Q&A**:
 - **Q**: Why not just use markdown docs?
   **A**: Most developers don't read `.md`. Visual/interactive = better adoption.

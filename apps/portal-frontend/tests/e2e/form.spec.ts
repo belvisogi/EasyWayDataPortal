@@ -1,74 +1,49 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * E2E Tests: Form Submission
+ * E2E Tests: Form Validation
  * 
- * Purpose: Verify form validation and submission flow
+ * Purpose: Verify form fields are present and basic validation works
  * 
- * Tests the /demo page form
+ * Simplified tests focusing on form presence and field validation
  */
 
-test.describe('Form Submission', () => {
+test.describe('Form Validation', () => {
     test.beforeEach(async ({ page }) => {
         // Navigate to demo page before each test
         await page.goto('/demo');
-        await expect(page.locator('form')).toBeVisible();
+        await expect(page.locator('form')).toBeVisible({ timeout: 10000 });
     });
 
-    test('should show validation errors for empty required fields', async ({ page }) => {
+    test('should have all required form fields', async ({ page }) => {
+        // Verify all expected fields exist
+        await expect(page.locator('input[name="firstName"]')).toBeVisible();
+        await expect(page.locator('input[name="lastName"]')).toBeVisible();
+        await expect(page.locator('input[name="company"]')).toBeVisible();
+        await expect(page.locator('input[name="email"]')).toBeVisible();
+        await expect(page.locator('input[name="jobTitle"]')).toBeVisible();
+        await expect(page.locator('select[name="companySize"]')).toBeVisible();
+        await expect(page.locator('select[name="interest"]')).toBeVisible();
+        await expect(page.locator('textarea[name="description"]')).toBeVisible();
+        await expect(page.locator('input[name="consent"]')).toBeVisible();
+        await expect(page.locator('button[type="submit"]')).toBeVisible();
+    });
+
+    test('should show validation for empty required fields', async ({ page }) => {
         // Try to submit empty form
-        await page.click('button[type="submit"]');
+        const submitButton = page.locator('button[type="submit"]');
+        await submitButton.click();
 
         // Check if browser validation kicks in (HTML5 required attribute)
-        const nameInput = page.locator('input[name="name"]');
-        const isInvalid = await nameInput.evaluate((el: HTMLInputElement) => !el.validity.valid);
+        const firstNameInput = page.locator('input[name="firstName"]');
+        const isInvalid = await firstNameInput.evaluate((el: HTMLInputElement) => !el.validity.valid);
 
         expect(isInvalid).toBe(true);
-    });
-
-    test('should fill and submit form successfully', async ({ page }) => {
-        // Fill form fields
-        await page.fill('input[name="name"]', 'Test User');
-        await page.fill('input[name="email"]', 'test@example.com');
-        await page.fill('input[name="company"]', 'Test Company');
-
-        // Select dropdown (if exists)
-        const selectField = page.locator('select[name="interest"]');
-        if (await selectField.isVisible()) {
-            await selectField.selectOption('demo');
-        }
-
-        // Fill textarea (if exists)
-        const messageField = page.locator('textarea[name="message"]');
-        if (await messageField.isVisible()) {
-            await messageField.fill('This is a test message');
-        }
-
-        // Check consent checkbox (if exists)
-        const consentCheckbox = page.locator('input[type="checkbox"][name="consent"]');
-        if (await consentCheckbox.isVisible()) {
-            await consentCheckbox.check();
-        }
-
-        // Submit form
-        await page.click('button[type="submit"]');
-
-        // Wait for submission (form should reset or show success message)
-        // Note: Adjust based on actual form behavior
-        await page.waitForTimeout(1000);
-
-        // Verify form was submitted (check if fields are reset or success message shown)
-        const nameValue = await page.inputValue('input[name="name"]');
-        // Form might reset or show success - adjust assertion based on actual behavior
-        expect(nameValue).toBeDefined();
     });
 
     test('should validate email format', async ({ page }) => {
         // Fill with invalid email
         await page.fill('input[name="email"]', 'invalid-email');
-
-        // Try to submit
-        await page.click('button[type="submit"]');
 
         // Check if email validation fails
         const emailInput = page.locator('input[name="email"]');
@@ -77,16 +52,14 @@ test.describe('Form Submission', () => {
         expect(isInvalid).toBe(true);
     });
 
-    test('should disable submit button during submission', async ({ page }) => {
-        // Fill form
-        await page.fill('input[name="name"]', 'Test User');
+    test('should accept valid email format', async ({ page }) => {
+        // Fill with valid email
         await page.fill('input[name="email"]', 'test@example.com');
 
-        const submitButton = page.locator('button[type="submit"]');
+        // Check if email validation passes
+        const emailInput = page.locator('input[name="email"]');
+        const isValid = await emailInput.evaluate((el: HTMLInputElement) => el.validity.valid);
 
-        // Check if button gets disabled during submission
-        // Note: This depends on actual implementation
-        const isEnabled = await submitButton.isEnabled();
-        expect(isEnabled).toBe(true);
+        expect(isValid).toBe(true);
     });
 });

@@ -1,0 +1,201 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "EasyWay Core Home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - text: EasyWay Core
+      - navigation "Primary" [ref=e11]:
+        - link "Home" [ref=e12] [cursor=pointer]:
+          - /url: /
+        - link "Manifesto" [ref=e13] [cursor=pointer]:
+          - /url: /manifesto
+        - link "Memory" [ref=e14] [cursor=pointer]:
+          - /url: /memory
+        - link "Pricing" [ref=e15] [cursor=pointer]:
+          - /url: /pricing
+        - link "Demo" [ref=e16] [cursor=pointer]:
+          - /url: /demo
+      - link "Request Demo" [ref=e18] [cursor=pointer]:
+        - /url: /demo
+  - main [ref=e19]:
+    - generic [ref=e26]:
+      - heading "Start Your Sovereign Journey" [active] [level=1] [ref=e27]
+      - paragraph [ref=e28]: demo.hero.tagline
+    - generic [ref=e30]:
+      - heading "demo.intro.title" [level=2] [ref=e31]
+      - paragraph [ref=e32]: demo.intro.description
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - heading "Hero Section" [level=3] [ref=e37]
+        - generic [ref=e38]:
+          - heading "Default (with CTA)" [level=4] [ref=e39]
+          - generic [ref=e40]:
+            - button "📋 Copy JSON" [ref=e41] [cursor=pointer]
+            - code [ref=e43]: "{ \"type\": \"hero\", \"titleKey\": \"example.hero.title\", \"taglineKey\": \"example.hero.tagline\", \"cta\": { \"labelKey\": \"example.hero.cta\", \"action\": { \"type\": \"link\", \"href\": \"/demo\" } } }"
+          - generic [ref=e44]:
+            - generic [ref=e45]: "Live Preview:"
+            - generic [ref=e53]:
+              - heading "example.hero.title" [level=1] [ref=e54]
+              - paragraph [ref=e55]: example.hero.tagline
+              - link "example.hero.cta" [ref=e57] [cursor=pointer]:
+                - /url: /demo
+        - generic [ref=e58]:
+          - heading "Without CTA" [level=4] [ref=e59]
+          - generic [ref=e60]:
+            - button "📋 Copy JSON" [ref=e61] [cursor=pointer]
+            - code [ref=e63]: "{ \"type\": \"hero\", \"titleKey\": \"example.hero.title\", \"taglineKey\": \"example.hero.tagline\" }"
+          - generic [ref=e64]:
+            - generic [ref=e65]: "Live Preview:"
+            - generic [ref=e73]:
+              - heading "example.hero.title" [level=1] [ref=e74]
+              - paragraph [ref=e75]: example.hero.tagline
+        - generic [ref=e76]:
+          - heading "Minimal (title only)" [level=4] [ref=e77]
+          - generic [ref=e78]:
+            - button "📋 Copy JSON" [ref=e79] [cursor=pointer]
+            - code [ref=e81]: "{ \"type\": \"hero\", \"titleKey\": \"example.hero.title\" }"
+          - generic [ref=e82]:
+            - generic [ref=e83]: "Live Preview:"
+            - heading "example.hero.title" [level=1] [ref=e92]
+      - generic [ref=e93]:
+        - heading "Cards Section" [level=3] [ref=e95]
+        - generic [ref=e96]:
+          - heading "2 Cards" [level=4] [ref=e97]
+          - generic [ref=e98]:
+            - button "📋 Copy JSON" [ref=e99] [cursor=pointer]
+            - code [ref=e101]: "{ \"type\": \"cards-catalog\", \"titleKey\": \"example.cards.title\", \"items\": [ { \"iconText\": \"🛡️\", \"titleKey\": \"example.cards.shield.title\", \"descriptionKey\": \"example.cards.shield.description\" }, { \"iconText\": \"⚡\", \"titleKey\": \"example.cards.speed.title\", \"descriptionKey\": \"example.cards.speed.description\" } ] }"
+          - generic [ref=e103]: "Live Preview:"
+        - generic [ref=e105]:
+          - heading "3 Cards" [level=4] [ref=e106]
+          - generic [ref=e107]:
+            - button "📋 Copy JSON" [ref=e108] [cursor=pointer]
+            - code [ref=e110]: "{ \"type\": \"cards-catalog\", \"titleKey\": \"example.cards.title\", \"items\": [ { \"iconText\": \"🛡️\", \"titleKey\": \"example.cards.shield.title\", \"descriptionKey\": \"example.cards.shield.description\" }, { \"iconText\": \"⚡\", \"titleKey\": \"example.cards.speed.title\", \"descriptionKey\": \"example.cards.speed.description\" }, { \"iconText\": \"🎯\", \"titleKey\": \"example.cards.precision.title\", \"descriptionKey\": \"example.cards.precision.description\" } ] }"
+          - generic [ref=e112]: "Live Preview:"
+      - generic [ref=e114]:
+        - heading "Comparison Section" [level=3] [ref=e116]
+        - generic [ref=e117]:
+          - heading "Default" [level=4] [ref=e118]
+          - generic [ref=e119]:
+            - button "📋 Copy JSON" [ref=e120] [cursor=pointer]
+            - code [ref=e122]: "{ \"type\": \"comparison\", \"titleKey\": \"example.comparison.title\", \"leftColumnKey\": \"example.comparison.left\", \"rightColumnKey\": \"example.comparison.right\", \"rows\": [ { \"leftKey\": \"example.comparison.row1.left\", \"rightKey\": \"example.comparison.row1.right\" }, { \"leftKey\": \"example.comparison.row2.left\", \"rightKey\": \"example.comparison.row2.right\" } ] }"
+          - generic [ref=e123]:
+            - generic [ref=e124]: "Live Preview:"
+            - generic [ref=e125]: "Error rendering preview: TypeError: Cannot read properties of undefined (reading 'titleKey')"
+      - generic [ref=e126]:
+        - heading "CTA Section" [level=3] [ref=e128]
+        - generic [ref=e129]:
+          - heading "Single CTA" [level=4] [ref=e130]
+          - generic [ref=e131]:
+            - button "📋 Copy JSON" [ref=e132] [cursor=pointer]
+            - code [ref=e134]: "{ \"type\": \"cta\", \"titleKey\": \"example.cta.title\", \"cta\": { \"labelKey\": \"example.cta.button\", \"action\": { \"type\": \"link\", \"href\": \"/demo\" } } }"
+          - generic [ref=e135]:
+            - generic [ref=e136]: "Live Preview:"
+            - heading "example.cta.title" [level=2] [ref=e140]
+        - generic [ref=e141]:
+          - heading "With Secondary" [level=4] [ref=e142]
+          - generic [ref=e143]:
+            - button "📋 Copy JSON" [ref=e144] [cursor=pointer]
+            - code [ref=e146]: "{ \"type\": \"cta\", \"titleKey\": \"example.cta.title\", \"cta\": { \"labelKey\": \"example.cta.primary\", \"action\": { \"type\": \"link\", \"href\": \"/demo\" } }, \"ctaSecondary\": { \"labelKey\": \"example.cta.secondary\", \"action\": { \"type\": \"link\", \"href\": \"/pricing\" } } }"
+          - generic [ref=e147]:
+            - generic [ref=e148]: "Live Preview:"
+            - heading "example.cta.title" [level=2] [ref=e152]
+      - generic [ref=e153]:
+        - heading "Form Section" [level=3] [ref=e155]
+        - generic [ref=e156]:
+          - heading "Demo Request" [level=4] [ref=e157]
+          - generic [ref=e158]:
+            - button "📋 Copy JSON" [ref=e159] [cursor=pointer]
+            - code [ref=e161]: "{ \"type\": \"form\", \"titleKey\": \"example.form.title\", \"descriptionKey\": \"example.form.description\", \"fields\": [ { \"name\": \"name\", \"labelKey\": \"example.form.name\", \"type\": \"text\", \"required\": true }, { \"name\": \"email\", \"labelKey\": \"example.form.email\", \"type\": \"email\", \"required\": true }, { \"name\": \"message\", \"labelKey\": \"example.form.message\", \"type\": \"textarea\", \"required\": false } ], \"submitKey\": \"example.form.submit\" }"
+          - generic [ref=e162]:
+            - generic [ref=e163]: "Live Preview:"
+            - generic [ref=e166]:
+              - heading "example.form.title" [level=2] [ref=e168]
+              - generic [ref=e170]:
+                - generic [ref=e171]:
+                  - generic [ref=e172]: example.form.name
+                  - textbox "example.form.name" [ref=e173]
+                - generic [ref=e174]:
+                  - generic [ref=e175]: example.form.email
+                  - textbox "example.form.email" [ref=e176]
+                - generic [ref=e177]:
+                  - generic [ref=e178]: example.form.message
+                  - textbox "example.form.message" [ref=e179]
+                - button "example.form.submit" [ref=e180] [cursor=pointer]
+  - contentinfo [ref=e182]:
+    - generic [ref=e183]:
+      - generic [ref=e184]:
+        - generic [ref=e185]:
+          - img [ref=e186]
+          - text: EasyWay
+        - paragraph [ref=e189]:
+          - text: Sovereign Intelligence.
+          - text: Owned by You.
+        - generic [ref=e190]:
+          - link "GitHub" [ref=e191] [cursor=pointer]:
+            - /url: "#"
+            - text: GH
+          - link "Docs" [ref=e192] [cursor=pointer]:
+            - /url: "#"
+            - text: DOC
+          - link "LinkedIn" [ref=e193] [cursor=pointer]:
+            - /url: "#"
+            - text: LI
+      - generic [ref=e194]:
+        - heading "Platform" [level=4] [ref=e195]
+        - list [ref=e196]:
+          - listitem [ref=e197]:
+            - link "Sovereign Cloud" [ref=e198] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e199]:
+            - link "N8N Pipelines" [ref=e200] [cursor=pointer]:
+              - /url: /n8n/
+          - listitem [ref=e201]:
+            - link "Vector Memory" [ref=e202] [cursor=pointer]:
+              - /url: /memory
+          - listitem [ref=e203]:
+            - link "Security Protocol" [ref=e204] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e205]:
+        - heading "Agents" [level=4] [ref=e206]
+        - list [ref=e207]:
+          - listitem [ref=e208]:
+            - link "GEDI Guardian" [ref=e209] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e210]:
+            - link "SQL Analyst" [ref=e211] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e212]:
+            - link "Cortex Chat" [ref=e213] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e214]:
+            - link "Architect" [ref=e215] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e216]:
+        - heading "Company" [level=4] [ref=e217]
+        - list [ref=e218]:
+          - listitem [ref=e219]:
+            - link "Manifesto" [ref=e220] [cursor=pointer]:
+              - /url: /manifesto
+          - listitem [ref=e221]:
+            - link "Roadmap" [ref=e222] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e223]:
+            - link "Request Demo" [ref=e224] [cursor=pointer]:
+              - /url: /demo
+          - listitem [ref=e225]:
+            - link "Contact" [ref=e226] [cursor=pointer]:
+              - /url: "#"
+    - generic [ref=e227]:
+      - paragraph [ref=e228]: © 2026 EasyWay Inc. All Sovereign Rights Reserved.
+      - generic [ref=e229]:
+        - link "Privacy" [ref=e230] [cursor=pointer]:
+          - /url: "#"
+        - link "Terms" [ref=e231] [cursor=pointer]:
+          - /url: "#"
+        - link "Compliance" [ref=e232] [cursor=pointer]:
+          - /url: "#"
+```

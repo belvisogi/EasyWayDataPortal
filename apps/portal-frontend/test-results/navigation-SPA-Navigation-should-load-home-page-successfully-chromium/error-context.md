@@ -1,0 +1,174 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "EasyWay Core Home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - text: EasyWay Core
+      - navigation "Primary" [ref=e11]:
+        - link "Home" [ref=e12] [cursor=pointer]:
+          - /url: /
+        - link "Manifesto" [ref=e13] [cursor=pointer]:
+          - /url: /manifesto
+        - link "Memory" [ref=e14] [cursor=pointer]:
+          - /url: /memory
+        - link "Pricing" [ref=e15] [cursor=pointer]:
+          - /url: /pricing
+        - link "Demo" [ref=e16] [cursor=pointer]:
+          - /url: /demo
+      - link "Request Demo" [ref=e18] [cursor=pointer]:
+        - /url: /demo
+  - main [ref=e19]:
+    - generic [ref=e26]:
+      - heading "Sovereign Intelligence" [active] [level=1] [ref=e27]
+      - paragraph [ref=e28]:
+        - text: Non affittare l'intelligenza. Possiedila.
+        - text: L'infrastruttura enterprise per chi non delega il controllo.
+      - generic [ref=e29]:
+        - link "access_protocol.init()" [ref=e30] [cursor=pointer]:
+          - /url: /demo
+        - link "Request Demo" [ref=e31] [cursor=pointer]:
+          - /url: /demo
+    - generic [ref=e33]:
+      - heading "Una piattaforma. Tre pilastri." [level=2] [ref=e34]
+      - paragraph [ref=e35]: Portal, Memory e Orchestrator lavorano insieme per darti controllo, velocità e autonomia.
+      - generic [ref=e36]:
+        - link "Request Demo" [ref=e37] [cursor=pointer]:
+          - /url: /demo
+        - link "Leggi il Manifesto" [ref=e38] [cursor=pointer]:
+          - /url: /manifesto
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]: P
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - heading "Sovereign Portal" [level=4] [ref=e45]
+            - generic [ref=e46]: PORTAL
+          - paragraph [ref=e47]: "Interfaccia operativa per la tua infrastruttura: chiara, solida, pronta per il business."
+          - link "Open Portal" [ref=e50] [cursor=pointer]:
+            - /url: /demo
+      - generic [ref=e51]:
+        - generic [ref=e52]: M
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - heading "Sovereign Memory" [level=4] [ref=e55]
+            - generic [ref=e56]: VECTOR
+          - paragraph [ref=e57]: Vector search governata da te. Embedding locali, latenza minima, zero dipendenze.
+          - link "Explore Memory" [ref=e60] [cursor=pointer]:
+            - /url: /memory
+      - generic [ref=e61]:
+        - generic [ref=e62]: O
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - heading "Sovereign Orchestrator" [level=4] [ref=e65]
+            - generic [ref=e66]: N8N
+          - paragraph [ref=e67]: Automazioni e workflow n8n integrati. La tua AI lavora dove decidi tu.
+          - link "Orchestrate" [ref=e70] [cursor=pointer]:
+            - /url: /demo
+    - generic [ref=e72]:
+      - generic [ref=e73]:
+        - generic [ref=e74]: SEC
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - heading "Sicurezza by design" [level=4] [ref=e77]
+            - generic [ref=e78]: SECURE
+          - paragraph [ref=e79]: Controllo accessi, isolamento dati, policy chiare.
+      - generic [ref=e82]:
+        - generic [ref=e83]: AIR
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - heading "Air‑gapped ready" [level=4] [ref=e86]
+            - generic [ref=e87]: OFFLINE
+          - paragraph [ref=e88]: Funziona offline e resta operativo anche senza Internet.
+      - generic [ref=e91]:
+        - generic [ref=e92]: ZERO
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - heading "Zero egress" [level=4] [ref=e95]
+            - generic [ref=e96]: ZERO
+          - paragraph [ref=e97]: I dati non escono. Punto.
+    - generic [ref=e101]:
+      - heading "Pronto a possedere la tua intelligenza?" [level=2] [ref=e102]
+      - paragraph [ref=e103]: Parliamone. Ti mostriamo EasyWay Core in 15 minuti.
+      - generic [ref=e104]:
+        - link "Request Demo" [ref=e105] [cursor=pointer]:
+          - /url: /demo
+        - link "Leggi il Manifesto" [ref=e106] [cursor=pointer]:
+          - /url: /manifesto
+  - contentinfo [ref=e108]:
+    - generic [ref=e109]:
+      - generic [ref=e110]:
+        - generic [ref=e111]:
+          - img [ref=e112]
+          - text: EasyWay
+        - paragraph [ref=e115]:
+          - text: Sovereign Intelligence.
+          - text: Owned by You.
+        - generic [ref=e116]:
+          - link "GitHub" [ref=e117] [cursor=pointer]:
+            - /url: "#"
+            - text: GH
+          - link "Docs" [ref=e118] [cursor=pointer]:
+            - /url: "#"
+            - text: DOC
+          - link "LinkedIn" [ref=e119] [cursor=pointer]:
+            - /url: "#"
+            - text: LI
+      - generic [ref=e120]:
+        - heading "Platform" [level=4] [ref=e121]
+        - list [ref=e122]:
+          - listitem [ref=e123]:
+            - link "Sovereign Cloud" [ref=e124] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e125]:
+            - link "N8N Pipelines" [ref=e126] [cursor=pointer]:
+              - /url: /n8n/
+          - listitem [ref=e127]:
+            - link "Vector Memory" [ref=e128] [cursor=pointer]:
+              - /url: /memory
+          - listitem [ref=e129]:
+            - link "Security Protocol" [ref=e130] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e131]:
+        - heading "Agents" [level=4] [ref=e132]
+        - list [ref=e133]:
+          - listitem [ref=e134]:
+            - link "GEDI Guardian" [ref=e135] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e136]:
+            - link "SQL Analyst" [ref=e137] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e138]:
+            - link "Cortex Chat" [ref=e139] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e140]:
+            - link "Architect" [ref=e141] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e142]:
+        - heading "Company" [level=4] [ref=e143]
+        - list [ref=e144]:
+          - listitem [ref=e145]:
+            - link "Manifesto" [ref=e146] [cursor=pointer]:
+              - /url: /manifesto
+          - listitem [ref=e147]:
+            - link "Roadmap" [ref=e148] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e149]:
+            - link "Request Demo" [ref=e150] [cursor=pointer]:
+              - /url: /demo
+          - listitem [ref=e151]:
+            - link "Contact" [ref=e152] [cursor=pointer]:
+              - /url: "#"
+    - generic [ref=e153]:
+      - paragraph [ref=e154]: © 2026 EasyWay Inc. All Sovereign Rights Reserved.
+      - generic [ref=e155]:
+        - link "Privacy" [ref=e156] [cursor=pointer]:
+          - /url: "#"
+        - link "Terms" [ref=e157] [cursor=pointer]:
+          - /url: "#"
+        - link "Compliance" [ref=e158] [cursor=pointer]:
+          - /url: "#"
+```

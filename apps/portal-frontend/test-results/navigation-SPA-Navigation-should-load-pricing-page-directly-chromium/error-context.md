@@ -1,0 +1,218 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "EasyWay Core Home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - text: EasyWay Core
+      - navigation "Primary" [ref=e11]:
+        - link "Home" [ref=e12] [cursor=pointer]:
+          - /url: /
+        - link "Manifesto" [ref=e13] [cursor=pointer]:
+          - /url: /manifesto
+        - link "Memory" [ref=e14] [cursor=pointer]:
+          - /url: /memory
+        - link "Pricing" [ref=e15] [cursor=pointer]:
+          - /url: /pricing
+        - link "Demo" [ref=e16] [cursor=pointer]:
+          - /url: /demo
+      - link "Request Demo" [ref=e18] [cursor=pointer]:
+        - /url: /demo
+  - main [ref=e19]:
+    - generic [ref=e26]:
+      - heading "Pricing Sovrano" [active] [level=1] [ref=e27]
+      - paragraph [ref=e28]: Scegli un percorso. Mantieni il controllo. Nessun lock‑in.
+      - link "Request Demo" [ref=e30] [cursor=pointer]:
+        - /url: /demo
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: START
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - heading "Start" [level=4] [ref=e37]
+            - generic [ref=e38]: PILOT
+          - paragraph [ref=e39]:
+            - strong [ref=e40]: "Ideale per:"
+            - text: team piccoli o primi proof of value.
+            - text: • Setup guidato
+            - text: • Portal + Memory base
+            - text: • 1 ambiente
+            - strong [ref=e41]: "Prezzo:"
+            - text: su richiesta
+          - link "Talk to us" [ref=e44] [cursor=pointer]:
+            - /url: /demo
+      - generic [ref=e45]:
+        - generic [ref=e46]: GROW
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - heading "Grow" [level=4] [ref=e49]
+            - generic [ref=e50]: SCALE
+          - paragraph [ref=e51]:
+            - strong [ref=e52]: "Ideale per:"
+            - text: aziende in crescita e workload reali.
+            - text: • Memory avanzata
+            - text: • Orchestrator n8n
+            - text: • 2+ ambienti
+            - strong [ref=e53]: "Prezzo:"
+            - text: su richiesta
+          - link "Get a quote" [ref=e56] [cursor=pointer]:
+            - /url: /demo
+      - generic [ref=e57]:
+        - generic [ref=e58]: SOV
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - heading "Sovereign" [level=4] [ref=e61]
+            - generic [ref=e62]: ENTERPRISE
+          - paragraph [ref=e63]:
+            - strong [ref=e64]: "Ideale per:"
+            - text: governance completa e ambienti mission‑critical.
+            - text: • Air‑gapped ready
+            - text: • Policy e audit
+            - text: • Supporto dedicato
+            - strong [ref=e65]: "Prezzo:"
+            - text: custom
+          - link "Book demo" [ref=e68] [cursor=pointer]:
+            - /url: /demo
+    - generic [ref=e70]:
+      - generic [ref=e71]:
+        - heading "EasyWay Core vs Public AI" [level=2] [ref=e72]
+        - paragraph [ref=e73]: "Confronto rapido: controllo, costi, sovranità."
+      - generic [ref=e74]:
+        - generic [ref=e75]:
+          - text: RECOMMENDED
+          - generic [ref=e76]: EasyWay Core
+          - list [ref=e77]:
+            - listitem [ref=e78]: ✅ Dati e modelli sotto il tuo controllo
+            - listitem [ref=e79]: ✅ Deploy on‑prem o hybrid
+            - listitem [ref=e80]: ✅ Costi prevedibili
+            - listitem [ref=e81]: ✅ Zero egress by design
+        - generic [ref=e82]:
+          - generic [ref=e83]: Public AI
+          - list [ref=e84]:
+            - listitem [ref=e85]: ❌ Dati in transito verso terzi
+            - listitem [ref=e86]: ❌ Policy non personalizzabili
+            - listitem [ref=e87]: ❌ Costi variabili e a consumo
+            - listitem [ref=e88]: ❌ Dipendenza dal provider
+    - generic [ref=e90]:
+      - generic [ref=e91]:
+        - generic [ref=e92]: Q1
+        - generic [ref=e93]:
+          - heading "Serve Internet?" [level=4] [ref=e95]
+          - paragraph [ref=e96]: No. EasyWay Core può funzionare offline o in ambienti air‑gapped.
+      - generic [ref=e99]:
+        - generic [ref=e100]: Q2
+        - generic [ref=e101]:
+          - heading "Posso usare i miei modelli?" [level=4] [ref=e103]
+          - paragraph [ref=e104]: Sì. Supportiamo modelli locali e integrazioni custom.
+      - generic [ref=e107]:
+        - generic [ref=e108]: Q3
+        - generic [ref=e109]:
+          - heading "Cosa include lo sconto sociale?" [level=4] [ref=e111]
+          - paragraph [ref=e112]: Pricing dedicato per scuole, biblioteche, logopedia, psicomotricità e non‑profit.
+    - generic [ref=e116]:
+      - generic [ref=e117]:
+        - generic [ref=e118]: SEC
+        - generic [ref=e119]:
+          - generic [ref=e120]:
+            - heading "Sicurezza & Governance" [level=4] [ref=e121]
+            - generic [ref=e122]: SECURE
+          - paragraph [ref=e123]: Controllo accessi, isolamento dati, policy di audit.
+      - generic [ref=e126]:
+        - generic [ref=e127]: OPS
+        - generic [ref=e128]:
+          - generic [ref=e129]:
+            - heading "Operatività" [level=4] [ref=e130]
+            - generic [ref=e131]: OPS
+          - paragraph [ref=e132]: Deploy rapido, monitoraggio essenziale, backup guidati.
+      - generic [ref=e135]:
+        - generic [ref=e136]: SUP
+        - generic [ref=e137]:
+          - generic [ref=e138]:
+            - heading "Supporto" [level=4] [ref=e139]
+            - generic [ref=e140]: HUMAN
+          - paragraph [ref=e141]: Onboarding e assistenza tecnica con SLA chiari.
+    - generic [ref=e145]:
+      - heading "Sconto Sociale" [level=2] [ref=e146]
+      - paragraph [ref=e147]: Se investi nel sociale (scuole, biblioteche, logopedia, psicomotricità, enti non‑profit), applichiamo un pricing dedicato. Lo facciamo per scelta, non per marketing.
+      - generic [ref=e148]:
+        - link "Richiedi sconto sociale" [ref=e149] [cursor=pointer]:
+          - /url: /demo
+        - link "Leggi il Manifesto" [ref=e150] [cursor=pointer]:
+          - /url: /manifesto
+  - contentinfo [ref=e152]:
+    - generic [ref=e153]:
+      - generic [ref=e154]:
+        - generic [ref=e155]:
+          - img [ref=e156]
+          - text: EasyWay
+        - paragraph [ref=e159]:
+          - text: Sovereign Intelligence.
+          - text: Owned by You.
+        - generic [ref=e160]:
+          - link "GitHub" [ref=e161] [cursor=pointer]:
+            - /url: "#"
+            - text: GH
+          - link "Docs" [ref=e162] [cursor=pointer]:
+            - /url: "#"
+            - text: DOC
+          - link "LinkedIn" [ref=e163] [cursor=pointer]:
+            - /url: "#"
+            - text: LI
+      - generic [ref=e164]:
+        - heading "Platform" [level=4] [ref=e165]
+        - list [ref=e166]:
+          - listitem [ref=e167]:
+            - link "Sovereign Cloud" [ref=e168] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e169]:
+            - link "N8N Pipelines" [ref=e170] [cursor=pointer]:
+              - /url: /n8n/
+          - listitem [ref=e171]:
+            - link "Vector Memory" [ref=e172] [cursor=pointer]:
+              - /url: /memory
+          - listitem [ref=e173]:
+            - link "Security Protocol" [ref=e174] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e175]:
+        - heading "Agents" [level=4] [ref=e176]
+        - list [ref=e177]:
+          - listitem [ref=e178]:
+            - link "GEDI Guardian" [ref=e179] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e180]:
+            - link "SQL Analyst" [ref=e181] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e182]:
+            - link "Cortex Chat" [ref=e183] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e184]:
+            - link "Architect" [ref=e185] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e186]:
+        - heading "Company" [level=4] [ref=e187]
+        - list [ref=e188]:
+          - listitem [ref=e189]:
+            - link "Manifesto" [ref=e190] [cursor=pointer]:
+              - /url: /manifesto
+          - listitem [ref=e191]:
+            - link "Roadmap" [ref=e192] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e193]:
+            - link "Request Demo" [ref=e194] [cursor=pointer]:
+              - /url: /demo
+          - listitem [ref=e195]:
+            - link "Contact" [ref=e196] [cursor=pointer]:
+              - /url: "#"
+    - generic [ref=e197]:
+      - paragraph [ref=e198]: © 2026 EasyWay Inc. All Sovereign Rights Reserved.
+      - generic [ref=e199]:
+        - link "Privacy" [ref=e200] [cursor=pointer]:
+          - /url: "#"
+        - link "Terms" [ref=e201] [cursor=pointer]:
+          - /url: "#"
+        - link "Compliance" [ref=e202] [cursor=pointer]:
+          - /url: "#"
+```
