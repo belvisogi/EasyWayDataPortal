@@ -13,6 +13,11 @@ This log tracks decisions and fixes from the current build cycle.
 - QA: frontend audit added + wired into pre-commit and pre-flight.
 - Audit status: 10/10 (framework + audit + docs complete).
 
+## 2026-02-02
+- HTTP Smoke Test: Configured `.env.production` with `SMOKE_BASE_URL=http://80.225.86.168`.
+- Smoke test validates 5 routes: /, /demo, /manifesto, /memory, /pricing (all return 200 OK).
+- Phase 1 of 10/10 roadmap complete: Production smoke testing operational.
+
 ## Test Policy (Agreed)
 - Automated tests (agent): audit scripts + HTTP sanity checks.
 - Manual tests (owner): UI/UX visual validation.
