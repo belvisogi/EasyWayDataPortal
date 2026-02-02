@@ -1,9 +1,9 @@
 import type { PageSpecV1, PagesManifestV1 } from '../types/runtime-pages';
-import { getApiUrl } from './env';
+import { getStaticUrl } from './env';
 
 async function fetchJson<T>(path: string): Promise<T> {
     try {
-        const url = path.startsWith('http') ? path : getApiUrl(path);
+        const url = path.startsWith('http') ? path : getStaticUrl(path);
         const res = await fetch(url, { cache: 'no-store' });
         if (!res.ok) throw new Error(`Failed to fetch ${path} (${res.status})`);
         const raw = await res.text();

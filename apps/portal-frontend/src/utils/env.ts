@@ -19,6 +19,12 @@ export function getApiUrl(path: string): string {
     return `${base}${cleanPath}`;
 }
 
+export function getStaticUrl(path: string): string {
+    const base = window.location.origin;
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    return `${base}${cleanPath}`;
+}
+
 export function isDevelopment(): boolean {
     return window.location.hostname === 'localhost' ||
         window.location.hostname === '127.0.0.1';
