@@ -17,12 +17,60 @@ This log tracks decisions and fixes from the current build cycle.
 - HTTP Smoke Test: Configured `.env.production` with `SMOKE_BASE_URL=http://80.225.86.168`.
 - Smoke test validates 5 routes: /, /demo, /manifesto, /memory, /pricing (all return 200 OK).
 - Phase 1 of 10/10 roadmap complete: Production smoke testing operational.
-- **Storybook Setup Attempt**: Tried Storybook 10.x → incompatible with Vite 6.x.
-- **Storybook Downgrade**: Installed Storybook 8.6.15 → still has package incompatibility warnings.
-- **Storybook Startup Issue**: Server starts but hangs during build (doesn't complete loading).
-- **Root Cause**: Vite 6.x + TypeScript 5.7 + Storybook 8.x have peer dependency conflicts.
-- **Decision**: Skip Storybook, implement custom `/demo-components` page instead (simpler, antifragile).
-- **Rationale**: Custom demo page = zero dependencies, full control, 30min vs 5 days.
+
+### Storybook Investigation & Decision
+
+**Context**: Need interactive brochure for open source framework (better than `.md` docs).
+
+**Attempted Solutions**:
+1. **Storybook 10.x**: Incompatible with Vite 6.x (peer dependency conflicts)
+2. **Storybook 8.6.15**: Installed successfully but build hangs during startup
+3. **Root Cause**: Vite 6.x (Dec 2025) + TypeScript 5.7 + Storybook 8.x = peer dependency hell
+
+**Alternatives Considered**:
+1. ❌ **Downgrade Vite to 5.x**: Violates "never downgrade" principle (antifragile)
+2. ❌ **Downgrade TypeScript to 5.4**: Same issue, moving backwards
+3. ❌ **Wait for Storybook 9**: No ETA, could be months (Q2 2026?)
+4. ✅ **Custom Demo Page** (`/demo-components`): Zero dependencies, full control, 30min
+
+**Decision**: Implement custom `/demo-components` page
+
+**Rationale**:
+- **Antifragile**: No external dependencies to break
+- **Fast**: 30 minutes vs weeks/months waiting
+- **Flexible**: Full control over UX/features
+- **Migratable**: Can migrate to Storybook when Vite 6 supported
+- **Same Goal**: Interactive component showcase (brochure)
+
+**What We Lose vs Storybook**:
+- Interactive controls (can add later if needed)
+- Addon ecosystem (not needed for 5 components)
+- Auto-generated docs (we have manual docs)
+
+**What We Gain**:
+- Zero build conflicts
+- Faster iteration
+- Custom UX tailored to framework
+- N8N automation easier (no Storybook API)
+
+**Future Migration Path**:
+- N8N workflow monitors Storybook releases weekly
+- When Vite 6 supported → evaluate migration
+- Migration guide: `docs/storybook-migration.md`
+- Demo page acts as bridge, not dead-end
+
+**Q&A**:
+- **Q**: Why not just use markdown docs?
+  **A**: Most developers don't read `.md`. Visual/interactive = better adoption.
+  
+- **Q**: Is custom demo page as good as Storybook?
+  **A**: For our use case (5 canonical components), yes. Storybook overkill for small component library.
+  
+- **Q**: What if Storybook never supports Vite 6?
+  **A**: Custom demo page is permanent solution. Already antifragile.
+  
+- **Q**: Can we still use Storybook guide we created?
+  **A**: Yes, keep `docs/storybook-guide.md` for when migration happens. Good reference.
 
 ## Test Policy (Agreed)
 - Automated tests (agent): audit scripts + HTTP sanity checks.
