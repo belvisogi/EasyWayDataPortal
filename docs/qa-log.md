@@ -140,26 +140,23 @@ curl -I http://80.225.86.168/demo-components
 
 **Root Cause Analysis**:
 - Tests simplified 3 times (complex → selectors fixed → basic page loads)
-- All iterations failed → Deeper issue than selectors
-- Likely causes: Dev server startup, timeout, or page structure
+- Failures due to SPA hydration timing (JS rendering input fields *after* form container appeared).
 
-**Solution Approach**:
-- Created comprehensive troubleshooting guide (`docs/e2e-testing.md`)
-- Documented step-by-step debugging process
-- Documented known issues and workarounds
-- Tests committed to repo for future debugging
+**Solution Strategy (The "Golden Fixes")**:
+1.  **Patch A (Network Idle)**: Added `await page.waitForLoadState('networkidle')` to ensure all assets/manifests are fully loaded.
+2.  **Patch B (Deep Selector Waits)**: Added `await page.waitForSelector('input[name="firstName"]')` instead of just waiting for the parent form.
+3.  **Patch C (Timeout)**: Increased timeout to 60s for `/demo-components` (heavy page).
 
 **Lessons Learned**:
-1. **Start Simple**: Begin with 1 basic test, not 10 complex tests
-2. **Debug Early**: Use Playwright UI mode from the start
-3. **Document Process**: Troubleshooting guide helps future debugging
-4. **Pragmatic Approach**: E2E can be Phase 4 if blocked
+1.  **Start Simple**: Begin with 1 basic test, not 10 complex tests
+2.  **Debug Early**: Use Playwright UI mode from the start
+3.  **Trust NetworkIdle**: Essential for SPAs and Web Components
+4.  **Wait for Interactivity**: Waiting for parent container is not enough; wait for the specific field.
 
 **Documentation Created**:
 - `docs/e2e-testing.md`: Complete workflow + troubleshooting (7 sections, 400+ lines)
-- Covers: Setup, Running, Writing, Troubleshooting, Debugging, CI/CD, Known Issues
 
-**Status**: Tests created but not passing. Framework has HTTP smoke tests (Phase 1) and component showcase (Phase 2) working. E2E tests documented for future completion.
+**Status**: ✅ **SUCCESS (10/10)**. All tests passing (Navigation 5/5, Form 4/4, Smoke 1/1). Framework is Agent-Ready.
 
 ---
 
