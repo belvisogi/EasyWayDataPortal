@@ -24,7 +24,6 @@ $Routes = @(
     "/",
     "/demo",
     "/manifesto",
-    "/manifesto.html",
     "/memory",
     "/pricing"
 )

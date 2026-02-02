@@ -3,7 +3,7 @@
 This log tracks decisions and fixes from the current build cycle.
 
 ## 2026-02-01
-- Manifesto routing: `/manifesto` redirects to `/manifesto.html` for long-form stability.
+- Manifesto routing: `/manifesto` is a runtime page rendered by the single-shell (no extra HTML entrypoints).
 - SPA nav: global runtime link interception to avoid full reloads.
 - Footer flash: runtime preload guard to prevent layout jump on navigation.
 - Header stability: nav renders only after content + branding ready (prevents flicker).

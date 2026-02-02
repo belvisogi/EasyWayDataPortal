@@ -36,6 +36,11 @@ Content loading rules:
 - Nginx already serves SPA routes via `try_files $uri $uri/ /index.html;` in `nginx.conf`.
 - URLs are "clean" (example: `/demo`, `/manifesto`).
 
+## Why These Choices (Antifragile Rationale)
+- **Runtime pages must load from the frontend origin, not the API**: pages live under `/pages/*.json` in the Nginx container. Using `apiEndpoint` for these fetches can point to the backend (e.g., `:5678`) and returns 404, resulting in empty pages. The loader uses the browser origin to avoid environment drift.
+- **No extra HTML entrypoints for runtime pages**: runtime pages are SPA routes rendered into `index.html`. Keeping separate Vite inputs (e.g., `manifesto.html`) creates a build-time dependency that can break if the file is removed, which is the opposite of antifragile runtime content.
+- **Single-shell + JSON specs keeps changes safe**: it lets operators update pages/copy/theme without rebuilding images, and reduces the risk of shipping stale HTML.
+
 ## How To Add A New Page (Human or AI Agent)
 Example: add a new page `pricing` on route `/pricing`.
 

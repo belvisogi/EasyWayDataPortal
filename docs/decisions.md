@@ -14,11 +14,11 @@ Scope:
 
 ## 2026-02-01 — Manifesto Rendering
 Decision:
-- Keep manifesto as static HTML (`/manifesto.html`) and redirect `/manifesto`.
+- Keep manifesto as runtime page (`/manifesto`) rendered by the single-shell.
 
 Why:
-- Long-form content is stable and better served as static.
-- Less runtime fragility and lower maintenance cost.
+- Avoid build-time dependency on extra HTML entrypoints.
+- Keeps routing consistent with other runtime pages and reduces refresh flicker.
 
 ## 2026-02-01 — Cache Strategy (Frontend)
 Decision:
@@ -29,7 +29,7 @@ Why:
 
 ## 2026-02-01 — Demo as Runtime Page
 Decision:
-- Move Demo to runtime routing (`/demo`) and keep `/demo.html` as redirect fallback.
+- Move Demo to runtime routing (`/demo`) and avoid extra HTML entrypoints.
 
 Why:
 - Removes full reload flicker and keeps single-shell consistency.
