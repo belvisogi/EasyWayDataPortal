@@ -431,28 +431,24 @@ test('debug network', async ({ page }) => {
 
 ---
 
-### Step 7: Simplify Test
+### Step 7: Simplify Test & Use Proven Strategy
 
-If test is complex and failing, simplify to find root cause:
+If test is complex and failing, verify using the **Golden Strategy**:
 
 ```typescript
-// Start with simplest possible test
-test('page loads', async ({ page }) => {
-  await page.goto('/');
-  await expect(page).toHaveURL('/');
-});
-
-// Add one assertion at a time
-test('page has header', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.locator('sovereign-header')).toBeVisible();
-});
-
-// Add more complexity gradually
-test('page has navigation', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.locator('sovereign-header')).toBeVisible();
-  await expect(page.locator('nav')).toBeVisible();
+test('robust test', async ({ page }) => {
+  await page.goto('/demo');
+  
+  // 1. Wait for Network Idle (ensure assets loaded)
+  await page.waitForLoadState('networkidle');
+  
+  // 2. Explicitly wait for key elements (ensure rendering complete)
+  // Essential for dynamic content / web components
+  await page.waitForSelector('sovereign-header', { state: 'attached' });
+  await page.waitForSelector('form', { state: 'visible' });
+  
+  // 3. Assert
+  await expect(page.locator('form')).toBeVisible();
 });
 ```
 
