@@ -27,7 +27,10 @@ docker-compose up -d --build frontend
 ```
 
 ## 🎨 Design Philosophy (PDR)
-This frontend implements the **Product Design Requirement** defined in `docs/design/frontend_pdr.md`.
+> *"Il Frontend è il nostro vestito."*
+> [Leggi il Manifesto 🌹](docs/manifesto-valentino.md)
+
+**Valentino Framework** è l'architettura frontend "Sovereign" di EasyWay.
 
 *   **Identity**: "Sovereign Intelligence". You own the machine.
 *   **Visuals**: Dark, Serious, Engineering-focused.
