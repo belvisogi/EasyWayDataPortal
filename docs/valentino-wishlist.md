@@ -6,6 +6,19 @@ Questa è la nostra roadmap per una **Libreria Componenti Interna**.
 
 ---
 
+## 🛡️ 0. The Gatekeeper (Cookie Consent)
+> **The Monster**: `iubenda`, `cookiebot`, `onetrust` (Costosi, esterni, tracking involontario)
+> **Valentino Wish**: `<sovereign-cookie-banner>`
+
+### Why Sovereign?
+- **Zero Third Party**: I dati di consenso rimangono nel browser dell'utente (LocalStorage).
+- **Block-by-default**: Blocca script (GA4, Pixel) finché non c'è consenso esplicito.
+- **Granulare**: Consenso per categoria (Marketing, Analytics, Necessary).
+
+**Status**: 🚨 *Urgent*
+
+---
+
 ## 📅 1. The Timekeeper (Datepicker)
 > **The Monster**: `react-datepicker`, `moment.js` (Pesanti, stili difficili da sovrascrivere)
 > **Valentino Wish**: `<sovereign-datepicker>`
