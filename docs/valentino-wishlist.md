@@ -70,6 +70,30 @@ Questa è la nostra roadmap per una **Libreria Componenti Interna**.
 
 ---
 
+## ✋ 6. The Conductor (Drag & Drop)
+> **The Monster**: `react-beautiful-dnd`, `dnd-kit` (Pesanti, spesso rompono l'accessibilità)
+> **Valentino Wish**: `<sovereign-sortable>`
+
+### Why Sovereign?
+- **Native API**: Usa HTML5 Drag & Drop API diretta.
+- **Kanban**: Perfetto per dashboard di task management.
+
+**Status**: 📝 *Wishlist*
+
+---
+
+## 📈 7. The Visionary (Charts)
+> **The Monster**: `recharts`, `chart.js` (Canvas pesanti, non accessibili)
+> **Valentino Wish**: `<sovereign-chart>`
+
+### Why Sovereign?
+- **SVG Web Components**: Grafici vettoriali nitidi e animati CSS.
+- **Micro-Charts**: Sparklines ultra-leggere nelle celle della griglia.
+
+**Status**: 📝 *Wishlist*
+
+---
+
 ## 📝 Roadmap di Implementazione
 
 Per ogni componente:
