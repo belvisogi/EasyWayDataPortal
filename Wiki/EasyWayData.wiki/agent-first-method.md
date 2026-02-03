@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 
 
 # Metodo di Lavoro (Agent‑First)
 Breadcrumb: Home / Metodo Agent‑First
@@ -73,6 +73,8 @@ Riferimenti
 ## Badges & Guardrail
 - WhatIf‑Ready: l’azione implementa pre‑check a secco e mostra `stateBefore` (e `stateAfter` dopo l’applicazione). È la modalità predefinita consigliata.
 - Guardrail: gli agenti devono anticipare gli errori (validazioni, limiti, anteprime), riducendo i rischi prima di eseguire modifiche.
+
+
 
 
 

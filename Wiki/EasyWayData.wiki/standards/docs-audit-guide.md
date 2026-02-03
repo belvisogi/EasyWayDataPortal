@@ -8,6 +8,17 @@ audience:
   - technical-writers
   - developers
 last-updated: 2026-01-17
+id: ew-standards-docs-audit-guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/spec, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # 📝 Documentation Audit & Review
@@ -26,7 +37,7 @@ Selezionando "Wiki Normalize & Review", l'agente genererà un **Audit Plan** in 
 
 ### Cosa Analizza
 1.  **Tag Taxonomy**: Verifica che i tag usati nel frontmatter siano conformi alla lista approvata.
-2.  **Broken Links**: Analizza tutti i link interni, inclusi i link stile Obsidian (`[[Page]]` o `[[Page|Label]]`).
+2.  **Broken Links**: Analizza tutti i link interni, inclusi i link stile Obsidian (`` o ``).
     - Supporta path relativi e assoluti (Wiki root).
     - Rileva ancore mancanti (`#section`).
 3.  **Visual Hierarchy**: Ricostruisce l'albero logico della documentazione basandosi su path e contenuto.
@@ -36,7 +47,7 @@ Selezionando "Wiki Normalize & Review", l'agente genererà un **Audit Plan** in 
 
 Lo script `wiki-links-anchors-lint.ps1` è stato potenziato per supportare nativamente la sintassi Wiki-Link:
 - **Standard**: `[Label](path/to/file.md)`
-- **Obsidian**: `[[Page Name]]` (risolto come `Page Name.md` nella directory corrente o root).
+- **Obsidian**: `` (risolto come `Page Name.md` nella directory corrente o root).
 
 ## 🛠️ Automated Fixes
 
@@ -62,3 +73,4 @@ Il sistema utilizza una logica a 3 livelli ("The Hierarchy Game") per inferire e
     *   **Logica**: "Conformità alla Legge (Tassonomia)".
     *   **Tool**: `agent-docs-scanner.ps1 -Action AuditHierarchy`.
     *   **Azione**: Verifica che i tag usati esistano nel Grafo della Conoscenza (`knowledge-graph.json`) e segnala "Tag Orfani" o "Exotic Tags" da normare.
+

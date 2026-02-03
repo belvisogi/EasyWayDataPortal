@@ -15,7 +15,7 @@ updated: '2026-01-18'
 next: Vedi db-migrations.md per approccio attuale (Git + SQL diretto).
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](.././start-here.md) > [[domains/db|db]] > 
 
 > [!CAUTION]
 > **⚠️ QUESTO DOCUMENTO È DEPRECATO**
@@ -140,6 +140,7 @@ Nota su DataBase/ vs db/
 - `db/` è la fonte canonica (DevOps-ready): migrazioni in `db/flyway/sql/`.
 - `DataBase/` e' stata rimossa; gli artefatti storici sono archiviati in `old/db/`.
 - Obiettivo: mantenere una sola referenza e rigenerare inventari/documentazione sempre da Flyway.
+
 
 
 

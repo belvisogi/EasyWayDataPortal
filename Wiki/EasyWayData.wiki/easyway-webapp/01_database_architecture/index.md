@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: Aggiornare quando cambiano DDL o struttura.
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[domains/db|db]] > [[Layer - Index|Index]]
 
 # Indice
 
@@ -39,6 +39,7 @@ Breadcrumb: Home / EasyWay WebApp / Database Architecture
 - Dove trovo la struttura degli schemi e le regole di naming?
 - Qual è la lista “source-of-truth” di tabelle e stored procedure (da DDL)?
 - Quali sono i link canonici da usare nelle altre pagine DB?
+
 
 
 

@@ -6,8 +6,11 @@ status: draft
 owner: team-platform
 tags: []
 llm:
+  pii: none
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
+entities: []
 ---
 # 🤖 Agent Marketplace & Roster
 
@@ -74,4 +77,5 @@ Discover the comprehensive collection of EasyWay agents. Classified by **Strateg
 - **Executive Arms**: 20
 
 _(Generated via scripts/generate-agent-roster.ps1)_
+
 

@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../.././start-here.md) >  > 
 
 #### Logging conversational-ready (agent-aware)
 Questa sezione integra e amplia le policy dati sensibili:  
@@ -64,6 +64,7 @@ Ogni endpoint risponde sempre con:
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

@@ -14,7 +14,7 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
-[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Howto|Howto]]
+[Home](../.././start-here.md) > [[domains/frontend|frontend]] > [[Layer - Howto|Howto]]
 
 ### **Perché serve**
 
@@ -148,5 +148,6 @@ export default router;
 - [STEP 2 - Struttura src e primi file](./STEP-2-—-Struttura-src-e-primi-file.md)
 - [step 4 query dinamiche locale datalake](./step-4-query-dinamiche-locale-datalake.md)
 - [validazione avanzata](./step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md)
+
 
 

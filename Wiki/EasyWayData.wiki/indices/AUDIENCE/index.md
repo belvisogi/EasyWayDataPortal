@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Target Reader - Category index for AUDIENCE pillar
 status: draft
+id: ew-indices-audience-index
+title: 📁 AUDIENCE
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
 
 # 📁 AUDIENCE
 
@@ -32,6 +40,7 @@ status: draft
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 
 

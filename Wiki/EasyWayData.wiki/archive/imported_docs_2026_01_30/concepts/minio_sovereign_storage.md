@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-concepts-minio-sovereign-storage
+title: MinIO: Il Caveau Digitale Sovrano
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # MinIO: Il Caveau Digitale Sovrano
 
 > **"S3 Compatibility without the AWS Invoice."**
@@ -61,3 +75,5 @@ Pensa a questa differenza:
 1.  L'Agente lavora veloce su **MinIO** (legge il PDF 100 volte per capirlo).
 2.  A fine giornata, se il file è importante, n8n lo sposta su **Azure Data Lake** per il backup eterno.
 Questa si chiama **Hybrid Cloud Architecture**. Hai il meglio dei due mondi.
+
+

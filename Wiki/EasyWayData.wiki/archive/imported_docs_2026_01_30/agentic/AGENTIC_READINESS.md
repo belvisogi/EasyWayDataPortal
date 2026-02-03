@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agentic-agentic-readiness
+title: Agentic Readiness — Linee guida per sviluppo 100% agentico
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Agentic Readiness — Linee guida per sviluppo 100% agentico
 
 Obiettivo: permettere ad agenti (LLM/tooling) di creare e aggiornare, in modo sicuro e ripetibile, tabelle e store procedure del Portale, aderendo agli standard EasyWay.
@@ -112,4 +126,6 @@ flowchart TD
     F --> G[Deploy + Logging]
     G --> H[Human-in-the-loop: verifica e conferma]
 ```
+
+
 

@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-execution-test
+title: 🎯 TEST: Workflow Operativo AI
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🎯 TEST: Workflow Operativo AI
 
 Questo test dimostra come l'AI dovrebbe comportarsi con le nuove EXECUTION_RULES.
@@ -129,3 +143,5 @@ AI: [ESEGUE: axctl --intent ado-userstory-create ...]
 
 **Versione Test**: 1.0
 **Data**: 2026-01-12
+
+

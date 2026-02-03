@@ -6,9 +6,15 @@ summary: Suggerimenti e redesign operativi per rendere la struttura EasyWay Data
 status: draft
 owner: team-platform
 updated: '2026-01-06'
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](./start-here.md)
 
 # 🚀 Potenziare l’alberatura: più developer-friendly, più scalabile, più agent-ready
 
@@ -101,5 +107,6 @@ Questa guida raccoglie le azioni proposte per migliorare l’esperienza di svilu
 - Facile da navigare e contribuire
 - Scalabile a molti team/feature/plugin
 - Agent-first, con discovery dinamica e automazione plug&play!**
+
 
 

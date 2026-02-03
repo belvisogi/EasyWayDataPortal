@@ -97,3 +97,4 @@ Prossimi passi consigliati (azione immediata)
 - [Deployment decision (MVP) — EasyWay Data Portal](./deployment-decision-mvp.md)
 - [EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata)](./onboarding-architettura.md)
 
+

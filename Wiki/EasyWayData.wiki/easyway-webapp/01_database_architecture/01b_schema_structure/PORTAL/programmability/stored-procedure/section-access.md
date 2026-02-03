@@ -18,7 +18,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[Home](../../../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../../.././start-here.md) > [[domains/db|db]] > 
 
 ### a) **sp_insert_section_access**
 
@@ -1907,6 +1907,7 @@ Breve descrizione dello scopo del documento.
 
 ## Collegamenti
 - [Entities Index](../../../../../../entities-index.md)
+
 
 
 

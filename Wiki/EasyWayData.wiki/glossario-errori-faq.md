@@ -6,9 +6,15 @@ summary: Glossario di termini chiave usati in EasyWay DataPortal e soluzioni rap
 status: draft
 owner: team-platform
 updated: '2026-01-06'
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md)
 
 # Glossario Essenziale EasyWay
 
@@ -62,6 +68,8 @@ updated: '2026-01-06'
 - [Developer & Agent Experience Upgrades](./onboarding/developer-agent-experience-upgrades.md)
 - [Setup ambiente di test/Sandbox e Zero Trust](./onboarding/setup-playground-zero-trust.md)
 - [Documentazione - Contesto standard (obbligatorio)](./onboarding/documentazione-contesto-standard.md)
+
+
 
 
 

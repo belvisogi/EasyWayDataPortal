@@ -1,3 +1,17 @@
+---
+id: ew-infrastructure-oracle-cloud-01-hardware-storage-os
+title: 1. Specifiche Hardware & Risorse
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 Hostname: oracle-agent
 Hardware: Oracle Cloud Free Tier (ARM Ampere A1)
 OS: Ubuntu Server 24.04 LTS
@@ -156,3 +170,6 @@ easyway-status
 - System uptime
 
 **Dashboard**: `btop` (alias: `status`)
+
+
+

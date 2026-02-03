@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-ci-ewctl-gates
+title: Governance Gates via ewctl (ibrido)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Governance Gates via ewctl (ibrido)
 
 Obiettivo
@@ -60,5 +74,7 @@ Strategia Flyway consigliata
 Note
 - Il job `GovernanceGatesEWCTL` dipende da `NodeBuild` per garantire `node_modules` disponibili (ts-node usato nei tool TypeScript).
 - Se necessario, disabilita completamente i gate impostando i rispettivi `ENABLE_*` a `false`.
+
+
 
 

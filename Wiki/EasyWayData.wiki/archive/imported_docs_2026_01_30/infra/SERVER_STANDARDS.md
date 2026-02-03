@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-infra-server-standards
+title: Standard di Organizzazione Server EasyWay
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Standard di Organizzazione Server EasyWay
 
 > Questo documento definisce lo standard per utenti, gruppi e struttura delle directory sui server EasyWay (Oracle Cloud / On-Premise).
@@ -72,7 +86,7 @@ Log centralizzati per facile consultazione (o via Docker logs).
 
 > [!IMPORTANT]
 > **Enterprise Security Model**: EasyWay utilizza un modello RBAC a 4 livelli con ACLs per controllo fine-grained.  
-> **📖 Documentazione Completa**: [SECURITY_FRAMEWORK.md](SECURITY_FRAMEWORK.md)
+> **📖 Documentazione Completa**: [SECURITY_FRAMEWORK.md](../../../../../scripts/docs/infra/SECURITY_FRAMEWORK.md)
 
 ### Quick Summary
 
@@ -117,7 +131,7 @@ sudo ./scripts/infra/apply-acls.sh            # Applica ACLs granulari
 sudo ./scripts/infra/security-audit.sh
 ```
 
-**Per dettagli completi su RBAC, ACLs, audit compliance, e manutenzione**: vedere [SECURITY_FRAMEWORK.md](SECURITY_FRAMEWORK.md)
+**Per dettagli completi su RBAC, ACLs, audit compliance, e manutenzione**: vedere [SECURITY_FRAMEWORK.md](../../../../../scripts/docs/infra/SECURITY_FRAMEWORK.md)
 
 ---
 
@@ -149,4 +163,7 @@ Questo script:
 - **Firewall Breaker**: Inietta automaticamente script Cloud-Init per aprire le porte (iptables) prima ancora che l'OS finisca il boot.
 - **Desktop Artificer**: Trasforma una shell Ubuntu vuota in un ambiente Desktop completo (GNOME + XRDP) in 15 minuti netti.
 - **Self-Healing**: Se una VM non risponde al ping (SSH Timeout), non aspetta: la distrugge e ne crea una nuova corretta.
+
+
+
 

@@ -6,6 +6,7 @@ status: roadmap
 owner: team-platform
 tags: [domain/security, layer/reference, audience/ops, privacy/internal, language/it, security, pentesting, roadmap]
 llm:
+  redaction: [email, phone]
   include: true
   pii: none
   chunk_hint: 300-500
@@ -53,10 +54,10 @@ Facciamo:
 
 | Area | Best Practice | Riferimento |
 |------|---------------|-------------|
-| **Database** | RLS sempre ON, stored procedures | [V5__rls_setup.sql](../../db/migrations/V5__rls_setup.sql) |
-| **API** | Input validation, rate limiting | [ai-security-guardrails.md](../../../docs/agentic/ai-security-guardrails.md) |
-| **Server** | RBAC, SSH hardening, fail2ban | [SECURITY_FRAMEWORK.md](../../../docs/infra/SECURITY_FRAMEWORK.md) |
-| **Agenti AI** | Validation layer, allowlist | [AI_SECURITY_STATUS.md](../../../docs/agentic/AI_SECURITY_STATUS.md) |
+| **Database** | RLS sempre ON, stored procedures | [V5__rls_setup.sql](./DB/migrations/V5__rls_setup.sql) |
+| **API** | Input validation, rate limiting | [ai-security-guardrails.md](../../../scripts/docs/agentic/ai-security-guardrails.md) |
+| **Server** | RBAC, SSH hardening, fail2ban | [SECURITY_FRAMEWORK.md](./security/threat-analysis-hardening.md) |
+| **Agenti AI** | Validation layer, allowlist | [AI_SECURITY_STATUS.md](./security/wargame-roadmap.md) |
 | **Secrets** | KeyVault, no hardcoded | [segreti-e-accessi.md](./segreti-e-accessi.md) |
 
 ---
@@ -127,7 +128,7 @@ Prima del war game, completare:
 
 ### 🔴 CRITICHE (Questa Settimana)
 
-- [ ] **Attivare RLS** in database ([V15__rls_enable.sql](../../db/migrations/))
+- [ ] **Attivare RLS** in database ([V15__rls_enable.sql](./DB/migrations/))
 - [ ] **SSH Hardening** su server Oracle
 - [ ] **Installare fail2ban**
 - [ ] **Integrare AI Guardrails** in ewctl
@@ -159,12 +160,14 @@ Prima del war game, completare:
 ## Vedi Anche
 
 - [Threat Analysis & Hardening](./threat-analysis-hardening.md) - Analisi minacce e contromisure
-- [AI Security Guardrails](../../../docs/agentic/ai-security-guardrails.md) - Difese agenti AI
-- [Security Framework](../../../docs/infra/SECURITY_FRAMEWORK.md) - RBAC enterprise
-- [Security Audit](../../../docs/architecture/SECURITY_AUDIT.md) - ewctl safety
+- [AI Security Guardrails](../../../scripts/docs/agentic/ai-security-guardrails.md) - Difese agenti AI
+- [Security Framework](./security/threat-analysis-hardening.md) - RBAC enterprise
+- [Security Audit](./security/threat-analysis-hardening.md) - ewctl safety
 
 ---
 
 **Principio Guida**: Prima forgiamo gli scudi, poi testiamo la testuggine! 🛡️
+
+
 
 

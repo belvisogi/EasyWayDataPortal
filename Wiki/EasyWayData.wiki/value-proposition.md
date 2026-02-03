@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Spec|Spec]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > 
 
 # Visione & Value Proposition
 Breadcrumb: Home / Visione & Value
@@ -57,6 +57,8 @@ What (Cosa)
 - Portale dati multi‑tenant e API‑first con automazione avanzata e agenti specializzati.
 - Gestione, analisi e valorizzazione dei dati tramite interfaccia intuitiva e API.
 - Automazione di processi ripetitivi, sicurezza e auditing centralizzati, onboarding e documentazione facilitati.
+
+
 
 
 

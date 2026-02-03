@@ -6,9 +6,15 @@ summary: Guida passo‑passo all’onboarding sicuro di EasyWay DataPortal — t
 status: draft
 owner: team-platform
 updated: '2026-01-06'
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](./start-here.md)
 
 # 🚦 Setup ambiente di test / sandbox agentica + Zero Trust
 
@@ -105,5 +111,6 @@ git reset --hard
 ---
 
 **Per dubbi, suggerisci update direttamente su questa guida via PR o issue!**
+
 
 

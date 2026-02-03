@@ -1,3 +1,17 @@
+---
+id: ew-runbooks-infrastructure-audit-2026-01-28
+title: Infrastructure Audit & Gap Analysis
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Infrastructure Audit & Gap Analysis
 **Date**: 2026-01-27
 **Target**: Docker Stack (`apps`, `infra`)
@@ -27,3 +41,6 @@
 ## Summary
 The infrastructure is **Functional** but **Not Production-Hardened**.
 It is perfect for a Development/POC Data Portal. For Production, we must add Restart Policies and pinpoint versions.
+
+
+

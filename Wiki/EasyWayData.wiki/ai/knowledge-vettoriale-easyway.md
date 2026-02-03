@@ -6,9 +6,15 @@ summary: Panoramica, valore, architettura e casi d’uso della knowledge base ve
 status: draft
 owner: team-platform
 updated: '2026-01-07'
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](./start-here.md)
 
 # 🧠 Knowledge Base Vettoriale in EasyWay DataPortal
 
@@ -176,6 +182,7 @@ Come “tenere le analisi sul vector”
 ---
 
 > _Per qualsiasi dubbio, proporre miglioramenti e contributi, commenta in questa guida o tagga nei manifest “ai-friendly”._
+
 
 
 

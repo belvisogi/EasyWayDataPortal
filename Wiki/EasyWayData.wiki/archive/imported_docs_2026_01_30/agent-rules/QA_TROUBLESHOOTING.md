@@ -6,22 +6,17 @@ features:
   - faq
   - debugging
   - common-issues
-tags:
-  - troubleshoot
-  - faq
-  - ado
-  - pbi
-  - export
-priority: low
-audience:
-  - developer
-  - ai-assistant
-script-refs:
-  - agent-ado-scrummaster.ps1
-last-updated: 2026-01-13
-related:
-  - ADO_EXPORT_GUIDE.md
-  - RULES_MASTER.md
+entities: []
+tags: [troubleshoot, faq, ado, pbi, export]
+id: ew-archive-imported-docs-2026-01-30-agent-rules-qa-troubleshooting
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # ❓ QA & TROUBLESHOOTING - ADO Operations
@@ -160,5 +155,8 @@ Aggiornare `username` e `password` con un utente ServiceNow valido (Basic Auth).
 L'agente Power Platform richiede la [Microsoft Power Platform CLI](https://learn.microsoft.com/en-us/power-platform/developer/cli/introduction) installata.
 **Soluzione:**
 Installare la CLI con `dotnet tool install --global Microsoft.PowerApps.CLI.Tool` oppure via MSI.
+
+
+
 
 

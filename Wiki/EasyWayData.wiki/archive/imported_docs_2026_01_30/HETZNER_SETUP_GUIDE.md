@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-hetzner-setup-guide
+title: 🖥️ Guida Setup Hetzner Cloud - Passo per Passo
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🖥️ Guida Setup Hetzner Cloud - Passo per Passo
 
 **Data**: 2026-01-24  
@@ -313,7 +327,7 @@ docker compose version
 
 Una volta completato questo setup rapido, **DEVI** applicare il protocollo di sicurezza per la produzione.
 
-👉 **Vedi: [SERVER_BOOTSTRAP_PROTOCOL.md](SERVER_BOOTSTRAP_PROTOCOL.md)**
+👉 **Vedi: [SERVER_BOOTSTRAP_PROTOCOL.md](../../../../scripts/docs/infra/SERVER_BOOTSTRAP_PROTOCOL.md)**
 
 Ti spiegherà come:
 1. 🛡️ Configurare il Firewall (UFW)
@@ -410,3 +424,6 @@ hcloud server poweroff easyway-prod
 **Creato**: 2026-01-24  
 **Tempo stimato**: 15 minuti  
 **Difficoltà**: ⭐⭐☆☆☆ (Facile)
+
+
+

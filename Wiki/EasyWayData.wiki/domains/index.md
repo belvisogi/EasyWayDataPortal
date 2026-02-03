@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Scheletro cross-domain: DB, Datalake, Frontend, Docs/Governance con agenti, input/output e strumenti.
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -61,6 +64,7 @@ Regola
 1. Quali sono i domini principali del portale EasyWay?
 2. Dove trovo la documentazione specifica per DB o Datalake?
 3. Qual è la regola aurea per definire una nuova "capability"?
+
 
 
 

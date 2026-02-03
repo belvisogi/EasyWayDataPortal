@@ -7,24 +7,17 @@ features:
   - pbi-children
   - export-print
   - pipeline
-tags:
-  - ado
-  - query
-  - export
-  - pbi
-  - pipeline
-priority: medium
-audience:
-  - ai-assistant
-  - developer
-script-refs:
-  - agent-ado-governance.ps1
-  - agent-ado-scrummaster.ps1
-  - show-last-export.ps1
-last-updated: 2026-01-17
-related:
-  - EXECUTION_RULES.md
-  - RULES_MASTER.md
+entities: []
+tags: [ado, query, export, pbi, pipeline]
+id: ew-archive-imported-docs-2026-01-30-agent-rules-ado-export-guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # Guida Export Azure DevOps - Per AI Assistant
@@ -558,3 +551,6 @@ Il CSV usa **pipe (`|`)** come delimitatore (non virgola), per evitare conflitti
 
 ### Timeout
 - Aggiungi `TOP 100` alla query per limitare i risultati
+
+
+

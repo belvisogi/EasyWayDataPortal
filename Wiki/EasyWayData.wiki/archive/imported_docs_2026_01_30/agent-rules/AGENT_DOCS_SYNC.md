@@ -6,21 +6,17 @@ features:
   - validation
   - sync
   - maintenance
-tags:
-  - agent
-  - docs
-  - sync
-  - validation
-  - metadata
-priority: low
-audience:
-  - developer
-script-refs:
-  - agent-docs-sync.ps1
-last-updated: 2026-01-12
-related:
-  - TAGGING_SYSTEM.md
-  - GOVERNANCE.md
+entities: []
+tags: [agent, docs, sync, validation, metadata]
+id: ew-archive-imported-docs-2026-01-30-agent-rules-agent-docs-sync
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # 🤖 Agent Docs Sync - Documentazione
@@ -289,3 +285,6 @@ Agent tracks:
 **Versione**: 1.0  
 **Data**: 2026-01-12  
 **Status**: Production-ready (Phase 1 complete)
+
+
+

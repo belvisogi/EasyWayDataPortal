@@ -16,7 +16,7 @@ llm:
 next: Aggiornare quando cambiano template o viene aggiunto un nuovo artefatto.
 ---
 
-[Home](../../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Index|Index]]
+[Home](../../../.././start-here.md) > [[domains/db|db]] > [[Layer - Index|Index]]
 
 # Indice
 
@@ -35,6 +35,7 @@ Breadcrumb: Home / EasyWay WebApp / Database Architecture / PORTAL / Programmabi
 - Quali regole di naming e policy applicare prima di creare un nuovo artefatto?
 - Dove consultare l’indice delle stored procedure già documentate?
 - Quali link canonici usare quando documento una nuova SP?
+
 
 
 

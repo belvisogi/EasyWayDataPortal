@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](./start-here.md) >  > 
 
 # Agent – DQ Blueprint (Spec v0)
 

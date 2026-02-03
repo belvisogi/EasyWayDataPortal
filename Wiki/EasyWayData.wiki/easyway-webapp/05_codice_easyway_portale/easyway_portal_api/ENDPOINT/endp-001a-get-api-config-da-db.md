@@ -16,7 +16,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[Home](../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
+[Home](../../.././start-here.md) > [[domains/frontend|frontend]] > 
 
 **Obiettivo:**  
 Fornire un endpoint che restituisce la configurazione dinamica (parametri da DB) per il tenant corrente, esattamente come per il branding,  
@@ -82,6 +82,7 @@ app.use("/api/config", configRoutes);
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

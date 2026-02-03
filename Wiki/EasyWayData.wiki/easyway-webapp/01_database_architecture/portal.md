@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](.././start-here.md) > [[domains/db|db]] > 
 
 Obiettivo
 - Definire struttura, regole e best practice per le tabelle core del portale.
@@ -43,6 +43,7 @@ Indice & performance
 
 Note
 - RLS e funzioni predicate verranno aggiunte in una migrazione dedicata.
+
 
 
 

@@ -15,7 +15,7 @@ updated: '2026-01-06'
 next: Collegare a SUBSCRIPTION e SP di notifiche.
 ---
 
-[Home](../../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../.././start-here.md) > [[domains/db|db]] > 
 
 # PORTAL.USER_NOTIFICATION_SETTINGS — User notification settings
 
@@ -24,6 +24,7 @@ next: Collegare a SUBSCRIPTION e SP di notifiche.
 
 ## Scopo
 - TODO: descrivere quali preferenze vengono salvate e come sono applicate.
+
 
 
 

@@ -1,3 +1,17 @@
+---
+id: ew-infrastructure-oracle-cloud-03-security-compliance
+title: 📄 03 - Security, Access Control & Compliance
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 📄 03 - Security, Access Control & Compliance
 
 Security Model: Defense in Depth
@@ -223,3 +237,6 @@ sqlite3 /opt/easyway/var/logs/easyway.db "SELECT * FROM agent_executions ORDER B
 - No vulnerability scanning
 - No MFA su SSH
 - No monitoring/alerting
+
+
+

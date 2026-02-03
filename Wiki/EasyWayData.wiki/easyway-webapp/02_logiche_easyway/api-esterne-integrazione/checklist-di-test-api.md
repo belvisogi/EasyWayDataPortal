@@ -15,7 +15,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Howto|Howto]]
+[Home](../.././start-here.md) >  > [[Layer - Howto|Howto]]
 
 ## Checklist di test API (EasyWay Data Portal)
 
@@ -78,6 +78,7 @@ next: TODO - definire next step.
 - Controlla che l'output atteso (file generati, risorse create/aggiornate, response API) sia presente e coerente.
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
+
 
 
 

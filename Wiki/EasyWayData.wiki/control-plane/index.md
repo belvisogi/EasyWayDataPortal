@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Punto di ingresso canonico per orchestrazione agentica (n8n + ewctl), gates, logging e Human-in-the-loop.
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -65,6 +68,7 @@ Riferimenti
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 
 

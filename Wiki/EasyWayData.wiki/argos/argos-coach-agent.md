@@ -6,10 +6,13 @@ status: draft
 owner: team-platform
 tags: []
 llm:
+  pii: none
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
+entities: []
 ---
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](./start-here.md) >  > 
 
 title: ARGOS – Coach Agent (v1)
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
@@ -44,6 +47,7 @@ Open/Click, Confirm_read, Δ Noise (7/30d), Recidiva 30d; evento `argos.coach.nu
 
 ## Rollout e RACI
 Pilot 1–2 domini, KPI outcome, ownership chiara e integrazione con governance portale.
+
 
 
 

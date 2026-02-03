@@ -16,7 +16,7 @@ llm:
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > 
 
 # Roadmap & Qualità Documentazione
 
@@ -49,6 +49,8 @@ next: TODO - definire next step.
 - Lint atomicità: nessun file con Q&A < 3 (fuori whitelist) e nessun code fence senza linguaggio.
 - Naming/Anchor check: 0 issue.
 - Manifest/Anchors/Chunks aggiornati.
+
+
 
 
 

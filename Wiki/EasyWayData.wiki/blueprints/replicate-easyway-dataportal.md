@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Blueprint|Blueprint]]
+[Home](./start-here.md) > [[domains/docs-governance|Docs]] > [[Layer - Blueprint|Blueprint]]
 
 Obiettivo
 - Fornire una checklist ripetibile per clonare l’architettura EasyWay su un nuovo progetto: Infra (Terraform), API, Auth (Entra ID), Storage/Branding, CI/CD e test.
@@ -120,6 +120,7 @@ Checklist finale
 - [ ] OpenAPI allineata, sicurezza Bearer documentata
 - [ ] Pipeline con Variable Group impostato
 - [ ] Smoke test REST/Jest passano (401 atteso senza token)
+
 
 
 

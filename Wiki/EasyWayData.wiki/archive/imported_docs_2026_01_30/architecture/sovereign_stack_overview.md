@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-architecture-sovereign-stack-overview
+title: The Sovereign Stack: Architecture Overview 🏛️
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # The Sovereign Stack: Architecture Overview 🏛️
 
 > **"Ownership is the only true security."**
@@ -45,3 +59,5 @@ Vedi [RAG Visual Flow](../design/rag_visual_flow.md) per il dettaglio.
 ## 4. Why We Exist (Philosophy)
 Vedi [Market Gap](../concepts/market_gap.md).
 Siamo qui per democratizzare l'architettura Enterprise, rendendola accessibile (Docker) e Sovrana (No SaaS lock-in).
+
+

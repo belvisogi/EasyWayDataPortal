@@ -6,22 +6,17 @@ features:
   - taxonomy
   - hierarchical
   - metadata
-tags:
-  - tagging
-  - metadata
-  - taxonomy
-  - llm-optimization
-priority: medium
-audience:
-  - ai-assistant
-  - architect
-script-refs:
-  - agent-docs-sync.ps1
-last-updated: 2026-01-12
-related:
-  - AGENT_DOCS_SYNC.md
-  - GOVERNANCE.md
-  - DOCS_INDEX.yaml
+entities: []
+tags: [tagging, metadata, taxonomy, llm-optimization]
+id: ew-archive-imported-docs-2026-01-30-agent-rules-tagging-system
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # 🏷️ Sistema di Tagging Gerarchico - Documentazione
@@ -263,3 +258,6 @@ pwsh Rules.Vault/scripts/ps/agent-docs-sync.ps1 -Action report
 **Versione**: 1.0  
 **Data**: 2026-01-12  
 **Status**: Design completo, Phase 1 in corso
+
+
+

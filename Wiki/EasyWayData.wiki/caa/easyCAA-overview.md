@@ -15,7 +15,7 @@ updated: '2026-01-14'
 next: Wait for teacher input on child routines, then start Fase 1
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Caa|Caa]] > [[Layer - Overview|Overview]]
+[Home](./start-here.md) > [[Domain - Caa|Caa]] > [[Layer - Overview|Overview]]
 
 # EasyCAA - Comunicazione Aumentativa Alternativa
 
@@ -29,7 +29,7 @@ EasyCAA è costruito seguendo il [Manifesto EasyWay](../../../MANIFESTO.md):
 - 🛤️ **"Il Percorso da Godersi"** - Test reale con bambino prima di scaling
 - 🎨 **"Impronta Tangibile"** - Codice che insegna + documentazione completa
 
-**Guardian**: [Agent GEDI](../../../agents/agent_gedi/manifest.json)
+**Guardian**: [Agent GEDI](.././agents/gedi/manifest.json)
 
 ---
 
@@ -196,9 +196,10 @@ EXEC caa.sp_validate_routine_upload
 ## Related Links
 
 - **Manifesto EasyWay**: [../../MANIFESTO.md](../../MANIFESTO.md)
-- **Agent GEDI**: [../../agents/agent_gedi/manifest.json](../../agents/agent_gedi/manifest.json)
+- **Agent GEDI**: [./agents/gedi/manifest.json](./agents/gedi/manifest.json)
 - **ARGOS Overview**: [../argos/argos-overview.md](../argos/argos-overview.md)
 - **ARASAAC Official**: https://www.arasaac.org
 - **ISAAC Italy**: https://www.isaacitaly.it
+
 
 

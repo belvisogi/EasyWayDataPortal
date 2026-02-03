@@ -15,7 +15,7 @@ updated: '2026-01-16'
 next: Dettagliare workflow di promozione.
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](./start-here.md) >  > 
 
 # ARGOS – Change & Versioning Guide (v1)
 

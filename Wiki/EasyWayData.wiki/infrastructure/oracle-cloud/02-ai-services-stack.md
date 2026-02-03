@@ -1,3 +1,17 @@
+---
+id: ew-infrastructure-oracle-cloud-02-ai-services-stack
+title: 📄 02 - AI Services & Stack Architecture
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 📄 02 - AI Services & Stack Architecture
 
 Strategia: Modularità Funzionale (Agent-First)
@@ -205,3 +219,6 @@ systemctl status ollama
 |**"ChromaDB not found"**|Path errato o venv non attivo|Verificare shebang in script Python|
 |**Out of memory**|DeepSeek troppo grande|Ridurre context length|
 |**Slow inference**|ARM CPU limit|Normale su ARM, considerare quantization inferiore|
+
+
+

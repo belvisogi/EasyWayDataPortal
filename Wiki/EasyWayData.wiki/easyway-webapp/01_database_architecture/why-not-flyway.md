@@ -6,17 +6,13 @@ status: active
 owner: team-data
 created: '2026-01-14'
 updated: '2026-01-18'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
-  - decision-record
+entities: []
+tags: [layer/reference, privacy/internal, language/it, decision-record]
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
 ---
 
 > [!IMPORTANT]
@@ -157,4 +153,7 @@ Per **EasyWayDataPortal**:
 **Data decisione**: 2026-01-14  
 **Flyway utilizzato**: No  
 **Alternativa**: sqlcmd + Git
+
+
+
 

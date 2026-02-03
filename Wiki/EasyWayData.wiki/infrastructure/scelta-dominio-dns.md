@@ -12,6 +12,7 @@ llm:
   redaction: [email, phone]
 created: '2026-02-01'
 updated: '2026-02-02'
+entities: []
 ---
 
 [[start-here.md|Home]] > [[infrastructure/index.md|Infrastructure]] > Scelta Dominio
@@ -598,3 +599,4 @@ Prossimi step possibili (scegline uno)
 📜 Allineamento esplicito a GDPR / ISO27001 / SOC2
 
 🔐 Zero Trust minimale per accesso admin
+

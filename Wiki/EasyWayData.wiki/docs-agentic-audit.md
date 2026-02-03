@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Standard e controlli per rendere la documentazione davvero “agent-ready”: metadati, tassonomia tag, WHAT-first, KB, gates e anti-allucinazioni.
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -200,6 +203,7 @@ Una modifica è “done” quando:
 - [Tag Taxonomy (Controllata)](./docs-tag-taxonomy.md)
 - [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
 - [Visione Portale Agentico](./agentic-portal-vision.md)
+
 
 
 

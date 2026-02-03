@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agentic-chromadb-indexing-strategy
+title: ChromaDB Indexing Strategy - Decision Matrix
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # ChromaDB Indexing Strategy - Decision Matrix
 
 **Date**: 2026-01-25  
@@ -406,3 +420,5 @@ def extract_chunks(file_path):
 **Conclusion**: Indicizza **knowledge duraturo e operativo**, skip **code implementation e runtime data**.
 
 **Next**: Vuoi che facciamo Phase 1 (Wiki + docs/infra) come quick win? 🚀
+
+

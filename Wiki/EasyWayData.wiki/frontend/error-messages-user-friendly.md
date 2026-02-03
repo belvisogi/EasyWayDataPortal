@@ -1,12 +1,20 @@
 ---
-tags: [domain/frontend, domain/ux, layer/spec, audience/dev, best-practice]
+tags: [domain/frontend, layer/spec, audience/dev, best-practice]
 updated: 2026-01-16
 owner: team-platform
 summary: Sistema di traduzione errori tecnici in messaggi user-friendly italiani con azioni suggerite per migliorare UX
 status: draft
+id: ew-frontend-error-messages-user-friendly
+title: Error Messages User-Friendly 🇮🇹
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
+[Home](./start-here.md) >  > 
 
 # Error Messages User-Friendly 🇮🇹
 
@@ -465,6 +473,8 @@ describe('ErrorTranslator', () => {
 
 **Tempo stimato**: ~1 giorno  
 **Beneficio**: UX dramaticamente migliore, frustrazione utente ridotta, supporto clienti più efficiente
+
+
 
 
 

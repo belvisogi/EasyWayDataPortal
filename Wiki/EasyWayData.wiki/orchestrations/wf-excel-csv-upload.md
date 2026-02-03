@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Manifesto del workflow Excel/CSV→Dashboard in logica WHAT-first, con stati, esiti, contratti e diario di bordo.
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -64,6 +67,7 @@ Riferimenti
 - Use Case – Entrate/Uscite: `use-cases/entrate-uscite.md`
 - ARGOS – Quality Gates: `argos/argos-quality-gates.md`
 - Governance DQ: `governance-dq.md`
+
 
 
 

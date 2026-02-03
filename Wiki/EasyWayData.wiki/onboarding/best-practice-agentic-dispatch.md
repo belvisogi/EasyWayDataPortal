@@ -10,11 +10,15 @@ entities: []
 include: true
 summary: Assessment sintetico e linea guida canonica per intent agentici governati via n8n.dispatch.
 llm: 
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](./start-here.md)
 
 # Best practice - intent agentici via n8n.dispatch (RAG-ready)
 
@@ -71,6 +75,7 @@ owner: team-platform
 - [Orchestrazione - Agent Scaffold (WHAT)](../orchestrations/agent-scaffold.md)
 - [Control Plane - Panoramica](../control-plane/index.md)
 - [Segregation Model (Dev vs Knowledge vs Runtime)](../control-plane/segregation-model-dev-knowledge-runtime.md)
+
 
 
 

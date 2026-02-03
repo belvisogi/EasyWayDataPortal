@@ -10,11 +10,15 @@ entities: []
 include: true
 summary: Roadmap a livelli per portare l’utente da un file Excel/CSV a una dashboard con diario di bordo e agenti ARGOS, in modalità One‑Button.
 llm: 
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 
 
 # Quest Board – Excel/CSV Upload (L1→L5)
 
@@ -69,6 +73,8 @@ Misurazione (L1)
 
 Note
 - I livelli successivi (L2..L5) si innestano senza rompere il contratto UX/WHAT definito a L1.
+
+
 
 
 

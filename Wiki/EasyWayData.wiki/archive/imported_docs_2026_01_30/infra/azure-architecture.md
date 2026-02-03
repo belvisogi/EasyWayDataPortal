@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-infra-azure-architecture
+title: EasyWay Data Portal — Note Architettura Azure (bozza)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # EasyWay Data Portal — Note Architettura Azure (bozza)
 
 Obiettivo: indicare i componenti Azure consigliati, configurazioni base e prerequisiti per esecuzione e governance dell’API e dei servizi correlati.
@@ -47,3 +61,5 @@ Obiettivo: indicare i componenti Azure consigliati, configurazioni base e prereq
 3. Pipeline CI/CD con ambienti.
 4. Abilitazione override query via Blob (feature flag) e branding per tenant.
 5. Integrazione Entra ID/AD B2C.
+
+

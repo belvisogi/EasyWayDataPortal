@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-standards-n8n-workflow-standard
+title: n8n Best Practices & Standards ⚡
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/spec, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # n8n Best Practices & Standards ⚡
 
 > **"A workflow is code. Treat it with respect."**
@@ -102,3 +116,5 @@ Senza questo nodo, il workflow è un "Cavaliere Senza Nome".
 - [ ] **Ho compilato il nodo `__METADATA__`?**
 - [ ] Le password sono al sicuro?
 - [ ] Ho rimosso i nodi di debug (es. `console.log`)?
+
+

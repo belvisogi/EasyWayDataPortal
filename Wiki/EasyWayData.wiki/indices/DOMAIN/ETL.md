@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Index of all pages tagged with DOMAIN/ETL
 status: draft
+id: ew-indices-domain-etl
+title: 📄 ETL
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - ETL|ETL]] > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[Domain - ETL|ETL]] > [[Layer - Index|Index]]
 
 # 📄 ETL
 
@@ -18,6 +26,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

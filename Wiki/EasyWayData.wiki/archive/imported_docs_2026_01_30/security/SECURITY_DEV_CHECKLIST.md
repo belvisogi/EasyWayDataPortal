@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-security-security-dev-checklist
+title: Security Development Checklist
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/security, layer/spec, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Security Development Checklist
 
 > **Filosofia**: "La vittoria si ottiene prima della battaglia" - Security by design, non afterthought
@@ -212,6 +226,9 @@ If N/A, check here: [ ] Not applicable
 ## Vedi Anche
 
 - [Threat Analysis](../Wiki/EasyWayData.wiki/security/threat-analysis-hardening.md)
-- [AI Security Guardrails](../Wiki/EasyWayData.wiki/security/ai-security-guardrails.md)
-- [Security Framework](./infra/SECURITY_FRAMEWORK.md)
+- [AI Security Guardrails](../../../../../scripts/docs/agentic/ai-security-guardrails.md)
+- [Security Framework](../../../../../scripts/docs/infra/SECURITY_FRAMEWORK.md)
 - [Agent GEDI Manifest](../agents/agent_gedi/manifest.json)
+
+
+

@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-design-frontend-pdr
+title: 🎨 EasyWay Frontend PDR (Product Design Requirement)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 
 # 🎨 EasyWay Frontend PDR (Product Design Requirement)
 
@@ -150,3 +164,5 @@ L'Identità non si sceglie a caso, si "scopre".
 ## 8. Brand Identity Standards
 *   **Logo**: "The Target Scope". Quadrato dorato (Protezione) + Mirino Ciano (Precisione).
 *   **Favicon**: "The Labyrinth". Variante semplificata per alta leggibilità su tab browser.
+
+

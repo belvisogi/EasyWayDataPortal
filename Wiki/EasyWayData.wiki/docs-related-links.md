@@ -6,6 +6,7 @@ status: draft
 owner: team-platform
 tags: [domain/docs, layer/howto, audience/dev, privacy/internal, language/it, obsidian, docs]
 llm:
+  redaction: [email, phone]
   include: true
   pii: none
   chunk_hint: 250-400
@@ -13,7 +14,7 @@ entities: []
 updated: '2026-01-08'
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
 
 # Suggerimenti Link Correlati (Affinità)
 
@@ -49,5 +50,7 @@ pwsh scripts/wiki-related-links.ps1 -WikiPath "Wiki/EasyWayData.wiki" -TopK 7 -A
 
 Rollback:
 - Ogni run crea backup in `out/wiki-related-links-apply/<runId>/` e un `apply-summary.json` con i file da ripristinare.
+
+
 
 

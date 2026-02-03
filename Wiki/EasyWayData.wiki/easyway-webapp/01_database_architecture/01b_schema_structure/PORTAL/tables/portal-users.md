@@ -15,7 +15,7 @@ updated: '2026-01-06'
 next: Compilare colonne (PII), policy RLS e link alle SP CRUD utenti.
 ---
 
-[Home](../../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../.././start-here.md) > [[domains/db|db]] > 
 
 # PORTAL.USERS — Users
 
@@ -25,6 +25,7 @@ next: Compilare colonne (PII), policy RLS e link alle SP CRUD utenti.
 
 ## Scopo
 - TODO: descrivere come sono modellati utenti, profili/ruoli e relazione col tenant.
+
 
 
 

@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-rules-master
+title: 📖 AXET RULES - MASTER REFERENCE
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 ```
 ---
 title: "Rules Master - Complete Reference"
@@ -386,3 +400,5 @@ pwsh Rules/scripts/ai-context-refresh.ps1 -Compact
 
 **Documento aggiornato**: 2026-01-12 19:51
 **Versione Rules**: 3.0 (con enhanced pbi.get, children, print)
+
+

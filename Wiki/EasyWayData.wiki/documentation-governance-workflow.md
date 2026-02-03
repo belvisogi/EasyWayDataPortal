@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Workflow completo del Documentation Gardener Cycle - processo iterativo di governance documentale con Knowledge Graph, Master Hierarchy e Agent-driven analysis.
 status: draft
+id: ew-documentation-governance-workflow
+title: Documentation Governance Workflow 🌳
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > 
 
 # Documentation Governance Workflow 🌳
 
@@ -202,7 +210,7 @@ pwsh scripts/ps/agent-docs-scanner.ps1 -Action AnalyzeLinks
 **Cosa fa**:
 - Analizza tag in comune tra pagine
 - Trova pagine semanticamente correlate (≥2 tag condivisi)
-- Suggerisce wikilink `[[page]]` da aggiungere
+- Suggerisce wikilink `` da aggiungere
 - Evita super-hub (max 5 suggerimenti per pagina)
 
 **Risultato**:
@@ -355,6 +363,8 @@ Solo DELETE rumore vero (`why`, `how`, acronym senza context).
 - [Tag Taxonomy Schema](./docs-tag-taxonomy.md)
 - Knowledge Graph: `agents/memory/knowledge-graph.json`
 - Master Hierarchy: `agents/memory/tag-master-hierarchy.json`
+
+
 
 
 

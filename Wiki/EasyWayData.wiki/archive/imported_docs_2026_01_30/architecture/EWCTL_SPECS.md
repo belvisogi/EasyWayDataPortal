@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-architecture-ewctl-specs
+title: ewctl Architecture Specification & Future Proofing
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # ewctl Architecture Specification & Future Proofing
 
 > "The implementation is ephemeral. The Contract is eternal."
@@ -129,3 +143,5 @@ To transparently support both PowerShell and Python modules, a thin **Router** l
 - **Phase 1 (Manual)**: User calls `ewctl.ps1` or `ewctl.py` manually.
 - **Phase 2 (Aggregation Script)**: `ewctl-all.ps1` calls both and joins JSON.
 - **Phase 3 (Compiled Router)**: A single binary `ewctl` that manages runtimes.
+
+

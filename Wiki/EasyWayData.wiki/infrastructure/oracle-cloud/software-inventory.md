@@ -6,6 +6,12 @@ status: active
 owner: team-platform
 tags: [infrastructure, oracle-cloud, inventory, compliance, sbom]
 updated: 2026-01-26
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Oracle Cloud Agent - Software Bill of Materials (SBOM)
@@ -122,3 +128,4 @@ updated: 2026-01-26
 ---
 
 **Last Updated**: 2026-01-26
+

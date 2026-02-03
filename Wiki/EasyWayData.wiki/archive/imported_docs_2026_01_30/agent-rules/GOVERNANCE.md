@@ -6,22 +6,17 @@ features:
   - recipes
   - manifests
   - execution-policy
-tags:
-  - governance
-  - orchestrator
-  - recipes
-  - manifests
-  - execution-policy
-priority: medium
-audience:
-  - ai-assistant
-  - architect
-script-refs:
-  - orchestrator.js
-last-updated: 2026-01-12
-related:
-  - TAGGING_SYSTEM.md
-  - AGENT_DOCS_SYNC.md
+entities: []
+tags: [governance, orchestrator, recipes, manifests, execution-policy]
+id: ew-archive-imported-docs-2026-01-30-agent-rules-governance
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # 🎯 GOVERNANCE & ORCHESTRATION - Execution Policy
@@ -231,3 +226,6 @@ Decision:
 
 **Versione**: 1.0 (Autonomous Governance)
 **Data**: 2026-01-12
+
+
+

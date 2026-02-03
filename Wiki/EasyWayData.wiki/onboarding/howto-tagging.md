@@ -6,9 +6,15 @@ summary: Guida pratica al tagging e ai metadati strutturati per doc, ricette, ag
 status: draft
 owner: team-platform
 updated: '2026-01-06'
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](./start-here.md)
 
 # 🏷️ HOWTO: Tagging & Metadati in EasyWay DataPortal
 
@@ -107,6 +113,7 @@ updated: '2026-01-06'
 - [Proposte Cross-link, FAQ mancanti, Ricette edge-case e automazioni](./proposte-crosslink-faq-edgecase.md)
 - [Documentazione - Contesto standard (obbligatorio)](./documentazione-contesto-standard.md)
 - [Glossario EasyWay & FAQ Errori Tipici](../glossario-errori-faq.md)
+
 
 
 

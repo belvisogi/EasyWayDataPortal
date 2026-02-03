@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Index of all pages tagged with DOMAIN/DB
 status: draft
+id: ew-indices-domain-db
+title: 📄 DB
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/DB|DB]] > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[domains/DB|DB]] > [[Layer - Index|Index]]
 
 # 📄 DB
 
@@ -70,6 +78,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

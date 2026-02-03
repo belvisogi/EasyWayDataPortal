@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-context-loader-logic
+title: 📘 Context Loader - Logic Documentation
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 📘 Context Loader - Logic Documentation
 
 **Component**: `Rules.Vault/core/context-loader.js`  
@@ -324,3 +338,5 @@ assert(stats.cache_hit_rate > 0)  // Should have cache hits
 
 **Status**: Phase 1 Complete ✅  
 **Next**: Progressive Disclosure (Phase 2)
+
+

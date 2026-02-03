@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-infra-oracle-quick-start
+title: ⚡ QUICK START - Oracle VM (dev edition)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # ⚡ QUICK START - Oracle VM (dev edition)
 
 ## 🎯 Dati di Accesso
@@ -36,3 +50,5 @@ sudo systemctl restart xrdp
 **Documento correlato**: vedi snapshot in `docs/infra/ORACLE_ENV_DOC.md`
 
 *Documento aggiornato automaticamente il 2026-01-25*
+
+

@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-design-storyboard-access
+title: 🎬 Storyboard: The Access Ritual
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🎬 Storyboard: The Access Ritual
 > *Dall'Oscurità al Controllo Totale.*
 
@@ -43,3 +57,5 @@
 2.  **Orchestrare i Flussi**: Vedere i workflow n8n attivi (link diretto al tunnel).
 3.  **Gestire la Memoria**: Upload di documenti nel "Cervello" (RAG).
 4.  **Audit**: Vedere chi ha fatto cosa (Log immutabili).
+
+

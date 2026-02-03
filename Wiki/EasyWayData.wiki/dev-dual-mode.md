@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Howto|Howto]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > [[Layer - Howto|Howto]]
 
 ## Obiettivo
 - Permettere sviluppo economico in locale usando `DB_MODE=mock` con file JSON, mantenendo le stesse API.
@@ -57,6 +57,8 @@ next: TODO - definire next step.
 ## Verify
 - Con `DB_MODE=mock` l'API risponde senza dipendenze DB.
 - Con `DB_MODE=sql` l'API risponde e le query/SP non generano errori di connessione.
+
+
 
 
 

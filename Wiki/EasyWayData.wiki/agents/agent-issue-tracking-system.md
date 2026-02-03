@@ -11,6 +11,14 @@ related:
   - [[agent-architecture-standard]]
   - [[agentic-portal-vision]]
   - [[control-plane/agents-manifest-audit]]
+id: ew-agents-agent-issue-tracking-system
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Agent Issue Tracking System
@@ -635,3 +643,4 @@ Per domande o problemi:
 **Ultima modifica**: 2026-01-18  
 **Autore**: Agent System Team  
 **Status**: ✅ Production Ready
+

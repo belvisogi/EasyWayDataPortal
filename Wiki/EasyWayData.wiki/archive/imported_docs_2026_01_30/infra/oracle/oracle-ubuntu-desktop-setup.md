@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-infra-oracle-oracle-ubuntu-desktop-setup
+title: Oracle Cloud - Ubuntu Desktop + RDP Setup Guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Oracle Cloud - Ubuntu Desktop + RDP Setup Guide
 
 > **Guida completa per configurare una VM Oracle Cloud Free Tier con Ubuntu Desktop e Remote Desktop (XRDP)**
@@ -384,3 +398,5 @@ Dopo aver configurato Ubuntu Desktop:
 **Creato il**: 2026-01-25  
 **Ultima modifica**: 2026-01-25  
 **Versione**: 1.0
+
+

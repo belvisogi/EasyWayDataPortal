@@ -15,7 +15,7 @@ llm:
   redaction: [email, phone]
 next: TODO - definire next step.
 ---
-[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Spec|Spec]]
+[Home](../.././start-here.md) > [[domains/frontend|frontend]] > 
 
 # Agentic Readiness & Esempi (Users/Onboarding)
 
@@ -107,6 +107,7 @@ Obiettivo: confermare il pattern SP + variante DEBUG per onboarding.
 3. Aggiornare la Wiki (questa pagina) con i riferimenti a nuove SP/tabelle.
 4. Pipeline: applica migrazioni in `test`, esegue smoke test (`tests/api/rest-client/...`).
 5. Approvazione e promozione verso UAT/PROD.
+
 
 
 

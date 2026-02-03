@@ -1,3 +1,17 @@
+---
+id: ew-activity-log-20260119-agent-management-console
+title: Activity Log - EasyWay Data Portal
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Activity Log - EasyWay Data Portal
 
 ## 2026-01-19 - 🚀 Agent Management Console - "A Star is Born"
@@ -232,3 +246,5 @@ Agent Chronicler - The Bard
 *"The best way to predict the future is to invent it."* - Alan Kay
 
 We didn't just predict it. We built it. 🚀
+
+

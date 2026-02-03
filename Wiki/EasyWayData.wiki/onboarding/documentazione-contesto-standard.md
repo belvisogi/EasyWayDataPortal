@@ -6,9 +6,15 @@ summary: Pattern minimo per rendere ogni pagina auto-consistente e usabile da um
 status: draft
 owner: team-platform
 updated: '2026-01-06'
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](./start-here.md)
 
 # Documentazione: Contesto standard (obbligatorio)
 
@@ -49,6 +55,7 @@ Ogni pagina deve essere auto-consistente: chi legge (umano o agente) deve capire
 - [Storyboard evolutivo - Da knowledge base classica a continuous improvement agentico (EasyWay)](./storyboard-easyway-agentic.md)
 - [HOWTO — Tagging e metadati in EasyWay DataPortal](./howto-tagging.md)
 - [Setup ambiente di test/Sandbox e Zero Trust](./setup-playground-zero-trust.md)
+
 
 
 

@@ -8,6 +8,15 @@ related:
   - governance/access-control
 status: active
 date: 2026-01-25
+id: ew-infra-security-framework
+summary: TODO - aggiungere un sommario breve.
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # 🔒 Security Framework - Enterprise RBAC Model
@@ -20,7 +29,7 @@ EasyWay Data Portal utilizza un **modello di sicurezza enterprise-grade** basato
 - **Compliance audit-ready** (ISO 27001, SOC 2, PCI-DSS)
 
 > [!IMPORTANT]
-> **Documentazione completa**: [`docs/infra/SECURITY_FRAMEWORK.md`](../../../docs/infra/SECURITY_FRAMEWORK.md)  
+> **Documentazione completa**: [`docs/infra/SECURITY_FRAMEWORK.md`](./security/threat-analysis-hardening.md)  
 > Questa pagina è un **sommario** per la Wiki. Per dettagli implementativi, vedi la bibbia di sicurezza.
 
 ---
@@ -243,9 +252,9 @@ sudo getfacl -R /var/lib/easyway >> security-audit-$(date +%Y%m%d).txt
 
 ### Documentazione Tecnica
 
-- **La Bibbia**: [`docs/infra/SECURITY_FRAMEWORK.md`](../../../docs/infra/SECURITY_FRAMEWORK.md) - Documentazione completa (15KB)
+- **La Bibbia**: [`docs/infra/SECURITY_FRAMEWORK.md`](./security/threat-analysis-hardening.md) - Documentazione completa (15KB)
 - **Server Standards**: [`docs/infra/SERVER_STANDARDS.md`](../../docs/infra/SERVER_STANDARDS.md) - FHS, directory structure
-- **Current Environment**: [`docs/ORACLE_CURRENT_ENV.md`](../../../docs/infra/ORACLE_CURRENT_ENV.md) - Stato attuale server
+- **Current Environment**: [`docs/ORACLE_CURRENT_ENV.md`](./DB/oracle-env.md) - Stato attuale server
 
 ### Script Implementazione
 
@@ -301,5 +310,6 @@ A: Sì! Esempio: un agente può essere in `easyway-dev` E `easyway-ops`.
 **Maintainer**: Team EasyWay  
 **Last Updated**: 2026-01-25  
 **Status**: ✅ Framework documentato, pronto per implementazione
+
 
 

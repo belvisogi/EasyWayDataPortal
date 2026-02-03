@@ -15,7 +15,7 @@ updated: '2026-01-06'
 next: Compilare colonne e policy (RLS, PII) e link alle SP di onboarding tenant.
 ---
 
-[Home](../../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](../../../.././start-here.md) > [[domains/db|db]] > 
 
 # PORTAL.TENANT — Tenant
 
@@ -25,6 +25,7 @@ next: Compilare colonne e policy (RLS, PII) e link alle SP di onboarding tenant.
 
 ## Scopo
 - TODO: descrivere i campi minimi del tenant e come viene usato come boundary multi-tenant.
+
 
 
 

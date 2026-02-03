@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-project-root-future-roadmap
+title: 🚀 EasyWay Future Roadmap: "The Iron Man Suit"
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🚀 EasyWay Future Roadmap: "The Iron Man Suit"
 
 > **"Averlo fatto è una figata."** - *User, 2026-01-27*
@@ -43,3 +57,5 @@ Il "Cervello Remote" coordina il "Corpo Distribuito".
 
 ---
 *Documento creato per non dimenticare dove possiamo arrivare.*
+
+

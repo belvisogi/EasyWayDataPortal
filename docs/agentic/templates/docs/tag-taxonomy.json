@@ -1,0 +1,121 @@
+{
+  "required_facets": [
+    "domain",
+    "layer",
+    "audience",
+    "privacy",
+    "language"
+  ],
+  "facet_cardinality": {
+    "language": "one",
+    "audience": "oneOrMore",
+    "layer": "one",
+    "domain": "one",
+    "privacy": "one"
+  },
+  "version": "1.1",
+  "free_tag_regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+  "facets": {
+    "language": [
+      "it",
+      "en"
+    ],
+    "audience": [
+      "non-expert",
+      "dev",
+      "dba",
+      "ops",
+      "architect"
+    ],
+    "layer": [
+      "howto",
+      "reference",
+      "runbook",
+      "spec",
+      "orchestration",
+      "intent",
+      "gate",
+      "index",
+      "blueprint"
+    ],
+    "domain": [
+      "db",
+      "datalake",
+      "frontend",
+      "api",
+      "security",
+      "analytics",
+      "docs",
+      "control-plane",
+      "ux"
+    ],
+    "privacy": [
+      "internal",
+      "public",
+      "restricted"
+    ]
+  },
+  "canonical_free_tags": {
+    "description": "Lista canonica di free tags. Evitare sinonimi: usare SOLO la forma canonica elencata qui.",
+    "preferred": [
+      "agents",
+      "dq",
+      "n8n",
+      "ewctl",
+      "flyway",
+      "rag",
+      "keyvault",
+      "rbac",
+      "otel",
+      "terraform",
+      "argos",
+      "wiki",
+      "kb",
+      "manifest",
+      "orchestration",
+      "intents",
+      "governance",
+      "compliance",
+      "audit",
+      "automation",
+      "roadmap",
+      "onboarding",
+      "use-case",
+      "quest",
+      "kanban",
+      "checklist",
+      "standard",
+      "architecture",
+      "python",
+      "powershell",
+      "docker",
+      "yaml",
+      "security",
+      "operations",
+      "canonical",
+      "best-practices",
+      "ux",
+      "chat",
+      "conversational-ui",
+      "api",
+      "wizard",
+      "plan",
+      "branding",
+      "assets",
+      "diary",
+      "secrets"
+    ],
+    "deprecated_synonyms": {
+      "agentic": "agents",
+      "data-quality": "dq",
+      "key-vault": "keyvault"
+    }
+  },
+  "summary": "Controlled tag taxonomy for EasyWayDataPortal documentation (agent-ready). v1.1: added api/security/analytics domains, audience/architect, canonical free tags.",
+  "notes": [
+    "Facet tags MUST use the format <facet>/<value>, e.g. domain/docs.",
+    "Free tags are allowed (kebab-case), but prefer canonical tags from canonical_free_tags.preferred.",
+    "Avoid synonyms/duplicates: check deprecated_synonyms mapping.",
+    "Prefer canonical tags to reduce ambiguity and token usage."
+  ]
+}

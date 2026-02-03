@@ -8,6 +8,17 @@ audience:
   - developers
   - dba
 last-updated: 2026-01-17
+id: ew-standards-db-guardrails
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/spec, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # DB Guardrails
@@ -57,3 +68,4 @@ FROM SourceTable;
 
 - **Naming**: UpperSnakeCase per tabelle e colonne (es. `CUSTOMER_DATA`).
 - **Idempotenza**: Gli script devono poter essere rieseguiti senza errori (`IF NOT EXISTS`).
+

@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-infra-oracle-readme-oracle
+title: 📚 Oracle Cloud VM - Documentazione "Golden Path"
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 📚 Oracle Cloud VM - Documentazione "Golden Path"
 
 > **Metodo Definitivo Testato (2026-01-25)**
@@ -110,3 +124,5 @@ bash install_desktop.sh
 
 **Creato il**: 2026-01-25  
 **Stato**: Verified & Working 🏆
+
+

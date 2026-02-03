@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-deployment-agent-chat-deployment-guide
+title: Agent Chat Deployment Guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Agent Chat Deployment Guide
 
 **Target Environment**: Dev/Staging  
@@ -359,3 +373,5 @@ After successful deployment:
 **Deployment Guide Version**: 1.0  
 **Last Updated**: 2026-01-14  
 **Owner**: Platform Team
+
+

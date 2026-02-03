@@ -5,6 +5,14 @@ summary: Manuale operativo per interagire con l'Intelligenza Artificiale EasyWay
 audience: Data Analysts, Developers
 status: stable
 updated: 2026-01-27
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # 📘 Guida Utente EasyWay (The Hitchhiker's Guide to the Data Portal)
@@ -77,3 +85,4 @@ Sarà accessibile da browser senza bisogno di SSH o n8n.
 
 ---
 *Manuale aggiornato al: 2026-01-27*
+

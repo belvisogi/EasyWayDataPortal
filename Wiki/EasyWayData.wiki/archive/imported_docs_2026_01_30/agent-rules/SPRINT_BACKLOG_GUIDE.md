@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-sprint-backlog-guide
+title: 🏃 Sprint & Backlog Queries - Guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🏃 Sprint & Backlog Queries - Guide
 
 **Created**: 2026-01-13  
@@ -308,3 +322,5 @@ Sprint 2   Active  2025-01-15  2025-01-28  Project\Sprint 2
 **Status**: ✅ Production Ready  
 **API**: ADO REST API v7.0  
 **Dependencies**: PowerShell 7+, ADO PAT
+
+

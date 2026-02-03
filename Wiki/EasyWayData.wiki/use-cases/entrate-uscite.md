@@ -10,11 +10,15 @@ entities: []
 include: true
 summary: Carica un file Excel/CSV con movimenti e ottieni subito una dashboard, con un percorso “un bottone = luce accesa”.
 llm: 
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Ux|Ux]] > [[Layer - Spec|Spec]]
+[Home](./start-here.md) >  > 
 
 # Use Case – Entrate/Uscite (One‑Button UX)
 
@@ -87,6 +91,7 @@ Roadmap “a livelli” (caccia al tesoro)
 - L3: Chat Q&A e widget salvabili.
 - L4: Outlier avanzati, multi‑conto, valuta.
 - L5: Template multipli, scheduler, connettori.
+
 
 
 

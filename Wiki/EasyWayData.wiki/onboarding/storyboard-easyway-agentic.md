@@ -6,9 +6,15 @@ summary: Racconto della crescita agentica di EasyWay, logica evolutiva e tappe p
 status: draft
 owner: team-platform
 updated: '2026-01-06'
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](./start-here.md)
 
 # 📖 Storyboard evolutivo: la storia “agentica” di EasyWay
 
@@ -134,5 +140,6 @@ Questa storia è pensata per essere blueprint per chi vuole replicare (e miglior
 - [Proposte cross-link, FAQ, edge-case, automation](proposte-crosslink-faq-edgecase.md)
 - [Scripting Best Practice](best-practice-scripting.md)
 - [Setup sandbox/Zero Trust](setup-playground-zero-trust.md)
+
 
 

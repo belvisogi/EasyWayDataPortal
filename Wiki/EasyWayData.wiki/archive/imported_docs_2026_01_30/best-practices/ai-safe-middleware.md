@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-best-practices-ai-safe-middleware
+title: Best Practice: The Grandma Test (AI-Safe Middleware)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Best Practice: The Grandma Test (AI-Safe Middleware)
 
 > "If Grandma can't use it safely via chat, the backend isn't robust enough."
@@ -38,3 +52,5 @@ When building new tools for EasyWay:
 `User` 🗣️ "It is done."
 
 **Result**: Safety is handled by the Kernel, Simplicity is handled by the Agent.
+
+

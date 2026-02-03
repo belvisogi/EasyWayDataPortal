@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 
 
 # Governance DQ – RACI, Processi e Checklist
 
@@ -92,6 +92,7 @@ Riferimenti
 - Tech Profiling: `argos/argos-tech-profiling.md`
 - Coach Agent: `argos/argos-coach-agent.md`
 - Event Schema: `argos/argos-event-schema.md`
+
 
 
 

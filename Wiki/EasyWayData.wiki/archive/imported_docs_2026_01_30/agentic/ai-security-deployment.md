@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agentic-ai-security-deployment
+title: AI Security Guardrails - Deployment Checklist
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # AI Security Guardrails - Deployment Checklist
 
 ## ✅ Pre-Deployment Validation
@@ -245,3 +259,5 @@ if ($todayEvents.Count -gt 5) {
 **Status**: Deployment guide complete  
 **Ready for**: Installation and testing  
 **Owner**: team-platform + team-security
+
+

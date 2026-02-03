@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-reports-2026-01-27-migration-status
+title: Oracle Server Migration to TESS v1.0
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Oracle Server Migration to TESS v1.0
 
 ## Obiettivo
@@ -101,3 +115,5 @@ Migrare il server Oracle Cloud da "MVP disordinato" a conforme TESS v1.0 (The Ea
 - **Knowledge**: Full RAG Pipeline with Repo-Wide Indexing 🧠
 - **Performance**: Validated limits. Strategy set to "Hybrid Cloud" (Local RAG + Remote Brain).
 - **Next**: Deploy to Hetzner (Production).
+
+

@@ -1,3 +1,17 @@
+---
+id: ew-runbooks-server-rebuild-protocol
+title: 🏛️ SERVER REBUILD PROTOCOL (Drill: < 1h)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🏛️ SERVER REBUILD PROTOCOL (Drill: < 1h)
 # Status: ACTIVE
 # Target: Oracle Cloud (ARM)
@@ -91,3 +105,6 @@ ssh ubuntu@80.225.86.168 "docker compose down"
 ---
 **Protocol Owner:** gbelviso78 & Antigravity
 **Last Verified:** 2026-01-30
+
+
+

@@ -15,7 +15,7 @@ updated: '2026-01-18'
 next: Automatizzare rigenerazione inventario da db/migrations/ con tool AI-friendly (db/db-deploy-ai/).
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](.././start-here.md) > [[domains/db|db]] > 
 
 # DB PORTAL - Inventario DDL (canonico)
 

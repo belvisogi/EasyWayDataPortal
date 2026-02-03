@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-playground-setup
+title: EasyWay Playground Setup - Complete Guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # EasyWay Playground Setup - Complete Guide
 
 ## 🎯 Overview
@@ -1012,3 +1026,5 @@ docker compose restart n8n
 ```
 
 **Happy experimenting! 🎮**
+
+

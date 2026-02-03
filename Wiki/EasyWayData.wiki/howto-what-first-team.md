@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
 
 # HOWTO – WHAT‑first + Diario di Bordo (Team)
 
@@ -88,6 +88,7 @@ Riferimenti
 - UX Mock (diario): `UX/diary-mock-wf-excel-csv-upload.md`
 - UX Checklist: `UX/usability-checklist.md`
 - Quest Board: `quest-board-excel-csv.md`
+
 
 
 

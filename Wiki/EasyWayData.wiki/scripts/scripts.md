@@ -16,7 +16,7 @@ llm:
 next: TODO - definire next step.
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](./start-here.md) >  > 
 
 # Scripts - One-shot e routine frequenti
 

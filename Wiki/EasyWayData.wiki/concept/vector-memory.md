@@ -6,16 +6,13 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
+entities: []
+tags: [layer/reference, privacy/internal, language/it]
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
 ---
 # Concept: Vector Memory Store (The Cortex)
 
@@ -95,6 +92,8 @@ We explicitly chose **RAG (Vector Search)** over Fine-Tuning ("training a model 
 | **Portability** | **High**. The database is just a folder of files. | **Low**. Models are multi-gigabyte files hard to distribute. |
 
 > **Verdict**: For the "Gift" strategy (SMBs/Associations), RAG provides the agility and low barrier to entry required. Fine-tuning is reserved for behavioral adaptation, not knowledge storage.
+
+
 
 
 

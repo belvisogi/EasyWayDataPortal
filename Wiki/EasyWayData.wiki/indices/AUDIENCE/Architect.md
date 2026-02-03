@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Index of all pages tagged with AUDIENCE/Architect
 status: draft
+id: ew-indices-audience-architect
+title: 📄 Architect
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[Layer - Index|Index]]
 
 # 📄 Architect
 
@@ -22,6 +30,7 @@ status: draft
 ---
 
 [⬆️ Back to AUDIENCE](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

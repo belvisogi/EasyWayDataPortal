@@ -16,7 +16,7 @@ entities: []
 next: Dettagliare componenti UI.
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Spec|Spec]]
+[Home](./start-here.md) > [[domains/frontend|frontend]] > 
 
 # EasyWay Data Portal - Frontend Architecture & Integration
 
@@ -107,6 +107,7 @@ La sezione `/workspace` integra:
 1. Qual è la struttura del progetto Next.js Frontend?
 2. Come viene gestito il contesto utente (Tenant/ACL)?
 3. Come funziona l'audit logging dal Frontend?
+
 
 
 

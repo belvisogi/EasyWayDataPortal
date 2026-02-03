@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-server-bootstrap-protocol
+title: 🛡️ Server Bootstrap & Security Protocol
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🛡️ Server Bootstrap & Security Protocol
 
 > **Official Production Standard**
@@ -176,3 +190,5 @@ Se Docker non parte come utente `easyway`:
 **Riferimenti**:
 - `docs/SERVER_STANDARDS.md` per dettagli filesytem.
 - `agents/FAQ.md` per troubleshooting applicativo agenti.
+
+

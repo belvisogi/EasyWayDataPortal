@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Registro canonico degli agenti di EasyWay DataPortal con ownership per dominio, intent principali ed entrypoint (n8n.dispatch/ewctl).
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -90,6 +93,7 @@ Gli agenti qui sotto erano nella lista "mancanti" e sono stati implementati con 
 - [Control Plane - Panoramica](./index.md)
 - [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
 - [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+
 
 
 

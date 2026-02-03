@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Index of all pages tagged with AUDIENCE/Non-Expert
 status: draft
+id: ew-indices-audience-non-expert
+title: 📄 Non-Expert
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[Layer - Index|Index]]
 
 # 📄 Non-Expert
 
@@ -46,7 +54,7 @@ status: draft
 - [[quest-board-excel-csv]] - Roadmap a livelli per portare l’utente da un file Excel/CSV a una dashboard con diario di bordo e ag...
 - [[rest-errors-qna]] - QnA operativa sugli errori REST API piu' comuni (cause e azioni) per utenti e agenti....
 - [[roadmap]] - Sezione operativa per mantenere la documentazione conforme alle best practice e pronta per agenti/LL...
-- [start-here](../../../../docs/project-root/DEVELOPER_START_HERE.md) - Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB....
+- [start-here](.././start-here.md) - Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB....
 - [[todo-checklist]] - 'Documento su TODO CHECKLIST.'...
 - [[usability-checklist]] - Checklist rapida per validare semplicità ed efficacia delle schermate (3‑click rule, leggibilità, ze...
 - [[value-proposition]] - Perché EasyWay Data Portal e cosa fa. Messaggio chiaro per persone e agenti....
@@ -56,6 +64,7 @@ status: draft
 ---
 
 [⬆️ Back to AUDIENCE](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

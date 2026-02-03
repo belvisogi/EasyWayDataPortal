@@ -1,3 +1,17 @@
+---
+id: ew-index
+title: Indice Globale
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Indice Globale
 
 - [_template.md](./_template.md) - Titolo Pagina
@@ -888,11 +902,11 @@
   - H2: One-shot: rigenera tutto (root corrente)
   - H2: Multi-root: aggrega più progetti
   - H2: Multi-root: normalizzazione (scan/apply) e report
-- [security/agent-security-iam.md](security/agent-security-iam.md) - Agent Security (IAM/KeyVault)
+- [security/agent-security-iam.md](../../scripts/Wiki/EasyWayData.wiki/security/agent-security-iam.md) - Agent Security (IAM/KeyVault)
   - H2: Contesto (repo)
   - H2: Cosa fa
   - H2: Esempio (manuale)
-- [security/ai-security-guardrails.md](../../docs/agentic/ai-security-guardrails.md) - AI Security Guardrails
+- [security/ai-security-guardrails.md](../../scripts/docs/agentic/ai-security-guardrails.md) - AI Security Guardrails
   - H2: Contesto
   - H2: 🛡️ Architettura (5 Layer)
   - H2: Layer 1: Input Validation (Pre-Execution)
@@ -950,6 +964,9 @@
   - H2: Obiettivi
   - H2: Fasi e Sequenza
   - H2: Per‑Cartella (linee guida)
+
+
+
 
 
 

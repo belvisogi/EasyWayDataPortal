@@ -1,0 +1,2315 @@
+{
+  "excluded": [
+    "logs/reports,archive"
+  ],
+  "files": 461,
+  "applied": true,
+  "changed": 245,
+  "results": [
+    {
+      "changed": false,
+      "applied": false,
+      "file": "_template.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "activity-log-20260119-agent-management-console.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "activity-log.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "ado-operating-model.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "agent-first-method.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "agent-manifest-and-indexing-best-practices.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "agent-output-validation-ci.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "agent-priority-and-checklists.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "agentic-portal-vision.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "agents-governance.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "agents-scrummaster.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "best-practices-token-tuning-roadmap.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "checklist-ado-required-job.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "ci-verifica-ewctl-gates-e-flyway.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "datalake-apply-acl.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "datalake-ensure-structure.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "datalake-set-retention.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "db-generate-artifacts-dsl.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "db-user-access-management.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "deploy-app-service.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "deployment-decision-mvp.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "dev-dual-mode.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "doc-alignment-gate.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "docs-agentic-audit.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "docs-analysis-inbox.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "docs-conventions.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "docs-related-links.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "docs-tag-scopes.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "docs-tag-taxonomy.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "documentation-governance-workflow.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "dr-inventory-matrix.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "dr-strategy-cloud-native.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "easyway-webapp.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "enforcer-guardrail.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "entities-index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "etl-dq-framework.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "etl-elt-playbook.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "etl-elt-technology-choices.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "etl-elt-template.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "etl-governance-sla.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "etl-inspirations.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "etl-table-log-model.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "glossario-errori-faq.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "governance-dq.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "howto-what-first-team.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "index.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "intent-contract.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "KNOWLEDGE-GRAPH.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "llm-readiness-checklist.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "manifesto-haka.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "OBSIDIAN.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "onboarding-architettura.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orphans-index.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "output-contract.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "parametrization-best-practices.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "plan-and-diary-contract.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "quest-board-docs-dq.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "quest-board-excel-csv.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "roadmap.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "sovereign-architecture.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "start-here.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "todo-checklist.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "value-proposition.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "wiki-uniformamento-roadmap.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": ".obsidian.example/README.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "agents/agent-dq-blueprint.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "agents/agent-issue-tracking-system.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "agents/agent-roster.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "agents/agent-system-architecture-overview.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "ai/knowledge-vettoriale-easyway.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "api/rest-errors-qna.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "architecture/appliance_model.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "architecture/dual-stack-strategy.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "architecture/N8N_GITOPS_STRATEGY.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/DOCKER_COMPOSE_TUTORIAL.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/HETZNER_SETUP_GUIDE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/ORACLE_CURRENT_ENV.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/PLAYGROUND_SETUP.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/SERVER_BOOTSTRAP_PROTOCOL.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/SERVER_REBUILD_PROTOCOL.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/SERVER_STANDARDS.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/SESSION_HANDOVER.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/SETUP_UBUNTU_VM.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/TEAM_WISDOM.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/TECHNICAL_DEBT_REPORT.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/TECHNICAL_DEBT_STRATEGY.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/ADO_EXPORT_GUIDE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/ADO_EXTRACTION_ROADMAP.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/ADO_SETUP_GUIDE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/ADO_WRAPPER_GUIDE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/AGENT_DOCS_SYNC.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/CONTEXT_LOADER_LOGIC.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/DEPLOY_RECIPES_GUIDE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/EXECUTION_RULES.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/EXECUTION_TEST.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/FINAL_VERIFICATION.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/GOVERNANCE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/KERNEL_V2_DESIGN.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/MCP_PROTOCOL.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/QA_TROUBLESHOOTING.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/README.it.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/RULES_MASTER.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/SECURE_SETUP_GUIDE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/SPRINT_BACKLOG_GUIDE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/TAGGING_SYSTEM.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/TASK_RULES.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/TEST_PR_GUIDE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/VERIFICATION_STATUS.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agent-rules/WIKI_REVIEW_GUIDE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agentic/AGENTIC_READINESS.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agentic/AI_SECURITY_STATUS.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agentic/ai-security-deployment.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agentic/ai-security-guardrails.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agentic/ai-security-integration.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agentic/ai-security-quickstart.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agentic/ai-security-tests.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agentic/CHROMADB_INDEXING_STRATEGY.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/agentic/templates/sheets/README.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/architecture/EWCTL_SPECS.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/architecture/MIGRATION_AUDIT_REPORT.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/architecture/SECURITY_AUDIT.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/architecture/sovereign_stack_overview.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/architecture/STRESS_TEST_PLAN.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/archive/diaries/DIARIO_DI_BORDO_20260127.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/best-practices/agent-autonomy-guidelines.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/best-practices/ai-safe-middleware.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/caa/CAA_RESEARCH_FINDINGS.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/caa/DOCUMENTATION_VALIDATION_REPORT_2026-01-14.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/ci/azure-devops-secrets.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/ci/ewctl-gates.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/concepts/market_gap.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/concepts/minio_sovereign_storage.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/deployment/agent-chat-deployment-guide.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/design/frontend_pdr.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/design/HEXTECH_SYSTEM.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/design/rag_architecture.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/design/rag_visual_flow.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/design/storyboard_access.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/azure-architecture.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/ORACLE_ENV_DOC.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/ORACLE_QUICK_START.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/README.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/SECURITY_FRAMEWORK.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/SERVER_BOOTSTRAP_PROTOCOL.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/SERVER_STANDARDS.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/hetzner/hetzner.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/oracle/oracle-cloud-vm-setup-guide.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/oracle/oracle-ssh-fix.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/oracle/oracle-ubuntu-desktop-setup.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/infra/oracle/README-ORACLE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/manuals/GENESIS_PROTOCOL.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/manuals/user-guide.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/project-root/AGENTS.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/project-root/ANTI_PHILOSOPHY_STARTER_KIT.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/project-root/DEVELOPER_ONBOARDING.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/project-root/DEVELOPER_START_HERE.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/project-root/FUTURE_ROADMAP.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/project-root/Sintesi_EasyWayDataPortal.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/project-root/VALUTAZIONE_EasyWayDataPortal.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/reports/2026-01-27-audit-report.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/reports/2026-01-27-migration-status.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/security/SECURITY_DEV_CHECKLIST.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/standards/n8n_workflow_standard.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/wiki/azure-devops-code-wiki.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "archive/imported_docs_2026_01_30/wiki/chronicles/005_THE_HEXTECH_REVOLUTION.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-alerting.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-change-versioning.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-coach-agent.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-event-schema.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-glossario.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-modular-interop.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-overview.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-playbook-catalog.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-policy-dsl.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-quality-gates.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "argos/argos-tech-profiling.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "best-practices/documentation-gardening.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "blueprints/blueprint-agente-llm.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "blueprints/db-portal-diagram.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "blueprints/db-portal-tables.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "blueprints/db-table-create-sheet.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "blueprints/db-table-dictionary-template.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "blueprints/legacy-reference-material.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "blueprints/replicate-easyway-dataportal.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "caa/easyCAA-overview.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "concept/agent-runtime-lifecycle.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "concept/architectural-vision.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "concept/dependency-graph.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "concept/history.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "concept/philosophical-foundation.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "concept/STRATEGY_2026.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "concept/valentino-framework.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "concept/vector-memory.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "control-plane/agent-orchestration-weighting.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "control-plane/agent-vectordb-architecture.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "control-plane/agents-manifest-audit.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "control-plane/agents-missing-roadmap.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "control-plane/agents-registry.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "control-plane/index.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "control-plane/segregation-model-dev-knowledge-runtime.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "domains/datalake.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "domains/db.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "domains/docs-governance.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "domains/frontend.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "domains/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01-database-architecture.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02-logiche-easyway.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/03-datalake-dev.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/04-accesso-registrazione-notifiche.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05-codice-easyway-portale.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/06-frontend-architecture.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/07-iam-naming-utenti-gruppi.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/10-ai-agents.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01a-db-setup.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b-schema-structure.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/best-practices-checklist.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/db-migrations.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/db-studio.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/ddl-inventory.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/flyway.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/howto-create-table.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/portal.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/sequence.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/storeprocess.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "easyway-webapp/01_database_architecture/why-not-flyway.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/portal.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/function.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/sequence.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/configuration.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/profile-domains.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/section-access.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/stats-execution-log.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/subscription.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/tenant.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/user-notification-settings.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/programmability/stored-procedure/users.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-configuration.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-log-audit.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-masking-metadata.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-profile-domains.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-rls-metadata.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-section-access.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-stats-execution-log.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-stats-execution-table-log.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-subscription.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-tenant.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-user-notification-settings.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/01_database_architecture/01b_schema_structure/PORTAL/tables/portal-users.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/best-practice-naming-and-scalability.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/logging-and-audit.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/notifiche-gestione.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "easyway-webapp/02_logiche_easyway/operational-best-practices.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/policy-di-configurazione-and-sicurezza-microservizi-e-api-gateway.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/raccomandazione-architetturale-easyway-data-portal.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-invio-notifica.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-notifiche.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/api-onboarding.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/checklist-di-test-api.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/convenzioni-rest-e-naming.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/api-esterne-integrazione/esempio-integrazione-shopify.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/logging-and-audit/readme.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-avanzati-onboarding-login.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/esempi-flussi-verticali-pa-accesso-tramite-spid-e-cie.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/login-flussi-onboarding/readme.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/02_logiche_easyway/notifiche-gestione/esempi-notifiche-and-template-email-configurabili.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/03_datalake_dev/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/apim-jwt-tenant-claim-policy.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/docs.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway-portal-api.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway-portal-frontend.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/iac.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/qa-setup-and-test-locale.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/readme.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/scripts.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/security-and-observability.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/agentic-readiness-and-examples.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/dinamiche-di-manutenzione.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/endpoint.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/policy-api-store-procedure-easyway-data-portal.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-2-—-Struttura-src-e-primi-file.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001-get-api-config.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-001a-get-api-config-da-db.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-002-get-api-branding.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/endp-003-get-crud-api-users.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/template-endpoint.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/ENDPOINT/Template-ENDPOINT/come-si-testa.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/automazione-export-log-su-datalake-e-compliance.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/gestione-log-and-policy-dati-sensibili/logging-conversational-ready-agent-aware.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-1-setup-ambiente/create-json.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-2-struttura-src-e-primi-file/conversational-and-agent-aware-ready.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-4-query-dinamiche-locale-datalake/query-in-src-queries.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "easyway-webapp/05_codice_easyway_portale/easyway_portal_api/step-5-validazione-avanzata-dati-in-ingresso/validazione-avanzata.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "etl/atomic-flows-agentic.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "frontend/AGENTIC_UI_CREED.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "frontend/AUDIT_REPORT.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "frontend/error-messages-user-friendly.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "frontend/hextech_ui_framework.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/ARTIFACT/Blueprint.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/ARTIFACT/Contract.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/ARTIFACT/HowTo.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/ARTIFACT/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/ARTIFACT/Orchestration.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/ARTIFACT/Reference.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/ARTIFACT/Report.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/ARTIFACT/Runbook.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/ARTIFACT/Script.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/ARTIFACT/Spec.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/AUDIENCE/Architect.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/AUDIENCE/DBA.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/AUDIENCE/Dev.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/AUDIENCE/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/AUDIENCE/Non-Expert.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/AUDIENCE/Ops.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/Agents.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/API.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/Architecture.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/Argos.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/CAA.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/Control-Plane.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/DataLake.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/DB.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/Docs.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/ETL.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/Frontend.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/Security.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/DOMAIN/UX.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/META/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/META/Language-EN.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/META/Language-IT.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/META/Privacy-Confidential.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/META/Privacy-Internal.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/META/Privacy-Public.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/META/Status-Active.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/META/Status-Deprecated.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/META/Status-Draft.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/PROCESS/Best-Practice.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/PROCESS/Checklist.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/PROCESS/CI-CD.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/PROCESS/Deploy.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/PROCESS/DQ.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/PROCESS/Governance.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/PROCESS/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/PROCESS/Migration.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/PROCESS/Onboarding.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/PROCESS/Testing.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/TECH/Azure.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/TECH/Flyway.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/TECH/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/TECH/N8n.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/TECH/Obsidian.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/TECH/PowerShell.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/TECH/React.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/TECH/SQL.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "indices/TECH/Vector-DB.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "infra/security-framework.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "infrastructure/oracle-agent-software-inventory.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "infrastructure/scelta-dominio-dns.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "infrastructure/oracle-cloud/01-hardware-storage-os.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "infrastructure/oracle-cloud/02-ai-services-stack.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "infrastructure/oracle-cloud/03-security-compliance.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "infrastructure/oracle-cloud/04-operations-maintenance.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "infrastructure/oracle-cloud/security-assessment.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "infrastructure/oracle-cloud/setup.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "infrastructure/oracle-cloud/software-inventory.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "infrastructure/oracle-cloud/monitoring/README.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "logs/reports/anchors-20260118192123.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "logs/reports/atomicity-20260118202226.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "logs/reports/normalize-20260118202042.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "manuals/INSTALLATION_MANUAL.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "old/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "onboarding/best-practice-agentic-dispatch.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "onboarding/best-practice-scripting.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "onboarding/developer-agent-experience-upgrades.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "onboarding/documentazione-contesto-standard.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "onboarding/howto-tagging.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "onboarding/proposte-crosslink-faq-edgecase.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "onboarding/setup-playground-zero-trust.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "onboarding/storyboard-easyway-agentic.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/ado-bootstrap.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/ado-userstory-create.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/agent-scaffold.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/api-rbac-configure.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/apply-appsettings-starter.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/db-drift-check.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/db-generate-docs.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/db-migrate.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/db-user-create.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/db-user-revoke.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/db-user-rotate.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/docs-confluence-dq-kanban.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/docs-dq-audit.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/docs-related-links-apply.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/generate-appsettings-from-env.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/iam-provision-access.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/intents-catalog-global.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/intents-catalog.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/kb-assessment.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/mapping-matrix.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/n8n-api-error-triage.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/n8n-db-ddl-inventory.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/n8n-db-table-create.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/n8n-retrieval-bundles.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/orchestrator-n8n.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/predeploy-checklist.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/release-preflight-security.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/sync-appsettings-guardrail.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/wf-excel-csv-upload.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "orchestrations/whatfirst-lint.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "Runbooks/_template.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "Runbooks/agent-chat-retention.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "Runbooks/dual-server-bootstrap.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "Runbooks/index.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "Runbooks/INFRASTRUCTURE_AUDIT_2026-01-28.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "Runbooks/instructions_collect_azure_inventory.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "Runbooks/RELEASE_CHECKLIST.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "Runbooks/SERVER-REBUILD-PROTOCOL.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "Runbooks/what_is_inventory_and_missing_items.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "scripts/scripts.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "security/agent-security-iam.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "security/ai-security-guardrails.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "security/index.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "security/operativita-governance-provisioning-accessi.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "security/segreti-e-accessi.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "security/threat-analysis-hardening.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "security/wargame-roadmap.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "standards/ado-workflow.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "standards/agent-architecture-standard.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "standards/agent-environment-standard.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "standards/agent-portability-standard.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "standards/db-guardrails.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "standards/docs-audit-guide.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "standards/easyway-server-standard.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "standards/INFRASTRUCTURE_STANDARDS.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "standards/secrets-management.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "standards/yaml-docker-standard.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "use-cases/entrate-uscite.md"
+    },
+    {
+      "changed": true,
+      "applied": true,
+      "file": "UX/agent-chat-interface.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "UX/agentic-ux.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "UX/branding-assets.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "UX/diary-mock-wf-excel-csv-upload.md"
+    },
+    {
+      "changed": false,
+      "applied": false,
+      "file": "UX/usability-checklist.md"
+    }
+  ]
+}

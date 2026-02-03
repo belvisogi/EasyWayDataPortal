@@ -1,3 +1,17 @@
+---
+id: ew-frontend-audit-report
+title: 🦅 Frontend Sovereign Audit (2026-01-30)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🦅 Frontend Sovereign Audit (2026-01-30)
 
 **Statuto:** Verifica conformità al [AGENTIC_UI_CREED](./AGENTIC_UI_CREED.md).
@@ -47,3 +61,6 @@ Se oggi volessimo fare un rebranding totale (es. "EasyWay Red Design"):
 3.  **Config Expansion**: Arricchire `content.json` con tutti i testi delle altre pagine.
 
 *Firmato: Sovereign Auditor Agent*
+
+
+

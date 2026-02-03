@@ -15,7 +15,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](.././start-here.md) >  > 
 
 # Policy di Configurazione & Sicurezza – Microservizi e API Gateway
 EasyWay Data Portal
@@ -90,6 +90,7 @@ Oppure proseguiamo con la prossima sezione (es: “Gestione logging & audit”, 
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

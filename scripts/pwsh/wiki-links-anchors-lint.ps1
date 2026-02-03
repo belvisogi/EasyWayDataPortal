@@ -119,6 +119,7 @@ foreach ($f in $allFiles) {
   $filesScanned++
   $dir = Split-Path -Parent $f.FullName
   $content = Get-Content -LiteralPath $f.FullName -Raw -Encoding UTF8
+  if ([string]::IsNullOrWhiteSpace($content)) { continue }
 
   $matches = [regex]::Matches($content, "\[[^\]]*\]\(([^\)]+)\)")
   if ($matches.Count -eq 0) { continue }

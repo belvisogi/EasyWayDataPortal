@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](./start-here.md)
 
 # Template Data Dictionary (DB Table) - Excel
 

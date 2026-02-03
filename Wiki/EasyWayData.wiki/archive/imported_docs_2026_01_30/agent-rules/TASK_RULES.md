@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-task-rules
+title: 🎯 AXET TASK-ORIENTED RULES
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🎯 AXET TASK-ORIENTED RULES
 
 > Queste regole guidano l'AI su COME eseguire task comuni in modo operativo.
@@ -227,3 +241,5 @@ axctl --intent pbi 184797
 
 **Versione**: 3.1 (Task-Oriented)
 **Data**: 2026-01-12
+
+

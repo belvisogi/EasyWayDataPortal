@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-project-root-anti-philosophy-starter-kit
+title: 🚀 Anti-Philosophy Starter Kit
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🚀 Anti-Philosophy Starter Kit
 
 **Obiettivo**: Deploy EasyWay in produzione in 7 giorni. Zero filosofia, solo esecuzione.
@@ -454,3 +468,5 @@ docker system prune -a
 **Creato**: 2026-01-24  
 **Versione**: 1.0 - Anti-Philosophy Edition  
 **Motto**: "Done is better than perfect"
+
+

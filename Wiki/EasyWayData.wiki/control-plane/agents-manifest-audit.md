@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Operativita' per generare automaticamente una lista di gap per agente (manifest/readme/actions/gates/knowledge sources).
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -61,7 +64,9 @@ pwsh scripts/agent-docs-review.ps1 -AgentsManifestAudit
 - [Roadmap agent (retrieval, observability, infra, backend, release)](./agents-missing-roadmap.md)
 - [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
 - [Validazione Output Agenti in CI](../agent-output-validation-ci.md)
-- [Agent Security (IAM/KeyVault) - overview](../security/agent-security-iam.md)
+- [Agent Security (IAM/KeyVault) - overview](../../../scripts/Wiki/EasyWayData.wiki/security/agent-security-iam.md)
+
+
 
 
 

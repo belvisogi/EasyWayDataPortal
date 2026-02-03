@@ -1,10 +1,17 @@
 ---
 owner: team-security
-tags: ['layer/security', 'domain/devops']
+tags: [domain/docs, layer/spec, audience/dev, privacy/internal, language/it, secrets, security]
 status: active
 title: Standard Gestione Segreti (Azure Key Vault)
 summary: Linee guida per la gestione sicura dei segreti tramite Azure Key Vault e naming convention.
 updated: 2026-01-16
+id: ew-standards-secrets-management
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Standard di Gestione Segreti (Azure Key Vault)
@@ -43,4 +50,5 @@ Usare lo script `scripts/sync-env-to-akv.ps1` per popolare massivamente i segret
 # Esempio: Popolare Ambiente DEV
 ./scripts/sync-env-to-akv.ps1 -EnvFile ".env.local" -VaultName "kv-easyway-dev"
 ```sql
+
 

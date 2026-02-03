@@ -6,20 +6,17 @@ features:
   - auto-detect
   - glossary-check
   - normalize
-tags:
-  - wiki
-  - review
-  - glossary
-  - normalize
-priority: medium
-audience:
-  - ai-assistant
-script-refs:
-  - agent-docs-review.ps1
-  - check_glossario_faq.ps1
-last-updated: 2026-01-12
-related:
-  - EXECUTION_RULES.md
+entities: []
+tags: [wiki, review, glossary, normalize]
+id: ew-archive-imported-docs-2026-01-30-agent-rules-wiki-review-guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # 📚 Wiki Review & Normalize - Quick Reference
@@ -110,3 +107,6 @@ axctl --intent wiki-review
 
 **Versione**: 1.0 (Auto-Detect)  
 **Data**: 2026-01-12
+
+
+

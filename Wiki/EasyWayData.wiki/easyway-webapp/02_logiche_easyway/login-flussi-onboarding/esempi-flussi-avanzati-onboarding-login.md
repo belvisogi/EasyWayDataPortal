@@ -15,7 +15,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
+[Home](../.././start-here.md) > [[domains/frontend|frontend]] > 
 
 ## Esempi Flussi Avanzati Onboarding/Login
 
@@ -77,6 +77,7 @@ next: TODO - definire next step.
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

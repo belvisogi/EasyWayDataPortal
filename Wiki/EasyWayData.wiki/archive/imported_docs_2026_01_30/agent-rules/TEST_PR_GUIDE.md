@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-test-pr-guide
+title: 🧪🔀 Test Management & Pull Requests - Guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🧪🔀 Test Management & Pull Requests - Guide
 
 **Created**: 2026-01-13  
@@ -373,3 +387,5 @@ Entrambi script esportano in `out/devops/`:
 **API**: ADO REST API v7.0  
 **Coverage**: Test Plans, Test Runs, Pull Requests  
 **Dependencies**: PowerShell 7+, ADO PAT with test+code scopes
+
+

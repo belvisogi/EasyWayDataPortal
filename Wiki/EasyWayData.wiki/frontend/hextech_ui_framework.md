@@ -1,3 +1,17 @@
+---
+id: ew-frontend-hextech-ui-framework
+title: Hextech UI Framework & Page Catalog 🎨
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Hextech UI Framework & Page Catalog 🎨
 
 > **"Sovereignty needs to look premium to be taken seriously."**
@@ -73,3 +87,6 @@ We use a "Magic vs Tech" aesthetic inspired by Arcane/Hextech.
     <script type="module" src="/src/components/sovereign-header.ts"></script>
     ```
 4.  Run `npm run build`.
+
+
+

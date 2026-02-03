@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-kernel-v2-design
+title: 🚀 Axet Kernel v2.0 - Architecture Design
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🚀 Axet Kernel v2.0 - Architecture Design
 
 **Data**: 2026-01-13  
@@ -234,3 +248,5 @@ Sistema basato su:
 **Status**: Phase 1 in corso  
 **Lead**: Axet Architecture Team  
 **Review**: 2026-01-13
+
+

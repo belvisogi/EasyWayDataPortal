@@ -4,9 +4,15 @@ title: The EasyWay Server Standard (TESS)
 summary: Lo standard canonico per struttura, sicurezza e operazioni di tutti i server EasyWay. Questo è IL documento di riferimento.
 status: active
 owner: team-platform
-tags: [standard, architecture, security, operations, canonical]
+tags: [standard, architecture, security, operations, canonical, domain/docs, layer/spec, audience/dev, privacy/internal, language/it]
 updated: 2026-01-26
 version: 1.0.0
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # The EasyWay Server Standard (TESS) v1.0
@@ -515,3 +521,6 @@ Questo standard segue **Semantic Versioning** (SemVer):
 **Author**: EasyWay Platform Team  
 **Status**: CANONICAL  
 **Next Review**: 2026-06-26 (6 months)
+
+
+

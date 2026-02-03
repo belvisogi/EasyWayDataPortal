@@ -6,6 +6,7 @@ status: draft
 owner: team-platform
 tags: [domain/docs, layer/spec, audience/dev, privacy/internal, language/it, quest, kanban, dq, governance]
 llm:
+  redaction: [email, phone]
   include: true
   pii: none
   chunk_hint: 250-400
@@ -14,7 +15,7 @@ updated: '2026-01-09'
 next: Eseguire docs-dq-scorecard e triage del backlog.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Spec|Spec]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > 
 
 # Quest Board - Documentazione (DQ + Kanban)
 
@@ -36,6 +37,8 @@ Comandi
 
 - Eseguire: `pwsh scripts/docs-dq-scorecard.ps1 -UpdateQuestBoard -WhatIf:$false`
 <!-- AUTO:END -->
+
+
 
 
 

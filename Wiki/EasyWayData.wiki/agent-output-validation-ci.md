@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Gate|Gate]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > [[Layer - Gate|Gate]]
 
 # Validazione Output Agenti in CI
 Breadcrumb: Home / CI / Output Validation
@@ -56,6 +56,8 @@ Note
 - [ADO – Segnare un job come Required nelle PR](./checklist-ado-required-job.md)
 - [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
 - [Metodo di Lavoro Agent‑First](./agent-first-method.md)
+
+
 
 
 

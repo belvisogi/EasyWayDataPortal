@@ -81,3 +81,4 @@ In pipeline, il job `GovernanceGatesEWCTL` usa `ewctl` per eseguire Checklist/DB
 
 
 
+

@@ -4,14 +4,13 @@ title: Entities Index
 summary: Indice delle entità dichiarate in entities.yaml, raggruppate per categoria.
 status: draft
 owner: team-docs
-tags:
-  - catalog
-  - language/it
+entities: []
+tags: [catalog, language/it]
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
-entities: []
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 # Entities Index
 
@@ -86,5 +85,8 @@ entities: []
 - Dove trovo l'elenco delle entità e i link rapidi?
 - Quali categorie di entità sono coperte?
 - Come navigo verso documenti specifici partendo dall'indice?
+
+
+
 
 

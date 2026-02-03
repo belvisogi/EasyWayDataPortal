@@ -16,7 +16,7 @@ llm:
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 
 
 # Agent Manifest & Indexing - Best Practices
 
@@ -61,6 +61,8 @@ Strategia d’uso:
 - Come può un agente sapere “cosa aprire” senza leggere tutto?
 - Come ridurre i token usando ancore e manifest?
 - Come uniformare l’accesso ai contenuti tra progetti/formati diversi?
+
+
 
 
 

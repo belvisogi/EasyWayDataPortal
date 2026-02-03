@@ -7,6 +7,12 @@ owner: team-platform
 tags: [security, compliance, risk-assessment, audit, oracle-cloud]
 updated: 2026-01-26
 severity: HIGH
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Oracle Cloud Agent - Security & Enterprise Readiness Assessment
@@ -366,3 +372,4 @@ docker scan <image>
 **Assessor**: EasyWay Platform Team  
 **Next Review**: Before Production Deployment  
 **Risk Acceptance**: ✅ Accepted for MVP/Sandbox Use
+

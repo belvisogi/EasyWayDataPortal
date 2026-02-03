@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > [[Layer - Spec|Spec]]
+[Home](./start-here.md) > [[domains/datalake|datalake]] > 
 
 # Atomic Flows – Orchestrazione Agent‑First
 

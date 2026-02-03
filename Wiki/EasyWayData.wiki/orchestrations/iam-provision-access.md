@@ -59,11 +59,13 @@ Riferimenti
 
 ## Vedi anche
 
-- [Agent Security (IAM/KeyVault) - overview](../security/agent-security-iam.md)
+- [Agent Security (IAM/KeyVault) - overview](../../../scripts/Wiki/EasyWayData.wiki/security/agent-security-iam.md)
 - [DB User Create (WHAT)](./db-user-create.md)
 - [DB User Revoke (WHAT)](./db-user-revoke.md)
 - [DB User Rotate (WHAT)](./db-user-rotate.md)
 - [Release Preflight Security (WHAT)](./release-preflight-security.md)
+
+
 
 
 

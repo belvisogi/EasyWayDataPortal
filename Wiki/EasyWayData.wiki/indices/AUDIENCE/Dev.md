@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Index of all pages tagged with AUDIENCE/Dev
 status: draft
+id: ew-indices-audience-dev
+title: 📄 Dev
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[Layer - Index|Index]]
 
 # 📄 Dev
 
@@ -219,7 +227,7 @@ status: draft
 - [[segregation-model-dev-knowledge-runtime]] - Linea guida canonica per segregare repo (evoluzione), knowledge vettoriale (lettura n8n/LLM) e runti...
 - [[sequence]] - Numeratori per codici business (TEN…, CDI…) e debug...
 - [[setup-playground-zero-trust]] - Guida passo‑passo all’onboarding sicuro di EasyWay DataPortal — tutto in sandbox locale, senza espor...
-- [start-here](../../../../docs/project-root/DEVELOPER_START_HERE.md) - Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB....
+- [start-here](.././start-here.md) - Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB....
 - [[step-1-setup-ambiente]] - Cosa fare appena clonato EasyWayDataPortal: setup env, avvio API, checklist predeploy e (opz.) Terra...
 - [[STEP-2-—-Struttura-src-e-primi-file]] - 'Pagina legacy mantenuta solo per compatibilità: usa la versione canonica step-2-struttura-src-e-pri...
 - [[step-2-struttura-src-e-primi-file]] - 'Definisce la struttura della cartella src per easyway-portal-api e i primi file minimi (app, server...
@@ -240,6 +248,7 @@ status: draft
 ---
 
 [⬆️ Back to AUDIENCE](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

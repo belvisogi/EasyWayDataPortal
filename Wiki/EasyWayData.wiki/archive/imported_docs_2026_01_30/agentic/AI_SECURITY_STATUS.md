@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agentic-ai-security-status
+title: AI/LLM Security - Implementation Status
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # AI/LLM Security - Implementation Status
 
 **Updated**: 2026-01-25
@@ -99,3 +113,5 @@ git commit -m "test"
 
 **Status**: Layer 4 active, Layers 1-3-5 documented but not integrated  
 **Next Priority**: Integrate Layer 1 & 3 in orchestrator when Expert+Reviewer goes live
+
+

@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Orchestrazione agentica per classificare errori REST e produrre log strutturato per n8n.
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -88,6 +91,7 @@ pwsh scripts/agent-api.ps1 -Action api-error:triage -IntentPath out/api-error.in
 - [n8n-db-table-create](./n8n-db-table-create.md)
 - [n8n Retrieval Bundles (riduzione token)](./n8n-retrieval-bundles.md)
 - [Release Preflight Security (WHAT)](./release-preflight-security.md)
+
 
 
 

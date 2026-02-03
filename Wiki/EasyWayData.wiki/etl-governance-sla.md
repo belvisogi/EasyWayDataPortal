@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > [[Layer - Spec|Spec]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > 
 
 # ETL – Governance & SLA
 Breadcrumb: Home / Datalake / ETL Governance & SLA
@@ -89,6 +89,8 @@ Riferimenti
 - ETL/ELT Playbook; ETL/ELT Template
 - ETL – Table Log Model; ETL – DQ Framework
 - Doc Alignment Gate; Output Contract
+
+
 
 
 

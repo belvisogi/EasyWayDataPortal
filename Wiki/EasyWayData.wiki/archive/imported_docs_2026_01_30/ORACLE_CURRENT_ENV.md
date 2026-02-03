@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-oracle-current-env
+title: 🏗️ Oracle Cloud - Current Production Environment
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🏗️ Oracle Cloud - Current Production Environment
 
 > **Status**: ACTIVE - Ambiente di produzione attuale  
@@ -164,7 +178,7 @@ n8n:
 
 > [!IMPORTANT]
 > **EasyWay utilizza un modello di sicurezza enterprise-grade** con RBAC a 4 livelli e ACLs.  
-> **📖 Documentazione Completa**: [infra/SECURITY_FRAMEWORK.md](infra/SECURITY_FRAMEWORK.md)
+> **📖 Documentazione Completa**: [infra/SECURITY_FRAMEWORK.md](../../../../scripts/docs/infra/SECURITY_FRAMEWORK.md)
 
 ### Current Security Posture
 
@@ -176,7 +190,7 @@ n8n:
 **User & Group Model**:
 - Service User: `easyway` (application owner)
 - Admin User: `ubuntu` (infrastructure management)
-- Groups: **TBD** (enterprise RBAC not yet applied - see [SECURITY_FRAMEWORK.md](infra/SECURITY_FRAMEWORK.md))
+- Groups: **TBD** (enterprise RBAC not yet applied - see [SECURITY_FRAMEWORK.md](../../../../scripts/docs/infra/SECURITY_FRAMEWORK.md))
 
 **Secrets Management**:
 - ⚠️ Azure DevOps PAT: Stored in `c:\old\azure_pat.txt` (NON commitare!)
@@ -295,3 +309,6 @@ Quando si decide di migrare a Hetzner:
 
 **Maintainer**: Team EasyWay  
 **Contact**: Via Azure DevOps Work Items
+
+
+

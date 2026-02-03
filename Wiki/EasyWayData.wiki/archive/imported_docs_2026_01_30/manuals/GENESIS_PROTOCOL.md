@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-manuals-genesis-protocol
+title: HDS Identity Protocol (The Interview)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # HDS Identity Protocol (The Interview)
 
 *Use this script to extract the "Soul" of a new project from a client (or friend).*
@@ -52,3 +66,5 @@ Once you have the answers, open `src/theme.css` and map them:
 *   **Authority**: Wood Brown (`#d97706`).
 
 **Result:** You change 3 lines, and the entire "Hextech" interface becomes a "Druid" interface instantly. Everything (Buttons, Headers, Grids) adapts properly.
+
+

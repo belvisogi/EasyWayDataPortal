@@ -1,3 +1,17 @@
+---
+id: ew-standards-infrastructure-standards
+title: EasyWay Infrastructure Standards 🏗️
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/spec, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # EasyWay Infrastructure Standards 🏗️
 
 > **Philosophy**: "Secure by Design, Resilient by Default."
@@ -52,3 +66,6 @@ restart: unless-stopped
 ### Clean Build Contexts
 -   **Goal**: Fast, small builds.
 -   use `.dockerignore` to exclude `node_modules`, `.git`, `logs`, and `tmp` files.
+
+
+

@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-architecture-stress-test-plan
+title: Stress Test Plan: The "Iron Kernel" Torture Chamber
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Stress Test Plan: The "Iron Kernel" Torture Chamber
 
 **Objective**: Verify that `ewctl` maintains its "Antifragile" properties under extreme abuse, ensuring it never traps an Agent in an undefined state.
@@ -54,3 +68,5 @@
 1.  Develop `ewctl.chaos` module.
 2.  Run Battery tests.
 3.  Fix identified weaknesses (e.g., define global timeouts).
+
+

@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agentic-ai-security-guardrails
+title: AI Security Guardrails - Implementation Guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # AI Security Guardrails - Implementation Guide
 
 ## 🛡️ Defense in Depth Strategy
@@ -623,3 +637,5 @@ async function executeSafeOrchestration(intent, context) {
 **Status**: READY FOR IMPLEMENTATION  
 **Priority**: HIGH (implement before Expert+Reviewer goes live)  
 **Owner**: team-platform + team-security
+
+

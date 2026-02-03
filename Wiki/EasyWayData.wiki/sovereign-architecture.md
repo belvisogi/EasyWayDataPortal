@@ -1,3 +1,17 @@
+---
+id: ew-sovereign-architecture
+title: Sovereign Architecture (The Brain) 🧠
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Sovereign Architecture (The Brain) 🧠
 
 > **"Ownership is the only true security."**
@@ -31,4 +45,6 @@ Questa sezione documenta l'infrastruttura "Sovereign" di EasyWay One.
 ## 5. Operational Manuals
 *   **Porte Firewall**: 80/443 (Public), others blocked by UFW.
 *   **Utenti Default**: `ubuntu` (SSH), `easywayadmin` (MinIO).
+
+
 

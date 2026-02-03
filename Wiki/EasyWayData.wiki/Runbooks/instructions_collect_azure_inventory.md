@@ -14,7 +14,7 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Runbook|Runbook]]
+[Home](./start-here.md) >  > 
 
 Istruzioni passo‑passo — esecuzione scripts/collect_azure_inventory.ps1 e invio azure_inventory.json
 ## Obiettivo
@@ -88,6 +88,7 @@ Se preferisci, posso anche generare una versione equivalente in bash/Az CLI: dim
 - [DR — Inventory & matrice componente → RTO / RPO](../dr-inventory-matrix.md)
 - [Validazione Output Agenti in CI](../agent-output-validation-ci.md)
 - [Deploy su Azure App Service – Pipeline & Variabili](../deploy-app-service.md)
+
 
 
 

@@ -1,3 +1,17 @@
+---
+id: ew-infrastructure-oracle-cloud-04-operations-maintenance
+title: 📄 04 - Operations, Maintenance & Commands
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 📄 04 - Operations, Maintenance & Commands
 
 Shell: Bash (/bin/bash)
@@ -283,3 +297,6 @@ dmesg | tail -50
 - [`03-security-compliance.md`](./03-security-compliance.md)
 - [`security-assessment.md`](./security-assessment.md)
 - [`software-inventory.md`](./software-inventory.md)
+
+
+

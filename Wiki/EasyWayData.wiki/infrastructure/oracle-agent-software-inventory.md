@@ -6,6 +6,12 @@ status: active
 owner: team-platform
 tags: [infrastructure, oracle-cloud, inventory, compliance, audit]
 updated: 2026-01-26
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Oracle Cloud Agent - Software Bill of Materials (SBOM)
@@ -320,3 +326,4 @@ python3 chromadb_manager.py search "<query>"
 
 **Ultima verifica**: 2026-01-26  
 **Prossima verifica consigliata**: 2026-02-26 (1 mese)
+

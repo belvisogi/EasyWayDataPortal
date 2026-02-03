@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-infra-oracle-env-doc
+title: Oracle Environment Snapshot (Dev/Staging Current)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Oracle Environment Snapshot (Dev/Staging Current)
 
 ## Snapshot Metadata
@@ -45,3 +59,5 @@
 ## Related Docs
 - `docs/infra/ORACLE_QUICK_START.md`
 - `docs/SERVER_BOOTSTRAP_PROTOCOL.md`
+
+

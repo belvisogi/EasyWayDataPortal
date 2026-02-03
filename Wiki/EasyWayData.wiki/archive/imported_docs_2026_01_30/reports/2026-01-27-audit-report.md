@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-reports-2026-01-27-audit-report
+title: 🕵️ EasyWay System Audit Report - 2026-01-27
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🕵️ EasyWay System Audit Report - 2026-01-27
 
 > **Status**: 🟡 **PARTIALLY STANDARDIZED**
@@ -79,3 +93,5 @@ All references have been updated to point to `agent-retrieval.ps1`.
 | **n8n Recovery** | Fixed Permissions via `/data` Remap | 🟢 **Stable** |
 
 **Final Verdict**: Server is clean, logical, and TESS compliant.
+
+

@@ -16,13 +16,14 @@ next: TODO - definire next step.
 ---
 
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Spec|Spec]]
+[Home](.././start-here.md) > [[domains/db|db]] > 
 
 ## Domande a cui risponde
 - Quali sono le tabelle e gli schemi principali?
 - Dove sono le convenzioni di naming e i collegamenti a programmability?
 - Quali passi minimi per aggiornare struttura e indici?
 - Dove trovare le entità correlate nel dizionario?
+
 
 
 

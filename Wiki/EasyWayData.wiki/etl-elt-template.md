@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > [[Layer - Spec|Spec]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > 
 
 # ETL/ELT – [nome-pipeline]
 Breadcrumb: Home / Datalake / Pipelines / [nome-pipeline]
@@ -75,6 +75,8 @@ Quick Checklist
 - [ ] Retention/ACL allineati
 - [ ] Schedule/allarmi configurati
 - [ ] Audit/log attivi
+
+
 
 
 

@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-project-root-valutazione-easywaydataportal
+title: Valutazione EasyWayDataPortal — Gap, Rischi e Piano di Allineamento
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Valutazione EasyWayDataPortal — Gap, Rischi e Piano di Allineamento
 
 ## Contesto e Obiettivo
@@ -111,3 +125,5 @@
 - Template SQL: `docs/agentic/templates/ddl/` e `docs/agentic/templates/sp/`.
 - Test: `tests/agentic/README.md:1` con checklist di convalida.
 - Azione: aggiornare Wiki con riferimento alle linee guida agentiche e includere esempi pratici basati sulle nostre SP reali (onboarding/users/config/notifications).
+
+

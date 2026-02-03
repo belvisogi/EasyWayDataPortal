@@ -16,7 +16,7 @@ entities: []
 next: TODO - definire next step.
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Howto|Howto]]
+[Home](.././start-here.md) > [[domains/frontend|frontend]] > [[Layer - Howto|Howto]]
 
 # Flussi Onboarding/Login - EasyWay Data Portal
 
@@ -87,6 +87,7 @@ Ogni step deve essere tracciato nei log/audit e gestito secondo policy di sicure
 - Controlla che l'output atteso (file generati, risorse create/aggiornate, response API) sia presente e coerente.
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
+
 
 
 

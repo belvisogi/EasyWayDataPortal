@@ -15,7 +15,7 @@ llm:
 entities: []
 next: Aggiungere link repo diretti.
 ---
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Index|Index]]
+[Home](./start-here.md) > [[domains/frontend|frontend]] > [[Layer - Index|Index]]
 
 Nel tuo Wiki puoi mappare così:
 *   **Backend:**  
@@ -35,6 +35,7 @@ Nel tuo Wiki puoi mappare così:
 1. Qual è la repository per il Backend?
 2. Dove trovo la documentazione dell'infrastruttura (IaC)?
 3. Come sono mappati i componenti codice-documentazione?
+
 
 
 

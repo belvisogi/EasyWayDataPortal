@@ -5,6 +5,17 @@ domain: agent-core
 tags: architecture, memory, concurrency, runtime
 priority: high
 last-updated: 2026-01-17
+id: ew-concept-agent-runtime-lifecycle
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # 🧠 Agent Runtime Lifecycle & Memory
@@ -96,3 +107,4 @@ Il ciclo di vita di ogni esecuzione Brain segue questi step:
 ---
 **Stato**: Proposal
 **Owner**: Platform Team
+

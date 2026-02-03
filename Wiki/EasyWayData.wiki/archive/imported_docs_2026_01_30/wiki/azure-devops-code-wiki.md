@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-wiki-azure-devops-code-wiki
+title: Azure DevOps – Pubblicare la Wiki dal Repo (Code Wiki)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Azure DevOps – Pubblicare la Wiki dal Repo (Code Wiki)
 
 Obiettivo: tenere la wiki nel monorepo e renderla visibile in Azure DevOps Wiki senza repo separati.
@@ -20,4 +34,6 @@ API/REST (opzionale):
 Troubleshooting:
 - Se la cartella `Wiki/EasyWayData.wiki` aveva un `.git` annidato, ora è rimosso per evitare repo dentro repo.
 - Se allegati > 50MB, usare Git LFS.
+
+
 

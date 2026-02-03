@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-setup-ubuntu-vm
+title: Ubuntu VM Setup for EasyWay Development
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Ubuntu VM Setup for EasyWay Development
 
 ## 🎯 Overview
@@ -382,3 +396,5 @@ After setup is complete:
 **Created:** 2026-01-20  
 **Updated:** 2026-01-20  
 **Owner:** team-platform
+
+

@@ -660,7 +660,7 @@ curl -X POST http://localhost:3000/api/agents/agent_dba/chat \
 ### Wiki Correlate
 - [UX — Wizard, Plan Viewer, WhatIf](./agentic-ux.md) - Workflow strutturati
 - [Agent Orchestration](../control-plane/agent-orchestration-weighting.md) - Expert + Reviewer
-- [AI Security Guardrails](../../../docs/agentic/ai-security-guardrails.md) - Input validation
+- [AI Security Guardrails](../../../scripts/docs/agentic/ai-security-guardrails.md) - Input validation
 - [Agents Registry](../control-plane/agents-registry.md) - Lista agent completa
 
 ### Technical Docs
@@ -678,6 +678,7 @@ curl -X POST http://localhost:3000/api/agents/agent_dba/chat \
 **Status**: Draft (Wiki spec ready, code pending)  
 **Priority**: Medium (after Wizard + Plan Viewer MVP)  
 **Estimated Effort**: 3-4 weeks (2 dev + 1 UX + 1 testing)
+
 
 
 

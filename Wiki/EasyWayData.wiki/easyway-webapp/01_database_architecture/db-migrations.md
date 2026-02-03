@@ -15,7 +15,7 @@ updated: '2026-01-18'
 next: Sviluppare tool AI-friendly custom per automazione migrazioni (db/db-deploy-ai/).
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](.././start-here.md) > [[domains/db|db]] > 
 
 # Gestione Migrazioni Database (Git + SQL Diretto)
 

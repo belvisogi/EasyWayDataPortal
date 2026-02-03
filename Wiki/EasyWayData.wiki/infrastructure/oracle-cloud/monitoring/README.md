@@ -6,6 +6,12 @@ status: active
 owner: team-platform
 tags: [infrastructure, monitoring, tools, oracle-cloud, ops]
 updated: 2026-01-26
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # Server Monitoring Tools - Visual Dashboard Guide
@@ -223,3 +229,4 @@ ssh -L 61208:localhost:61208 ubuntu@80.225.86.168
 **Vedi anche**:
 - [Oracle Cloud Setup Guide](./agent-local-llm-oracle.md)
 - [Deployment Runbook](../brain/deployment-runbook-oracle-to-hetzner.md)
+

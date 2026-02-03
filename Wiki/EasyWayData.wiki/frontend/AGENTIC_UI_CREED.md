@@ -1,3 +1,17 @@
+---
+id: ew-frontend-agentic-ui-creed
+title: 🦅 THE AGENTIC UI CREED
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🦅 THE AGENTIC UI CREED
 **Protocollo per l'Agente Costruttore**
 
@@ -77,3 +91,6 @@ Costruisci come se il codice dovesse vivere per sempre.
 Costruisci per l'Umano, ma progetta per l'Eternità.
 
 **Questo è il Credo.**
+
+
+

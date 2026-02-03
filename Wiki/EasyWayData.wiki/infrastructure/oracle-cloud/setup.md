@@ -670,3 +670,4 @@ ollama serve &
 **Next**: Deploy e goditi il viaggio! 🚀
 
 > *"Un mattoncino alla volta, un JSON alla volta, un commit alla volta... e costruiamo qualcosa di nuovo."*
+

@@ -6,10 +6,13 @@ status: draft
 owner: team-platform
 tags: []
 llm:
+  pii: none
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
+entities: []
 ---
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](./start-here.md) >  > 
 
 title: ARGOS – Tech Profiling & Reliability (v1)
 tags: [argos, dq, agents, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it, profiling]
@@ -49,6 +52,7 @@ Warn/Defer su drift severo o small‑files rate elevato; routing verso RCA/Coach
 
 ## KPI & SLO IT (indicativi)
 Schema Stability ≥ 99,5%; Small Files Rate ≤ 5%; Late Partition Rate ≤ 1%; Job Success ≥ 99,9%; Throughput p95 ≥ baseline−10%.
+
 
 
 

@@ -16,7 +16,7 @@ entities: []
 next: TODO - definire next step.
 ---
 
-[Home](../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../.././start-here.md) >  > 
 
 # Esempi Notifiche & Template Email Configurabili (Excel su Storage)
 
@@ -117,6 +117,7 @@ Ogni modifica ai template viene tracciata e può essere validata da admin. In pr
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

@@ -16,7 +16,7 @@ llm:
 entities: []
 next: TODO - definire next step.
 ---
-[Home](../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/frontend|frontend]] > [[Layer - Reference|Reference]]
+[Home](../../.././start-here.md) > [[domains/frontend|frontend]] > 
 
 ### **1. `src/routes/branding.ts`**
 
@@ -122,6 +122,7 @@ export default app;
 - Quali passi devo seguire?
 - Quali sono gli errori comuni?
 - Dove approfondire?
+
 
 
 

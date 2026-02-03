@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-technical-debt-strategy
+title: 🧹 TECHNICAL DEBT STRATEGY
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🧹 TECHNICAL DEBT STRATEGY
 # Status: ACTIVE
 # Context: Clean Code / Sovereign Architecture
@@ -29,3 +43,5 @@ If hardcoded IPs/Secrets are found during audit:
 1.  **Immediate Rotation:** Assume the secret is compromised.
 2.  **Refactor:** Move to `.env` or `config.js`.
 3.  **Add to Linter:** Update `scripts/audit-hardcoding.ps1` to catch this pattern in future.
+
+

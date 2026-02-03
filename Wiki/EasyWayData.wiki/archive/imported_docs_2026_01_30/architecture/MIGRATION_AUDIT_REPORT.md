@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-architecture-migration-audit-report
+title: Audit Report: ewctl Migration & Coverage
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Audit Report: ewctl Migration & Coverage
 
 **Date**: 2026-01-25
@@ -35,3 +49,5 @@
 
 ## 4. Conclusion
 The solution is **Robust, Secure, and Documented**. The migration covered the critical 80% of automated governance. The remaining 20% (interactive tools) can migrate gradually.
+
+

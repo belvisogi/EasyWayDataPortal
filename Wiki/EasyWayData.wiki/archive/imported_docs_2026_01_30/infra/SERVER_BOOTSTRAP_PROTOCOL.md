@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-infra-server-bootstrap-protocol
+title: 🤖 Server Bootstrap Protocol (The EasyWay Golden Path)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🤖 Server Bootstrap Protocol (The EasyWay Golden Path)
 
 > **Obiettivo**: Trasformare un server "nudo" (Ubuntu Fresh Install) in un nodo EasyWay operativo in meno di 10 minuti.
@@ -123,3 +137,5 @@ Quando il codice cambia su Azure DevOps:
 3.  **Ricarica Container**: `docker compose up -d`.
 
 *Nessun downtime percepibile grazie ai symlink atomici (se gestiti con load balancer, altrimenti minimo restart dei container).*
+
+

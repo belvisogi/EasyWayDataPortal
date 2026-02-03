@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agentic-ai-security-quickstart
+title: AI Agent Security - Quick Start
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # AI Agent Security - Quick Start
 
 ## 🚀 3-Step Protection (10 minuti)
@@ -62,3 +76,5 @@ python3 scripts/kb-security-scan.py agents/kb/recipes.jsonl
 4. Set up daily audit script
 
 **Full guide**: `docs/agentic/ai-security-guardrails.md`
+
+

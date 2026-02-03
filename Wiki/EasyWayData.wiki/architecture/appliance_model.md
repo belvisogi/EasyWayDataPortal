@@ -1,3 +1,17 @@
+---
+id: ew-architecture-appliance-model
+title: The Sovereign Appliance Model (Il Modello Mac Mini) 📦
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # The Sovereign Appliance Model (Il Modello Mac Mini) 📦
 
 > **"Smetti di affittare l'intelligenza. Comprala."**
@@ -49,3 +63,5 @@ Per permettere a EasyWay Inc. di gestire 100 o 1000 Appliance diverse:
 3.  **Zero Custom Code**: Non modifichiamo il PHP/code del cliente. Aggiorniamo il container.
 
 Questo garantisce che un aggiornamento di sicurezza possa essere pushato su 1000 server in un click.
+
+

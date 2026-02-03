@@ -22,7 +22,7 @@ llm:
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > 
 
 ## 1. Best Practices per la Riduzione Token e l’AI-Readiness
 
@@ -135,6 +135,8 @@ next: TODO - definire next step.
 - Come si garantisce la qualità, la governance e l’AI-readiness nel tempo?
 - Chi è responsabile di ogni fase?
 - Come si monitora l’avanzamento?
+
+
 
 
 

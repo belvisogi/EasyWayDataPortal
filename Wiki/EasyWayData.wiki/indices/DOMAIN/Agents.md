@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Index of all pages tagged with DOMAIN/Agents
 status: draft
+id: ew-indices-domain-agents
+title: 📄 Agents
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Agents|Agents]] > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[Domain - Agents|Agents]] > [[Layer - Index|Index]]
 
 # 📄 Agents
 
@@ -18,6 +26,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

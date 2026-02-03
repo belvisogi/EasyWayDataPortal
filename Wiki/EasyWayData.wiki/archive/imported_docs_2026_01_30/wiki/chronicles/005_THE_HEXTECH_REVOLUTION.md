@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-wiki-chronicles-005-the-hextech-revolution
+title: Chronicle 005: The Hextech Revolution
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Chronicle 005: The Hextech Revolution
 **Date**: 2026-01-28
 **Author**: Agent GEDI
@@ -36,3 +50,5 @@ EasyWay is no longer just a tool. It is an **Iron Man Suit** waiting for a pilot
 We have handed the keys of the suit to the user.
 
 *-- End of Log --*
+
+

@@ -1,3 +1,17 @@
+---
+id: ew-concept-strategy-2026
+title: EasyWay Strategy 2026: The Antifragile Appliance 🛡️
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # EasyWay Strategy 2026: The Antifragile Appliance 🛡️
 
 > **"Sovereignty is Choice. Scale is Uniformity."**
@@ -37,3 +51,6 @@ Non siamo talebani del "Solo Local" o "Solo Cloud". Siamo a **scala di grigi**.
 *   **Modular Mall**: Il contenuto è fluido, componibile e aperto al mercato.
 *   **Evolutionary**: Se esce una nuova AI su Cloud? La integriamo. Se esce un nuovo hardware locale? Lo supportiamo.
 > *"Ci adattiamo alle novità evolvendoci grazie a loro, non combattendole per uno status quo."*
+
+
+

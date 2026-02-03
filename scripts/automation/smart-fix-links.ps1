@@ -1,8 +1,11 @@
 param(
-    [string]$RepoRoot = Join-Path $PSScriptRoot "..\..",
-    [string]$WikiRoot = Join-Path $PSScriptRoot "..\..\Wiki\EasyWayData.wiki",
+    [string]$RepoRoot,
+    [string]$WikiRoot,
     [switch]$Apply
 )
+
+if (-not $RepoRoot) { $RepoRoot = Join-Path $PSScriptRoot "..\\.." }
+if (-not $WikiRoot) { $WikiRoot = Join-Path $PSScriptRoot "..\\..\\Wiki\\EasyWayData.wiki" }
 
 # Map of Filename -> Relative Path from RepoRoot (Canonical Location)
 $FileMap = @{
@@ -21,15 +24,19 @@ $FileMap = @{
     "palette_EasyWay.html"                = "docs/assets/palette_EasyWay.html"
     "SECURITY_FRAMEWORK.md"               = "docs/infra/SECURITY_FRAMEWORK.md"
     "SECURITY_AUDIT.md"                   = "docs/architecture/SECURITY_AUDIT.md"
-    "SECURITY_DEV_CHECKLIST.md"           = "docs/security/SECURITY_DEV_CHECKLIST.md" # Assuming this exists
-    "ai-security-guardrails.md"           = "docs/agentic/ai-security-guardrails.md"   # Explicit fix for security/ issue
+    "SECURITY_DEV_CHECKLIST.md"           = "docs/security/SECURITY_DEV_CHECKLIST.md"
+    "ai-security-guardrails.md"           = "docs/agentic/ai-security-guardrails.md"
     "ai-security-integration.md"          = "docs/agentic/ai-security-integration.md"
+    "ai-security-deployment.md"           = "docs/agentic/ai-security-deployment.md"
+    "ai-security-quickstart.md"           = "docs/agentic/ai-security-quickstart.md"
+    "ai-security-tests.md"                = "docs/agentic/ai-security-tests.md"
     "AI_SECURITY_STATUS.md"               = "docs/agentic/AI_SECURITY_STATUS.md"
     "SERVER_BOOTSTRAP_PROTOCOL.md"        = "docs/infra/SERVER_BOOTSTRAP_PROTOCOL.md"
     "ORACLE_CURRENT_ENV.md"               = "docs/infra/ORACLE_CURRENT_ENV.md"
     "ORACLE_QUICK_START.md"               = "docs/infra/ORACLE_QUICK_START.md"
     "ORACLE_ENV_DOC.md"                   = "docs/infra/ORACLE_ENV_DOC.md"
-    "agent-security-iam.md"               = "Wiki/EasyWayData.wiki/security/agent-security-iam.md" # Relative to repo root? No, Wiki is in Wiki/EasywayData.wiki. This is tricky. Let's stick to docs/ for now.
+    "agent-security-iam.md"               = "Wiki/EasyWayData.wiki/security/agent-security-iam.md"
+    "start-here.md"                       = "Wiki/EasyWayData.wiki/start-here.md"
 }
 
 # Obsidian to file map

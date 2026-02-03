@@ -16,11 +16,15 @@ entities: []---
 include: true
 summary: Obiettivi e principi per un portale totalmente agentico, usabile anche da non esperti.
 llm: 
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Spec|Spec]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > 
 
 ## Workflow agentici
 
@@ -106,6 +110,8 @@ Nota organizzativa sulla collocazione della documentazione UX
   - aggiungere qui i link diretti alle pagine UX già create (Wiki/UX/agentic-ux.md e Wiki/UX/agentic-ux-guidelines.md), e
   - creare una copia/trasferimento dei file nella directory Wiki/EasyWayData.wiki/UX/ per rendere il contenuto parte integrante della Wiki del progetto.
 - Raccomandazione pratica: per l'allenamento degli LLM mantieni una versione "canonica" nella Wiki principale e usa le copie di lavoro per bozze; versiona e marca la pagina canonica come "LLM‑readable" (es. aggiungendo meta JSON all'inizio del file) in modo che gli agenti sappiano quale file usare come fonte primaria.
+
+
 
 
 

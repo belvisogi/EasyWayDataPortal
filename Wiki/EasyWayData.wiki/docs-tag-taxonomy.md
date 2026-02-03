@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Vocabolario controllato per tag (domain/layer/audience/privacy/language) per migliorare ricerca, ridurre token e ridurre allucinazioni.
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -116,6 +119,7 @@ Esempi scope disponibili (casistiche):
 - [Best Practices & Roadmap – Token Tuning e AI-Readiness Universale](./best-practices-token-tuning-roadmap.md)
 - [Visione Portale Agentico](./agentic-portal-vision.md)
 - [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](./docs-conventions.md)
+
 
 
 

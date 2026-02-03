@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-verification-status
+title: ✅ VERIFICATION: Rules Update Status
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # ✅ VERIFICATION: Rules Update Status
 
 ## 📋 File .md Aggiornati con EXECUTION Logic
@@ -71,3 +85,5 @@ pwsh Rules/scripts/ai-context-refresh.ps1 -Compact
 
 **Verification Date**: 2026-01-12 20:03
 **All Rules Updated**: ✅ YES
+
+

@@ -6,6 +6,7 @@ status: draft
 owner: team-platform
 tags: [domain/docs, layer/orchestration, audience/dev, privacy/internal, language/it, obsidian, governance]
 llm:
+  redaction: [email, phone]
   include: true
   pii: none
   chunk_hint: 250-400
@@ -44,6 +45,7 @@ pwsh scripts/wiki-related-links.ps1 -WikiPath "Wiki/EasyWayData.wiki" -TopK 7 -A
 
 Rollback:
 - Ogni run salva backup in `out/wiki-related-links-apply/<runId>/` e un `apply-summary.json` con la lista file/backup.
+
 
 
 

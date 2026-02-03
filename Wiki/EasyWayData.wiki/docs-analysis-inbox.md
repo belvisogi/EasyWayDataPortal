@@ -12,6 +12,7 @@ llm:
   redaction: [email, phone]
 created: '2026-02-02'
 updated: '2026-02-02'
+entities: []
 ---
 
 [[start-here.md|Home]] > [[domains/docs-governance.md|Docs]] > Inbox
@@ -47,3 +48,4 @@ Questa pagina serve come **punto di raccolta (landing zone)** per tutto ciò che
 *Storico dei documenti elaborati e loro nuova posizione.*
 
 - [x] `dominio+dns.md` → Integrato in [[infrastructure/scelta-dominio-dns.md]] (2026-02-02)
+

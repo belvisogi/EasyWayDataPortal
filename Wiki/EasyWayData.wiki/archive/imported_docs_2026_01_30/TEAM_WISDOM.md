@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-team-wisdom
+title: EasyWay Team - Wisdom & Philosophy
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # EasyWay Team - Wisdom & Philosophy
 
 **Collection of motivational quotes, philosophical insights, and team mantras**
@@ -140,3 +154,5 @@
 **Status**: Living document - aggiungi citazioni memorabili dal team  
 **Owner**: Team EasyWay  
 **Updated**: 2026-01-25
+
+

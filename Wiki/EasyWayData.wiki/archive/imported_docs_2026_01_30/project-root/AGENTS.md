@@ -5,6 +5,12 @@ summary: Regole e obiettivi per agenti e umani. Tenere sempre allineato il porta
 owner: team-platform
 status: active
 tags: [agents, governance, language/it]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 Principio guida
@@ -99,3 +105,4 @@ Per ogni nuovo workflow o use case:
 - Enforcement CI (gates)
   - Il job `WhatFirstLint` verifica la presenza dei manifest WHAT (orchestrazioni, intents) e dei copioni UX.
   - Il job fallisce se mancano i file minimi richiesti o se i JSON non sono parse‑abili.
+

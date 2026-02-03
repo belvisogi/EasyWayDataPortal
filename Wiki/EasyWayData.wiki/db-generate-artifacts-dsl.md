@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Howto|Howto]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Howto|Howto]]
 
 Obiettivo
 - Partendo da un JSON mini-DSL, generare DDL tabella e SP (insert/update/delete) conformi agli standard EasyWay, pronti per Flyway.
@@ -94,6 +94,8 @@ Riferimenti
 - [LLM READINESS CHECKLIST](./llm-readiness-checklist.md)
 - [Datalake - Ensure Structure (Stub)](./datalake-ensure-structure.md)
 - [Datalake - Apply ACL (Stub)](./datalake-apply-acl.md)
+
+
 
 
 

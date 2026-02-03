@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-concepts-market-gap
+title: The Sovereign Gap: Perché siamo in pochi?
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # The Sovereign Gap: Perché siamo in pochi?
 
 Hai chiesto: *"Perché non lo fanno tutti?"*
@@ -27,3 +41,5 @@ C'è chi vuole la **Potenza di Palantir** (Dati Sovrani, Intelligenza privata) m
 **EasyWay** riempie questo vuoto.
 Noi stiamo impacchettando quella "Architettura da 50 DevOps" in una scatola che si installa con un click (`docker compose up`).
 Ecco perché sembra una "magia": stai portando tecnologia militare in un contesto civile.
+
+

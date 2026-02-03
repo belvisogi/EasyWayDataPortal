@@ -6,22 +6,17 @@ features:
   - autonomous
   - safe-commands
   - decision-tree
-tags:
-  - execution
-  - autonomous
-  - ai-assistant
-  - safe-to-auto-run
-priority: critical
-audience:
-  - ai-assistant
-script-refs:
-  - agent-ado-userstory.ps1
-  - show-last-export.ps1
-  - agent-docs-sync.ps1
-last-updated: 2026-01-12
-related:
-  - RULES_MASTER.md
-  - TASK_RULES.md
+entities: []
+tags: [execution, autonomous, ai-assistant, safe-to-auto-run]
+id: ew-archive-imported-docs-2026-01-30-agent-rules-execution-rules
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # ⚡ EXECUTION RULES - L'AI DEVE ESEGUIRE, NON SUGGERIRE
@@ -331,3 +326,6 @@ Con `// turbo`, l'AI auto-esegue TUTTI gli step.
 
 **Versione**: 4.0 (Autonomous Execution)
 **Data**: 2026-01-12
+
+
+

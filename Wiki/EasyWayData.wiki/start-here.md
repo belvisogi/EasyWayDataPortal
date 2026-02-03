@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB.
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -65,6 +68,7 @@ llm:
 ### ✍️ Authors
 > **gbelviso78** & **Antigravity/Codex/ChatGPT** (The Agents)
 > *"Ci adattiamo alle novità evolvendoci grazie a loro."*
+
 
 
 

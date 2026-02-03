@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Index of all pages tagged with DOMAIN/CAA
 status: draft
+id: ew-indices-domain-caa
+title: 📄 CAA
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - CAA|CAA]] > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[Domain - CAA|CAA]] > [[Layer - Index|Index]]
 
 # 📄 CAA
 
@@ -19,6 +27,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

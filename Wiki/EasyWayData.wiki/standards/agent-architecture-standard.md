@@ -8,6 +8,17 @@ audience:
   - agent-developers
   - system-architects
 last-updated: 2026-01-17
+id: ew-standards-agent-architecture-standard
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/spec, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # 🤖 Agent Architecture Standard
@@ -165,4 +176,5 @@ Il sistema caricherà automaticamente il **Provider** corretto (`AzureMemoryProv
 ---
 **Status**: Active  
 **Owner**: Platform Team
+
 

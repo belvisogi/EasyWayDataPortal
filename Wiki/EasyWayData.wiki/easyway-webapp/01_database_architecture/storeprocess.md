@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Reference|Reference]]
+[Home](.././start-here.md) > [[domains/db|db]] > 
 
 Standard SP
 - Parametri chiari (in/out), `@created_by` obbligatorio
@@ -36,6 +36,7 @@ Categorie principali
 
 Prossimi passi
 - Migrazioni dedicate per SP core e versioni debug
+
 
 
 

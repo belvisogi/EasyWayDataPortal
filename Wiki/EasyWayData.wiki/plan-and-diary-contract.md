@@ -14,7 +14,7 @@ entities: []
 updated: '2026-01-08'
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 
 
 # Contratto Plan + Diario di Bordo (Machine-readable)
 
@@ -53,6 +53,8 @@ Riferimenti
 - [Agents Registry (owner, domini, intent)](./control-plane/agents-registry.md)
 - [Orchestratore n8n (WHAT)](./orchestrations/orchestrator-n8n.md)
 - [Orchestrazione – wf.excel-csv-upload (WHAT)](./orchestrations/wf-excel-csv-upload.md)
+
+
 
 
 

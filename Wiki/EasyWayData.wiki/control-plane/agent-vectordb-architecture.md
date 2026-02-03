@@ -632,7 +632,7 @@ Cost: ~€0.50/month
 
 ### Wiki Correlate
 - [Agent Chat Interface](../UX/agent-chat-interface.md) - UI specification
-- [AI Security Guardrails](../../../docs/agentic/ai-security-guardrails.md) - Security layer
+- [AI Security Guardrails](../../../scripts/docs/agentic/ai-security-guardrails.md) - Security layer
 - [Multi-Agent Orchestration](./agent-orchestration-weighting.md) - Expert + Reviewer
 
 ### Technical Docs
@@ -650,6 +650,8 @@ Cost: ~€0.50/month
 **Status**: Design complete, implementation planned  
 **Priority**: HIGH (strategic direction)  
 **Next**: Phase 2 kickoff (Vector DB setup)
+
+
 
 
 

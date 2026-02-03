@@ -10,11 +10,15 @@ entities: []
 include: true
 summary: Sistema gerarchico di scopes e bundles per retrieval mirato, enforcement CI graduale e context loading ottimizzato per agents/n8n.
 llm: 
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Reference|Reference]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > 
 
 # Tag Scopes & Retrieval Bundles (Gerarchia)
 
@@ -540,6 +544,8 @@ pwsh scripts/wiki-scopes-audit.ps1 -FindOrphans
 - [Orchestrator n8n - Dispatch & Workflow](./orchestrations/orchestrator-n8n.md)
 - [Documentazione Agentica - Audit & Policy](./docs-agentic-audit.md)
 - [Retrieval Bundles - Mapping Intent → Context](./orchestrations/n8n-retrieval-bundles.md) (se esiste)
+
+
 
 
 

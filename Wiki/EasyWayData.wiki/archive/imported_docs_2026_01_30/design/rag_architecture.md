@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-design-rag-architecture
+title: Sovereign Data Architecture: "The Knowledge Loop"
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Sovereign Data Architecture: "The Knowledge Loop"
 
 ## 1. The Value Proposition ("A cosa aiuta?")
@@ -68,3 +82,5 @@ Noi ci mettiamo **sopra**.
 
 ## Conclusion
 Finisce che EasyWay diventa l'unica interfaccia necessaria per **trovare** e **capire** i dati aziendali. I dati restano dove sono (o in MinIO), ma l'intelligenza è centralizzata.
+
+

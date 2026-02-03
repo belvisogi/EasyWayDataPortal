@@ -17,7 +17,7 @@ llm:
   include: true
   chunk_hint: 5000---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 
 
 Obiettivo
 - Rendere la proposta di checklist una metodologia comune a TUTTI gli agenti, ridurre “alert fatigue” e proporre checklists solo quando serve, con regole per‑agente parametriche.
@@ -66,6 +66,7 @@ Riferimenti
 - [Agent ScrumMaster – Single Owner, Multi‑Agent](./agents-scrummaster.md)
 - [Metodo di Lavoro Agent‑First](./agent-first-method.md)
 - [Governance DQ – RACI, Processi e Checklist](./governance-dq.md)
+
 
 
 

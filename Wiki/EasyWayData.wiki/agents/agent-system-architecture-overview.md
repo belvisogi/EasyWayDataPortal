@@ -11,6 +11,14 @@ related:
   - [[agents-governance]]
   - [[agent-architecture-standard]]
   - [[agentic-portal-vision]]
+id: ew-agents-agent-system-architecture-overview
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # 🤖 Agent System Architecture - Complete Overview
@@ -488,7 +496,7 @@ try {
 ### Operations
 
 - [Agent Orchestration Weighting](control-plane/agent-orchestration-weighting.md)
-- [Agent Security IAM](../security/agent-security-iam.md)
+- [Agent Security IAM](../../../scripts/Wiki/EasyWayData.wiki/security/agent-security-iam.md)
 - [Agent Runtime Lifecycle](concept/agent-runtime-lifecycle.md)
 
 ---
@@ -663,4 +671,6 @@ Per aggiungere un nuovo agente:
 **Autore**: Agent System Team  
 **Status**: ✅ Production Ready  
 **Presentazione**: ⭐ Executive Overview
+
+
 

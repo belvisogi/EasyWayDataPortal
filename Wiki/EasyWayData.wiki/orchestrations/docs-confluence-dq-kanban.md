@@ -6,6 +6,7 @@ status: draft
 owner: team-platform
 tags: [domain/docs, layer/orchestration, audience/dev, privacy/internal, language/it, confluence, dq, kanban, governance]
 llm:
+  redaction: [email, phone]
   include: true
   pii: none
   chunk_hint: 250-400
@@ -54,6 +55,7 @@ Per scrivere davvero (solo dopo approvazione):
 ```powershell
 pwsh scripts/confluence-dq-board.ps1 -IntentPath "scripts/intents/docs-dq-confluence-cloud-001.json" -Export -UpdateBoard -WhatIf:$false
 ```sql
+
 
 
 

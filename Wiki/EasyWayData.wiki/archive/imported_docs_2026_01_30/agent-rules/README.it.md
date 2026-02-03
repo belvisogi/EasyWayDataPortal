@@ -6,21 +6,17 @@ features:
   - overview
   - getting-started
   - architecture
-tags:
-  - reference
-  - overview
-  - kernel
-  - agents
-  - ado
-priority: high
-audience:
-  - developer
-  - architect
-script-refs: []
-last-updated: 2026-01-12
-related:
-  - RULES_MASTER.md
-  - EXECUTION_RULES.md
+entities: []
+tags: [reference, overview, kernel, agents, ado]
+id: ew-archive-imported-docs-2026-01-30-agent-rules-readme-it
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 ---
 
 # Axet Agent Kernel
@@ -666,6 +662,9 @@ out/devops/20260111215504_ado-export.csv
 Se aggiungi nuovi tag/progetti ADO, aggiorna:
 1. `Rules/ADO_EXPORT_GUIDE.md` (esempi)
 2. `Rules.Vault/agents/kb/recipes.jsonl` (nuove recipe)
+
+
+
 
 
 

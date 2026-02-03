@@ -6,9 +6,15 @@ summary: Suggerimenti concreti per migliorare la navigabilità, la praticità e 
 status: draft
 owner: team-platform
 updated: '2026-01-06'
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](./start-here.md)
 
 # 🧩 Suggerimenti mirati: cross-link, FAQ mancanti, edge-case, automation
 
@@ -39,6 +45,7 @@ Questa tabella suggerisce punti pratici in cui arricchire la kb repo EasyWay con
 **Nota:** ogni patch può essere proposta via PR, segnalata come TODO o automatizzata con agent_docs_review/test-all.
 
 Suggerisci altri punti pratici via issue o PR!
+
 
 
 

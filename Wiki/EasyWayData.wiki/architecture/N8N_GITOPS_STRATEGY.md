@@ -1,3 +1,17 @@
+---
+id: ew-architecture-n8n-gitops-strategy
+title: n8n GitOps Strategy: "The Workflow Factory" 🏭
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # n8n GitOps Strategy: "The Workflow Factory" 🏭
 
 ## 1. Governance & Separation
@@ -111,3 +125,5 @@ Is this "Fortune 500" ready? **Not yet.** It's "Scale-Up" ready.
 ### Final Verdict: "Solid Mid-Market Architecture" 🏆
 This architecture is robust, version-controlled, and consistent. It prevents 90% of failures.
 To reach "Enterprise", we just need to automate the `git pull` (CI/CD) and add Workers (HA).
+
+

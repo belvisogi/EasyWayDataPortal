@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Reference|Reference]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 
 
 Principi
 - Niente valori hardcoded: tutto parametrizzabile via env, YAML o Variable Group.
@@ -43,6 +43,8 @@ Flyway & Terraform
 Esempi
 - Pipeline: `- template: ci/versions.yml` per versioni; `condition: eq(variables['ENABLE_*'],'true')` per gates.
 - API: `app.use(process.env.PORTAL_BASE_PATH || '/portal', portalRoutes)`; `withTenantContext` usa `RLS_CONTEXT_ENABLED`.
+
+
 
 
 

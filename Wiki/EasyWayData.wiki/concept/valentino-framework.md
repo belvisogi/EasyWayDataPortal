@@ -8,8 +8,11 @@ created: '2026-02-03'
 updated: '2026-02-03'
 tags: [domain/frontend, layer/core, privacy/internal, language/it]
 llm:
+  pii: none
+  redaction: [email, phone]
   include: true
   chunk_hint: 500-800
+entities: []
 ---
 
 # 🌹 The Valentino Framework
@@ -77,3 +80,4 @@ Il framework include un modello di deployment **User-Space**:
 
 ---
 *Vedi anche*: [[concept/history|Storia del Progetto]], [[domain/frontend|Dominio Frontend]]
+

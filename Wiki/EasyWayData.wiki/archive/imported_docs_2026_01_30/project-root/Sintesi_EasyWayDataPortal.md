@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-project-root-sintesi-easywaydataportal
+title: Sintesi — EasyWay Data Portal
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Sintesi — EasyWay Data Portal
 
 ## Descrizione Generale
@@ -46,3 +60,5 @@ EasyWay Data Portal è una piattaforma dati multi-tenant, API-first, progettata 
 ---
 
 Per ulteriori dettagli, consultare la documentazione ufficiale e la Wiki del progetto.
+
+

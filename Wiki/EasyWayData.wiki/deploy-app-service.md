@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Runbook|Runbook]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 
 
 ## Obiettivo
 - Descrivere come eseguire il deploy dell’API EasyWay su Azure App Service usando la pipeline ADO, con variabili/toggle e mapping App Settings.
@@ -177,6 +177,8 @@ Snippet alternativi (riuso rapido)
   // ... (vedi starter JSON sopra)
 ]
 ```sql
+
+
 
 
 

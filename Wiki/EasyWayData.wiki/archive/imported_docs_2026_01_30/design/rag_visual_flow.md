@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-design-rag-visual-flow
+title: Anatomy of a Thought: The EasyWay Data Flow 🧠
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Anatomy of a Thought: The EasyWay Data Flow 🧠
 
 ## 1. The Components (Il Trio)
@@ -58,3 +72,5 @@ Sì.
 *   **Data Lake (MinIO)**: Tiene i file interi. Pesante.
 *   **RAG DB (Chroma)**: Tiene i concetti. Leggerissimo.
 Lavorano insieme: Chroma dice *dove* guardare, MinIO *ha* il contenuto.
+
+

@@ -15,7 +15,7 @@ updated: '2026-01-06'
 next: Completare descrizioni colonne e policy (PII/RLS) per tutte le tabelle.
 ---
 
-[Home](../../../../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/db|db]] > [[Layer - Index|Index]]
+[Home](../../../.././start-here.md) > [[domains/db|db]] > [[Layer - Index|Index]]
 
 # PORTAL — Tables (Blueprint)
 
@@ -47,6 +47,7 @@ next: Completare descrizioni colonne e policy (PII/RLS) per tutte le tabelle.
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 
 

@@ -6,16 +6,13 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
+entities: []
+tags: [layer/reference, privacy/internal, language/it]
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
 ---
 # 📜 The Chronicles of EasyWay
 
@@ -157,3 +154,6 @@ entities: []
     *   **Sovereign Deployment**: Superato il blocco "No Sudo" inventando un modello di deployment User-Space (Python + Cron) che garantisce autonomia totale dall'infrastruttura sottostante.
 *   **Significance**: *"Non abbiamo solo deployato codice. Abbiamo deployato un sistema immunitario."*
 *   **Quote**: *"Il sistema si difende da solo. Non è solo robusto, è Antifragile."* - Manifesto Valentino, Capitolo 6.
+
+
+

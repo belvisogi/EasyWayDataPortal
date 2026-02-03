@@ -10,11 +10,15 @@ entities: []
 include: false
 summary: Indice dei file archiviati/non-canonici spostati in old/ per ridurre rumore, token e ambiguità nel retrieval.
 llm: 
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+[Home](./start-here.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
 
 # Archivio (old/)
 
@@ -34,6 +38,7 @@ Questa cartella contiene **backup/varianti non canoniche** tenute solo per recup
 - Dove sono i documenti principali collegati?
 - Come verificare naming e ancore per questa cartella?
 - Dove trovare entità e guide correlate?
+
 
 
 

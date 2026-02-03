@@ -65,8 +65,10 @@ Riferimenti
 - [API RBAC Configure (WHAT)](./api-rbac-configure.md)
 - [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
 - [Predeploy Checklist (WHAT)](./predeploy-checklist.md)
-- [Agent Security (IAM/KeyVault) - overview](../security/agent-security-iam.md)
+- [Agent Security (IAM/KeyVault) - overview](../../../scripts/Wiki/EasyWayData.wiki/security/agent-security-iam.md)
 - [n8n API Error Triage](./n8n-api-error-triage.md)
+
+
 
 
 

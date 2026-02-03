@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-archive-diaries-diario-di-bordo-20260127
+title: 📔 DIARIO DI BORDO - 2026-01-27
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 📔 DIARIO DI BORDO - 2026-01-27
 
 > **"Averlo fatto è una figata."** - *Commander* (03:56)
@@ -60,3 +74,5 @@ sudo docker network prune -f               # Rimuove network zombie
 
 **Q: Devo farlo su ogni nuovo server?**
 *A: No. Solo se stai migrando da un'installazione "sporca" o manuale a una gestita. Su un server vergine, lo script `setup-easyway-server.sh` funziona al primo colpo.*
+
+

@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agentic-ai-security-integration
+title: AI Security Guardrails - Orchestrator Integration
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # AI Security Guardrails - Orchestrator Integration
 
 ## 🎯 Goal
@@ -271,3 +285,5 @@ git revert <commit-hash>
 **Status**: Integration guide complete  
 **Next**: Update orchestrator and agent scripts  
 **Priority**: HIGH - Complete before Expert+Reviewer goes live
+
+

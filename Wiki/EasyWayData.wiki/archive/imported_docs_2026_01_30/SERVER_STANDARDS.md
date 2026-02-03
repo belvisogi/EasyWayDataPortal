@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-server-standards
+title: Standard di Organizzazione Server EasyWay
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Standard di Organizzazione Server EasyWay
 
 > Questo documento definisce lo standard per utenti, gruppi e struttura delle directory sui server EasyWay (Oracle Cloud / On-Premise).
@@ -110,3 +124,5 @@ sudo chown -R easyway:easyway /var/log/easyway
 # 4. Link simbolico per facilità (Opzionale)
 sudo ln -s /opt/easyway /home/easyway/app
 ```
+
+

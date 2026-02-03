@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > [[Layer - Reference|Reference]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/datalake|datalake]] > 
 
 # ETL/ELT – Inspirations
 Breadcrumb: Home / Datalake / ETL Inspirations
@@ -41,6 +41,8 @@ Mapping verso EasyWay
 Prossimi passi
 - Compilare le pagine “ETL – DQ Framework” e “ETL – Table Log Model” con le decisioni derivate.
 - Allineare ricette KB per bootstrap DQ e logging.
+
+
 
 
 

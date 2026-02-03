@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agentic-templates-sheets-readme
+title: Sheet templates (Excel-friendly)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Sheet templates (Excel-friendly)
 
 Questi template sono CSV apribili in Excel e servono per compilare in modo semplice (flag standard) una richiesta di creazione tabella.
@@ -45,3 +59,5 @@ pwsh scripts/db-table-template-xlsx.ps1
 ```powershell
 pwsh scripts/access-registry-template-xlsx.ps1
 ```
+
+

@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-mcp-protocol
+title: 🌐 MCP Protocol Specification - Axet Implementation
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🌐 MCP Protocol Specification - Axet Implementation
 
 **Version**: 1.0  
@@ -268,3 +282,5 @@ ado-server v1.2.3
 
 **Compliance**: ✅ 100% MCP-compatible  
 **Status**: Production ready
+
+

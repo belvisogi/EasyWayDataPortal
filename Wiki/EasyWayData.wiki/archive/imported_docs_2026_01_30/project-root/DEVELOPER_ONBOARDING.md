@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-project-root-developer-onboarding
+title: Developer Onboarding (Agent‑Ready)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Developer Onboarding (Agent‑Ready)
 
 Questo progetto è pensato per essere mantenuto al 100% in modo agentico. Di seguito i passi minimi, completamente scriptabili e riusabili su altri progetti.
@@ -41,4 +55,6 @@ Dual-mode (approfondimento)
 Note agentiche
 - Tutte le decisioni sono codificate in file sotto version control (OpenAPI, SQL, pipeline).
 - Gli script sono idempotenti e ri-eseguibili senza frizioni.
+
+
 

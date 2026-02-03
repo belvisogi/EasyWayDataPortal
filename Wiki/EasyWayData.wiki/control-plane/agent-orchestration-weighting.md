@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Sistema di orchestrazione multi-agent con weighting qualità-focused, peer review a tavola rotonda, eliminazione outlier e 5-question framework per decision making robusto.
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -896,6 +899,7 @@ Altrimenti: **stay con Expert + Reviewer**.
 **Status**: RECOMMENDED APPROACH (2026-01-13)  
 **Owner**: team-platform  
 **Next Review**: 2026-07-01 (6 months)
+
 
 
 

@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Index of all pages tagged with ARTIFACT/Blueprint
 status: draft
+id: ew-indices-artifact-blueprint
+title: 📄 Blueprint
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[Layer - Index|Index]]
 
 # 📄 Blueprint
 
@@ -18,6 +26,7 @@ status: draft
 ---
 
 [⬆️ Back to ARTIFACT](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

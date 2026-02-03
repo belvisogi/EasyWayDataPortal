@@ -14,7 +14,7 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]
 
 # LLM Readiness – Lista Semplice (Per Persone e AI)
 
@@ -99,6 +99,8 @@ Il report ancore è in EasyWayData.wiki/logs/reports/anchors-*.md.
 - Controlla che l'output atteso (file generati, risorse create/aggiornate, response API) sia presente e coerente.
 - Verifica log/artifact e, se previsto, che i gate (Checklist/Drift/KB) risultino verdi.
 - Se qualcosa fallisce, raccogli errori e contesto minimo (command line, parametri, correlationId) prima di riprovare.
+
+
 
 
 

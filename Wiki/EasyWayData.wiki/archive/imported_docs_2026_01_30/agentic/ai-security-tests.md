@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agentic-ai-security-tests
+title: AI Security Guardrails - Test Suite
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # AI Security Guardrails - Test Suite
 
 ## ✅ Layer 1: Input Validation Tests
@@ -110,3 +124,5 @@ Before using in Expert +Reviewer:
 **Status**: Layer 1, 2, 4 implemented and tested  
 **Next**: Layer 3 (Output validation), Layer 5 (Audit)  
 **Priority**: HIGH - complete before Expert+Reviewer goes live
+
+

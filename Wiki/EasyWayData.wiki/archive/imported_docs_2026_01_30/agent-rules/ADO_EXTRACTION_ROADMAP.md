@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-ado-extraction-roadmap
+title: 📊 ADO Extraction Roadmap - Possibili Estrazioni
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 📊 ADO Extraction Roadmap - Possibili Estrazioni
 
 **Date**: 2026-01-13  
@@ -411,3 +425,5 @@ GET .../pullrequests?searchCriteria.status=active
 **Total Possible Extractions**: ~15-20 tipologie  
 **Currently Covered**: ~7-8 (40%)  
 **High Priority Gap**: Test Management, Pull Requests
+
+

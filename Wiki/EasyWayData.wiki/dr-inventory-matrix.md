@@ -14,7 +14,7 @@ entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
 ---
-[Home](../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Blueprint|Blueprint]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Blueprint|Blueprint]]
 
 # DR — Inventory & matrice componente → RTO / RPO
 
@@ -79,6 +79,8 @@ Se vuoi, genero subito il file CSV fisico nella wiki (Wiki/EasyWayData.wiki/DR_I
 - [Integrare le best-practice ADA in EasyWayDataPortal](./easyway-webapp/02_logiche_easyway/integrate-ada-best-practices.md)
 - [Deployment decision (MVP) — EasyWay Data Portal](./deployment-decision-mvp.md)
 - [EasyWay Data Portal — Onboarding & Architettura (Sintesi Unificata)](./onboarding-architettura.md)
+
+
 
 
 

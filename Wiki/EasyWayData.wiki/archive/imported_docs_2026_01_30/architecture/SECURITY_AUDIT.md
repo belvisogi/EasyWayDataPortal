@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-architecture-security-audit
+title: Security Audit Report: ewctl Architecture
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Security Audit Report: ewctl Architecture
 
 **Date**: 2026-01-25
@@ -36,3 +50,5 @@ The "Kernel" acts as a robust sandbox, ensuring that individual modules cannot p
 1.  **Maintain Strict Kernel**: Do not allow `Invoke-Expression` to sneak back in.
 2.  **Audit New Modules**: Ensure no module uses `Start-Process` with user input.
 3.  **Agent Firewall**: When consuming `ewctl` output, the receiving Agent should separate "System Instructions" from "Tool Output" to prevent semantic injection.
+
+

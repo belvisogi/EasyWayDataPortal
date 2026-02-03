@@ -1,3 +1,17 @@
+---
+id: ew-runbooks-release-checklist
+title: EasyWay Core - Release Checklist (QA Protocol)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # EasyWay Core - Release Checklist (QA Protocol)
 *Standard Operating Procedure for dispensing Sovereign Quality.*
 
@@ -30,3 +44,6 @@ Run `.\scripts\qa\pre-flight-check.ps1` to verify:
 
 ---
 *Verified by:* `____________________`  *Date:* `__/__/____`
+
+
+

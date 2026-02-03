@@ -6,9 +6,15 @@ summary: Linee guida essenziali per scrivere/gestire script agentici portabili n
 status: draft
 owner: team-platform
 updated: '2026-01-06'
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md)
+[Home](./start-here.md)
 
 # Best Practice Scripting (PowerShell, Bash, Node.js, Linux/Windows)
 
@@ -69,5 +75,6 @@ if ($PSVersionTable.Platform -ne "Unix" -and $env:OS -eq $null) {
 ```sql
 
 **Se trovi uno script poco portabile, crea una issue o PR di suggestion!**
+
 
 

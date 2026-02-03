@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Linea guida canonica per segregare repo (evoluzione), knowledge vettoriale (lettura n8n/LLM) e runtime (esecuzione con segreti).
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -107,10 +110,12 @@ flowchart LR
 ## Vedi anche
 
 - [Agents Registry (owner, domini, intent)](./agents-registry.md)
-- [Agent Security (IAM/KeyVault) - overview](../security/agent-security-iam.md)
+- [Agent Security (IAM/KeyVault) - overview](../../../scripts/Wiki/EasyWayData.wiki/security/agent-security-iam.md)
 - [Roadmap agent (retrieval, observability, infra, backend, release)](./agents-missing-roadmap.md)
 - [Control Plane - Panoramica](./index.md)
 - [Agents Manifest Audit (gap list)](./agents-manifest-audit.md)
+
+
 
 
 

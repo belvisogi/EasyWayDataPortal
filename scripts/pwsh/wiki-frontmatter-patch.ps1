@@ -5,7 +5,7 @@ param(
   [string]$ScopeName = "",
   [string]$Owner = "team-platform",
   [string]$Status = "draft",
-  [string[]]$DefaultTags = @('docs','privacy/internal','language/it'),
+  [string[]]$DefaultTags = @('docs', 'privacy/internal', 'language/it'),
   [string]$ChunkHint = "250-400",
   [switch]$EnsureDraftHygiene,
   [string]$DefaultNext = "TODO - definire next step.",
@@ -29,15 +29,21 @@ if ($ExcludePaths.Count -eq 1 -and $ExcludePaths[0] -match ',') {
 }
 
 function New-KebabId {
-  param([string]$Root,[string]$File)
+  param([string]$Root, [string]$File)
   $abs = (Resolve-Path -LiteralPath $File).Path
   $rootPath = (Resolve-Path -LiteralPath $Root).Path
-  $rel = $abs.Substring($rootPath.Length).TrimStart('/',[char]92)
-  $rel = $rel.Replace([char]92,'/').ToLowerInvariant()
+  $rel = $abs.Substring($rootPath.Length).TrimStart('/', [char]92)
+  $rel = $rel.Replace([char]92, '/').ToLowerInvariant()
   $name = [System.IO.Path]::GetFileNameWithoutExtension($rel)
-  $dir = [System.IO.Path]::GetDirectoryName($rel).Replace('\\','/').Replace('/','-')
+  $dir = [System.IO.Path]::GetDirectoryName($rel)
+  if ($dir) {
+    $dir = $dir.Replace('\\', '/').Replace('/', '-')
+  }
+  else {
+    $dir = ""
+  }
   $raw = if ([string]::IsNullOrWhiteSpace($dir)) { $name } else { "$dir-$name" }
-  $raw = ($raw -replace "[^a-z0-9]+","-").Trim('-')
+  $raw = ($raw -replace "[^a-z0-9]+", "-").Trim('-')
   return "ew-$raw"
 }
 
@@ -46,10 +52,10 @@ function Get-FirstHeadingOrName {
   $lines = Get-Content -LiteralPath $File -TotalCount 50
   foreach ($l in $lines) {
     if ($l.Trim().StartsWith('#')) {
-      return ($l -replace '^#+\s*','').Trim()
+      return ($l -replace '^#+\s*', '').Trim()
     }
   }
-  return ([System.IO.Path]::GetFileNameWithoutExtension($File) -replace '[_\-]+',' ')
+  return ([System.IO.Path]::GetFileNameWithoutExtension($File) -replace '[_\-]+', ' ')
 }
 
 function Normalize-YamlScalar {
@@ -113,10 +119,51 @@ function Is-Excluded {
 
 function Get-RelPath {
   param([string]$Root, [string]$FullName)
-  $rootFull = (Resolve-Path -LiteralPath $Root).Path
-  $full = (Resolve-Path -LiteralPath $FullName).Path
-  $rel = $full.Substring($rootFull.Length).TrimStart('/',[char]92)
-  return $rel.Replace([char]92,'/')
+  Write-Host "TRACE: Get-RelPath Root='$Root' FullName='$FullName'"
+  $r = Resolve-Path -LiteralPath $Root
+  if (-not $r) { throw "Root not found: $Root" }
+  $rootFull = $r.Path
+  
+  $f = Resolve-Path -LiteralPath $FullName
+  if (-not $f) { throw "File not found: $FullName" }
+  $full = $f.Path
+  
+  if ($null -eq $rootFull) { throw "Start is null" }
+  if ($null -eq $full) { throw "Full is null" }
+  
+  $rel = $full.Substring($rootFull.Length).TrimStart('/', [char]92)
+  return $rel.Replace([char]92, '/')
+}
+
+function Suggest-Facets {
+  param([string]$WikiPath)
+  Write-Host "TRACE: Suggest-Facets input='$WikiPath'"
+  if ($null -eq $WikiPath) { return New-Object System.Collections.Generic.List[string] }
+  $rel = '/' + $WikiPath.Replace('\', '/').TrimStart('/')
+  $s = New-Object System.Collections.Generic.List[string]
+
+  if ($rel -match '/orchestrations/') { $s.Add('domain/control-plane'); $s.Add('layer/orchestration') }
+  elseif ($rel -match '/control-plane/') { $s.Add('domain/control-plane'); $s.Add('layer/reference') }
+  elseif ($rel -match '/domains/') {
+    $s.Add('layer/reference')
+    if ($rel -match '/domains/db\.md$') { $s.Add('domain/db') }
+    elseif ($rel -match '/domains/datalake\.md$') { $s.Add('domain/datalake') }
+    elseif ($rel -match '/domains/frontend\.md$') { $s.Add('domain/frontend') }
+    elseif ($rel -match '/domains/docs-governance\.md$') { $s.Add('domain/docs') }
+    else { $s.Add('domain/docs') }
+  }
+  elseif ($rel -match '/UX/') { $s.Add('domain/ux'); $s.Add('layer/spec') }
+  elseif ($rel -match '/blueprints/') { $s.Add('domain/docs'); $s.Add('layer/blueprint') }
+  elseif ($rel -match '/start-here\.md$') { $s.Add('domain/docs'); $s.Add('layer/index') }
+  elseif ($rel -match '/security/') { $s.Add('domain/security'); $s.Add('layer/spec') }
+  elseif ($rel -match '/standards/') { $s.Add('domain/docs'); $s.Add('layer/spec') }
+  elseif ($rel -match '/use-cases/') { $s.Add('domain/docs'); $s.Add('layer/intent') }
+  else { $s.Add('domain/docs'); $s.Add('layer/reference') }
+
+  $s.Add('privacy/internal')
+  $s.Add('language/it')
+  $s.Add('audience/dev')
+  return $s
 }
 
 function Read-Json {
@@ -141,10 +188,11 @@ function Is-InScope {
   foreach ($e in $ScopeEntries) {
     $p = [string]$e
     if (-not $p) { continue }
-    $p = $p.Replace('\\','/')
+    $p = $p.Replace('\\', '/')
     if ($p.EndsWith('/')) {
       if ($RelPath.StartsWith($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
-    } else {
+    }
+    else {
       if ($RelPath.Equals($p, [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
     }
   }
@@ -155,11 +203,18 @@ function Ensure-FrontMatter {
   param([string]$File)
 
   $text = Get-Content -LiteralPath $File -Raw
+  if ($null -eq $text) { $text = "" }
 
   $id = New-KebabId -Root $Path -File $File
   $title = Get-FirstHeadingOrName -File $File
   $defaultSummary = 'TODO - aggiungere un sommario breve.'
-  $tagsYaml = "[" + ($DefaultTags -join ', ') + "]"
+  
+  Write-Host "DEBUG: Processing $File"
+  $relPath = Get-RelPath -Root $Path -FullName $File
+  if (-not $relPath) { Write-Host "ERROR: RelPath is null for $File"; return @{ action = 'error'; changed = $false } }
+  
+  $suggested = Suggest-Facets -WikiPath $relPath
+  $tagsYaml = "[" + ($suggested -join ', ') + "]"
 
   if ($FixPlaceholderSummary) {
     $defaultSummary = Quote-YamlSingle (Build-SummaryFromTitle -Title $title)
@@ -183,13 +238,13 @@ entities: []
 ---
 
 "@
-    return @{ action='inserted'; changed=$true; content=($fm + $text) }
+    return @{ action = 'inserted'; changed = $true; content = ($fm + $text) }
   }
 
   $m = [regex]::Match($text, '^(---\r?\n)(?<fm>.*?)(\r?\n---\r?\n)(?<rest>.*)$', [System.Text.RegularExpressions.RegexOptions]::Singleline)
   if (-not $m.Success) {
     if (-not $ForceReplaceUnterminated) {
-      return @{ action='skip_unterminated'; changed=$false }
+      return @{ action = 'skip_unterminated'; changed = $false }
     }
     $fm = @"
 ---
@@ -208,7 +263,7 @@ entities: []
 ---
 
 "@
-    return @{ action='replaced_unterminated'; changed=$true; content=($fm + $text) }
+    return @{ action = 'replaced_unterminated'; changed = $true; content = ($fm + $text) }
   }
 
   $fmBlock = $m.Groups['fm'].Value
@@ -357,38 +412,49 @@ entities: []
   $newFm = ($outLines -join "`n").TrimEnd() + "`n"
   $newText = "---`n" + $newFm + "---`n" + $rest
 
-  if ($newText -eq $text) { return @{ action='present'; changed=$false } }
-  return @{ action='patched'; changed=$true; content=$newText }
+  if ($newText -eq $text) { return @{ action = 'present'; changed = $false } }
+  return @{ action = 'patched'; changed = $true; content = $newText }
 }
 
-$excludePrefixes = Resolve-ExcludePrefixes -Root $Path -Exclude $ExcludePaths
+$excludePrefixes = @(Resolve-ExcludePrefixes -Root $Path -Exclude $ExcludePaths)
 $scopeEntries = Load-ScopeEntries -ScopesPath $ScopesPath -ScopeName $ScopeName
 $results = @()
 
-Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md | Where-Object { -not (Is-Excluded -FullName ($_.FullName) -Prefixes $excludePrefixes) } | ForEach-Object {
-  $res = Ensure-FrontMatter -File $_.FullName
-  $rel = Get-RelPath -Root $Path -FullName $_.FullName
-  if (-not (Is-InScope -RelPath $rel -ScopeEntries $scopeEntries)) { return }
+Write-Host "DEBUG: ExcludePrefixes count=$($excludePrefixes.Count)"
+
+$files = Get-ChildItem -LiteralPath $Path -Recurse -Filter *.md 
+foreach ($fItem in $files) {
+  if (-not $fItem) { continue }
+  if (-not $fItem.FullName) { continue }
+  
+  if (Is-Excluded -FullName $fItem.FullName -Prefixes $excludePrefixes) { continue }
+  
+  $res = Ensure-FrontMatter -File $fItem.FullName
+  $rel = Get-RelPath -Root $Path -FullName $fItem.FullName
+  if (-not (Is-InScope -RelPath $rel -ScopeEntries $scopeEntries)) { continue }
+  
   $entry = @{ file = $rel; rel = $rel; action = $res.action; changed = [bool]$res.changed }
-  if ($IncludeFullPath) { $entry.fullPath = $_.FullName }
+  if ($IncludeFullPath) { $entry.fullPath = $fItem.FullName }
+  
   if ($Apply -and $res.changed -and $res.content) {
-    Set-Content -LiteralPath $_.FullName -Value $res.content -Encoding utf8
+    Set-Content -LiteralPath $fItem.FullName -Value $res.content -Encoding utf8
     $entry.applied = $true
-  } else {
+  }
+  else {
     $entry.applied = $false
   }
-$results += $entry
+  $results += $entry
 }
 
 $summary = @{
-  applied = [bool]$Apply
-  excluded = $ExcludePaths
-  scopesPath = $ScopesPath
-  scopeName = $ScopeName
-  ensureDraftHygiene = [bool]$EnsureDraftHygiene
+  applied               = [bool]$Apply
+  excluded              = $ExcludePaths
+  scopesPath            = $ScopesPath
+  scopeName             = $ScopeName
+  ensureDraftHygiene    = [bool]$EnsureDraftHygiene
   fixPlaceholderSummary = [bool]$FixPlaceholderSummary
-  includeFullPath = [bool]$IncludeFullPath
-  results = $results
+  includeFullPath       = [bool]$IncludeFullPath
+  results               = $results
 }
 $json = $summary | ConvertTo-Json -Depth 6
 Set-Content -LiteralPath $SummaryOut -Value $json -Encoding utf8

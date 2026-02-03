@@ -15,7 +15,7 @@ llm:
 entities: []
 next: Verificare allineamento sezioni.
 ---
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+[Home](./start-here.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
 
 # Prefazione – EasyWay Data Portal  
 ## Guida alla Documentazione Funzionale e Architetturale
@@ -59,6 +59,7 @@ La struttura e le macro-sezioni sono state definite in modo da coprire tutti gli
 
 **Tutte le scelte qui documentate sono alla base dello sviluppo della piattaforma e saranno mantenute allineate a ogni evoluzione del progetto.**  
 **Ogni sezione è pronta per essere esportata, integrata o sviluppata secondo lo standard “ready for code”.**
+
 
 
 

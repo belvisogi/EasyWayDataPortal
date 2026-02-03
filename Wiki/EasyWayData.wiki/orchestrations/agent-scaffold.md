@@ -9,8 +9,11 @@ updated: 2026-01-07
 next: Aggiungere una checklist o next step esplicito (es. output atteso + verify + rollback).
 
 llm:
+  pii: none
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
+entities: []
 ---
 
 [[../start-here.md|Home]]
@@ -75,6 +78,7 @@ llm:
 - [Orchestratore n8n (WHAT)](./orchestrator-n8n.md)
 - [Control Plane - Panoramica](../control-plane/index.md)
 - [Orchestrations - Intents Catalog (Globale)](./intents-catalog-global.md)
+
 
 
 

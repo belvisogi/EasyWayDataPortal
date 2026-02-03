@@ -6,16 +6,13 @@ status: draft
 owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
-tags:
-  - layer/reference
-  - privacy/internal
-  - language/it
+entities: []
+tags: [layer/reference, privacy/internal, language/it]
 llm:
   include: true
   pii: none
-  chunk_hint: 400-600
+  chunk_hint: 250-400
   redaction: [email, phone]
-entities: []
 ---
 # 🧠 L'Evoluzione Architetturale di EasyWay
 > *Il percorso intuitivo verso un Sistema Multi-Agente Senziente.*
@@ -73,3 +70,6 @@ Questo documento celebra l'intuizione architetturale che ha guidato la creazione
 ---
 *Documentato il: 2026-01-17*  
 *Aggiornato il: 2026-01-26 (Pilastro 6: TESS)*
+
+
+

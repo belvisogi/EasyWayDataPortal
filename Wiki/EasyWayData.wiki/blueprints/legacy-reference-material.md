@@ -15,7 +15,7 @@ updated: '2026-01-05'
 next: TODO - definire next step.
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Blueprint|Blueprint]]
+[Home](./start-here.md) > [[domains/docs-governance|Docs]] > [[Layer - Blueprint|Blueprint]]
 
 # Materiale di riferimento (Legacy)
 
@@ -48,6 +48,7 @@ Nota
 - [EasyWayData Portal - Regole Semplici (La Nostra Bibbia)](../docs-conventions.md)
 - [Domini - Panoramica](../domains/index.md)
 - [Roadmap Uniformamento Wiki secondo docs-conventions](../wiki-uniformamento-roadmap.md)
+
 
 
 

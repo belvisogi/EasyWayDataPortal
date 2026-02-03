@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-infra-oracle-oracle-cloud-vm-setup-guide
+title: Oracle Cloud - Guida Completa Setup VM Ubuntu Desktop + RDP (Versione 2.0)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Oracle Cloud - Guida Completa Setup VM Ubuntu Desktop + RDP (Versione 2.0)
 
 > **Aggiornamento 25/01/2026**: Introdotto metodo **Cloud-Init** per risolvere il blocco firewall alla radice.
@@ -102,3 +116,5 @@ Se ottieni "Connection timed out" sulla porta 22:
 
 **Versione Guida**: 2.0 (Cloud-Init Edition)
 **Stato**: Verificato su vm-easyway-dev
+
+

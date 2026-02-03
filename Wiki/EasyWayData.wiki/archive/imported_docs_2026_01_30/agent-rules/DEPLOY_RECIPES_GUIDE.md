@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-deploy-recipes-guide
+title: 🚀 Deploy Recipes - Quick Reference
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🚀 Deploy Recipes - Quick Reference
 
 **Created**: 2026-01-13  
@@ -193,3 +207,5 @@ Le ricette sono integrate in:
 ---
 
 **Status**: ✅ Production Ready
+
+

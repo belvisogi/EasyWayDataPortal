@@ -1,3 +1,17 @@
+---
+id: ew-manuals-installation-manual
+title: EasyWay Installation & Operations Manual 📘
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # EasyWay Installation & Operations Manual 📘
 
 > **Version**: 1.0 (Hardened & GitOps Ready)
@@ -84,3 +98,6 @@ docker logs --tail 100 -f easyway-orchestrator
 -   **Frontend**: `http://localhost:80` (via Tunnel) or Public IP.
 -   **n8n**: `http://localhost:5678` (via Tunnel).
 -   **API**: `http://localhost:3000` (via Tunnel).
+
+
+

@@ -4,9 +4,15 @@ title: YAML & Docker Compose Standard
 summary: Linee guida per scrivere file YAML e Docker Compose puliti, sicuri e conformi a TESS.
 status: active
 owner: team-platform
-tags: [standard, yaml, docker, best-practices]
+tags: [standard, yaml, docker, best-practices, domain/docs, layer/spec, audience/dev, privacy/internal, language/it]
 updated: 2026-01-27
 version: 1.0.0
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
 # YAML & Docker Compose Standard
@@ -102,3 +108,6 @@ networks:
   easyway-net:
     external: true # Usa la rete esistente
 ```
+
+
+

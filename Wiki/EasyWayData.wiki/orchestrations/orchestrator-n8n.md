@@ -10,10 +10,13 @@ entities: []
 include: true
 summary: Manifesto WHAT dell'orchestratore n8n per instradare intent agentici verso workflow dichiarati.
 llm: 
+  pii: none
+  redaction: [email, phone]
 pii: none
 owner: team-platform
 
 llm:
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
 ---
@@ -92,6 +95,7 @@ Riferimenti
 - Manifest esempio: `docs/agentic/templates/orchestrations/wf.excel-csv-upload.manifest.json`
 - Contratti: `Wiki/EasyWayData.wiki/intent-contract.md`, `Wiki/EasyWayData.wiki/output-contract.md`
 - Governance/gates: `Wiki/EasyWayData.wiki/agents-governance.md`, `doc-alignment-gate.md`
+
 
 
 

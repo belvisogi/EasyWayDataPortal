@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-ado-setup-guide
+title: ADO Configuration Setup Guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # ADO Configuration Setup Guide
 
 **Quick Start**: 5 minuti per configurare l'accesso Azure DevOps
@@ -237,3 +251,5 @@ Tutto funzionerà **senza dover passare parametri**! 🚀
 **Setup Time**: 5 min  
 **One-Time**: Yes  
 **Benefits**: Tutti gli script ADO funzionanti
+
+

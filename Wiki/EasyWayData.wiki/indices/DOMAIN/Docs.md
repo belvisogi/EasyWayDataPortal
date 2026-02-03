@@ -4,9 +4,17 @@ updated: 2026-01-16
 owner: team-platform
 summary: Index of all pages tagged with DOMAIN/Docs
 status: draft
+id: ew-indices-domain-docs
+title: 📄 Docs
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
 ---
 
-[Home](../../../../docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
+[Home](.././start-here.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
 
 # 📄 Docs
 
@@ -49,7 +57,7 @@ status: draft
 - [[README]] - Istruzioni per usare .obsidian.example come template locale senza committare configurazioni personal...
 - [[replicate-easyway-dataportal]] - Guida passo‑passo per applicare lo stack EasyWay su un nuovo progetto...
 - [[roadmap]] - Sezione operativa per mantenere la documentazione conforme alle best practice e pronta per agenti/LL...
-- [start-here](../../../../docs/project-root/DEVELOPER_START_HERE.md) - Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB....
+- [start-here](.././start-here.md) - Punti di ingresso canonici: orchestrazioni, intent, control-plane, UX, HOWTO e KB....
 - [[todo-checklist]] - 'Documento su TODO CHECKLIST.'...
 - [[value-proposition]] - Perché EasyWay Data Portal e cosa fa. Messaggio chiaro per persone e agenti....
 - [[whatfirst-lint]] - Lint dei requisiti WHAT-first (manifest/intents/ux_prompts) con report machine-readable....
@@ -58,6 +66,7 @@ status: draft
 ---
 
 [⬆️ Back to DOMAIN](index.md) | [🏠 Knowledge Graph](../../KNOWLEDGE-GRAPH.md)
+
 
 
 

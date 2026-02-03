@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-project-root-developer-start-here
+title: Developer Start Here (The Sacred Path)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Developer Start Here (The Sacred Path)
 
 > [!IMPORTANT]
@@ -46,4 +60,7 @@ Applica **solamente** fix sicuri e deterministici.
 - **"Non so cosa fare"**: Lancia `.\ewctl.ps1 plan`.
 - **"Ho rotto la pipeline"**: Lancia `.\ewctl.ps1 check` in locale.
 - **"Voglio aggiungere un nuovo controllo"**: Aggiungi un modulo Lego in `scripts/pwsh/modules/ewctl/`.
-- **"Dubbi sulla sicurezza?"**: Leggi [SECURITY_AUDIT.md](docs/architecture/SECURITY_AUDIT.md).
+- **"Dubbi sulla sicurezza?"**: Leggi [SECURITY_AUDIT.md](../../../../../scripts/docs/architecture/SECURITY_AUDIT.md).
+
+
+

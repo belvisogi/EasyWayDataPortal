@@ -15,7 +15,7 @@ updated: '2026-01-16'
 next: Definire JSON Schema formale.
 ---
 
-[Home](../../../docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Control-Plane|Control-Plane]] > [[Layer - Spec|Spec]]
+[Home](./start-here.md) >  > 
 
 # ARGOS – Event Schema Addendum (v1)
 
@@ -39,6 +39,7 @@ Integrazione EasyWay
 - Repository: pubblicare gli schema JSON in `docs/agentic/templates/events/` e validare in CI.
 - QoS/Delivery: DLQ e retry policy allineate al bus eventi del portale.
 - Privacy/Retention: campi PII esclusi o sanificati; retention hint per topic.
+
 
 
 

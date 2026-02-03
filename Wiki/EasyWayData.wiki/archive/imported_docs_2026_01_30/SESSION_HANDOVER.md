@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-session-handover
+title: ⏸️ SESSION HANDOVER
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # ⏸️ SESSION HANDOVER
 # Date: 2026-01-29
 # Status: READY FOR DEPLOY
@@ -25,3 +39,5 @@
 
 ## 💭 Philosophy Check
 "The foundation is poured. The concrete is drying. Do not walk on it until it sets."
+
+

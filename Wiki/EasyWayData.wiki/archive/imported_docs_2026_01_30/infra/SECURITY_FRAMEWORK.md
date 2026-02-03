@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-infra-security-framework
+title: 🔒 EasyWay Security Framework - Enterprise RBAC Model
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🔒 EasyWay Security Framework - Enterprise RBAC Model
 
 > **Status**: APPROVED - Enterprise-grade security framework  
@@ -399,7 +413,7 @@ sudo usermod -aG easyway-admin john
 | Document | Purpose | Link |
 |----------|---------|------|
 | **Server Standards** | FHS directory structure, basic setup | [`SERVER_STANDARDS.md`](SERVER_STANDARDS.md) |
-| **Oracle Current Env** | Current production server details | [`../ORACLE_CURRENT_ENV.md`](../ORACLE_CURRENT_ENV.md) |
+| **Oracle Current Env** | Current production server details | [`../ORACLE_CURRENT_ENV.md`](../../../../../scripts/docs/infra/ORACLE_CURRENT_ENV.md) |
 | **Implementation Plan** | Detailed rollout plan with rollback | [`../../brain/*/implementation_plan.md`]() |
 | **Scripts** | Automation scripts | [`../../scripts/infra/`](../../scripts/infra/) |
 
@@ -431,7 +445,7 @@ sudo usermod -aG easyway-admin john
 3. ✅ Run `verify-users.sh` → Validates user/group setup
 4. ✅ Run `verify-directories.sh` → Validates directory permissions
 5. ✅ Run `security-audit.sh` → Full security check
-6. ✅ Update [`ORACLE_CURRENT_ENV.md`](../ORACLE_CURRENT_ENV.md) with new state
+6. ✅ Update [`ORACLE_CURRENT_ENV.md`](../../../../../scripts/docs/infra/ORACLE_CURRENT_ENV.md) with new state
 
 ### Success Criteria
 
@@ -475,3 +489,6 @@ A: Yes! That's the point. `/var/log/easyway` is readable by `easyway-read`.
 **Maintainer**: Team EasyWay  
 **Last Verified**: 2026-01-25  
 **Next Review**: 2026-04-25 (Quarterly)
+
+
+

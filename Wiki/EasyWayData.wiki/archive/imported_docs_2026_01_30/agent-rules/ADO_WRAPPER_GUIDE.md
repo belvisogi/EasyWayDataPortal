@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-agent-rules-ado-wrapper-guide
+title: 🎯 ADO Wrapper Scripts - Usage Guide
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # 🎯 ADO Wrapper Scripts - Usage Guide
 
 **Created**: 2026-01-13  
@@ -218,3 +232,5 @@ $config
 **Status**: ✅ Production Ready  
 **Setup Time**: 0 min (se config già presente)  
 **Risparmio**: ~150 chars per comando
+
+

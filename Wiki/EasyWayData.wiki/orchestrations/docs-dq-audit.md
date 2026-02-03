@@ -6,6 +6,7 @@ status: draft
 owner: team-platform
 tags: [domain/docs, layer/orchestration, audience/dev, privacy/internal, language/it, governance, dq, kanban]
 llm:
+  redaction: [email, phone]
   include: true
   pii: none
   chunk_hint: 250-400
@@ -53,6 +54,7 @@ pwsh scripts/docs-dq-scorecard.ps1 `
 
 Rollback:
 - Ogni apply salva backup e summary in `out/docs-dq-scorecard-apply/<runId>/`.
+
 
 
 

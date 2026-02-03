@@ -1,3 +1,17 @@
+---
+id: ew-archive-imported-docs-2026-01-30-best-practices-agent-autonomy-guidelines
+title: Guidelines: Agent Autonomy Levels (Autopilot vs n8n)
+summary: TODO - aggiungere un sommario breve.
+status: draft
+owner: team-platform
+tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
+llm:
+  include: true
+  pii: none
+  chunk_hint: 250-400
+  redaction: [email, phone]
+entities: []
+---
 # Guidelines: Agent Autonomy Levels (Autopilot vs n8n)
 
 > "Control is not about stopping the Agent. It's about knowing *who* creates the safety net."
@@ -55,3 +69,5 @@ This document defines when to let an Agent act autonomously ("Full Auto") and wh
 ## Implementation
 - **Full Auto**: Agent calls `ewctl fix --json`.
 - **n8n Controlled**: Agent calls `POST webhook/n8n/dispatch` with `{ "intent": "db.fix", "params": ... }`.
+
+

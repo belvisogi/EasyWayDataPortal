@@ -9,8 +9,11 @@ created: '2026-01-25'
 updated: '2026-01-25'
 
 llm:
+  pii: none
+  redaction: [email, phone]
   include: true
   chunk_hint: 5000
+entities: []
 ---
 
 # Bootstrap Dual Server (Oracle Dev/Staging + Hetzner Prod)
@@ -69,4 +72,5 @@ Eseguire e ripetere il bootstrap infrastrutturale in modo affidabile, mantenendo
 - `docs/SERVER_BOOTSTRAP_PROTOCOL.md`
 - `docs/infra/SERVER_BOOTSTRAP_PROTOCOL.md`
 - `scripts/infra/remote/README.md`
+
 
