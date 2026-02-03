@@ -174,6 +174,7 @@ else {
             planned     = @()
             in_progress = @()
             resolved    = @()
+            wont_fix    = @()
         }
         updated_at = Get-Date -Format 'o'
     }

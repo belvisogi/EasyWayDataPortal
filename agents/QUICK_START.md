@@ -32,6 +32,13 @@ pwsh scripts/pwsh/agent-audit.ps1 -Mode all
 pwsh scripts/pwsh/kanban-manager.ps1 -Action view
 ```
 
+Oppure genera una board HTML (più comoda per umani):
+
+```powershell
+pwsh scripts/pwsh/kanban-manager.ps1 -Action view -Format html
+# Output: out/kanban.html
+```
+
 ### 3. Esegui governance review
 
 ```powershell
@@ -48,7 +55,9 @@ pwsh scripts/pwsh/agent-governance.ps1 -Interactive:$false
 | `pwsh scripts/ewctl.ps1 -Intent "..."` | Esegue un'azione agentica |
 | `pwsh scripts/pwsh/issue-logger.ps1 -Agent ... -Severity ...` | Logga un issue |
 | `pwsh scripts/pwsh/kanban-manager.ps1 -Action view` | Visualizza Kanban |
-| `pwsh scripts/pwsh/kanban-manager.ps1 -Action export` | Genera report |
+| `pwsh scripts/pwsh/kanban-manager.ps1 -Action export` | Genera report (MD) |
+| `pwsh scripts/pwsh/kanban-manager.ps1 -Action export -Format html` | Genera report (HTML) |
+| `pwsh scripts/pwsh/kanban-manager.ps1 -Action export -Format json` | Genera report (JSON per agent) |
 | `pwsh scripts/pwsh/agent-audit.ps1 -Mode all` | Audit completo |
 | `pwsh scripts/pwsh/agent-governance.ps1` | Review governance |
 

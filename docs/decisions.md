@@ -89,3 +89,33 @@ Why:
 - Storybook Guide: `docs/storybook-guide.md` (future migration)
 
 **Epic Moment**: 2026-02-02, 07:30 UTC — Component Showcase deployed to production, marking EasyWay Core's commitment to antifragile, zero-dependency solutions.
+
+## 2026-02-03 — GitLab Self-Managed (The Dawn of Sovereignty) 🏰
+
+**Decision**:
+- Deploy GitLab Self-Managed on Oracle Cloud instead of using SaaS providers (GitHub/Azure DevOps).
+
+**Philosophy**:
+- *"Non siamo inquilini nel cloud di qualcun altro. Siamo proprietari della nostra fortezza."*
+- **Sovereignty**: Writing our own menu (Decision) vs Choosing from a menu (Choice).
+
+**Antifragility**:
+- We do not reject the cloud; we build the *option* to detach without pain.
+- "The sovereignty is not isolation, it is the freedom to say 'no' without catastrophic consequences."
+
+**Implementation**:
+- **Infrastructure**: Oracle Cloud Instance (23GB RAM).
+- **Security**: 3-Layer Firewall (Oracle Security List, iptables, Docker isolation).
+- **Port Mapping Fix**: Solved `Connection reset by peer` by aligning Docker/Nginx ports (8929:8929).
+
+**Result**:
+- ✅ GitLab Accessible: `http://80.225.86.168:8929`
+- ✅ Full Code & Data Ownership.
+- ✅ Antifragile Infrastructure (Disaster Recovery ready).
+
+**Key Documents**:
+- Epic: `docs/epics/2026-02-03-gitlab-sovereignty.md`
+- Setup Guide: `docs/infra/gitlab-setup-guide.md`
+- Checklist: `docs/infra/INFRA-DEPLOYMENT-CHECKLIST.md`
+
+**Epic Moment**: 2026-02-03, 08:50 UTC — GitLab Self-Managed active. EasyWay declares digital sovereignty. No longer tenants, but owners.

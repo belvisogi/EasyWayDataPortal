@@ -10,6 +10,8 @@ set -e
 # - 80, 443: Web Standard
 # - 8080: EasyWay Portal (Frontend)
 # - 8000: EasyWay Cortex (Backend API)
+# - 8929: GitLab HTTP UI
+# - 2222: GitLab SSH (Git operations)
 #
 # USAGE: sudo ./scripts/infra/open-ports.sh
 # ==============================================================================
@@ -23,6 +25,8 @@ if command -v ufw >/dev/null && systemctl is-active --quiet ufw; then
     ufw allow 443/tcp
     ufw allow 8080/tcp
     ufw allow 8000/tcp
+    ufw allow 8929/tcp  # GitLab HTTP
+    ufw allow 2222/tcp  # GitLab SSH
     ufw allow 22/tcp # Assicuriamoci di non chiuderci fuori
     ufw reload
     echo "   ✅ Porte aperte su UFW."
@@ -43,6 +47,8 @@ open_port 80
 open_port 443
 open_port 8080
 open_port 8000
+open_port 8929  # GitLab HTTP
+open_port 2222  # GitLab SSH
 
 # 3. Persistenza
 echo "   💾 Salvataggio regole..."

@@ -1,0 +1,106 @@
+# GitLab Self-Managed Docker Compose
+# Server: 80.225.86.168
+# Purpose: Sovereign DevOps platform for EasyWay
+# Documentation: docs/infra/gitlab-setup-guide.md
+
+version: '3.8'
+
+networks:
+  gitlab:
+    driver: bridge
+
+services:
+  easyway-gitlab:
+    image: gitlab/gitlab-ce:latest
+    container_name: easyway-gitlab
+    hostname: gitlab.easyway.internal
+    restart: always
+    
+    # Ports
+    ports:
+      - "8929:8929"    # HTTP (GitLab UI) - Must match external_url port
+
+      - "2222:22"      # SSH (Git operations)
+    
+    # Volumes (persistent data)
+    volumes:
+      - ./gitlab/config:/etc/gitlab
+      - ./gitlab/logs:/var/log/gitlab
+      - ./gitlab/data:/var/opt/gitlab
+    
+    # Environment variables
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        # External URL
+        external_url 'http://80.225.86.168:8929'
+        
+        # SSH port (non-standard to avoid conflicts)
+        gitlab_rails['gitlab_shell_ssh_port'] = 2222
+        
+        # Backup settings
+        gitlab_rails['backup_path'] = "/var/opt/gitlab/backups"
+        gitlab_rails['backup_keep_time'] = 604800  # 7 days in seconds
+        gitlab_rails['backup_archive_permissions'] = 0644
+        
+        # Performance tuning (for 23GB RAM server)
+        puma['worker_processes'] = 4
+        puma['min_threads'] = 4
+        puma['max_threads'] = 4
+        sidekiq['max_concurrency'] = 25
+        
+        # PostgreSQL settings
+        postgresql['shared_buffers'] = "256MB"
+        postgresql['max_connections'] = 200
+        
+        # Email (disabled for now, configure later if needed)
+        gitlab_rails['smtp_enable'] = false
+        
+        # Time zone
+        gitlab_rails['time_zone'] = 'Europe/Rome'
+        
+        # Max attachment size (100MB)
+        gitlab_rails['max_attachment_size'] = 100
+        
+        # Registry (disabled for now)
+        registry['enable'] = false
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/-/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 300s  # GitLab takes time to start
+    
+    networks:
+      - gitlab
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # GitLab Runner (CI/CD executor)
+  easyway-gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: easyway-gitlab-runner
+    restart: always
+    
+    volumes:
+      - ./gitlab-runner/config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock  # Docker-in-Docker
+    
+    networks:
+      - gitlab
+    
+    depends_on:
+      - easyway-gitlab
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
