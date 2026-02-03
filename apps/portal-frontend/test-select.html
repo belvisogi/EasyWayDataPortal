@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Select Test</title>
+    <link rel="stylesheet" href="/src/theme.css">
+    <style>
+        body {
+            background-color: #060b13;
+            /* deep void */
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 5rem;
+        }
+
+        .container {
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            margin-top: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .output {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+    </style>
+    <script type="module" src="/src/components/lib/sovereign-select.ts"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>The Selector</h1>
+
+        <!-- Single Select -->
+        <h2>Single Select</h2>
+        <sovereign-select id="single-select" placeholder="Choose a planet..."></sovereign-select>
+        <div id="output-single" class="output">Selected: None</div>
+
+        <!-- Multi Select -->
+        <h2>Multi Select</h2>
+        <sovereign-select id="multi-select" multiple placeholder="Select crew members..."></sovereign-select>
+        <div id="output-multi" class="output">Selected: None</div>
+
+    </div>
+
+    <script type="module">
+        const planets = [
+            { label: 'Mercury', value: 'mercury' },
+            { label: 'Venus', value: 'venus' },
+            { label: 'Earth', value: 'earth' },
+            { label: 'Mars', value: 'mars' },
+            { label: 'Jupiter', value: 'jupiter' },
+            { label: 'Saturn', value: 'saturn' },
+        ];
+
+        const crew = [
+            { label: 'Commander Shepard', value: 'shepard' },
+            { label: 'Garrus Vakarian', value: 'garrus' },
+            { label: 'Liara T\'Soni', value: 'liara' },
+            { label: 'Tali\'Zorah', value: 'tali' },
+            { label: 'Urdnot Wrex', value: 'wrex' },
+        ];
+
+        // Setup Single
+        const single = document.getElementById('single-select');
+        single.options = planets;
+        single.addEventListener('sovereign-change', (e) => {
+            document.getElementById('output-single').textContent = `Selected: ${e.detail.value}`;
+        });
+
+        // Setup Multi
+        const multi = document.getElementById('multi-select');
+        multi.options = crew;
+        multi.addEventListener('sovereign-change', (e) => {
+            document.getElementById('output-multi').textContent = `Selected: ${JSON.stringify(e.detail.value)}`;
+        });
+    </script>
+</body>
+
+</html>

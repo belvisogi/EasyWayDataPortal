@@ -20,6 +20,8 @@ next: TODO - definire next step.
 
 Scopo: elenco chiaro di cose da fare. Breve, spuntabile, capibile da tutti (anche AI).
 
+> **Hai un documento nuovo da analizzare?** Mettilo nella [[docs-analysis-inbox.md|Inbox Analisi]].
+
 ## Gap e aree di miglioramento (cosa manca)
 - **Allineamento API/DB:** alcune API non usano ancora solo Store Procedure e c’è mismatch tra nomi colonne e DDL standard (Users, Config). Questo è il punto più critico per la coerenza agentica e la robustezza.
 - **Pipeline CI/CD:** da rafforzare con test automatici, validazione drift DB, gates agentici sempre attivi e report periodici.

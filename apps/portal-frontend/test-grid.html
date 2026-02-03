@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Grid Test</title>
+    <link rel="stylesheet" href="/src/theme.css">
+    <style>
+        body {
+            background-color: #060b13;
+            /* deep void */
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 5rem;
+        }
+
+        .container {
+            padding: 2rem;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        h2 {
+            margin-top: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .status-chip {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+            border: 1px solid #10B981;
+        }
+
+        .status-offline {
+            background: rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            border: 1px solid #EF4444;
+        }
+
+        .status-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #F59E0B;
+            border: 1px solid #F59E0B;
+        }
+    </style>
+    <script type="module" src="/src/components/lib/sovereign-datagrid.ts"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>The Grid</h1>
+        <p>Sovereign Data Table</p>
+
+        <br>
+        <sovereign-datagrid id="grid"></sovereign-datagrid>
+
+    </div>
+
+    <script type="module">
+        const grid = document.getElementById('grid');
+
+        grid.columns = [
+            { field: 'id', headerName: 'ID', width: '60px', sortable: true },
+            { field: 'name', headerName: 'Agent Name', sortable: true },
+            { field: 'role', headerName: 'Role', sortable: true },
+            {
+                field: 'status',
+                headerName: 'Status',
+                sortable: true,
+                renderer: (val) => {
+                    const cls = val === 'Active' ? 'status-active' : (val === 'Offline' ? 'status-offline' : 'status-warning');
+                    return `<span class="status-chip ${cls}">${val}</span>`;
+                }
+            },
+            { field: 'uptime', headerName: 'Uptime', sortable: true }
+        ];
+
+        grid.data = [
+            { id: 1, name: 'Cortex', role: 'Orchestrator', status: 'Active', uptime: '99.9%' },
+            { id: 2, name: 'GEDI', role: 'Guardian', status: 'Active', uptime: '99.5%' },
+            { id: 3, name: 'Architect', role: 'Planner', status: 'Warning', uptime: '98.2%' },
+            { id: 4, name: 'Legacy Bot', role: 'Migration', status: 'Offline', uptime: '0%' },
+            { id: 5, name: 'Vision', role: 'Analyzer', status: 'Active', uptime: '99.8%' },
+            { id: 6, name: 'Scribe', role: 'Documentation', status: 'Active', uptime: '99.1%' },
+        ];
+    </script>
+</body>
+
+</html>

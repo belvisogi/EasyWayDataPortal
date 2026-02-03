@@ -1,0 +1,126 @@
+{
+    "version": "1",
+    "id": "agents",
+    "activeNav": "agents",
+    "sections": [
+        {
+            "type": "hero",
+            "titleKey": "agents.hero.title",
+            "taglineKey": "agents.hero.tagline",
+            "cta": {
+                "labelKey": "home.hero.cta",
+                "action": {
+                    "type": "link",
+                    "href": "/demo"
+                }
+            }
+        },
+        {
+            "type": "cards",
+            "variant": "catalog",
+            "titleKey": "agents.system.title",
+            "descKey": "agents.system.desc",
+            "items": [
+                {
+                    "iconText": "CORE",
+                    "titleKey": "agents.system.portal.title",
+                    "badgeKey": "agents.system.portal.badge",
+                    "descKey": "agents.system.portal.desc",
+                    "action": {
+                        "labelKey": "home.pillars.portal.action",
+                        "variant": "glass",
+                        "action": {
+                            "type": "link",
+                            "href": "/demo"
+                        }
+                    }
+                },
+                {
+                    "iconText": "RAG",
+                    "titleKey": "agents.system.memory.title",
+                    "badgeKey": "agents.system.memory.badge",
+                    "descKey": "agents.system.memory.desc",
+                    "action": {
+                        "labelKey": "home.pillars.memory.action",
+                        "variant": "glass",
+                        "action": {
+                            "type": "link",
+                            "href": "/memory"
+                        }
+                    }
+                },
+                {
+                    "iconText": "OPS",
+                    "titleKey": "agents.system.orchestrator.title",
+                    "badgeKey": "agents.system.orchestrator.badge",
+                    "descKey": "agents.system.orchestrator.desc",
+                    "action": {
+                        "labelKey": "home.pillars.orchestrator.action",
+                        "variant": "glass",
+                        "action": {
+                            "type": "link",
+                            "href": "/demo"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "type": "cards",
+            "variant": "catalog",
+            "titleKey": "agents.components.title",
+            "descKey": "agents.components.desc",
+            "items": [
+                {
+                    "iconText": "TIME",
+                    "titleKey": "agents.components.timekeeper.title",
+                    "badgeKey": "agents.components.timekeeper.badge",
+                    "descKey": "agents.components.timekeeper.desc"
+                },
+                {
+                    "iconText": "SEL",
+                    "titleKey": "agents.components.selector.title",
+                    "badgeKey": "agents.components.selector.badge",
+                    "descKey": "agents.components.selector.desc"
+                },
+                {
+                    "iconText": "GRID",
+                    "titleKey": "agents.components.grid.title",
+                    "badgeKey": "agents.components.grid.badge",
+                    "descKey": "agents.components.grid.desc"
+                },
+                {
+                    "iconText": "MSG",
+                    "titleKey": "agents.components.herald.title",
+                    "badgeKey": "agents.components.herald.badge",
+                    "descKey": "agents.components.herald.desc"
+                },
+                {
+                    "iconText": "PRIV",
+                    "titleKey": "agents.components.gatekeeper.title",
+                    "badgeKey": "agents.components.gatekeeper.badge",
+                    "descKey": "agents.components.gatekeeper.desc"
+                }
+            ]
+        },
+        {
+            "type": "cta",
+            "titleKey": "home.cta_final.title",
+            "bodyKey": "home.cta_final.body",
+            "primary": {
+                "labelKey": "home.cta_final.primary",
+                "action": {
+                    "type": "link",
+                    "href": "/demo"
+                }
+            },
+            "secondary": {
+                "labelKey": "home.cta_final.secondary",
+                "action": {
+                    "type": "link",
+                    "href": "/manifesto"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+
+Running 2 tests using 2 workers
+
+[1A[2K[1/2] [chromium] ÔÇ║ tests\e2e\chaos.spec.ts:88:5 ÔÇ║ Chaos Guardian ÔÜí ÔÇ║ Landing Page should survive a gremlins attack
+[1A[2K[2/2] [chromium] ÔÇ║ tests\e2e\chaos.spec.ts:5:5 ÔÇ║ Chaos Guardian ÔÜí ÔÇ║ Demo Page should survive a gremlins attack
+[1A[2K[chromium] ÔÇ║ tests\e2e\chaos.spec.ts:5:5 ÔÇ║ Chaos Guardian ÔÜí ÔÇ║ Demo Page should survive a gremlins attack
+­ƒæ╣ Unleashing Gremlins on Demo Page...
+
+[1A[2K[chromium] ÔÇ║ tests\e2e\chaos.spec.ts:88:5 ÔÇ║ Chaos Guardian ÔÜí ÔÇ║ Landing Page should survive a gremlins attack
+­ƒæ╣ Unleashing Gremlins on Landing Page...
+
+[1A[2K  1) [chromium] ÔÇ║ tests\e2e\chaos.spec.ts:5:5 ÔÇ║ Chaos Guardian ÔÜí ÔÇ║ Demo Page should survive a gremlins attack 
+
+    Error: page.evaluate: Execution context was destroyed, most likely because of a navigation
+
+      47 |         });
+      48 |
+    > 49 |         await page.evaluate(async () => {
+         |                    ^
+      50 |             return new Promise((resolve) => {
+      51 |                 // @ts-ignore
+      52 |                 gremlins.createHorde({
+        at C:\old\EasyWayDataPortal\apps\portal-frontend\tests\e2e\chaos.spec.ts:49:20
+
+    attachment #1: screenshot (image/png) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\chaos-Chaos-Guardian-ÔÜí-Dem-01668-d-survive-a-gremlins-attack-chromium\test-failed-1.png
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    attachment #2: video (video/webm) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\chaos-Chaos-Guardian-ÔÜí-Dem-01668-d-survive-a-gremlins-attack-chromium\video.webm
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    Error Context: test-results\chaos-Chaos-Guardian-ÔÜí-Dem-01668-d-survive-a-gremlins-attack-chromium\error-context.md
+
+
+[1A[2KÔ£à Page survived the gremlins attack!
+
+[1A[2K  1 failed
+    [chromium] ÔÇ║ tests\e2e\chaos.spec.ts:5:5 ÔÇ║ Chaos Guardian ÔÜí ÔÇ║ Demo Page should survive a gremlins attack 
+  1 passed (41.1s)

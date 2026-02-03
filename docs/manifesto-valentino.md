@@ -32,6 +32,13 @@ Nessun "It works on my machine".
 Il codice deve essere provato, testato (10/10 Score) e documentato.
 La mediocrità è bandita. Se è "abbastanza buono", non è Valentino.
 
+## 5. The Sovereign Component Standard
+Ogni componente che entra nella libreria deve rispettare i **4 Pilastri della Sovranità**, validati con "The Timekeeper":
+1.  **Code Sovereignty**: Zero dipendenze esterne (npm install is forbidden). Il codice è asset proprietario.
+2.  **Haute Couture Performance**: Solo il codice necessario. Nessun bloatware per gestire edge-case che non ci servono.
+3.  **Glassmorphism Native**: Il design "trasparente" non è una skin, è nel DNA CSS del componente.
+4.  **Infinite Extendibility**: Dato che possediamo il codice, possiamo piegarlo a qualsiasi esigenza futura (es. fasi lunari nel calendario).
+
 ---
 
 ### La Promessa

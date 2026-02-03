@@ -182,6 +182,16 @@ export class SovereignFooter extends HTMLElement {
             gap: 2rem;
         }
 
+        .legal-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .legal-links a:hover {
+            color: var(--accent-neural-cyan);
+        }
+
         /* Responsive */
         @media (max-width: 900px) {
             .footer-container {

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Datepicker Test</title>
+    <link rel="stylesheet" href="/src/theme.css">
+    <style>
+        body {
+            background-color: #060b13; /* deep void */
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            padding: 2rem;
+            text-align: center;
+        }
+        #output {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            font-family: monospace;
+        }
+    </style>
+    <script type="module" src="/src/components/lib/sovereign-datepicker.ts"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>The Timekeeper</h1>
+        <p>Sovereign Component Test</p>
+        
+        <br>
+
+        <sovereign-datepicker id="picker"></sovereign-datepicker>
+
+        <div id="output">No date selected</div>
+    </div>
+
+    <script>
+        const picker = document.getElementById('picker');
+        const output = document.getElementById('output');
+
+        picker.addEventListener('sovereign-change', (e) => {
+            const date = e.detail.value;
+            output.textContent = `Selected: ${date.toLocaleDateString()} (ISO: ${date.toISOString()})`;
+            console.log('Date Selected:', date);
+        });
+    </script>
+</body>
+</html>

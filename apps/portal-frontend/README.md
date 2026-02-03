@@ -36,7 +36,16 @@ docker-compose up -d --build frontend
 *   **Visuals**: Dark, Serious, Engineering-focused.
 *   **GEDI**: The "Guardian" is integrated as a visual copilot.
 
-## 🏛️ Architecture & Blueprints (The "Valentino" Standard)
+## 🏆 Sovereignty Status: 100%
+> **Zero Dependencies.** This project behaves like a standard HTML/JS website, but with the power of a modern framework.
+
+- **Runtime Dependencies**: 0 (Clean `package.json`)
+- **Framework**: Valentino (Native Web Components)
+- **Quality Shield**: Active (Visual, Inclusive, Chaos)
+
+---
+
+## Project Structure & Blueprints (The "Valentino" Standard)
 
 To prevent technical debt, **ALWAYS** use the official blueprints when creating new files.
 Do not invent new patterns. Clone and adapt these templates:

@@ -147,63 +147,6 @@
     background: var(--accent-neural-cyan);
     border-radius: 50%;
     box-shadow: 0 0 22px var(--accent-neural-cyan);
-    animation: core-breath 4s ease-in-out infinite;
-}
-
-/* Orbital Rings */
-.orbital-ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(26, 167, 255, 0.14);
-    box-shadow: 0 0 14px rgba(26, 167, 255, 0.08);
-}
-
-.ring-1 {
-    width: 100px;
-    height: 100px;
-    animation: spin 10s linear infinite;
-    border-top-color: var(--accent-neural-cyan);
-}
-
-.ring-2 {
-    width: 140px;
-    height: 140px;
-    animation: spin-rev 15s linear infinite;
-    border-bottom-color: var(--text-sovereign-gold);
-    opacity: 0.5;
-}
-
-@keyframes core-breath {
-
-    0%,
-    100% {
-        transform: scale(0.9);
-        opacity: 0.8;
-    }
-
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-        box-shadow: 0 0 25px var(--accent-neural-cyan);
-    }
-}
-
-@keyframes spin {
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes spin-rev {
-    100% {
-        transform: rotate(-360deg);
-    }
-}
-
-/* --- THEME VARIANTS (SHIELD/TERMINAL) --- */
-/* Kept here as they are specific overrides used in logic */
-body.theme-shield {
-    --accent-neural-cyan: #eab308;
     font-family: var(--font-family);
     background-color: #020408;
 }
@@ -510,7 +453,7 @@ body.theme-terminal .hero::before {
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 2rem;
-    opacity: 0.7;
+    /* opacity: 0.7; - Removed for Accessibility (Contrast) */
 }
 
 .logo-box {
@@ -542,7 +485,9 @@ body.theme-terminal .hero::before {
 }
 
 .col-cloud li {
-    color: var(--text-secondary);
+    /* Strikethrough for Cloud defects */
+    /* Accessbility Fix: Contrast 4.5:1 */
+    color: #94a3b8;
     text-decoration: line-through;
     /* Strikethrough for Cloud defects */
 }
@@ -639,6 +584,16 @@ body.theme-terminal .hero::before {
     backdrop-filter: blur(10px);
 }
 
+/* Accessibility Fix: Scrollable regions must be focusable */
+.spec-container pre {
+    tab-index: 0;
+}
+
+.spec-container pre:focus {
+    outline: 2px solid var(--accent-neural-cyan);
+    outline-offset: -2px;
+}
+
 .demo-form form {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -661,6 +616,20 @@ body.theme-terminal .hero::before {
 .demo-form .legal-text,
 .demo-form button {
     grid-column: 1 / -1;
+    /* Strict Alignment Fixes */
+    padding: 0 1.5rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 54px;
+    width: 100%;
+    font-size: 1.1rem;
+}
+
+/* Fix: Remove unwanted borders on title */
+.hero h1 {
+    border: none !important;
+    outline: none !important;
 }
 
 .demo-form label {

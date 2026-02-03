@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EasyWay - Request Demo</title>
-    <script>
-        window.location.replace('/demo');
-    </script>
+
     <link rel="stylesheet" href="/src/theme.css">
     <link rel="stylesheet" href="/src/framework.css">
     <link rel="stylesheet" href="/src/style.css">
@@ -19,299 +17,299 @@
     </script>
     <script type="module" src="/src/components/sovereign-header.ts"></script>
     <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-        font-family: var(--font-family);
-        background-color: var(--bg-deep-void);
-        color: var(--text-primary);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        padding: 140px 2rem 4rem 2rem;
-        overflow-x: hidden;
-        position: relative;
-    }
-
-    body::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image:
-            linear-gradient(rgba(26, 167, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(26, 167, 255, 0.05) 1px, transparent 1px);
-        background-size: 50px 50px;
-        z-index: -2;
-        pointer-events: none;
-    }
-
-    body::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at 45% 15%, rgba(26, 167, 255, 0.15) 0%, transparent 55%);
-        z-index: -1;
-        pointer-events: none;
-    }
-
-    @media (max-width: 768px) {
         body {
-            padding: 110px 1rem 2rem 1rem;
-            align-items: center;
+            font-family: var(--font-family);
+            background-color: var(--bg-deep-void);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 140px 2rem 4rem 2rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(26, 167, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26, 167, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 45% 15%, rgba(26, 167, 255, 0.15) 0%, transparent 55%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 110px 1rem 2rem 1rem;
+                align-items: center;
+            }
+
+            .container {
+                gap: 2rem;
+            }
+
+            .h1 {
+                font-size: 2.4rem;
+            }
         }
 
         .container {
-            gap: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            width: 100%;
+            gap: 4rem;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .content-side {
+            flex: 1;
+            min-width: 300px;
+            padding-top: 1.5rem;
         }
 
         .h1 {
-            font-size: 2.4rem;
+            font-family: var(--font-family);
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
         }
-    }
 
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 1200px;
-        width: 100%;
-        gap: 4rem;
-        align-items: flex-start;
-        justify-content: space-between;
-    }
+        p.lead {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 520px;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+        }
 
-    .content-side {
-        flex: 1;
-        min-width: 300px;
-        padding-top: 1.5rem;
-    }
+        .benefits {
+            list-style: none;
+            margin: 0 0 2.2rem 0;
+            padding: 0;
+            display: grid;
+            gap: 0.8rem;
+            max-width: 520px;
+        }
 
-    .h1 {
-        font-family: var(--font-family);
-        font-size: 3.2rem;
-        font-weight: 700;
-        line-height: 1.1;
-        margin-bottom: 1rem;
-        color: var(--text-primary);
-    }
+        .benefits li {
+            display: flex;
+            gap: 0.6rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
 
-    p.lead {
-        font-size: 1.25rem;
-        line-height: 1.6;
-        color: var(--text-secondary);
-        margin-bottom: 2rem;
-        max-width: 520px;
-        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
-    }
+        .benefits li::before {
+            content: '▣';
+            color: var(--accent-neural-cyan);
+            font-size: 0.9rem;
+            margin-top: 0.15rem;
+        }
 
-    .benefits {
-        list-style: none;
-        margin: 0 0 2.2rem 0;
-        padding: 0;
-        display: grid;
-        gap: 0.8rem;
-        max-width: 520px;
-    }
+        .badges {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
 
-    .benefits li {
-        display: flex;
-        gap: 0.6rem;
-        color: var(--text-primary);
-        font-size: 1rem;
-    }
+        .badge {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 0.9rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            height: 100px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s, border-color 0.2s;
+        }
 
-    .benefits li::before {
-        content: '▣';
-        color: var(--accent-neural-cyan);
-        font-size: 0.9rem;
-        margin-top: 0.15rem;
-    }
+        .badge:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-neural-cyan);
+        }
 
-    .badges {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-        margin-top: 1rem;
-    }
+        .badge i,
+        .stars {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 0.4rem;
+            color: var(--text-sovereign-gold);
+        }
 
-    .badge {
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: 10px;
-        padding: 0.9rem 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 120px;
-        height: 100px;
-        text-align: center;
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-        transition: transform 0.2s, border-color 0.2s;
-    }
+        .testimonial-box {
+            margin-top: 2.5rem;
+            padding: 1.2rem 1.4rem;
+            border-left: 3px solid var(--accent-neural-cyan);
+            background: rgba(6, 11, 19, 0.6);
+            border-radius: 0 10px 10px 0;
+            color: var(--text-secondary);
+        }
 
-    .badge:hover {
-        transform: translateY(-4px);
-        border-color: var(--accent-neural-cyan);
-    }
+        .form-side {
+            flex: 1;
+            max-width: 560px;
+            min-width: 300px;
+        }
 
-    .badge i,
-    .stars {
-        display: block;
-        font-size: 1.3rem;
-        margin-bottom: 0.4rem;
-        color: var(--text-sovereign-gold);
-    }
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 2.2rem;
+            box-shadow: 0 25px 35px rgba(0, 0, 0, 0.35);
+            color: var(--text-primary);
+        }
 
-    .testimonial-box {
-        margin-top: 2.5rem;
-        padding: 1.2rem 1.4rem;
-        border-left: 3px solid var(--accent-neural-cyan);
-        background: rgba(6, 11, 19, 0.6);
-        border-radius: 0 10px 10px 0;
-        color: var(--text-secondary);
-    }
+        .form-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: var(--text-primary);
+        }
 
-    .form-side {
-        flex: 1;
-        max-width: 560px;
-        min-width: 300px;
-    }
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
 
-    .card {
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: 14px;
-        padding: 2.2rem;
-        box-shadow: 0 25px 35px rgba(0, 0, 0, 0.35);
-        color: var(--text-primary);
-    }
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
 
-    .form-title {
-        font-size: 1.4rem;
-        font-weight: 700;
-        margin-bottom: 1.2rem;
-        color: var(--text-primary);
-    }
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
 
-    .form-row {
-        display: flex;
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
+        label::after {
+            content: " *";
+            color: #EF4444;
+        }
 
-    .form-group {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+        input,
+        select,
+        textarea {
+            padding: 0.75rem 1rem;
+            background: rgba(6, 11, 19, 0.6);
+            border: 1px solid rgba(200, 170, 110, 0.25);
+            color: var(--text-primary);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.98rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
 
-    label {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text-secondary);
-    }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-neural-cyan);
+            box-shadow: 0 0 0 3px rgba(26, 167, 255, 0.15);
+            background: rgba(6, 11, 19, 0.8);
+        }
 
-    label::after {
-        content: " *";
-        color: #EF4444;
-    }
+        select option {
+            background: #0b1221;
+            color: var(--text-primary);
+        }
 
-    input,
-    select,
-    textarea {
-        padding: 0.75rem 1rem;
-        background: rgba(6, 11, 19, 0.6);
-        border: 1px solid rgba(200, 170, 110, 0.25);
-        color: var(--text-primary);
-        border-radius: 8px;
-        font-family: inherit;
-        font-size: 0.98rem;
-        transition: border-color 0.2s, box-shadow 0.2s;
-        width: 100%;
-    }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
-        outline: none;
-        border-color: var(--accent-neural-cyan);
-        box-shadow: 0 0 0 3px rgba(26, 167, 255, 0.15);
-        background: rgba(6, 11, 19, 0.8);
-    }
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-neural-cyan);
+            border: 1px solid var(--accent-neural-cyan);
+            color: #031b1a;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 18px rgba(26, 167, 255, 0.25);
+        }
 
-    select option {
-        background: #0b1221;
-        color: var(--text-primary);
-    }
+        .btn-submit:hover {
+            opacity: 0.95;
+            box-shadow: 0 14px 24px rgba(26, 167, 255, 0.35);
+        }
 
-    textarea {
-        resize: vertical;
-        min-height: 100px;
-    }
+        .legal-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 1.5rem;
+            line-height: 1.5;
+        }
 
-    .btn-submit {
-        width: 100%;
-        padding: 1rem;
-        background: var(--accent-neural-cyan);
-        border: 1px solid var(--accent-neural-cyan);
-        color: #031b1a;
-        border-radius: 6px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s;
-        margin-top: 1rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        box-shadow: 0 10px 18px rgba(26, 167, 255, 0.25);
-    }
+        .legal-text a {
+            color: var(--accent-neural-cyan);
+            text-decoration: none;
+        }
 
-    .btn-submit:hover {
-        opacity: 0.95;
-        box-shadow: 0 14px 24px rgba(26, 167, 255, 0.35);
-    }
+        #status-msg {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.9rem;
+            text-align: center;
+        }
 
-    .legal-text {
-        font-size: 0.75rem;
-        color: var(--text-secondary);
-        margin-top: 1.5rem;
-        line-height: 1.5;
-    }
+        .success {
+            background: rgba(16, 185, 129, 0.18);
+            border: 1px solid #10B981;
+            color: #c9fbe5;
+        }
 
-    .legal-text a {
-        color: var(--accent-neural-cyan);
-        text-decoration: none;
-    }
-
-    #status-msg {
-        margin-top: 1rem;
-        padding: 1rem;
-        border-radius: 6px;
-        display: none;
-        font-size: 0.9rem;
-        text-align: center;
-    }
-
-    .success {
-        background: rgba(16, 185, 129, 0.18);
-        border: 1px solid #10B981;
-        color: #c9fbe5;
-    }
-
-    .error {
-        background: rgba(239, 68, 68, 0.18);
-        border: 1px solid #EF4444;
-        color: #fecaca;
-    }
-</style>
+        .error {
+            background: rgba(239, 68, 68, 0.18);
+            border: 1px solid #EF4444;
+            color: #fecaca;
+        }
+    </style>
 </head>
 
 <body>
@@ -319,153 +317,119 @@
     <!-- STANDARD HEADER -->
     <sovereign-header active-page="demo"></sovereign-header>
 
-    <div class="container">
+    <main class="container">
         <!-- Content Side -->
         <div class="content-side">
-    <h1 class="h1">Request a Demo</h1>
-    <p class="lead">Metti l'AI dove decidi tu. EasyWay Core porta sovereign intelligence nella tua infrastruttura, senza dipendenze esterne.</p>
+            <h1 class="h1">Request a Demo</h1>
+            <p class="lead">Metti l'AI dove decidi tu. EasyWay Core porta sovereign intelligence nella tua
+                infrastruttura, senza dipendenze esterne.</p>
 
-    <ul class="benefits">
-        <li>On‑premise o hybrid: stessi standard, zero compromessi.</li>
-        <li>Memory vettoriale governata da te, con latenza minima.</li>
-        <li>Workflow n8n e automazioni già pronte per l'operatività.</li>
-    </ul>
+            <ul class="benefits">
+                <li>On‑premise o hybrid: stessi standard, zero compromessi.</li>
+                <li>Memory vettoriale governata da te, con latenza minima.</li>
+                <li>Workflow n8n e automazioni già pronte per l'operatività.</li>
+            </ul>
 
-    <div class="badges">
-        <div class="badge"><div class="stars">★★★★★</div>Sovereign<br>Certified</div>
-        <div class="badge"><div style="font-size: 22px; margin-bottom: 6px;">⚡</div>N8N<br>Powered</div>
-        <div class="badge"><div style="font-size: 22px; margin-bottom: 6px;">🛡️</div>Oracle<br>Secured</div>
-    </div>
+            <div class="badges">
+                <div class="badge">
+                    <div class="stars" aria-label="5 stars">★★★★★</div>Sovereign<br>Certified
+                </div>
+                <div class="badge">
+                    <div style="font-size: 22px; margin-bottom: 6px;" aria-hidden="true">⚡</div>N8N<br>Powered
+                </div>
+                <div class="badge">
+                    <div style="font-size: 22px; margin-bottom: 6px;" aria-hidden="true">🛡️</div>Oracle<br>Secured
+                </div>
+            </div>
 
-    <div class="testimonial-box">
-        <i>“Finally, a platform that gives us control back. No lock‑in, just performance.”</i>
-        <div style="margin-top: 0.8rem; font-weight: 600; color: var(--text-primary);">— EasyWay Core Pioneer</div>
-    </div>
+            <div class="testimonial-box">
+                <i>“Finally, a platform that gives us control back. No lock‑in, just performance.”</i>
+                <div style="margin-top: 0.8rem; font-weight: 600; color: var(--text-primary);">— EasyWay Core Pioneer
+                </div>
+            </div>
         </div>
 
         <!-- Form Side -->
         <div class="form-side">
             <div class="card">
-                <div class="form-title">Get your demo</div>
+                <h2 class="form-title">Get your demo</h2>
                 <form id="demo-form">
                     <div class="form-row">
                         <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" name="firstName" placeholder="Jane" required>
+                            <label for="fname">First Name</label>
+                            <input type="text" id="fname" name="firstName" placeholder="Jane" required>
                         </div>
                         <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" name="lastName" placeholder="Doe" required>
+                            <label for="lname">Last Name</label>
+                            <input type="text" id="lname" name="lastName" placeholder="Doe" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Company</label>
-                            <input type="text" name="company" placeholder="Acme Corp" required>
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company" placeholder="Acme Corp" required>
                         </div>
                         <div class="form-group">
-                            <label>Company Size</label>
-                            <select name="companySize" required>
-                                <option value="" disabled selected>Please Select</option>
-                                <option>1-10</option>
-                                <option>11-50</option>
-                                <option>51-200</option>
-                                <option>201+</option>
-                            </select>
+                            <label for="sel-company-size">Company Size</label>
+                            <sovereign-select id="sel-company-size" role="group" aria-label="Company Size"
+                                placeholder="Select Size"
+                                style="--glass-bg: rgba(6, 11, 19, 0.6); --glass-border: rgba(200, 170, 110, 0.25);">
+                            </sovereign-select>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Work Email</label>
-                            <input type="email" name="email" placeholder="jane@company.com" required>
+                            <label for="email">Work Email</label>
+                            <input type="email" id="email" name="email" placeholder="jane@company.com" required>
                         </div>
                         <div class="form-group">
-                            <label>Job Title</label>
-                            <input type="text" name="jobTitle" placeholder="CTO" required>
+                            <label for="job">Job Title</label>
+                            <input type="text" id="job" name="jobTitle" placeholder="CTO" required>
                         </div>
                     </div>
 
                     <div class="form-group" style="margin-bottom: 1.5rem;">
-                        <label>Primary Interest</label>
-                        <select name="interest" required>
-                            <option value="" disabled selected>Please Select</option>
-                            <option>Sovereign Portal</option>
-                            <option>Vector Memory</option>
-                            <option>Orchestrator (n8n)</option>
-                            <option>General Inquiry</option>
-                        </select>
+                        <label for="sel-interest">Primary Interest</label>
+                        <sovereign-select id="sel-interest" role="group" aria-label="Primary Interest"
+                            placeholder="Select Interest"
+                            style="--glass-bg: rgba(6, 11, 19, 0.6); --glass-border: rgba(200, 170, 110, 0.25);">
+                        </sovereign-select>
                     </div>
 
                     <div class="form-group" style="margin-bottom: 1.5rem;">
-                        <label>Brief Use Case</label>
-                        <textarea name="description" rows="3"></textarea>
+                        <label for="date-demo">Preferred Demo Date</label>
+                        <sovereign-datepicker id="date-demo" role="group" aria-label="Preferred Demo Date"
+                            locale="en-US"></sovereign-datepicker>
                     </div>
 
-                    <div class="form-group"
-                        style="flex-direction: row; align-items: flex-start; gap: 0.5rem; margin-bottom: 1.5rem;">
-                        <input type="checkbox" required style="width: auto; margin-top: 4px;">
-                        <span style="font-size: 0.8rem; color: var(--text-secondary);">
-                            I agree to receive communications from EasyWay.
-                        </span>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="desc">Brief Use Case</label>
+                        <textarea id="desc" name="description" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" required style="width: auto; margin-top: 4px;">
+                            <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: normal;">
+                                I agree to receive communications from EasyWay.
+                            </span>
+                        </label>
                     </div>
 
                     <button type="submit" class="btn-submit">Request Demo</button>
-                    <div id="status-msg"></div>
+                    <!-- <div id="status-msg"></div> Replaced by Toaster -->
 
-                    <p class="legal-text">By submitting this form, you acknowledge that your data will be processed in accordance with our <a href="#">Sovereign Privacy Policy</a>.</p>
+                    <p class="legal-text">By submitting this form, you acknowledge that your data will be processed in
+                        accordance with our <a href="#" style="text-decoration: underline;">Sovereign Privacy
+                            Policy</a>.</p>
                 </form>
             </div>
         </div>
-    </div>
+    </main>
 
-    <script type="module" src="/src/components/sovereign-footer.ts"></script>
-    <script>
-        document.getElementById('demo-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const btn = this.querySelector('.btn-submit');
-            const msg = document.getElementById('status-msg');
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-
-            btn.disabled = true;
-            btn.textContent = 'Sending...';
-            msg.style.display = 'none';
-
-            try {
-                // Post to N8N Webhook (Sovereign Integration)
-                const response = await fetch('/webhook/demo-request', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
-                if (response.ok) {
-                    msg.className = 'success';
-                    msg.textContent = 'Success! Your request has been sent to our Sovereign Agent.';
-                    msg.style.display = 'block';
-                    this.reset();
-                } else {
-                    throw new Error('Server returned ' + response.status);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                // Fallback for demo (Simulate success if webhook not active yet)
-                msg.className = 'success';
-                msg.textContent = 'Request Recieved! (Simulated Mode - Webhook not yet active)';
-                msg.style.display = 'block';
-                // msg.className = 'error';
-                // msg.textContent = 'Error sending request. Please try again.';
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Request Demo';
-            }
-        });
-    </script>
-
-    <sovereign-footer></sovereign-footer>
+    <sovereign-toaster></sovereign-toaster>
 </body>
 
 </html>
-

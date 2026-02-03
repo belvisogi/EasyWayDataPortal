@@ -1,0 +1,166 @@
+
+Running 2 tests using 2 workers
+
+[1A[2K[1/2] [chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:31:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Landing Page should not have any automatically detectable accessibility issues
+[1A[2K[2/2] [chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:36:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Demo Page should not have any automatically detectable accessibility issues
+[1A[2K[chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:36:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Demo Page should not have any automatically detectable accessibility issues
+
+ÔÜá´©Å Demo Page Accessibility Violations:
+
+[1A[2K
+­ƒö┤ RULE: aria-prohibited-attr (Impact: serious)
+
+[1A[2K   HELP: Elements must only use permitted ARIA attributes
+
+[1A[2K   TARGET: #sel-company-size
+
+[1A[2K   HTML: <sovereign-select id="sel-company-size" aria-label="Company Size" placeholder="Select Size" style="-...
+
+[1A[2K   TARGET: #sel-interest
+
+[1A[2K   HTML: <sovereign-select id="sel-interest" aria-label="Primary Interest" placeholder="Select Interest" styl...
+
+[1A[2K   TARGET: #date-demo
+
+[1A[2K   HTML: <sovereign-datepicker id="date-demo" aria-label="Preferred Demo Date" locale="en-US"></sovereign-dat...
+
+[1A[2K  1) [chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:36:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Demo Page should not have any automatically detectable accessibility issues 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  -   1[39m
+    [31m+ Received  + 103[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   Object {[39m
+    [31m+     "description": "Ensure ARIA attributes are not prohibited for an element's role",[39m
+    [31m+     "help": "Elements must only use permitted ARIA attributes",[39m
+    [31m+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-prohibited-attr?application=playwright",[39m
+    [31m+     "id": "aria-prohibited-attr",[39m
+    [31m+     "impact": "serious",[39m
+    [31m+     "nodes": Array [[39m
+    [31m+       Object {[39m
+    [31m+         "all": Array [],[39m
+    [31m+         "any": Array [],[39m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    [31m+   aria-label attribute cannot be used on a sovereign-select with no valid role attribute.",[39m
+    [31m+         "html": "<sovereign-select id=\"sel-company-size\" aria-label=\"Company Size\" placeholder=\"Select Size\" style=\"--glass-bg: rgba(6, 11, 19, 0.6); --glass-border: rgba(200, 170, 110, 0.25);\">[39m
+    [31m+                             </sovereign-select>",[39m
+    [31m+         "impact": "serious",[39m
+    [31m+         "none": Array [[39m
+    [31m+           Object {[39m
+    [31m+             "data": Object {[39m
+    [31m+               "messageKey": "noRoleSingular",[39m
+    [31m+               "nodeName": "sovereign-select",[39m
+    [31m+               "prohibited": Array [[39m
+    [31m+                 "aria-label",[39m
+    [31m+               ],[39m
+    [31m+               "role": null,[39m
+    [31m+             },[39m
+    [31m+             "id": "aria-prohibited-attr",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "aria-label attribute cannot be used on a sovereign-select with no valid role attribute.",[39m
+    [31m+             "relatedNodes": Array [],[39m
+    [31m+           },[39m
+    [31m+         ],[39m
+    [31m+         "target": Array [[39m
+    [31m+           "#sel-company-size",[39m
+    [31m+         ],[39m
+    [31m+       },[39m
+    [31m+       Object {[39m
+    [31m+         "all": Array [],[39m
+    [31m+         "any": Array [],[39m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    [31m+   aria-label attribute cannot be used on a sovereign-select with no valid role attribute.",[39m
+    [31m+         "html": "<sovereign-select id=\"sel-interest\" aria-label=\"Primary Interest\" placeholder=\"Select Interest\" style=\"--glass-bg: rgba(6, 11, 19, 0.6); --glass-border: rgba(200, 170, 110, 0.25);\">[39m
+    [31m+                         </sovereign-select>",[39m
+    [31m+         "impact": "serious",[39m
+    [31m+         "none": Array [[39m
+    [31m+           Object {[39m
+    [31m+             "data": Object {[39m
+    [31m+               "messageKey": "noRoleSingular",[39m
+    [31m+               "nodeName": "sovereign-select",[39m
+    [31m+               "prohibited": Array [[39m
+    [31m+                 "aria-label",[39m
+    [31m+               ],[39m
+    [31m+               "role": null,[39m
+    [31m+             },[39m
+    [31m+             "id": "aria-prohibited-attr",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "aria-label attribute cannot be used on a sovereign-select with no valid role attribute.",[39m
+    [31m+             "relatedNodes": Array [],[39m
+    [31m+           },[39m
+    [31m+         ],[39m
+    [31m+         "target": Array [[39m
+    [31m+           "#sel-interest",[39m
+    [31m+         ],[39m
+    [31m+       },[39m
+    [31m+       Object {[39m
+    [31m+         "all": Array [],[39m
+    [31m+         "any": Array [],[39m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    [31m+   aria-label attribute cannot be used on a sovereign-datepicker with no valid role attribute.",[39m
+    [31m+         "html": "<sovereign-datepicker id=\"date-demo\" aria-label=\"Preferred Demo Date\" locale=\"en-US\"></sovereign-datepicker>",[39m
+    [31m+         "impact": "serious",[39m
+    [31m+         "none": Array [[39m
+    [31m+           Object {[39m
+    [31m+             "data": Object {[39m
+    [31m+               "messageKey": "noRoleSingular",[39m
+    [31m+               "nodeName": "sovereign-datepicker",[39m
+    [31m+               "prohibited": Array [[39m
+    [31m+                 "aria-label",[39m
+    [31m+               ],[39m
+    [31m+               "role": null,[39m
+    [31m+             },[39m
+    [31m+             "id": "aria-prohibited-attr",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "aria-label attribute cannot be used on a sovereign-datepicker with no valid role attribute.",[39m
+    [31m+             "relatedNodes": Array [],[39m
+    [31m+           },[39m
+    [31m+         ],[39m
+    [31m+         "target": Array [[39m
+    [31m+           "#date-demo",[39m
+    [31m+         ],[39m
+    [31m+       },[39m
+    [31m+     ],[39m
+    [31m+     "tags": Array [[39m
+    [31m+       "cat.aria",[39m
+    [31m+       "wcag2a",[39m
+    [31m+       "wcag412",[39m
+    [31m+       "EN-301-549",[39m
+    [31m+       "EN-9.4.1.2",[39m
+    [31m+       "RGAAv4",[39m
+    [31m+       "RGAA-7.1.1",[39m
+    [31m+     ],[39m
+    [31m+   },[39m
+    [31m+ ][39m
+
+      26 |         }
+      27 |
+    > 28 |         expect(accessibilityScanResults.violations).toEqual([]);
+         |                                                     ^
+      29 |     }
+      30 |
+      31 |     test('Landing Page should not have any automatically detectable accessibility issues', async ({ page }) => {
+        at checkAccessibility (C:\old\EasyWayDataPortal\apps\portal-frontend\tests\e2e\accessibility.spec.ts:28:53)
+        at C:\old\EasyWayDataPortal\apps\portal-frontend\tests\e2e\accessibility.spec.ts:38:9
+
+    attachment #1: screenshot (image/png) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\accessibility-Inclusive-Gu-23878-ctable-accessibility-issues-chromium\test-failed-1.png
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    attachment #2: video (video/webm) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\accessibility-Inclusive-Gu-23878-ctable-accessibility-issues-chromium\video-1.webm
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    attachment #3: video (video/webm) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\accessibility-Inclusive-Gu-23878-ctable-accessibility-issues-chromium\video.webm
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    Error Context: test-results\accessibility-Inclusive-Gu-23878-ctable-accessibility-issues-chromium\error-context.md
+
+
+[1A[2K  1 failed
+    [chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:36:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Demo Page should not have any automatically detectable accessibility issues 
+  1 passed (34.2s)

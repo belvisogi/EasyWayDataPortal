@@ -15,7 +15,7 @@ Questa è la nostra roadmap per una **Libreria Componenti Interna**.
 - **Block-by-default**: Blocca script (GA4, Pixel) finché non c'è consenso esplicito.
 - **Granulare**: Consenso per categoria (Marketing, Analytics, Necessary).
 
-**Status**: 🚨 *Urgent*
+**Status**: 🚀 *Beta* (Implemented)
 
 ---
 
@@ -28,7 +28,7 @@ Questa è la nostra roadmap per una **Libreria Componenti Interna**.
 - **Fiscal Calendar**: Supporto per calendari aziendali 4-4-5 o custom.
 - **Zero Dipendenze**: Niente `moment.js` o `date-fns`, solo `Intl.DateTimeFormat` nativo.
 
-**Status**: 📝 *Wishlist*
+**Status**: 🚀 *Beta* (Implemented)
 
 ---
 
@@ -41,7 +41,7 @@ Questa è la nostra roadmap per una **Libreria Componenti Interna**.
 - **Excel-like**: Copia/Incolla nativo senza plugin.
 - **Custom Renderers**: Celle che contengono grafici o mini-ragni.
 
-**Status**: 📝 *Wishlist*
+**Status**: 🚀 *Beta* (Implemented)
 
 ---
 
@@ -54,7 +54,7 @@ Questa è la nostra roadmap per una **Libreria Componenti Interna**.
 - **Multi-select con Chip**: Gestione tag stile "Notion".
 - **Ricerca Server-side**: Integrata direttamente con le nostre API.
 
-**Status**: 📝 *Wishlist*
+**Status**: 🚀 *Beta* (Implemented)
 
 ---
 
@@ -67,7 +67,7 @@ Questa è la nostra roadmap per una **Libreria Componenti Interna**.
 - **Actionable**: Bottoni "Undo" o "Retry" collegati direttamente alla logica business.
 - **Sound Design**: Suoni custom per errori/successi (facoltativo).
 
-**Status**: 📝 *Wishlist*
+**Status**: 🚀 *Beta* (Implemented)
 
 ---
 
@@ -104,6 +104,19 @@ Questa è la nostra roadmap per una **Libreria Componenti Interna**.
 - **Micro-Charts**: Sparklines ultra-leggere nelle celle della griglia.
 
 **Status**: 📝 *Wishlist*
+
+---
+
+## 🛡️ 8. The Quality Shield (Testing & QA)
+> **The Monster**: `Selenium`, `Manual QA`, `Regression Hell`
+> **Valentino Wish**: `Visual, Inclusive & Chaos Guardians`
+
+### Why Sovereign?
+- **Visual Guardian**: Snapshot automatici per garantire che il design non si rompa mai di 1px.
+- **Inclusive Guardian**: Accessibilità garantita nativamente.
+- **Chaos Guardian**: Monkey testing per trovare crash imprevisti.
+
+**Status**: 🚀 *Active* (Implemented)
 
 ---
 

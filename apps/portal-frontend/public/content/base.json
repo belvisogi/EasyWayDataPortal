@@ -6,6 +6,14 @@
             "offline": "Offline"
         }
     },
+    "nav": {
+        "home": "Home",
+        "manifesto": "Manifesto",
+        "demo": "Demo",
+        "memory": "Memory",
+        "pricing": "Pricing",
+        "agents": "Agents"
+    },
     "manifesto": {
         "title": "The Code",
         "subtitle": "// PROTOCOL: SOVEREIGN_SYMBIOSIS // v3.2",
@@ -226,6 +234,60 @@
                 "Orchestrator",
                 "Full Stack"
             ]
+        }
+    },
+    "agents": {
+        "hero": {
+            "title": "Sovereign Agents",
+            "tagline": "The specialized intelligence units powering your infrastructure.<br>Modular. Sovereign. Zero Dependencies."
+        },
+        "system": {
+            "title": "System Agents",
+            "desc": "Core infrastructure intelligences that manage the platform.",
+            "portal": {
+                "title": "Nexus Core (Portal)",
+                "desc": "The central interface. Manages navigation, state, and user interactions with glass-morphic precision.",
+                "badge": "CORE"
+            },
+            "memory": {
+                "title": "Knowledge Keeper (Memory)",
+                "desc": "Vector-based long-term memory. Stores and retrieves semantic information with sub-ms latency.",
+                "badge": "RAG"
+            },
+            "orchestrator": {
+                "title": "Workflow Master (N8N)",
+                "desc": "Executes complex automation logic behind the scenes. The brain that connects your tools.",
+                "badge": "OPS"
+            }
+        },
+        "components": {
+            "title": "Component Agents",
+            "desc": "Specialized UI units designed for specific interaction patterns.",
+            "timekeeper": {
+                "title": "The Timekeeper",
+                "desc": "Temporal Architect. Manages dates, ranges, and scheduling with zero external dependencies.",
+                "badge": "UI"
+            },
+            "selector": {
+                "title": "The Selector",
+                "desc": "Choice Navigator. Handles complex multi-selections, tagging, and filtering with keyboard mastery.",
+                "badge": "UI"
+            },
+            "grid": {
+                "title": "The Grid",
+                "desc": "Data Weaver. Visualizes massive datasets with sorting, filtering, and template rendering.",
+                "badge": "DATA"
+            },
+            "herald": {
+                "title": "The Herald",
+                "desc": "Signal Officer. Delivers system notifications and alerts with stacked, non-intrusive elegance.",
+                "badge": "MSG"
+            },
+            "gatekeeper": {
+                "title": "The Gatekeeper",
+                "desc": "Sentinel. Guards user privacy and manages consent for all tracking technologies.",
+                "badge": "PRIVACY"
+            }
         }
     },
     "demo-components": {

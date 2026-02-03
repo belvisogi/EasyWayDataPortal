@@ -1,0 +1,47 @@
+
+Running 2 tests using 2 workers
+
+[1A[2K[1/2] [chromium] ÔÇ║ tests\e2e\chaos.spec.ts:5:5 ÔÇ║ Chaos Guardian ÔÜí ÔÇ║ Demo Page should survive a gremlins attack
+[1A[2K[2/2] [chromium] ÔÇ║ tests\e2e\chaos.spec.ts:93:5 ÔÇ║ Chaos Guardian ÔÜí ÔÇ║ Landing Page should survive a gremlins attack
+[1A[2K  1) [chromium] ÔÇ║ tests\e2e\chaos.spec.ts:5:5 ÔÇ║ Chaos Guardian ÔÜí ÔÇ║ Demo Page should survive a gremlins attack 
+
+    Test was interrupted.
+
+    Error: page.goto: Target page, context or browser has been closed
+    Call log:
+    [2m  - navigating to "http://localhost:5173/demo.html", waiting until "load"[22m
+
+
+       5 |     test('Demo Page should survive a gremlins attack', async ({ page }) => {
+       6 |         // 1. Go to the page
+    >  7 |         await page.goto('/demo.html');
+         |                    ^
+       8 |         await page.waitForLoadState('networkidle');
+       9 |
+      10 |         // 2. Inject gremlins.js script from CDN (or local node_modules if we preferred)
+        at C:\old\EasyWayDataPortal\apps\portal-frontend\tests\e2e\chaos.spec.ts:7:20
+
+    Error: browserContext.close: Target page, context or browser has been closed
+
+
+[1A[2K  2) [chromium] ÔÇ║ tests\e2e\chaos.spec.ts:93:5 ÔÇ║ Chaos Guardian ÔÜí ÔÇ║ Landing Page should survive a gremlins attack 
+
+    Test was interrupted.
+
+    Error: page.goto: net::ERR_ABORTED at http://localhost:5173/
+    Call log:
+    [2m  - navigating to "http://localhost:5173/", waiting until "load"[22m
+
+
+      92 |
+      93 |     test('Landing Page should survive a gremlins attack', async ({ page }) => {
+    > 94 |         await page.goto('/');
+         |                    ^
+      95 |         await page.waitForLoadState('networkidle');
+      96 |         await page.addScriptTag({ path: 'node_modules/gremlins.js/dist/gremlins.min.js' });
+      97 |
+        at C:\old\EasyWayDataPortal\apps\portal-frontend\tests\e2e\chaos.spec.ts:94:20
+
+    Error: browserContext.close: Protocol error (Target.disposeBrowserContext): Failed to find context with id 70C33827A396B5141C58EFC2BCDD3C58
+
+

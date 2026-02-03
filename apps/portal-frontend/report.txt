@@ -1,0 +1,446 @@
+
+Running 2 tests using 2 workers
+
+[1A[2K[1/2] [chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:31:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Landing Page should not have any automatically detectable accessibility issues
+[1A[2K[2/2] [chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:36:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Demo Page should not have any automatically detectable accessibility issues
+[1A[2K[chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:36:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Demo Page should not have any automatically detectable accessibility issues
+
+ÔÜá´©Å Demo Page Accessibility Violations:
+
+[1A[2K
+­ƒö┤ RULE: aria-prohibited-attr (Impact: serious)
+
+[1A[2K   HELP: Elements must only use permitted ARIA attributes
+
+[1A[2K   TARGET: #sel-company-size
+
+[1A[2K   HTML: <sovereign-select id="sel-company-size" aria-label="Company Size" placeholder="Select Size" style="-...
+
+[1A[2K   TARGET: #sel-interest
+
+[1A[2K   HTML: <sovereign-select id="sel-interest" aria-label="Primary Interest" placeholder="Select Interest" styl...
+
+[1A[2K   TARGET: #date-demo
+
+[1A[2K   HTML: <sovereign-datepicker id="date-demo" aria-label="Preferred Demo Date" locale="en-US"></sovereign-dat...
+
+[1A[2K
+­ƒö┤ RULE: link-in-text-block (Impact: serious)
+
+[1A[2K   HELP: Links must be distinguishable without relying on color
+
+[1A[2K   TARGET: a[href="#"]
+
+[1A[2K   HTML: <a href="#">Sovereign Privacy Policy</a>...
+
+[1A[2K[chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:31:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Landing Page should not have any automatically detectable accessibility issues
+
+ÔÜá´©Å Landing Page Accessibility Violations:
+
+[1A[2K
+­ƒö┤ RULE: color-contrast (Impact: serious)
+
+[1A[2K   HELP: Elements must meet minimum color contrast ratio thresholds
+
+[1A[2K   TARGET: .legal-links > a[href="#"]:nth-child(1)
+
+[1A[2K   HTML: <a href="#">Privacy</a>...
+
+[1A[2K   TARGET: .legal-links > a[href="#"]:nth-child(2)
+
+[1A[2K   HTML: <a href="#">Terms</a>...
+
+[1A[2K   TARGET: .legal-links > a[href="#"]:nth-child(3)
+
+[1A[2K   HTML: <a href="#">Compliance</a>...
+
+[1A[2K  1) [chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:36:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Demo Page should not have any automatically detectable accessibility issues 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  -   1[39m
+    [31m+ Received  + 173[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   Object {[39m
+    [31m+     "description": "Ensure ARIA attributes are not prohibited for an element's role",[39m
+    [31m+     "help": "Elements must only use permitted ARIA attributes",[39m
+    [31m+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-prohibited-attr?application=playwright",[39m
+    [31m+     "id": "aria-prohibited-attr",[39m
+    [31m+     "impact": "serious",[39m
+    [31m+     "nodes": Array [[39m
+    [31m+       Object {[39m
+    [31m+         "all": Array [],[39m
+    [31m+         "any": Array [],[39m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    [31m+   aria-label attribute cannot be used on a sovereign-select with no valid role attribute.",[39m
+    [31m+         "html": "<sovereign-select id=\"sel-company-size\" aria-label=\"Company Size\" placeholder=\"Select Size\" style=\"--glass-bg: rgba(6, 11, 19, 0.6); --glass-border: rgba(200, 170, 110, 0.25);\">[39m
+    [31m+                             </sovereign-select>",[39m
+    [31m+         "impact": "serious",[39m
+    [31m+         "none": Array [[39m
+    [31m+           Object {[39m
+    [31m+             "data": Object {[39m
+    [31m+               "messageKey": "noRoleSingular",[39m
+    [31m+               "nodeName": "sovereign-select",[39m
+    [31m+               "prohibited": Array [[39m
+    [31m+                 "aria-label",[39m
+    [31m+               ],[39m
+    [31m+               "role": null,[39m
+    [31m+             },[39m
+    [31m+             "id": "aria-prohibited-attr",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "aria-label attribute cannot be used on a sovereign-select with no valid role attribute.",[39m
+    [31m+             "relatedNodes": Array [],[39m
+    [31m+           },[39m
+    [31m+         ],[39m
+    [31m+         "target": Array [[39m
+    [31m+           "#sel-company-size",[39m
+    [31m+         ],[39m
+    [31m+       },[39m
+    [31m+       Object {[39m
+    [31m+         "all": Array [],[39m
+    [31m+         "any": Array [],[39m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    [31m+   aria-label attribute cannot be used on a sovereign-select with no valid role attribute.",[39m
+    [31m+         "html": "<sovereign-select id=\"sel-interest\" aria-label=\"Primary Interest\" placeholder=\"Select Interest\" style=\"--glass-bg: rgba(6, 11, 19, 0.6); --glass-border: rgba(200, 170, 110, 0.25);\">[39m
+    [31m+                         </sovereign-select>",[39m
+    [31m+         "impact": "serious",[39m
+    [31m+         "none": Array [[39m
+    [31m+           Object {[39m
+    [31m+             "data": Object {[39m
+    [31m+               "messageKey": "noRoleSingular",[39m
+    [31m+               "nodeName": "sovereign-select",[39m
+    [31m+               "prohibited": Array [[39m
+    [31m+                 "aria-label",[39m
+    [31m+               ],[39m
+    [31m+               "role": null,[39m
+    [31m+             },[39m
+    [31m+             "id": "aria-prohibited-attr",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "aria-label attribute cannot be used on a sovereign-select with no valid role attribute.",[39m
+    [31m+             "relatedNodes": Array [],[39m
+    [31m+           },[39m
+    [31m+         ],[39m
+    [31m+         "target": Array [[39m
+    [31m+           "#sel-interest",[39m
+    [31m+         ],[39m
+    [31m+       },[39m
+    [31m+       Object {[39m
+    [31m+         "all": Array [],[39m
+    [31m+         "any": Array [],[39m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    [31m+   aria-label attribute cannot be used on a sovereign-datepicker with no valid role attribute.",[39m
+    [31m+         "html": "<sovereign-datepicker id=\"date-demo\" aria-label=\"Preferred Demo Date\" locale=\"en-US\"></sovereign-datepicker>",[39m
+    [31m+         "impact": "serious",[39m
+    [31m+         "none": Array [[39m
+    [31m+           Object {[39m
+    [31m+             "data": Object {[39m
+    [31m+               "messageKey": "noRoleSingular",[39m
+    [31m+               "nodeName": "sovereign-datepicker",[39m
+    [31m+               "prohibited": Array [[39m
+    [31m+                 "aria-label",[39m
+    [31m+               ],[39m
+    [31m+               "role": null,[39m
+    [31m+             },[39m
+    [31m+             "id": "aria-prohibited-attr",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "aria-label attribute cannot be used on a sovereign-datepicker with no valid role attribute.",[39m
+    [31m+             "relatedNodes": Array [],[39m
+    [31m+           },[39m
+    [31m+         ],[39m
+    [31m+         "target": Array [[39m
+    [31m+           "#date-demo",[39m
+    [31m+         ],[39m
+    [31m+       },[39m
+    [31m+     ],[39m
+    [31m+     "tags": Array [[39m
+    [31m+       "cat.aria",[39m
+    [31m+       "wcag2a",[39m
+    [31m+       "wcag412",[39m
+    [31m+       "EN-301-549",[39m
+    [31m+       "EN-9.4.1.2",[39m
+    [31m+       "RGAAv4",[39m
+    [31m+       "RGAA-7.1.1",[39m
+    [31m+     ],[39m
+    [31m+   },[39m
+    [31m+   Object {[39m
+    [31m+     "description": "Ensure links are distinguished from surrounding text in a way that does not rely on color",[39m
+    [31m+     "help": "Links must be distinguishable without relying on color",[39m
+    [31m+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/link-in-text-block?application=playwright",[39m
+    [31m+     "id": "link-in-text-block",[39m
+    [31m+     "impact": "serious",[39m
+    [31m+     "nodes": Array [[39m
+    [31m+       Object {[39m
+    [31m+         "all": Array [],[39m
+    [31m+         "any": Array [[39m
+    [31m+           Object {[39m
+    [31m+             "data": Object {[39m
+    [31m+               "contrastRatio": 1.21,[39m
+    [31m+               "messageKey": "fgContrast",[39m
+    [31m+               "nodeColor": "#0ac8b9",[39m
+    [31m+               "parentColor": "#94a3b8",[39m
+    [31m+               "requiredContrastRatio": 3,[39m
+    [31m+             },[39m
+    [31m+             "id": "link-in-text-block",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "The link has insufficient color contrast of 1.21:1 with the surrounding text. (Minimum contrast is 3:1, link text: #0ac8b9, surrounding text: #94a3b8)",[39m
+    [31m+             "relatedNodes": Array [[39m
+    [31m+               Object {[39m
+    [31m+                 "html": "<p class=\"legal-text\">By submitting this form, you acknowledge that your data will be processed in[39m
+    [31m+                         accordance with our <a href=\"#\">Sovereign Privacy Policy</a>.</p>",[39m
+    [31m+                 "target": Array [[39m
+    [31m+                   ".legal-text",[39m
+    [31m+                 ],[39m
+    [31m+               },[39m
+    [31m+             ],[39m
+    [31m+           },[39m
+    [31m+           Object {[39m
+    [31m+             "data": null,[39m
+    [31m+             "id": "link-in-text-block-style",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "The link has no styling (such as underline) to distinguish it from the surrounding text",[39m
+    [31m+             "relatedNodes": Array [[39m
+    [31m+               Object {[39m
+    [31m+                 "html": "<p class=\"legal-text\">By submitting this form, you acknowledge that your data will be processed in[39m
+    [31m+                         accordance with our <a href=\"#\">Sovereign Privacy Policy</a>.</p>",[39m
+    [31m+                 "target": Array [[39m
+    [31m+                   ".legal-text",[39m
+    [31m+                 ],[39m
+    [31m+               },[39m
+    [31m+             ],[39m
+    [31m+           },[39m
+    [31m+         ],[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+   The link has insufficient color contrast of 1.21:1 with the surrounding text. (Minimum contrast is 3:1, link text: #0ac8b9, surrounding text: #94a3b8)[39m
+    [31m+   The link has no styling (such as underline) to distinguish it from the surrounding text",[39m
+    [31m+         "html": "<a href=\"#\">Sovereign Privacy Policy</a>",[39m
+    [31m+         "impact": "serious",[39m
+    [31m+         "none": Array [],[39m
+    [31m+         "target": Array [[39m
+    [31m+           "a[href=\"#\"]",[39m
+    [31m+         ],[39m
+    [31m+       },[39m
+    [31m+     ],[39m
+    [31m+     "tags": Array [[39m
+    [31m+       "cat.color",[39m
+    [31m+       "wcag2a",[39m
+    [31m+       "wcag141",[39m
+    [31m+       "TTv5",[39m
+    [31m+       "TT13.a",[39m
+    [31m+       "EN-301-549",[39m
+    [31m+       "EN-9.1.4.1",[39m
+    [31m+       "RGAAv4",[39m
+    [31m+       "RGAA-10.6.1",[39m
+    [31m+     ],[39m
+    [31m+   },[39m
+    [31m+ ][39m
+
+      26 |         }
+      27 |
+    > 28 |         expect(accessibilityScanResults.violations).toEqual([]);
+         |                                                     ^
+      29 |     }
+      30 |
+      31 |     test('Landing Page should not have any automatically detectable accessibility issues', async ({ page }) => {
+        at checkAccessibility (C:\old\EasyWayDataPortal\apps\portal-frontend\tests\e2e\accessibility.spec.ts:28:53)
+        at C:\old\EasyWayDataPortal\apps\portal-frontend\tests\e2e\accessibility.spec.ts:38:9
+
+    attachment #1: screenshot (image/png) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\accessibility-Inclusive-Gu-23878-ctable-accessibility-issues-chromium\test-failed-1.png
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    attachment #2: video (video/webm) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\accessibility-Inclusive-Gu-23878-ctable-accessibility-issues-chromium\video-1.webm
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    attachment #3: video (video/webm) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\accessibility-Inclusive-Gu-23878-ctable-accessibility-issues-chromium\video.webm
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    Error Context: test-results\accessibility-Inclusive-Gu-23878-ctable-accessibility-issues-chromium\error-context.md
+
+
+[1A[2K  2) [chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:31:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Landing Page should not have any automatically detectable accessibility issues 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  -   1[39m
+    [31m+ Received  + 146[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   Object {[39m
+    [31m+     "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",[39m
+    [31m+     "help": "Elements must meet minimum color contrast ratio thresholds",[39m
+    [31m+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",[39m
+    [31m+     "id": "color-contrast",[39m
+    [31m+     "impact": "serious",[39m
+    [31m+     "nodes": Array [[39m
+    [31m+       Object {[39m
+    [31m+         "all": Array [],[39m
+    [31m+         "any": Array [[39m
+    [31m+           Object {[39m
+    [31m+             "data": Object {[39m
+    [31m+               "bgColor": "#060b13",[39m
+    [31m+               "contrastRatio": 2.09,[39m
+    [31m+               "expectedContrastRatio": "4.5:1",[39m
+    [31m+               "fgColor": "#0000ee",[39m
+    [31m+               "fontSize": "9.6pt (12.8px)",[39m
+    [31m+               "fontWeight": "normal",[39m
+    [31m+               "messageKey": null,[39m
+    [31m+             },[39m
+    [31m+             "id": "color-contrast",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "Element has insufficient color contrast of 2.09 (foreground color: #0000ee, background color: #060b13, font size: 9.6pt (12.8px), font weight: normal). Expected contrast ratio of 4.5:1",[39m
+    [31m+             "relatedNodes": Array [[39m
+    [31m+               Object {[39m
+    [31m+                 "html": "<footer class=\"site-footer\">",[39m
+    [31m+                 "target": Array [[39m
+    [31m+                   "footer",[39m
+    [31m+                 ],[39m
+    [31m+               },[39m
+    [31m+               Object {[39m
+    [31m+                 "html": "<body class=\"theme-easyway-arcane page-home\" data-theme=\"easyway-arcane\" data-page=\"home\">",[39m
+    [31m+                 "target": Array [[39m
+    [31m+                   "body",[39m
+    [31m+                 ],[39m
+    [31m+               },[39m
+    [31m+             ],[39m
+    [31m+           },[39m
+    [31m+         ],[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+   Element has insufficient color contrast of 2.09 (foreground color: #0000ee, background color: #060b13, font size: 9.6pt (12.8px), font weight: normal). Expected contrast ratio of 4.5:1",[39m
+    [31m+         "html": "<a href=\"#\">Privacy</a>",[39m
+    [31m+         "impact": "serious",[39m
+    [31m+         "none": Array [],[39m
+    [31m+         "target": Array [[39m
+    [31m+           ".legal-links > a[href=\"#\"]:nth-child(1)",[39m
+    [31m+         ],[39m
+    [31m+       },[39m
+    [31m+       Object {[39m
+    [31m+         "all": Array [],[39m
+    [31m+         "any": Array [[39m
+    [31m+           Object {[39m
+    [31m+             "data": Object {[39m
+    [31m+               "bgColor": "#060b13",[39m
+    [31m+               "contrastRatio": 2.09,[39m
+    [31m+               "expectedContrastRatio": "4.5:1",[39m
+    [31m+               "fgColor": "#0000ee",[39m
+    [31m+               "fontSize": "9.6pt (12.8px)",[39m
+    [31m+               "fontWeight": "normal",[39m
+    [31m+               "messageKey": null,[39m
+    [31m+             },[39m
+    [31m+             "id": "color-contrast",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "Element has insufficient color contrast of 2.09 (foreground color: #0000ee, background color: #060b13, font size: 9.6pt (12.8px), font weight: normal). Expected contrast ratio of 4.5:1",[39m
+    [31m+             "relatedNodes": Array [[39m
+    [31m+               Object {[39m
+    [31m+                 "html": "<footer class=\"site-footer\">",[39m
+    [31m+                 "target": Array [[39m
+    [31m+                   "footer",[39m
+    [31m+                 ],[39m
+    [31m+               },[39m
+    [31m+               Object {[39m
+    [31m+                 "html": "<body class=\"theme-easyway-arcane page-home\" data-theme=\"easyway-arcane\" data-page=\"home\">",[39m
+    [31m+                 "target": Array [[39m
+    [31m+                   "body",[39m
+    [31m+                 ],[39m
+    [31m+               },[39m
+    [31m+             ],[39m
+    [31m+           },[39m
+    [31m+         ],[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+   Element has insufficient color contrast of 2.09 (foreground color: #0000ee, background color: #060b13, font size: 9.6pt (12.8px), font weight: normal). Expected contrast ratio of 4.5:1",[39m
+    [31m+         "html": "<a href=\"#\">Terms</a>",[39m
+    [31m+         "impact": "serious",[39m
+    [31m+         "none": Array [],[39m
+    [31m+         "target": Array [[39m
+    [31m+           ".legal-links > a[href=\"#\"]:nth-child(2)",[39m
+    [31m+         ],[39m
+    [31m+       },[39m
+    [31m+       Object {[39m
+    [31m+         "all": Array [],[39m
+    [31m+         "any": Array [[39m
+    [31m+           Object {[39m
+    [31m+             "data": Object {[39m
+    [31m+               "bgColor": "#060b13",[39m
+    [31m+               "contrastRatio": 2.09,[39m
+    [31m+               "expectedContrastRatio": "4.5:1",[39m
+    [31m+               "fgColor": "#0000ee",[39m
+    [31m+               "fontSize": "9.6pt (12.8px)",[39m
+    [31m+               "fontWeight": "normal",[39m
+    [31m+               "messageKey": null,[39m
+    [31m+             },[39m
+    [31m+             "id": "color-contrast",[39m
+    [31m+             "impact": "serious",[39m
+    [31m+             "message": "Element has insufficient color contrast of 2.09 (foreground color: #0000ee, background color: #060b13, font size: 9.6pt (12.8px), font weight: normal). Expected contrast ratio of 4.5:1",[39m
+    [31m+             "relatedNodes": Array [[39m
+    [31m+               Object {[39m
+    [31m+                 "html": "<footer class=\"site-footer\">",[39m
+    [31m+                 "target": Array [[39m
+    [31m+                   "footer",[39m
+    [31m+                 ],[39m
+    [31m+               },[39m
+    [31m+               Object {[39m
+    [31m+                 "html": "<body class=\"theme-easyway-arcane page-home\" data-theme=\"easyway-arcane\" data-page=\"home\">",[39m
+    [31m+                 "target": Array [[39m
+    [31m+                   "body",[39m
+    [31m+                 ],[39m
+    [31m+               },[39m
+    [31m+             ],[39m
+    [31m+           },[39m
+    [31m+         ],[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+   Element has insufficient color contrast of 2.09 (foreground color: #0000ee, background color: #060b13, font size: 9.6pt (12.8px), font weight: normal). Expected contrast ratio of 4.5:1",[39m
+    [31m+         "html": "<a href=\"#\">Compliance</a>",[39m
+    [31m+         "impact": "serious",[39m
+    [31m+         "none": Array [],[39m
+    [31m+         "target": Array [[39m
+    [31m+           ".legal-links > a[href=\"#\"]:nth-child(3)",[39m
+    [31m+         ],[39m
+    [31m+       },[39m
+    [31m+     ],[39m
+    [31m+     "tags": Array [[39m
+    [31m+       "cat.color",[39m
+    [31m+       "wcag2aa",[39m
+    [31m+       "wcag143",[39m
+    [31m+       "TTv5",[39m
+    [31m+       "TT13.c",[39m
+    [31m+       "EN-301-549",[39m
+    [31m+       "EN-9.1.4.3",[39m
+    [31m+       "ACT",[39m
+    [31m+       "RGAAv4",[39m
+    [31m+       "RGAA-3.2.1",[39m
+    [31m+     ],[39m
+    [31m+   },[39m
+    [31m+ ][39m
+
+      26 |         }
+      27 |
+    > 28 |         expect(accessibilityScanResults.violations).toEqual([]);
+         |                                                     ^
+      29 |     }
+      30 |
+      31 |     test('Landing Page should not have any automatically detectable accessibility issues', async ({ page }) => {
+        at checkAccessibility (C:\old\EasyWayDataPortal\apps\portal-frontend\tests\e2e\accessibility.spec.ts:28:53)
+        at C:\old\EasyWayDataPortal\apps\portal-frontend\tests\e2e\accessibility.spec.ts:33:9
+
+    attachment #1: screenshot (image/png) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\accessibility-Inclusive-Gu-4fa86-ctable-accessibility-issues-chromium\test-failed-1.png
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    attachment #2: video (video/webm) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\accessibility-Inclusive-Gu-4fa86-ctable-accessibility-issues-chromium\video-1.webm
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    attachment #3: video (video/webm) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\accessibility-Inclusive-Gu-4fa86-ctable-accessibility-issues-chromium\video.webm
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    Error Context: test-results\accessibility-Inclusive-Gu-4fa86-ctable-accessibility-issues-chromium\error-context.md
+
+
+[1A[2K  2 failed
+    [chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:31:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Landing Page should not have any automatically detectable accessibility issues 
+    [chromium] ÔÇ║ tests\e2e\accessibility.spec.ts:36:5 ÔÇ║ Inclusive Guardian ÔÖ┐ ÔÇ║ Demo Page should not have any automatically detectable accessibility issues 

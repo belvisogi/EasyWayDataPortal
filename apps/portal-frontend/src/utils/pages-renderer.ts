@@ -507,6 +507,7 @@ function renderComponentShowcase(section: import('../types/runtime-pages').Compo
             // JSON spec (copyable)
             const specContainer = el('div', 'spec-container');
             const specPre = el('pre', 'spec-json');
+            specPre.setAttribute('tabindex', '0'); // Accessibility: Scrollable region must be focusable
             const specCode = el('code');
             specCode.textContent = JSON.stringify(variant.spec, null, 2);
             specPre.appendChild(specCode);

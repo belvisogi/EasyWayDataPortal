@@ -23,6 +23,16 @@
       }
     },
     {
+      "id": "agents",
+      "route": "/agents",
+      "titleKey": "agents.hero.title",
+      "spec": "/pages/agents.json",
+      "nav": {
+        "labelKey": "nav.agents",
+        "order": 25
+      }
+    },
+    {
       "id": "memory",
       "route": "/memory",
       "titleKey": "page.memory.title",

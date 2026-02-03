@@ -18,6 +18,7 @@ export class SovereignHeader extends HTMLElement {
     }
 
     connectedCallback() {
+        // HMR Trigger
         const activePage = this.getAttribute('active-page') || 'home';
         document.body.classList.add('header-freeze');
         this.renderShell(activePage);

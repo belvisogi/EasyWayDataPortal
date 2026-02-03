@@ -34,7 +34,7 @@ window.SOVEREIGN_CONFIG = {
 
     // System Behavior
     system: {
-        version: "0.3.0",
+        version: "0.3.1",
         id: "SOVEREIGN-ONE",
         uploadTimeoutMs: 30000
     }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Gatekeeper Test</title>
+    <link rel="stylesheet" href="/src/theme.css">
+    <style>
+        body {
+            background-color: #060b13;
+            /* deep void */
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            gap: 1rem;
+        }
+
+        .status-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #555;
+            margin-right: 8px;
+        }
+
+        .on {
+            background: #10B981;
+            box-shadow: 0 0 10px #10B981;
+        }
+
+        .off {
+            background: #EF4444;
+        }
+
+        button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <script type="module" src="/src/components/lib/sovereign-cookie-banner.ts"></script>
+</head>
+
+<body>
+    <h1>The Gatekeeper</h1>
+    <p>Consent Management System</p>
+
+    <div class="status-box">
+        <h3>Consent Status</h3>
+        <div id="status-analytics"><span class="indicator off"></span> Analytics</div>
+        <div id="status-marketing"><span class="indicator off"></span> Marketing</div>
+
+        <button onclick="resetConsent()">Reset / Revoke Consent</button>
+    </div>
+
+    <sovereign-cookie-banner></sovereign-cookie-banner>
+
+    <script>
+        // Listen for updates
+        window.addEventListener('sovereign-consent-updated', (e) => {
+            const { analytics, marketing } = e.detail;
+            updateStatus('status-analytics', analytics);
+            updateStatus('status-marketing', marketing);
+            console.log('Consent Updated:', e.detail);
+        });
+
+        // Check initial load (if already consented, the component emits immediately on connect? No, check localstorage)
+        const stored = localStorage.getItem('sovereign-consent');
+        if (stored) {
+            const data = JSON.parse(stored);
+            updateStatus('status-analytics', data.analytics);
+            updateStatus('status-marketing', data.marketing);
+        }
+
+        function updateStatus(id, active) {
+            const el = document.getElementById(id).querySelector('.indicator');
+            el.className = 'indicator ' + (active ? 'on' : 'off');
+        }
+
+        function resetConsent() {
+            localStorage.removeItem('sovereign-consent');
+            location.reload();
+        }
+    </script>
+</body>
+
+</html>

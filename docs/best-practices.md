@@ -75,3 +75,11 @@ Manual (owner)
 
 ## Error glossary
 - See `docs/errors-glossary.md` (human‑readable error descriptions + fixes).
+
+## Self-Documenting Agents (Showcase Pattern)
+- **Concept**: Every major system component or agent should be exposed to the user as a "Persona".
+- **Implementation**:
+  - Register agent in `content/base.json` under `"agents"`.
+  - Assign a "Persona Name" (e.g., *Timekeeper* -> *Temporal Architect*).
+  - Display in `/agents` (`agents.json`) using the Catalog Card layout.
+- **Why**: It bridges the gap between technical architecture and user value, making the system "alive".

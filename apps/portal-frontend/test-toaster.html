@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Toaster Test</title>
+    <link rel="stylesheet" href="/src/theme.css">
+    <style>
+        body {
+            background-color: #060b13;
+            /* deep void */
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+            min-width: 200px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            border-color: #10B981;
+            color: #10B981;
+        }
+
+        .btn-error {
+            border-color: #EF4444;
+            color: #EF4444;
+        }
+
+        .btn-warning {
+            border-color: #F59E0B;
+            color: #F59E0B;
+        }
+    </style>
+    <script type="module" src="/src/components/lib/sovereign-toaster.ts"></script>
+</head>
+
+<body>
+    <h1>The Herald</h1>
+    <p>Event-driven Notification System</p>
+
+    <button class="btn btn-success" onclick="toast('success')">Emit Success</button>
+    <button class="btn btn-error" onclick="toast('error')">Emit Error</button>
+    <button class="btn btn-warning" onclick="toast('action')">Emit with Action</button>
+
+    <sovereign-toaster></sovereign-toaster>
+
+    <script>
+        function toast(type) {
+            let detail = {};
+            if (type === 'success') {
+                detail = { message: 'Operation completed successfully!', type: 'success' };
+            } else if (type === 'error') {
+                detail = { message: 'Critical System Failure occurred.', type: 'error' };
+            } else if (type === 'action') {
+                detail = {
+                    message: 'Update available.',
+                    type: 'warning',
+                    duration: 10000,
+                    action: {
+                        label: 'Install',
+                        onClick: () => alert('Installing update...')
+                    }
+                };
+            }
+
+            const event = new CustomEvent('sovereign-toast-show', { detail });
+            window.dispatchEvent(event);
+        }
+    </script>
+</body>
+
+</html>
