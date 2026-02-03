@@ -145,6 +145,10 @@
   - H2: 🕵️ Crawler Findings (Auto-Generated - 01/17/2026 20:49:01)
 - [concept/history.md](./concept/history.md) - 📜 The Chronicles of EasyWay
   - H2: 🌟 Stars Born (Milestones)
+- [concept/valentino-framework.md](./concept/valentino-framework.md) - 🌹 The Valentino Framework
+  - H2: 1. I Principi Fondanti
+  - H2: 2. The Quality Shield (I Guardiani) 🛡️
+  - H2: 3. Sovereign Deployment
 - [concept/vector-memory.md](./concept/vector-memory.md) - Concept: Vector Memory Store (The Cortex)
   - H2: Overview
   - H2: Architecture
