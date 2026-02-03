@@ -57,6 +57,10 @@ Cosa fa EasyWay Data Portal
 
 > Stato: **Sovereign Hybrid Beta**. Operativo su Oracle ARM, pronto per integrazioni Cloud ibride.
 
+### 🏗️ Nuova Architettura "Factory" (2026)
+Stiamo migrando verso una struttura **Monorepo** per gestire prodotti multipli (`dqf-agent`, `valentino-framework`).
+👉 **Leggi il manifesto architetturale**: [docs/concept/factory-architecture.md](docs/concept/factory-architecture.md)
+
 ---
 
 ## 1. Cos'è EasyWay Data Portal
