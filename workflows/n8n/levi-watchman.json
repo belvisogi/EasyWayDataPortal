@@ -1,0 +1,100 @@
+{
+  "name": "Project LEVI - The Watchman",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 3 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily Patrol (03:00 AM)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "node c:/old/EasyWayDataPortal/scripts/node/levi-adapter.js --intent scan"
+      },
+      "id": "execute-levi",
+      "name": "Execute Levi (Scan)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "🛡️ **Levi Report**\n\n{{ $json.stdout }}"
+      },
+      "id": "format-report",
+      "name": "Format Report",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "webhookUrl": "https://hooks.slack.com/services/YOUR/WEBHOOK/URL",
+        "text": "={{ $node[\"Format Report\"].json.content }}"
+      },
+      "id": "notify-slack",
+      "name": "Notify Channel",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Daily Patrol (03:00 AM)": {
+      "main": [
+        [
+          {
+            "node": "Execute Levi (Scan)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Levi (Scan)": {
+      "main": [
+        [
+          {
+            "node": "Format Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Report": {
+      "main": [
+        [
+          {
+            "node": "Notify Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
