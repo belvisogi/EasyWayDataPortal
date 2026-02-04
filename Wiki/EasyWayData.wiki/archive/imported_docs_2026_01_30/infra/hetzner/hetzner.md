@@ -11,6 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 Login: 	K0174541326 	
 Key: 	ZH4hAG3wNHNMpv%3 	

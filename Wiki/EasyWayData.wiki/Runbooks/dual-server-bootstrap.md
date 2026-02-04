@@ -14,6 +14,7 @@ llm:
   include: true
   chunk_hint: 5000
 entities: []
+type: guide
 ---
 
 # Bootstrap Dual Server (Oracle Dev/Staging + Hetzner Prod)

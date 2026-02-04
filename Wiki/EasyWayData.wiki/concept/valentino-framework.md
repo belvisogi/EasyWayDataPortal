@@ -13,6 +13,7 @@ llm:
   include: true
   chunk_hint: 500-800
 entities: []
+type: guide
 ---
 
 # 🌹 The Valentino Framework

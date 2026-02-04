@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Documentare logica di enforcement lato API e SP collegate.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

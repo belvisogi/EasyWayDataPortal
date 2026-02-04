@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: ADO – Segnare un job come Required nelle PR
 tags: [ado, branch-policies, governance, domain/control-plane, layer/gate, audience/dev, audience/ops, privacy/internal, language/it, ci]
 status: active

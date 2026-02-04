@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: EnforcerCheck – Guardrail allowed_paths in CI
 tags: [ci, guardrail, governance, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
 status: active

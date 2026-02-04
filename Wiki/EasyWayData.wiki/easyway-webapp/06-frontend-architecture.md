@@ -14,6 +14,7 @@ llm:
   redaction: [email, phone]
 entities: []
 next: Dettagliare componenti UI.
+type: guide
 ---
 
 [Home](./start-here.md) > [[domains/frontend|frontend]] > 

@@ -19,6 +19,7 @@ llm:
   redaction: [email, phone]
   include: true
   chunk_hint: 5000
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[agentic-ux.md|Ux]] > Spec

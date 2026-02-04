@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-18'
 next: Modellare workflow in n8n (Webhook -> Validate -> Gate precheck -> Generate artifacts -> (optional) Apply -> Log).
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration

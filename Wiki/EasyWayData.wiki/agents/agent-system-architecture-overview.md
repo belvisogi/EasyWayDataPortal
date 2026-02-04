@@ -19,6 +19,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 
 # 🤖 Agent System Architecture - Complete Overview

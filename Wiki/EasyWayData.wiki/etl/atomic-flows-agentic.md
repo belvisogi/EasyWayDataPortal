@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: Atomic Flows – Orchestrazione Agent‑First
 tags: [domain/datalake, layer/spec, audience/dev, privacy/internal, language/it, etl, airflow, azure, agents]
 status: active

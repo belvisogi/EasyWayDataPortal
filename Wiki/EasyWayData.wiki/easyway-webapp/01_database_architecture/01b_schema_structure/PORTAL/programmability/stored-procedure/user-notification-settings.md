@@ -17,6 +17,7 @@ llm:
   redaction: [email, phone]
 entities: []
 next: TODO - definire next step.
+type: guide
 ---
 [Home](../../../../.././start-here.md) > [[domains/db|db]] > 
 

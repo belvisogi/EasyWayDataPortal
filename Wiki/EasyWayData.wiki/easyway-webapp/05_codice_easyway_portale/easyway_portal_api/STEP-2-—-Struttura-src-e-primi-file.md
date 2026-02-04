@@ -14,6 +14,7 @@ canonical: ./step-2-struttura-src-e-primi-file.md
 entities: []
 updated: '2026-01-10'
 next: ./step-2-struttura-src-e-primi-file.md
+type: guide
 ---
 [Home](../.././start-here.md) >  > [[Layer - Howto|Howto]]
 

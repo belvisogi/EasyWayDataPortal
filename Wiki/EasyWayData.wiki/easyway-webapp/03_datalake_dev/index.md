@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-05'
 next: Aggiornare quando si aggiungono standard o runbook datalake.
+type: guide
 ---
 
 [Home](.././start-here.md) > [[domains/datalake|datalake]] > [[Layer - Index|Index]]

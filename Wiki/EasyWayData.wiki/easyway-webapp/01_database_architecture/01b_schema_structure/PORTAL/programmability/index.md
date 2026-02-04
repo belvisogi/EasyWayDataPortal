@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 next: Aggiornare quando cambiano template o viene aggiunto un nuovo artefatto.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > [[Layer - Index|Index]]

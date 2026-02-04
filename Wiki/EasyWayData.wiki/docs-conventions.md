@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-05'
 next: Aggiornare quando cambiano taxonomy/lint o regole di naming.
+type: guide
 ---
 
 [[start-here.md|Home]] > [[domains/docs-governance.md|Docs]] > Reference

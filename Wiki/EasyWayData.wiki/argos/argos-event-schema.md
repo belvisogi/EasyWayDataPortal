@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Definire JSON Schema formale.
+type: guide
 ---
 
 [Home](./start-here.md) >  > 

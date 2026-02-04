@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-08'
 next: Aggiungere checklist (file backup creati, link applicati, lint OK) o un next step esplicito.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../domains/docs-governance.md|Docs]] > Orchestration

@@ -12,6 +12,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 
 [Home](.././start-here.md) > [[domains/DB|DB]] > [[Layer - Index|Index]]

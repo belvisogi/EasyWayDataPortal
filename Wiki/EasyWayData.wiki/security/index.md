@@ -12,6 +12,7 @@ llm:
   chunk_hint: 200-300
 entities: []
 updated: 2026-01-26
+type: guide
 ---
 
 [[../start-here.md|Home]] > Security Index

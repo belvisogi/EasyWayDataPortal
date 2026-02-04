@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-08'
 next: Collegare al job CI e includere decision trace.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration

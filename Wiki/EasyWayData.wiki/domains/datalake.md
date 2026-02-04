@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Completare le ricette KB.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[datalake.md|datalake]] > Reference

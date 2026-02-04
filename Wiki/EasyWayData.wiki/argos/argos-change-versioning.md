@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Dettagliare workflow di promozione.
+type: guide
 ---
 
 [Home](./start-here.md) >  > 

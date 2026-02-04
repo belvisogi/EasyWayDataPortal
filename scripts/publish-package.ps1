@@ -37,7 +37,13 @@ try {
     
     # 5. Push to Remote (Force to overwrite history with clean slice)
     Write-Host "-> Pushing to Sovereign Fortress..."
-    git remote add origin $RemoteUrl
+    if (git remote | Select-String "origin") {
+        git remote set-url origin $RemoteUrl
+    }
+    else {
+        git remote add origin $RemoteUrl
+    }
+    
     git branch -M $Branch
     git push -u origin $Branch --force
     

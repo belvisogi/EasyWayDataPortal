@@ -1,0 +1,21 @@
+
+­ƒñû DQF Agent V2 (Session: c1cf26b5...)
+
+­ƒôØ Input: "Analizza i primi 2 file nella cartella Wiki/EasyWayData.wiki/agents"
+
+­ƒºá Parsing intent...
+   Intent Type: analyze
+   Language: it
+   Constraints: { path: 'Wiki/EasyWayData.wiki/agents', limit: 2 }
+
+­ƒº¡ Router analyzing intent...
+­ƒº¡ Routing Decision: RAG
+   Confidence: 90%
+   Reasoning: Intent type "analyze" requires document retrieval and AI analysis
+   Metadata: {"retriever":"world_index"}
+
+
+­ƒôè Analyzing files in: C:\old\EasyWayDataPortal\packages\dqf-agent\Wiki\EasyWayData.wiki\agents
+   Limit: 2 file(s)
+
+ÔØî Error: ENOENT: no such file or directory, scandir 'C:\old\EasyWayDataPortal\packages\dqf-agent\Wiki\EasyWayData.wiki\agents'

@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Allineare con OpenAPI e aggiungere esempi per ogni endpoint critico.
+type: guide
 ---
 
 [Home](./start-here.md) > [[Domain - Api|Api]] > [[Layer - Howto|Howto]]

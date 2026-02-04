@@ -12,6 +12,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 
 [Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md)

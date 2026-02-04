@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: Template Data Dictionary (DB Table) - Excel
 tags: [db, blueprint, data-dictionary, templates, agentic, language/it, privacy/internal]
 status: active

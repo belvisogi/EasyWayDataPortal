@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-05'
 next: Aggiornare quando si aggiungono nuove pagine o capitoli.
+type: guide
 ---
 
 [Home](.././start-here.md) > [[domains/frontend|frontend]] > [[Layer - Index|Index]]

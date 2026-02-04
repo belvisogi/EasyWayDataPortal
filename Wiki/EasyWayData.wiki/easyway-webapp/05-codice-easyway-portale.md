@@ -14,6 +14,7 @@ llm:
   redaction: [email, phone]
 entities: []
 next: Aggiungere link repo diretti.
+type: guide
 ---
 [Home](./start-here.md) > [[domains/frontend|frontend]] > [[Layer - Index|Index]]
 

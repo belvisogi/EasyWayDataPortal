@@ -12,6 +12,7 @@ llm:
   redaction: []
 entities: []
 updated: '2026-01-08'
+type: guide
 ---
 
 [Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 

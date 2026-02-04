@@ -11,6 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 # 📄 04 - Operations, Maintenance & Commands
 

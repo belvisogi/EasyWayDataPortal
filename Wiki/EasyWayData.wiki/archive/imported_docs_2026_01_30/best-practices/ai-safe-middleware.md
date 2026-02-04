@@ -11,6 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 # Best Practice: The Grandma Test (AI-Safe Middleware)
 

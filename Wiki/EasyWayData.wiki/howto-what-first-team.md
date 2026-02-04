@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: HOWTO – WHAT‑first + Diario di Bordo (Team)
 tags: [domain/docs, layer/howto, audience/dev, audience/non-expert, privacy/internal, language/it, howto, process, agents, argos]
 status: active

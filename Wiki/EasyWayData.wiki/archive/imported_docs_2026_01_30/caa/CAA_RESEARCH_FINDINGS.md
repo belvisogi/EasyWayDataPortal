@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-14'
 next: Implement database schema based on findings (Fase 1)
+type: guide
 ---
 
 # CAA Standards & Research Findings

@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-18'
 next: Automatizzare rigenerazione inventario da db/migrations/ con tool AI-friendly (db/db-deploy-ai/).
+type: guide
 ---
 
 [Home](.././start-here.md) > [[domains/db|db]] > 

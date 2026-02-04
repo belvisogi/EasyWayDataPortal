@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: Operativita governance-driven - provisioning accessi (DB/Datalake)
 tags: [domain/security, layer/runbook, audience/ops, audience/dba, privacy/internal, language/it, governance, agents, db, datalake]
 status: active

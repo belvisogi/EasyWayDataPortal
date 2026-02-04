@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Allineare a SP di logging e definire retention.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

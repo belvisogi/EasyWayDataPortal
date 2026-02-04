@@ -17,6 +17,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 
 # 🔒 Security Framework - Enterprise RBAC Model

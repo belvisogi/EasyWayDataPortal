@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-09'
 next: Aggiungere checklist di verifica (scorecard generata, backlog generato, preview kanban) o un next step esplicito.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../domains/docs-governance.md|Docs]] > Orchestration

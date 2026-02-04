@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-14'
 next: Wait for teacher input on child routines, then start Fase 1
+type: guide
 ---
 
 [Home](./start-here.md) > [[Domain - Caa|Caa]] > [[Layer - Overview|Overview]]

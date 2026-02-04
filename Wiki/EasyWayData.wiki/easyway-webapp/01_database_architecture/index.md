@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-05'
 next: Aggiornare quando cambiano DDL o struttura.
+type: guide
 ---
 
 [Home](.././start-here.md) > [[domains/db|db]] > [[Layer - Index|Index]]

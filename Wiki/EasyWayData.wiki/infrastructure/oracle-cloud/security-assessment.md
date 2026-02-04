@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 
 # Oracle Cloud Agent - Security & Enterprise Readiness Assessment

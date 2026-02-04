@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 next: TODO - definire next step.
+type: guide
 ---
 [Home](../.././start-here.md) > [[domains/frontend|frontend]] > 
 

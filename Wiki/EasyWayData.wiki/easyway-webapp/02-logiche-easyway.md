@@ -14,6 +14,7 @@ llm:
   redaction: [email, phone]
 entities: []
 next: Verificare allineamento sezioni.
+type: guide
 ---
 [Home](./start-here.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]
 

@@ -14,6 +14,7 @@ llm:
   redaction: [email, phone]
 entities: []
 next: Prototipo agent.upload.
+type: guide
 ---
 [Home](./start-here.md) >  > 
 

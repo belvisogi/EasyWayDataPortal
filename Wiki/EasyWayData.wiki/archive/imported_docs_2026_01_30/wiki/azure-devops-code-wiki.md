@@ -11,6 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 # Azure DevOps – Pubblicare la Wiki dal Repo (Code Wiki)
 

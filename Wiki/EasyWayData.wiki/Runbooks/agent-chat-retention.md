@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 owner: team-platform
 id: ew-runbook-agent-chat-retention
 tags: [runbook, db, agents, audit, retention, language/it]

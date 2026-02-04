@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: Agent Security (IAM/KeyVault) - overview
 tags: [security, iam, keyvault, agents, domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it]
 status: active

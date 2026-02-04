@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Integrare il report nel Quest Board DQ.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../domains/db.md|db]] > Orchestration

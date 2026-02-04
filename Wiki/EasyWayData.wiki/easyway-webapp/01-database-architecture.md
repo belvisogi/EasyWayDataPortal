@@ -15,6 +15,7 @@ status: active
 owner: team-platform
 updated: '2026-01-16'
 next: Aggiornare diagramma ERD.
+type: guide
 ---
 [Home](./start-here.md) > [[domains/db|db]] > 
 

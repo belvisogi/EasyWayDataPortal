@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-05'
 next: Aggiornare se cambiano i path da escludere o le impostazioni Obsidian.
+type: guide
 ---
 
 [Home](./start-here.md) > [[domains/docs-governance|Docs]] > 

@@ -12,6 +12,7 @@ llm:
   chunk_hint: 250-400
 entities: []
 updated: '2026-01-08'
+type: guide
 ---
 
 [Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Howto|Howto]]

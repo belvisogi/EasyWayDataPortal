@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: Agent Priority Rules e Checklists (human-in-the-loop)
 tags: [agents, governance, docs, domain/control-plane, layer/reference, audience/dev, privacy/internal, language/it]
 status: active

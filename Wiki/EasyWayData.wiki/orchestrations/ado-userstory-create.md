@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-09'
 next: Aggiungere esempi output stateBefore/stateAfter.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../ado-operating-model.md|Ado]] > Orchestration

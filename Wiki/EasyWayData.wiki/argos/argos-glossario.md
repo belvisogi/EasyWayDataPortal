@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Espandere le voci di glossario.
+type: guide
 ---
 
 [Home](./start-here.md) >  > 

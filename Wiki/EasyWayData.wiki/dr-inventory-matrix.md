@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
+type: guide
 ---
 [Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Blueprint|Blueprint]]
 

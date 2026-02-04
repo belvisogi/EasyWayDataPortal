@@ -12,6 +12,7 @@ llm:
   redaction: []
 entities: []
 updated: '2026-01-13'
+type: guide
 ---
 
 [[../start-here.md|Home]] > Architecture > Reference

@@ -17,6 +17,7 @@ Questa pagina razionalizza e centralizza tutte le informazioni essenziali per ca
 **Per ogni dettaglio operativo, consulta i file canonici linkati in fondo.**
 updated: '2026-01-05'
 next: TODO - definire next step.
+type: guide
 ---
 
 [Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]

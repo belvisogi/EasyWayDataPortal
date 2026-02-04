@@ -11,6 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 # EasyWay Core - Release Checklist (QA Protocol)
 *Standard Operating Procedure for dispensing Sovereign Quality.*

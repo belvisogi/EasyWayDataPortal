@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Compilare colonne (PII), policy RLS e link alle SP CRUD utenti.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

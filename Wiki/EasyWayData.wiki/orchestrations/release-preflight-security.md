@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Collegare al workflow n8n reale e aggiungere esempi di output.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration

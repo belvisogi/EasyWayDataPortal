@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-18'
 next: Vedi db-migrations.md per approccio attuale (Git + SQL diretto).
+type: guide
 ---
 
 [Home](.././start-here.md) > [[domains/db|db]] > 

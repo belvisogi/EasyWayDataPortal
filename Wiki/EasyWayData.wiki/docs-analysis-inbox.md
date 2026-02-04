@@ -13,6 +13,7 @@ llm:
 created: '2026-02-02'
 updated: '2026-02-02'
 entities: []
+type: guide
 ---
 
 [[start-here.md|Home]] > [[domains/docs-governance.md|Docs]] > Inbox

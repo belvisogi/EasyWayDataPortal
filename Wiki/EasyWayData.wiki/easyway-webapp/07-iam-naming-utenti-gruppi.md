@@ -14,6 +14,7 @@ llm:
   redaction: [email, phone]
 entities: []
 next: Applicare a terraform.
+type: guide
 ---
 [Home](./start-here.md) >  > 
 

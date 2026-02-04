@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Compilare colonne e policy (RLS, PII) e link alle SP di onboarding tenant.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

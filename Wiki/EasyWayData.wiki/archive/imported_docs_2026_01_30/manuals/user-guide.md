@@ -13,6 +13,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 
 # 📘 Guida Utente EasyWay (The Hitchhiker's Guide to the Data Portal)

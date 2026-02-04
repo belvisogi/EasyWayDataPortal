@@ -11,6 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 # Chronicle 005: The Hextech Revolution
 **Date**: 2026-01-28

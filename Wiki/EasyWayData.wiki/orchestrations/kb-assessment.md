@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Collegare a un gate CI opzionale.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../domains/docs-governance.md|Docs]] > Orchestration

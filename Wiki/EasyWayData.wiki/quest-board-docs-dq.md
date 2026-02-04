@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-09'
 next: Eseguire docs-dq-scorecard e triage del backlog.
+type: guide
 ---
 
 [Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > 

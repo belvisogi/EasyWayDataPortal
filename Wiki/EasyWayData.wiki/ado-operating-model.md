@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-09'
 next: Allineare con struttura reale Area/Iteration e team ADO.
+type: guide
 ---
 
 [Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[Domain - Ado|Ado]] > [[Layer - Policy|Policy]]

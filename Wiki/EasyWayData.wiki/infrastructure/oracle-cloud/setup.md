@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: 2026-01-26
 next: Deploy su Oracle Cloud e testare prima esecuzione RAG
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[./agent-vectordb-architecture.md|Architecture]] > Implementation Guide

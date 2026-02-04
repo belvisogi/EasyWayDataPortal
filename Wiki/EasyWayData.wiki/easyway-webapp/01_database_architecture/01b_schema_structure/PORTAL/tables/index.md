@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Completare descrizioni colonne e policy (PII/RLS) per tutte le tabelle.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > [[Layer - Index|Index]]

@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Estendere le relazioni esplicite (FK) quando presenti e migliorare le euristiche di inferenza.
+type: guide
 ---
 
 [Home](./start-here.md) > [[domains/db|db]] > [[Layer - Blueprint|Blueprint]]

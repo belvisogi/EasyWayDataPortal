@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Mappare tutti gli use case.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[frontend.md|frontend]] > Reference

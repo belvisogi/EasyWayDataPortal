@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Collegare al workflow n8n reale e aggiungere esempi artifacts[].
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../domains/db.md|db]] > Orchestration

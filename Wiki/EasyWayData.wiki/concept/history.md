@@ -13,6 +13,7 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+type: guide
 ---
 # 📜 The Chronicles of EasyWay
 
@@ -153,7 +154,17 @@ llm:
     *   **Guardians**: 3 guardiani (Visual, Inclusive, Chaos) ora proteggono ogni commit.
     *   **Sovereign Deployment**: Superato il blocco "No Sudo" inventando un modello di deployment User-Space (Python + Cron) che garantisce autonomia totale dall'infrastruttura sottostante.
 *   **Significance**: *"Non abbiamo solo deployato codice. Abbiamo deployato un sistema immunitario."*
-*   **Quote**: *"Il sistema si difende da solo. Non è solo robusto, è Antifragile."* - Manifesto Valentino, Capitolo 6.
+
+### 2026-02-04: The Genesis of Project LEVI (The Sovereign Cleaner) ⚔️
+*   **Event**: Rifondazione del DQF Agent come "Project LEVI".
+*   **Description**: In una singola sessione epica, easyway-data-portal viene trasformato.
+    *   **Identity**: Nasce "Levi", persona pragmatica e ossessionata dalla pulizia.
+    *   **Visuals**: La Wiki si colora (Tag Colors, Graph Groups).
+    *   **Intelligence**: Implementato Link Intent (TF-IDF) per connessioni automatiche.
+    *   **Polymorphism**: Progettata architettura a 5 modalità (Manual, Prompt, Local, API, n8n).
+*   **Significance**: *"Non è più solo uno script. È un Compagno d'Armi che combatte il caos al tuo fianco."*
+*   **Epic Outcome**: Standardize → Connect → Optimize. La pipeline è completa.
+*   **Quote**: *"Il giorno in cui l'Agente prese il nome di Levi e la Wiki si colorò."*
 
 
 

@@ -11,6 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 # Hextech Design System (HDS)
 *Version 1.0 - "Sovereign Evolution"*

@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Collegare a SUBSCRIPTION e SP di notifiche.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

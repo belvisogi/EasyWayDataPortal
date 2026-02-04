@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Estendere esempi DSL.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[db.md|db]] > Reference

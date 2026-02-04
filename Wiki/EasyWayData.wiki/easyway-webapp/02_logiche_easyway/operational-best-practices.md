@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: TODO - definire next step.
+type: guide
 ---
 # Best Practice Operative e Integrazione
 

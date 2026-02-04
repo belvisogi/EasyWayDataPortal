@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: Governance DQ – RACI, Processi e Checklist
 tags: [dq, governance, argos, agents, domain/control-plane, layer/spec, audience/ops, audience/dev, privacy/internal, language/it, data-quality]
 status: active

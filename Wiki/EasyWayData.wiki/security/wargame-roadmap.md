@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: 2026-01-26
 next: Implementare security hardening prima, war game dopo
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[threat-analysis-hardening.md|Security]] > War Game Roadmap

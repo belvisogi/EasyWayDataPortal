@@ -9,6 +9,7 @@ owner: team-docs
 created: '2025-01-01'
 updated: '2025-01-01'
 tags: [artifact-sequence, domain/db, layer/reference, audience/dba, privacy/internal, language/it]
+  - artifact/sequence
 llm:
   include: true
   pii: none
@@ -16,6 +17,7 @@ llm:
   redaction: [email, phone]
 entities: []
 next: TODO - definire next step.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

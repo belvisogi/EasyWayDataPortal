@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: Segreti e accessi (DB + Datalake)
 tags: [domain/security, layer/reference, audience/ops, audience/dba, privacy/internal, language/it, keyvault, db, datalake]
 status: active

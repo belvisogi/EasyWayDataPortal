@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Collegare all'esecuzione ewctl/checklist e includere output sample.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration

@@ -16,6 +16,7 @@ llm:
   redaction: [email, phone]
 pii: none
 owner: team-platform
+type: guide
 ---
 
 [Home](./start-here.md)

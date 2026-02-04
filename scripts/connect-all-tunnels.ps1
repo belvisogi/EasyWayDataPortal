@@ -26,6 +26,7 @@ Write-Host "   - 80   (HTTP Routing)" -ForegroundColor Green
 Write-Host "   - 8080 (Dashboard)" -ForegroundColor Green
 Write-Host "   - 5678 (n8n)" -ForegroundColor Green
 Write-Host "   - 3000 (API Direct)" -ForegroundColor Green
+Write-Host "   - 11434 (Ollama AI)" -ForegroundColor Magenta
 
 $remoteHost = "ubuntu@$TargetIP"
 
@@ -35,6 +36,7 @@ ssh -i $KeyPath -o StrictHostKeyChecking=no `
     -L 8080:127.0.0.1:8080 `
     -L 5678:127.0.0.1:5678 `
     -L 3000:127.0.0.1:3000 `
+    -L 11434:127.0.0.1:11434 `
     $remoteHost -N
 
 Write-Host "❌ Tunnel closed." -ForegroundColor Red

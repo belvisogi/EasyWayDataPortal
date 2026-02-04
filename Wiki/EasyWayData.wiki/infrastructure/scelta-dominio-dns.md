@@ -13,6 +13,7 @@ llm:
 created: '2026-02-01'
 updated: '2026-02-02'
 entities: []
+type: guide
 ---
 
 [[start-here.md|Home]] > [[infrastructure/index.md|Infrastructure]] > Scelta Dominio

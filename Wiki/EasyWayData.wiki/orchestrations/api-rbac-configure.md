@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-08'
 next: Collegare al workflow n8n reale e aggiungere output sample.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../api/rest-errors-qna.md|Api]] > Orchestration

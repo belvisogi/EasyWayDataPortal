@@ -16,6 +16,7 @@ llm:
   redaction: [email, phone]
 pii: none
 owner: team-platform
+type: guide
 ---
 
 [Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > 

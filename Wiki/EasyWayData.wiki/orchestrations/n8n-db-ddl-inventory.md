@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-18'
 next: Implementare workflow n8n e collegare webhook.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Orchestration

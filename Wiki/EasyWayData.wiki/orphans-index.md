@@ -12,6 +12,7 @@ llm:
   pii: none
 entities: []
 updated: '2026-01-09'
+type: guide
 ---
 
 [Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) > [[domains/docs-governance|Docs]] > [[Layer - Index|Index]]

@@ -25,22 +25,31 @@ EasyWayDataPortal/
 └── apps/core/             (Sorgente)
 ```
 
-### 🚀 La Proiezione (Remote)
-Quando un componente è pronto, uno script (`publish-package.ps1`) lo "proietta" su un repository dedicato.
-```
-GitLab Sovereign (Remote)
-├── repo: easyway-data-portal (Contiene TUTTO - La Madre)
-├── repo: dqf-agent           (Contiene SOLO dqf-agent - Il Figlio)
-└── repo: valentino           (Contiene SOLO valentino - Il Figlio)
+### 🚀 La Proiezione e Ridondanza (Remote Strategy)
+
+Il server GitLab è il Master, ma non è l'unico punto di salvataggio. Sfruttiamo i tier gratuiti per la massima antifragilità.
+
+```mermaid
+graph TD
+    Factory[💻 Tuo PC] -->|Push| GitLab[🏰 Sovereign GitLab\n(Master)]
+
+    subgraph "Cloud Gratuito (Bunker & Vetrina)"
+        GitHubPrivate[🔒 GitHub Private\n(Backup Core)]
+        GitHubPublic[🌍 GitHub Public\n(Community Agent)]
+    end
+
+    GitLab -->|Auto-Mirror| GitHubPrivate
+    GitLab -->|Auto-Mirror| GitHubPublic
+
+    style GitLab fill:#d4fae6,stroke:#198754,stroke-width:2px
 ```
 
-### 🔄 Il workflow "Stateless Publish"
-Per evitare conflitti Git locali, lo script di pubblicazione esegue questi passaggi atomici:
-1.  **Snapshot**: Copia la cartella del package in un'area temporanea.
-2.  **Init**: Inizializza un nuovo repository Git pulito.
-3.  **Push**: Sovrascrive (`git push --force`) il repository satellite remoto.
-4.  **Tag**: Applica il versionamento (es. `v1.0.0`) sul satellite.
-5.  **Cleanup**: Distrugge l'area temporanea.
+**La Regola del 3-2-1 (Automatizzata):**
+1.  **3 Copie del dato**: PC Locale, Server GitLab, GitHub Cloud.
+2.  **2 Media diversi**: Tuo Hard Disk, Cloud Oracle, Cloud GitHub.
+3.  **1 Off-site**: GitHub è geograficamente lontano dal tuo server.
+
+**Tutto questo costa 0€.**
 
 ## 3. Perché questa scelta? (The Why)
 

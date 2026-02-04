@@ -11,6 +11,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 # Infrastructure Audit & Gap Analysis
 **Date**: 2026-01-27

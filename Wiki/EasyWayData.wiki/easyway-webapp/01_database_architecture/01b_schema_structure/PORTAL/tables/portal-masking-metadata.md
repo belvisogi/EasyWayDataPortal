@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Collegare alle regole di masking e ai vincoli security.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

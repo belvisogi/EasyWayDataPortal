@@ -14,6 +14,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 next: Aggiornare quando cambiano endpoint o policy.
+type: guide
 ---
 
 [Home](../.././start-here.md) > [[domains/frontend|frontend]] > [[Layer - Index|Index]]

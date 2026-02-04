@@ -13,6 +13,7 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+type: guide
 ---
 # Architecture: Dual Stack Strategy (The Bridge) ☯️
 

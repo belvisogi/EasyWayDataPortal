@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Aggiungere esempi output stateBefore/stateAfter.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../domains/db.md|db]] > Orchestration

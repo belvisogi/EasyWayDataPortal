@@ -17,6 +17,7 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+type: guide
 ---
 
 # 🏷️ Sistema di Tagging Gerarchico - Documentazione

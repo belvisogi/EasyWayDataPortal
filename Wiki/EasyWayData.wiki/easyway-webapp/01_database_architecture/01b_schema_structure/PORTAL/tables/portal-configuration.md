@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Compilare data dictionary (colonne, PII, tenanting) e link alle SP CRUD.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

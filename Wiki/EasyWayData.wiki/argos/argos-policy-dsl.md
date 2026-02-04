@@ -11,6 +11,7 @@ llm:
   include: true
   chunk_hint: 5000
 entities: []
+type: guide
 ---
 [Home](./start-here.md) >  > 
 

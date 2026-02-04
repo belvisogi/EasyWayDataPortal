@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Collegare a V5/V10 (RLS setup/config) e descrivere policy per tabella.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

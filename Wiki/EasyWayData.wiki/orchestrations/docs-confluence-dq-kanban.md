@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-09'
 next: Aggiungere una checklist di esito (export OK, pagina aggiornata, link ai report) o un next step esplicito.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../domains/docs-governance.md|Docs]] > Orchestration

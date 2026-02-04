@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-18'
 next: Sviluppare tool AI-friendly custom per automazione migrazioni (db/db-deploy-ai/).
+type: guide
 ---
 
 [Home](.././start-here.md) > [[domains/db|db]] > 

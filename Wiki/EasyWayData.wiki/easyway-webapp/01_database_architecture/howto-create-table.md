@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-05'
 next: Consolidare convenzioni (RLS/PII/extended properties) e integrare export ERwin come artifact.
+type: guide
 ---
 
 [Home](.././start-here.md) > [[domains/db|db]] > [[Layer - Howto|Howto]]

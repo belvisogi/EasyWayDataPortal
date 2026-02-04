@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 id: runbook-<slug>
 title: <Titolo Runbook>
 summary: <Sintesi breve (1-2 frasi)>

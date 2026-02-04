@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Definire campi minimi e correlazione con STATS_EXECUTION_LOG.
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

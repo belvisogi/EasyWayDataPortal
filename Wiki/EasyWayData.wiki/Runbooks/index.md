@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 owner: team-platform
 id: ew-runbooks-index
 tags: [runbook, index, ops, language/it]

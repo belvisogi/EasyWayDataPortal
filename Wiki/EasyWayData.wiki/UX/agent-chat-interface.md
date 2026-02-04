@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-13'
 next: Aggiungere una checklist (wireframe validato, stati UX, eventi loggati) o un next step esplicito.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[agentic-ux.md|Ux]] > Spec

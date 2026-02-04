@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-05'
 next: TODO - definire next step.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../control-plane/index.md|Control-Plane]] > Reference

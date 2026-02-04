@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-09'
 next: Allineare le guide step-* a Start Here + ewctl.
+type: guide
 ---
 [Home](../.././start-here.md) > [[Domain - Portal|Portal]] > [[Layer - Howto|Howto]]
 

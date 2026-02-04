@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-05'
 next: ./STEP-3-—-Gestione-configurazioni-(YAML-+-DB).md
+type: guide
 ---
 [Home](../.././start-here.md) >  > [[Layer - Howto|Howto]]
 

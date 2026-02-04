@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-18'
 next: Collegare al workflow n8n reale (validate/apply) e allegare evidenze.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../domains/db.md|db]] > Orchestration

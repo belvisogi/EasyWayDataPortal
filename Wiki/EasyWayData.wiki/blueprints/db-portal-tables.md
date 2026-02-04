@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Popolare logical_name/descrizioni colonne e collegare SP/endpoint per ogni tabella.
+type: guide
 ---
 
 [Home](./start-here.md) > [[domains/db|db]] > [[Layer - Blueprint|Blueprint]]

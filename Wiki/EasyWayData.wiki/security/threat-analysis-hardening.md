@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: 2026-01-26
 next: Implementare contromisure critiche (RLS, SSH hardening, fail2ban)
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[segreti-e-accessi.md|Security]] > Threat Analysis

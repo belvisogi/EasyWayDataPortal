@@ -14,6 +14,7 @@ llm:
   redaction: [email, phone]
 entities: []
 next: Validare Terraform.
+type: guide
 ---
 [Home](./start-here.md) > [[domains/datalake|datalake]] > 
 

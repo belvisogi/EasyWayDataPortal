@@ -1,4 +1,9 @@
 ---
+type: guide
+status: draft
+---
+
+---
 title: ARGOS – Overview e Integrazione
 tags: [argos, dq, agents, domain/control-plane, layer/reference, audience/dev, audience/ops, privacy/internal, language/it, data-quality]
 status: active

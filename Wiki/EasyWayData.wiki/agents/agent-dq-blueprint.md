@@ -1,21 +1,29 @@
 ---
 title: Agent – DQ Blueprint (Spec v0)
-tags: [agents, argos, dq, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
+tags:
+  - agents
+  - argos
+  - dq
+  - domain/control-plane
+  - layer/spec
+  - audience/dev
+  - privacy/internal
+  - language/it
 status: active
 updated: 2026-01-16
-redaction: [email, phone]
+redaction:
+  - email
+  - phone
 id: ew-agent-dq-blueprint
 chunk_hint: 250-400
 entities: []
 include: true
 summary: Agente che genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX o schema, integrato con ARGOS.
-llm: 
-pii: none
-owner: team-platform
-
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 5000
+type: agent
+---
 
 [Home](./start-here.md) >  > 
 

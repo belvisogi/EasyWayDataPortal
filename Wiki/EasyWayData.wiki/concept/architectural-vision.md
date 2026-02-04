@@ -13,6 +13,7 @@ llm:
   pii: none
   chunk_hint: 250-400
   redaction: [email, phone]
+type: guide
 ---
 # 🧠 L'Evoluzione Architetturale di EasyWay
 > *Il percorso intuitivo verso un Sistema Multi-Agente Senziente.*

@@ -30,11 +30,9 @@ llm:
 Con l'introduzione di **orchestrazione multi-agent** (Expert + Reviewer), il sistema diventa vulnerabile a **prompt injection** e altri attacchi AI.
 
 **Rischi**:
-- Utente malintenzionato manipola input per bypassare controlli
-- KB compromessa con istruzioni nascoste
-- Agent genera output con credenziali hardcoded o privilege escalation
 
 **Soluzione**: Sistema di guardrail **defense-in-depth** con 5 layer.
+type: guide
 ---
 
 ## 🛡️ Architettura (5 Layer)

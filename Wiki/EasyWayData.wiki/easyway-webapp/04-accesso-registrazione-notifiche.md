@@ -14,6 +14,7 @@ llm:
   redaction: [email, phone]
 entities: []
 next: Implementare flow DQ.
+type: guide
 ---
 [Home](./start-here.md) >  > 
 

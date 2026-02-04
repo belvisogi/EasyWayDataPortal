@@ -7,10 +7,6 @@ tags: [agents, governance, issue-tracking, kanban, continuous-improvement]
 scope: architecture
 summary: Sistema completo di tracciamento issue per agenti con Kanban board e governance automatica per continuous improvement
 related:
-  - [[agents-governance]]
-  - [[agent-architecture-standard]]
-  - [[agentic-portal-vision]]
-  - [[control-plane/agents-manifest-audit]]
 id: ew-agents-agent-issue-tracking-system
 owner: team-platform
 llm:
@@ -19,6 +15,7 @@ llm:
   chunk_hint: 250-400
   redaction: [email, phone]
 entities: []
+type: guide
 ---
 
 # Agent Issue Tracking System

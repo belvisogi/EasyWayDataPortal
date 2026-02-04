@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Stabilizzare convenzioni (tenanting/RLS/PII) e aggiungere validazioni (lint) sui CSV.
+type: guide
 ---
 
 [Home](./start-here.md) > [[domains/db|db]] > [[Layer - Blueprint|Blueprint]]

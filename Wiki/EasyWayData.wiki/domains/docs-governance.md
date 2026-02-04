@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Completare audit log.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[docs-governance.md|Docs]] > Reference

@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-06'
 next: Documentare regole ACL e join principali (profiles/sections).
+type: guide
 ---
 
 [Home](../../../.././start-here.md) > [[domains/db|db]] > 

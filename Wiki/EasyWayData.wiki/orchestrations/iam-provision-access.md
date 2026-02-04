@@ -13,6 +13,7 @@ llm:
 entities: []
 updated: '2026-01-16'
 next: Aggiungere esempi end-to-end per target db e datalake.
+type: guide
 ---
 
 [[../start-here.md|Home]] > [[../security/segreti-e-accessi.md|Security]] > Orchestration
