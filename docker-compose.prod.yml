@@ -10,29 +10,61 @@ version: '3.8'
 # Optimized for Security & Performance
 
 services:
-  # 🚦 Reverse Proxy (Gateway)
+  # 🚦 PRIMARY Reverse Proxy (Caddy - ACTIVE)
+  # Replaces Traefik due to Docker API incompatibility (client 1.24 vs required 1.44)
+  caddy:
+    image: caddy:2.8-alpine
+    container_name: easyway-gateway-caddy
+    restart: always
+    ports:
+      - "80:80"       # Primary HTTP
+      - "443:443"     # Primary HTTPS
+      - "2019:2019"   # Admin API (metrics)
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+      - caddy_logs:/var/log/caddy
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - CADDY_ADMIN_USER=${CADDY_ADMIN_USER}
+      - CADDY_ADMIN_HASH=${CADDY_ADMIN_HASH}
+      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER}
+      - N8N_BASIC_AUTH_HASH_CADDY=${N8N_BASIC_AUTH_HASH_CADDY}
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+    networks:
+      - easyway-net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:2019/metrics"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # 🔧 BACKUP Reverse Proxy (Traefik - STANDBY on port 8081)
+  # Kept for rollback capability - has Docker API v1.24 incompatibility
   traefik:
     image: traefik:v2.10
-    container_name: easyway-gateway
+    container_name: easyway-gateway-traefik
     restart: always
     command:
       #- "--log.level=DEBUG"
-      - "--api.dashboard=false" # Disable insecure dashboard
+      - "--api.dashboard=false"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
-      # TODO: Enable HTTPS with LetsEncrypt once domain is mapped
-      # - "--entrypoints.websecure.address=:443"
     ports:
-      - "80:80"
-      - "443:443"
+      - "8081:80"     # Backup port (non-conflicting with Caddy)
+      # - "8443:443"  # Uncomment if needed for backup HTTPS
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - easyway-net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host(`traefik.localhost`)" # Local usage only
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.localhost`)"
+    profiles:
+      - backup  # Won't start by default, use: docker compose --profile backup up -d
 
   # 🌐 Frontend (Sovereign UI)
   frontend:
@@ -149,3 +181,6 @@ volumes:
   qdrant-data:
   postgres-data:
   n8n-data:
+  caddy_data:
+  caddy_config:
+  caddy_logs:
