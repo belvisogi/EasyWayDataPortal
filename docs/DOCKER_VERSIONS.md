@@ -4,7 +4,7 @@
 
 | Service | Version | Update Policy | Notes |
 |---------|---------|---------------|-------|
-| n8n | 1.23.2 | Monthly review | Check releases weekly |
+| n8n | 1.123.20 | Monthly review | Check releases weekly |
 | Traefik | v3.2 | Quarterly | v2.11 EOL'd Feb 1, 2026 ⚠️ |
 | Qdrant | v1.12.4 | Monthly | Vector DB - test compatibility |
 | ChromaDB | 0.6.3 | Monthly | Alternative vector DB |

@@ -67,7 +67,7 @@ services:
 
   # 🤖 Orchestrator (n8n - The Portable Brain)
   n8n:
-    image: n8nio/n8n:1.23.2
+    image: n8nio/n8n:1.123.20
     container_name: easyway-orchestrator
     restart: unless-stopped
     user: "1000:1000"

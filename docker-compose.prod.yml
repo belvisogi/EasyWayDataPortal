@@ -74,7 +74,7 @@ services:
 
   # 🤖 Orchestrator (n8n)
   n8n:
-    image: n8nio/n8n:1.23.2
+    image: n8nio/n8n:1.123.20
     container_name: easyway-orchestrator
     restart: always
     environment:
@@ -86,7 +86,7 @@ services:
       - GENERIC_TIMEZONE=Europe/Rome
       # Security
       - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=${N8N_USER}
+      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER}
       - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
       # Integrations
       - DB_TYPE=postgresdb
