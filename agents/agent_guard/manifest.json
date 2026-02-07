@@ -1,0 +1,55 @@
+{
+    "id": "agent_guard",
+    "name": "Agent Guard (The Sentry)",
+    "classification": "arm",
+    "version": "1.1.0",
+    "role": "enforcer",
+    "owner": "team-devops",
+    "description": "Applica le regole di Branching e Naming (GitLab Workflow Standard) via Policy-as-Code.",
+    "llm_config": {
+        "model": "rule-based-regex",
+        "temperature": 0.0,
+        "system_prompt": "agents/agent_guard/PROMPTS.md",
+        "tools": [
+            "git_check_ref",
+            "pipeline_block"
+        ]
+    },
+    "context_config": {
+        "memory_files": [
+            "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md",
+            "agents/agent_guard/policies.json"
+        ],
+        "context_limit_tokens": 4000
+    },
+    "actions": [
+        {
+            "name": "guard:validate",
+            "description": "Esegue validazione completa (Branch, Target, Commit) rispetto a policies.json.",
+            "parameters": {
+                "SourceBranch": "string (e.g., feature/PBI-123)",
+                "TargetBranch": "string (e.g., develop)",
+                "CommitMessage": "string (optional)"
+            }
+        }
+    ],
+    "readme": "README.md",
+    "allowed_paths": [
+        ".git/**",
+        "agents/agent_guard/policies.json",
+        "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md"
+    ],
+    "allowed_tools": [
+        "pwsh",
+        "git"
+    ],
+    "required_gates": [],
+    "knowledge_sources": [
+        {
+            "priority": "high",
+            "path": "agents/agent_guard/policies.json",
+            "type": "configuration"
+        }
+    ],
+    "entry_point": "scripts/pwsh/agent-guard.ps1"
+}

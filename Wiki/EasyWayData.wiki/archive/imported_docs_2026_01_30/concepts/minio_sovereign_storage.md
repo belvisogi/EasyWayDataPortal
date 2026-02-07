@@ -1,18 +1,8 @@
 ---
-id: ew-archive-imported-docs-2026-01-30-concepts-minio-sovereign-storage
-title: MinIO: Il Caveau Digitale Sovrano
-summary: TODO - aggiungere un sommario breve.
+type: concept
 status: draft
-owner: team-platform
-tags: [domain/docs, layer/reference, privacy/internal, language/it, audience/dev]
-llm:
-  include: true
-  pii: none
-  chunk_hint: 250-400
-  redaction: [email, phone]
-entities: []
-type: guide
 ---
+
 # MinIO: Il Caveau Digitale Sovrano
 
 > **"S3 Compatibility without the AWS Invoice."**

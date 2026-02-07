@@ -1,0 +1,66 @@
+{
+    "version": "1.0",
+    "rules": {
+        "branch_naming": {
+            "enabled": true,
+            "patterns": [
+                "^feature/PBI-[A-Z0-9]+-\\d+-[a-z0-9-]+$",
+                "^feature/PBI-\\d+-[a-z0-9-]+$",
+                "^bugfix/FIX-\\d{3,}-[a-z0-9-]+$",
+                "^hotfix/INC-\\d{3,}-[a-z0-9-]+$",
+                "^develop$",
+                "^main$"
+            ],
+            "error_message": "Branch name must follow pattern: feature/PBI-000-desc, bugfix/FIX-000-desc, or hotfix/INC-000-desc"
+        },
+        "commit_message": {
+            "enabled": true,
+            "pattern": "^(feat|fix|docs|style|refactor|perf|test|chore|ci|build)(\\(.+\\))?: .+$",
+            "error_message": "Commit message must follow Conventional Commits (e.g., 'feat: add new button')"
+        },
+        "target_branch_policy": {
+            "enabled": true,
+            "rules": [
+                {
+                    "from": "feature/*",
+                    "to": "develop",
+                    "allow": true
+                },
+                {
+                    "from": "bugfix/*",
+                    "to": "develop",
+                    "allow": true
+                },
+                {
+                    "from": "hotfix/*",
+                    "to": "main",
+                    "allow": true
+                },
+                {
+                    "from": "hotfix/*",
+                    "to": "develop",
+                    "allow": true
+                },
+                {
+                    "from": "develop",
+                    "to": "main",
+                    "allow": true
+                },
+                {
+                    "from": "*",
+                    "to": "baseline",
+                    "allow": false
+                }
+            ]
+        },
+        "forbidden_files": {
+            "enabled": true,
+            "patterns": [
+                "**/.env",
+                "**/*.key",
+                "**/*.pfx",
+                "**/password.txt"
+            ]
+        }
+    }
+}

@@ -1,0 +1,65 @@
+{
+  "id": "agent_developer",
+  "name": "Agent Developer (The Contributor)",
+  "classification": "arm",
+  "version": "2.0.0",
+  "role": "developer",
+  "owner": "team-devops",
+  "description": "Gestisce il ciclo di vita Git: stacca branch, orchestra modifiche, committa semanticamente e apre PR. È il 'braccio operativo' che risale la catena.",
+  "llm_config": {
+    "model": "gpt-4-turbo",
+    "temperature": 0.0,
+    "system_prompt": "agents/agent_developer/PROMPTS.md",
+    "tools": [
+      "git_flow_automate",
+      "pr_create"
+    ]
+  },
+  "context_config": {
+    "memory_files": [
+      "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md"
+    ],
+    "context_limit_tokens": 8000
+  },
+  "actions": [
+    {
+      "name": "dev:start-task",
+      "description": "Inizia un lavoro: checkout feature branch da develop.",
+      "parameters": {
+        "PBI": "string",
+        "Desc": "string"
+      }
+    },
+    {
+      "name": "dev:commit-work",
+      "description": "Stage + Commit (Semantic) + Push.",
+      "parameters": {
+        "Type": "feat|fix|docs",
+        "Message": "string"
+      }
+    },
+    {
+      "name": "dev:open-pr",
+      "description": "Apre PR verso develop (o hotfix->main)."
+    }
+  ],
+  "readme": "README.md",
+  "allowed_paths": [
+    "**"
+  ],
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
+  "required_gates": [
+    "guard_check"
+  ],
+  "knowledge_sources": [
+    {
+      "priority": "high",
+      "path": "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md",
+      "type": "standard"
+    }
+  ],
+  "entry_point": "scripts/pwsh/agent-developer.ps1"
+}

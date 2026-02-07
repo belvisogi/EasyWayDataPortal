@@ -1,43 +1,61 @@
 {
-  "role": "Agent_Release",
-  "description": "Packaging/versioning del runtime bundle (copia parziale) per runner segregato: build artifact e publish (no segreti).",
+  "id": "agent_release",
+  "name": "Agent Release (The Executor)",
+  "classification": "arm",
+  "version": "2.0.0",
+  "role": "releaser",
+  "owner": "team-devops",
+  "description": "Gestisce il Merge Train (Develop->Main), i Back-Merge (Hotfix->Develop) e il packaging del bundle runtime.",
+  "llm_config": {
+    "model": "gpt-3.5-turbo",
+    "temperature": 0.0,
+    "system_prompt": "agents/agent_release/PROMPTS.md",
+    "tools": [
+      "git_merge",
+      "git_tag",
+      "generate_release_notes",
+      "runtime_bundle"
+    ]
+  },
+  "context_config": {
+    "memory_files": [
+      "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md"
+    ],
+    "context_limit_tokens": 8000
+  },
+  "actions": [
+    {
+      "name": "release:merge-train",
+      "description": "Esegue merge da Develop a Main con controlli di sicurezza."
+    },
+    {
+      "name": "release:hotfix-sync",
+      "description": "Propaga hotfix da Main a Develop."
+    },
+    {
+      "name": "runtime:bundle",
+      "description": "Crea zip bundle per execution runner (legacy feature)."
+    }
+  ],
+  "readme": "README.md",
   "allowed_paths": [
-    "agents/agent_release/**",
-    "scripts/pwsh/agent-release.ps1",
-    "ai/vettorializza.yaml",
-    "scripts/**",
-    "agents/**",
-    "docs/agentic/templates/**",
-    "Wiki/EasyWayData.wiki/**",
-    "agents/kb/recipes.jsonl",
-    "agents/logs/**",
-    "out/**"
+    "**",
+    ".git/**"
   ],
   "allowed_tools": [
     "pwsh",
-    "git"
+    "git",
+    "semver"
   ],
   "required_gates": [
-    "KB_Consistency"
+    "pipeline_green",
+    "approval_guard"
   ],
-  "approvals": {},
   "knowledge_sources": [
-    "Wiki/EasyWayData.wiki/control-plane/segregation-model-dev-knowledge-runtime.md"
-  ],
-  "actions": [
     {
-      "name": "runtime:bundle",
-      "description": "Crea un bundle zip con subset del repo per execution runner.",
-      "params": {
-        "outZip": {
-          "type": "string",
-          "required": false
-        }
-      }
+      "priority": "high",
+      "path": "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md",
+      "type": "standard"
     }
-  ],
-  "name": "agent_release",
-  "readme": "README.md",
-  "classification": "arm"
+  ]
 }
-

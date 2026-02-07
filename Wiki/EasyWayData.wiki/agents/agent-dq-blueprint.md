@@ -21,6 +21,7 @@ include: true
 summary: Agente che genera un blueprint iniziale di regole DQ (Policy Proposal + Policy Set) da CSV/XLSX o schema, integrato con ARGOS.
 llm:
   include: true
+  model: "qwen3:latest"
   chunk_hint: 5000
 type: agent
 ---

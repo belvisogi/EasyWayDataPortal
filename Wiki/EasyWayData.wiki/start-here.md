@@ -21,19 +21,6 @@ llm:
   chunk_hint: 5000
 type: guide
 ---
-
-[[start-here.md|Home]] > [[domains/docs-governance.md|Docs]] > Index
-
-# Start Here - Link Essenziali
-1) Strategy & Philosophy (The Core) 🧭
-- **Master Strategy**: `concept/STRATEGY_2026.md` (EasyWay Core + Marketplace)
-- Manifesto: `/MANIFESTO.md` (Repo Root)
-- History: `concept/history.md` (The Chronicles)
-
-2) Intents Catalog (WHAT)
-- Use case Excel/CSV: `orchestrations/intents-catalog.md`
-- Globale (cross-domain): `orchestrations/intents-catalog-global.md`
-
 3) Control Plane + Domini (skeleton)
 - Control Plane: `control-plane/index.md`
 - Domini: `domains/index.md`
@@ -64,7 +51,15 @@ type: guide
 - Indice runbook: `Runbooks/index.md`
 - Bootstrap Dual Server (Oracle Dev/Staging + Hetzner Prod): `Runbooks/dual-server-bootstrap.md`
 
+
 ---
+
+## 9) 🛡️ Governance & Sovereign DevOps (Sovereignty Kit)
+*   **Rules**: `standards/gitlab-workflow.md` (Branching, Naming, Labels)
+*   **RBAC**: `governance/gitlab-rbac.md` (Groups, Roles, Security Split)
+*   **Architecture**: `architecture/sovereign-gap-fillers.md` (Gap Fillers & RAG)
+*   **Onboarding**: `guides/client-onboarding-iac.md` (Terraform Quickstart)
+*   **Manifesto**: `manifesto-haka.md` (The Vision)
 
 ### ✍️ Authors
 > **gbelviso78** & **Antigravity/Codex/ChatGPT** (The Agents)
