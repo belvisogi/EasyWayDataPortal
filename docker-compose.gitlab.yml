@@ -1,5 +1,5 @@
 # GitLab Self-Managed Docker Compose
-# Server: 80.225.86.168
+# Server: Set via DOMAIN_NAME environment variable
 # Purpose: Sovereign DevOps platform for EasyWay
 # Documentation: docs/infra/gitlab-setup-guide.md
 
@@ -11,7 +11,7 @@ networks:
 
 services:
   easyway-gitlab:
-    image: gitlab/gitlab-ce:latest
+    image: gitlab/gitlab-ce:17.8.1-ce.0
     container_name: easyway-gitlab
     hostname: gitlab.easyway.internal
     restart: always
@@ -32,7 +32,7 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         # External URL
-        external_url 'http://80.225.86.168:8929'
+        external_url 'http://${DOMAIN_NAME}:8929'
         
         # SSH port (non-standard to avoid conflicts)
         gitlab_rails['gitlab_shell_ssh_port'] = 2222
@@ -84,7 +84,7 @@ services:
 
   # GitLab Runner (CI/CD executor)
   easyway-gitlab-runner:
-    image: gitlab/gitlab-runner:latest
+    image: gitlab/gitlab-runner:v17.8.0
     container_name: easyway-gitlab-runner
     restart: always
     

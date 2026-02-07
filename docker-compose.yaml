@@ -75,7 +75,7 @@ services:
     #     restart: unless-stopped
 
     n8n:
-        image: n8nio/n8n:latest
+        image: n8nio/n8n:1.23.2
         container_name: n8n
         restart: no
         ports:
@@ -115,8 +115,8 @@ services:
             - N8N_VERSION_NOTIFICATIONS_ENABLED=false
             # --- FUNZIONALITÀ ---
             - N8N_RUNNERS_ENABLED=true
-            # Permette di usare variabili d'ambiente nei nodi Function (utile)
-            - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+            # Blocca accesso a variabili d'ambiente nei nodi Function per sicurezza
+            - N8N_BLOCK_ENV_ACCESS_IN_NODE=true
             # Sicurezza Git
             - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
             - N8N_GIT_NODE_DISABLE_BARE_REPOS=true

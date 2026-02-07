@@ -12,7 +12,7 @@ version: '3.8'
 services:
   # 🚦 Reverse Proxy (Gateway)
   traefik:
-    image: traefik:v2.11
+    image: traefik:v3.2
     container_name: easyway-gateway
     restart: always
     command:
@@ -46,8 +46,8 @@ services:
     restart: always
     labels:
       - "traefik.enable=true"
-      # MIDDLEWARE: Basic Auth (Temporary: test/test) - CHANGE THIS!
-      - "traefik.http.middlewares.auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/" 
+      # MIDDLEWARE: Basic Auth (configured via environment variable)
+      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_BASIC_AUTH_HASH}" 
 
       # ROUTER 1: Public (Marketing Site)
       - "traefik.http.routers.frontend-public.rule=Path(`/`) || Path(`/demo.html`) || Path(`/manifesto.html`) || Path(`/content.json`) || Path(`/branding.json`) || PathPrefix(`/assets`) || PathPrefix(`/src`) || PathPrefix(`/vite.svg`) || Path(`/config.js`)"
@@ -74,7 +74,7 @@ services:
 
   # 🤖 Orchestrator (n8n)
   n8n:
-    image: n8nio/n8n:latest
+    image: n8nio/n8n:1.23.2
     container_name: easyway-orchestrator
     restart: always
     environment:
@@ -87,14 +87,16 @@ services:
       # Security
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=${N8N_USER}
-      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASS}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
       # Integrations
       - DB_TYPE=postgresdb
       - DB_POSTGRESDB_HOST=postgres
       - DB_POSTGRESDB_PORT=5432
       - DB_POSTGRESDB_DATABASE=n8n
       - DB_POSTGRESDB_USER=${POSTGRES_USER}
-      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASS}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      # Qdrant API Key for n8n workflows
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.n8n.rule=PathPrefix(`/n8n`)"
@@ -110,9 +112,11 @@ services:
 
   # 🧠 Vector Memory (Qdrant)
   qdrant:
-    image: qdrant/qdrant:latest
+    image: qdrant/qdrant:v1.12.4
     container_name: easyway-memory
     restart: always
+    environment:
+      - QDRANT__SERVICE__API_KEY=${QDRANT_API_KEY}
     expose:
       - 6333
     volumes:
@@ -127,12 +131,12 @@ services:
 
   # 🐘 N8N Database (PostgreSQL)
   postgres:
-    image: postgres:15-alpine
+    image: postgres:15.10-alpine
     container_name: easyway-meta-db
     restart: always
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=n8n
     volumes:
       - postgres-data:/var/lib/postgresql/data

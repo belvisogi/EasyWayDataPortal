@@ -34,7 +34,7 @@ services:
       - PORT=3000
       - DB_SERVER=sql-edge
       - DB_USER=sa
-      - DB_PASS=${SQL_PASSWORD:-EasyWayStrongPassword1!}
+      - DB_PASS=${SQL_SA_PASSWORD}
       - DB_NAME=EasyWay
       - TENANT_ID_HEADER=x-tenant-id
     ports:
@@ -62,12 +62,12 @@ services:
       - easyway-net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`portal.local`) || Host(`localhost`) || Host(`127.0.0.1`) || Host(`80.225.86.168`)"
+      - "traefik.http.routers.frontend.rule=Host(`portal.local`) || Host(`localhost`) || Host(`127.0.0.1`) || Host(`${DOMAIN_NAME}`)"
       - "traefik.http.services.frontend.loadbalancer.server.port=8080"
 
   # 🤖 Orchestrator (n8n - The Portable Brain)
   n8n:
-    image: n8nio/n8n:latest
+    image: n8nio/n8n:1.23.2
     container_name: easyway-orchestrator
     restart: unless-stopped
     user: "1000:1000"

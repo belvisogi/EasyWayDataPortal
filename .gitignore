@@ -11,6 +11,11 @@ coverage
 **/*.env
 **/*.env.*
 
+# Except example templates (these should be committed)
+!.env.example
+!.env.prod.example
+!*.env.example
+
 # Editors/OS
 .vscode/
 .idea/
@@ -44,3 +49,14 @@ scripts/easyway-secrets.json
 scripts/infra/remote/remote.config.ps1
 
 scripts/infra/remote/remote.config.ps1
+
+# Sensitive production configs (extra safety)
+.env.prod
+.env.production
+docker-compose.override.yml
+*.secret.*
+*.credentials.*
+
+# Azure Key Vault references (if using local cache)
+secrets/
+.secrets/
