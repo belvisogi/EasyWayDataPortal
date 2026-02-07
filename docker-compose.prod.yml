@@ -23,8 +23,6 @@ services:
       - "--entrypoints.web.address=:80"
       # TODO: Enable HTTPS with LetsEncrypt once domain is mapped
       # - "--entrypoints.websecure.address=:443"
-    environment:
-      - DOCKER_API_VERSION=1.45
     ports:
       - "80:80"
       - "443:443"
