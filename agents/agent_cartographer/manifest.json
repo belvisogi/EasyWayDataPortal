@@ -7,14 +7,24 @@
   "owner": "team-architecture",
   "description": "Mantiene la Mappa delle Dipendenze (Knowledge Graph). Prima di ogni modifica distruttiva, viene consultato per simulare gli impatti a cascata ('Butterfly Effect Analysis').",
   "llm_config": {
-    "model": "gpt-4-turbo",
-    "temperature": 0.0,
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
+    "temperature": 0.3,
+    "max_tokens": 2000,
     "system_prompt": "agents/agent_cartographer/PROMPTS.md",
     "tools": [
-      "graph_query",
-      "impact_simulator",
-      "dependency_mapper"
-    ]
+      "function_calling"
+    ],
+    "cost_estimate": {
+      "per_call": "$0.0006",
+      "monthly": "$0.12"
+    },
+    "usage": {
+      "graph_reasoning": "Ragiona su Knowledge Graph",
+      "impact_analysis": "Simula Butterfly Effect",
+      "relationship_discovery": "Scopre relazioni nascoste"
+    }
   },
   "context_config": {
     "memory_files": [
