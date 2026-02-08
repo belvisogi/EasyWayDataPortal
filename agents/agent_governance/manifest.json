@@ -49,12 +49,23 @@
   },
   "skills_required": [],
   "llm_config": {
-    "provider": "openai",
-    "model": "gpt-4o",
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
     "temperature": 0.0,
+    "max_tokens": 1500,
     "system_prompt": "agents/agent_governance/PROMPTS.md",
     "tools": [
       "function_calling"
-    ]
+    ],
+    "cost_estimate": {
+      "per_call": "$0.0004",
+      "monthly": "$0.08"
+    },
+    "usage": {
+      "policy_validation": "Valida conformità a policy e gates",
+      "quality_gates": "Applica quality gates per DB/API/Docs",
+      "approval_workflow": "Gestisce workflow di approvazione"
+    }
   }
 }
