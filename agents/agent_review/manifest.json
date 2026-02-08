@@ -1,56 +1,58 @@
 {
-    "id": "agent_review",
-    "name": "Agent Review (The Critic)",
-    "classification": "brain",
-    "version": "1.0.0",
-    "role": "reviewer",
-    "owner": "team-quality",
-    "description": "Analizza le Merge Request per qualità documentale e conformità. Suggerisce miglioramenti e verifica che la Wiki sia stata aggiornata.",
-    "llm_config": {
-        "model": "gpt-4-turbo",
-        "temperature": 0.2,
-        "system_prompt": "agents/agent_review/PROMPTS.md",
-        "tools": [
-            "diff_analyze",
-            "doc_check",
-            "comment_pr"
-        ]
-    },
-    "context_config": {
-        "memory_files": [
-            "Wiki/EasyWayData.wiki/tools/dqf-agent-v2-guide.md"
-        ],
-        "context_limit_tokens": 32000
-    },
-    "actions": [
-        {
-            "name": "review:docs-impact",
-            "description": "Verifica se il codice modificato richiedeva aggiornamenti alla Wiki."
-        },
-        {
-            "name": "review:static",
-            "description": "Analisi statica leggera (naming, structure)."
-        }
-    ],
-    "readme": "README.md",
-    "allowed_paths": [
-        "**/*.md",
-        "**/*.ts",
-        "**/*.ps1"
-    ],
-    "allowed_tools": [
-        "pwsh",
-        "git",
-        "curl"
-    ],
-    "required_gates": [
-        "doc_coverage"
-    ],
-    "knowledge_sources": [
-        {
-            "priority": "medium",
-            "path": "Wiki/EasyWayData.wiki/guides/dqf-workflow-complete.md",
-            "type": "guide"
-        }
+  "id": "agent_review",
+  "name": "Agent Review (The Critic)",
+  "classification": "brain",
+  "version": "1.0.0",
+  "role": "reviewer",
+  "owner": "team-quality",
+  "description": "Analizza le Merge Request per qualità documentale e conformità. Suggerisce miglioramenti e verifica che la Wiki sia stata aggiornata.",
+  "llm_config": {
+    "model": "gpt-4-turbo",
+    "temperature": 0.2,
+    "system_prompt": "agents/agent_review/PROMPTS.md",
+    "tools": [
+      "diff_analyze",
+      "doc_check",
+      "comment_pr"
     ]
+  },
+  "context_config": {
+    "memory_files": [
+      "Wiki/EasyWayData.wiki/tools/dqf-agent-v2-guide.md"
+    ],
+    "context_limit_tokens": 32000
+  },
+  "actions": [
+    {
+      "name": "review:docs-impact",
+      "description": "Verifica se il codice modificato richiedeva aggiornamenti alla Wiki."
+    },
+    {
+      "name": "review:static",
+      "description": "Analisi statica leggera (naming, structure)."
+    }
+  ],
+  "readme": "README.md",
+  "allowed_paths": [
+    "**/*.md",
+    "**/*.ts",
+    "**/*.ps1"
+  ],
+  "allowed_tools": [
+    "pwsh",
+    "git",
+    "curl"
+  ],
+  "required_gates": [
+    "doc_coverage"
+  ],
+  "knowledge_sources": [
+    {
+      "priority": "medium",
+      "path": "Wiki/EasyWayData.wiki/guides/dqf-workflow-complete.md",
+      "type": "guide"
+    }
+  ],
+  "evolution_level": 1,
+  "skills_required": []
 }

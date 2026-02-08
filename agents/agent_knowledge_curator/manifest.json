@@ -1,12 +1,30 @@
 {
-    "id": "agent_knowledge_curator",
-    "name": "Knowledge Curator",
-    "description": "Orchestrates wiki updates and semantic linking.",
-    "status": "concept",
-    "version": "0.0.1",
-    "allowed_paths": [],
-    "capabilities": [
-        "wiki_indexing"
+  "id": "agent_knowledge_curator",
+  "name": "Knowledge Curator",
+  "description": "Orchestrates wiki updates and semantic linking.",
+  "status": "concept",
+  "version": "0.0.1",
+  "allowed_paths": [],
+  "capabilities": [
+    "wiki_indexing"
+  ],
+  "owner": "team-docs",
+  "evolution_level": 1,
+  "context_config": {
+    "memory_files": [
+      "agents/kb/recipes.jsonl"
     ],
-    "owner": "team-docs"
+    "context_limit_tokens": 128000,
+    "enable_memory": true
+  },
+  "skills_required": [],
+  "llm_config": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "temperature": 0.0,
+    "system_prompt": "agents/agent_knowledge_curator/PROMPTS.md",
+    "tools": [
+      "function_calling"
+    ]
+  }
 }

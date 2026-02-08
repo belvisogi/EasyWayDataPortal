@@ -20,37 +20,38 @@ services:
       - ./Wiki:/app/Wiki      # Live Wiki Edits
       - ./scripts:/app/scripts # Live Script Debugging
     depends_on:
-      - chromadb
       - azurite
-      - sql-edge
+      # - chromadb
+      # - sql-edge
     networks:
       - easyway-net
     command: ["pwsh", "-c", "for() { Start-Sleep 1000 }"] # Infinite loop
 
   # ⚡ Vector Database (Memory Cortex)
-  chromadb:
-    image: chromadb/chroma:0.6.3
-    container_name: easyway-cortex
-    ports:
-      - "8000:8000"
-    volumes:
-      - chroma-data:/chroma/chroma
-    networks:
-      - easyway-net
+  # ⚡ Vector Database (Memory Cortex) - REPLACED BY QDRANT
+  # chromadb:
+  #   image: chromadb/chroma:0.6.3
+  #   container_name: easyway-cortex
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - chroma-data:/chroma/chroma
+  #   networks:
+  #     - easyway-net
 
   # 🗄️ Database (SQL Edge - ARM compatible)
-  sql-edge:
-    image: mcr.microsoft.com/azure-sql-edge:2.0.0
-    container_name: easyway-db
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=${SQL_SA_PASSWORD}
-    ports:
-      - "1433:1433"
-    volumes:
-      - sql-data:/var/opt/mssql
-    networks:
-      - easyway-net
+  # sql-edge:
+  #   image: mcr.microsoft.com/azure-sql-edge:2.0.0
+  #   container_name: easyway-db
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - MSSQL_SA_PASSWORD=${SQL_SA_PASSWORD}
+  #   ports:
+  #     - "1433:1433"
+  #   volumes:
+  #     - sql-data:/var/opt/mssql
+  #   networks:
+  #     - easyway-net
 
   # ☁️ Blob Storage Emulator
   azurite:

@@ -1,0 +1,68 @@
+{
+  "id": "agent_docs_sync",
+  "priority": [
+    { "action": "docs:check", "weight": 1.0 },
+    { "action": "docs:validate", "weight": 0.9 },
+    { "action": "docs:sync", "weight": 0.8 },
+    { "action": "docs:scan", "weight": 0.7 },
+    { "action": "docs:report", "weight": 0.6 }
+  ],
+  "rules": [
+    {
+      "id": "no-orphan-docs",
+      "description": "Ogni documento deve avere almeno un cross-reference valido.",
+      "severity": "advisory",
+      "when": { "intentContains": ["docs:check", "docs:validate"] },
+      "checklist": [
+        "Verificare che ogni .md abbia almeno un script-ref o parent-doc",
+        "Verificare che ogni .ps1 abbia almeno un related-docs",
+        "Segnalare orphan files nel report"
+      ]
+    },
+    {
+      "id": "metadata-required",
+      "description": "Ogni file .md deve avere YAML frontmatter con campi obbligatori.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["docs:validate"] },
+      "checklist": [
+        "Verificare presenza YAML frontmatter (--- ... ---)",
+        "Campi obbligatori: category, domain, tags",
+        "Campi consigliati: author, last-updated, status"
+      ]
+    },
+    {
+      "id": "taxonomy-compliance",
+      "description": "I tag devono appartenere alla taxonomy approvata.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["docs:validate", "docs:scan"] },
+      "checklist": [
+        "Categories: governance, operations, security, database, integration, documentation, infrastructure",
+        "Domains: agents, portal, datalake, devops, wiki, rules",
+        "Tag custom devono essere flaggati come 'proposed'"
+      ]
+    },
+    {
+      "id": "llm-no-full-content",
+      "description": "Non inviare mai il contenuto completo dei file al LLM, solo metadata e sommari.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["docs:check", "docs:sync", "docs:scan"] },
+      "checklist": [
+        "Mai inviare il body completo di un .md al LLM",
+        "Solo frontmatter, titoli, e primi 200 chars per contesto",
+        "Max 1 chiamata LLM per operazione",
+        "Max 1000 tokens di output"
+      ]
+    },
+    {
+      "id": "no-destructive-sync",
+      "description": "Il sync non deve mai cancellare contenuto esistente senza review.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["docs:sync"] },
+      "checklist": [
+        "Mostrare diff prima di applicare modifiche",
+        "Mai rimuovere sezioni esistenti senza giustificazione",
+        "Usare WhatIf=true per preview"
+      ]
+    }
+  ]
+}

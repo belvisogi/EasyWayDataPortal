@@ -1,0 +1,9 @@
+{
+  "action": "pr:create",
+  "params": {
+    "title": "CI: ewctl gates + Flyway validate/migrate",
+    "targetBranch": "develop",
+    "whatIf": true
+  },
+  "nonInteractive": true
+}

@@ -1,0 +1,27 @@
+{
+  "created": "2026-02-08T12:00:00Z",
+  "stats": {
+    "total_runs": 0,
+    "successful": 0,
+    "errors": 0,
+    "last_run": null,
+    "avg_duration_seconds": 0,
+    "success_rate": 0
+  },
+  "knowledge": {
+    "known_issues": [],
+    "successful_fixes": []
+  },
+  "preferences": {
+    "default_target_branch": "develop",
+    "auto_create": false,
+    "strict_gates": false
+  },
+  "llm_usage": {
+    "total_calls": 0,
+    "total_tokens": 0,
+    "total_cost_usd": 0,
+    "last_call": null
+  },
+  "first_run": true
+}

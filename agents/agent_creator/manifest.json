@@ -62,5 +62,26 @@
   ],
   "name": "agent_creator",
   "readme": "README.md",
-  "classification": "arm"
+  "classification": "arm",
+  "id": "agent_creator",
+  "owner": "team-platform",
+  "version": "1.0.0",
+  "evolution_level": 1,
+  "context_config": {
+    "memory_files": [
+      "agents/kb/recipes.jsonl"
+    ],
+    "context_limit_tokens": 128000,
+    "enable_memory": true
+  },
+  "skills_required": [],
+  "llm_config": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "temperature": 0.0,
+    "system_prompt": "agents/agent_creator/PROMPTS.md",
+    "tools": [
+      "function_calling"
+    ]
+  }
 }

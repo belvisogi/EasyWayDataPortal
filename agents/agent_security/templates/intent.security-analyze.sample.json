@@ -1,0 +1,9 @@
+{
+  "action": "security:analyze",
+  "params": {
+    "query": "Analizza la configurazione Docker Compose del nostro stack: PostgreSQL esposto sulla porta 5432, Caddy reverse proxy, GitLab su porta 8929, Qdrant senza autenticazione. Valuta rischi e suggerisci hardening."
+  },
+  "whatIf": false,
+  "nonInteractive": true,
+  "correlationId": "security-analyze-001"
+}

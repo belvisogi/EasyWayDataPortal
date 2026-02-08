@@ -1,0 +1,7 @@
+{
+  "action": "pr:analyze",
+  "params": {
+    "scope": "full"
+  },
+  "nonInteractive": true
+}

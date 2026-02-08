@@ -57,5 +57,7 @@
       "path": "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md",
       "type": "standard"
     }
-  ]
+  ],
+  "evolution_level": 1,
+  "skills_required": []
 }

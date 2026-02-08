@@ -1,0 +1,9 @@
+{
+  "action": "docs:sync",
+  "params": {
+    "action": "sync",
+    "changedFile": "agent-ado-userstory.ps1"
+  },
+  "whatIf": true,
+  "nonInteractive": true
+}

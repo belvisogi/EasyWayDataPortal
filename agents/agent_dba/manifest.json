@@ -1,9 +1,54 @@
 {
-  "name": "Agent_DBA",
-  "classification": "brain",
+  "id": "agent_dba",
+  "name": "agent_dba",
   "role": "Agent_DBA",
-  "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout",
+  "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout. Level 2 agent con DeepSeek LLM per schema analysis e migration planning.",
+  "owner": "team-platform",
+  "version": "2.0.0",
+  "classification": "brain",
+  "evolution_level": 2,
   "readme": "README.md",
+
+  "llm_config": {
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
+    "temperature": 0.1,
+    "max_tokens": 1000,
+    "system_prompt": "agents/agent_dba/PROMPTS.md",
+    "tools": ["function_calling"],
+    "cost_estimate": {
+      "per_call": "$0.00025",
+      "monthly": "$0.05"
+    },
+    "usage": {
+      "schema_analysis": "Analizza schema DB e suggerisce ottimizzazioni",
+      "migration_planning": "Pianifica migrazioni con rollback strategy",
+      "drift_assessment": "Valuta differenze tra environments e suggerisce sync",
+      "guardrails_review": "Valida SQL contro GUARDRAILS.md con reasoning"
+    }
+  },
+
+  "context_config": {
+    "memory_files": [
+      "agents/agent_dba/memory/context.json",
+      "agents/kb/recipes.jsonl"
+    ],
+    "context_limit_tokens": 128000
+  },
+
+  "skills_required": [
+    "database.migration",
+    "database.test-connection"
+  ],
+
+  "skills_optional": [
+    "security.secret-vault",
+    "utilities.retry-backoff",
+    "utilities.json-validate",
+    "utilities.convert-markdown"
+  ],
+
   "security": {
     "required_group": "easyway-admin",
     "rationale": "DBA agent modifies database schema and configurations, requires admin-level access",
@@ -13,26 +58,32 @@
       "/var/lib/easyway/db"
     ]
   },
-  "allowed_paths": [
-    "db/migrations/**",
-    "db/db-deploy-ai/**",
-    "old/db/**",
-    "db/README.md",
-    "out/**",
-    "portal-api/easyway-portal-api/src/tools/db/**",
-    "scripts/pwsh/db-ddl-inventory.ps1",
-    "scripts/pwsh/db-generate-table-artifacts.ps1",
-    "scripts/pwsh/db-table-intent-from-sheet.ps1",
-    "scripts/pwsh/db-table-lint.ps1",
-    "scripts/pwsh/db-export-portal-blueprint-csv.ps1",
-    "scripts/pwsh/export-db-objects.ps1",
-    "scripts/variables/db-required-objects.sample.json",
-    "Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/**",
-    "Wiki/EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/**",
-    "docs/agentic/templates/intents/**",
-    "docs/agentic/templates/sheets/**",
-    "agents/kb/recipes.jsonl"
-  ],
+  "allowed_paths": {
+    "read": [
+      "db/migrations/**",
+      "db/db-deploy-ai/**",
+      "old/db/**",
+      "db/README.md",
+      "out/**",
+      "portal-api/easyway-portal-api/src/tools/db/**",
+      "scripts/pwsh/db-*.ps1",
+      "scripts/pwsh/export-db-objects.ps1",
+      "scripts/variables/db-required-objects.sample.json",
+      "Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/**",
+      "Wiki/EasyWayData.wiki/EasyWay_WebApp/01_database_architecture/**",
+      "docs/agentic/templates/intents/**",
+      "docs/agentic/templates/sheets/**",
+      "agents/kb/recipes.jsonl",
+      "agents/agent_dba/"
+    ],
+    "write": [
+      "db/migrations/**",
+      "out/**",
+      "Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/**",
+      "agents/agent_dba/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "npm",
     "pwsh",
@@ -326,12 +377,35 @@
       "type": "document",
       "path": "Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/why-not-flyway.md",
       "priority": "high",
-      "description": "Rationale per la decisione di NON usare Flyway. Spiega perché abbiamo scelto db-deploy-ai e SQL diretto invece di Flyway/Liquibase. Da leggere quando qualcuno chiede perché non usiamo migration tools tradizionali."
+      "description": "Rationale per NON usare Flyway. db-deploy-ai e SQL diretto."
     },
-    "agents/kb/recipes.jsonl",
-    "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md",
-    "agents/AGENT_WORKFLOW_STANDARD.md",
-    "agents/GEDI_INTEGRATION_PATTERN.md",
-    "agents/agent_dba/GUARDRAILS.md"
-  ]
+    {
+      "type": "document",
+      "path": "agents/agent_dba/GUARDRAILS.md",
+      "priority": "high",
+      "description": "Standard di sviluppo DB: naming, idempotenza, performance"
+    },
+    {
+      "type": "data",
+      "path": "agents/kb/recipes.jsonl",
+      "priority": "medium"
+    },
+    {
+      "type": "document",
+      "path": "agents/AGENT_WORKFLOW_STANDARD.md",
+      "priority": "medium"
+    },
+    {
+      "type": "document",
+      "path": "agents/GEDI_INTEGRATION_PATTERN.md",
+      "priority": "low"
+    }
+  ],
+
+  "error_handling": {
+    "retry_count": 3,
+    "retry_delay_seconds": 30,
+    "fallback_mode": "skip_llm_analysis",
+    "alert_on_failure": true
+  }
 }

@@ -65,5 +65,25 @@
       "path": "Wiki/EasyWayData.wiki/home.md",
       "type": "document"
     }
-  ]
+  ],
+  "id": "agent_dq_blueprint",
+  "owner": "team-platform",
+  "evolution_level": 1,
+  "context_config": {
+    "memory_files": [
+      "agents/kb/recipes.jsonl"
+    ],
+    "context_limit_tokens": 128000,
+    "enable_memory": true
+  },
+  "skills_required": [],
+  "llm_config": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "temperature": 0.0,
+    "system_prompt": "agents/agent_dq_blueprint/PROMPTS.md",
+    "tools": [
+      "function_calling"
+    ]
+  }
 }

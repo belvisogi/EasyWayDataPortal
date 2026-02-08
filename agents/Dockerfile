@@ -35,7 +35,7 @@ RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/po
 
 # Python Libraries (incl. ChromaDB)
 # Python Libraries (incl. ChromaDB)
-RUN pip3 install chromadb numpy pandas openai azure-storage-blob azure-identity
+RUN pip3 install chromadb numpy pandas openai azure-storage-blob azure-identity qdrant-client sentence-transformers
 
 # Node.js Agent Dependencies (if any)
 # RUN npm install -g n8n # Optional

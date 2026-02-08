@@ -1,0 +1,13 @@
+{
+    "name": "easyway-ingestion",
+    "version": "1.0.0",
+    "description": "Wiki Ingestion for EasyWay RAG",
+    "main": "ingest_wiki.js",
+    "type": "module",
+    "dependencies": {
+        "@qdrant/js-client-rest": "^1.7.0",
+        "@xenova/transformers": "^2.15.0",
+        "glob": "^10.3.10",
+        "uuid": "^9.0.1"
+    }
+}

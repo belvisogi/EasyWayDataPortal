@@ -1,4 +1,11 @@
 {
+  "id": "agent_security",
+  "priority": [
+    { "action": "security:analyze", "weight": 1.0 },
+    { "action": "kv-secret:set", "weight": 0.9 },
+    { "action": "kv-secret:reference", "weight": 0.7 },
+    { "action": "access-registry:propose", "weight": 0.6 }
+  ],
   "rules": [
     {
       "id": "no-secret-in-logs",
@@ -19,6 +26,29 @@
       "checklist": [
         "Usare pattern: <system>--<area>--<name> (es. db--portal--connstring)",
         "Aggiungere tag owner/scope se disponibili"
+      ]
+    },
+    {
+      "id": "prod-approval-required",
+      "description": "Operazioni su production richiedono approvazione umana.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["kv-secret:set"], "scope": "production" },
+      "checklist": [
+        "Verificare Human_Governance_Approval prima di procedere",
+        "Usare WhatIf=true per preview prima dell'esecuzione",
+        "Documentare in access-registry dopo l'esecuzione"
+      ]
+    },
+    {
+      "id": "llm-no-secrets-in-prompt",
+      "description": "Non inviare mai valori segreti al LLM.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["security:analyze"] },
+      "checklist": [
+        "Mai includere secretValue nel prompt LLM",
+        "Solo nomi, vault, metadata nei prompt",
+        "Max 1 chiamata LLM per analisi",
+        "Max 1000 tokens di output"
       ]
     }
   ]

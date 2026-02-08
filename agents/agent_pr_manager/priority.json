@@ -1,0 +1,69 @@
+{
+  "id": "agent_pr_manager",
+  "priority": [
+    { "action": "pr:validate-gates", "weight": 1.0 },
+    { "action": "pr:analyze", "weight": 0.9 },
+    { "action": "pr:create", "weight": 0.8 },
+    { "action": "pr:suggest-reviewers", "weight": 0.6 }
+  ],
+  "rules": [
+    {
+      "id": "no-direct-to-main",
+      "description": "Mai creare PR direttamente verso main. Usare develop o release/*.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["pr:create"], "targetBranch": "main" },
+      "checklist": [
+        "Verificare che il target branch sia develop o release/*",
+        "Se target è main, richiedere Human_Governance_Approval",
+        "Verificare che il source branch sia release/*"
+      ]
+    },
+    {
+      "id": "gates-before-merge",
+      "description": "Tutti i gates devono passare prima del merge.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["pr:create", "pr:validate-gates"] },
+      "checklist": [
+        "Verificare GovernanceGatesEWCTL: OK",
+        "Verificare FlywayValidate: OK (se ci sono migrazioni DB)",
+        "Verificare SecurityScan: OK (se ci sono cambiamenti security-relevant)",
+        "Verificare CodeReview: almeno 1 approval"
+      ]
+    },
+    {
+      "id": "no-secrets-in-pr",
+      "description": "Mai includere secrets o credenziali nella descrizione PR.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["pr:create", "pr:analyze"] },
+      "checklist": [
+        "Scansionare diff per pattern di secrets (password, token, key)",
+        "Mai includere valori di environment variables",
+        "Segnalare file .env o credentials se presenti nel diff"
+      ]
+    },
+    {
+      "id": "llm-diff-only",
+      "description": "Inviare al LLM solo diff summary, mai il codice completo.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["pr:create", "pr:analyze"] },
+      "checklist": [
+        "Solo file names, line counts, e summary dei cambiamenti",
+        "Mai inviare il contenuto completo dei file modificati",
+        "Max 1 chiamata LLM per operazione",
+        "Max 1000 tokens di output"
+      ]
+    },
+    {
+      "id": "breaking-change-flag",
+      "description": "Cambiamenti breaking devono essere flaggati esplicitamente.",
+      "severity": "advisory",
+      "when": { "intentContains": ["pr:analyze"] },
+      "checklist": [
+        "Verificare se API signatures sono cambiate",
+        "Verificare se schema DB è cambiato",
+        "Verificare se config files hanno nuovi campi obbligatori",
+        "Aggiungere [BREAKING] al titolo PR se applicabile"
+      ]
+    }
+  ]
+}

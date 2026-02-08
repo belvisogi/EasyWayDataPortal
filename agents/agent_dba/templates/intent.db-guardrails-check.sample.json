@@ -1,0 +1,12 @@
+{
+  "action": "db-guardrails:check",
+  "params": {
+    "scope": "all",
+    "database": "EasyWayPortal",
+    "outputReport": "out/guardrails-report.json",
+    "autoFix": false
+  },
+  "whatIf": false,
+  "nonInteractive": true,
+  "correlationId": "db-guardrails-check-001"
+}

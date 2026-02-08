@@ -1,10 +1,27 @@
 {
-  "created": "2026-01-17T21:55:54.7687881+01:00",
+  "created": "2026-01-17T21:55:54.768Z",
   "stats": {
-    "last_active": null,
+    "total_runs": 0,
+    "successful": 0,
     "errors": 0,
-    "runs": 0
+    "last_run": null,
+    "avg_duration_seconds": 0,
+    "success_rate": 0
   },
-  "preferences": {},
+  "knowledge": {
+    "known_issues": [],
+    "successful_fixes": []
+  },
+  "preferences": {
+    "default_scope": "all",
+    "default_format": "markdown",
+    "auto_sync_enabled": false
+  },
+  "llm_usage": {
+    "total_calls": 0,
+    "total_tokens": 0,
+    "total_cost_usd": 0,
+    "last_call": null
+  },
   "first_run": true
 }

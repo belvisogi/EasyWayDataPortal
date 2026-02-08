@@ -1,10 +1,52 @@
 {
   "created": "2026-01-17T21:55:54.5968615+01:00",
+  "updated": "2026-02-08T12:30:00+01:00",
   "stats": {
-    "last_active": null,
+    "total_runs": 0,
+    "successful": 0,
     "errors": 0,
-    "runs": 0
+    "last_run": null,
+    "avg_duration_seconds": 0,
+    "success_rate": 0
   },
-  "preferences": {},
-  "first_run": true
+  "knowledge": {
+    "databases": {
+      "easyway-db": {
+        "type": "Azure SQL Edge",
+        "port": 1433,
+        "schema": "PORTAL",
+        "migration_tool": "db-deploy-ai"
+      },
+      "easyway-meta-db": {
+        "type": "PostgreSQL 15.10",
+        "port": 5432,
+        "usage": "N8N metadata, orchestration state"
+      }
+    },
+    "known_issues": [
+      {
+        "component": "db-deploy-ai",
+        "issue": "Replaces Flyway for SQL migrations",
+        "resolution": "See why-not-flyway.md for rationale",
+        "learned_date": "2026-01-17"
+      }
+    ],
+    "guardrails_violations_history": [],
+    "successful_migrations": []
+  },
+  "preferences": {
+    "whatif_default": true,
+    "auto_rollback": true,
+    "llm_provider": "deepseek",
+    "llm_model": "deepseek-chat"
+  },
+  "llm_usage": {
+    "total_calls": 0,
+    "total_tokens_in": 0,
+    "total_tokens_out": 0,
+    "total_cost_usd": 0,
+    "last_call": null
+  },
+  "last_errors": [],
+  "first_run": false
 }

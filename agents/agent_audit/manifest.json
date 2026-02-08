@@ -1,68 +1,167 @@
 {
-  "name": "Agent_Audit",
-  "classification": "arm",
-  "role": "Inspector",
-  "description": "Responsabile della verifica di conformità architetturale degli agenti.",
-  "readme": "README.md",
-  "allowed_paths": [
-    "agents/**",
-    "agents/logs/**",
-    "Wiki/EasyWayData.wiki/activity-log.md",
-    "Wiki/EasyWayData.wiki/docs-agentic-audit.md",
-    "Wiki/EasyWayData.wiki/control-plane/agents-*.md"
-  ],
-  "knowledge_sources": [
-    "Wiki/EasyWayData.wiki/standards/agent-architecture-standard.md"
-  ],
-  "actions": [
-    {
-      "name": "audit:agents.inspect",
-      "description": "Esegue l'audit completo di tutti gli agenti registrati.",
-      "script": "../../scripts/pwsh/agent-audit.ps1",
-      "params": {
-        "Mode": "all",
-        "DryRun": false
-      }
-    },
-    {
-      "name": "audit:manifest.validate",
-      "description": "Valida solo i manifest JSON (schema + required fields)",
-      "script": "../../scripts/pwsh/agent-audit.ps1",
-      "params": {
-        "Mode": "manifest-only"
-      }
-    },
-    {
-      "name": "audit:scripts.check",
-      "description": "Verifica esistenza script referenziati nei manifest",
-      "script": "../../scripts/pwsh/agent-audit.ps1",
-      "params": {
-        "Mode": "scripts-only"
-      }
-    },
-    {
-      "name": "audit:readme.check",
-      "description": "Verifica presenza README.md per ogni agente",
-      "script": "../../scripts/pwsh/agent-audit.ps1",
-      "params": {
-        "Mode": "readme-only"
-      }
-    },
-    {
-      "name": "audit:fix.auto",
-      "description": "Auto-fix violazioni comuni (README, manifest fields)",
-      "script": "../../scripts/pwsh/agent-audit.ps1",
-      "params": {
-        "AutoFix": true,
-        "DryRun": false
-      }
-    }
-  ],
+  "id": "agent_audit",
+  "name": "agent_audit",
+  "role": "Agent_Auditor",
+  "description": "Audits agents for Framework 2.0 compliance and applies automated fixes using Ollama LLM",
+  "owner": "team-platform",
+  "version": "2.0.0",
+  "llm_config": {
+    "model": "ollama",
+    "temperature": 0.0,
+    "system_prompt": "agents/agent_audit/PROMPTS.md",
+    "tools": [
+      "function_calling"
+    ],
+    "max_tokens": 4096,
+    "ollama_model": "deepseek-r1:7b",
+    "ollama_url": "http://localhost:11434"
+  },
+  "context_config": {
+    "memory_files": [
+      "agents/SKILLS_SYSTEM.md",
+      "agents/manifest.schema.json",
+      "agents/AGENT_EVOLUTION_GUIDE.md",
+      "agents/LLM_INTEGRATION_PATTERN.md",
+      "agents/AGENT_WORKFLOW_STANDARD.md",
+      "docs/AGENTS_AUDIT_2026-02-07.md",
+      "docs/AGENTS_GAP_ANALYSIS_2026-02-08.md",
+      "docs/AGENTS_FRAMEWORK_2.0_SUMMARY.md"
+    ],
+    "context_limit_tokens": 128000,
+    "enable_memory": true
+  },
   "allowed_tools": [
     "pwsh",
     "git"
   ],
+  "skills_required": [],
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.convert-markdown"
+  ],
+  "actions": [
+    {
+      "name": "audit:agent",
+      "description": "Audit single agent for Framework 2.0 compliance",
+      "uses_skills": [],
+      "params": {
+        "agent_id": {
+          "type": "string",
+          "required": true,
+          "description": "Agent ID to audit (e.g., 'agent_vulnerability_scanner')"
+        },
+        "checks": {
+          "type": "array",
+          "required": false,
+          "default": [
+            "manifest",
+            "structure",
+            "skills",
+            "templates"
+          ],
+          "description": "Checks to perform"
+        }
+      }
+    },
+    {
+      "name": "audit:fix",
+      "description": "Apply automated fixes to agent based on audit results",
+      "uses_skills": [],
+      "params": {
+        "agent_id": {
+          "type": "string",
+          "required": true,
+          "description": "Agent ID to fix"
+        },
+        "fixes": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "move_to_correct_location",
+              "standardize_manifest",
+              "create_missing_files",
+              "add_priority_json",
+              "create_intent_templates",
+              "enhance_memory",
+              "add_skills_integration",
+              "validate_schema"
+            ]
+          },
+          "description": "Fixes to apply"
+        },
+        "dry_run": {
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Preview changes without applying"
+        }
+      }
+    },
+    {
+      "name": "audit:all",
+      "description": "Audit all agents and generate compliance report",
+      "params": {
+        "output_format": {
+          "type": "string",
+          "enum": [
+            "markdown",
+            "json",
+            "html"
+          ],
+          "default": "markdown"
+        },
+        "output_path": {
+          "type": "string",
+          "default": "docs/audit-reports/compliance-report.md"
+        }
+      }
+    }
+  ],
+  "allowed_paths": {
+    "read": [
+      "agents/",
+      "docs/",
+      ".agent/workflows/"
+    ],
+    "write": [
+      "agents/",
+      "docs/audit-reports/",
+      "agents/agent_audit/memory/"
+    ]
+  },
   "required_gates": [
-    "doc_alignment"
-  ]
+    "KB_Consistency"
+  ],
+  "knowledge_sources": [
+    {
+      "priority": "high",
+      "path": "agents/manifest.schema.json",
+      "type": "data"
+    },
+    {
+      "priority": "high",
+      "path": "agents/SKILLS_SYSTEM.md",
+      "type": "document"
+    },
+    {
+      "priority": "high",
+      "path": "docs/AGENTS_GAP_ANALYSIS_2026-02-08.md",
+      "type": "document"
+    },
+    {
+      "priority": "medium",
+      "path": "agents/AGENT_EVOLUTION_GUIDE.md",
+      "type": "document"
+    },
+    {
+      "priority": "medium",
+      "path": "agents/LLM_INTEGRATION_PATTERN.md",
+      "type": "document"
+    }
+  ],
+  "classification": "head",
+  "readme": "README.md",
+  "evolution_level": 1
 }

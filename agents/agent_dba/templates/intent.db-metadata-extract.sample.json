@@ -1,0 +1,10 @@
+{
+  "action": "db-metadata:extract",
+  "params": {
+    "database": "EasyWayPortal",
+    "outputFile": "out/db-metadata-extract.json"
+  },
+  "whatIf": false,
+  "nonInteractive": true,
+  "correlationId": "db-metadata-extract-001"
+}

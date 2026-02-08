@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  # 🧠 The Private Brain (Vector Database)
+  qdrant:
+    image: qdrant/qdrant:v1.13.2
+    container_name: easyway-qdrant
+    restart: always
+    ports:
+      - "6333:6333" # API
+      - "6334:6334" # GRPC
+    env_file:
+      - .env
+    environment:
+      # Use an API Key for security if set in .env, otherwise defaults to none for local dev
+      - QDRANT__SERVICE__API_KEY=${QDRANT_API_KEY}
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - easyway-net
+
+volumes:
+  qdrant-data:
+
+networks:
+  easyway-net:
+    external: true

@@ -1,0 +1,8 @@
+{
+  "action": "pr:validate-gates",
+  "params": {
+    "gates": ["GovernanceGatesEWCTL", "FlywayValidate", "SecurityScan", "CodeReview"],
+    "strict": false
+  },
+  "nonInteractive": true
+}

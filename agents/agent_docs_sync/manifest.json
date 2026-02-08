@@ -1,150 +1,159 @@
 {
+  "id": "agent_docs_sync",
+  "name": "agent_docs_sync",
   "role": "Agent_Docs_Sync",
-  "description": "Mantiene allineamento tra documentazione e codice: valida tag metadata, verifica cross-references, suggerisce aggiornamenti docs quando script cambiano.",
-  "allowed_paths": [
-    "agents/agent_docs_sync/**",
-    "agents/**",
-    "scripts/**",
-    "Rules/**",
-    "Rules.Vault/**",
-    "out/**"
+  "description": "Mantiene allineamento tra documentazione e codice: valida tag metadata, verifica cross-references, suggerisce aggiornamenti docs quando script cambiano. Level 2 agent con DeepSeek LLM per context-aware doc analysis.",
+  "owner": "team-platform",
+  "version": "2.0.0",
+  "classification": "arm",
+  "evolution_level": 2,
+  "readme": "README.md",
+
+  "llm_config": {
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
+    "temperature": 0.2,
+    "max_tokens": 1000,
+    "system_prompt": "agents/agent_docs_sync/PROMPTS.md",
+    "tools": ["function_calling"],
+    "cost_estimate": {
+      "per_call": "$0.00025",
+      "monthly": "$0.03"
+    },
+    "usage": {
+      "docs_alignment_analysis": "Analizza cambiamenti nel codice e identifica docs da aggiornare",
+      "metadata_quality_check": "Valuta qualità e completezza dei metadata YAML/frontmatter",
+      "cross_ref_suggestions": "Suggerisce cross-reference mancanti tra docs e scripts",
+      "tag_proposal": "Propone tag basandosi sul contenuto reale dei file"
+    }
+  },
+
+  "context_config": {
+    "memory_files": [
+      "agents/agent_docs_sync/memory/context.json",
+      "agents/kb/recipes.jsonl"
+    ],
+    "context_limit_tokens": 128000
+  },
+
+  "skills_required": [
+    "utilities.convert-markdown",
+    "utilities.json-validate"
   ],
-  "allowed_tools": [
-    "pwsh"
+
+  "skills_optional": [
+    "utilities.retry-backoff",
+    "integration.slack-message"
   ],
-  "knowledge_sources": [
-    "../../Wiki/EasyWayData.wiki/control-plane/agents-registry.md",
-    "../../Wiki/EasyWayData.wiki/agents-governance.md",
-    "../../Wiki/EasyWayData.wiki/docs-conventions.md",
-    "../../Wiki/EasyWayData.wiki/docs-agentic-audit.md",
-    "Rules/RULES_MASTER.md",
-    "Rules/EXECUTION_RULES.md",
-    "Rules/DOCS_INDEX.yaml",
-    "agents/kb/recipes.jsonl"
-  ],
-  "required_gates": [],
+
+  "allowed_tools": ["pwsh", "git"],
+
   "actions": [
     {
       "name": "docs:check",
-      "description": "Verifica allineamento tra docs (.md) e scripts (.ps1). Controlla tag consistency, cross-references, esempi validi. Keywords: 'check documentazione', 'valida docs', 'alignment check'.",
+      "description": "Verifica allineamento tra docs (.md) e scripts (.ps1). Controlla tag consistency, cross-references, esempi validi. Usa LLM per analisi semantica.",
+      "uses_skills": ["utilities.json-validate"],
       "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
-        "action": {
-          "type": "string",
-          "required": true,
-          "description": "Azione da eseguire: 'check', 'validate', 'report', 'sync'"
-        },
-        "scope": {
-          "type": "string",
-          "required": false,
-          "description": "Scope del check: 'all', 'ado', 'wiki', 'governance'. Default: 'all'"
-        }
-      },
-      "examples": [
-        {
-          "command": "axctl --intent docs-check",
-          "description": "Check allineamento completo docs/scripts"
-        },
-        {
-          "command": "pwsh Rules.Vault/scripts/pwsh/agent-docs-sync.ps1 -Action check -Scope ado",
-          "description": "Check solo docs ADO"
-        }
-      ]
+        "action": { "type": "string", "required": true, "description": "Azione: 'check', 'validate', 'report', 'sync'" },
+        "scope": { "type": "string", "required": false, "description": "Scope: 'all', 'ado', 'wiki', 'governance'. Default: 'all'" }
+      }
     },
     {
       "name": "docs:validate",
-      "description": "Valida metadata YAML frontmatter e .METADATA blocks. Verifica tag taxonomy compliance. Keywords: 'valida metadata', 'check tags', 'taxonomy validation'.",
+      "description": "Valida metadata YAML frontmatter e .METADATA blocks. Verifica tag taxonomy compliance con LLM reasoning.",
+      "uses_skills": ["utilities.json-validate"],
       "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
-        "action": {
-          "type": "string",
-          "required": true,
-          "description": "Sempre 'validate'"
-        },
-        "path": {
-          "type": "string",
-          "required": false,
-          "description": "Path specifico file da validare. Default: all"
-        }
-      },
-      "examples": [
-        {
-          "command": "axctl --intent docs-validate",
-          "description": "Valida tutto"
-        },
-        {
-          "command": "pwsh Rules.Vault/scripts/pwsh/agent-docs-sync.ps1 -Action validate -Path Rules/ADO_EXPORT_GUIDE.md",
-          "description": "Valida singolo file"
-        }
-      ]
+        "action": { "type": "string", "required": true, "description": "Sempre 'validate'" },
+        "path": { "type": "string", "required": false, "description": "Path specifico file da validare. Default: all" }
+      }
     },
     {
       "name": "docs:report",
-      "description": "Genera report su coverage metadata, orphaned files, tag statistics. Keywords: 'docs report', 'coverage report', 'metadata stats'.",
+      "description": "Genera report su coverage metadata, orphaned files, tag statistics. LLM sintetizza findings.",
+      "uses_skills": ["utilities.convert-markdown"],
       "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
-        "action": {
-          "type": "string",
-          "required": true,
-          "description": "Sempre 'report'"
-        },
-        "format": {
-          "type": "string",
-          "required": false,
-          "description": "Formato output: 'console', 'markdown', 'json'. Default: 'console'"
-        }
-      },
-      "examples": [
-        {
-          "command": "axctl --intent docs-report",
-          "description": "Report console"
-        }
-      ]
+        "action": { "type": "string", "required": true, "description": "Sempre 'report'" },
+        "format": { "type": "string", "required": false, "description": "Formato: 'console', 'markdown', 'json'. Default: 'console'" }
+      }
     },
     {
       "name": "docs:sync",
-      "description": "Sincronizza docs basandosi su script changes. Genera PR con aggiornamenti suggeriti. Richiede approval. Keywords: 'sync docs', 'update documentation', 'align docs'.",
+      "description": "Sincronizza docs basandosi su script changes. LLM analizza diff e genera aggiornamenti suggeriti.",
+      "uses_skills": ["utilities.convert-markdown"],
       "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
-        "action": {
-          "type": "string",
-          "required": true,
-          "description": "Sempre 'sync'"
-        },
-        "changedFile": {
-          "type": "string",
-          "required": false,
-          "description": "File cambiato che ha triggerato il sync"
-        }
-      },
-      "examples": [
-        {
-          "command": "pwsh Rules.Vault/scripts/pwsh/agent-docs-sync.ps1 -Action sync -ChangedFile agent-ado-userstory.ps1",
-          "description": "Sync basato su cambio script"
-        }
-      ]
+        "action": { "type": "string", "required": true, "description": "Sempre 'sync'" },
+        "changedFile": { "type": "string", "required": false, "description": "File cambiato che ha triggerato il sync" }
+      }
     },
     {
       "name": "docs:scan",
-      "description": "Scansiona contenuto file per proporre TAG basati sul contenuto reale (Circular Flow). Richiede validazione GEDI per modifiche massive.",
+      "description": "Scansiona contenuto file per proporre TAG basati sul contenuto reale. LLM analizza semantica del contenuto.",
+      "uses_skills": [],
       "script": "../../scripts/pwsh/agent-docs-scanner.ps1",
       "params": {
-        "action": {
-          "type": "string",
-          "required": true,
-          "description": "'Scan' per indice, 'Propose' per suggerimenti"
-        }
-      },
-      "examples": [
-        {
-          "command": "pwsh scripts/pwsh/agent-docs-scanner.ps1 -Action Propose",
-          "description": "Propone tag mancanti basandosi su keywords"
-        }
-      ]
+        "action": { "type": "string", "required": true, "description": "'Scan' per indice, 'Propose' per suggerimenti" }
+      }
     }
   ],
-  "name": "agent_docs_sync",
-  "readme": "README.md",
-  "classification": "arm"
-}
 
+  "allowed_paths": {
+    "read": [
+      "agents/agent_docs_sync/",
+      "agents/**",
+      "scripts/**",
+      "Rules/**",
+      "Rules.Vault/**",
+      "Wiki/EasyWayData.wiki/",
+      "docs/",
+      "out/**"
+    ],
+    "write": [
+      "agents/agent_docs_sync/memory/",
+      "agents/logs/",
+      "Wiki/EasyWayData.wiki/",
+      "out/**"
+    ]
+  },
+
+  "required_gates": ["doc_alignment"],
+
+  "knowledge_sources": [
+    {
+      "priority": "high",
+      "path": "Wiki/EasyWayData.wiki/docs-conventions.md",
+      "type": "document"
+    },
+    {
+      "priority": "high",
+      "path": "Wiki/EasyWayData.wiki/docs-agentic-audit.md",
+      "type": "document"
+    },
+    {
+      "priority": "medium",
+      "path": "Wiki/EasyWayData.wiki/control-plane/agents-registry.md",
+      "type": "document"
+    },
+    {
+      "priority": "medium",
+      "path": "Rules/RULES_MASTER.md",
+      "type": "document"
+    },
+    {
+      "priority": "medium",
+      "path": "agents/kb/recipes.jsonl",
+      "type": "data"
+    }
+  ],
+
+  "error_handling": {
+    "retry_count": 3,
+    "retry_delay_seconds": 30,
+    "fallback_mode": "skip_llm_analysis",
+    "alert_on_failure": true
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "action": "docs:validate",
+  "params": {
+    "action": "validate",
+    "path": "Rules/ADO_EXPORT_GUIDE.md"
+  },
+  "whatIf": false,
+  "nonInteractive": true
+}

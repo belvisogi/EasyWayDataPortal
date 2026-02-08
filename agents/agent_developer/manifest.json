@@ -61,5 +61,7 @@
       "type": "standard"
     }
   ],
-  "entry_point": "scripts/pwsh/agent-developer.ps1"
+  "entry_point": "scripts/pwsh/agent-developer.ps1",
+  "evolution_level": 1,
+  "skills_required": []
 }

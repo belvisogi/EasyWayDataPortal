@@ -1,10 +1,43 @@
 {
   "created": "2026-01-17T21:55:55.0730492+01:00",
+  "updated": "2026-02-08T12:00:00+01:00",
   "stats": {
-    "last_active": null,
+    "total_runs": 0,
+    "successful": 0,
     "errors": 0,
-    "runs": 0
+    "last_run": null,
+    "avg_duration_seconds": 0,
+    "success_rate": 0
   },
-  "preferences": {},
-  "first_run": true
+  "knowledge": {
+    "managed_vaults": ["easyway-vault"],
+    "known_secrets": [
+      "db--portal--connstring",
+      "deepseek--api--key"
+    ],
+    "known_issues": [
+      {
+        "component": "qdrant",
+        "issue": "No authentication configured by default since v1.8",
+        "resolution": "Enable API key auth in Qdrant config",
+        "learned_date": "2026-02-08"
+      }
+    ],
+    "rotation_schedule": []
+  },
+  "preferences": {
+    "notification_threshold": "high",
+    "whatif_default": true,
+    "llm_provider": "deepseek",
+    "llm_model": "deepseek-chat"
+  },
+  "llm_usage": {
+    "total_calls": 0,
+    "total_tokens_in": 0,
+    "total_tokens_out": 0,
+    "total_cost_usd": 0,
+    "last_call": null
+  },
+  "last_errors": [],
+  "first_run": false
 }

@@ -1,0 +1,9 @@
+{
+  "action": "docs:check",
+  "params": {
+    "action": "check",
+    "scope": "all"
+  },
+  "whatIf": false,
+  "nonInteractive": true
+}

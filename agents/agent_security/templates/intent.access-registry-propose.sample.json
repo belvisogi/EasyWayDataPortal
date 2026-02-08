@@ -1,0 +1,17 @@
+{
+  "action": "access-registry:propose",
+  "params": {
+    "access": {
+      "system": "portal-api",
+      "resource": "PostgreSQL",
+      "account": "app_user_ro",
+      "permissions": ["SELECT"],
+      "scope": "production",
+      "owner": "team-platform",
+      "expires": "2026-12-31"
+    }
+  },
+  "whatIf": false,
+  "nonInteractive": true,
+  "correlationId": "access-registry-001"
+}

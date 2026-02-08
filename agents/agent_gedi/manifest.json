@@ -162,7 +162,7 @@
         "Abbiamo pensato ai casi d'abuso prima di scrivere codice?",
         "Security è afterthought o parte del definition of done?",
         "Stiamo aspettando attacco per implementare difesa o anticipiamo?",
-        "Cost of prevention \u003c\u003c cost of remediation - lo stiamo considerando?"
+        "Cost of prevention << cost of remediation - lo stiamo considerando?"
       ],
       "learned_from": "Security war game roadmap 2026-01-26: meglio costruire difese prima che testare dopo"
     },
@@ -397,5 +397,7 @@
   ],
   "required_gates": [
     "doc_alignment"
-  ]
+  ],
+  "evolution_level": 1,
+  "skills_required": []
 }

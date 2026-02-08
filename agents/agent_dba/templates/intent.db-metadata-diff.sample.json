@@ -1,0 +1,13 @@
+{
+  "action": "db-metadata:diff",
+  "params": {
+    "sourceEnv": "DEV",
+    "sourceDatabase": "EasyWayPortal_DEV",
+    "targetEnv": "PROD",
+    "targetDatabase": "EasyWayPortal",
+    "outputReport": "out/db-diff-dev-prod.html"
+  },
+  "whatIf": false,
+  "nonInteractive": true,
+  "correlationId": "db-metadata-diff-001"
+}

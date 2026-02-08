@@ -21,7 +21,11 @@
           "type": "string",
           "required": false,
           "default": "docker-scout",
-          "enum": ["docker-scout", "snyk", "trivy"],
+          "enum": [
+            "docker-scout",
+            "snyk",
+            "trivy"
+          ],
           "description": "Scanner tool to use"
         },
         {
@@ -29,7 +33,13 @@
           "type": "string",
           "required": false,
           "default": "none",
-          "enum": ["critical", "high", "medium", "low", "none"],
+          "enum": [
+            "critical",
+            "high",
+            "medium",
+            "low",
+            "none"
+          ],
           "description": "Fail if vulnerabilities >= this severity are found"
         },
         {
@@ -37,44 +47,91 @@
           "type": "string",
           "required": false,
           "default": "object",
-          "enum": ["object", "json"]
+          "enum": [
+            "object",
+            "json"
+          ]
         }
       ],
       "outputs": {
         "type": "object",
         "properties": {
-          "ImageName": { "type": "string" },
-          "Scanner": { "type": "string" },
-          "ScanDate": { "type": "string", "format": "date-time" },
+          "ImageName": {
+            "type": "string"
+          },
+          "Scanner": {
+            "type": "string"
+          },
+          "ScanDate": {
+            "type": "string",
+            "format": "date-time"
+          },
           "Vulnerabilities": {
             "type": "array",
             "items": {
               "type": "object",
               "properties": {
-                "CVE": { "type": "string" },
-                "Severity": { "type": "string" },
-                "Package": { "type": "string" },
-                "InstalledVersion": { "type": "string" },
-                "FixedVersion": { "type": "string" },
-                "Description": { "type": "string" }
+                "CVE": {
+                  "type": "string"
+                },
+                "Severity": {
+                  "type": "string"
+                },
+                "Package": {
+                  "type": "string"
+                },
+                "InstalledVersion": {
+                  "type": "string"
+                },
+                "FixedVersion": {
+                  "type": "string"
+                },
+                "Description": {
+                  "type": "string"
+                }
               }
             }
           },
           "Summary": {
             "type": "object",
             "properties": {
-              "critical": { "type": "integer" },
-              "high": { "type": "integer" },
-              "medium": { "type": "integer" },
-              "low": { "type": "integer" }
+              "critical": {
+                "type": "integer"
+              },
+              "high": {
+                "type": "integer"
+              },
+              "medium": {
+                "type": "integer"
+              },
+              "low": {
+                "type": "integer"
+              }
             }
           },
-          "TotalCount": { "type": "integer" },
-          "Status": { "type": "string", "enum": ["clean", "vulnerabilities_found"] }
+          "TotalCount": {
+            "type": "integer"
+          },
+          "Status": {
+            "type": "string",
+            "enum": [
+              "clean",
+              "vulnerabilities_found"
+            ]
+          }
         }
       },
-      "dependencies": ["docker", "docker-scout OR snyk OR trivy"],
-      "tags": ["security", "cve", "docker", "vulnerability", "scanning"],
+      "dependencies": [
+        "docker",
+        "docker-scout OR snyk OR trivy"
+      ],
+      "tags": [
+        "security",
+        "cve",
+        "docker",
+        "vulnerability",
+        "scanning"
+      ],
       "tested_with": {
         "docker": ">=20.10.0",
         "docker-scout": ">=0.5.0",
@@ -120,26 +177,99 @@
       "outputs": {
         "type": "object",
         "properties": {
-          "Component": { "type": "string" },
-          "Version": { "type": "string" },
-          "IsCompatible": { "type": "boolean" },
+          "Component": {
+            "type": "string"
+          },
+          "Version": {
+            "type": "string"
+          },
+          "IsCompatible": {
+            "type": "boolean"
+          },
           "Issues": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "description": "List of compatibility issues found"
           },
           "Recommendations": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "description": "List of recommendations for better compatibility"
           },
-          "CheckedAt": { "type": "string", "format": "date-time" },
-          "MatrixFile": { "type": "string" }
+          "CheckedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "MatrixFile": {
+            "type": "string"
+          }
         }
       },
       "dependencies": [],
-      "tags": ["compatibility", "version", "validation", "dependency"],
+      "tags": [
+        "compatibility",
+        "version",
+        "validation",
+        "dependency"
+      ],
       "tested_with": {}
+    },
+    {
+      "id": "retrieval.rag-search",
+      "name": "Invoke-RAGSearch",
+      "domain": "retrieval",
+      "file": "skills/retrieval/Invoke-RAGSearch.ps1",
+      "version": "1.0.0",
+      "description": "Search the EasyWay Wiki using RAG (Qdrant)",
+      "parameters": [
+        {
+          "name": "Query",
+          "type": "string",
+          "required": true,
+          "description": "The question or keywords to search for"
+        },
+        {
+          "name": "Limit",
+          "type": "integer",
+          "required": false,
+          "default": 3,
+          "description": "Max number of results to return"
+        }
+      ],
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "filename": {
+              "type": "string"
+            },
+            "content": {
+              "type": "string"
+            },
+            "score": {
+              "type": "number"
+            },
+            "path": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "dependencies": [
+        "python3",
+        "qdrant-client"
+      ],
+      "tags": [
+        "rag",
+        "search",
+        "wiki",
+        "qdrant"
+      ]
     }
   ]
 }

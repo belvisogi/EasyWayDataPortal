@@ -1,4 +1,15 @@
 {
+  "id": "agent_dba",
+  "priority": [
+    { "action": "db-guardrails:check", "weight": 1.0 },
+    { "action": "db-metadata:diff", "weight": 0.9 },
+    { "action": "db-user:create", "weight": 0.8 },
+    { "action": "db-user:rotate", "weight": 0.8 },
+    { "action": "db-table:create", "weight": 0.7 },
+    { "action": "db-metadata:extract", "weight": 0.6 },
+    { "action": "db-doc:ddl-inventory", "weight": 0.5 },
+    { "action": "db-blueprint:generate", "weight": 0.5 }
+  ],
   "rules": [
     {
       "id": "seq-ndg-check",
@@ -52,6 +63,29 @@
         "Verificare che la SP scriva su PORTAL.STATS_EXECUTION_LOG",
         "Verificare presenza TRY/CATCH e rollback su errori",
         "Verificare versione _DEBUG disponibile per test"
+      ]
+    },
+    {
+      "id": "llm-no-data-in-prompt",
+      "description": "Non inviare mai dati reali del database al LLM, solo schema e metadata.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["db-metadata:extract", "db-metadata:diff", "db-guardrails:check"] },
+      "checklist": [
+        "Mai includere dati di righe/record nel prompt LLM",
+        "Solo nomi tabelle, colonne, tipi, indici",
+        "Max 1 chiamata LLM per operazione",
+        "Max 1000 tokens di output"
+      ]
+    },
+    {
+      "id": "no-drop-without-approval",
+      "description": "Mai eseguire DROP senza approvazione esplicita.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["db-user:revoke", "db-table:create"] },
+      "checklist": [
+        "Verificare Human_Governance_Approval prima di DROP",
+        "Avere rollback script pronto",
+        "Usare WhatIf=true per preview"
       ]
     }
   ]

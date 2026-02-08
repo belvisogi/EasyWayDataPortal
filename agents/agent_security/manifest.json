@@ -1,90 +1,146 @@
 {
+  "id": "agent_security",
+  "name": "agent_security",
   "role": "Agent_Security",
-  "description": "Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit e registry (no valori segreti nei log).",
-  "allowed_paths": [
-    "scripts/pwsh/agent-security.ps1",
-    "agents/agent_security/**",
-    "Wiki/EasyWayData.wiki/security/**",
-    "Wiki/EasyWayData.wiki/control-plane/**",
-    "docs/agentic/templates/intents/**",
-    "docs/agentic/templates/orchestrations/**",
-    "docs/agentic/templates/docs/**",
-    "agents/kb/recipes.jsonl",
-    "agents/logs/**",
-    "docs/agentic/templates/sheets/access-registry.csv"
-  ],
-  "allowed_tools": [
-    "pwsh",
-    "az"
-  ],
-  "required_gates": [
-    "KB_Consistency"
-  ],
-  "approvals": {
-    "prod": [
-      "Human_Governance_Approval"
-    ]
+  "description": "Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit, registry e AI-driven threat analysis. Level 2 agent con DeepSeek LLM.",
+  "owner": "team-platform",
+  "version": "2.0.0",
+  "classification": "arm",
+  "evolution_level": 2,
+
+  "llm_config": {
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
+    "temperature": 0.1,
+    "max_tokens": 1000,
+    "system_prompt": "agents/agent_security/PROMPTS.md",
+    "tools": ["function_calling"],
+    "cost_estimate": {
+      "per_call": "$0.00025",
+      "monthly": "$0.05"
+    },
+    "usage": {
+      "security_analyze": "AI threat assessment su configurazioni, secrets, OWASP Top 10",
+      "rotation_strategy": "Suggerisce strategia di rotazione secrets basata su risk",
+      "access_audit": "Analizza pattern di accesso e identifica anomalie"
+    }
   },
-  "knowledge_sources": [
-    "Wiki/EasyWayData.wiki/security/segreti-e-accessi.md",
-    "Wiki/EasyWayData.wiki/security/operativita-governance-provisioning-accessi.md",
-    "docs/ci/azure-devops-secrets.md",
-    "agents/kb/recipes.jsonl"
+
+  "context_config": {
+    "memory_files": [
+      "agents/agent_security/memory/context.json",
+      "agents/kb/recipes.jsonl"
+    ],
+    "context_limit_tokens": 128000
+  },
+
+  "skills_required": [
+    "security.secret-vault",
+    "security.cve-scan"
   ],
+
+  "skills_optional": [
+    "utilities.retry-backoff",
+    "integration.slack-message",
+    "utilities.json-validate"
+  ],
+
+  "allowed_tools": ["pwsh", "az", "curl"],
+
   "actions": [
+    {
+      "name": "security:analyze",
+      "description": "AI-driven threat analysis su configurazioni, codice o infrastruttura. Usa DeepSeek per risk assessment.",
+      "uses_skills": ["security.cve-scan"],
+      "params": {
+        "query": { "type": "string", "required": true, "description": "Contesto da analizzare" }
+      }
+    },
     {
       "name": "kv-secret:set",
       "description": "Imposta/aggiorna un secret in Azure Key Vault (non stampa il valore).",
+      "uses_skills": ["security.secret-vault"],
       "params": {
-        "vaultName": {
-          "type": "string",
-          "required": true
-        },
-        "secretName": {
-          "type": "string",
-          "required": true
-        },
-        "secretValue": {
-          "type": "string",
-          "required": true
-        },
-        "tags": {
-          "type": "object",
-          "required": false
-        }
+        "vaultName": { "type": "string", "required": true },
+        "secretName": { "type": "string", "required": true },
+        "secretValue": { "type": "string", "required": true },
+        "tags": { "type": "object", "required": false }
       }
     },
     {
       "name": "kv-secret:reference",
       "description": "Genera una Key Vault reference per App Settings (non legge il valore).",
+      "uses_skills": ["security.secret-vault"],
       "params": {
-        "vaultName": {
-          "type": "string",
-          "required": true
-        },
-        "secretName": {
-          "type": "string",
-          "required": true
-        },
-        "version": {
-          "type": "string",
-          "required": false
-        }
+        "vaultName": { "type": "string", "required": true },
+        "secretName": { "type": "string", "required": true },
+        "version": { "type": "string", "required": false }
       }
     },
     {
       "name": "access-registry:propose",
       "description": "Propone una riga registry accessi (audit) senza valori segreti.",
+      "uses_skills": [],
       "params": {
-        "access": {
-          "type": "object",
-          "required": true
-        }
+        "access": { "type": "object", "required": true }
       }
     }
   ],
-  "name": "agent_security",
-  "readme": "README.md",
-  "classification": "arm"
+
+  "allowed_paths": {
+    "read": [
+      "scripts/pwsh/agent-security.ps1",
+      "agents/agent_security/",
+      "Wiki/EasyWayData.wiki/security/",
+      "Wiki/EasyWayData.wiki/control-plane/",
+      "docs/agentic/templates/",
+      "agents/kb/recipes.jsonl",
+      "docs/agentic/templates/sheets/access-registry.csv"
+    ],
+    "write": [
+      "agents/logs/",
+      "agents/agent_security/memory/",
+      "Wiki/EasyWayData.wiki/security/"
+    ]
+  },
+
+  "required_gates": ["KB_Consistency"],
+
+  "approvals": {
+    "prod": ["Human_Governance_Approval"]
+  },
+
+  "knowledge_sources": [
+    {
+      "priority": "high",
+      "path": "Wiki/EasyWayData.wiki/security/segreti-e-accessi.md",
+      "type": "document"
+    },
+    {
+      "priority": "high",
+      "path": "Wiki/EasyWayData.wiki/security/operativita-governance-provisioning-accessi.md",
+      "type": "document"
+    },
+    {
+      "priority": "medium",
+      "path": "docs/ci/azure-devops-secrets.md",
+      "type": "document"
+    },
+    {
+      "priority": "medium",
+      "path": "agents/kb/recipes.jsonl",
+      "type": "data"
+    }
+  ],
+
+  "error_handling": {
+    "retry_count": 3,
+    "retry_delay_seconds": 30,
+    "fallback_mode": "skip_llm_analysis",
+    "alert_on_failure": true
+  },
+
+  "readme": "README.md"
 }
 
