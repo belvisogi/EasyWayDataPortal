@@ -14,7 +14,9 @@ COLLECTION_NAME = "easyway_wiki"
 def search(query, limit=5):
     try:
         # 1. Connect to Qdrant
-        client = QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT, api_key=QDRANT_API_KEY)
+        # Force HTTP to avoid SSL errors internal to the cluster
+        url = f"http://{QDRANT_HOST}:{QDRANT_PORT}"
+        client = QdrantClient(url=url, api_key=QDRANT_API_KEY)
 
         # 2. Load Model & Embed Query
         # matching the Node.js ingestion model
@@ -22,11 +24,14 @@ def search(query, limit=5):
         query_vector = model.encode(query).tolist()
 
         # 3. Search
-        hits = client.search(
+        # 3. Search
+        # client.search was removed/missing, using query_points
+        search_result = client.query_points(
             collection_name=COLLECTION_NAME,
-            query_vector=query_vector,
+            query=query_vector,
             limit=limit
         )
+        hits = search_result.points
 
         # 4. Format Results
         results = []

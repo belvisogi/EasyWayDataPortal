@@ -3,7 +3,7 @@ version: '3.9'
 services:
   # 🧠 The Private Brain (Vector Database)
   qdrant:
-    image: qdrant/qdrant:v1.13.2
+    image: qdrant/qdrant:v1.16.2
     container_name: easyway-qdrant
     restart: always
     ports:
@@ -25,3 +25,4 @@ volumes:
 networks:
   easyway-net:
     external: true
+    name: easywaydataportal_easyway-net

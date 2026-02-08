@@ -24,6 +24,8 @@ Gli agenti sono classificati in due categorie principali basate sulla loro **nat
 | **agent_gedi** | Philosophy Guardian | Custode del Manifesto EasyWay, ricorda principi fondamentali |
 | **agent_governance** | Policy Master | Policy, qualità, gates e approvazioni per DB/API/Docs |
 | **agent_scrummaster** | Agile Facilitator | Backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features |
+| **agent_levi** | Sovereign Cleaner | Project LEVI: DQF 2.0, Link Integrity, Policy Enforcement (Polymorphic) |
+| **agent_valentino** | Frontend Architect | Valentino Framework: Sovereignty, Visual/Chaos Guardians, Web Components |
 
 ### 💪 Arms (Executive Agents)
 **Caratteristiche:**

@@ -12,6 +12,8 @@ services:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - QDRANT_HOST=qdrant
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
       - CHROMA_HOST=chromadb
       - SQL_SERVER=sql-edge
       - AZURITE_HOST=azurite

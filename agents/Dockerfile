@@ -13,13 +13,20 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     python3-venv \
-    nodejs \
-    npm \
+    python3-venv \
     curl \
     nano \
+    nano \
+    gnupg \
     gnupg \
     lsb-release \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js 20 (ARM64 supported) - Force clean install
+RUN apt-get remove -y nodejs npm libnode* || true
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs
+RUN node -v && npm -v
 
 # Install PowerShell (Universal Binary Method for ARM64)
 # Url for PowerShell 7.4.1 (LTS) ARM64

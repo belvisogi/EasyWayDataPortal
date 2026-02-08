@@ -175,3 +175,11 @@ type: guide
 
 
 
+### 2026-02-08: The Sovereign Brain (Private RAG) 🧠
+*   **Event**: Attivazione del "Cervello Privato" basato su Qdrant.
+*   **Description**: EasyWay ora possiede una memoria semantica locale e sovrana.
+    *   **Infrastructure**: Qdrant Vector DB su Docker (ARM64).
+    *   **Ingestion**: "The Feeder" (Node.js) trasforma la Wiki in vettori intelligenti.
+    *   **Retrieval**: "The Brain" (Python/PowerShell) permette agli agenti di consultare la documentazione.
+*   **Significance**: *"L'agente non deve più indovinare. Ora può ricordare e citare."*
+*   **Quote**: *"La conoscenza è inutile se non è accessibile. Qdrant è la nostra Biblioteca di Alessandria personale."*
