@@ -56,12 +56,23 @@
   },
   "skills_required": [],
   "llm_config": {
-    "provider": "openai",
-    "model": "gpt-4o",
-    "temperature": 0.0,
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
+    "temperature": 0.1,
+    "max_tokens": 1000,
     "system_prompt": "agents/agent_retrieval/PROMPTS.md",
     "tools": [
       "function_calling"
-    ]
+    ],
+    "cost_estimate": {
+      "per_call": "$0.0003",
+      "monthly": "$0.06"
+    },
+    "usage": {
+      "rag_management": "Gestisce indicizzazione e retrieval RAG",
+      "vector_db_health": "Monitora salute Qdrant vector DB",
+      "auto_indexing": "Automatizza indexing di nuovi documenti"
+    }
   }
 }

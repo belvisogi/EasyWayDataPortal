@@ -7,14 +7,24 @@
   "owner": "team-platform",
   "description": "The Voice of History. Osserva l'evoluzione dell'ecosistema, registra le pietre miliari e celebra i momenti di vera innovazione ('A star is born').",
   "llm_config": {
-    "model": "gpt-4o",
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
     "temperature": 0.7,
+    "max_tokens": 1500,
     "system_prompt": "agents/agent_chronicler/PROMPTS.md",
     "tools": [
-      "event_listener",
-      "history_writer",
-      "announcer"
-    ]
+      "function_calling"
+    ],
+    "cost_estimate": {
+      "per_call": "$0.0004",
+      "monthly": "$0.08"
+    },
+    "usage": {
+      "milestone_celebration": "Celebra pietre miliari del progetto",
+      "innovation_recognition": "Riconosce innovazioni ('A star is born')",
+      "narrative_generation": "Genera narrative per documentare il percorso"
+    }
   },
   "context_config": {
     "memory_files": [
