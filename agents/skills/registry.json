@@ -1,6 +1,6 @@
 {
-  "version": "2.0.0",
-  "last_updated": "2026-02-08T19:00:00Z",
+  "version": "2.1.0",
+  "last_updated": "2026-02-08T20:57:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -10,13 +10,58 @@
       "version": "1.0.0",
       "description": "Scan Docker images for CVE vulnerabilities using Docker Scout, Snyk, or Trivy",
       "parameters": [
-        { "name": "ImageName", "type": "string", "required": true, "description": "Docker image to scan" },
-        { "name": "Scanner", "type": "string", "required": false, "default": "docker-scout", "enum": ["docker-scout", "snyk", "trivy"] },
-        { "name": "FailOnSeverity", "type": "string", "required": false, "default": "none", "enum": ["critical", "high", "medium", "low", "none"] },
-        { "name": "OutputFormat", "type": "string", "required": false, "default": "object", "enum": ["object", "json"] }
+        {
+          "name": "ImageName",
+          "type": "string",
+          "required": true,
+          "description": "Docker image to scan"
+        },
+        {
+          "name": "Scanner",
+          "type": "string",
+          "required": false,
+          "default": "docker-scout",
+          "enum": [
+            "docker-scout",
+            "snyk",
+            "trivy"
+          ]
+        },
+        {
+          "name": "FailOnSeverity",
+          "type": "string",
+          "required": false,
+          "default": "none",
+          "enum": [
+            "critical",
+            "high",
+            "medium",
+            "low",
+            "none"
+          ]
+        },
+        {
+          "name": "OutputFormat",
+          "type": "string",
+          "required": false,
+          "default": "object",
+          "enum": [
+            "object",
+            "json"
+          ]
+        }
       ],
-      "dependencies": ["docker", "docker-scout OR snyk OR trivy"],
-      "tags": ["security", "cve", "docker", "vulnerability", "scanning"]
+      "dependencies": [
+        "docker",
+        "docker-scout OR snyk OR trivy"
+      ],
+      "tags": [
+        "security",
+        "cve",
+        "docker",
+        "vulnerability",
+        "scanning"
+      ]
     },
     {
       "id": "security.secret-vault",
@@ -26,14 +71,47 @@
       "version": "1.0.0",
       "description": "Manage secrets in Azure Key Vault (set, reference, list, rotate)",
       "parameters": [
-        { "name": "Operation", "type": "string", "required": true, "enum": ["set", "reference", "list", "rotate"] },
-        { "name": "VaultName", "type": "string", "required": true },
-        { "name": "SecretName", "type": "string", "required": false },
-        { "name": "SecretValue", "type": "string", "required": false },
-        { "name": "Tags", "type": "hashtable", "required": false }
+        {
+          "name": "Operation",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "set",
+            "reference",
+            "list",
+            "rotate"
+          ]
+        },
+        {
+          "name": "VaultName",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "SecretName",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "SecretValue",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "Tags",
+          "type": "hashtable",
+          "required": false
+        }
       ],
-      "dependencies": ["az"],
-      "tags": ["security", "keyvault", "secrets", "azure"]
+      "dependencies": [
+        "az"
+      ],
+      "tags": [
+        "security",
+        "keyvault",
+        "secrets",
+        "azure"
+      ]
     },
     {
       "id": "utilities.version-compatibility",
@@ -43,13 +121,34 @@
       "version": "1.0.0",
       "description": "Check version compatibility against compatibility matrix rules",
       "parameters": [
-        { "name": "Component", "type": "string", "required": true },
-        { "name": "Version", "type": "string", "required": true },
-        { "name": "MatrixFile", "type": "string", "required": false, "default": "./compatibility-matrix.json" },
-        { "name": "CurrentVersions", "type": "hashtable", "required": false }
+        {
+          "name": "Component",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "MatrixFile",
+          "type": "string",
+          "required": false,
+          "default": "./compatibility-matrix.json"
+        },
+        {
+          "name": "CurrentVersions",
+          "type": "hashtable",
+          "required": false
+        }
       ],
       "dependencies": [],
-      "tags": ["compatibility", "version", "validation"]
+      "tags": [
+        "compatibility",
+        "version",
+        "validation"
+      ]
     },
     {
       "id": "utilities.retry-backoff",
@@ -59,14 +158,42 @@
       "version": "1.0.0",
       "description": "Execute a script block with retry and exponential backoff",
       "parameters": [
-        { "name": "ScriptBlock", "type": "scriptblock", "required": true },
-        { "name": "MaxRetries", "type": "integer", "required": false, "default": 3 },
-        { "name": "InitialDelay", "type": "integer", "required": false, "default": 2 },
-        { "name": "MaxDelay", "type": "integer", "required": false, "default": 60 },
-        { "name": "RetryableErrors", "type": "array", "required": false }
+        {
+          "name": "ScriptBlock",
+          "type": "scriptblock",
+          "required": true
+        },
+        {
+          "name": "MaxRetries",
+          "type": "integer",
+          "required": false,
+          "default": 3
+        },
+        {
+          "name": "InitialDelay",
+          "type": "integer",
+          "required": false,
+          "default": 2
+        },
+        {
+          "name": "MaxDelay",
+          "type": "integer",
+          "required": false,
+          "default": 60
+        },
+        {
+          "name": "RetryableErrors",
+          "type": "array",
+          "required": false
+        }
       ],
       "dependencies": [],
-      "tags": ["retry", "backoff", "resilience", "error-handling"]
+      "tags": [
+        "retry",
+        "backoff",
+        "resilience",
+        "error-handling"
+      ]
     },
     {
       "id": "utilities.convert-markdown",
@@ -76,13 +203,42 @@
       "version": "1.0.0",
       "description": "Convert structured data to formatted Markdown report",
       "parameters": [
-        { "name": "Data", "type": "object", "required": true },
-        { "name": "Title", "type": "string", "required": false, "default": "Report" },
-        { "name": "Format", "type": "string", "required": false, "default": "markdown", "enum": ["markdown", "console", "json"] },
-        { "name": "IncludeTimestamp", "type": "boolean", "required": false, "default": true }
+        {
+          "name": "Data",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "Title",
+          "type": "string",
+          "required": false,
+          "default": "Report"
+        },
+        {
+          "name": "Format",
+          "type": "string",
+          "required": false,
+          "default": "markdown",
+          "enum": [
+            "markdown",
+            "console",
+            "json"
+          ]
+        },
+        {
+          "name": "IncludeTimestamp",
+          "type": "boolean",
+          "required": false,
+          "default": true
+        }
       ],
       "dependencies": [],
-      "tags": ["markdown", "report", "formatting", "export"]
+      "tags": [
+        "markdown",
+        "report",
+        "formatting",
+        "export"
+      ]
     },
     {
       "id": "utilities.json-validate",
@@ -92,13 +248,34 @@
       "version": "1.0.0",
       "description": "Validate JSON files for syntax, required fields, and schema compliance",
       "parameters": [
-        { "name": "Path", "type": "string", "required": false },
-        { "name": "Content", "type": "string", "required": false },
-        { "name": "RequiredFields", "type": "array", "required": false },
-        { "name": "SchemaPath", "type": "string", "required": false }
+        {
+          "name": "Path",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "Content",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "RequiredFields",
+          "type": "array",
+          "required": false
+        },
+        {
+          "name": "SchemaPath",
+          "type": "string",
+          "required": false
+        }
       ],
       "dependencies": [],
-      "tags": ["json", "validation", "schema", "manifest"]
+      "tags": [
+        "json",
+        "validation",
+        "schema",
+        "manifest"
+      ]
     },
     {
       "id": "observability.health-check",
@@ -108,11 +285,28 @@
       "version": "1.0.0",
       "description": "Check health of Docker containers and services",
       "parameters": [
-        { "name": "Target", "type": "string", "required": false, "default": "all" },
-        { "name": "Timeout", "type": "integer", "required": false, "default": 10 }
+        {
+          "name": "Target",
+          "type": "string",
+          "required": false,
+          "default": "all"
+        },
+        {
+          "name": "Timeout",
+          "type": "integer",
+          "required": false,
+          "default": 10
+        }
       ],
-      "dependencies": ["docker"],
-      "tags": ["health", "monitoring", "containers", "observability"]
+      "dependencies": [
+        "docker"
+      ],
+      "tags": [
+        "health",
+        "monitoring",
+        "containers",
+        "observability"
+      ]
     },
     {
       "id": "integration.slack-message",
@@ -122,13 +316,41 @@
       "version": "1.0.0",
       "description": "Send formatted messages to Slack via webhook",
       "parameters": [
-        { "name": "WebhookUrl", "type": "string", "required": false },
-        { "name": "Message", "type": "string", "required": true },
-        { "name": "Channel", "type": "string", "required": false },
-        { "name": "Severity", "type": "string", "required": false, "default": "info", "enum": ["info", "warning", "error", "critical"] }
+        {
+          "name": "WebhookUrl",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "Message",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "Channel",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "Severity",
+          "type": "string",
+          "required": false,
+          "default": "info",
+          "enum": [
+            "info",
+            "warning",
+            "error",
+            "critical"
+          ]
+        }
       ],
       "dependencies": [],
-      "tags": ["slack", "notification", "messaging", "alert"]
+      "tags": [
+        "slack",
+        "notification",
+        "messaging",
+        "alert"
+      ]
     },
     {
       "id": "retrieval.rag-search",
@@ -138,11 +360,169 @@
       "version": "1.0.0",
       "description": "Search the EasyWay Wiki using RAG (Qdrant)",
       "parameters": [
-        { "name": "Query", "type": "string", "required": true },
-        { "name": "Limit", "type": "integer", "required": false, "default": 3 }
+        {
+          "name": "Query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "Limit",
+          "type": "integer",
+          "required": false,
+          "default": 3
+        }
       ],
-      "dependencies": ["python3", "qdrant-client"],
-      "tags": ["rag", "search", "wiki", "qdrant"]
+      "dependencies": [
+        "python3",
+        "qdrant-client"
+      ],
+      "tags": [
+        "rag",
+        "search",
+        "wiki",
+        "qdrant"
+      ]
+    },
+    {
+      "id": "retrieval.rag-enhanced-prompt",
+      "name": "Invoke-RAGEnhancedPrompt",
+      "domain": "retrieval",
+      "file": "skills/retrieval/Invoke-RAGEnhancedPrompt.ps1",
+      "version": "1.0.0",
+      "description": "Enhance LLM prompts with RAG context from Wiki knowledge base",
+      "parameters": [
+        {
+          "name": "Query",
+          "type": "string",
+          "required": true,
+          "description": "User query to enhance"
+        },
+        {
+          "name": "Limit",
+          "type": "integer",
+          "required": false,
+          "default": 3,
+          "description": "Max RAG chunks to retrieve"
+        },
+        {
+          "name": "SystemPrompt",
+          "type": "string",
+          "required": false,
+          "description": "Base system prompt to enhance"
+        }
+      ],
+      "dependencies": [
+        "python3",
+        "qdrant-client",
+        "deepseek-api"
+      ],
+      "tags": [
+        "rag",
+        "llm",
+        "prompt-engineering",
+        "context"
+      ]
+    },
+    {
+      "id": "retrieval.rag-query-rewriter",
+      "name": "Invoke-RAGQueryRewriter",
+      "domain": "retrieval",
+      "file": "skills/retrieval/Invoke-RAGQueryRewriter.ps1",
+      "version": "1.0.0",
+      "description": "Optimize RAG queries using pattern-based rewriting for better hit rate",
+      "parameters": [
+        {
+          "name": "Query",
+          "type": "string",
+          "required": true,
+          "description": "Original query to optimize"
+        },
+        {
+          "name": "MaxVariants",
+          "type": "integer",
+          "required": false,
+          "default": 3,
+          "description": "Max query variants to generate"
+        }
+      ],
+      "dependencies": [],
+      "tags": [
+        "rag",
+        "query-optimization",
+        "search",
+        "antifragile"
+      ]
+    },
+    {
+      "id": "database.migration",
+      "name": "Invoke-DatabaseMigration",
+      "domain": "database",
+      "file": "skills/database/Invoke-DatabaseMigration.ps1",
+      "version": "1.0.0",
+      "description": "Execute database migrations with rollback support",
+      "parameters": [
+        {
+          "name": "MigrationFile",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "Rollback",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "DryRun",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        }
+      ],
+      "dependencies": [
+        "sqlcmd",
+        "az"
+      ],
+      "tags": [
+        "database",
+        "migration",
+        "sql",
+        "schema"
+      ]
+    },
+    {
+      "id": "database.test-connection",
+      "name": "Test-DatabaseConnection",
+      "domain": "database",
+      "file": "skills/database/Test-DatabaseConnection.ps1",
+      "version": "1.0.0",
+      "description": "Test database connectivity and credentials",
+      "parameters": [
+        {
+          "name": "Server",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "Database",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "Timeout",
+          "type": "integer",
+          "required": false,
+          "default": 10
+        }
+      ],
+      "dependencies": [
+        "sqlcmd"
+      ],
+      "tags": [
+        "database",
+        "connectivity",
+        "validation"
+      ]
     }
   ]
 }
