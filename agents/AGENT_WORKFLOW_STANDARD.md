@@ -1,13 +1,21 @@
 # Agent Workflow Standard - 3-Step Completion Pattern
 
-> **📌 Integrazione con GEDI Pattern**  
+**Version:** 2.0.0
+**Updated:** 2026-02-08
+**Status:** ✅ Production Standard
+
+> **📌 Integrazione con GEDI Pattern**
 > Questo documento integra il pattern di completamento task (3-step) con il GEDI philosophical review pattern esistente.
+
+> **🎯 NEW: Skills System Integration**
+> Dalla versione 2.0.0, tutti gli agent devono utilizzare il **Skills System** per riutilizzare funzionalità comuni.
+> Vedi [SKILLS_SYSTEM.md](./SKILLS_SYSTEM.md) per dettagli.
 
 ---
 
 ## 🎯 Obiettivo
 
-Definire il workflow standard che **tutti gli agenti** devono seguire quando completano un task in modalità agentica.
+Definire il workflow standard che **tutti gli agenti** devono seguire quando completano un task in modalità agentica, includendo l'uso del Skills System per modularità e riutilizzo del codice.
 
 ---
 
@@ -283,11 +291,132 @@ notify_user({
 
 ---
 
+## 🎯 Skills System Integration (NEW in v2.0.0)
+
+### Why Skills?
+
+Invece di duplicare codice in ogni agent, usiamo **Skills** - funzioni PowerShell riutilizzabili organizzate per dominio.
+
+**Benefits:**
+- 🔄 **Riuso**: Scrivi una volta, usa ovunque
+- 🧪 **Testabilità**: Skills isolate sono facili da testare
+- 📦 **Modularità**: Componi azioni complesse da building blocks
+- 🔍 **Discoverabilità**: LLM può scoprire skills disponibili
+- 🎓 **Learning**: Agent possono "imparare" nuove skills dinamicamente
+
+### Agent Structure with Skills
+
+**File:** `agents/agent_xxx/manifest.json`
+
+```json
+{
+  "id": "agent_xxx",
+  "name": "agent_xxx",
+  "role": "Agent_Xxx",
+
+  "skills_required": [
+    "security.cve-scan",
+    "utilities.version-compatibility"
+  ],
+
+  "skills_optional": [
+    "observability.health-check"
+  ],
+
+  "actions": [
+    {
+      "name": "xxx:action",
+      "description": "Perform action using skills",
+      "uses_skills": ["security.cve-scan"],
+      "params": { ... }
+    }
+  ]
+}
+```
+
+### Using Skills in Agent Scripts
+
+**File:** `scripts/pwsh/agent-xxx.ps1`
+
+```powershell
+# 1. Load Skills System
+. "$PSScriptRoot/../agents/skills/Load-Skills.ps1"
+
+# 2. Load agent manifest
+$manifest = Get-Content "$PSScriptRoot/../agents/agent_xxx/manifest.json" | ConvertFrom-Json
+
+# 3. Auto-import required skills
+foreach ($skillId in $manifest.skills_required) {
+    Import-Skill -SkillId $skillId
+}
+
+# 4. Use skills in actions
+function Invoke-Action {
+    param($Intent)
+
+    # Skills are now available as functions
+    $cveResults = Invoke-CVEScan -ImageName "n8nio/n8n:1.123.20"
+    $compatResults = Test-VersionCompatibility -Component "n8n" -Version "1.123.20"
+
+    # Combine and return
+    return @{
+        CVE = $cveResults
+        Compatibility = $compatResults
+    }
+}
+```
+
+### Quick Reference: Skills Loader
+
+```powershell
+# Import single skill
+Import-Skill -SkillId "security.cve-scan"
+
+# Import all skills from manifest
+Import-SkillsFromManifest -ManifestPath "agents/agent_xxx/manifest.json"
+
+# List available skills
+Get-AvailableSkills | Format-Table
+
+# List skills by domain
+Get-AvailableSkills -Domain "security"
+
+# Check skill dependencies
+Test-SkillDependencies -SkillId "security.cve-scan"
+
+# List loaded skills
+Get-LoadedSkills
+```
+
+### Skills Domains
+
+| Domain | Skills Available | Example |
+|--------|------------------|---------|
+| **security** | cve-scan, certificate-expiry, secret-vault | `Invoke-CVEScan` |
+| **database** | migration, test-connection, export-schema | `Invoke-Migration` |
+| **observability** | health-check, metrics, alert | `Test-HealthCheck` |
+| **integration** | webhook, slack, ado-workitem, email | `Send-SlackMessage` |
+| **utilities** | version-compatibility, retry, markdown, json-validate | `Test-VersionCompatibility` |
+
+### Creating New Skills
+
+1. **Create skill file:** `agents/skills/{domain}/{Verb-Noun}.ps1`
+2. **Update registry:** Add to `agents/skills/registry.json`
+3. **Write tests:** Create `{Verb-Noun}.Tests.ps1`
+4. **Document:** Update skills catalog
+
+See [SKILLS_SYSTEM.md](./SKILLS_SYSTEM.md) for complete guide.
+
+---
+
 ## 🔗 Collegamenti
 
+- **Skills System**: Vedi [`SKILLS_SYSTEM.md`](./SKILLS_SYSTEM.md) - Sistema modulare skills (NEW!)
 - **GEDI Pattern**: Vedi [`GEDI_INTEGRATION_PATTERN.md`](./GEDI_INTEGRATION_PATTERN.md) per philosophical review
 - **Goals**: Vedi [`goals.json`](./goals.json) per principi fondamentali
 - **Agent README**: Vedi [`README.md`](./README.md) per registry agenti
+- **Agent Evolution**: Vedi [`AGENT_EVOLUTION_GUIDE.md`](./AGENT_EVOLUTION_GUIDE.md) - Levels 1-4 upgrade path
+- **LLM Integration**: Vedi [`LLM_INTEGRATION_PATTERN.md`](./LLM_INTEGRATION_PATTERN.md) - Add reasoning to agents
 
 ---
 

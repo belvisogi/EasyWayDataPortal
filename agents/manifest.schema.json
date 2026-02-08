@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://easyway.com/schemas/agent-manifest.json",
+  "title": "EasyWay Agent Manifest",
+  "description": "Standard schema for EasyWay agent manifest.json files (v2.0.0)",
+  "type": "object",
+  "required": ["id", "name", "role", "description", "owner", "version"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^agent_[a-z_]+$",
+      "description": "Unique agent identifier (e.g., 'agent_vulnerability_scanner')"
+    },
+    "name": {
+      "type": "string",
+      "description": "Agent name (same as id)"
+    },
+    "role": {
+      "type": "string",
+      "pattern": "^Agent_[A-Za-z_]+$",
+      "description": "Agent role (e.g., 'Agent_Security_Scanner')"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Brief description of agent purpose"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Team or person responsible (e.g., 'team-platform')"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version (e.g., '1.0.0')"
+    },
+    "llm_config": {
+      "type": "object",
+      "description": "LLM integration configuration (required for Level 2+ agents)",
+      "required": ["model", "temperature"],
+      "properties": {
+        "model": {
+          "type": "string",
+          "enum": ["gpt-4-turbo", "gpt-4", "gpt-3.5-turbo", "claude-3-opus", "claude-3-sonnet", "ollama"],
+          "description": "LLM model to use"
+        },
+        "temperature": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Temperature for LLM generation"
+        },
+        "system_prompt": {
+          "type": "string",
+          "description": "Path to system prompt file (relative to agents/ directory)"
+        },
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["web_search", "code_interpreter", "function_calling"]
+          },
+          "description": "LLM tools available"
+        },
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 128000,
+          "description": "Maximum tokens for LLM response"
+        }
+      }
+    },
+    "context_config": {
+      "type": "object",
+      "description": "Context and memory configuration",
+      "properties": {
+        "memory_files": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Files to load into LLM context (e.g., KB, Wiki docs)"
+        },
+        "context_limit_tokens": {
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 200000,
+          "description": "Maximum context window size"
+        },
+        "enable_memory": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable persistent memory (memory/context.json)"
+        }
+      }
+    },
+    "allowed_tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["pwsh", "git", "az", "docker", "ssh", "curl", "npm", "python"]
+      },
+      "description": "CLI tools the agent can execute"
+    },
+    "skills_required": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z]+\\.[a-z-]+$"
+      },
+      "description": "Skills that must be loaded (e.g., 'security.cve-scan')"
+    },
+    "skills_optional": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z]+\\.[a-z-]+$"
+      },
+      "description": "Skills that are optional"
+    },
+    "actions": {
+      "type": "array",
+      "description": "Actions the agent can perform",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z]+:[a-z-]+$",
+            "description": "Action name (e.g., 'vuln-scan:full')"
+          },
+          "description": {
+            "type": "string",
+            "description": "Action description"
+          },
+          "uses_skills": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Skills used by this action"
+          },
+          "params": {
+            "type": "object",
+            "description": "Parameter schema (JSON Schema format)"
+          }
+        }
+      }
+    },
+    "allowed_paths": {
+      "type": "object",
+      "description": "File system permissions",
+      "properties": {
+        "read": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Paths the agent can read"
+        },
+        "write": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Paths the agent can write"
+        }
+      }
+    },
+    "required_gates": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["KB_Consistency", "doc_alignment", "Security_Approval", "Human_Governance_Approval"]
+      },
+      "description": "Gates that must pass before agent can execute"
+    },
+    "knowledge_sources": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "properties": {
+              "priority": { "type": "string", "enum": ["low", "medium", "high"] },
+              "path": { "type": "string" },
+              "type": { "type": "string", "enum": ["document", "code", "data"] }
+            }
+          }
+        ]
+      },
+      "description": "Knowledge sources (Wiki, KB, documentation)"
+    },
+    "readme": {
+      "type": "string",
+      "default": "README.md",
+      "description": "Path to agent README"
+    },
+    "classification": {
+      "type": "string",
+      "enum": ["arm", "leg", "head", "core"],
+      "description": "Agent classification (arm=executor, leg=foundation, head=intelligence, core=critical)"
+    }
+  }
+}

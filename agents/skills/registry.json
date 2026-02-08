@@ -1,0 +1,145 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-02-08T10:00:00Z",
+  "skills": [
+    {
+      "id": "security.cve-scan",
+      "name": "Invoke-CVEScan",
+      "domain": "security",
+      "file": "skills/security/Invoke-CVEScan.ps1",
+      "version": "1.0.0",
+      "description": "Scan Docker images for CVE vulnerabilities using Docker Scout, Snyk, or Trivy",
+      "parameters": [
+        {
+          "name": "ImageName",
+          "type": "string",
+          "required": true,
+          "description": "Docker image to scan (e.g., 'n8nio/n8n:1.123.20')"
+        },
+        {
+          "name": "Scanner",
+          "type": "string",
+          "required": false,
+          "default": "docker-scout",
+          "enum": ["docker-scout", "snyk", "trivy"],
+          "description": "Scanner tool to use"
+        },
+        {
+          "name": "FailOnSeverity",
+          "type": "string",
+          "required": false,
+          "default": "none",
+          "enum": ["critical", "high", "medium", "low", "none"],
+          "description": "Fail if vulnerabilities >= this severity are found"
+        },
+        {
+          "name": "OutputFormat",
+          "type": "string",
+          "required": false,
+          "default": "object",
+          "enum": ["object", "json"]
+        }
+      ],
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "ImageName": { "type": "string" },
+          "Scanner": { "type": "string" },
+          "ScanDate": { "type": "string", "format": "date-time" },
+          "Vulnerabilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "CVE": { "type": "string" },
+                "Severity": { "type": "string" },
+                "Package": { "type": "string" },
+                "InstalledVersion": { "type": "string" },
+                "FixedVersion": { "type": "string" },
+                "Description": { "type": "string" }
+              }
+            }
+          },
+          "Summary": {
+            "type": "object",
+            "properties": {
+              "critical": { "type": "integer" },
+              "high": { "type": "integer" },
+              "medium": { "type": "integer" },
+              "low": { "type": "integer" }
+            }
+          },
+          "TotalCount": { "type": "integer" },
+          "Status": { "type": "string", "enum": ["clean", "vulnerabilities_found"] }
+        }
+      },
+      "dependencies": ["docker", "docker-scout OR snyk OR trivy"],
+      "tags": ["security", "cve", "docker", "vulnerability", "scanning"],
+      "tested_with": {
+        "docker": ">=20.10.0",
+        "docker-scout": ">=0.5.0",
+        "snyk": ">=1.1000.0",
+        "trivy": ">=0.40.0"
+      }
+    },
+    {
+      "id": "utilities.version-compatibility",
+      "name": "Test-VersionCompatibility",
+      "domain": "utilities",
+      "file": "skills/utilities/Test-VersionCompatibility.ps1",
+      "version": "1.0.0",
+      "description": "Check version compatibility against compatibility matrix rules",
+      "parameters": [
+        {
+          "name": "Component",
+          "type": "string",
+          "required": true,
+          "description": "Component name (e.g., 'n8n', 'postgres', 'traefik')"
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "required": true,
+          "description": "Version to check (e.g., '1.123.20', '15.10', 'v2.10')"
+        },
+        {
+          "name": "MatrixFile",
+          "type": "string",
+          "required": false,
+          "default": "./compatibility-matrix.json",
+          "description": "Path to compatibility matrix JSON file"
+        },
+        {
+          "name": "CurrentVersions",
+          "type": "hashtable",
+          "required": false,
+          "default": {},
+          "description": "Hashtable of current versions of other components for dependency checking"
+        }
+      ],
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "Component": { "type": "string" },
+          "Version": { "type": "string" },
+          "IsCompatible": { "type": "boolean" },
+          "Issues": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of compatibility issues found"
+          },
+          "Recommendations": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of recommendations for better compatibility"
+          },
+          "CheckedAt": { "type": "string", "format": "date-time" },
+          "MatrixFile": { "type": "string" }
+        }
+      },
+      "dependencies": [],
+      "tags": ["compatibility", "version", "validation", "dependency"],
+      "tested_with": {}
+    }
+  ]
+}
