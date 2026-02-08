@@ -80,7 +80,7 @@ $result = & "$PSScriptRoot/../../scripts/pwsh/agent-gedi.ps1" `
     -Context $fullContext `
     -Provider "DeepSeek" `
     -Model "deepseek-chat" `
-    -ApiKey $env:DEEPSEEK_API_KEY `
+    -ApiKey $env:EASYWAY_LLM_KEY `
     -ApiEndpoint "https://api.deepseek.com/chat/completions" `
     -JsonOutput
 
