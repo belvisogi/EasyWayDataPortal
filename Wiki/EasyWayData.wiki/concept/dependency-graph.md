@@ -15,41 +15,27 @@ llm:
   redaction: [email, phone]
 type: guide
 ---
-# 🗺️ The Map (Dependency Knowledge Graph)
+## 🕵️ Knowledge Graph (Auto-Generated - 2026-02-08)
 
-> *"Una farfalla sbatte le ali nel DB, e un uragano colpisce il Frontend."* - Agent Cartographer
+Il grafo è ora gestito automaticamente da **[Agent Cartographer](file:///c:/old/EasyWayDataPortal/agents/agent_cartographer/manifest.json)**.
+Dati completi disponibili in: `agents/kb/knowledge-graph.json`
 
-Questo file traccia le dipendenze critiche tra i domini EasyWay.
-Il grafo è strutturato secondo la **Matrix of Components vs Applications**.
+### 📊 Graph Statistics
+- **Total Nodes**: 105
+- **Total Edges**: 30
+- **Agents**: 31 (Brains and Arms)
+- **Skills**: 13 (Standardized Registry)
+- **Documents**: 50 (Mapped from Wiki)
+- **Infrastructure**: 9 (Docker, Caddy, n8n, etc.)
 
-## 🏗️ Macro Structure (The Matrix)
+### 🦋 Butterfly Effect Analysis
+Per simulare l'impatto di una modifica, usa la skill:
+`pwsh agents/agent_cartographer/run-with-rag.ps1 -Query "Impatto modifica RLS"`
 
-### 1. Azure Domain
-#### 1.1 Virtual Machines (VM)
-*   `VM:PortalMonitor`
-*   `VM:InformaticaAxon`
-*   `VM:AzureDevOps` --(hosts)--> `ADO:Project:EasyWay`
+---
 
-#### 1.2 Data Platform
-*   `Synapse:Workspace` --(contains)--> `SQLPool:Primary`
-*   `Synapse:SparkPool`
-*   `AzureSQL:Repos`
-
-#### 1.3 Storage & Compute
-*   `Storage:DataLake` --(stores)--> `Container:Landing`
-*   `Databricks:Workspace`
-
-#### 1.4 Services
-*   `LogicApp:Orchestrator`
-
-### 2. M365 Domain
-#### 2.1 Analytics & Logic
-*   `PowerBI:Gateway`
-*   `PowerBI:Workspace` --(contains)--> `PBI:Report:Sales`
-*   `Table:Users` --(provides_data_to)--> `API:GetUsers`
-*   `API:GetUsers` --(consumed_by)--> `WebApp:Page:UserList`
-
-## 🕵️ Crawler Findings (Auto-Generated - 01/17/2026 20:49:01)
+## 🏗️ Crawler Evidence (Archive)
+*La sezione seguente contiene i ritrovamenti storici del vecchio crawler.*
 * Found evidence of **Synapse/SQL**: ile:/db/migrations/V1__baseline.sql (Category: Data Platform)
 * Found evidence of **Synapse/SQL**: ile:/db/migrations/V1__create_schemas.sql (Category: Data Platform)
 * Found evidence of **Synapse/SQL**: ile:/db/migrations/V10__rls_configuration.sql (Category: Data Platform)
