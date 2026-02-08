@@ -7,13 +7,24 @@
   "owner": "team-platform",
   "description": "Custode del Manifesto EasyWay. Ricorda a tutti - agenti e umani - i principi fondamentali: qualità > velocità, misuriamo due tagliamo una, il percorso conta, lasciare impronta tangibile.",
   "llm_config": {
-    "model": "gpt-4o",
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
     "temperature": 0.2,
+    "max_tokens": 2000,
     "system_prompt": "agents/agent_gedi/PROMPTS.md",
     "tools": [
-      "reasoning_engine",
-      "manifesto_search"
-    ]
+      "function_calling"
+    ],
+    "cost_estimate": {
+      "per_call": "$0.0005",
+      "monthly": "$0.10"
+    },
+    "usage": {
+      "principle_validation": "Valida decisioni contro principi EasyWay",
+      "quality_gates": "Applica quality gates basati su filosofia",
+      "manifesto_reasoning": "Ragiona su conformità al Manifesto"
+    }
   },
   "context_config": {
     "memory_files": [
