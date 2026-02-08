@@ -65,5 +65,9 @@ COPY --chown=easyway:easyway Wiki /app/Wiki
 # Switch to non-root user
 USER easyway
 
-# Default Entrypoint: PowerShell
-CMD [ "pwsh" ]
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD test -f /tmp/runner-health || exit 1
+
+# Default Entrypoint: Agent Runner (non-interactive, keeps container alive)
+CMD [ "pwsh", "-NoProfile", "-File", "/app/agents/entrypoint.ps1" ]

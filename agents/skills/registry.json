@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "last_updated": "2026-02-08T10:00:00Z",
+  "last_updated": "2026-02-08T19:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -10,134 +10,30 @@
       "version": "1.0.0",
       "description": "Scan Docker images for CVE vulnerabilities using Docker Scout, Snyk, or Trivy",
       "parameters": [
-        {
-          "name": "ImageName",
-          "type": "string",
-          "required": true,
-          "description": "Docker image to scan (e.g., 'n8nio/n8n:1.123.20')"
-        },
-        {
-          "name": "Scanner",
-          "type": "string",
-          "required": false,
-          "default": "docker-scout",
-          "enum": [
-            "docker-scout",
-            "snyk",
-            "trivy"
-          ],
-          "description": "Scanner tool to use"
-        },
-        {
-          "name": "FailOnSeverity",
-          "type": "string",
-          "required": false,
-          "default": "none",
-          "enum": [
-            "critical",
-            "high",
-            "medium",
-            "low",
-            "none"
-          ],
-          "description": "Fail if vulnerabilities >= this severity are found"
-        },
-        {
-          "name": "OutputFormat",
-          "type": "string",
-          "required": false,
-          "default": "object",
-          "enum": [
-            "object",
-            "json"
-          ]
-        }
+        { "name": "ImageName", "type": "string", "required": true, "description": "Docker image to scan" },
+        { "name": "Scanner", "type": "string", "required": false, "default": "docker-scout", "enum": ["docker-scout", "snyk", "trivy"] },
+        { "name": "FailOnSeverity", "type": "string", "required": false, "default": "none", "enum": ["critical", "high", "medium", "low", "none"] },
+        { "name": "OutputFormat", "type": "string", "required": false, "default": "object", "enum": ["object", "json"] }
       ],
-      "outputs": {
-        "type": "object",
-        "properties": {
-          "ImageName": {
-            "type": "string"
-          },
-          "Scanner": {
-            "type": "string"
-          },
-          "ScanDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "Vulnerabilities": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "CVE": {
-                  "type": "string"
-                },
-                "Severity": {
-                  "type": "string"
-                },
-                "Package": {
-                  "type": "string"
-                },
-                "InstalledVersion": {
-                  "type": "string"
-                },
-                "FixedVersion": {
-                  "type": "string"
-                },
-                "Description": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "Summary": {
-            "type": "object",
-            "properties": {
-              "critical": {
-                "type": "integer"
-              },
-              "high": {
-                "type": "integer"
-              },
-              "medium": {
-                "type": "integer"
-              },
-              "low": {
-                "type": "integer"
-              }
-            }
-          },
-          "TotalCount": {
-            "type": "integer"
-          },
-          "Status": {
-            "type": "string",
-            "enum": [
-              "clean",
-              "vulnerabilities_found"
-            ]
-          }
-        }
-      },
-      "dependencies": [
-        "docker",
-        "docker-scout OR snyk OR trivy"
+      "dependencies": ["docker", "docker-scout OR snyk OR trivy"],
+      "tags": ["security", "cve", "docker", "vulnerability", "scanning"]
+    },
+    {
+      "id": "security.secret-vault",
+      "name": "Invoke-SecretVault",
+      "domain": "security",
+      "file": "skills/security/Invoke-SecretVault.ps1",
+      "version": "1.0.0",
+      "description": "Manage secrets in Azure Key Vault (set, reference, list, rotate)",
+      "parameters": [
+        { "name": "Operation", "type": "string", "required": true, "enum": ["set", "reference", "list", "rotate"] },
+        { "name": "VaultName", "type": "string", "required": true },
+        { "name": "SecretName", "type": "string", "required": false },
+        { "name": "SecretValue", "type": "string", "required": false },
+        { "name": "Tags", "type": "hashtable", "required": false }
       ],
-      "tags": [
-        "security",
-        "cve",
-        "docker",
-        "vulnerability",
-        "scanning"
-      ],
-      "tested_with": {
-        "docker": ">=20.10.0",
-        "docker-scout": ">=0.5.0",
-        "snyk": ">=1.1000.0",
-        "trivy": ">=0.40.0"
-      }
+      "dependencies": ["az"],
+      "tags": ["security", "keyvault", "secrets", "azure"]
     },
     {
       "id": "utilities.version-compatibility",
@@ -147,76 +43,92 @@
       "version": "1.0.0",
       "description": "Check version compatibility against compatibility matrix rules",
       "parameters": [
-        {
-          "name": "Component",
-          "type": "string",
-          "required": true,
-          "description": "Component name (e.g., 'n8n', 'postgres', 'traefik')"
-        },
-        {
-          "name": "Version",
-          "type": "string",
-          "required": true,
-          "description": "Version to check (e.g., '1.123.20', '15.10', 'v2.10')"
-        },
-        {
-          "name": "MatrixFile",
-          "type": "string",
-          "required": false,
-          "default": "./compatibility-matrix.json",
-          "description": "Path to compatibility matrix JSON file"
-        },
-        {
-          "name": "CurrentVersions",
-          "type": "hashtable",
-          "required": false,
-          "default": {},
-          "description": "Hashtable of current versions of other components for dependency checking"
-        }
+        { "name": "Component", "type": "string", "required": true },
+        { "name": "Version", "type": "string", "required": true },
+        { "name": "MatrixFile", "type": "string", "required": false, "default": "./compatibility-matrix.json" },
+        { "name": "CurrentVersions", "type": "hashtable", "required": false }
       ],
-      "outputs": {
-        "type": "object",
-        "properties": {
-          "Component": {
-            "type": "string"
-          },
-          "Version": {
-            "type": "string"
-          },
-          "IsCompatible": {
-            "type": "boolean"
-          },
-          "Issues": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "List of compatibility issues found"
-          },
-          "Recommendations": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "List of recommendations for better compatibility"
-          },
-          "CheckedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "MatrixFile": {
-            "type": "string"
-          }
-        }
-      },
       "dependencies": [],
-      "tags": [
-        "compatibility",
-        "version",
-        "validation",
-        "dependency"
+      "tags": ["compatibility", "version", "validation"]
+    },
+    {
+      "id": "utilities.retry-backoff",
+      "name": "Invoke-RetryBackoff",
+      "domain": "utilities",
+      "file": "skills/utilities/Invoke-RetryBackoff.ps1",
+      "version": "1.0.0",
+      "description": "Execute a script block with retry and exponential backoff",
+      "parameters": [
+        { "name": "ScriptBlock", "type": "scriptblock", "required": true },
+        { "name": "MaxRetries", "type": "integer", "required": false, "default": 3 },
+        { "name": "InitialDelay", "type": "integer", "required": false, "default": 2 },
+        { "name": "MaxDelay", "type": "integer", "required": false, "default": 60 },
+        { "name": "RetryableErrors", "type": "array", "required": false }
       ],
-      "tested_with": {}
+      "dependencies": [],
+      "tags": ["retry", "backoff", "resilience", "error-handling"]
+    },
+    {
+      "id": "utilities.convert-markdown",
+      "name": "ConvertTo-MarkdownReport",
+      "domain": "utilities",
+      "file": "skills/utilities/ConvertTo-MarkdownReport.ps1",
+      "version": "1.0.0",
+      "description": "Convert structured data to formatted Markdown report",
+      "parameters": [
+        { "name": "Data", "type": "object", "required": true },
+        { "name": "Title", "type": "string", "required": false, "default": "Report" },
+        { "name": "Format", "type": "string", "required": false, "default": "markdown", "enum": ["markdown", "console", "json"] },
+        { "name": "IncludeTimestamp", "type": "boolean", "required": false, "default": true }
+      ],
+      "dependencies": [],
+      "tags": ["markdown", "report", "formatting", "export"]
+    },
+    {
+      "id": "utilities.json-validate",
+      "name": "Test-JsonValid",
+      "domain": "utilities",
+      "file": "skills/utilities/Test-JsonValid.ps1",
+      "version": "1.0.0",
+      "description": "Validate JSON files for syntax, required fields, and schema compliance",
+      "parameters": [
+        { "name": "Path", "type": "string", "required": false },
+        { "name": "Content", "type": "string", "required": false },
+        { "name": "RequiredFields", "type": "array", "required": false },
+        { "name": "SchemaPath", "type": "string", "required": false }
+      ],
+      "dependencies": [],
+      "tags": ["json", "validation", "schema", "manifest"]
+    },
+    {
+      "id": "observability.health-check",
+      "name": "Invoke-HealthCheck",
+      "domain": "observability",
+      "file": "skills/observability/Invoke-HealthCheck.ps1",
+      "version": "1.0.0",
+      "description": "Check health of Docker containers and services",
+      "parameters": [
+        { "name": "Target", "type": "string", "required": false, "default": "all" },
+        { "name": "Timeout", "type": "integer", "required": false, "default": 10 }
+      ],
+      "dependencies": ["docker"],
+      "tags": ["health", "monitoring", "containers", "observability"]
+    },
+    {
+      "id": "integration.slack-message",
+      "name": "Send-SlackMessage",
+      "domain": "integration",
+      "file": "skills/integration/Send-SlackMessage.ps1",
+      "version": "1.0.0",
+      "description": "Send formatted messages to Slack via webhook",
+      "parameters": [
+        { "name": "WebhookUrl", "type": "string", "required": false },
+        { "name": "Message", "type": "string", "required": true },
+        { "name": "Channel", "type": "string", "required": false },
+        { "name": "Severity", "type": "string", "required": false, "default": "info", "enum": ["info", "warning", "error", "critical"] }
+      ],
+      "dependencies": [],
+      "tags": ["slack", "notification", "messaging", "alert"]
     },
     {
       "id": "retrieval.rag-search",
@@ -226,50 +138,11 @@
       "version": "1.0.0",
       "description": "Search the EasyWay Wiki using RAG (Qdrant)",
       "parameters": [
-        {
-          "name": "Query",
-          "type": "string",
-          "required": true,
-          "description": "The question or keywords to search for"
-        },
-        {
-          "name": "Limit",
-          "type": "integer",
-          "required": false,
-          "default": 3,
-          "description": "Max number of results to return"
-        }
+        { "name": "Query", "type": "string", "required": true },
+        { "name": "Limit", "type": "integer", "required": false, "default": 3 }
       ],
-      "outputs": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "filename": {
-              "type": "string"
-            },
-            "content": {
-              "type": "string"
-            },
-            "score": {
-              "type": "number"
-            },
-            "path": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "dependencies": [
-        "python3",
-        "qdrant-client"
-      ],
-      "tags": [
-        "rag",
-        "search",
-        "wiki",
-        "qdrant"
-      ]
+      "dependencies": ["python3", "qdrant-client"],
+      "tags": ["rag", "search", "wiki", "qdrant"]
     }
   ]
 }

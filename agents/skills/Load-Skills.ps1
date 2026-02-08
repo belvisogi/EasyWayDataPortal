@@ -99,9 +99,20 @@ function Import-Skill {
         Write-Warning "The skill may not work correctly without these dependencies."
     }
 
-    # Dot-source the skill
+    # Dot-source the skill at global scope so functions are available to callers
     try {
+        # Get functions before loading
+        $beforeFunctions = Get-ChildItem function: | Select-Object -ExpandProperty Name
+
         . $skillPath
+
+        # Register new functions at global scope
+        $afterFunctions = Get-ChildItem function: | Select-Object -ExpandProperty Name
+        $newFunctions = $afterFunctions | Where-Object { $_ -notin $beforeFunctions }
+        foreach ($fn in $newFunctions) {
+            $fnBody = (Get-Item "function:$fn").ScriptBlock
+            Set-Item -Path "function:global:$fn" -Value $fnBody
+        }
 
         $script:LoadedSkills[$SkillId] = @{
             Metadata = $skill
@@ -395,13 +406,15 @@ if (-not (Test-Path $registryPath)) {
     Write-Warning "Skills registry not found. Run Initialize-SkillsRegistry to create it."
 }
 
-# Export functions
-Export-ModuleMember -Function @(
-    'Get-SkillsRegistry',
-    'Import-Skill',
-    'Get-LoadedSkills',
-    'Get-AvailableSkills',
-    'Test-SkillDependencies',
-    'Import-SkillsFromManifest',
-    'Initialize-SkillsRegistry'
-)
+# Export functions (only when loaded as module, not dot-sourced)
+if ($MyInvocation.ScriptName -and (Get-Module -Name (Split-Path $MyInvocation.ScriptName -LeafBase) -ErrorAction SilentlyContinue)) {
+    Export-ModuleMember -Function @(
+        'Get-SkillsRegistry',
+        'Import-Skill',
+        'Get-LoadedSkills',
+        'Get-AvailableSkills',
+        'Test-SkillDependencies',
+        'Import-SkillsFromManifest',
+        'Initialize-SkillsRegistry'
+    )
+}

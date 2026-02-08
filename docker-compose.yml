@@ -70,7 +70,7 @@ services:
 
   # 🗄️ Sovereign Storage (MinIO)
   minio:
-    image: bitnami/minio:2026.1.15-debian-12-r0
+    image: minio/minio:latest
     container_name: easyway-storage-s3
     command: server /data --console-address ":9001"
     environment:

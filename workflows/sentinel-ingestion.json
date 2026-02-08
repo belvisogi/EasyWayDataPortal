@@ -1,0 +1,86 @@
+{
+    "name": "Sentinel - Wiki Ingestion",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "triggerAtHour": 3
+                        }
+                    ]
+                }
+            },
+            "id": "5d2e0f0c-5b5a-4b0c-9d0d-1e1f1a1b1c1d",
+            "name": "Nightly Schedule (3AM)",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.1,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "wiki-update",
+                "options": {}
+            },
+            "id": "webhook-trigger-id",
+            "name": "Webhook (Git Push)",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                250,
+                500
+            ],
+            "webhookId": "wiki-update-hook"
+        },
+        {
+            "parameters": {
+                "command": "cd /home/ubuntu/EasyWayDataPortal/Wiki && output=$(git pull) && echo \"$output\" && if [[ \"$output\" != *\"Already up to date\"* ]]; then echo \"Changes detected, starting ingestion...\" && docker exec easyway-runner bash -c 'cd /app/scripts && QDRANT_URL=http://qdrant:6333 QDRANT_API_KEY=wgs6XqCt8qglELghWG6IE4kvzdDgh3Kk node ingest_wiki.js'; else echo \"No changes detected.\"; fi"
+            },
+            "id": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+            "name": "SSH - Ingestion",
+            "type": "n8n-nodes-base.ssh",
+            "typeVersion": 1,
+            "position": [
+                450,
+                300
+            ],
+            "credentials": {
+                "ssh": {
+                    "id": "UNKNOWN_PLEASE_SELECT_IN_UI",
+                    "name": "Host Access"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Nightly Schedule (3AM)": {
+            "main": [
+                [
+                    {
+                        "node": "SSH - Ingestion",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Webhook (Git Push)": {
+            "main": [
+                [
+                    {
+                        "node": "SSH - Ingestion",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    }
+}
