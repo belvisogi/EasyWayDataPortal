@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-02-08T21:18:29.4335091+01:00",
+  "agent": "agent_gedi",
+  "provider": "DeepSeek",
+  "data": {
+    "result": {
+      "ooda_state": "complete",
+      "guidance": [
+        "No objection."
+      ]
+    },
+    "metadata": {
+      "provider": "DeepSeek"
+    },
+    "success": true,
+    "agent": "agent_gedi"
+  }
+}

@@ -1,0 +1,1393 @@
+{
+  "metadata": {
+    "edge_types": [
+      "uses",
+      "depends_on",
+      "implements",
+      "references",
+      "manages",
+      "monitors"
+    ],
+    "total_edges": 30,
+    "node_types": [
+      "agent",
+      "skill",
+      "document",
+      "api",
+      "database",
+      "infrastructure"
+    ],
+    "total_nodes": 105,
+    "description": "EasyWay Knowledge Graph - maps all relationships in the ecosystem"
+  },
+  "edges": [
+    {
+      "target": "skill_database.migration",
+      "source": "agent_dba",
+      "type": "uses",
+      "id": "edge_1",
+      "properties": {
+        "critical": true
+      }
+    },
+    {
+      "target": "skill_database.test-connection",
+      "source": "agent_dba",
+      "type": "uses",
+      "id": "edge_2",
+      "properties": {
+        "critical": true
+      }
+    },
+    {
+      "target": "skill_utilities.convert-markdown",
+      "source": "agent_docs_sync",
+      "type": "uses",
+      "id": "edge_3",
+      "properties": {
+        "critical": true
+      }
+    },
+    {
+      "target": "skill_utilities.json-validate",
+      "source": "agent_docs_sync",
+      "type": "uses",
+      "id": "edge_4",
+      "properties": {
+        "critical": true
+      }
+    },
+    {
+      "target": "skill_utilities.convert-markdown",
+      "source": "agent_pr_manager",
+      "type": "uses",
+      "id": "edge_5",
+      "properties": {
+        "critical": true
+      }
+    },
+    {
+      "target": "skill_utilities.json-validate",
+      "source": "agent_pr_manager",
+      "type": "uses",
+      "id": "edge_6",
+      "properties": {
+        "critical": true
+      }
+    },
+    {
+      "target": "skill_security.secret-vault",
+      "source": "agent_security",
+      "type": "uses",
+      "id": "edge_7",
+      "properties": {
+        "critical": true
+      }
+    },
+    {
+      "target": "skill_security.cve-scan",
+      "source": "agent_security",
+      "type": "uses",
+      "id": "edge_8",
+      "properties": {
+        "critical": true
+      }
+    },
+    {
+      "target": "skill_security.cve-scan",
+      "source": "agent_vulnerability_scanner",
+      "type": "uses",
+      "id": "edge_9",
+      "properties": {
+        "critical": true
+      }
+    },
+    {
+      "target": "skill_utilities.version-compatibility",
+      "source": "agent_vulnerability_scanner",
+      "type": "uses",
+      "id": "edge_10",
+      "properties": {
+        "critical": true
+      }
+    },
+    {
+      "target": "infra_docker",
+      "source": "skill_security.cve-scan",
+      "type": "depends_on",
+      "id": "edge_11",
+      "properties": {}
+    },
+    {
+      "target": "infra_docker-scout OR snyk OR trivy",
+      "source": "skill_security.cve-scan",
+      "type": "depends_on",
+      "id": "edge_12",
+      "properties": {}
+    },
+    {
+      "target": "infra_az",
+      "source": "skill_security.secret-vault",
+      "type": "depends_on",
+      "id": "edge_13",
+      "properties": {}
+    },
+    {
+      "target": "infra_docker",
+      "source": "skill_observability.health-check",
+      "type": "depends_on",
+      "id": "edge_14",
+      "properties": {}
+    },
+    {
+      "target": "infra_python3",
+      "source": "skill_retrieval.rag-search",
+      "type": "depends_on",
+      "id": "edge_15",
+      "properties": {}
+    },
+    {
+      "target": "infra_qdrant-client",
+      "source": "skill_retrieval.rag-search",
+      "type": "depends_on",
+      "id": "edge_16",
+      "properties": {}
+    },
+    {
+      "target": "infra_python3",
+      "source": "skill_retrieval.rag-enhanced-prompt",
+      "type": "depends_on",
+      "id": "edge_17",
+      "properties": {}
+    },
+    {
+      "target": "infra_qdrant-client",
+      "source": "skill_retrieval.rag-enhanced-prompt",
+      "type": "depends_on",
+      "id": "edge_18",
+      "properties": {}
+    },
+    {
+      "target": "infra_deepseek-api",
+      "source": "skill_retrieval.rag-enhanced-prompt",
+      "type": "depends_on",
+      "id": "edge_19",
+      "properties": {}
+    },
+    {
+      "target": "infra_sqlcmd",
+      "source": "skill_database.migration",
+      "type": "depends_on",
+      "id": "edge_20",
+      "properties": {}
+    },
+    {
+      "target": "infra_az",
+      "source": "skill_database.migration",
+      "type": "depends_on",
+      "id": "edge_21",
+      "properties": {}
+    },
+    {
+      "target": "infra_sqlcmd",
+      "source": "skill_database.test-connection",
+      "type": "depends_on",
+      "id": "edge_22",
+      "properties": {}
+    },
+    {
+      "target": "db_sqlserver",
+      "source": "agent_dba",
+      "type": "manages",
+      "id": "edge_23",
+      "properties": {}
+    },
+    {
+      "target": "db_sqlserver",
+      "source": "agent_backend",
+      "type": "manages",
+      "id": "edge_24",
+      "properties": {}
+    },
+    {
+      "target": "db_sqlserver",
+      "source": "agent_infra",
+      "type": "manages",
+      "id": "edge_25",
+      "properties": {}
+    },
+    {
+      "target": "db_qdrant",
+      "source": "agent_retrieval",
+      "type": "uses",
+      "id": "edge_26",
+      "properties": {}
+    },
+    {
+      "target": "db_qdrant",
+      "source": "agent_dba",
+      "type": "uses",
+      "id": "edge_27",
+      "properties": {}
+    },
+    {
+      "target": "db_qdrant",
+      "source": "agent_docs_sync",
+      "type": "uses",
+      "id": "edge_28",
+      "properties": {}
+    },
+    {
+      "target": "db_qdrant",
+      "source": "agent_pr_manager",
+      "type": "uses",
+      "id": "edge_29",
+      "properties": {}
+    },
+    {
+      "target": "db_qdrant",
+      "source": "agent_security",
+      "type": "uses",
+      "id": "edge_30",
+      "properties": {}
+    }
+  ],
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_ADO_UserStory",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_ado_userstory",
+      "id": "agent_ado_userstory"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_AMS",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_ams",
+      "id": "agent_ams"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_API",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_api",
+      "id": "agent_api"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "2.0.0",
+        "evolution_level": 1,
+        "role": "Agent_Auditor",
+        "classification": "head",
+        "has_llm": true
+      },
+      "label": "agent_audit",
+      "id": "agent_audit"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_Backend",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_backend",
+      "id": "agent_backend"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-architecture",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "mapper",
+        "classification": "brain",
+        "has_llm": true
+      },
+      "label": "Agent Cartographer (The Navigator)",
+      "id": "agent_cartographer"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "historian",
+        "classification": "brain",
+        "has_llm": true
+      },
+      "label": "Agent Chronicler (The Bard)",
+      "id": "agent_chronicler"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_Creator",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_creator",
+      "id": "agent_creator"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_Datalake",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_datalake",
+      "id": "agent_datalake"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "2.0.0",
+        "evolution_level": 2,
+        "role": "Agent_DBA",
+        "classification": "brain",
+        "has_llm": true
+      },
+      "label": "agent_dba",
+      "id": "agent_dba"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-devops",
+        "version": "2.0.0",
+        "evolution_level": 1,
+        "role": "developer",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "Agent Developer (The Contributor)",
+      "id": "agent_developer"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_Docs_Review",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_docs_review",
+      "id": "agent_docs_review"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "2.0.0",
+        "evolution_level": 2,
+        "role": "Agent_Docs_Sync",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_docs_sync",
+      "id": "agent_docs_sync"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "0.1.0",
+        "evolution_level": 1,
+        "role": "Blueprint",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_dq_blueprint",
+      "id": "agent_dq_blueprint"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-frontend",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "frontend-developer",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_frontend",
+      "id": "agent_frontend"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "philosophy_guardian",
+        "classification": "brain",
+        "has_llm": true
+      },
+      "label": "Agent GEDI (Guardian EasyWay Delle Intenzioni)",
+      "id": "agent_gedi"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_Governance",
+        "classification": "brain",
+        "has_llm": true
+      },
+      "label": "agent_governance",
+      "id": "agent_governance"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-devops",
+        "version": "1.1.0",
+        "evolution_level": 1,
+        "role": "enforcer",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "Agent Guard (The Sentry)",
+      "id": "agent_guard"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_Infra",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_infra",
+      "id": "agent_infra"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-docs",
+        "version": "0.0.1",
+        "evolution_level": 1,
+        "role": null,
+        "classification": null,
+        "has_llm": true
+      },
+      "label": "Knowledge Curator",
+      "id": "agent_knowledge_curator"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_Observability",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_observability",
+      "id": "agent_observability"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "2.0.0",
+        "evolution_level": 2,
+        "role": "Agent_PR_Manager",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_pr_manager",
+      "id": "agent_pr_manager"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-devops",
+        "version": "2.0.0",
+        "evolution_level": 1,
+        "role": "releaser",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "Agent Release (The Executor)",
+      "id": "agent_release"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_Retrieval",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_retrieval",
+      "id": "agent_retrieval"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-quality",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "reviewer",
+        "classification": "brain",
+        "has_llm": true
+      },
+      "label": "Agent Review (The Critic)",
+      "id": "agent_review"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_ScrumMaster",
+        "classification": "brain",
+        "has_llm": true
+      },
+      "label": "agent_scrummaster",
+      "id": "agent_scrummaster"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Navigator",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_second_brain",
+      "id": "agent_second_brain"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "2.0.0",
+        "evolution_level": 2,
+        "role": "Agent_Security",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_security",
+      "id": "agent_security"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "1.0.0",
+        "evolution_level": 1,
+        "role": "Agent_Synapse",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_synapse",
+      "id": "agent_synapse"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "0.1.0",
+        "evolution_level": 1,
+        "role": "Template",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_template",
+      "id": "agent_template"
+    },
+    {
+      "type": "agent",
+      "properties": {
+        "owner": "team-platform",
+        "version": "2.0.0",
+        "evolution_level": 2,
+        "role": "Agent_Vulnerability_Scanner",
+        "classification": "arm",
+        "has_llm": true
+      },
+      "label": "agent_vulnerability_scanner",
+      "id": "agent_vulnerability_scanner"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/security/Invoke-CVEScan.ps1",
+        "description": "Scan Docker images for CVE vulnerabilities using Docker Scout, Snyk, or Trivy",
+        "domain": "security"
+      },
+      "label": "Invoke-CVEScan",
+      "id": "skill_security.cve-scan"
+    },
+    {
+      "type": "infrastructure",
+      "properties": {
+        "category": "dependency"
+      },
+      "label": "docker",
+      "id": "infra_docker"
+    },
+    {
+      "type": "infrastructure",
+      "properties": {
+        "category": "dependency"
+      },
+      "label": "docker-scout OR snyk OR trivy",
+      "id": "infra_docker-scout OR snyk OR trivy"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/security/Invoke-SecretVault.ps1",
+        "description": "Manage secrets in Azure Key Vault (set, reference, list, rotate)",
+        "domain": "security"
+      },
+      "label": "Invoke-SecretVault",
+      "id": "skill_security.secret-vault"
+    },
+    {
+      "type": "infrastructure",
+      "properties": {
+        "category": "dependency"
+      },
+      "label": "az",
+      "id": "infra_az"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/utilities/Test-VersionCompatibility.ps1",
+        "description": "Check version compatibility against compatibility matrix rules",
+        "domain": "utilities"
+      },
+      "label": "Test-VersionCompatibility",
+      "id": "skill_utilities.version-compatibility"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/utilities/Invoke-RetryBackoff.ps1",
+        "description": "Execute a script block with retry and exponential backoff",
+        "domain": "utilities"
+      },
+      "label": "Invoke-RetryBackoff",
+      "id": "skill_utilities.retry-backoff"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/utilities/ConvertTo-MarkdownReport.ps1",
+        "description": "Convert structured data to formatted Markdown report",
+        "domain": "utilities"
+      },
+      "label": "ConvertTo-MarkdownReport",
+      "id": "skill_utilities.convert-markdown"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/utilities/Test-JsonValid.ps1",
+        "description": "Validate JSON files for syntax, required fields, and schema compliance",
+        "domain": "utilities"
+      },
+      "label": "Test-JsonValid",
+      "id": "skill_utilities.json-validate"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/observability/Invoke-HealthCheck.ps1",
+        "description": "Check health of Docker containers and services",
+        "domain": "observability"
+      },
+      "label": "Invoke-HealthCheck",
+      "id": "skill_observability.health-check"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/integration/Send-SlackMessage.ps1",
+        "description": "Send formatted messages to Slack via webhook",
+        "domain": "integration"
+      },
+      "label": "Send-SlackMessage",
+      "id": "skill_integration.slack-message"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/retrieval/Invoke-RAGSearch.ps1",
+        "description": "Search the EasyWay Wiki using RAG (Qdrant)",
+        "domain": "retrieval"
+      },
+      "label": "Invoke-RAGSearch",
+      "id": "skill_retrieval.rag-search"
+    },
+    {
+      "type": "infrastructure",
+      "properties": {
+        "category": "dependency"
+      },
+      "label": "python3",
+      "id": "infra_python3"
+    },
+    {
+      "type": "infrastructure",
+      "properties": {
+        "category": "dependency"
+      },
+      "label": "qdrant-client",
+      "id": "infra_qdrant-client"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/retrieval/Invoke-RAGEnhancedPrompt.ps1",
+        "description": "Enhance LLM prompts with RAG context from Wiki knowledge base",
+        "domain": "retrieval"
+      },
+      "label": "Invoke-RAGEnhancedPrompt",
+      "id": "skill_retrieval.rag-enhanced-prompt"
+    },
+    {
+      "type": "infrastructure",
+      "properties": {
+        "category": "dependency"
+      },
+      "label": "deepseek-api",
+      "id": "infra_deepseek-api"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/retrieval/Invoke-RAGQueryRewriter.ps1",
+        "description": "Optimize RAG queries using pattern-based rewriting for better hit rate",
+        "domain": "retrieval"
+      },
+      "label": "Invoke-RAGQueryRewriter",
+      "id": "skill_retrieval.rag-query-rewriter"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/database/Invoke-DatabaseMigration.ps1",
+        "description": "Execute database migrations with rollback support",
+        "domain": "database"
+      },
+      "label": "Invoke-DatabaseMigration",
+      "id": "skill_database.migration"
+    },
+    {
+      "type": "infrastructure",
+      "properties": {
+        "category": "dependency"
+      },
+      "label": "sqlcmd",
+      "id": "infra_sqlcmd"
+    },
+    {
+      "type": "skill",
+      "properties": {
+        "version": "1.0.0",
+        "file": "skills/database/Test-DatabaseConnection.ps1",
+        "description": "Test database connectivity and credentials",
+        "domain": "database"
+      },
+      "label": "Test-DatabaseConnection",
+      "id": "skill_database.test-connection"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\_template.md",
+        "size": 448,
+        "extension": ".md"
+      },
+      "label": "_template",
+      "id": "doc__template"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\activity-log.md",
+        "size": 1657,
+        "extension": ".md"
+      },
+      "label": "activity-log",
+      "id": "doc_activity-log"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\ado-operating-model.md",
+        "size": 3042,
+        "extension": ".md"
+      },
+      "label": "ado-operating-model",
+      "id": "doc_ado-operating-model"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\agent-first-method.md",
+        "size": 3479,
+        "extension": ".md"
+      },
+      "label": "agent-first-method",
+      "id": "doc_agent-first-method"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\agent-manifest-and-indexing-best-practices.md",
+        "size": 2882,
+        "extension": ".md"
+      },
+      "label": "agent-manifest-and-indexing-best-practices",
+      "id": "doc_agent-manifest-and-indexing-best-practices"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\agent-output-validation-ci.md",
+        "size": 2135,
+        "extension": ".md"
+      },
+      "label": "agent-output-validation-ci",
+      "id": "doc_agent-output-validation-ci"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\agent-priority-and-checklists.md",
+        "size": 3024,
+        "extension": ".md"
+      },
+      "label": "agent-priority-and-checklists",
+      "id": "doc_agent-priority-and-checklists"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\agentic-portal-vision.md",
+        "size": 6975,
+        "extension": ".md"
+      },
+      "label": "agentic-portal-vision",
+      "id": "doc_agentic-portal-vision"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\agents-governance.md",
+        "size": 2503,
+        "extension": ".md"
+      },
+      "label": "agents-governance",
+      "id": "doc_agents-governance"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\agents-scrummaster.md",
+        "size": 1405,
+        "extension": ".md"
+      },
+      "label": "agents-scrummaster",
+      "id": "doc_agents-scrummaster"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\best-practices-token-tuning-roadmap.md",
+        "size": 7079,
+        "extension": ".md"
+      },
+      "label": "best-practices-token-tuning-roadmap",
+      "id": "doc_best-practices-token-tuning-roadmap"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\checklist-ado-required-job.md",
+        "size": 2303,
+        "extension": ".md"
+      },
+      "label": "checklist-ado-required-job",
+      "id": "doc_checklist-ado-required-job"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\ci-verifica-ewctl-gates-e-flyway.md",
+        "size": 3284,
+        "extension": ".md"
+      },
+      "label": "ci-verifica-ewctl-gates-e-flyway",
+      "id": "doc_ci-verifica-ewctl-gates-e-flyway"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\datalake-apply-acl.md",
+        "size": 3751,
+        "extension": ".md"
+      },
+      "label": "datalake-apply-acl",
+      "id": "doc_datalake-apply-acl"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\datalake-ensure-structure.md",
+        "size": 4230,
+        "extension": ".md"
+      },
+      "label": "datalake-ensure-structure",
+      "id": "doc_datalake-ensure-structure"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\datalake-set-retention.md",
+        "size": 3355,
+        "extension": ".md"
+      },
+      "label": "datalake-set-retention",
+      "id": "doc_datalake-set-retention"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\db-generate-artifacts-dsl.md",
+        "size": 4026,
+        "extension": ".md"
+      },
+      "label": "db-generate-artifacts-dsl",
+      "id": "doc_db-generate-artifacts-dsl"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\db-user-access-management.md",
+        "size": 4350,
+        "extension": ".md"
+      },
+      "label": "db-user-access-management",
+      "id": "doc_db-user-access-management"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\deploy-app-service.md",
+        "size": 8709,
+        "extension": ".md"
+      },
+      "label": "deploy-app-service",
+      "id": "doc_deploy-app-service"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\deployment-decision-mvp.md",
+        "size": 3609,
+        "extension": ".md"
+      },
+      "label": "deployment-decision-mvp",
+      "id": "doc_deployment-decision-mvp"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\dev-dual-mode.md",
+        "size": 2297,
+        "extension": ".md"
+      },
+      "label": "dev-dual-mode",
+      "id": "doc_dev-dual-mode"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\doc-alignment-gate.md",
+        "size": 1948,
+        "extension": ".md"
+      },
+      "label": "doc-alignment-gate",
+      "id": "doc_doc-alignment-gate"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\docs-agentic-audit.md",
+        "size": 10028,
+        "extension": ".md"
+      },
+      "label": "docs-agentic-audit",
+      "id": "doc_docs-agentic-audit"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\docs-analysis-inbox.md",
+        "size": 1489,
+        "extension": ".md"
+      },
+      "label": "docs-analysis-inbox",
+      "id": "doc_docs-analysis-inbox"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\docs-conventions.md",
+        "size": 7044,
+        "extension": ".md"
+      },
+      "label": "docs-conventions",
+      "id": "doc_docs-conventions"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\docs-related-links.md",
+        "size": 2263,
+        "extension": ".md"
+      },
+      "label": "docs-related-links",
+      "id": "doc_docs-related-links"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\docs-tag-scopes.md",
+        "size": 15903,
+        "extension": ".md"
+      },
+      "label": "docs-tag-scopes",
+      "id": "doc_docs-tag-scopes"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\docs-tag-taxonomy.md",
+        "size": 4477,
+        "extension": ".md"
+      },
+      "label": "docs-tag-taxonomy",
+      "id": "doc_docs-tag-taxonomy"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\documentation-governance-workflow.md",
+        "size": 10945,
+        "extension": ".md"
+      },
+      "label": "documentation-governance-workflow",
+      "id": "doc_documentation-governance-workflow"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\dr-inventory-matrix.md",
+        "size": 5002,
+        "extension": ".md"
+      },
+      "label": "dr-inventory-matrix",
+      "id": "doc_dr-inventory-matrix"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\dr-strategy-cloud-native.md",
+        "size": 6493,
+        "extension": ".md"
+      },
+      "label": "dr-strategy-cloud-native",
+      "id": "doc_dr-strategy-cloud-native"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\easyway-webapp.md",
+        "size": 2593,
+        "extension": ".md"
+      },
+      "label": "easyway-webapp",
+      "id": "doc_easyway-webapp"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\enforcer-guardrail.md",
+        "size": 2210,
+        "extension": ".md"
+      },
+      "label": "enforcer-guardrail",
+      "id": "doc_enforcer-guardrail"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\entities-index.md",
+        "size": 8344,
+        "extension": ".md"
+      },
+      "label": "entities-index",
+      "id": "doc_entities-index"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\etl-dq-framework.md",
+        "size": 2108,
+        "extension": ".md"
+      },
+      "label": "etl-dq-framework",
+      "id": "doc_etl-dq-framework"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\etl-elt-playbook.md",
+        "size": 4661,
+        "extension": ".md"
+      },
+      "label": "etl-elt-playbook",
+      "id": "doc_etl-elt-playbook"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\etl-elt-technology-choices.md",
+        "size": 2636,
+        "extension": ".md"
+      },
+      "label": "etl-elt-technology-choices",
+      "id": "doc_etl-elt-technology-choices"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\etl-elt-template.md",
+        "size": 2310,
+        "extension": ".md"
+      },
+      "label": "etl-elt-template",
+      "id": "doc_etl-elt-template"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\etl-governance-sla.md",
+        "size": 4291,
+        "extension": ".md"
+      },
+      "label": "etl-governance-sla",
+      "id": "doc_etl-governance-sla"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\etl-inspirations.md",
+        "size": 1714,
+        "extension": ".md"
+      },
+      "label": "etl-inspirations",
+      "id": "doc_etl-inspirations"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\etl-table-log-model.md",
+        "size": 1647,
+        "extension": ".md"
+      },
+      "label": "etl-table-log-model",
+      "id": "doc_etl-table-log-model"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\glossario-errori-faq.md",
+        "size": 4618,
+        "extension": ".md"
+      },
+      "label": "glossario-errori-faq",
+      "id": "doc_glossario-errori-faq"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\governance-dq.md",
+        "size": 5099,
+        "extension": ".md"
+      },
+      "label": "governance-dq",
+      "id": "doc_governance-dq"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\howto-what-first-team.md",
+        "size": 4503,
+        "extension": ".md"
+      },
+      "label": "howto-what-first-team",
+      "id": "doc_howto-what-first-team"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\index.md",
+        "size": 62127,
+        "extension": ".md"
+      },
+      "label": "index",
+      "id": "doc_index"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\intent-contract.md",
+        "size": 2700,
+        "extension": ".md"
+      },
+      "label": "intent-contract",
+      "id": "doc_intent-contract"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\KNOWLEDGE-GRAPH.md",
+        "size": 1688,
+        "extension": ".md"
+      },
+      "label": "KNOWLEDGE-GRAPH",
+      "id": "doc_KNOWLEDGE-GRAPH"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\llm-readiness-checklist.md",
+        "size": 4639,
+        "extension": ".md"
+      },
+      "label": "llm-readiness-checklist",
+      "id": "doc_llm-readiness-checklist"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\manifesto-haka.md",
+        "size": 2315,
+        "extension": ".md"
+      },
+      "label": "manifesto-haka",
+      "id": "doc_manifesto-haka"
+    },
+    {
+      "type": "document",
+      "properties": {
+        "path": "Wiki\\EasyWayData.wiki\\OBSIDIAN.md",
+        "size": 3869,
+        "extension": ".md"
+      },
+      "label": "OBSIDIAN",
+      "id": "doc_OBSIDIAN"
+    },
+    {
+      "type": "database",
+      "properties": {
+        "category": "relational"
+      },
+      "label": "SQL Server",
+      "id": "db_sqlserver"
+    },
+    {
+      "type": "database",
+      "properties": {
+        "category": "vector"
+      },
+      "label": "Qdrant Vector DB",
+      "id": "db_qdrant"
+    },
+    {
+      "type": "infrastructure",
+      "properties": {
+        "category": "proxy"
+      },
+      "label": "Caddy",
+      "id": "infra_caddy"
+    },
+    {
+      "type": "infrastructure",
+      "properties": {
+        "category": "orchestration"
+      },
+      "label": "n8n",
+      "id": "infra_n8n"
+    }
+  ],
+  "last_updated": "2026-02-08T21:56:14.8457031+01:00"
+}

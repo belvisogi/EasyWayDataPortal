@@ -101,6 +101,23 @@ export type ComponentShowcaseSection = {
     components: ComponentShowcaseItem[];
 };
 
+export type AgentDashboardSection = {
+    type: 'agent-dashboard';
+    titleKey?: string;
+};
+
+export type AgentGraphSection = {
+    type: 'agent-graph';
+    titleKey?: string;
+    descKey?: string;
+};
+
+export type AgentListSection = {
+    type: 'agent-list';
+    titleKey?: string;
+    descKey?: string;
+};
+
 export type SectionSpec =
     | HeroSection
     | CardsSection
@@ -110,7 +127,10 @@ export type SectionSpec =
     | ManifestoSection
     | SpacerSection
     | ShowcaseIntroSection
-    | ComponentShowcaseSection;
+    | ComponentShowcaseSection
+    | AgentDashboardSection
+    | AgentGraphSection
+    | AgentListSection;
 
 export type PageSpecV1 = {
     version: '1';

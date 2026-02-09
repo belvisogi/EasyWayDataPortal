@@ -5,6 +5,7 @@
     "memory": "Memory",
     "pricing": "Pricing",
     "demo": "Demo",
+    "console": "Console",
     "cta_demo": "Request Demo"
   },
   "page": {
@@ -25,6 +26,26 @@
     },
     "demo": {
       "title": "EasyWay | Demo"
+    },
+    "agents-console": {
+      "title": "EasyWay | Agent Console"
+    }
+  },
+  "agents_console": {
+    "hero": {
+      "title": "Agent Console",
+      "tagline": "Sovereign Architecture • Haute Couture Engineering"
+    },
+    "dashboard": {
+      "title": "Dashboard Ecosistema"
+    },
+    "graph": {
+      "title": "Knowledge Graph",
+      "desc": "Visualizzazione interattiva delle dipendenze tra agenti, skills e componenti del sistema"
+    },
+    "list": {
+      "title": "Agenti Attivi",
+      "desc": "Elenco completo degli agenti Brain e Arm con le loro funzionalità"
     }
   }
 }

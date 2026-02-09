@@ -33,6 +33,16 @@
       }
     },
     {
+      "id": "agents-console",
+      "route": "/agents-console",
+      "titleKey": "page.agents-console.title",
+      "spec": "/pages/agents-console.json",
+      "nav": {
+        "labelKey": "nav.console",
+        "order": 26
+      }
+    },
+    {
       "id": "memory",
       "route": "/memory",
       "titleKey": "page.memory.title",

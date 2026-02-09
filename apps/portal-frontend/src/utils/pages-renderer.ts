@@ -549,6 +549,8 @@ function renderComponentShowcase(section: import('../types/runtime-pages').Compo
     return showcase;
 }
 
+import { renderAgentDashboard, renderAgentGraph, renderAgentList } from './agent-console-renderers';
+
 function renderSection(section: SectionSpec): HTMLElement {
     switch (section.type) {
         case 'hero':
@@ -569,6 +571,12 @@ function renderSection(section: SectionSpec): HTMLElement {
             return renderShowcaseIntro(section);
         case 'component-showcase':
             return renderComponentShowcase(section);
+        case 'agent-dashboard':
+            return renderAgentDashboard(section);
+        case 'agent-graph':
+            return renderAgentGraph(section);
+        case 'agent-list':
+            return renderAgentList(section);
         default:
             return el('div');
     }

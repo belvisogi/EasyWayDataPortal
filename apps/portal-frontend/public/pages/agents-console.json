@@ -1,0 +1,26 @@
+{
+    "version": "1",
+    "id": "agents-console",
+    "activeNav": "agents",
+    "sections": [
+        {
+            "type": "hero",
+            "titleKey": "agents_console.hero.title",
+            "taglineKey": "agents_console.hero.tagline"
+        },
+        {
+            "type": "agent-dashboard",
+            "titleKey": "agents_console.dashboard.title"
+        },
+        {
+            "type": "agent-graph",
+            "titleKey": "agents_console.graph.title",
+            "descKey": "agents_console.graph.desc"
+        },
+        {
+            "type": "agent-list",
+            "titleKey": "agents_console.list.title",
+            "descKey": "agents_console.list.desc"
+        }
+    ]
+}

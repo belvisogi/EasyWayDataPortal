@@ -183,3 +183,12 @@ type: guide
     *   **Retrieval**: "The Brain" (Python/PowerShell) permette agli agenti di consultare la documentazione.
 *   **Significance**: *"L'agente non deve più indovinare. Ora può ricordare e citare."*
 *   **Quote**: *"La conoscenza è inutile se non è accessibile. Qdrant è la nostra Biblioteca di Alessandria personale."*
+
+### 2026-02-08: The Sovereign Face (Valentino Framework) 🌹
+*   **Event**: Nascita dell'Agent Console e del Valentino Framework.
+*   **Description**: L'ecosistema agentico ottiene un volto. Non usiamo React o Tailwind, ma un design system "Sovereign" & "Sartorial" basato su Web Components e Vanilla CSS.
+    *   **Agent Console**: Dashboard interattiva per visualizzare i 26 agenti e le loro relazioni (Knowledge Graph D3.js).
+    *   **Valentino Framework**: Filosofia di design "Haute Couture Engineering". Ogni pixel è cucito a mano, ogni interazione è deliberata.
+    *   **Integration**: Seamlessly embedded nel Portal esistente, rispettando l'architettura Hextech Evolution.
+*   **Significance**: *"Abbiamo rifiutato le catene dei framework mainstream per costruire la nostra estetica. È la dimostrazione visiva della nostra sovranità."*
+*   **Quote**: *"Non è solo una UI. È una dichiarazione d'indipendenza estetica."*
