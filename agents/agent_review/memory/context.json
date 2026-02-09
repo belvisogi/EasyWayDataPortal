@@ -1,0 +1,16 @@
+{
+  "created": "2026-02-09T04:40:45.0010837+01:00",
+  "last_errors": [],
+  "preferences": {},
+  "updated": "2026-02-09T04:40:45.0010837+01:00",
+  "stats": {
+    "total_runs": 0,
+    "avg_duration_seconds": 0,
+    "success_rate": 0,
+    "last_run": null,
+    "errors": 0,
+    "successful": 0
+  },
+  "knowledge": {},
+  "first_run": false
+}

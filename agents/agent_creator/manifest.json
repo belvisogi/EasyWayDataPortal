@@ -1,14 +1,20 @@
 {
   "role": "Agent_Creator",
   "description": "Scaffolding governato di nuovi agenti (manifest/templates/KB/Wiki) usando pattern canonici + contesto RAG (Azure AI Search) orchestrato da n8n.",
-  "allowed_paths": [
-    "agents/**",
-    "docs/agentic/templates/intents/**",
-    "docs/agentic/templates/orchestrations/**",
-    "Wiki/EasyWayData.wiki/**",
-    "scripts/**",
-    "out/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "agents/**",
+      "docs/agentic/templates/intents/**",
+      "docs/agentic/templates/orchestrations/**",
+      "Wiki/EasyWayData.wiki/**",
+      "scripts/**",
+      "out/**"
+    ],
+    "write": [
+      "agents/agent_creator/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh",
     "git"
@@ -54,11 +60,31 @@
   ],
   "approvals": {},
   "knowledge_sources": [
-    "ai/vettorializza.yaml",
-    "Wiki/EasyWayData.wiki/ai/knowledge-vettoriale-easyway.md",
-    "Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md",
-    "docs/agentic/templates/intents/orchestrator.n8n.dispatch.intent.json",
-    "docs/agentic/templates/intents/agent.scaffold.intent.json"
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "ai/vettorializza.yaml"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/ai/knowledge-vettoriale-easyway.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "docs/agentic/templates/intents/orchestrator.n8n.dispatch.intent.json"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "docs/agentic/templates/intents/agent.scaffold.intent.json"
+    }
   ],
   "name": "agent_creator",
   "readme": "README.md",
@@ -83,5 +109,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

@@ -1,15 +1,21 @@
 {
   "role": "Agent_Backend",
   "description": "Owner implementazione API: OpenAPI, pattern middleware auth/tenant, lint e scaffolding endpoint (distinct da agent_api triage).",
-  "allowed_paths": [
-    "agents/agent_backend/**",
-    "scripts/pwsh/agent-backend.ps1",
-    "portal-api/easyway-portal-api/**",
-    "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/**",
-    "agents/kb/recipes.jsonl",
-    "agents/logs/**",
-    "out/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "agents/agent_backend/**",
+      "scripts/pwsh/agent-backend.ps1",
+      "portal-api/easyway-portal-api/**",
+      "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/**",
+      "agents/kb/recipes.jsonl",
+      "agents/logs/**",
+      "out/**"
+    ],
+    "write": [
+      "agents/agent_backend/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh",
     "npm"
@@ -20,10 +26,26 @@
   ],
   "approvals": {},
   "knowledge_sources": [
-    "portal-api/easyway-portal-api/openapi/openapi.yaml",
-    "Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md",
-    "agents/AGENT_WORKFLOW_STANDARD.md",
-    "agents/GEDI_INTEGRATION_PATTERN.md"
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "portal-api/easyway-portal-api/openapi/openapi.yaml"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/orchestrations/orchestrator-n8n.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "agents/AGENT_WORKFLOW_STANDARD.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "agents/GEDI_INTEGRATION_PATTERN.md"
+    }
   ],
   "actions": [
     {
@@ -60,5 +82,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

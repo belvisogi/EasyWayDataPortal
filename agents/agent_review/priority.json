@@ -1,0 +1,14 @@
+{
+  "id": "agent_review",
+  "priority": [
+    {
+      "weight": 1.0,
+      "action": "review:docs-impact"
+    },
+    {
+      "weight": 0.9,
+      "action": "review:static"
+    }
+  ],
+  "rules": []
+}

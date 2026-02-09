@@ -2,14 +2,20 @@
   "role": "Agent_Synapse",
   "description": "[EXPERIMENTAL - Phase 2] Gestione workspace Synapse/DataFactory: scaffolding cartelle, linting PySpark, gestione Linked Services e template standard. In valutazione per roadmap analytics avanzati.",
   "status": "experimental",
-  "allowed_paths": [
-    "WorkSpaceSynapse/**",
-    "SqlPool/**",
-    "Wiki/**",
-    "agents/**",
-    "Rules.Vault/connectors/**",
-    "Rules.Vault/config/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "WorkSpaceSynapse/**",
+      "SqlPool/**",
+      "Wiki/**",
+      "agents/**",
+      "Rules.Vault/connectors/**",
+      "Rules.Vault/config/**"
+    ],
+    "write": [
+      "agents/agent_synapse/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh"
   ],
@@ -31,8 +37,16 @@
   },
   "approvals": {},
   "knowledge_sources": [
-    "../../Wiki/EasyWayData.wiki/control-plane/agents-registry.md",
-    "../../Wiki/EasyWayData.wiki/agents-governance.md"
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "../../Wiki/EasyWayData.wiki/control-plane/agents-registry.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "../../Wiki/EasyWayData.wiki/agents-governance.md"
+    }
   ],
   "name": "agent_synapse",
   "readme": "README.md",
@@ -60,5 +74,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

@@ -2,17 +2,23 @@
   "classification": "brain",
   "role": "Agent_Governance",
   "description": "Policy, qualità, gates e approvazioni per DB/API/Docs",
-  "allowed_paths": [
-    "README.md",
-    "azure-pipelines.yml",
-    "Wiki/EasyWayData.wiki/**",
-    "agents/**",
-    "agents/kb/**",
-    "scripts/**",
-    "db/**",
-    "old/db/**",
-    "portal-api/easyway-portal-api/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "README.md",
+      "azure-pipelines.yml",
+      "Wiki/EasyWayData.wiki/**",
+      "agents/**",
+      "agents/kb/**",
+      "scripts/**",
+      "db/**",
+      "old/db/**",
+      "portal-api/easyway-portal-api/**"
+    ],
+    "write": [
+      "agents/agent_governance/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh",
     "node"
@@ -24,15 +30,51 @@
   ],
   "approvals": {},
   "knowledge_sources": [
-    "agents/kb/recipes.jsonl",
-    "Wiki/EasyWayData.wiki/agents-governance.md",
-    "Wiki/EasyWayData.wiki/agents-scrummaster.md",
-    "scripts/ado/README.md",
-    "Wiki/EasyWayData.wiki/enforcer-guardrail.md",
-    "Wiki/EasyWayData.wiki/checklist-ado-required-job.md",
-    "scripts/intents/doc-nav-improvement-001.json",
-    "agents/AGENT_WORKFLOW_STANDARD.md",
-    "agents/GEDI_INTEGRATION_PATTERN.md"
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "agents/kb/recipes.jsonl"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/agents-governance.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/agents-scrummaster.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "scripts/ado/README.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/enforcer-guardrail.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/checklist-ado-required-job.md"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "scripts/intents/doc-nav-improvement-001.json"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "agents/AGENT_WORKFLOW_STANDARD.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "agents/GEDI_INTEGRATION_PATTERN.md"
+    }
   ],
   "readme": "README.md",
   "name": "agent_governance",
@@ -67,5 +109,15 @@
       "quality_gates": "Applica quality gates per DB/API/Docs",
       "approval_workflow": "Gestisce workflow di approvazione"
     }
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

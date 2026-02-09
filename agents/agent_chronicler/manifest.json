@@ -44,12 +44,18 @@
     }
   ],
   "readme": "README.md",
-  "allowed_paths": [
-    "agents/logs/**",
-    "Wiki/EasyWayData.wiki/activity-log.md",
-    "Wiki/EasyWayData.wiki/Runbooks/**",
-    "Wiki/EasyWayData.wiki/concept/history.md"
-  ],
+  "allowed_paths": {
+    "read": [
+      "agents/logs/**",
+      "Wiki/EasyWayData.wiki/activity-log.md",
+      "Wiki/EasyWayData.wiki/Runbooks/**",
+      "Wiki/EasyWayData.wiki/concept/history.md"
+    ],
+    "write": [
+      "agents/agent_chronicler/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh",
     "git"
@@ -65,5 +71,15 @@
     }
   ],
   "evolution_level": 1,
-  "skills_required": []
+  "skills_required": [],
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

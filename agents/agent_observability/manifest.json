@@ -1,14 +1,20 @@
 {
   "role": "Agent_Observability",
   "description": "Osservabilita': health check, standard logging, suggerimenti OTel/AppInsights e runbook troubleshooting (no secrets).",
-  "allowed_paths": [
-    "agents/agent_observability/**",
-    "scripts/pwsh/agent-observability.ps1",
-    "Wiki/EasyWayData.wiki/**",
-    "agents/kb/recipes.jsonl",
-    "agents/logs/**",
-    "out/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "agents/agent_observability/**",
+      "scripts/pwsh/agent-observability.ps1",
+      "Wiki/EasyWayData.wiki/**",
+      "agents/kb/recipes.jsonl",
+      "agents/logs/**",
+      "out/**"
+    ],
+    "write": [
+      "agents/agent_observability/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh"
   ],
@@ -17,8 +23,16 @@
   ],
   "approvals": {},
   "knowledge_sources": [
-    "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/security-and-observability.md",
-    "agents/logs/events.jsonl"
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/security-and-observability.md"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "agents/logs/events.jsonl"
+    }
   ],
   "actions": [
     {
@@ -58,5 +72,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

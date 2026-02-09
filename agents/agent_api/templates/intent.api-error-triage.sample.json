@@ -1,0 +1,16 @@
+{
+  "correlationId": "api-error-triage-001",
+  "whatIf": true,
+  "action": "api-error:triage",
+  "nonInteractive": true,
+  "params": {
+    "decision_trace_id": "<decision_trace_id>",
+    "request": {},
+    "environment": "<environment>",
+    "response": {},
+    "source": "<source>",
+    "service": "<service>",
+    "correlationId": "<correlationId>",
+    "error": {}
+  }
+}

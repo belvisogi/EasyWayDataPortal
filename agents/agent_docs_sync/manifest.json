@@ -44,8 +44,19 @@
 
   "skills_optional": [
     "utilities.retry-backoff",
-    "integration.slack-message"
+    "integration.slack-message",
+    "retrieval.llm-with-rag",
+    "retrieval.rag-search"
   ],
+
+  "rag_config": {
+    "enabled": true,
+    "collection": "easyway_wiki",
+    "top_k": 5,
+    "min_score": 0.3,
+    "context_domains": ["docs", "conventions", "metadata", "governance"],
+    "description": "RAG provides Wiki context for docs alignment analysis and cross-reference suggestions"
+  },
 
   "allowed_tools": ["pwsh", "git"],
 

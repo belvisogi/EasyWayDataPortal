@@ -1,0 +1,9 @@
+{
+  "correlationId": "api-openapi-validate-001",
+  "whatIf": true,
+  "action": "api:openapi-validate",
+  "nonInteractive": true,
+  "params": {
+    "apiPath": "<apiPath>"
+  }
+}

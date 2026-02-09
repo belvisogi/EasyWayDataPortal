@@ -1,23 +1,29 @@
 {
   "role": "Agent_ADO_UserStory",
   "description": "Gestione User Story su Azure DevOps: prefetch best practices (Wiki + esterne) e creazione work item con output strutturato.",
-  "allowed_paths": [
-    "agents/agent_ado_userstory/**",
-    "agents/**",
-    "scripts/pwsh/agent-ado-userstory.ps1",
-    "scripts/**",
-    "docs/agentic/templates/intents/**",
-    "docs/agentic/templates/orchestrations/**",
-    "docs/**",
-    "Wiki/EasyWayData.wiki/**",
-    "Wiki/**",
-    "agents/kb/recipes.jsonl",
-    "agents/logs/**",
-    "out/**",
-    "ai/**",
-    "db/**",
-    "portal-api/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "agents/agent_ado_userstory/**",
+      "agents/**",
+      "scripts/pwsh/agent-ado-userstory.ps1",
+      "scripts/**",
+      "docs/agentic/templates/intents/**",
+      "docs/agentic/templates/orchestrations/**",
+      "docs/**",
+      "Wiki/EasyWayData.wiki/**",
+      "Wiki/**",
+      "agents/kb/recipes.jsonl",
+      "agents/logs/**",
+      "out/**",
+      "ai/**",
+      "db/**",
+      "portal-api/**"
+    ],
+    "write": [
+      "agents/agent_ado_userstory/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh"
   ],
@@ -30,10 +36,26 @@
     ]
   },
   "knowledge_sources": [
-    "Wiki/EasyWayData.wiki/onboarding/best-practice-scripting.md",
-    "Wiki/EasyWayData.wiki/parametrization-best-practices.md",
-    "Wiki/EasyWayData.wiki/intent-contract.md",
-    "Wiki/EasyWayData.wiki/ado-operating-model.md"
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/onboarding/best-practice-scripting.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/parametrization-best-practices.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/intent-contract.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/ado-operating-model.md"
+    }
   ],
   "actions": [
     {
@@ -178,5 +200,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

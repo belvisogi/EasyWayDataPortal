@@ -1,0 +1,10 @@
+{
+  "id": "agent_dq_blueprint",
+  "priority": [
+    {
+      "weight": 1.0,
+      "action": null
+    }
+  ],
+  "rules": []
+}

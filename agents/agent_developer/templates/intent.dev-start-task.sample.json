@@ -1,0 +1,7 @@
+{
+  "correlationId": "dev-start-task-001",
+  "whatIf": true,
+  "action": "dev:start-task",
+  "nonInteractive": true,
+  "params": {}
+}

@@ -1,16 +1,22 @@
 {
   "role": "Agent_Retrieval",
   "description": "Gestione RAG: indicizzazione Wiki/KB, retrieval bundles, sync verso vector DB (on-demand), anti-duplicati/canonical.",
-  "allowed_paths": [
-    "agents/agent_retrieval/**",
-    "scripts/pwsh/agent-retrieval.ps1",
-    "ai/vettorializza.yaml",
-    "docs/agentic/templates/docs/**",
-    "Wiki/EasyWayData.wiki/**",
-    "agents/kb/recipes.jsonl",
-    "agents/logs/**",
-    "out/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "agents/agent_retrieval/**",
+      "scripts/pwsh/agent-retrieval.ps1",
+      "ai/vettorializza.yaml",
+      "docs/agentic/templates/docs/**",
+      "Wiki/EasyWayData.wiki/**",
+      "agents/kb/recipes.jsonl",
+      "agents/logs/**",
+      "out/**"
+    ],
+    "write": [
+      "agents/agent_retrieval/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh"
   ],
@@ -19,10 +25,26 @@
   ],
   "approvals": {},
   "knowledge_sources": [
-    "Wiki/EasyWayData.wiki/ai/knowledge-vettoriale-easyway.md",
-    "ai/vettorializza.yaml",
-    "docs/agentic/templates/docs/retrieval-bundles.json",
-    "docs/agentic/templates/docs/tag-taxonomy.scopes.json"
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/ai/knowledge-vettoriale-easyway.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "ai/vettorializza.yaml"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "docs/agentic/templates/docs/retrieval-bundles.json"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "docs/agentic/templates/docs/tag-taxonomy.scopes.json"
+    }
   ],
   "actions": [
     {
@@ -74,5 +96,15 @@
       "vector_db_health": "Monitora salute Qdrant vector DB",
       "auto_indexing": "Automatizza indexing di nuovi documenti"
     }
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

@@ -1,6 +1,6 @@
 {
-  "version": "2.1.0",
-  "last_updated": "2026-02-08T20:57:00Z",
+  "version": "2.2.0",
+  "last_updated": "2026-02-09T10:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -522,6 +522,102 @@
         "database",
         "connectivity",
         "validation"
+      ]
+    },
+    {
+      "id": "retrieval.llm-with-rag",
+      "name": "Invoke-LLMWithRAG",
+      "domain": "retrieval",
+      "file": "skills/retrieval/Invoke-LLMWithRAG.ps1",
+      "version": "1.0.0",
+      "description": "Combined RAG retrieval + DeepSeek LLM call for Level 2 agents. Retrieves Wiki context from Qdrant, injects into system prompt, calls DeepSeek, and tracks usage stats.",
+      "parameters": [
+        {
+          "name": "Query",
+          "type": "string",
+          "required": true,
+          "description": "The query/task for the LLM"
+        },
+        {
+          "name": "AgentId",
+          "type": "string",
+          "required": true,
+          "description": "Agent ID for memory tracking"
+        },
+        {
+          "name": "SystemPrompt",
+          "type": "string",
+          "required": false,
+          "description": "System prompt (defaults to generic)"
+        },
+        {
+          "name": "TopK",
+          "type": "integer",
+          "required": false,
+          "default": 5,
+          "description": "Number of RAG chunks to retrieve"
+        },
+        {
+          "name": "Temperature",
+          "type": "number",
+          "required": false,
+          "default": 0.1
+        },
+        {
+          "name": "MaxTokens",
+          "type": "integer",
+          "required": false,
+          "default": 1000
+        },
+        {
+          "name": "SkipRAG",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Skip RAG retrieval (LLM-only mode)"
+        }
+      ],
+      "dependencies": [
+        "python3",
+        "qdrant-client",
+        "deepseek-api"
+      ],
+      "tags": [
+        "rag",
+        "llm",
+        "deepseek",
+        "level2",
+        "agent-bridge"
+      ]
+    },
+    {
+      "id": "analysis.impact-analysis",
+      "name": "Invoke-ImpactAnalysis",
+      "domain": "analysis",
+      "file": "skills/analysis/Invoke-ImpactAnalysis.ps1",
+      "version": "1.0.0",
+      "description": "Butterfly Effect cascade analysis - analyzes downstream impact of changes",
+      "parameters": [
+        {
+          "name": "ChangeDescription",
+          "type": "string",
+          "required": true,
+          "description": "Description of the change to analyze"
+        },
+        {
+          "name": "Scope",
+          "type": "string",
+          "required": false,
+          "default": "all",
+          "enum": ["agents", "infra", "api", "frontend", "all"]
+        }
+      ],
+      "dependencies": [],
+      "tags": [
+        "analysis",
+        "impact",
+        "cascade",
+        "butterfly-effect"
       ]
     }
   ]

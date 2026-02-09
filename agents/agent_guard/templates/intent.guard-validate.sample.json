@@ -1,0 +1,7 @@
+{
+  "correlationId": "guard-validate-001",
+  "whatIf": true,
+  "action": "guard:validate",
+  "nonInteractive": true,
+  "params": {}
+}

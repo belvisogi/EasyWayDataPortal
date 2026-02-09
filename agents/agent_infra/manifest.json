@@ -1,15 +1,21 @@
 {
   "role": "Agent_Infra",
   "description": "IaC/Terraform governato: validate/plan/apply (WhatIf-by-default), drift infra e runbook.",
-  "allowed_paths": [
-    "agents/agent_infra/**",
-    "scripts/pwsh/agent-infra.ps1",
-    "infra/terraform/**",
-    "Wiki/EasyWayData.wiki/**",
-    "agents/kb/recipes.jsonl",
-    "agents/logs/**",
-    "out/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "agents/agent_infra/**",
+      "scripts/pwsh/agent-infra.ps1",
+      "infra/terraform/**",
+      "Wiki/EasyWayData.wiki/**",
+      "agents/kb/recipes.jsonl",
+      "agents/logs/**",
+      "out/**"
+    ],
+    "write": [
+      "agents/agent_infra/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh",
     "terraform",
@@ -24,8 +30,16 @@
     ]
   },
   "knowledge_sources": [
-    "Wiki/EasyWayData.wiki/deploy-app-service.md",
-    "Wiki/EasyWayData.wiki/dr-inventory-matrix.md"
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/deploy-app-service.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/dr-inventory-matrix.md"
+    }
   ],
   "actions": [
     {
@@ -62,5 +76,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

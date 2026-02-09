@@ -1,0 +1,9 @@
+{
+  "correlationId": "infra-terraform-plan-001",
+  "whatIf": true,
+  "action": "infra:terraform-plan",
+  "nonInteractive": true,
+  "params": {
+    "workdir": "<workdir>"
+  }
+}

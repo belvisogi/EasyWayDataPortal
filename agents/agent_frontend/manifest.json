@@ -5,20 +5,38 @@
   "owner": "team-frontend",
   "description": "Gestisce sviluppo e deployment frontend (UI/UX, React, static assets, portal interface)",
   "readme": "README.md",
-  "allowed_paths": [
-    "apps/portal-frontend/src/**",
-    "apps/portal-frontend/public/**",
-    "apps/portal-frontend/*.json",
-    "apps/portal-frontend/*.ts",
-    "apps/portal-frontend/*.html",
-    "apps/portal-frontend/*.js",
-    "Wiki/EasyWayData.wiki/UX/**",
-    "Wiki/EasyWayData.wiki/frontend/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "apps/portal-frontend/src/**",
+      "apps/portal-frontend/public/**",
+      "apps/portal-frontend/*.json",
+      "apps/portal-frontend/*.ts",
+      "apps/portal-frontend/*.html",
+      "apps/portal-frontend/*.js",
+      "Wiki/EasyWayData.wiki/UX/**",
+      "Wiki/EasyWayData.wiki/frontend/**"
+    ],
+    "write": [
+      "agents/agent_frontend/memory/",
+      "agents/logs/"
+    ]
+  },
   "knowledge_sources": [
-    "Wiki/EasyWayData.wiki/UX/agent-chat-interface.md",
-    "Wiki/EasyWayData.wiki/UX/agentic-ux.md",
-    "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/easyway_portal_frontend/**"
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/UX/agent-chat-interface.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/UX/agentic-ux.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/easyway_portal_frontend/**"
+    }
   ],
   "actions": [
     {
@@ -65,5 +83,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

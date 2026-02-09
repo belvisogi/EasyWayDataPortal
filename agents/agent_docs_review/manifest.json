@@ -1,18 +1,24 @@
 {
   "role": "Agent_Docs_Review",
   "description": "Revisione documentazione: normalizzazione Wiki, indici/chunk, coerenza KB, supporto aggiunta ricette.",
-  "allowed_paths": [
-    "Wiki/EasyWayData.wiki/**",
-    "agents/kb/**",
-    "scripts/intents/**",
-    "scripts/pwsh/docs-dq-scorecard.ps1",
-    "scripts/pwsh/confluence-dq-board.ps1",
-    "scripts/pwsh/agent-docs-review.ps1",
-    "scripts/pwsh/agents-readme-sync.ps1",
-    "scripts/pwsh/agents-manifest-audit.ps1",
-    "agents/README.md",
-    "out/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "Wiki/EasyWayData.wiki/**",
+      "agents/kb/**",
+      "scripts/intents/**",
+      "scripts/pwsh/docs-dq-scorecard.ps1",
+      "scripts/pwsh/confluence-dq-board.ps1",
+      "scripts/pwsh/agent-docs-review.ps1",
+      "scripts/pwsh/agents-readme-sync.ps1",
+      "scripts/pwsh/agents-manifest-audit.ps1",
+      "agents/README.md",
+      "out/**"
+    ],
+    "write": [
+      "agents/agent_docs_review/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh"
   ],
@@ -21,14 +27,46 @@
   ],
   "approvals": {},
   "knowledge_sources": [
-    "agents/kb/recipes.jsonl",
-    "Wiki/EasyWayData.wiki/scripts/scripts.md",
-    "scripts/intents/doc-nav-improvement-001.json",
-    "docs/agentic/templates/orchestrations/docs-dq-audit.manifest.json",
-    "docs/agentic/templates/intents/docs-dq-audit.intent.json",
-    "scripts/intents/docs-dq-confluence-cloud-001.json",
-    "docs/agentic/templates/orchestrations/docs-confluence-dq-kanban.manifest.json",
-    "docs/agentic/templates/intents/docs-confluence-dq-kanban.intent.json"
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "agents/kb/recipes.jsonl"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/scripts/scripts.md"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "scripts/intents/doc-nav-improvement-001.json"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "docs/agentic/templates/orchestrations/docs-dq-audit.manifest.json"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "docs/agentic/templates/intents/docs-dq-audit.intent.json"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "scripts/intents/docs-dq-confluence-cloud-001.json"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "docs/agentic/templates/orchestrations/docs-confluence-dq-kanban.manifest.json"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "docs/agentic/templates/intents/docs-confluence-dq-kanban.intent.json"
+    }
   ],
   "name": "agent_docs_review",
   "readme": "README.md",
@@ -53,5 +91,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

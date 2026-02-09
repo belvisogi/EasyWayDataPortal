@@ -1,0 +1,7 @@
+{
+  "correlationId": "review-docs-impact-001",
+  "whatIf": true,
+  "action": "review:docs-impact",
+  "nonInteractive": true,
+  "params": {}
+}

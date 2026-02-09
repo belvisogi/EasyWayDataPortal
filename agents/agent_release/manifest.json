@@ -38,10 +38,16 @@
     }
   ],
   "readme": "README.md",
-  "allowed_paths": [
-    "**",
-    ".git/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "**",
+      ".git/**"
+    ],
+    "write": [
+      "agents/agent_release/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh",
     "git",
@@ -59,5 +65,15 @@
     }
   ],
   "evolution_level": 1,
-  "skills_required": []
+  "skills_required": [],
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

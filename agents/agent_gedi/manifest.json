@@ -258,13 +258,19 @@
       "example": "⚡ GEDI: 'Non ne parliamo, risolviamo' (Velasco). La realtà è questa. Prossimo passo concreto?"
     }
   },
-  "allowed_paths": [
-    "MANIFESTO.md",
-    "agents/agent_gedi/**",
-    "docs/**/*.md",
-    "Wiki/EasyWayData.wiki/**/*.md",
-    ".github/workflows/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "MANIFESTO.md",
+      "agents/agent_gedi/**",
+      "docs/**/*.md",
+      "Wiki/EasyWayData.wiki/**/*.md",
+      ".github/workflows/**"
+    ],
+    "write": [
+      "agents/agent_gedi/memory/",
+      "agents/logs/"
+    ]
+  },
   "gates_supervised": [
     {
       "gate_id": "doc_alignment",
@@ -410,5 +416,15 @@
     "doc_alignment"
   ],
   "evolution_level": 1,
-  "skills_required": []
+  "skills_required": [],
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

@@ -1,0 +1,18 @@
+{
+  "id": "agent_cartographer",
+  "priority": [
+    {
+      "weight": 1.0,
+      "action": "graph:query"
+    },
+    {
+      "weight": 0.9,
+      "action": "graph:update"
+    },
+    {
+      "weight": 0.8,
+      "action": "impact:simulate"
+    }
+  ],
+  "rules": []
+}

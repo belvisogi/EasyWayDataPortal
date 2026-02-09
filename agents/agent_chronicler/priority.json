@@ -1,0 +1,14 @@
+{
+  "id": "agent_chronicler",
+  "priority": [
+    {
+      "weight": 1.0,
+      "action": "chronicle:record"
+    },
+    {
+      "weight": 0.9,
+      "action": "chronicle:announce"
+    }
+  ],
+  "rules": []
+}

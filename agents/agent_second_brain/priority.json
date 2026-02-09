@@ -1,0 +1,14 @@
+{
+  "id": "agent_second_brain",
+  "priority": [
+    {
+      "weight": 1.0,
+      "action": "brain:breadcrumbs.generate"
+    },
+    {
+      "weight": 0.9,
+      "action": "brain:breadcrumbs.clean"
+    }
+  ],
+  "rules": []
+}

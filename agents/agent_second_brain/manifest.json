@@ -23,16 +23,26 @@
     }
   ],
   "knowledge_sources": [
-    "agents/memory/knowledge-graph.json"
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "agents/memory/knowledge-graph.json"
+    }
   ],
   "readme": "README.md",
-  "allowed_paths": [
-    "agents/kb/**",
-    "agents/memory/**",
-    "Wiki/EasyWayData.wiki/**",
-    "docs/agentic/templates/**",
-    "out/wiki-link-graph.*"
-  ],
+  "allowed_paths": {
+    "read": [
+      "agents/kb/**",
+      "agents/memory/**",
+      "Wiki/EasyWayData.wiki/**",
+      "docs/agentic/templates/**",
+      "out/wiki-link-graph.*"
+    ],
+    "write": [
+      "agents/agent_second_brain/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh",
     "git"
@@ -60,5 +70,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

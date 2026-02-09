@@ -1,0 +1,7 @@
+{
+  "correlationId": "graph-query-001",
+  "whatIf": true,
+  "action": "graph:query",
+  "nonInteractive": true,
+  "params": {}
+}

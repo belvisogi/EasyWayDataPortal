@@ -1,0 +1,11 @@
+{
+  "correlationId": "gedi-ooda.loop-001",
+  "whatIf": true,
+  "action": "gedi:ooda.loop",
+  "nonInteractive": true,
+  "params": {
+    "Context": "<Context>",
+    "DryRun": true,
+    "Intent": "<Intent>"
+  }
+}

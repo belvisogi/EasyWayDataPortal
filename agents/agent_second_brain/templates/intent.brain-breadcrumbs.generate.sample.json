@@ -1,0 +1,10 @@
+{
+  "correlationId": "brain-breadcrumbs.generate-001",
+  "whatIf": true,
+  "action": "brain:breadcrumbs.generate",
+  "nonInteractive": true,
+  "params": {
+    "DryRun": "<DryRun>",
+    "Action": "<Action>"
+  }
+}

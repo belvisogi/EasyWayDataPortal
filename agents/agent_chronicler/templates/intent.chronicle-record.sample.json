@@ -1,0 +1,7 @@
+{
+  "correlationId": "chronicle-record-001",
+  "whatIf": true,
+  "action": "chronicle:record",
+  "nonInteractive": true,
+  "params": {}
+}

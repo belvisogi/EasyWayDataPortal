@@ -44,8 +44,19 @@
 
   "skills_optional": [
     "utilities.retry-backoff",
-    "integration.slack-message"
+    "integration.slack-message",
+    "retrieval.llm-with-rag",
+    "retrieval.rag-search"
   ],
+
+  "rag_config": {
+    "enabled": true,
+    "collection": "easyway_wiki",
+    "top_k": 3,
+    "min_score": 0.3,
+    "context_domains": ["pr", "checklist", "governance", "deploy"],
+    "description": "RAG provides Wiki context for PR description generation and change impact analysis"
+  },
 
   "allowed_tools": ["pwsh", "git", "az"],
 

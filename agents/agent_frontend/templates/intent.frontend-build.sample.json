@@ -1,0 +1,9 @@
+{
+  "correlationId": "frontend-build-001",
+  "whatIf": true,
+  "action": "frontend:build",
+  "nonInteractive": true,
+  "params": {
+    "Action": "<Action>"
+  }
+}

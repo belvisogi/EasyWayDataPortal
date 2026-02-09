@@ -1,12 +1,18 @@
 {
   "role": "Agent_ScrumMaster",
   "description": "Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks.",
-  "allowed_paths": [
-    "scripts/ado/**",
-    "azure-pipelines.yml",
-    "agents/kb/**",
-    "Wiki/EasyWayData.wiki/**"
-  ],
+  "allowed_paths": {
+    "read": [
+      "scripts/ado/**",
+      "azure-pipelines.yml",
+      "agents/kb/**",
+      "Wiki/EasyWayData.wiki/**"
+    ],
+    "write": [
+      "agents/agent_scrummaster/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh",
     "az",
@@ -24,12 +30,36 @@
     ]
   },
   "knowledge_sources": [
-    "agents/kb/recipes.jsonl",
-    "Wiki/EasyWayData.wiki/agents-governance.md",
-    "Wiki/EasyWayData.wiki/todo-checklist.md",
-    "Wiki/EasyWayData.wiki/agents-scrummaster.md",
-    "scripts/ado/README.md",
-    "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "agents/kb/recipes.jsonl"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/agents-governance.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/todo-checklist.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/agents-scrummaster.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "scripts/ado/README.md"
+    },
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
+    }
   ],
   "name": "agent_scrummaster",
   "readme": "README.md",
@@ -54,5 +84,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

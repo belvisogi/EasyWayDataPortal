@@ -1,0 +1,7 @@
+{
+  "correlationId": "synapse-scaffold-001",
+  "whatIf": true,
+  "action": "synapse:scaffold",
+  "nonInteractive": true,
+  "params": {}
+}

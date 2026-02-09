@@ -1,0 +1,9 @@
+{
+  "correlationId": "obs-healthcheck-001",
+  "whatIf": true,
+  "action": "obs:healthcheck",
+  "nonInteractive": true,
+  "params": {
+    "paths": "<item1>"
+  }
+}

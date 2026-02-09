@@ -1,0 +1,7 @@
+{
+  "correlationId": "release-merge-train-001",
+  "whatIf": true,
+  "action": "release:merge-train",
+  "nonInteractive": true,
+  "params": {}
+}

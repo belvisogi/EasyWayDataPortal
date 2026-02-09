@@ -1,12 +1,18 @@
 {
   "role": "Agent_Datalake",
   "description": "Gestione operativa e compliance del Datalake: naming, ACL, audit, retention, export log, policy.",
-  "allowed_paths": [
-    "EasyWay_WebApp/03_datalake_dev/**",
-    "infra/terraform/**",
-    "scripts/pwsh/agent-datalake.ps1",
-    "agents/kb/recipes.jsonl"
-  ],
+  "allowed_paths": {
+    "read": [
+      "EasyWay_WebApp/03_datalake_dev/**",
+      "infra/terraform/**",
+      "scripts/pwsh/agent-datalake.ps1",
+      "agents/kb/recipes.jsonl"
+    ],
+    "write": [
+      "agents/agent_datalake/memory/",
+      "agents/logs/"
+    ]
+  },
   "allowed_tools": [
     "pwsh",
     "azcopy",
@@ -18,8 +24,16 @@
   ],
   "approvals": {},
   "knowledge_sources": [
-    "EasyWay_WebApp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md",
-    "agents/kb/recipes.jsonl"
+    {
+      "priority": "medium",
+      "type": "document",
+      "path": "EasyWay_WebApp/03_datalake_dev/easyway-dataportal-standard-accesso-storage-e-datalake-iam-and-naming.md"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "agents/kb/recipes.jsonl"
+    }
   ],
   "actions": [
     {
@@ -194,5 +208,15 @@
     "tools": [
       "function_calling"
     ]
-  }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ]
 }

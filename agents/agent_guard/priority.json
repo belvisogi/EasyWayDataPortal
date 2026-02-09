@@ -1,0 +1,10 @@
+{
+  "id": "agent_guard",
+  "priority": [
+    {
+      "weight": 1.0,
+      "action": "guard:validate"
+    }
+  ],
+  "rules": []
+}

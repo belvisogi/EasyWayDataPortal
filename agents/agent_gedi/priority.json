@@ -1,0 +1,10 @@
+{
+  "id": "agent_gedi",
+  "priority": [
+    {
+      "weight": 1.0,
+      "action": "gedi:ooda.loop"
+    }
+  ],
+  "rules": []
+}

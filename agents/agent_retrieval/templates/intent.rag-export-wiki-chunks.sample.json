@@ -1,0 +1,10 @@
+{
+  "correlationId": "rag-export-wiki-chunks-001",
+  "whatIf": true,
+  "action": "rag:export-wiki-chunks",
+  "nonInteractive": true,
+  "params": {
+    "wikiRoot": "<wikiRoot>",
+    "outDir": "<outDir>"
+  }
+}
