@@ -17,7 +17,7 @@ if (-not (Get-Module -ListAvailable PSScriptAnalyzer)) {
 
 Write-Host "🔍 Running PSScriptAnalyzer on: $($Paths -join ', ')" -ForegroundColor Cyan
 
-$results = Invoke-ScriptAnalyzer -Path $Paths -Recurse -Severity Error,Warning
+$results = $Paths | Invoke-ScriptAnalyzer -Recurse -Severity Error, Warning
 
 if ($results) {
     echo $results | Format-Table -AutoSize
@@ -26,9 +26,11 @@ if ($results) {
     if ($errors) {
         Write-Error "Found $($errors.Count) errors!"
         if ($FailOnError) { exit 1 }
-    } else {
+    }
+    else {
         Write-Host "✅ No errors found (some warnings present)." -ForegroundColor Yellow
     }
-} else {
+}
+else {
     Write-Host "✅ Code looks clean!" -ForegroundColor Green
 }

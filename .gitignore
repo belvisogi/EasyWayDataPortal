@@ -57,6 +57,20 @@ docker-compose.override.yml
 *.secret.*
 *.credentials.*
 
+# Logs
+logs/
+**/logs/
+*.log
+*.log.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary test artifacts
+temp_test/
+scan_results.txt
+scan_results_v2.txt
+
 # Azure Key Vault references (if using local cache)
 secrets/
 .secrets/

@@ -50,7 +50,8 @@ if ($psFiles) {
         }
 
         # 2. Run Analyzer
-        $results = Invoke-ScriptAnalyzer -Path $psFiles -Severity Error
+        # Ensure correct type casting for Invoke-ScriptAnalyzer
+        $results = $psFiles | Invoke-ScriptAnalyzer -Severity Error
         
         # Filter out "ParseError" if we handled it above, but keeping it is fine.
         
