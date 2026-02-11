@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup PowerShell
+        shell: bash
+        run: |
+          # Install PowerShell if missing (usually present on ubuntu-latest)
+          if ! command -v pwsh &> /dev/null; then
+              sudo apt-get update
+              sudo apt-get install -y wget apt-transport-https software-properties-common
+              wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+              sudo dpkg -i packages-microsoft-prod.deb
+              sudo apt-get update
+              sudo apt-get install -y powershell
+          fi
+
+      - name: Run Linting (PSScriptAnalyzer)
+        shell: pwsh
+        run: |
+          ./scripts/pwsh/lint.ps1 -FailOnError
