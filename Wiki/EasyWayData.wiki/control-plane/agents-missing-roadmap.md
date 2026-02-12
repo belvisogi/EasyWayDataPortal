@@ -38,18 +38,18 @@ Abbiamo creato gli agenti skeleton minimi per:
 - observability
 - infra (terraform plan)
 - backend (openapi validate)
-- release (runtime bundle)
+- release (promozione branch governata)
 
 ## Intent minimi (WHAT-first)
 - `rag.export-wiki-chunks`
 - `obs.healthcheck`
 - `infra.terraform.plan`
 - `api.openapi.validate`
-- `runtime.bundle`
+- `release.promote`
 
 ## Next (implementazione iterativa)
 - Agganciare questi intent a `orchestrator.n8n.dispatch` con workflow n8n dedicati.
-- Aggiungere upload/publish runtime (artifact) come step separato con `agent_datalake`.
+- Mantenere upload/publish runtime (artifact) come step separato con `agent_datalake`.
 - Rendere i controlli piu' robusti (es. openapi-cli, terraform plan artifact, health endpoint).
 
 

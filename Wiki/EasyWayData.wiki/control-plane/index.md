@@ -58,6 +58,7 @@ Riferimenti
 - Audit manifest agent: `control-plane/agents-manifest-audit.md`
 - Segregation model: `control-plane/segregation-model-dev-knowledge-runtime.md`
 - Roadmap agent: `control-plane/agents-missing-roadmap.md`
+- Release flow alignment: `control-plane/release-flow-alignment-2026-02-12.md`
 - Orchestrazioni: `orchestrations/wf-excel-csv-upload.md`
 
 
