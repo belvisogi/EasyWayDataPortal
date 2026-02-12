@@ -28,15 +28,19 @@ type: guide
 
 ## Cosa e' stato fatto
 - Evoluzione di `agent_release` da focus "runtime bundle" a focus "release promotion" (`release:promote`).
+- Introduzione modalita' operativa `release:server-sync` per riallineare il repository sul server runtime in modo sicuro.
 - Introduzione skill git dedicate:
   - `git.checkout`
   - `git.merge`
   - `git.push`
+- Estrazione di `server-sync` in skill riusabile:
+  - `git.server-sync`
 - Hardening dello script `scripts/pwsh/agent-release.ps1` con:
   - preflight checks (repo, working tree, sync con origin),
   - policy enforcement su source/target branch,
   - warning su flussi rischiosi (es. `develop -> main`),
   - draft release notes automatiche in `agents/logs/`,
+  - server sync con backup branch/tag + stash prima del riallineamento,
   - ritorno garantito al branch iniziale.
 - Allineamento manifest/prompt/roster/documentazione su standard canonico:
   - `Wiki/EasyWayData.wiki/standards/gitlab-workflow.md`.
@@ -73,6 +77,18 @@ type: guide
 - `hotfix/INC-XXX-*` -> target consentito: `main` (poi back-merge su `develop`).
 - `baseline` aggiornabile solo da `develop` o `main`.
 - Vietato merge diretto feature/bugfix su `main`.
+- Il server runtime si sincronizza da `main` (o target esplicito) e non ospita commit di sviluppo.
+
+## Modalita' server-sync (nuovo)
+- Obiettivo: mantenere il nodo runtime allineato al branch di release senza perdere modifiche locali.
+- Sequenza:
+  1. backup stato server (branch `backup/*`, tag `backup/*`, diff su file);
+  2. stash delle modifiche locali/non tracciate;
+  3. `git fetch --prune` + `git checkout <target>`;
+  4. `git pull --ff-only origin <target>`; se fallisce, hard reset solo con conferma esplicita;
+  5. clean opzionale residui runtime.
+- Risultato atteso: `git status -sb` del server pulito e allineato a `origin/<target>`.
+- Reuse: la logica e' incapsulata in `agents/skills/git/Invoke-GitServerSync.ps1` e puo' essere richiamata anche da altri agenti.
 
 ## Q&A (cosa NON va fatto)
 Q1. Posso promuovere `feature/*` direttamente su `main`?
@@ -95,6 +111,12 @@ Q6. Posso cambiare target MR se ho sbagliato PR?
 
 Q7. Posso trattare `agent_release` come builder di artifact runtime?
 - Non come funzione primaria. Il runtime packaging resta separabile come capability dedicata.
+
+Q8. Posso fare commit direttamente sul server e poi pull da main?
+- No. Il server e' ambiente runtime/test integrato, non workspace di sviluppo.
+
+Q9. Se il server ha branch divergente, perdo tutto con `server-sync`?
+- No: prima vengono creati backup branch/tag e stash. Solo dopo si procede al riallineamento.
 
 ## Dove trovare la source of truth
 - Standard workflow: `Wiki/EasyWayData.wiki/standards/gitlab-workflow.md`

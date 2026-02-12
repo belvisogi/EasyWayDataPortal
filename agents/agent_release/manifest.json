@@ -2,9 +2,9 @@
   "id": "agent_release",
   "name": "agent_release",
   "role": "Release Manager",
-  "description": "Smart release workflow Git: promozione branch con policy naming/target, safety checks, merge/push e draft release notes.",
+  "description": "Smart release workflow Git: promote branch con policy naming/target e server-sync sicuro verso main con backup/stash.",
   "owner": "team-platform",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "llm_config": {
     "model": "gpt-4-turbo",
     "temperature": 0.1,
@@ -49,6 +49,35 @@
           "default": "merge"
         }
       }
+    },
+    {
+      "name": "release:server-sync",
+      "description": "Sincronizza in sicurezza il repository sul server remoto al branch target (default main) con backup/stash preventivi",
+      "uses_skills": [
+        "git.server-sync"
+      ],
+      "params": {
+        "server_host": {
+          "type": "string",
+          "description": "Host SSH del server runtime (es. 80.225.86.168)",
+          "required": true
+        },
+        "server_user": {
+          "type": "string",
+          "description": "Utente SSH remoto",
+          "default": "ubuntu"
+        },
+        "target": {
+          "type": "string",
+          "description": "Branch target da sincronizzare sul server",
+          "default": "main"
+        },
+        "server_repo_path": {
+          "type": "string",
+          "description": "Path repository sul server",
+          "default": "~/EasyWayDataPortal"
+        }
+      }
     }
   ],
   "allowed_paths": {
@@ -71,7 +100,8 @@
     "branch_exists",
     "branch_sync_check",
     "branch_naming_policy",
-    "target_branch_policy"
+    "target_branch_policy",
+    "server_backup_before_sync"
   ],
   "knowledge_sources": [
     {
@@ -90,6 +120,7 @@
     "git.checkout",
     "git.merge",
     "git.push",
+    "git.server-sync",
     "retrieval.llm-with-rag"
   ],
   "error_handling": {

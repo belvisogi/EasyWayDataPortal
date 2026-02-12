@@ -1,6 +1,6 @@
 {
-  "version": "2.3.0",
-  "last_updated": "2026-02-11T23:59:00Z",
+  "version": "2.4.0",
+  "last_updated": "2026-02-12T02:10:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -736,6 +736,75 @@
       "tags": [
         "git",
         "push"
+      ]
+    },
+    {
+      "id": "git.server-sync",
+      "name": "Invoke-GitServerSync",
+      "domain": "git",
+      "file": "skills/git/Invoke-GitServerSync.ps1",
+      "version": "1.0.0",
+      "description": "Safely syncs a remote server repository via SSH with backup, stash, and ff-only pull",
+      "parameters": [
+        {
+          "name": "ServerHost",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "ServerUser",
+          "type": "string",
+          "required": false,
+          "default": "ubuntu"
+        },
+        {
+          "name": "ServerRepoPath",
+          "type": "string",
+          "required": false,
+          "default": "~/EasyWayDataPortal"
+        },
+        {
+          "name": "Branch",
+          "type": "string",
+          "required": false,
+          "default": "main"
+        },
+        {
+          "name": "ServerSshKeyPath",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "SkipClean",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "SudoCleanPaths",
+          "type": "array",
+          "required": false
+        },
+        {
+          "name": "AllowHardReset",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "Yes",
+          "type": "boolean",
+          "required": false
+        }
+      ],
+      "dependencies": [
+        "git",
+        "ssh"
+      ],
+      "tags": [
+        "git",
+        "release",
+        "deploy",
+        "server-sync",
+        "ssh"
       ]
     }
   ]

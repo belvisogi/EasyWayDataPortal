@@ -53,7 +53,7 @@ Gli agenti sono classificati in due categorie principali basate sulla loro **nat
 | **agent_infra** | Infrastructure | IaC/Terraform (validate/plan/apply), drift infra |
 | **agent_observability** | Monitoring | Health check, logging standard, OTel/AppInsights |
 | **agent_pr_manager** | Pull Requests | Crea PR agentiche con gates (no auto-merge) |
-| **agent_release** | Release Management | Smart release workflow Git (promozione branch, merge policy, release notes) |
+| **agent_release** | Release Management | Smart release workflow Git (promozione branch + server-sync sicuro su main con backup/stash, merge policy, release notes) |
 | **agent_retrieval** | RAG Management | Indicizzazione Wiki/KB, retrieval bundles, vector DB sync |
 | **agent_second_brain** | Semantic Navigation | Breadcrumbs, Context Injection |
 | **agent_security** | Security & Secrets | Key Vault, identity provisioning, audit registry |
