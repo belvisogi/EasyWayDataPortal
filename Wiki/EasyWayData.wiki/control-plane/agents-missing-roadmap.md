@@ -2,7 +2,7 @@
 title: Roadmap agent (retrieval, observability, infra, backend, release)
 tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, agents, rag, observability, infra]
 status: active
-updated: 2026-01-16
+updated: 2026-02-12
 redaction: [email, phone, token]
 id: ew-control-plane-agents-missing-roadmap
 chunk_hint: 200-300
@@ -52,6 +52,12 @@ Abbiamo creato gli agenti skeleton minimi per:
 - Mantenere upload/publish runtime (artifact) come step separato con `agent_datalake`.
 - Rendere i controlli piu' robusti (es. openapi-cli, terraform plan artifact, health endpoint).
 
+## Wishlist MVP (nuovo)
+- `Agentic Release Multi-VCS` (ADO + Forgejo + GitHub)
+  - Documento prodotto: `control-plane/prd-agentic-release-multivcs-mvp.md`
+  - Obiettivo: stesso contratto azioni release su provider diversi, con guardrail invarianti.
+  - Stato: planned
+
 
 ## Vedi anche
 
@@ -60,6 +66,7 @@ Abbiamo creato gli agenti skeleton minimi per:
 - [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
 - [Control Plane - Panoramica](./index.md)
 - [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
+- [PRD - Agentic Release Multi-VCS (MVP)](./prd-agentic-release-multivcs-mvp.md)
 
 
 

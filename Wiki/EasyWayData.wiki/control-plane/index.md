@@ -59,6 +59,7 @@ Riferimenti
 - Segregation model: `control-plane/segregation-model-dev-knowledge-runtime.md`
 - Roadmap agent: `control-plane/agents-missing-roadmap.md`
 - Release flow alignment: `control-plane/release-flow-alignment-2026-02-12.md`
+- PRD wishlist MVP (multi-provider): `control-plane/prd-agentic-release-multivcs-mvp.md`
 - Orchestrazioni: `orchestrations/wf-excel-csv-upload.md`
 
 
