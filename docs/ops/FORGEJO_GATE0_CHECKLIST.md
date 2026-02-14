@@ -38,3 +38,17 @@ docker compose --env-file .env up -d
 docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
 docker logs --tail 80 forgejo-runner-1
 ```
+
+## Gate 0.5 - Git Branch Stability (ADO/GitHub/Forgejo)
+
+1. Remoti migrati a SSH (`ado`, `github`, `forgejo`) con script standard.
+Status: PENDING (`scripts/pwsh/set-git-remotes-ssh.ps1`)
+
+2. Push multi-remote con verifica post-push multi-pass.
+Status: PENDING (`scripts/pwsh/push-all-remotes.ps1`)
+
+3. Monitor anti-sparizione branch attivo con log.
+Status: PENDING (`scripts/pwsh/watch-branch-presence.ps1`)
+
+4. Playbook incident branch disappearance disponibile.
+Status: PASS (`docs/ops/BRANCH_DISAPPEARANCE_PLAYBOOK.md`)

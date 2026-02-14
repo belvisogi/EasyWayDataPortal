@@ -6,7 +6,10 @@ param(
     [switch]$VerifyOnly,
     [string[]]$Remotes = @("ado", "github", "forgejo"),
     [switch]$NoFetch,
-    [switch]$StrictRemotes
+    [switch]$StrictRemotes,
+    [int]$PostPushChecks = 3,
+    [int]$PostPushCheckIntervalSeconds = 5,
+    [switch]$RepairMissingBranch
 )
 
 $ErrorActionPreference = "Stop"
@@ -51,6 +54,45 @@ function Get-ExistingRemotes {
 function Write-Step {
     param([string]$Text)
     Write-Host "==> $Text" -ForegroundColor Cyan
+}
+
+function Test-BranchOnRemote {
+    param(
+        [Parameter(Mandatory = $true)][string]$Remote,
+        [Parameter(Mandatory = $true)][string]$BranchName
+    )
+
+    $ls = Invoke-Git -Args @("ls-remote", "--heads", $Remote, $BranchName) -Capture
+    if ($ls.ExitCode -ne 0) {
+        return [PSCustomObject]@{
+            Remote  = $Remote
+            Branch  = $BranchName
+            Present = $false
+            Error   = $ls.Output
+            Ref     = ""
+        }
+    }
+
+    $line = ""
+    if (-not [string]::IsNullOrWhiteSpace($ls.Output)) {
+        $line = $ls.Output.Split("`n")[0].Trim()
+    }
+
+    return [PSCustomObject]@{
+        Remote  = $Remote
+        Branch  = $BranchName
+        Present = (-not [string]::IsNullOrWhiteSpace($line))
+        Error   = ""
+        Ref     = $line
+    }
+}
+
+function Repair-BranchOnRemote {
+    param(
+        [Parameter(Mandatory = $true)][string]$Remote,
+        [Parameter(Mandatory = $true)][string]$BranchName
+    )
+    Invoke-Git -Args @("push", $Remote, "refs/heads/$BranchName:refs/heads/$BranchName")
 }
 
 if ([string]::IsNullOrWhiteSpace($Branch)) {
@@ -146,27 +188,106 @@ if (-not $NoFetch -and -not $DryRun) {
 }
 
 $report = @()
+$verificationFailures = @()
 foreach ($r in $selectedRemotes) {
     Write-Step "Verifying '$Branch' on '$r'"
     if ($DryRun) {
-        $report += [PSCustomObject]@{ Remote = $r; Branch = $Branch; Status = "dry-run"; Ref = "" }
+        $report += [PSCustomObject]@{
+            Remote    = $r
+            Branch    = $Branch
+            Status    = "dry-run"
+            Check     = 0
+            Ref       = ""
+            Repaired  = "-"
+            Detail    = ""
+        }
         continue
     }
 
-    $ls = Invoke-Git -Args @("ls-remote", "--heads", $r, $Branch) -Capture
-    if ($ls.ExitCode -ne 0) {
-        throw "Verification failed on '$r': $($ls.Output)"
-    }
-
-    if ([string]::IsNullOrWhiteSpace($ls.Output)) {
+    $firstCheck = Test-BranchOnRemote -Remote $r -BranchName $Branch
+    if (-not $firstCheck.Present) {
+        if (-not [string]::IsNullOrWhiteSpace($firstCheck.Error)) {
+            throw "Verification failed on '$r': $($firstCheck.Error)"
+        }
         throw "Branch '$Branch' not found on remote '$r' after push."
     }
 
     $report += [PSCustomObject]@{
-        Remote = $r
-        Branch = $Branch
-        Status = "ok"
-        Ref    = ($ls.Output.Split("`n")[0].Trim())
+        Remote    = $r
+        Branch    = $Branch
+        Status    = "ok"
+        Check     = 1
+        Ref       = $firstCheck.Ref
+        Repaired  = "no"
+        Detail    = "initial-presence"
+    }
+}
+
+if (-not $DryRun -and $PostPushChecks -gt 1) {
+    for ($checkIndex = 2; $checkIndex -le $PostPushChecks; $checkIndex++) {
+        Write-Step "Post-push verification pass $checkIndex/$PostPushChecks"
+        Start-Sleep -Seconds $PostPushCheckIntervalSeconds
+
+        foreach ($r in $selectedRemotes) {
+            $check = Test-BranchOnRemote -Remote $r -BranchName $Branch
+            if ($check.Present) {
+                $report += [PSCustomObject]@{
+                    Remote    = $r
+                    Branch    = $Branch
+                    Status    = "ok"
+                    Check     = $checkIndex
+                    Ref       = $check.Ref
+                    Repaired  = "no"
+                    Detail    = "present"
+                }
+                continue
+            }
+
+            $repairState = "n/a"
+            $detail = "missing"
+            if (-not [string]::IsNullOrWhiteSpace($check.Error)) {
+                $detail = "verification-error: $($check.Error)"
+            }
+
+            if ($RepairMissingBranch -and [string]::IsNullOrWhiteSpace($check.Error)) {
+                try {
+                    Write-Host "Branch missing on '$r', attempting repair push..." -ForegroundColor Yellow
+                    Repair-BranchOnRemote -Remote $r -BranchName $Branch
+                    $postRepair = Test-BranchOnRemote -Remote $r -BranchName $Branch
+                    if ($postRepair.Present) {
+                        $repairState = "yes"
+                        $detail = "repaired"
+                        $report += [PSCustomObject]@{
+                            Remote    = $r
+                            Branch    = $Branch
+                            Status    = "ok"
+                            Check     = $checkIndex
+                            Ref       = $postRepair.Ref
+                            Repaired  = $repairState
+                            Detail    = $detail
+                        }
+                        continue
+                    }
+                    $repairState = "failed"
+                    $detail = "repair-failed"
+                }
+                catch {
+                    $repairState = "failed"
+                    $detail = "repair-error: $($_.Exception.Message)"
+                }
+            }
+
+            $report += [PSCustomObject]@{
+                Remote    = $r
+                Branch    = $Branch
+                Status    = "failed"
+                Check     = $checkIndex
+                Ref       = ""
+                Repaired  = $repairState
+                Detail    = $detail
+            }
+            $verificationFailures += "$r (check $checkIndex): $detail"
+        }
     }
 }
 
@@ -175,4 +296,8 @@ Write-Host "Verification Report" -ForegroundColor Green
 $report | Format-Table -AutoSize
 
 Write-Host ""
+if ($verificationFailures.Count -gt 0) {
+    throw "Post-push verification detected branch instability: $($verificationFailures -join '; ')"
+}
+
 Write-Host "Done." -ForegroundColor Green
