@@ -22,6 +22,12 @@ Recommend branch decision:
 pwsh -File .\scripts\pwsh\agent-branch-coordinator.ps1 -Action recommend -TaskId pbi-123 -Tool antigravity
 ```
 
+Recommend with LLM advisory (optional):
+
+```powershell
+pwsh -File .\scripts\pwsh\agent-branch-coordinator.ps1 -Action recommend -TaskId pbi-123 -Tool antigravity -UseLlmRouter -LlmRouterConfigPath .\scripts\pwsh\llm-router.config.ps1 -RagEvidenceId rag-20260214-branch-01
+```
+
 Claim branch for a worker:
 
 ```powershell
@@ -61,6 +67,7 @@ pwsh -File .\scripts\pwsh\agent-branch-coordinator.ps1 -Action status -JsonOutpu
 2. If current branch is leased by another worker, suggest `switch-branch`.
 3. If worker already has active lease on another branch, suggest switching there.
 4. Otherwise suggest `stay`.
+5. If `-UseLlmRouter` is enabled, the deterministic decision is kept and an optional `llmAdvice` is appended.
 
 ## Integration Pattern
 

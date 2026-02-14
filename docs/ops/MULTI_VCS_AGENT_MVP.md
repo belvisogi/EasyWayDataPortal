@@ -57,6 +57,12 @@ Create PR cross-provider:
 pwsh -File .\scripts\pwsh\agent-multi-vcs.ps1 -Action create-pr -Branch <branch> -Title "my pr" -Description "details" -DryRun
 ```
 
+Create PR with LLM drafting (optional, antifragile-safe fallback):
+
+```powershell
+pwsh -File .\scripts\pwsh\agent-multi-vcs.ps1 -Action create-pr -Branch <branch> -UseLlmRouter -LlmRouterConfigPath .\scripts\pwsh\llm-router.config.ps1 -RagEvidenceId rag-20260214-pr-01 -DryRun
+```
+
 ## 4. Tool integration
 
 Provider CLI usati:
@@ -67,6 +73,7 @@ Provider CLI usati:
 Note:
 - in `-DryRun`, l'agente stampa i comandi PR senza eseguirli;
 - senza CLI installata, la capability specifica provider non e' eseguibile.
+- se `-UseLlmRouter` fallisce o manca `RagEvidenceId`, l'agente continua con drafting standard locale.
 
 ## 5. Security baseline
 

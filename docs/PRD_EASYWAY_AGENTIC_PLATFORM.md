@@ -1050,6 +1050,9 @@ Artefatti:
 2. `scripts/pwsh/llm-router.config.ps1` (da template)
 3. `scripts/pwsh/llm-router.config.example.ps1`
 4. `docs/ops/LLM_ROUTER_ANTIFRAGILE.md`
+5. integrazione opzionale in:
+- `scripts/pwsh/agent-multi-vcs.ps1` (`-UseLlmRouter` per drafting PR)
+- `scripts/pwsh/agent-branch-coordinator.ps1` (`-UseLlmRouter` per advisory scheduling)
 
 Stato runtime (git-ignored):
 1. `docs/ops/llm-router-state.json`

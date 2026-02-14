@@ -7,6 +7,10 @@ param(
     [string]$TaskId = "",
     [string]$Tool = "",
     [string]$LeaseFile = "docs/ops/branch-leases.json",
+    [switch]$UseLlmRouter,
+    [string]$LlmRouterConfigPath = ".\scripts\pwsh\llm-router.config.ps1",
+    [string]$RagEvidenceId = "",
+    [string]$LlmAgentId = "agent-branch-coordinator",
     [int]$LeaseTtlMinutes = 180,
     [switch]$Force,
     [switch]$AllowProtected,
@@ -110,6 +114,55 @@ function Out-Advice {
         Write-Host "Reason:   $($Obj.reason)"
         if ($Obj.currentBranch) { Write-Host "Current:  $($Obj.currentBranch)" }
         if ($Obj.targetBranch)  { Write-Host "Target:   $($Obj.targetBranch)" }
+        if ($Obj.llmAdvice)      { Write-Host "LLM:      $($Obj.llmAdvice)" }
+    }
+}
+
+function Try-GetLlmAdvice {
+    param(
+        [string]$Decision,
+        [string]$Reason,
+        [string]$Current,
+        [string]$Target,
+        [int]$ActiveLeasesCount
+    )
+
+    if (-not $UseLlmRouter) { return "" }
+    if ([string]::IsNullOrWhiteSpace($RagEvidenceId)) {
+        Write-Warning "LLM router enabled but RagEvidenceId missing. Skipping LLM advice."
+        return ""
+    }
+
+    $prompt = @"
+You are a branch scheduling advisor.
+Provide one concise sentence (max 25 words) reinforcing or correcting this recommendation.
+Context:
+- decision: $Decision
+- reason: $Reason
+- current_branch: $Current
+- target_branch: $Target
+- active_leases_count: $ActiveLeasesCount
+"@
+
+    try {
+        $routerArgs = @(
+            "-NoProfile", "-File", ".\scripts\pwsh\agent-llm-router.ps1",
+            "-Action", "invoke",
+            "-ConfigPath", $LlmRouterConfigPath,
+            "-Prompt", $prompt,
+            "-TaskType", "branch-coordination-advice",
+            "-AgentId", $LlmAgentId,
+            "-RagEvidenceId", $RagEvidenceId,
+            "-JsonOutput"
+        )
+        $raw = & pwsh @routerArgs
+        if ($LASTEXITCODE -ne 0) { throw "LLM router invoke failed." }
+        $obj = $raw | ConvertFrom-Json
+        return ([string]$obj.output).Trim()
+    }
+    catch {
+        Write-Warning "LLM advice skipped: $($_.Exception.Message)"
+        return ""
     }
 }
 
@@ -141,43 +194,55 @@ switch ($Action) {
         $branchLease = $activeLeases | Where-Object { $_.branch -eq $currentBranch -and $_.workerId -ne $worker } | Select-Object -First 1
 
         if ($myLease -and $currentBranch -ne $myLease.branch) {
-            Out-Advice @{
+            $advice = @{
                 decision      = "switch-branch"
                 reason        = "Worker has active lease on another branch."
                 currentBranch = $currentBranch
                 targetBranch  = $myLease.branch
             }
+            $llmAdvice = Try-GetLlmAdvice -Decision $advice.decision -Reason $advice.reason -Current $advice.currentBranch -Target $advice.targetBranch -ActiveLeasesCount @($activeLeases).Count
+            if (-not [string]::IsNullOrWhiteSpace($llmAdvice)) { $advice.llmAdvice = $llmAdvice }
+            Out-Advice $advice
             break
         }
 
         if (Is-ProtectedBranch -Name $currentBranch) {
             $suggested = New-BranchNameSuggestion -Worker $worker -Task $TaskId
-            Out-Advice @{
+            $advice = @{
                 decision      = "create-and-switch"
                 reason        = "Current branch is protected; work must happen on feature/hotfix branch."
                 currentBranch = $currentBranch
                 targetBranch  = $suggested
             }
+            $llmAdvice = Try-GetLlmAdvice -Decision $advice.decision -Reason $advice.reason -Current $advice.currentBranch -Target $advice.targetBranch -ActiveLeasesCount @($activeLeases).Count
+            if (-not [string]::IsNullOrWhiteSpace($llmAdvice)) { $advice.llmAdvice = $llmAdvice }
+            Out-Advice $advice
             break
         }
 
         if ($branchLease) {
             $suggested = New-BranchNameSuggestion -Worker $worker -Task $TaskId
-            Out-Advice @{
+            $advice = @{
                 decision      = "switch-branch"
                 reason        = "Current branch is leased by another worker ($($branchLease.workerId))."
                 currentBranch = $currentBranch
                 targetBranch  = $suggested
             }
+            $llmAdvice = Try-GetLlmAdvice -Decision $advice.decision -Reason $advice.reason -Current $advice.currentBranch -Target $advice.targetBranch -ActiveLeasesCount @($activeLeases).Count
+            if (-not [string]::IsNullOrWhiteSpace($llmAdvice)) { $advice.llmAdvice = $llmAdvice }
+            Out-Advice $advice
             break
         }
 
-        Out-Advice @{
+        $advice = @{
             decision      = "stay"
             reason        = "Branch is safe for current worker."
             currentBranch = $currentBranch
             targetBranch  = $currentBranch
         }
+        $llmAdvice = Try-GetLlmAdvice -Decision $advice.decision -Reason $advice.reason -Current $advice.currentBranch -Target $advice.targetBranch -ActiveLeasesCount @($activeLeases).Count
+        if (-not [string]::IsNullOrWhiteSpace($llmAdvice)) { $advice.llmAdvice = $llmAdvice }
+        Out-Advice $advice
         break
     }
 
