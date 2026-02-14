@@ -974,6 +974,46 @@ Artefatti MVP:
 Regola di prodotto:
 - il comportamento deve essere provider-agnostic lato workflow, provider-specific solo nel layer di integrazione CLI/API.
 
+### 22.16 Access Matrix (RAG server + template agent)
+
+Scopo:
+- rendere espliciti endpoint e path operativi da usare come riferimento unico per tutti gli agenti.
+
+Server validato:
+- host: `ubuntu@80.225.86.168`
+- repo root: `/home/ubuntu/EasyWayDataPortal`
+
+RAG runtime (server-side):
+1. script retrieval principale:
+- `/home/ubuntu/EasyWayDataPortal/agents/skills/retrieval/rag_search.py`
+2. configurazione endpoint:
+- `QDRANT_HOST` (default `localhost`)
+- `QDRANT_PORT` (default `6333`)
+- `QDRANT_API_KEY` (required in ambienti protetti)
+3. collection canonica:
+- `easyway_wiki`
+4. url base runtime:
+- `http://<QDRANT_HOST>:<QDRANT_PORT>`
+
+Runbook RAG:
+1. file:
+- `/home/ubuntu/EasyWayDataPortal/Wiki/EasyWayData.wiki/Runbooks/rag-operations.md`
+2. ingestion standard:
+- `docker exec easyway-runner bash -c 'cd /app/scripts && node ingest_wiki.js'`
+
+Template agent (server-side):
+1. template per singolo agente:
+- `/home/ubuntu/EasyWayDataPortal/agents/<agent_name>/templates`
+2. template core condivisi:
+- `/home/ubuntu/EasyWayDataPortal/agents/core/templates`
+3. retrieval skills condivise:
+- `/home/ubuntu/EasyWayDataPortal/agents/skills/retrieval`
+
+Regola operativa:
+1. ogni agente deve fare retrieval contro il RAG server usando questa matrice;
+2. ogni scaffolding/modifica template deve partire dai path canonici sopra, non da copie locali non allineate;
+3. qualsiasi variazione endpoint/path richiede update immediato di questa sezione PRD + runbook.
+
 ## 23. ToDo List Vivente e Gestione Contesto
 
 ### 23.1 ToDo List Vivente
