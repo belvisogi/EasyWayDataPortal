@@ -12,7 +12,8 @@ Provide a single control point for LLM calls with:
 
 ## Artifacts
 
-- Router script: `scripts/pwsh/agent-llm-router.ps1`
+- Canonical router script: `agents/core/tools/agent-llm-router.ps1`
+- Backward-compatible wrapper: `scripts/pwsh/agent-llm-router.ps1`
 - Config template: `scripts/pwsh/llm-router.config.example.ps1`
 - Runtime state: `docs/ops/llm-router-state.json` (git-ignored)
 - Event log: `docs/ops/logs/llm-router-events.jsonl` (git-ignored)

@@ -5,7 +5,8 @@ Scope: agente operativo unico per auth check, sync multi-remote, monitor branch 
 
 ## 1. Files
 
-- `scripts/pwsh/agent-multi-vcs.ps1`
+- canonical: `agents/core/tools/agent-multi-vcs.ps1`
+- wrapper: `scripts/pwsh/agent-multi-vcs.ps1`
 - `scripts/pwsh/multi-vcs.config.example.ps1`
 - Reuse:
   - `scripts/pwsh/push-all-remotes.ps1`

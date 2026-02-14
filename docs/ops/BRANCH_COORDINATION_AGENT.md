@@ -7,7 +7,8 @@ Date: 2026-02-14
 Coordinate multiple workers (machines, LLMs, Antigravity, ClaudeCode) across different branches without collisions.
 
 Script:
-- `scripts/pwsh/agent-branch-coordinator.ps1`
+- canonical: `agents/core/tools/agent-branch-coordinator.ps1`
+- wrapper: `scripts/pwsh/agent-branch-coordinator.ps1`
 
 Lease file:
 - `docs/ops/branch-leases.json`

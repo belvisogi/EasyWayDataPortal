@@ -967,7 +967,7 @@ Capability minime:
 4. `create-pr`: apertura PR cross-provider (ADO/GitHub/Forgejo) via CLI dedicati.
 
 Artefatti MVP:
-1. `scripts/pwsh/agent-multi-vcs.ps1`
+1. `agents/core/tools/agent-multi-vcs.ps1`
 2. `scripts/pwsh/multi-vcs.config.example.ps1`
 3. `docs/ops/MULTI_VCS_AGENT_MVP.md`
 
@@ -1026,7 +1026,7 @@ Capability:
 4. release a fine task/handoff.
 
 Artefatti:
-1. `scripts/pwsh/agent-branch-coordinator.ps1`
+1. `agents/core/tools/agent-branch-coordinator.ps1`
 2. `docs/ops/BRANCH_COORDINATION_AGENT.md`
 3. lease store: `docs/ops/branch-leases.json`
 
@@ -1046,13 +1046,13 @@ Capability:
 4. enforcement `no RAG evidence -> no operational invoke`.
 
 Artefatti:
-1. `scripts/pwsh/agent-llm-router.ps1`
+1. `agents/core/tools/agent-llm-router.ps1`
 2. `scripts/pwsh/llm-router.config.ps1` (da template)
 3. `scripts/pwsh/llm-router.config.example.ps1`
 4. `docs/ops/LLM_ROUTER_ANTIFRAGILE.md`
 5. integrazione opzionale in:
-- `scripts/pwsh/agent-multi-vcs.ps1` (`-UseLlmRouter` per drafting PR)
-- `scripts/pwsh/agent-branch-coordinator.ps1` (`-UseLlmRouter` per advisory scheduling)
+- `agents/core/tools/agent-multi-vcs.ps1` (`-UseLlmRouter` per drafting PR)
+- `agents/core/tools/agent-branch-coordinator.ps1` (`-UseLlmRouter` per advisory scheduling)
 
 Stato runtime (git-ignored):
 1. `docs/ops/llm-router-state.json`
