@@ -936,6 +936,25 @@ KPI di stabilita':
 2. zero `forced-update` inattesi su branch protetti;
 3. nessuna ricorrenza di ripristino manuale branch oltre 7 giorni operativi.
 
+### 22.14 Regola vincolante: Retrieval sempre da RAG server
+
+Decisione:
+- ogni agente deve leggere contesto/knowledge operativo interrogando il RAG server-side come fonte primaria.
+
+Regole obbligatorie:
+1. vietato usare copie locali non sincronizzate come source of truth per decisioni operative;
+2. prima di ogni task rilevante, eseguire retrieval da endpoint RAG del server;
+3. se il RAG server non e' disponibile:
+- aprire stato `degraded`;
+- usare fallback locale solo in read-only;
+- tracciare evento in audit con motivazione e timestamp;
+- rieseguire retrieval server prima di push/merge/release.
+4. ogni output agente deve indicare evidenza minima di retrieval (query id, timestamp o riferimento log).
+
+Criterio di conformita':
+1. `no retrieval evidence -> no merge` per task agentici core;
+2. deviazioni ammesse solo come eccezione incident, con approvazione esplicita.
+
 ## 23. ToDo List Vivente e Gestione Contesto
 
 ### 23.1 ToDo List Vivente
