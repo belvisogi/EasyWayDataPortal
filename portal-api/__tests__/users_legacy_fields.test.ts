@@ -9,6 +9,18 @@
 import request from 'supertest';
 import app from '../src/app';
 
+// Mock auth middleware to bypass JWT validation
+jest.mock('../src/middleware/auth', () => ({
+    authenticateJwt: (req: any, res: any, next: any) => {
+        req.user = {
+            sub: 'test-user',
+            ew_tenant_id: 'tenant-test-01',
+            scope: 'openid profile'
+        };
+        next();
+    }
+}));
+
 describe('Users API - Legacy Fields Deprecation', () => {
 
     const mockToken = 'Bearer mock-jwt-token';

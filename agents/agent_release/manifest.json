@@ -1,79 +1,132 @@
 {
   "id": "agent_release",
-  "name": "Agent Release (The Executor)",
-  "classification": "arm",
-  "version": "2.0.0",
-  "role": "releaser",
-  "owner": "team-devops",
-  "description": "Gestisce il Merge Train (Develop->Main), i Back-Merge (Hotfix->Develop) e il packaging del bundle runtime.",
+  "name": "agent_release",
+  "role": "Release Manager",
+  "description": "Smart release workflow Git: promote branch con policy naming/target e server-sync sicuro verso main con backup/stash.",
+  "owner": "team-platform",
+  "version": "1.2.0",
   "llm_config": {
-    "model": "gpt-3.5-turbo",
-    "temperature": 0.0,
+    "model": "gpt-4-turbo",
+    "temperature": 0.1,
     "system_prompt": "agents/agent_release/PROMPTS.md",
-    "tools": [
-      "git_merge",
-      "git_tag",
-      "generate_release_notes",
-      "runtime_bundle"
-    ]
+    "tools": []
   },
   "context_config": {
     "memory_files": [
-      "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md"
+      "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md",
+      "Wiki/EasyWayData.wiki/control-plane/release-flow-alignment-2026-02-12.md"
     ],
-    "context_limit_tokens": 8000
-  },
-  "actions": [
-    {
-      "name": "release:merge-train",
-      "description": "Esegue merge da Develop a Main con controlli di sicurezza."
-    },
-    {
-      "name": "release:hotfix-sync",
-      "description": "Propaga hotfix da Main a Develop."
-    },
-    {
-      "name": "runtime:bundle",
-      "description": "Crea zip bundle per execution runner (legacy feature)."
-    }
-  ],
-  "readme": "README.md",
-  "allowed_paths": {
-    "read": [
-      "**",
-      ".git/**"
-    ],
-    "write": [
-      "agents/agent_release/memory/",
-      "agents/logs/"
-    ]
+    "context_limit_tokens": 128000
   },
   "allowed_tools": [
     "pwsh",
-    "git",
-    "semver"
+    "git"
   ],
+  "actions": [
+    {
+      "name": "release:promote",
+      "description": "Promuove codice da un branch a un altro (es. develop -> main) con controlli di sicurezza",
+      "uses_skills": [
+        "git.checkout",
+        "git.merge",
+        "git.push",
+        "retrieval.llm-with-rag"
+      ],
+      "params": {
+        "source": {
+          "type": "string",
+          "description": "Branch sorgente (es. develop)",
+          "required": true
+        },
+        "target": {
+          "type": "string",
+          "description": "Branch destinazione (es. main)",
+          "required": true
+        },
+        "strategy": {
+          "type": "string",
+          "description": "Strategia di merge (merge, squash)",
+          "default": "merge"
+        }
+      }
+    },
+    {
+      "name": "release:server-sync",
+      "description": "Sincronizza in sicurezza il repository sul server remoto al branch target (default main) con backup/stash preventivi",
+      "uses_skills": [
+        "git.server-sync"
+      ],
+      "params": {
+        "server_host": {
+          "type": "string",
+          "description": "Host SSH del server runtime (es. 80.225.86.168)",
+          "required": true
+        },
+        "server_user": {
+          "type": "string",
+          "description": "Utente SSH remoto",
+          "default": "ubuntu"
+        },
+        "target": {
+          "type": "string",
+          "description": "Branch target da sincronizzare sul server",
+          "default": "main"
+        },
+        "server_repo_path": {
+          "type": "string",
+          "description": "Path repository sul server",
+          "default": "~/EasyWayDataPortal"
+        }
+      }
+    }
+  ],
+  "allowed_paths": {
+    "read": [
+      "agents/",
+      "Wiki/",
+      "scripts/",
+      "."
+    ],
+    "write": [
+      "agents/logs/",
+      ".",
+      "release-notes.md"
+    ]
+  },
+  "readme": "README.md",
+  "classification": "arm",
   "required_gates": [
-    "pipeline_green",
-    "approval_guard"
+    "clean_working_tree",
+    "branch_exists",
+    "branch_sync_check",
+    "branch_naming_policy",
+    "target_branch_policy",
+    "server_backup_before_sync"
   ],
   "knowledge_sources": [
     {
       "priority": "high",
       "path": "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md",
-      "type": "standard"
+      "type": "document"
+    },
+    {
+      "priority": "high",
+      "path": "Wiki/EasyWayData.wiki/control-plane/release-flow-alignment-2026-02-12.md",
+      "type": "document"
     }
   ],
-  "evolution_level": 1,
-  "skills_required": [],
+  "evolution_level": 2,
+  "skills_required": [
+    "git.checkout",
+    "git.merge",
+    "git.push",
+    "git.server-sync",
+    "retrieval.llm-with-rag"
+  ],
   "error_handling": {
-    "fallback_mode": "log_and_skip",
-    "alert_on_failure": false,
-    "retry_delay_seconds": 15,
-    "retry_count": 2
-  },
-  "skills_optional": [
-    "utilities.json-validate",
-    "utilities.retry-backoff"
-  ]
+    "fallback_mode": "manual_intervention",
+    "alert_on_failure": true,
+    "retry_delay_seconds": 0,
+    "retry_count": 0
+  }
 }

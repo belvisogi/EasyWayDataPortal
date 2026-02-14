@@ -60,7 +60,7 @@ Nota: gli intent elencati sotto sono quelli “più usati”/raccomandati; l’e
 | agent_observability | control-plane | healthcheck + standard logging | `obs:healthcheck` | `scripts/agent-observability.ps1` |
 | agent_infra | control-plane | terraform plan governato | `infra:terraform-plan` | `scripts/agent-infra.ps1` |
 | agent_backend | portal | implementazione API + OpenAPI | `api:openapi-validate` | `scripts/agent-backend.ps1` |
-| agent_release | control-plane | runtime bundle (copia parziale) | `runtime:bundle` | `scripts/agent-release.ps1` |
+| agent_release | control-plane | smart release workflow (checkout/pull/merge/push + release notes draft) | `release:promote` | `scripts/pwsh/agent-release.ps1` |
 | **agent_synapse** 🧪 | analytics | [EXPERIMENTAL] workspace Synapse/DataFactory + PySpark | `synapse:scaffold`, `synapse:check-sql` | `scripts/agent-synapse.ps1` |
 
 ## Pattern canonico (RAG-ready)

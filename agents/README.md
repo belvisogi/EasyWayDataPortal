@@ -38,7 +38,7 @@ Gli agent sono servizi/script modulari, ognuno responsabile di una funzione chia
 | agent_infra              | manifest.json | IaC/Terraform governato: validate/plan/apply (WhatIf-by-default), drift infra e runbook. | templates/, doc/ |
 | agent_observability      | manifest.json | Osservabilita': health check, standard logging, suggerimenti OTel/AppInsights e runbook troubleshooting (no secrets). | templates/, doc/ |
 | agent_pr_manager         | manifest.json | Crea e propone Pull Request agentiche con esiti gates e riferimenti artifact. Nessun merge autonomo. | templates/, doc/ |
-| agent_release            | manifest.json | Packaging/versioning del runtime bundle (copia parziale) per runner segregato: build artifact e publish (no segreti). | templates/, doc/ |
+| agent_release            | manifest.json | Smart release workflow Git: promote tra branch + server-sync sicuro (backup/stash) verso main, con policy naming/target e release notes. | templates/, doc/ |
 | agent_retrieval          | manifest.json | Gestione RAG: indicizzazione Wiki/KB, retrieval bundles, sync verso vector DB (on-demand), anti-duplicati/canonical. | templates/, doc/ |
 | agent_scrummaster        | manifest.json | Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks. | templates/, doc/ |
 | agent_security           | manifest.json | Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit e registry (no valori segreti nei log). | templates/, doc/ |

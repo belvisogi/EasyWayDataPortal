@@ -1,6 +1,6 @@
 {
-  "version": "2.2.0",
-  "last_updated": "2026-02-09T10:00:00Z",
+  "version": "2.4.0",
+  "last_updated": "2026-02-12T02:10:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -609,7 +609,13 @@
           "type": "string",
           "required": false,
           "default": "all",
-          "enum": ["agents", "infra", "api", "frontend", "all"]
+          "enum": [
+            "agents",
+            "infra",
+            "api",
+            "frontend",
+            "all"
+          ]
         }
       ],
       "dependencies": [],
@@ -618,6 +624,187 @@
         "impact",
         "cascade",
         "butterfly-effect"
+      ]
+    },
+    {
+      "id": "git.checkout",
+      "name": "Invoke-GitCheckout",
+      "domain": "git",
+      "file": "skills/git/Invoke-GitCheckout.ps1",
+      "version": "1.0.0",
+      "description": "Safely checks out a branch, verifying it exists or creating it if new",
+      "parameters": [
+        {
+          "name": "Branch",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "Create",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "Force",
+          "type": "boolean",
+          "required": false
+        }
+      ],
+      "dependencies": [
+        "git"
+      ],
+      "tags": [
+        "git",
+        "checkout",
+        "branch"
+      ]
+    },
+    {
+      "id": "git.merge",
+      "name": "Invoke-GitMerge",
+      "domain": "git",
+      "file": "skills/git/Invoke-GitMerge.ps1",
+      "version": "1.0.0",
+      "description": "Merges a source branch into current, with logic to abort on conflict",
+      "parameters": [
+        {
+          "name": "SourceBranch",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "Squash",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "NoFastForward",
+          "type": "boolean",
+          "required": false
+        }
+      ],
+      "dependencies": [
+        "git"
+      ],
+      "tags": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "id": "git.push",
+      "name": "Invoke-GitPush",
+      "domain": "git",
+      "file": "skills/git/Invoke-GitPush.ps1",
+      "version": "1.0.0",
+      "description": "Pushes changes to remote, with safety checks",
+      "parameters": [
+        {
+          "name": "Branch",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "Remote",
+          "type": "string",
+          "required": false,
+          "default": "origin"
+        },
+        {
+          "name": "SetUpstream",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "Force",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "ProtectedBranches",
+          "type": "array",
+          "required": false,
+          "default": [
+            "main",
+            "master"
+          ]
+        }
+      ],
+      "dependencies": [
+        "git"
+      ],
+      "tags": [
+        "git",
+        "push"
+      ]
+    },
+    {
+      "id": "git.server-sync",
+      "name": "Invoke-GitServerSync",
+      "domain": "git",
+      "file": "skills/git/Invoke-GitServerSync.ps1",
+      "version": "1.0.0",
+      "description": "Safely syncs a remote server repository via SSH with backup, stash, and ff-only pull",
+      "parameters": [
+        {
+          "name": "ServerHost",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "ServerUser",
+          "type": "string",
+          "required": false,
+          "default": "ubuntu"
+        },
+        {
+          "name": "ServerRepoPath",
+          "type": "string",
+          "required": false,
+          "default": "~/EasyWayDataPortal"
+        },
+        {
+          "name": "Branch",
+          "type": "string",
+          "required": false,
+          "default": "main"
+        },
+        {
+          "name": "ServerSshKeyPath",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "SkipClean",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "SudoCleanPaths",
+          "type": "array",
+          "required": false
+        },
+        {
+          "name": "AllowHardReset",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "Yes",
+          "type": "boolean",
+          "required": false
+        }
+      ],
+      "dependencies": [
+        "git",
+        "ssh"
+      ],
+      "tags": [
+        "git",
+        "release",
+        "deploy",
+        "server-sync",
+        "ssh"
       ]
     }
   ]

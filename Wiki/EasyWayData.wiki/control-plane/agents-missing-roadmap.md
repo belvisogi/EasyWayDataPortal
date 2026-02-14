@@ -2,7 +2,7 @@
 title: Roadmap agent (retrieval, observability, infra, backend, release)
 tags: [domain/control-plane, layer/spec, audience/dev, audience/ops, privacy/internal, language/it, agents, rag, observability, infra]
 status: active
-updated: 2026-01-16
+updated: 2026-02-12
 redaction: [email, phone, token]
 id: ew-control-plane-agents-missing-roadmap
 chunk_hint: 200-300
@@ -38,19 +38,25 @@ Abbiamo creato gli agenti skeleton minimi per:
 - observability
 - infra (terraform plan)
 - backend (openapi validate)
-- release (runtime bundle)
+- release (promozione branch governata)
 
 ## Intent minimi (WHAT-first)
 - `rag.export-wiki-chunks`
 - `obs.healthcheck`
 - `infra.terraform.plan`
 - `api.openapi.validate`
-- `runtime.bundle`
+- `release.promote`
 
 ## Next (implementazione iterativa)
 - Agganciare questi intent a `orchestrator.n8n.dispatch` con workflow n8n dedicati.
-- Aggiungere upload/publish runtime (artifact) come step separato con `agent_datalake`.
+- Mantenere upload/publish runtime (artifact) come step separato con `agent_datalake`.
 - Rendere i controlli piu' robusti (es. openapi-cli, terraform plan artifact, health endpoint).
+
+## Wishlist MVP (nuovo)
+- `Agentic Release Multi-VCS` (ADO + Forgejo + GitHub)
+  - Documento prodotto: `control-plane/prd-agentic-release-multivcs-mvp.md`
+  - Obiettivo: stesso contratto azioni release su provider diversi, con guardrail invarianti.
+  - Stato: planned
 
 
 ## Vedi anche
@@ -60,6 +66,7 @@ Abbiamo creato gli agenti skeleton minimi per:
 - [Segregation Model (Dev vs Knowledge vs Runtime)](./segregation-model-dev-knowledge-runtime.md)
 - [Control Plane - Panoramica](./index.md)
 - [Multi‑Agent & Governance – EasyWay](../agents-governance.md)
+- [PRD - Agentic Release Multi-VCS (MVP)](./prd-agentic-release-multivcs-mvp.md)
 
 
 
