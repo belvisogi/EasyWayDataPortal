@@ -1034,6 +1034,28 @@ Regola:
 1. nessun worker inizia implementazione senza `recommend` + `claim`;
 2. branch protette (`main`, `develop`, `baseline`) non devono essere usate come branch di lavoro ordinario.
 
+### 22.18 LLM Router Antifragile (control plane minimo)
+
+Obiettivo:
+- introdurre un punto unico di controllo per chiamate LLM multi-provider con fallback, audit e safety gate umano.
+
+Capability:
+1. routing provider con priorita' e circuit breaker;
+2. policy `critical action -> mandatory human approval`;
+3. log eventi append-only (`invoke_success|invoke_failed|invoke_blocked|approval_*`);
+4. enforcement `no RAG evidence -> no operational invoke`.
+
+Artefatti:
+1. `scripts/pwsh/agent-llm-router.ps1`
+2. `scripts/pwsh/llm-router.config.ps1` (da template)
+3. `scripts/pwsh/llm-router.config.example.ps1`
+4. `docs/ops/LLM_ROUTER_ANTIFRAGILE.md`
+
+Stato runtime (git-ignored):
+1. `docs/ops/llm-router-state.json`
+2. `docs/ops/logs/llm-router-events.jsonl`
+3. `docs/ops/approvals/*.json`
+
 ## 23. ToDo List Vivente e Gestione Contesto
 
 ### 23.1 ToDo List Vivente
