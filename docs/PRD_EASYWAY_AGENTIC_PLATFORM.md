@@ -803,6 +803,29 @@ Regola:
 - se un push fallisce, il processo si ferma;
 - non si prosegue con merge/release finche' i 3 remoti non sono riallineati.
 
+### 22.6.b Standardizzazione script multi-remote (strutturale)
+
+Lo script di sync non e' opzionale: diventa capability standard della factory.
+
+Requisiti minimi dello script:
+1. supporto nativo a `ado`, `github`, `forgejo`;
+2. branch parametrico (non solo `main`);
+3. modalita' `dry-run`;
+4. stop immediato su errore (`fail-fast`);
+5. output finale con stato per ogni remoto (`ok|failed`);
+6. comando di verifica post-push (`git ls-remote --heads <remote> <branch>`).
+
+Regole operative:
+1. nessun merge/release senza esecuzione script con esito completo `ok`;
+2. log esecuzione salvato come evidenza in `docs/ops/agent-task-records/` o pipeline artifacts;
+3. in caso di failure parziale, aprire task di riallineamento prima di proseguire.
+
+Roadmap miglioramento script:
+1. V1: push sequenziale + fail-fast.
+2. V2: verifica automatica branch su tutti i remoti.
+3. V3: supporto PR automation per ADO/GitHub/Forgejo.
+4. V4: integrazione policy engine (blocco se quality gates non verdi).
+
 ### 22.7 Opzione enterprise (futura)
 
 Pattern avanzato:
