@@ -912,6 +912,30 @@ Regola operativa:
 1. ogni decisione tecnica su auth/sync deve citare almeno una baseline esterna;
 2. se deviamo dalle baseline, documentare motivo e mitigazione nel decision log.
 
+### 22.13 Best Practice vincolante: Branch Governance ADO (anti-sparizione)
+
+Decisione operativa validata (2026-02-14):
+- per evitare sparizione branch dovuta a rewrite/delete refs da actor concorrenti, non basta la policy PR;
+- serve hardening esplicito in `Branch security` e `Repository security`.
+
+Regole minime obbligatorie:
+1. su `main` e `develop` impostare `Deny` su `Force push (rewrite history, delete branches and tags)` per:
+- `Contributors`;
+- `EasyWay-DataPortal Build Service (EasyWayData)`;
+- `Project Collection Build Service Accounts`;
+- `Project Collection Service Accounts`.
+2. mantenere override solo per gruppi admin (`Project Administrators`, `Project Collection Administrators`) per break-glass controllato.
+3. non usare `Not set` per permessi critici: puo' ereditare `Allow`.
+4. in caso di incidente branch disappearance, eseguire subito:
+- snapshot `git ls-remote --heads ado`;
+- monitor multi-sample;
+- correlazione con `Organization settings -> Audit logs`.
+
+KPI di stabilita':
+1. zero eventi `missing` nei monitor post-push;
+2. zero `forced-update` inattesi su branch protetti;
+3. nessuna ricorrenza di ripristino manuale branch oltre 7 giorni operativi.
+
 ## 23. ToDo List Vivente e Gestione Contesto
 
 ### 23.1 ToDo List Vivente

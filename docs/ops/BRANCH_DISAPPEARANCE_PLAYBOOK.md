@@ -9,7 +9,7 @@ Scope: branch visibile/non visibile a intermittenza su ADO, con ricomparsa dopo 
 - Un branch (es. `fix-forgejo-local`) risulta assente lato ADO in alcuni momenti.
 - Lo stesso branch ricompare dopo push massivo (`git push origin --all`) o nuovo push esplicito.
 
-## 2. Root Cause (ipotesi tecnica prioritaria)
+## 2. Root Cause (validata operativamente)
 
 1. Configurazione remoti non allineata alla policy multi-remote:
 - clone locale con solo `origin` HTTPS, senza alias `ado/github/forgejo` stabili.
@@ -21,8 +21,13 @@ Scope: branch visibile/non visibile a intermittenza su ADO, con ricomparsa dopo 
 3. Effetto osservato:
 - il push massivo (`--all`) forza ripubblicazione refs locali e maschera il problema invece di risolverlo strutturalmente.
 
-Nota:
-- in ambiente con rete filtrata/sandbox non e' possibile validare live ADO; questa root cause e' dedotta da configurazione locale e pattern sintomo.
+Evidenza raccolta (2026-02-14):
+1. `git ls-remote --heads ado` ha mostrato in alcuni momenti solo `main` (branch feature/develop assenti).
+2. subito dopo push espliciti delle branch mancanti, le ref sono ricomparse.
+3. dopo applicazione `Deny` su `Force push` per contributor/build service/service accounts, i monitor multi-sample hanno mostrato stabilita' (`status=ok` su tutte le branch monitorate).
+
+Conclusione:
+- il pattern e' compatibile con update/delete refs da actor concorrente lato ADO (utente, service account o pipeline), non con un difetto del solo client Git locale.
 
 ## 3. Stabilizzazione obbligatoria
 
@@ -81,6 +86,16 @@ pwsh -File .\scripts\pwsh\watch-branch-presence.ps1 `
 - bloccare merge/release;
 - eseguire push esplicito `refs/heads/<branch>:refs/heads/<branch>` sul remoto impattato;
 - rilanciare monitor per confermare stabilita' per almeno 30 minuti.
+
+1.b Audit forensics immediato (ADO):
+- aprire `Organization settings -> Audit logs`;
+- filtrare category Git/Repositories e azioni di update/delete refs;
+- correlare actor e timestamp con finestre operative del monitor.
+
+Finestre temporali di riferimento gia' osservate:
+- 2026-02-14 14:47 CET
+- 2026-02-14 15:05 CET
+- 2026-02-14 17:42 CET
 
 2. Aprire record incident in `docs/ops/agent-task-records/` con:
 - timestamp;
