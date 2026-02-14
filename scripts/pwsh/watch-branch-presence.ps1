@@ -74,7 +74,20 @@ if ([string]::IsNullOrWhiteSpace($Branch)) {
 }
 
 $existingRemotes = Get-ExistingRemotes
-$selectedRemotes = @($Remotes | Where-Object { $existingRemotes -contains $_ } | Select-Object -Unique)
+$normalizedRemotes = @()
+foreach ($r in $Remotes) {
+    if ([string]::IsNullOrWhiteSpace($r)) {
+        continue
+    }
+    if ($r.Contains(",")) {
+        $normalizedRemotes += @($r.Split(",") | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne "" })
+    }
+    else {
+        $normalizedRemotes += $r.Trim()
+    }
+}
+
+$selectedRemotes = @($normalizedRemotes | Where-Object { $existingRemotes -contains $_ } | Select-Object -Unique)
 if ($selectedRemotes.Count -eq 0) {
     throw "No selected remotes found in repository."
 }
