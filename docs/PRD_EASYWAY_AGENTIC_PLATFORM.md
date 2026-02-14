@@ -1,0 +1,886 @@
+# PRD - EasyWay Agentic Platform
+
+Version: 1.0  
+Date: 2026-02-12  
+Status: Draft for execution  
+Owner: team-platform
+
+## 1. Visione e Missione
+
+### Visione
+Rendere l'adozione di agenti AI affidabile per processi reali, non solo per demo.
+Rendere EasyWay una "fabbrica prodotto" capace di generare nuovi prodotti coerenti, governati e manutenibili con lo stesso modello operativo.
+
+### Missione
+EasyWay consente a ogni organizzazione di scegliere liberamente come usare l'AI agentica: cloud, locale o ibrido, con governance, qualita' misurabile e controllo totale su dati, costi e rischio operativo.
+
+### Principio guida
+L'utente non deve solo "abilitare/disabilitare" un provider. Deve poter decidere il profilo di utilizzo che preferisce (qualita', privacy, costo, latenza, affidabilita') e cambiarlo nel tempo senza riscrivere il sistema.
+Per ogni processo operativo, l'automazione deve essere "agenti-by-default" con conferma umana obbligatoria ai checkpoint definiti.
+
+## 2. Problema da risolvere
+
+Le piattaforme agentiche sul mercato spesso:
+- automatizzano task semplici ma non processi critici;
+- offrono poca trasparenza nelle decisioni dei modelli;
+- vincolano a un solo provider;
+- non hanno controllo forte su approval, audit, fallback;
+- non misurano in modo rigoroso la qualita' operativa.
+
+EasyWay deve coprire questi gap con un prodotto enterprise-ready.
+
+## 3. Obiettivi di Prodotto
+
+1. Fornire una piattaforma agentica governata per processi critici (DB, security, docs, release).
+2. Abilitare routing cloud/locale/ibrido con policy configurabili.
+3. Garantire qualita' e affidabilita' con KPI/SLA e auditing completo.
+4. Ridurre tempo operativo manuale mantenendo human-in-the-loop sulle azioni ad alto impatto.
+5. Trasformare EasyWay nel core di una product factory, per creare prodotti derivati con standard tecnici e operativi uniformi.
+
+## 4. Non-Obiettivi
+
+- Costruire un "general assistant" consumer.
+- Autonomia totale senza controllo umano.
+- Dipendenza hard da un solo vendor LLM.
+- Ottimizzazione perfetta costi/qualita' dal giorno 1 (si procede per iterazioni).
+
+## 5. Utenti e Jobs-to-be-Done
+
+### Persona A - Platform Lead
+- Job: governare standard, sicurezza, compliance e costi.
+- Bisogni: policy, approval gates, audit log, metriche per decisioni.
+
+### Persona B - Team tecnico (DBA/Security/Dev)
+- Job: eseguire task operativi in modo veloce ma sicuro.
+- Bisogni: suggerimenti utili, piani eseguibili, fallback affidabile.
+
+### Persona C - Product/Operations Manager
+- Job: capire impatto business e ROI.
+- Bisogni: dashboard KPI, trend di qualita', tempo risparmiato.
+
+## 6. Value Proposition
+
+EasyWay non vende "chat". Vende:
+- orchestrazione agentica affidabile;
+- scelta reale del runtime AI (cloud/locale/ibrido);
+- governance enterprise by design;
+- miglioramento continuo basato su metriche.
+
+Messaggio di posizionamento:
+- EasyWay va venduto come pacchetto unico, non come insieme di software aggiuntivi.
+- Proposta: un ecosistema operativo completo, con un solo pannello, un solo audit trail e capability native integrate (non patchwork di tool scollegati).
+- Obiettivo commerciale: ridurre complessita' percepita dal cliente e aumentare valore/margine tramite piattaforma unificata.
+- Il Portale EasyWay e' al tempo stesso sito digitale e centro operativo: una "digital front door" da cui il cliente gestisce il proprio mondo (processi, comunicazioni, appuntamenti, dati, automazioni).
+
+## 6.a North Star Economica (versione concreta)
+
+1. E' possibile scalare molto forte se il core diventa davvero riusabile e vendibile piu' volte.
+2. La leva vera non e' "AI wow", e' il loop: `custom -> productization -> riuso -> margine`.
+3. Formula operativa: pochi umani senior + macchina disciplinata + standard duri + canale commerciale.
+4. Se qualita', governance e factory economics restano difesi nel tempo, il modello puo' crescere con forte effetto leva.
+
+## 6.d Cambio di Paradigma (da copilot individuale a sistema organizzativo)
+
+Contesto:
+- Molte soluzioni AI attuali sono orientate al singolo utente e al singolo device/tool.
+- Questo approccio e' utile, ma resta "a valle" dei processi aziendali.
+
+Posizionamento EasyWay:
+1. Non solo copilot personale: piattaforma agentica per l'intera organizzazione.
+2. Non solo assistenza al task: orchestrazione interpolata nei processi end-to-end.
+3. Non solo automazione locale: governance, audit, approval e qualita' condivise.
+4. Non solo output immediato: productization e riuso sistematico in ottica factory.
+
+Obiettivo:
+- Spostare il valore da "AI che aiuta la persona" a "sistema che governa in modo affidabile il lavoro multi-team".
+
+## 6.b Product Factory Strategy
+
+EasyWay deve funzionare come piattaforma madre da cui derivano nuovi prodotti (es. moduli verticali, pacchetti domain-specific, edition clienti) senza reinventare ogni volta architettura, sicurezza e operations.
+
+Principi factory:
+- un core condiviso per policy, audit, provider routing, execution governance;
+- template standard per bootstrap di nuovi prodotti;
+- pipeline e runbook uniformi per deploy, monitoraggio e incident response;
+- manutenzione convergente: fix e miglioramenti nel core propagabili a tutti i prodotti derivati.
+
+## 6.c Use Case Productization Loop (artigianato + dime)
+
+Modello operativo:
+- EasyWay lavora come un laboratorio di abiti su misura: ogni cliente puo' ricevere una soluzione custom.
+- Le "dime" (pattern riusabili) restano nel core EasyWay.
+- Ogni use case custom deve produrre asset riutilizzabili e rivendibili con piccoli adattamenti.
+
+Ciclo standard:
+1. Discovery use case cliente.
+2. Delivery custom con separazione netta tra parti specifiche e parti generiche.
+3. Estrazione asset riusabili (template, action pack, policy pack, connector, runbook).
+4. Productization in catalogo factory con versioning e quality gate.
+5. Reuse su nuovi clienti con delta minimo e tempi ridotti.
+
+Regola architetturale:
+- codice/flow specifico cliente isolato in layer di configurazione/adapter;
+- nessun dato o logica cliente hardcoded nei moduli core.
+
+## 7. Scope per Release
+
+### R0 - Foundation (2 settimane)
+- API chat agenti stabile in server.
+- Deploy ripetibile con reverse proxy corretto.
+- Auth dev/prod funzionante.
+- DB mock mode per bootstrap rapido.
+
+### R1 - Agentic Runtime V1 (4-6 settimane)
+- Intent resolution LLM + fallback deterministico.
+- Action routing da manifest (`actions`, `allowed_tools`, `allowed_paths`).
+- Execution mode `plan/apply` con approval ticket.
+- Audit completo input/output/decision path.
+
+### R2 - Provider Choice e Preference Engine (6-10 settimane)
+- Routing per policy + preferenze utente/team.
+- Supporto locale/API/ibrido con fallback automatico.
+- Cost guardrails e quality guardrails.
+
+### R3 - Multi-Agent Collaboration (10-16 settimane)
+- Workflow tra agenti con passaggio contesto verificabile.
+- Correzione iterativa con limiti e policy.
+- Report di performance per agente e per dominio.
+
+### R4 - Product Factory Enablement (16-20 settimane)
+- Product template kit per creare nuovi prodotti in modo guidato.
+- Catalogo capability riusabili (policy, auth, observability, approval flows).
+- Processo di upgrade centralizzato core -> prodotti derivati.
+- Governance di compatibilita' versione per evitare drift tra prodotti.
+
+## 8. Requisiti Funzionali
+
+### FR-01 Provider Abstraction
+- Il runtime deve supportare provider multipli via interfaccia unica.
+- Provider iniziali: OpenAI API, DeepSeek API, provider locale (es. Ollama/compatibile OpenAI API).
+- Nessun path business deve dipendere da SDK proprietari.
+
+### FR-02 Policy + Preference Engine
+- Livelli policy: tenant, team, user, request.
+- Preferenze configurabili: `privacy_first`, `quality_first`, `cost_first`, `latency_first`, `balanced`.
+- Routing model scelto da policy + preferenza + disponibilita'.
+
+### FR-03 Intent e Planning
+- Chat deve estrarre intent da linguaggio naturale senza obbligo `intent: ...`.
+- Fallback deterministico se confidence bassa.
+- Ogni risposta deve includere `intent`, `confidence`, `reasoning_summary`.
+
+### FR-04 Action Execution Governata
+- Azioni derivate da manifest (`actions`) con validazione parametri.
+- `plan` sempre consentito; `apply` richiede approval per azioni critiche.
+- Tutte le esecuzioni devono essere idempotenti o con rollback esplicito.
+
+### FR-05 Sicurezza e Guardrails
+- Input sanitization e output policy enforcement.
+- Redaction segreti obbligatoria in log e chat history.
+- Allowlist strumenti/percorsi applicata prima di ogni execution.
+- Human confirmation obbligatoria per step classificati come critici dal policy engine.
+
+### FR-06 Osservabilita' e Audit
+- Eventi standardizzati per: request, intent, routing, execution, failure, approval.
+- Conversation log per tenant/user/agent con ricerca.
+- Tracciamento modello usato, motivo scelta, costo stimato/effettivo.
+
+### FR-07 UX Decisionale
+- UI/API deve mostrare opzioni profilo (non solo on/off).
+- Utente deve poter cambiare preferenza senza downtime.
+- Risposta deve sempre chiarire se output viene da cloud, locale o ibrido.
+
+### FR-08 Product Factory e Riuso
+- Deve esistere un blueprint ufficiale per avviare un nuovo prodotto dalla piattaforma EasyWay.
+- Ogni prodotto derivato deve ereditare guardrail minimi (security, audit, approval, logging).
+- Le capability core devono essere versionate e riusabili tramite moduli/shared packages.
+- Il processo di manutenzione deve prevedere propagazione standard di fix critici a tutti i prodotti aderenti.
+
+### FR-09 Productization by Default
+- Ogni progetto cliente deve includere una "Productization Review" prima della chiusura.
+- Per ogni use case completato devono essere classificati:
+  - componenti commodity (riutilizzabili);
+  - componenti custom (cliente-specifici);
+  - effort stimato per generalizzazione.
+- Deve esistere un catalogo interno delle "dime" con owner, versione, prerequisiti e domini supportati.
+- Deve esistere una policy commerciale/tecnica per il riuso cross-cliente con adattamenti minimi.
+
+## 9. Requisiti Non Funzionali
+
+- NFR-01 Availability: 99.5% su componenti API core.
+- NFR-02 Latency: p95 `plan` < 3s, p95 `apply` < 10s (escluso task lunghi esterni).
+- NFR-03 Security: zero secret in clear text nei log.
+- NFR-04 Compliance: audit trail immutabile per operazioni critiche.
+- NFR-05 Scalability: multi-tenant isolamento logico.
+- NFR-06 Portability: deploy su server sovereign senza lock-in cloud obbligatorio.
+- NFR-07 Economics: ogni richiesta deve tracciare costo stimato/effettivo e budget residuo per tenant.
+
+## 10. Architettura di riferimento
+
+### Componenti
+- `Agent Chat API` (entrypoint conversazionale).
+- `Intent + Planner` (LLM + fallback regole).
+- `Policy/Preference Engine`.
+- `Action Executor` (manifest-driven).
+- `Provider Gateway` (cloud/local).
+- `Audit & Metrics Pipeline`.
+
+### Decisione architetturale chiave
+Provider gateway separato dal planner: il planner decide il "cosa", il gateway decide "con quale modello/provider" in base a policy e preferenze.
+
+## 11. API Contract (v1)
+
+### POST `/api/agents/{agentId}/chat`
+Request (core):
+- `message`
+- `conversationId` (optional)
+- `context.executionMode` = `plan|apply`
+- `context.preferenceProfile` (optional)
+- `context.approvalId` (required for critical apply)
+
+Response (core):
+- `message`
+- `metadata.intent`
+- `metadata.confidence`
+- `metadata.provider` (`cloud|local|hybrid`)
+- `metadata.model`
+- `metadata.policyDecision`
+- `suggestions[]`
+
+## 12. Multi-Agent Collaboration Model (Codex + Antigravity + ClaudeCode)
+
+### Obiettivo
+Usare piu' agenti di sviluppo senza perdere coerenza architetturale.
+
+### Regole operative
+1. Un solo backlog canonico (questa roadmap + ticket).
+2. Contratti condivisi obbligatori: API schema, eventi audit, manifest schema.
+3. PR piccole e verticali con test e DoD verificabile.
+4. Nessuna modifica ai guardrail senza review congiunta.
+5. Decision log unico (`docs/decisions.md`) per ADR sintetiche.
+
+### Ruoli suggeriti
+- Codex: implementazione runtime/API e integrazioni.
+- Antigravity: hardening, affidabilita', riduzione rischio operativo.
+- ClaudeCode: quality gates, coverage, refactoring e consistency.
+
+## 13. KPI e SLA
+
+### KPI di prodotto
+- Intent resolution success rate >= 85% (R1), >= 92% (R2).
+- Task completion rate `plan` >= 95%.
+- Task completion rate `apply` con approval >= 90%.
+- Manual rework reduction >= 30% entro 90 giorni dal go-live.
+- Provider switch success >= 99% (nessun downtime percepito).
+- Tempo di bootstrap nuovo prodotto <= 5 giorni lavorativi.
+- Percentuale componenti core riusate nei nuovi prodotti >= 70%.
+- Tempo medio propagazione fix critico core -> prodotti derivati <= 72 ore.
+- Percentuale use case cliente convertiti in asset riusabili >= 60%.
+- Tempo medio da delivery custom a asset in catalogo <= 10 giorni lavorativi.
+- Quota delivery su componenti gia' esistenti (vs nuovo sviluppo) >= 50%.
+- Margine medio su use case productizzati >= margine medio use case custom + 20%.
+- Sforamento budget AI per tenant < 5% mensile.
+
+### KPI di qualita'
+- Policy violation leakage = 0.
+- False block rate < 5%.
+- p95 latenza dentro soglie NFR.
+- Error rate API < 2%.
+
+## 14. Piano di delivery
+
+### Fase A - Server Talk Ready (Week 1-2)
+1. Allineare compose/proxy per esposizione API agenti.
+2. Stabilizzare auth dev/prod e bootstrap token.
+3. E2E smoke test chat + conversations.
+
+### Fase B - Agentic Runtime (Week 3-6)
+1. Integrare intent LLM con fallback.
+2. Allowlist intent/actions da manifest reale.
+3. Execution policy engine (`plan/apply`, approval gates).
+
+### Fase C - Provider Decision Layer (Week 7-10)
+1. Implementare preference profiles.
+2. Implementare routing cloud/local/ibrido.
+3. Implementare cost/latency/privacy-aware fallback.
+
+### Fase D - Scale & Trust (Week 11-16)
+1. Dashboard KPI e reporting.
+2. Chaos tests provider failure.
+3. Rollout progressivo tenant per tenant.
+
+## 14.b Exit Criteria (Pass/Fail) per fase
+
+### R0 Pass/Fail
+- PASS se:
+  - API chat su server raggiungibile e stabile per 7 giorni;
+  - smoke E2E verdi su list/info/chat/conversations;
+  - audit base attivo;
+  - auth dev/prod verificata.
+- FAIL se uno dei punti sopra non e' soddisfatto.
+
+## 14.c Readiness Gate 0 (obbligatorio prima di iniziare)
+
+Nessuna fase operativa parte senza Gate 0 superato.
+
+Checklist Gate 0:
+1. Backlog Sprint 1 definito in task atomici con owner, DoD, dipendenze.
+2. Piattaforma pilota selezionata (`GitHub` o `ADO` o `Forgejo`) con motivazione.
+3. RACI approvato e approvatori assegnati (Tech/Security/Product).
+4. Policy minime attive: branch protection, check obbligatori, merge rules.
+5. Baseline tecnica verificata: API up, auth valida, logging/audit attivi.
+6. KPI baseline inizializzati e soglie pass/fail configurate.
+7. Runbook incident e rollback disponibili.
+8. Cadence review fissata (es. weekly) con owner e calendario.
+
+Regola:
+- Se almeno un item Gate 0 e' `not-ready`, la fase resta bloccata.
+
+### R1 Pass/Fail
+- PASS se:
+  - intent resolution >= 85%;
+  - output con metadata obbligatori (`intent`, `confidence`, `provider`, `model`, `policyDecision`);
+  - apply critico sempre bloccato senza approval valida;
+  - false block rate < 8%.
+- FAIL se uno dei punti sopra non e' soddisfatto.
+
+### R2 Pass/Fail
+- PASS se:
+  - routing cloud/local/ibrido attivo via policy + preferenze;
+  - provider switch success >= 99%;
+  - budget guardrails attivi per tenant;
+  - p95 latenza entro soglia NFR.
+- FAIL se uno dei punti sopra non e' soddisfatto.
+
+### R3/R4 Pass/Fail
+- PASS se:
+  - multi-agent flow tracciabile end-to-end;
+  - productization loop attivo con KPI di conversione;
+  - propagation fix critici entro 72 ore.
+- FAIL se uno dei punti sopra non e' soddisfatto.
+
+## 15. Backlog iniziale (prioritizzato)
+
+### P0
+1. Fix deploy path API in server stack e reverse proxy.
+2. Unificare contratto intent in manifest + chat service.
+3. Aggiungere test automatici per `/api/agents/*`.
+4. Rendere output metadata completo (provider/model/policyDecision).
+
+### P1
+1. Provider gateway con adapter cloud/local.
+2. Preference profile e routing policy.
+3. Telemetria costi per request.
+
+### P2
+1. Learning loop su quality metrics.
+2. Multi-agent workflow orchestration.
+3. UX avanzata per decision profile guidato.
+4. Product Factory Kit (template + checklist + pipeline standard).
+5. Processo di propagazione manutenzione core verso prodotti derivati.
+6. Productization Review checklist obbligatoria in chiusura progetto cliente.
+7. Catalogo "dime" (pattern riusabili) con scoring di maturita' e riuso.
+
+## 16. Rischi e mitigazioni
+
+1. Drift tra manifest e runtime.
+- Mitigazione: validazione schema in CI + contract tests.
+
+2. Complessita' multi-provider.
+- Mitigazione: adapter pattern + fallback gerarchico semplice.
+
+3. Costi API non prevedibili.
+- Mitigazione: budget caps per tenant + routing cost-aware.
+
+4. Qualita' inconsistente tra modelli.
+- Mitigazione: benchmark per dominio + golden prompts + evaluator automatico.
+
+5. Over-automation senza controllo.
+- Mitigazione: mandatory approval su classi di azione critiche.
+
+6. Customizzazione eccessiva che rompe la standardizzazione factory.
+- Mitigazione:
+  - policy "core first": il core non si modifica per esigenze locali senza ADR approvata;
+  - ogni richiesta custom deve passare da classificazione `core|config|adapter`;
+  - limite massimo di codice cliente-specifico per modulo (soglia definita per team);
+  - review obbligatoria di impatto riuso prima del merge.
+
+## 17. Assunzioni
+
+- Esiste un team in grado di mantenere almeno 1 provider cloud e 1 locale.
+- Le policy di sicurezza aziendali permettono chat auditing strutturato.
+- I manifest agenti restano il contratto canonico di capability.
+
+## 18. Definition of Done (DoD) per milestone
+
+Una milestone e' completata se:
+1. requisiti P0/P1 della fase sono implementati;
+2. test automatici passano;
+3. runbook operativo aggiornato;
+4. KPI baseline misurabili in ambiente target;
+5. review congiunta multi-agent completata e tracciata.
+6. confine `core vs custom` verificato e documentato nei change principali.
+
+## 18.b Guardrail Core vs Custom
+
+Regole vincolanti:
+1. Le variazioni cliente-specifiche devono stare in configurazione, template o adapter.
+2. Il core condiviso cambia solo per capability riutilizzabili o fix trasversali.
+3. Ogni PR con impatto su core deve dichiarare:
+- motivo;
+- riuso previsto;
+- rischio di lock-in cliente.
+4. Se una customizzazione non e' riusabile, deve restare isolata fuori dal core.
+5. Ogni release include report sintetico: quante modifiche core, quante custom, quante productizzate.
+
+## 18.c Legge Operativa (Flow Vincolante)
+
+Questo flow e' obbligatorio per ogni use case cliente e per ogni evoluzione prodotto.
+
+1. Intake obbligatorio
+- Registrare il caso con obiettivo, vincoli, rischio, dominio.
+
+2. Classificazione tecnica obbligatoria
+- Classificare ogni richiesta in: `core`, `config`, `adapter`.
+- Se non classificata, il lavoro non parte.
+
+3. Design check obbligatorio
+- Verificare impatto su riuso, sicurezza, audit, costi.
+- Se tocca `core`, aprire ADR prima dell'implementazione.
+
+4. Implementazione governata
+- Applicare guardrail policy, approval gates, test minimi richiesti.
+- Nessun hardcode cliente nel core.
+
+5. Review pre-merge
+- Validare: quality gates, confine `core vs custom`, compliance PRD.
+- Se una regola non e' rispettata: merge bloccato.
+
+6. Productization Review (pre-chiusura)
+- Estrarre asset riusabili (dime) e registrarli in catalogo.
+- Marcare esplicitamente cosa resta custom e perche'.
+
+7. Release + Audit
+- Pubblicare changelog con impatti su core/custom.
+- Salvare audit trail tecnico e decisionale.
+
+8. KPI checkpoint
+- Aggiornare KPI obbligatori (riuso, tempi, errori, propagazione fix).
+- Se KPI sotto soglia per 2 cicli: aprire piano correttivo.
+
+9. Maintenance propagation
+- Ogni fix critico core deve avere piano di propagazione verso prodotti derivati.
+- Stato propagazione tracciato fino a completamento.
+
+### Modalita' di esecuzione per ogni step
+- Ogni step e' eseguito dagli agenti quando possibile.
+- Ogni step richiede conferma umana prima di passare allo step successivo.
+- Se la conferma umana manca, il workflow resta in stato `pending_human_confirmation`.
+- Le conferme devono essere auditabili (chi, quando, cosa ha approvato/rifiutato).
+
+Checkpoint minimi con human confirmation obbligatoria:
+1. fine classificazione `core|config|adapter`;
+2. approvazione ADR quando impatta il core;
+3. pre-merge su quality/compliance;
+4. productization review finale;
+5. release e propagation fix critici.
+
+## 18.d RACI Operativo (vincolante)
+
+Ruoli:
+- `Agent System`: esecuzione automatica step, raccolta evidenze, proposta decisioni.
+- `Tech Owner`: approvazione tecnica su core/ADR/merge.
+- `Product Owner`: approvazione valore prodotto e productization.
+- `Security/Compliance Owner`: approvazione per rischio/security/compliance.
+
+RACI per step:
+1. Intake
+- R: Agent System
+- A: Product Owner
+- C: Tech Owner
+- I: Security/Compliance Owner
+
+2. Classificazione `core|config|adapter`
+- R: Agent System
+- A: Tech Owner
+- C: Product Owner
+- I: Security/Compliance Owner
+
+3. Design check + ADR core
+- R: Agent System
+- A: Tech Owner
+- C: Security/Compliance Owner
+- I: Product Owner
+
+4. Implementazione governata
+- R: Agent System
+- A: Tech Owner
+- C: Security/Compliance Owner
+- I: Product Owner
+
+5. Review pre-merge
+- R: Agent System
+- A: Tech Owner
+- C: Security/Compliance Owner
+- I: Product Owner
+
+6. Productization Review
+- R: Agent System
+- A: Product Owner
+- C: Tech Owner
+- I: Security/Compliance Owner
+
+7. Release + Audit
+- R: Agent System
+- A: Tech Owner
+- C: Security/Compliance Owner
+- I: Product Owner
+
+8. KPI checkpoint
+- R: Agent System
+- A: Product Owner
+- C: Tech Owner
+- I: Security/Compliance Owner
+
+9. Maintenance propagation
+- R: Agent System
+- A: Tech Owner
+- C: Product Owner
+- I: Security/Compliance Owner
+
+## 18.e Soglie Step Critico (Human Confirmation obbligatoria)
+
+Uno step e' automaticamente `critical` se almeno una condizione e' vera:
+1. impatta `core` condiviso;
+2. coinvolge dati sensibili o policy security/compliance;
+3. execution mode = `apply` su azioni non read-only;
+4. costo stimato per singola operazione > 20 EUR;
+5. costo mensile tenant previsto > 110% del budget;
+6. rischio operativo classificato `high` o `very_high`;
+7. modifica guardrail, approval flow o audit pipeline.
+
+Regola:
+- se `critical = true`, senza conferma umana lo step non procede.
+
+## 18.f Disciplina Step-by-Step (no-skip policy)
+
+1. Ogni step deve produrre evidenze verificabili (test, log, report, approvazioni).
+2. Lo step successivo parte solo se lo step corrente e' `pass`.
+3. Se uno step fallisce, si apre remediation task prima di avanzare.
+4. Non sono ammessi "salti di fase" per urgenza senza eccezione approvata e tracciata.
+5. Il tempo (settimane) non e' criterio di passaggio: vale solo il criterio pass/fail.
+
+## 18.g Principi Antifragili Operativi
+
+1. Piccoli batch, feedback rapidi: preferire rilasci incrementali e frequenti.
+2. Failure visible: ogni errore deve essere osservabile e classificabile.
+3. Learning loop obbligatorio: ogni incidente produce azione preventiva nel core.
+4. Safe-to-fail: testare fallback e rollback in modo periodico.
+5. Single source of truth: PRD + backlog canonico + audit trail allineati.
+6. No silent debt: deviazioni dagli standard sempre tracciate con owner e data rientro.
+
+## 19. Decisione Go/No-Go
+
+### Go se:
+- chat in server stabile;
+- policy/approval operative;
+- metriche base visibili;
+- almeno 1 percorso cloud e 1 locale validato.
+
+### No-Go se:
+- apply critico senza approval;
+- assenza audit trail;
+- fallback provider non affidabile.
+
+## 20. Allegati consigliati (prossimo step)
+
+1. ADR-001 Provider Abstraction.
+2. ADR-002 Policy & Preference Hierarchy.
+3. Test Plan E2E chat agentica.
+4. Runbook Incident Response (provider down, policy breach).
+5. Template ADR (obbligatorio per modifiche core).
+6. Template Productization Review (obbligatorio in chiusura use case cliente).
+7. Template Release Audit Report (obbligatorio per release in ambienti target).
+
+## 21. Propositi di Start e Direzione
+
+Direzione operativa immediata:
+1. Creare backlog Sprint 1 (DevOps-first) in task atomici con owner, DoD e dipendenze.
+2. Allineare i task a Codex, Antigravity e ClaudeCode con responsabilita' esplicite.
+3. Partire con le prime PR P0 e chiuderle con evidenze test/audit.
+
+Principio di auto-allenamento:
+- EasyWay deve essere applicato prima di tutto su EasyWay ("self-dogfooding"): usiamo internamente gli stessi standard che proponiamo ai clienti.
+- La fiducia si guadagna mostrando execution reale: prima lo facciamo noi, poi lo vendiamo.
+- Regola di credibilita': ogni capability proposta al mercato deve avere almeno un caso interno completo e tracciato end-to-end.
+
+## 21.b Integrazione Sprint 1 su Ecosistema DevOps (GitHub, ADO, Forgejo)
+
+Obiettivo:
+- Integrare lo Sprint 1 DevOps-first atomico nei tre mondi (`GitHub`, `Azure DevOps`, `Forgejo`), valorizzando le specificita' di ciascuna piattaforma e unificando il controllo tramite agenti.
+
+Regole:
+1. Un backlog unico canonico con task atomici, owner, DoD e dipendenze.
+2. Mapping piattaforma-specifico per pipeline, policy e workflow PR/MR.
+3. Eventi e audit normalizzati in un formato comune per gli agenti.
+4. No approccio "big bang": non validare tutti e tre gli ecosistemi in parallelo nella prima iterazione.
+
+Strategia di rollout:
+1. Selezionare un ecosistema pilota (es. ADO o Forgejo) per Sprint 1.
+2. Validare i task P0 end-to-end sul pilota con evidenze.
+3. Estrarre pattern riusabili ("dime DevOps").
+4. Replicare progressivamente su GitHub/ADO/Forgejo con adattamenti minimi.
+
+Vincolo di prodotto:
+- Ogni capability DevOps introdotta deve dichiarare esplicitamente:
+  - livello di supporto per `GitHub`, `Azure DevOps`, `Forgejo`;
+  - gap noti;
+  - data target di convergenza.
+
+## 21.c Platform Approval Model (GitHub, ADO, Forgejo)
+
+Obiettivo:
+- Definire approvatori, controlli e regole di merge per ogni piattaforma, mantenendo un modello di governance coerente.
+
+Requisiti minimi per ogni piattaforma:
+1. Definizione ruoli approvatori:
+- `Tech Approver` (core/runtime)
+- `Security Approver` (policy/compliance/secrets)
+- `Product Approver` (scope/valore/release readiness)
+
+2. Regole branch/merge:
+- protezione branch principali;
+- numero minimo reviewer;
+- check obbligatori prima del merge;
+- blocco merge su gate falliti.
+
+3. Mapping RACI locale:
+- mappare ruoli PR/MR/pipeline ai ruoli RACI del PRD.
+
+4. Audit uniforme:
+- ogni approvazione deve essere tracciata con chi/quando/cosa;
+- eventi normalizzati in formato comune cross-platform.
+
+5. Matrice capability per piattaforma:
+- per ogni capability dichiarare `supported`, `partial`, `planned`.
+
+Nota operativa:
+- i nomi tecnici dei ruoli possono cambiare per piattaforma, ma la responsabilita' funzionale deve restare equivalente.
+
+## 21.d PRD come Roadmap Vivente
+
+Questo PRD e' la roadmap operativa passo-passo.
+
+Regole di evoluzione:
+1. Il PRD viene aggiornato a ogni sprint con decisioni, gap e priorita' emergenti.
+2. Le nuove esigenze importanti entrano come requisiti formalizzati (non solo note informali).
+3. Ogni aggiornamento deve mantenere coerenza con missione, KPI e guardrail.
+
+Obiettivo strategico:
+- Se il modello e' eseguito bene, il flow risultante deve essere estraibile e riutilizzabile come processo standard per qualsiasi altro progetto della factory.
+
+## 21.e Use Case Pilota Ecosistema Unico (Scheduling Conversazionale)
+
+Titolo:
+- Gestione appuntamenti clienti via Portale + Telegram + Calendar Sync.
+
+Descrizione:
+- L'utente interagisce dal portale o da Telegram.
+- L'agente propone slot disponibili, riceve conferma, blocca il calendario e invia conferma finale.
+- Il portale resta la fonte unica di stato e audit.
+- Sincronizzazione verso provider esterni (Google/Microsoft/altro) tramite connettori governati.
+
+Perche' e' strategico:
+1. E' utile internamente a EasyWay per gestire i propri clienti.
+2. E' vendibile come capability immediata verso altri clienti.
+3. Dimostra il principio "vendiamo cio' che usiamo davvero e funziona".
+
+Requisiti minimi del pilota:
+1. Vista unica portale con stato appuntamento (`pending`, `confirmed`, `rescheduled`, `cancelled`, `sync_error`).
+2. Conversazione Telegram tracciata con correlazione a booking.
+3. Sync bidirezionale controllata con almeno un provider calendar in fase pilota.
+4. Audit end-to-end su intent, azioni, conferme umane, sync esterne.
+5. Policy di fallback su errore sync (retry + notifica + remediation task).
+6. UX portale orientata anche a utenti non tecnici, con percorsi chiari "da sito" oltre alle funzioni operative avanzate.
+
+## 22. Policy Git Multi-Remote (ADO, GitHub, Forgejo)
+
+### 22.1 Architettura consigliata (stabile)
+
+Single Source of Truth operativo: repository locale sul PC di sviluppo.
+Policy generale per tutti gli agenti: `local-first, server-second`.
+Ogni agente deve proporre/modificare/validare prima in locale e operare sul server solo dopo conferma, con evidenze e tracciamento audit.
+
+Flusso standard:
+- PC -> commit locale -> push verso `ado`
+- PC -> commit locale -> push verso `github`
+- PC -> commit locale -> push verso `forgejo`
+
+Regola:
+- il server non e' master per il lavoro quotidiano;
+- niente commit diretti su server/remoti, salvo procedure eccezionali tracciate.
+
+### 22.2 Strategia remoti (consigliata)
+
+Usare 3 remote separati (no multi-push su un solo `origin`), per avere errori chiari e controllo per target.
+
+Esempio:
+
+```bash
+git remote add ado     git@ssh.dev.azure.com:v3/ORG/PROJECT/REPO
+git remote add github  git@github.com:username/repo.git
+git remote add forgejo git@80.225.86.168:username/repo.git
+git remote -v
+```
+
+### 22.3 Workflow quotidiano
+
+```bash
+git add -A
+git commit -m "messaggio"
+git push ado <branch>
+git push github <branch>
+git push forgejo <branch>
+```
+
+### 22.4 Regole anti-drift
+
+1. Non fare commit via web UI su GitHub/ADO/Forgejo.
+2. Se succede, riallineare esplicitamente dal remoto dove e' avvenuta la modifica:
+
+```bash
+git pull github <branch>
+git push ado <branch>
+git push forgejo <branch>
+```
+
+3. Ogni riallineamento cross-remote deve essere tracciato in audit operativo.
+
+### 22.5 SSH Forgejo
+
+Accesso amministrativo server:
+
+```bash
+ssh -i "C:\old\Virtual-machine\ssh-key-2026-01-25.key" ubuntu@80.225.86.168
+```
+
+Test autenticazione git verso Forgejo:
+
+```bash
+ssh -i "C:\old\Virtual-machine\ssh-key-2026-01-25.key" git@80.225.86.168
+```
+
+Checklist:
+- Forgejo SSH attivo (porta configurata);
+- chiave pubblica registrata nell'account Forgejo;
+- risposta di autenticazione positiva.
+
+### 22.6 Script di push sequenziale (obbligatorio consigliato)
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+BRANCH="${2:-main}"
+MSG="${1:-Update}"
+
+git add -A
+git commit -m "$MSG" || true
+
+echo "Pushing to Azure DevOps..."
+git push ado "$BRANCH"
+
+echo "Pushing to GitHub..."
+git push github "$BRANCH"
+
+echo "Pushing to Forgejo..."
+git push forgejo "$BRANCH"
+
+echo "All repositories updated successfully."
+```
+
+Regola:
+- se un push fallisce, il processo si ferma;
+- non si prosegue con merge/release finche' i 3 remoti non sono riallineati.
+
+### 22.7 Opzione enterprise (futura)
+
+Pattern avanzato:
+- ADO come primary remote;
+- GitHub e Forgejo come mirror automatici (pipeline/webhook);
+- PC push solo su ADO.
+
+Nota:
+- questa opzione e' prevista come evoluzione DevOps, non come prerequisito iniziale.
+
+### 22.8 Enforcement automatico (obbligatorio)
+
+Per rendere eseguibile la policy `local-first, server-second`, introdurre controlli automatici:
+1. CI check che richiede evidenze locali minime prima del merge (test/log/report).
+2. PR check che valida presenza di:
+- piano step-by-step;
+- conferma umana ai checkpoint critici;
+- strategia rollback.
+3. Blocco merge automatico se manca almeno un requisito.
+
+### 22.9 Agent Task Record (template operativo)
+
+Ogni task eseguito da agenti deve avere un record standard (file o commento strutturato) con:
+1. contesto e obiettivo;
+2. classificazione `core|config|adapter`;
+3. step eseguiti in locale;
+4. evidenze prodotte;
+5. approvazioni umane ricevute;
+6. azioni server eseguite;
+7. esito finale e rollback (se applicato).
+
+Formato consigliato:
+- `docs/ops/agent-task-records/<YYYY-MM-DD>-<task-id>.md`
+
+### 22.10 Exception Policy (gestione urgenze)
+
+Eccezioni alla regola `local-first` sono ammesse solo per incidenti critici.
+
+Regole:
+1. approvazione esplicita di `Tech Owner` o `Security Owner`;
+2. tracciare motivazione e rischio prima dell'azione server;
+3. aprire post-mortem entro 24 ore;
+4. convertire la lezione appresa in controllo permanente (script, gate, runbook).
+
+Vincolo:
+- una eccezione senza post-mortem chiuso blocca le successive release non critiche.
+
+## 23. ToDo List Vivente e Gestione Contesto
+
+### 23.1 ToDo List Vivente
+
+Il PRD mantiene una todo-list operativa da aggiornare a ogni sprint.
+
+Regole:
+1. ogni nuova decisione importante genera una voce todo (implementare/validare/documentare);
+2. ogni voce ha owner, priorita', data target, stato;
+3. nessuna voce critica puo' restare senza owner.
+
+Formato minimo:
+- `ID`
+- `Titolo`
+- `Owner`
+- `Priorita'` (`P0|P1|P2`)
+- `Stato` (`todo|in_progress|blocked|done`)
+- `Next action`
+
+### 23.2 Regola di Context Hygiene (80%)
+
+Per evitare degradazione del contesto in chat lunghe:
+1. quando il contesto utile stimato raggiunge ~80%, l'agente deve produrre un sunto strutturato;
+2. il sunto deve includere: decisioni prese, stato task, blocchi aperti, prossimi passi;
+3. l'agente deve consigliare esplicitamente di ripartire da una nuova chat usando quel sunto come input;
+4. il sunto diventa artefatto persistente in `docs/ops/` o sezione log del PRD.
+
+Output consigliato del sunto:
+1. `Stato attuale`
+2. `Decisioni chiave`
+3. `Task completati`
+4. `Task aperti`
+5. `Rischi/Blocchi`
+6. `Prompt di ripartenza per nuova chat`

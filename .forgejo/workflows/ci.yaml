@@ -60,7 +60,7 @@ jobs:
         run: npm test
         env:
           AUTH_ISSUER: "https://example.com"
-          JWKS_URI: "https://example.com/.well-known/jwks.json"
+          AUTH_JWKS_URI: "https://example.com/.well-known/jwks.json"
           NODE_ENV: "test"
 
   frontend-check:
