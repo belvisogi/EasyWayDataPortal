@@ -74,3 +74,6 @@ scan_results_v2.txt
 # Azure Key Vault references (if using local cache)
 secrets/
 .secrets/
+
+# Branch coordination runtime state
+docs/ops/branch-leases.json

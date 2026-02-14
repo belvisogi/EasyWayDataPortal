@@ -1014,6 +1014,26 @@ Regola operativa:
 2. ogni scaffolding/modifica template deve partire dai path canonici sopra, non da copie locali non allineate;
 3. qualsiasi variazione endpoint/path richiede update immediato di questa sezione PRD + runbook.
 
+### 22.17 Branch Coordination Agent (multi-worker scheduling)
+
+Obiettivo:
+- permettere lavoro parallelo su piu' branch da piu' worker (macchine locali, Codex, Antigravity, ClaudeCode) senza collisioni.
+
+Capability:
+1. recommendation automatica `stay|switch-branch|create-and-switch`;
+2. lease esplicita branch per worker (`claim`);
+3. heartbeat lease durante il lavoro;
+4. release a fine task/handoff.
+
+Artefatti:
+1. `scripts/pwsh/agent-branch-coordinator.ps1`
+2. `docs/ops/BRANCH_COORDINATION_AGENT.md`
+3. lease store: `docs/ops/branch-leases.json`
+
+Regola:
+1. nessun worker inizia implementazione senza `recommend` + `claim`;
+2. branch protette (`main`, `develop`, `baseline`) non devono essere usate come branch di lavoro ordinario.
+
 ## 23. ToDo List Vivente e Gestione Contesto
 
 ### 23.1 ToDo List Vivente
