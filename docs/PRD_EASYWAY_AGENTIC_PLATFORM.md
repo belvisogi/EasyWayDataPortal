@@ -955,6 +955,25 @@ Criterio di conformita':
 1. `no retrieval evidence -> no merge` per task agentici core;
 2. deviazioni ammesse solo come eccezione incident, con approvazione esplicita.
 
+### 22.15 Multi-VCS Agent MVP (capability distribuibile)
+
+Obiettivo:
+- avere un agente unico riusabile anche fuori EasyWay che gestisca ADO, GitHub, Forgejo con lo stesso workflow operativo.
+
+Capability minime:
+1. `validate-auth`: verifica accesso SSH/API ai remoti configurati;
+2. `sync`: push multi-remote con verifica post-push multi-pass e repair opzionale;
+3. `monitor`: monitor branch presence con log evidenza;
+4. `create-pr`: apertura PR cross-provider (ADO/GitHub/Forgejo) via CLI dedicati.
+
+Artefatti MVP:
+1. `scripts/pwsh/agent-multi-vcs.ps1`
+2. `scripts/pwsh/multi-vcs.config.example.ps1`
+3. `docs/ops/MULTI_VCS_AGENT_MVP.md`
+
+Regola di prodotto:
+- il comportamento deve essere provider-agnostic lato workflow, provider-specific solo nel layer di integrazione CLI/API.
+
 ## 23. ToDo List Vivente e Gestione Contesto
 
 ### 23.1 ToDo List Vivente
