@@ -733,6 +733,10 @@ git remote add forgejo git@80.225.86.168:username/repo.git
 git remote -v
 ```
 
+Nota standard:
+- Best practice target: `SSH for Git`, `PAT only for CLI/API`.
+- HTTPS per `git push` e PAT in credential cache e' ammesso solo come fallback temporaneo.
+
 ### 22.3 Workflow quotidiano
 
 ```bash
@@ -872,6 +876,41 @@ Regole:
 
 Vincolo:
 - una eccezione senza post-mortem chiuso blocca le successive release non critiche.
+
+### 22.11 Azione prioritaria aperta: migrazione credenziali Git
+
+Problema osservato:
+- conflitti tra autenticazione HTTPS Git (credential cache) e token usati da Azure DevOps CLI.
+
+Decisione:
+1. migrare i remoti Git critici a SSH (`ssh.dev.azure.com`, `github`, `forgejo`);
+2. usare PAT solo per comandi API/CLI (`az repos`, automazioni PR, governance);
+3. eliminare credenziali obsolete HTTPS dal credential manager.
+
+Criterio di chiusura:
+- push/fetch/clone stabili su SSH in tutti i remoti primari;
+- nessun errore ricorrente `Authentication failed` su workflow standard.
+
+### 22.12 Benchmark esterni (adottare per accelerare)
+
+Principio:
+- non reinventare: adottare pattern gia' validati e adattarli al contesto EasyWay.
+
+Baseline da seguire:
+1. GitHub SSH setup ufficiale:
+- https://docs.github.com/en/authentication/connecting-to-github-with-ssh
+2. Azure DevOps SSH for Git:
+- https://devblogs.microsoft.com/devops/ssh-support-for-git-repos-is-now-available/
+3. Git push mirror/prune (rischi e comportamento):
+- https://git-scm.com/docs/git-push/2.20.0
+4. Riduzione uso PAT (linea Microsoft):
+- https://devblogs.microsoft.com/devops/reducing-pat-usage-across-azure-devops/
+5. Esempio pratico ssh config Azure multi-key:
+- https://gist.github.com/johnkors/f5bb409056934ad289517e3611161bd9
+
+Regola operativa:
+1. ogni decisione tecnica su auth/sync deve citare almeno una baseline esterna;
+2. se deviamo dalle baseline, documentare motivo e mitigazione nel decision log.
 
 ## 23. ToDo List Vivente e Gestione Contesto
 
