@@ -26,6 +26,11 @@ Definire una baseline unica di protezioni Git per evitare cancellazioni non volu
 - Branch critici: `main`, `develop`
 - Branch operativi: `feature/*`, `chore/*`, `hotfix/*`
 
+## Allineamento PRD
+Questo runbook implementa operativamente le linee guida del PRD platform:
+- `docs/PRD_EASYWAY_AGENTIC_PLATFORM.md` (integrazione Sprint 1 su `GitHub`/`Azure DevOps`/`Forgejo`)
+- `docs/PRD_EASYWAY_AGENTIC_PLATFORM.md` (Policy Git Multi-Remote e guardrail minimi)
+
 ## Baseline obbligatoria (tutti i provider)
 1. PR obbligatoria su `main` e `develop`.
 2. Disabilitare force-push su `main` e `develop`.
