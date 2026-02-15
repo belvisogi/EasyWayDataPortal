@@ -94,6 +94,9 @@ Regole operative:
 - `Manage permissions` = `Not set` (o `Deny` se richiesto)
 3. Su `develop` e `main`:
 - `Branch policies` -> build validation required.
+- marcare come required i job guardrail:
+  - `BranchPolicyGuard` (naming branch + target flow PR)
+  - `EnforcerCheck` (allowed_paths agent)
 - `Minimum number of reviewers` >= 1.
 - Disabilitare completamento PR senza policy.
 4. Lock opzionale su branch critici durante finestre sensibili.
@@ -150,6 +153,8 @@ Regole operative:
 - [ ] Force-push bloccato su branch critici
 - [ ] Delete branch bloccato su branch critici
 - [ ] CI required in PR
+- [ ] `BranchPolicyGuard` required in PR
+- [ ] `EnforcerCheck` required in PR
 - [ ] Reviewer minimo impostato
 - [ ] Nessun bypass policy non autorizzato
 - [ ] Audit settimanale pianificato
