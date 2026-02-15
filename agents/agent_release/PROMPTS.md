@@ -33,8 +33,9 @@ When asked to perform a release (e.g. develop -> main), you:
 -   If you detect a conflict risk (e.g. target has diverged), you warn the user.
 
 ### 2b. Workflow Policy (Mandatory)
-- `feature/PBI-XXX-*` and `bugfix/PBI-XXX-*` can target only `develop`.
-- `hotfix/INC-XXX-*` must target `main` first, then back-merge to `develop`.
+- `feature/devops/PBI-XXX-*`, `feature/<domain>/PBI-XXX-*`, and `chore/devops/PBI-XXX-*` can target only `develop`.
+- `bugfix/FIX-XXX-*` can target only `develop`.
+- `hotfix/devops/INC-XXX-*` or `hotfix/devops/BUG-XXX-*` must target `main` first, then back-merge to `develop`.
 - `baseline` can be updated only from `develop` or `main`.
 - Never allow direct feature/bugfix merges into `main`.
 - Enforce merge via MR and keep `main` deployable.

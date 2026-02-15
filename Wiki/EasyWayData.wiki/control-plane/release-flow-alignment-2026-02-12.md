@@ -73,8 +73,10 @@ type: guide
 - Scope: release workflow, policy branch, docs sync, indicizzazione RAG.
 
 ## Policy operativa (sintesi)
-- `feature/PBI-XXX-*` e `bugfix/PBI-XXX-*` -> target consentito: `develop`.
-- `hotfix/INC-XXX-*` -> target consentito: `main` (poi back-merge su `develop`).
+- `feature/devops/PBI-XXX-*` e `feature/<domain>/PBI-XXX-*` -> target consentito: `develop`.
+- `chore/devops/PBI-XXX-*` -> target consentito: `develop`.
+- `bugfix/FIX-XXX-*` -> target consentito: `develop`.
+- `hotfix/devops/INC-XXX-*` o `hotfix/devops/BUG-XXX-*` -> target consentito: `main` (poi back-merge su `develop`).
 - `baseline` aggiornabile solo da `develop` o `main`.
 - Vietato merge diretto feature/bugfix su `main`.
 - Il server runtime si sincronizza da `main` (o target esplicito) e non ospita commit di sviluppo.

@@ -20,7 +20,7 @@
     Path to the JSON policy file. Defaults to adjacent policies.json.
 
 .EXAMPLE
-    .\agent-guard.ps1 -SourceBranch "feature/PBI-001-ui" -TargetBranch "develop"
+    .\agent-guard.ps1 -SourceBranch "feature/devops/PBI-001-ui" -TargetBranch "develop"
 #>
 
 [CmdletBinding()]

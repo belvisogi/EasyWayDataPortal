@@ -20,12 +20,12 @@ Scenari operativi per testare il "Consiglio degli Agenti" su GitLab.
 
 1.  **Trigger**: Umano assegna ticket `PBI-101: Add Login` a `agent_developer`.
 2.  **Action (Dev)**:
-    *   `git checkout -b feature/PBI-101-login`
+    *   `git checkout -b feature/devops/PBI-101-login`
     *   `git push`
     *   `Open Merge Request`
 3.  **Check (Guard)**:
     *   Rileva MR.
-    *   Verifica pattern branch: `feature/PBI-.*` ✅.
+    *   Verifica pattern branch: `feature/<domain>/PBI-.*` ✅.
     *   Verifica target: `develop` ✅.
     *   Esito: **PASS**.
 4.  **Merge (Release)**:
@@ -48,7 +48,7 @@ Scenari operativi per testare il "Consiglio degli Agenti" su GitLab.
     *   Esito: **BLOCK**.
 3.  **Action**:
     *   Guard chiude la MR.
-    *   Commenta: "Violazione Policy. Riaprire come hotfix/INC-... verso develop".
+    *   Commenta: "Violazione Policy. Riaprire come hotfix/devops/INC-... o hotfix/devops/BUG-...".
 
 ---
 
