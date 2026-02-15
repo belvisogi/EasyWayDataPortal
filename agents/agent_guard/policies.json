@@ -9,13 +9,13 @@
                 "^feature/backend/PBI-\\d+-[a-z0-9-]+$",
                 "^feature/PBI-\\d+-[a-z0-9-]+$",
                 "^chore/devops/PBI-\\d+-[a-z0-9-]+$",
-                "^hotfix/devops/PBI-\\d+-[a-z0-9-]+$",
+                "^hotfix/devops/(INC|BUG)-\\d+-[a-z0-9-]+$",
                 "^bugfix/FIX-\\d{3,}-[a-z0-9-]+$",
-                "^hotfix/INC-\\d{3,}-[a-z0-9-]+$",
+                "^hotfix/(INC|BUG)-\\d{3,}-[a-z0-9-]+$",
                 "^develop$",
                 "^main$"
             ],
-            "error_message": "Branch name must follow policy, e.g. feature/devops/PBI-123-desc (or domain variants), bugfix/FIX-000-desc, hotfix/INC-000-desc"
+            "error_message": "Branch name must follow policy, e.g. feature/devops/PBI-123-desc, chore/devops/PBI-123-desc, hotfix/devops/INC-123-desc or hotfix/devops/BUG-123-desc"
         },
         "commit_message": {
             "enabled": true,

@@ -1105,9 +1105,11 @@ Regole naming branch per PBI (vincolanti):
 2. pattern ammessi dominio-specifici:
 - `feature/frontend/PBI-<id>-<slug>`
 - `feature/backend/PBI-<id>-<slug>`
-- `hotfix/devops/PBI-<id>-<slug>`
+- `hotfix/devops/INC-<id>-<slug>`
+- `hotfix/devops/BUG-<id>-<slug>`
 - `chore/devops/PBI-<id>-<slug>`
-3. ogni PR deve mantenere corrispondenza branch <-> titolo usando stesso `PBI-<id>`.
+3. sotto `hotfix` non usare `PBI`: usare solo `INC-<id>` o `BUG-<id>`.
+4. ogni PR deve mantenere corrispondenza branch <-> titolo usando stesso id (`PBI`, `INC` o `BUG`).
 
 Modello identita' Antigravity (vincolante):
 1. vietato uso account personali per operazioni agentiche;

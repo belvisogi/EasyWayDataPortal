@@ -37,13 +37,15 @@ Esempi:
 Pattern alternativi per dominio:
 - `feature/frontend/PBI-<id>-<slug>`
 - `feature/backend/PBI-<id>-<slug>`
-- `hotfix/devops/PBI-<id>-<slug>`
+- `hotfix/devops/INC-<id>-<slug>`
+- `hotfix/devops/BUG-<id>-<slug>`
 - `chore/devops/PBI-<id>-<slug>`
 
 Regole:
 1. ogni branch operativo deve includere `PBI-<id>` quando derivato da backlog ADO;
-2. vietato lavorare su `develop`/`main` come branch di implementazione;
-3. il titolo PR deve iniziare con lo stesso `PBI-<id>`.
+2. sotto `hotfix` non usare `PBI`: usare solo `INC-<id>` o `BUG-<id>`;
+3. vietato lavorare su `develop`/`main` come branch di implementazione;
+4. il titolo PR deve iniziare con lo stesso id (`PBI-<id>` o `INC/BUG-<id>`).
 
 ## Allineamento PRD
 Questo runbook implementa operativamente le linee guida del PRD platform:
