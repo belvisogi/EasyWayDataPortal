@@ -1074,6 +1074,9 @@ Stato runtime (git-ignored):
 Obiettivo:
 - trasferire l'operativita' quotidiana ad Antigravity mantenendo gli stessi guardrail e la stessa evidenza audit.
 
+Nota di governance:
+- le regole di questa sezione sono standard EasyWay trasversali e si applicano a qualunque operatore/team/agent runtime (non solo Antigravity).
+
 Entrypoint canonici:
 1. sync branch sicuro:
 - `pwsh -NoProfile -File .\scripts\pwsh\git-safe-sync.ps1 -Branch develop -Remote origin -Mode align -SetGuardrails`
@@ -1120,6 +1123,9 @@ Modello identita' Antigravity (vincolante):
 - `svc.agent.antigravity.guard`
 4. assegnare least privilege ai gruppi e non direttamente agli utenti;
 5. credenziali separate per provider (`ADO`/`GitHub`/`Forgejo`) con rotazione periodica.
+
+Riferimento operativo RBAC multi-provider:
+- `Wiki/EasyWayData.wiki/Runbooks/multivcs-rbac-bootstrap.md`
 
 ## 23. ToDo List Vivente e Gestione Contesto
 
