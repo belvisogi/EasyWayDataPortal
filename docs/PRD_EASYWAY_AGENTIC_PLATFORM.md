@@ -1159,6 +1159,11 @@ Criterio di conformita' operativa:
 2. nessun merge se naming/target branch non rispettano le policy;
 3. ogni eccezione deve essere tracciata con owner, motivazione e data di rientro.
 
+Pulizia branch bootstrap (regola operativa):
+1. i branch temporanei di bootstrap (`chore-*`, `*-template`) devono essere chiusi/rimossi dopo il merge su `develop`;
+2. la nuova operativita' deve partire solo da branch `feature/<domain>/PBI-*` per sviluppo ordinario;
+3. usare branch `hotfix/devops/INC-*` o `hotfix/devops/BUG-*` solo per incident reali e urgenti.
+
 ## 23. ToDo List Vivente e Gestione Contesto
 
 ### 23.1 ToDo List Vivente
