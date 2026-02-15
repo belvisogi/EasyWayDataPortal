@@ -936,6 +936,16 @@ KPI di stabilita':
 2. zero `forced-update` inattesi su branch protetti;
 3. nessuna ricorrenza di ripristino manuale branch oltre 7 giorni operativi.
 
+Riferimenti operativi (vincolanti):
+1. runbook multi-provider:
+- `Wiki/EasyWayData.wiki/Runbooks/multivcs-branch-guardrails.md`
+2. sync standard branch:
+- `docs/ops/GIT_SAFE_SYNC.md`
+3. policy check required in PR (ADO):
+- `Wiki/EasyWayData.wiki/checklist-ado-required-job.md`
+4. enforcer guardrail CI:
+- `Wiki/EasyWayData.wiki/enforcer-guardrail.md`
+
 ### 22.14 Regola vincolante: Retrieval sempre da RAG server
 
 Decisione:
