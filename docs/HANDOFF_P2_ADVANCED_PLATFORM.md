@@ -57,7 +57,16 @@ All features have been verified via checklists located in `brain/`:
 ## 6. Access & Permissions (Known Gaps)
 - **PR Automation**: The agent (`agent_pr_manager`) can generate PR descriptions locally but cannot currently open PRs on Azure DevOps due to missing PAT/permissions in the agent runtime environment. This step remains manual for now.
 
-## 7. Next Steps (P3 Preview)
+## 7. Governance Enforcement (Strict)
+> [!IMPORTANT]
+> **No Direct Pushes to `main`. No Hotfix Bypasses.**
+> 
+> - The **Hotfix Bypass** procedure has been explicitly **REMOVED**. All changes must flow through `develop`.
+> - Local Git Hooks (`pre-push`) are unreliable in this environment.
+> - **MANDATORY**: Enable "Branch Policies" on Azure DevOps for `main` and `develop` immediately to enforce this rule server-side.
+> - Use `agent-pr.ps1` which contains the logic to block illegal PRs.
+
+## 8. Next Steps (P3 Preview)
 With the foundation solid, the next logical phase is **Workflow Intelligence**:
 1.  **Decision Profile UX**: Guided wizard for business users to define risk profiles.
 2.  **Reusable Pattern Catalog ("Dime")**: Library of common agent skills (e.g., "SQL Query", "Summarize").

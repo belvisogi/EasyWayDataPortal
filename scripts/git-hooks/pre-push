@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# GEDI GUARDRAIL: Pre-Push Hook
+# Prevents direct pushes to protected branches.
+
+while read local_ref local_sha remote_ref remote_sha
+do
+    # Extract branch name from remote ref
+    branch_name=${remote_ref#refs/heads/}
+
+    if [[ "$branch_name" == "main" ]] || [[ "$branch_name" == "develop" ]]; then
+        echo "----------------------------------------------------------------"
+        echo "⛔ GEDI INTERVENTION (Guardian EasyWay Delle Intenzioni)"
+        echo "----------------------------------------------------------------"
+        echo "🛑 DIRECT PUSH BLOCKED: '$branch_name' is a Protected Branch."
+        echo ""
+        echo "   Principle: 'Measure Twice, Cut Once'"
+        echo "   Governance: Changes must pass through a Pull Request."
+        echo ""
+        echo "   Action: Create a feature branch and open a PR."
+        echo "----------------------------------------------------------------"
+        exit 1
+    fi
+done
+
+exit 0
