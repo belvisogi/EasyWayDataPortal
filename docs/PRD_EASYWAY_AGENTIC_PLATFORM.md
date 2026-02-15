@@ -1129,6 +1129,36 @@ Modello identita' Antigravity (vincolante):
 Riferimento operativo RBAC multi-provider:
 - `Wiki/EasyWayData.wiki/Runbooks/multivcs-rbac-bootstrap.md`
 
+### 22.20 Protocollo di Partenza Pulita (vincolante)
+
+Obiettivo:
+- garantire che ogni nuovo ciclo di lavoro parta da regole, branch e policy coerenti, evitando eredita' operative ambigue.
+
+Regole di ingresso (obbligatorie):
+1. usare `develop` come base di lavoro sincronizzata;
+2. non avviare attivita' su branch legacy/non conformi;
+3. applicare naming branch canonico:
+- `feature/<domain>/PBI-<id>-<slug>`
+- `chore/devops/PBI-<id>-<slug>`
+- `bugfix/FIX-<id>-<slug>`
+- `hotfix/devops/INC-<id>-<slug>` o `hotfix/devops/BUG-<id>-<slug>`
+4. vietato usare `PBI` sotto `hotfix`;
+5. PR obbligatoria verso `develop` (eccetto hotfix: `main` poi back-merge su `develop`).
+
+Checklist di bootstrap (prima di iniziare):
+1. confermare branch protection attiva su `main`/`develop`;
+2. confermare check required attivi:
+- `BranchPolicyGuard`
+- `EnforcerCheck`
+3. confermare gruppi/identita' tecniche allineate al runbook RBAC;
+4. confermare assenza di bypass policy non autorizzati;
+5. confermare runbook e PRD allineati all'ultima decisione.
+
+Criterio di conformita' operativa:
+1. nessun task entra in implementazione se la checklist bootstrap non e' verde;
+2. nessun merge se naming/target branch non rispettano le policy;
+3. ogni eccezione deve essere tracciata con owner, motivazione e data di rientro.
+
 ## 23. ToDo List Vivente e Gestione Contesto
 
 ### 23.1 ToDo List Vivente
