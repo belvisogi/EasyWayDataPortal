@@ -936,6 +936,16 @@ KPI di stabilita':
 2. zero `forced-update` inattesi su branch protetti;
 3. nessuna ricorrenza di ripristino manuale branch oltre 7 giorni operativi.
 
+Riferimenti operativi (vincolanti):
+1. runbook multi-provider:
+- `Wiki/EasyWayData.wiki/Runbooks/multivcs-branch-guardrails.md`
+2. sync standard branch:
+- `docs/ops/GIT_SAFE_SYNC.md`
+3. policy check required in PR (ADO):
+- `Wiki/EasyWayData.wiki/checklist-ado-required-job.md`
+4. enforcer guardrail CI:
+- `Wiki/EasyWayData.wiki/enforcer-guardrail.md`
+
 ### 22.14 Regola vincolante: Retrieval sempre da RAG server
 
 Decisione:
@@ -1058,6 +1068,96 @@ Stato runtime (git-ignored):
 1. `docs/ops/llm-router-state.json`
 2. `docs/ops/logs/llm-router-events.jsonl`
 3. `docs/ops/approvals/*.json`
+
+### 22.19 Handoff operativo ad Antigravity (vincolante)
+
+Obiettivo:
+- trasferire l'operativita' quotidiana ad Antigravity mantenendo gli stessi guardrail e la stessa evidenza audit.
+
+Nota di governance:
+- le regole di questa sezione sono standard EasyWay trasversali e si applicano a qualunque operatore/team/agent runtime (non solo Antigravity).
+
+Entrypoint canonici:
+1. sync branch sicuro:
+- `pwsh -NoProfile -File .\scripts\pwsh\git-safe-sync.ps1 -Branch develop -Remote origin -Mode align -SetGuardrails`
+2. runbook branch guardrails multi-provider:
+- `Wiki/EasyWayData.wiki/Runbooks/multivcs-branch-guardrails.md`
+3. policy check required (ADO):
+- `Wiki/EasyWayData.wiki/checklist-ado-required-job.md`
+4. guardrail CI enforcer:
+- `Wiki/EasyWayData.wiki/enforcer-guardrail.md`
+
+Checklist minima prima del passaggio:
+1. branch protection coerente su `Azure DevOps`, `GitHub`, `Forgejo` per `main`/`develop`;
+2. `Force push` e delete branch negati ai contributor su branch critici;
+3. PR policy con check required attivi e verificati;
+4. runbook aggiornati e versionati in repo;
+5. owner e backup owner nominati per ogni piattaforma.
+
+Definition of Done handoff:
+1. Antigravity completa almeno 1 ciclo end-to-end (`sync -> branch -> commit -> PR -> merge`) senza bypass policy;
+2. audit log disponibile con evidenza di controlli e approvazioni;
+3. nessun incidente `branch missing` per almeno 7 giorni operativi consecutivi;
+4. documentazione allineata: PRD + runbook + eventuali note operative.
+
+Regole naming branch per PBI (vincolanti):
+1. pattern primario DevOps: `feature/devops/PBI-<id>-<slug>`;
+2. pattern ammessi dominio-specifici:
+- `feature/frontend/PBI-<id>-<slug>`
+- `feature/backend/PBI-<id>-<slug>`
+- `hotfix/devops/INC-<id>-<slug>`
+- `hotfix/devops/BUG-<id>-<slug>`
+- `chore/devops/PBI-<id>-<slug>`
+3. sotto `hotfix` non usare `PBI`: usare solo `INC-<id>` o `BUG-<id>`.
+4. ogni PR deve mantenere corrispondenza branch <-> titolo usando stesso id (`PBI`, `INC` o `BUG`).
+
+Modello identita' Antigravity (vincolante):
+1. vietato uso account personali per operazioni agentiche;
+2. creare gruppi minimi:
+- `grp.repo.agents.read`
+- `grp.repo.agents.write`
+- `grp.repo.agents.pr`
+- `grp.repo.agents.release`
+- `grp.repo.agents.admin` (break-glass)
+3. creare utenti servizio minimi:
+- `svc.agent.antigravity.devops`
+- `svc.agent.antigravity.release`
+- `svc.agent.antigravity.guard`
+4. assegnare least privilege ai gruppi e non direttamente agli utenti;
+5. credenziali separate per provider (`ADO`/`GitHub`/`Forgejo`) con rotazione periodica.
+
+Riferimento operativo RBAC multi-provider:
+- `Wiki/EasyWayData.wiki/Runbooks/multivcs-rbac-bootstrap.md`
+
+### 22.20 Protocollo di Partenza Pulita (vincolante)
+
+Obiettivo:
+- garantire che ogni nuovo ciclo di lavoro parta da regole, branch e policy coerenti, evitando eredita' operative ambigue.
+
+Regole di ingresso (obbligatorie):
+1. usare `develop` come base di lavoro sincronizzata;
+2. non avviare attivita' su branch legacy/non conformi;
+3. applicare naming branch canonico:
+- `feature/<domain>/PBI-<id>-<slug>`
+- `chore/devops/PBI-<id>-<slug>`
+- `bugfix/FIX-<id>-<slug>`
+- `hotfix/devops/INC-<id>-<slug>` o `hotfix/devops/BUG-<id>-<slug>`
+4. vietato usare `PBI` sotto `hotfix`;
+5. PR obbligatoria verso `develop` (eccetto hotfix: `main` poi back-merge su `develop`).
+
+Checklist di bootstrap (prima di iniziare):
+1. confermare branch protection attiva su `main`/`develop`;
+2. confermare check required attivi:
+- `BranchPolicyGuard`
+- `EnforcerCheck`
+3. confermare gruppi/identita' tecniche allineate al runbook RBAC;
+4. confermare assenza di bypass policy non autorizzati;
+5. confermare runbook e PRD allineati all'ultima decisione.
+
+Criterio di conformita' operativa:
+1. nessun task entra in implementazione se la checklist bootstrap non e' verde;
+2. nessun merge se naming/target branch non rispettano le policy;
+3. ogni eccezione deve essere tracciata con owner, motivazione e data di rientro.
 
 ## 23. ToDo List Vivente e Gestione Contesto
 

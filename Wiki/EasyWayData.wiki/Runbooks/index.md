@@ -25,6 +25,8 @@ llm:
 
 - [Agent Chat Retention (SQL Server Agent Job)](./agent-chat-retention.md)
 - [Bootstrap Dual Server (Oracle Dev/Staging + Hetzner Prod)](./dual-server-bootstrap.md)
+- [Multi-VCS Branch Guardrails (ADO, GitHub, Forgejo)](./multivcs-branch-guardrails.md)
+- [Multi-VCS RBAC Bootstrap (ADO, GitHub, Forgejo)](./multivcs-rbac-bootstrap.md)
 - [🧠 RAG Operations & Q&A Guide (Private Brain)](./rag-operations.md)
 
 

@@ -33,7 +33,7 @@ Obiettivo: Garantire stabilità, tracciabilità e una collaborazione fluida tra 
 *   **Ruolo**: Urgenze su Produzione.
 *   **Origine**: Staccato da `main`.
 *   **Destinazione**: Merge su `main` **E** su `develop` (per evitare regressioni future).
-*   **Naming**: `hotfix/PBI-XXX-descrizione`
+*   **Naming**: `hotfix/devops/INC-XXX-descrizione` oppure `hotfix/devops/BUG-XXX-descrizione`
 
 ### `baseline`
 *   **Ruolo**: Base stabile per Vendor / Freeze specifici.
@@ -49,9 +49,11 @@ Standardizzare i nomi permette agli Agenti di capire il contesto.
 
 | Tipo | Pattern Branch | Titolo PR |
 | :--- | :--- | :--- |
-| **Feature** | `feature/PBI-000-short-desc` | `PBI-000: Titolo descrittivo` |
-| **Bugfix** | `bugfix/PBI-000-short-desc` | `FIX-000: Titolo descrittivo` |
-| **Hotfix** | `hotfix/INC-000-short-desc` | `HOTFIX: Titolo urgente` |
+| **Feature (DevOps)** | `feature/devops/PBI-000-short-desc` | `PBI-000: Titolo descrittivo` |
+| **Feature (Domain)** | `feature/<domain>/PBI-000-short-desc` | `PBI-000: Titolo descrittivo` |
+| **Chore (DevOps)** | `chore/devops/PBI-000-short-desc` | `PBI-000: Titolo descrittivo` |
+| **Bugfix** | `bugfix/FIX-000-short-desc` | `FIX-000: Titolo descrittivo` |
+| **Hotfix** | `hotfix/devops/INC-000-short-desc` o `hotfix/devops/BUG-000-short-desc` | `INC-000/BUG-000: Titolo urgente` |
 
 **Descrizione PR Template**:
 > **Cosa cambia**: ...
@@ -61,7 +63,7 @@ Standardizzare i nomi permette agli Agenti di capire il contesto.
 ### 🔗 Il "Magic Link" (Traceability)
 Usando questi prefissi, GitLab collega automaticamente il codice ai requisiti:
 1.  **Issue #101**: "Creare Login" (Label: `PBI`)
-2.  **Branch**: `feature/PBI-101-login`
+2.  **Branch**: `feature/devops/PBI-101-login`
 3.  **Risultato**: Nella Issue vedrai il link alla Merge Request. Nella MR vedrai "Closes #101".
 **Senza ID nel nome, si perde la tracciabilità.**
 

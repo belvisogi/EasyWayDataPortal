@@ -82,3 +82,7 @@ docs/ops/branch-leases.json
 docs/ops/llm-router-state.json
 docs/ops/logs/llm-router-events.jsonl
 docs/ops/approvals/*.json
+
+# Local agent configs (copy from *.example.ps1)
+scripts/pwsh/llm-router.config.ps1
+scripts/pwsh/multi-vcs.config.ps1

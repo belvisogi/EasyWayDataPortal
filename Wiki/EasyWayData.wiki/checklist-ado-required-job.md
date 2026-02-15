@@ -25,11 +25,11 @@ llm:
 [Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > [[Layer - Gate|Gate]]
 
 Obiettivo
-- Rendere il job `EnforcerCheck` obbligatorio nelle Pull Request verso `develop`/`main` in Azure Repos.
+- Rendere i job `BranchPolicyGuard` e `EnforcerCheck` obbligatori nelle Pull Request verso `develop`/`main` in Azure Repos.
 
 Prerequisiti
 - Permessi di maintainer su Azure DevOps (Project Settings).
-- Pipeline già configurata con stage `PreChecks` → job `EnforcerCheck`.
+- Pipeline già configurata con stage `PreChecks` → job `BranchPolicyGuard` e `EnforcerCheck`.
 
 Passi UI in Azure DevOps (Branch Policies)
 - Vai a Repos → Branches → seleziona `develop` (ripeti per `main`).
@@ -39,7 +39,7 @@ Passi UI in Azure DevOps (Branch Policies)
   - Opzioni: Required = ON; Trigger: Automatic; Policy requirement: Required.
   - Facoltativo: Path filters se vuoi limitare.
   - Salva.
-- Verifica che il job `EnforcerCheck` compaia tra i checks richiesti nelle PR.
+- Verifica che i job `BranchPolicyGuard` e `EnforcerCheck` compaiano tra i checks richiesti nelle PR.
 
 Note
 - Motivo del guardrail: bloccare “azioni fuori scope” in modo automatico e precoce, verificando gli `allowed_paths` degli agenti.

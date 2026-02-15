@@ -20,6 +20,8 @@ Scope: agente operativo unico per auth check, sync multi-remote, monitor branch 
 ```powershell
 Copy-Item .\scripts\pwsh\multi-vcs.config.example.ps1 .\scripts\pwsh\multi-vcs.config.ps1
 ```
+Nota:
+- `scripts/pwsh/multi-vcs.config.ps1` e' una config locale runtime ed e' esclusa da Git (`.gitignore`).
 
 2. Aggiornare `multi-vcs.config.ps1` con:
 - remoti presenti (`ado`, `github`, `forgejo`);

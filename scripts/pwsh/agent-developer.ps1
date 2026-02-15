@@ -27,6 +27,7 @@ param(
 
     [string]$PBI,
     [string]$Desc,
+    [string]$Domain = "devops",
     [string]$Type,
     [string]$Message
 )
@@ -48,7 +49,7 @@ switch ($Action) {
         Run-Git "pull origin develop"
 
         # 2. Derive Branch Name (Standard)
-        $branchName = "feature/$PBI-$Desc"
+        $branchName = "feature/$Domain/$PBI-$Desc"
         Write-Host "👷 Starting work on: $branchName" -ForegroundColor Cyan
 
         # 3. Create Branch

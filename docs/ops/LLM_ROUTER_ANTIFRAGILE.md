@@ -25,6 +25,8 @@ Provide a single control point for LLM calls with:
 ```powershell
 Copy-Item .\scripts\pwsh\llm-router.config.example.ps1 .\scripts\pwsh\llm-router.config.ps1
 ```
+Note:
+- `scripts/pwsh/llm-router.config.ps1` is local runtime config and is excluded from Git (`.gitignore`).
 2. Enable providers and set API keys (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`) if needed.
 3. Keep at least one provider enabled (`levi-local` is safe default mock).
 
