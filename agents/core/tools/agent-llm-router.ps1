@@ -1,5 +1,5 @@
 param(
-    [ValidateSet("invoke", "request-approval", "approve", "reject", "status")]
+    [ValidateSet("invoke", "request-approval", "approve", "reject", "status", "feedback")]
     [string]$Action = "invoke",
     [string]$Prompt = "",
     [string]$TaskType = "generic",
@@ -12,7 +12,11 @@ param(
     [string]$ConfigPath = ".\scripts\pwsh\llm-router.config.ps1",
     [string]$StatePath = "docs/ops/llm-router-state.json",
     [string]$EventLogPath = "docs/ops/logs/llm-router-events.jsonl",
+    [string]$FeedbackLogPath = "docs/ops/logs/llm-router-feedback.jsonl",
     [string]$ApprovalDir = "docs/ops/approvals",
+    [string]$Preference = "",
+    [int]$Rating = 0,
+    [string]$Comment = "",
     [switch]$BypassRagEvidence,
     [switch]$JsonOutput,
     [switch]$DryRun
@@ -117,21 +121,59 @@ function Get-ProviderCandidates {
     return $candidates
 }
 
+function Get-ProviderByPreference {
+    param($Candidates, $Preference, $Config)
+    
+    if (-not $Preference -or -not $Config.Profiles) {
+        return $Candidates
+    }
+
+    if (-not $Config.Profiles.ContainsKey($Preference)) {
+        Write-Warning "Preference profile '$Preference' not found. Using default routing."
+        return $Candidates
+    }
+
+    $profile = $Config.Profiles[$Preference]
+    $allowedTags = $profile.allowedTags
+
+    # Filter candidates by tags
+    $filtered = @($Candidates | Where-Object {
+            $p = $_
+            $isFound = $false
+            if ($p.tags) {
+                foreach ($t in $allowedTags) {
+                    if ($p.tags -contains $t) { $isFound = $true; break }
+                }
+            }
+            $isFound
+        })
+
+    if ($filtered.Count -eq 0) {
+        if ($profile.fallback -eq "block") {
+            throw "No providers available for preference '$Preference' (tags: $($allowedTags -join ', ')). Fallback is block."
+        }
+        Write-Warning "No providers found for preference '$Preference'. Fallback to best effort."
+        return $Candidates
+    }
+
+    return $filtered
+}
+
 function Get-ResponseText {
     param([string]$ApiStyle, $Raw)
     switch ($ApiStyle) {
         "openai_responses" {
+            # Handle Chat Completions (choices[0].message.content)
+            if ($Raw.choices -and $Raw.choices.Count -gt 0) {
+                return [string]$Raw.choices[0].message.content
+            }
+            # Handle Legacy Completions (output_text or choices[0].text)
             if ($Raw.output_text) { return [string]$Raw.output_text }
-            if ($Raw.output -and $Raw.output.Count -gt 0) {
-                $parts = @()
-                foreach ($o in $Raw.output) {
-                    if ($o.content) {
-                        foreach ($c in $o.content) {
-                            if ($c.text) { $parts += [string]$c.text }
-                        }
-                    }
-                }
-                return ($parts -join "`n").Trim()
+            return ""
+        }
+        "deepseek_chat" {
+            if ($Raw.choices -and $Raw.choices.Count -gt 0) {
+                return [string]$Raw.choices[0].message.content
             }
             return ""
         }
@@ -152,23 +194,92 @@ function Get-ResponseText {
     }
 }
 
+function Estimate-Cost {
+    param($Provider, $PromptText, $OutputText, $RawResponse)
+    
+    $cost = 0.0
+    $inTokens = 0
+    $outTokens = 0
+    
+    # Attempt to extract usage from provider response
+    if ($Provider.apiStyle -eq "openai_responses" -and $RawResponse.usage) {
+        $inTokens = $RawResponse.usage.prompt_tokens
+        $outTokens = $RawResponse.usage.completion_tokens
+    } 
+    elseif ($Provider.apiStyle -eq "anthropic_messages" -and $RawResponse.usage) {
+        $inTokens = $RawResponse.usage.input_tokens
+        $outTokens = $RawResponse.usage.output_tokens
+    }
+    else {
+        # Fallback heuristic: 1 token ~= 4 chars
+        if ($PromptText) { $inTokens = [Math]::Ceiling($PromptText.Length / 4) }
+        if ($OutputText) { $outTokens = [Math]::Ceiling($OutputText.Length / 4) }
+    }
+
+    # Rates per 1k tokens
+    $rateIn = if ($Provider.costInput) { [double]$Provider.costInput } else { 0.0 }
+    $rateOut = if ($Provider.costOutput) { [double]$Provider.costOutput } else { 0.0 }
+    
+    $cost = ($inTokens / 1000.0 * $rateIn) + ($outTokens / 1000.0 * $rateOut)
+    
+    return @{
+        costUSD   = $cost
+        tokensIn  = $inTokens
+        tokensOut = $outTokens
+        estimated = (-not ($RawResponse.usage))
+    }
+}
+
 function Invoke-Provider {
     param(
         $Provider,
         [string]$PromptText,
         [string]$TaskKind,
         [string]$Agent,
-        [switch]$PlanOnly
+        [switch]$PlanOnly,
+        [array]$Tools
     )
 
     if ($Provider.mode -eq "mock" -or $PlanOnly) {
+        $mockOut = "[mock/$($Provider.name)] task=$TaskKind agent=$Agent prompt='$PromptText'"
+        if ($Tools) {
+            $mockOut += " (Tools: $($Tools.Count))"
+        }
+        
+        # Mock Tool Call Simulation
+        $mockRaw = @{
+            usage   = @{ prompt_tokens = 10; completion_tokens = 5 }
+            choices = @(
+                @{
+                    message = @{
+                        content = $mockOut
+                    }
+                }
+            )
+        }
+
+        if ($PromptText -match "TRIGGER_TOOL:Invoke_SubAgent:(.+):(.+)") {
+            $target = $matches[1]
+            $prmpt = $matches[2]
+            $mockRaw.choices[0].message.tool_calls = @(
+                @{
+                    function = @{
+                        name      = "Invoke_SubAgent"
+                        arguments = ('{{"TargetAgent": "{0}", "Prompt": "{1}"}}' -f $target, $prmpt)
+                    }
+                }
+            )
+            $mockOut = " Tool Call Triggered" 
+        }
+
+        $usage = Estimate-Cost -Provider $Provider -PromptText $PromptText -OutputText $mockOut -RawResponse $mockRaw
+        
         return @{
             provider    = $Provider.name
             model       = $Provider.model
-            output      = "[mock/$($Provider.name)] task=$TaskKind agent=$Agent prompt='$PromptText'"
-            rawResponse = @{
-                mode = "mock"
-            }
+            output      = $mockOut
+            rawResponse = $mockRaw
+            usage       = $usage
         }
     }
 
@@ -188,20 +299,37 @@ function Invoke-Provider {
             if ([string]::IsNullOrWhiteSpace($apiKey)) { throw "Missing API key env: $($Provider.apiKeyEnv)" }
             $headers["Authorization"] = "Bearer $apiKey"
             $body = @{
-                model = $Provider.model
-                input = $PromptText
+                model    = $Provider.model
+                messages = @(
+                    @{ role = "user"; content = $PromptText }
+                )
             }
+            if ($Tools) { $body.tools = $Tools }
+            # DeepSeek/OpenAI compatibility often uses 'messages' not 'input' for chat/completions
+        }
+        "deepseek_chat" {
+            if ([string]::IsNullOrWhiteSpace($apiKey)) { throw "Missing API key env: $($Provider.apiKeyEnv)" }
+            $headers["Authorization"] = "Bearer $apiKey"
+            $body = @{
+                model    = $Provider.model
+                messages = @(
+                    @{ role = "system"; content = "You are a helpful assistant." },
+                    @{ role = "user"; content = $PromptText }
+                )
+                stream   = $false
+            }
+            if ($Tools) { $body.tools = $Tools }
         }
         "anthropic_messages" {
             if ([string]::IsNullOrWhiteSpace($apiKey)) { throw "Missing API key env: $($Provider.apiKeyEnv)" }
             $headers["x-api-key"] = $apiKey
             $headers["anthropic-version"] = "2023-06-01"
             $body = @{
-                model = $Provider.model
+                model      = $Provider.model
                 max_tokens = 800
-                messages = @(
+                messages   = @(
                     @{
-                        role = "user"
+                        role    = "user"
                         content = $PromptText
                     }
                 )
@@ -209,7 +337,7 @@ function Invoke-Provider {
         }
         "ollama_generate" {
             $body = @{
-                model = $Provider.model
+                model  = $Provider.model
                 prompt = $PromptText
                 stream = $false
             }
@@ -223,12 +351,15 @@ function Invoke-Provider {
     $timeoutSec = if ($Provider.timeoutSec) { [int]$Provider.timeoutSec } else { 45 }
     $raw = Invoke-RestMethod -Method Post -Uri $Provider.endpoint -Headers $headers -Body $jsonBody -ContentType "application/json" -TimeoutSec $timeoutSec
     $text = Get-ResponseText -ApiStyle $Provider.apiStyle -Raw $raw
+    
+    $usage = Estimate-Cost -Provider $Provider -PromptText $PromptText -OutputText $text -RawResponse $raw
 
     return @{
         provider    = $Provider.name
         model       = $Provider.model
         output      = $text
         rawResponse = $raw
+        usage       = $usage
     }
 }
 
@@ -280,7 +411,8 @@ function Write-OutputObj {
     param($Obj)
     if ($JsonOutput) {
         $Obj | ConvertTo-Json -Depth 12
-    } else {
+    }
+    else {
         $Obj
     }
 }
@@ -299,18 +431,18 @@ switch ($Action) {
         }
         $approval = New-ApprovalRequest -Dir $ApprovalDir -RunId $runId -ActionName $CriticalAction -PromptText $Prompt -Agent $agent -TaskKind $TaskType -RagId $RagEvidenceId
         Write-Event -Path $EventLogPath -EventObj @{
-            timestamp = (Get-Date).ToString("o")
-            runId = $runId
-            type = "approval_requested"
-            approvalId = $approval.id
+            timestamp      = (Get-Date).ToString("o")
+            runId          = $runId
+            type           = "approval_requested"
+            approvalId     = $approval.id
             criticalAction = $CriticalAction
-            taskType = $TaskType
-            agentId = $agent
+            taskType       = $TaskType
+            agentId        = $agent
         }
         Write-OutputObj @{
-            status = "pending"
+            status     = "pending"
             approvalId = $approval.id
-            message = "Approval requested."
+            message    = "Approval requested."
         }
         break
     }
@@ -323,14 +455,14 @@ switch ($Action) {
         $approval.approvedAt = (Get-Date).ToString("o")
         Save-Approval -Dir $ApprovalDir -Approval $approval
         Write-Event -Path $EventLogPath -EventObj @{
-            timestamp = (Get-Date).ToString("o")
-            runId = $runId
-            type = "approval_granted"
+            timestamp  = (Get-Date).ToString("o")
+            runId      = $runId
+            type       = "approval_granted"
             approvalId = $ApprovalId
-            approver = $Approver
+            approver   = $Approver
         }
         Write-OutputObj @{
-            status = "approved"
+            status     = "approved"
             approvalId = $ApprovalId
         }
         break
@@ -344,14 +476,14 @@ switch ($Action) {
         $approval.rejectedAt = (Get-Date).ToString("o")
         Save-Approval -Dir $ApprovalDir -Approval $approval
         Write-Event -Path $EventLogPath -EventObj @{
-            timestamp = (Get-Date).ToString("o")
-            runId = $runId
-            type = "approval_rejected"
+            timestamp  = (Get-Date).ToString("o")
+            runId      = $runId
+            type       = "approval_rejected"
             approvalId = $ApprovalId
-            approver = $Approver
+            approver   = $Approver
         }
         Write-OutputObj @{
-            status = "rejected"
+            status     = "rejected"
             approvalId = $ApprovalId
         }
         break
@@ -360,27 +492,44 @@ switch ($Action) {
         Ensure-Dir -Path $ApprovalDir
         $pending = @(
             Get-ChildItem -Path $ApprovalDir -Filter "*.json" -File -ErrorAction SilentlyContinue |
-                ForEach-Object { Get-Content $_.FullName -Raw | ConvertFrom-Json -AsHashtable } |
-                Where-Object { $_.status -eq "pending" } |
-                Sort-Object requestedAt
+            ForEach-Object { Get-Content $_.FullName -Raw | ConvertFrom-Json -AsHashtable } |
+            Where-Object { $_.status -eq "pending" } |
+            Sort-Object requestedAt
         )
         $providerStatus = @()
         foreach ($p in $cfg.Providers) {
             $ps = $state.providers[$p.name]
             $providerStatus += @{
-                name = $p.name
-                enabled = [bool]$p.enabled
-                priority = [int]$p.priority
+                name         = $p.name
+                enabled      = [bool]$p.enabled
+                priority     = [int]$p.priority
                 failureCount = [int]$ps.failureCount
                 circuitUntil = $ps.circuitUntil
-                lastSuccess = $ps.lastSuccess
-                lastError = $ps.lastError
+                lastSuccess  = $ps.lastSuccess
+                lastError    = $ps.lastError
             }
         }
         Write-OutputObj @{
             pendingApprovals = $pending
-            providers = $providerStatus
-            stateUpdatedAt = $state.updatedAt
+            providers        = $providerStatus
+            stateUpdatedAt   = $state.updatedAt
+        }
+        break
+    }
+    "feedback" {
+        if (-not $AgentId) { throw "feedback requires -AgentId (RunId)" }
+        if ($Rating -lt 1 -or $Rating -gt 5) { throw "feedback requires -Rating (1-5)" }
+
+        Write-Event -Path $FeedbackLogPath -EventObj @{
+            timestamp = (Get-Date).ToString("o")
+            runId     = $AgentId # Reusing AgentId param for RunId in feedback context to avoid breaking signature
+            rating    = $Rating
+            comment   = $Comment
+        }
+        
+        Write-OutputObj @{
+            status  = "ok"
+            message = "Feedback recorded"
         }
         break
     }
@@ -392,11 +541,11 @@ switch ($Action) {
         if ($requireRag -and -not $BypassRagEvidence -and [string]::IsNullOrWhiteSpace($RagEvidenceId)) {
             Write-Event -Path $EventLogPath -EventObj @{
                 timestamp = (Get-Date).ToString("o")
-                runId = $runId
-                type = "invoke_blocked"
-                reason = "missing_rag_evidence"
-                agentId = $agent
-                taskType = $TaskType
+                runId     = $runId
+                type      = "invoke_blocked"
+                reason    = "missing_rag_evidence"
+                agentId   = $agent
+                taskType  = $TaskType
             }
             throw "RAG evidence is required. Provide -RagEvidenceId (or use -BypassRagEvidence for exceptional local tests)."
         }
@@ -405,18 +554,18 @@ switch ($Action) {
             if ([string]::IsNullOrWhiteSpace($ApprovalId)) {
                 $approval = New-ApprovalRequest -Dir $ApprovalDir -RunId $runId -ActionName $CriticalAction -PromptText $Prompt -Agent $agent -TaskKind $TaskType -RagId $RagEvidenceId
                 Write-Event -Path $EventLogPath -EventObj @{
-                    timestamp = (Get-Date).ToString("o")
-                    runId = $runId
-                    type = "approval_required"
-                    approvalId = $approval.id
+                    timestamp      = (Get-Date).ToString("o")
+                    runId          = $runId
+                    type           = "approval_required"
+                    approvalId     = $approval.id
                     criticalAction = $CriticalAction
-                    agentId = $agent
-                    taskType = $TaskType
+                    agentId        = $agent
+                    taskType       = $TaskType
                 }
                 Write-OutputObj @{
-                    status = "approval_required"
+                    status     = "approval_required"
                     approvalId = $approval.id
-                    message = "Critical action requires human approval."
+                    message    = "Critical action requires human approval."
                 }
                 break
             }
@@ -427,16 +576,45 @@ switch ($Action) {
             }
         }
 
+        # Sub-Agent Orchestration Tool Definition
+        $orchestrationTools = @(
+            @{
+                type     = "function"
+                function = @{
+                    name        = "Invoke_SubAgent"
+                    description = "Delegates a task to another specialized agent. Use this when the request requires capabilities of another agent."
+                    parameters  = @{
+                        type       = "object"
+                        properties = @{
+                            TargetAgent = @{
+                                type        = "string"
+                                description = "The ID of the agent to call (e.g., 'agent_dqf', 'agent_release')."
+                            }
+                            Prompt      = @{
+                                type        = "string"
+                                description = "The specific instruction for the child agent."
+                            }
+                        }
+                        required   = @("TargetAgent", "Prompt")
+                    }
+                }
+            }
+        )
+
         $candidates = Get-ProviderCandidates -Config $cfg -State $state
+        if ($Preference) {
+            $candidates = Get-ProviderByPreference -Candidates $candidates -Preference $Preference -Config $cfg
+        }
+
         if ($candidates.Count -eq 0) {
-            throw "No provider available (all disabled or circuit-open)."
+            throw "No provider available (all disabled, circuit-open, or filtered by preference)."
         }
 
         $chosen = $candidates[0]
         $providerState = $state.providers[$chosen.name]
 
         try {
-            $result = Invoke-Provider -Provider $chosen -PromptText $Prompt -TaskKind $TaskType -Agent $agent -PlanOnly:$DryRun
+            $result = Invoke-Provider -Provider $chosen -PromptText $Prompt -TaskKind $TaskType -Agent $agent -Tools $orchestrationTools -PlanOnly:$DryRun
             $providerState.failureCount = 0
             $providerState.circuitUntil = $null
             $providerState.lastError = $null
@@ -444,25 +622,64 @@ switch ($Action) {
             Save-State -State $state -Path $StatePath
 
             Write-Event -Path $EventLogPath -EventObj @{
-                timestamp = (Get-Date).ToString("o")
-                runId = $runId
-                type = "invoke_success"
-                provider = $result.provider
-                model = $result.model
-                taskType = $TaskType
+                timestamp      = (Get-Date).ToString("o")
+                runId          = $runId
+                type           = "invoke_success"
+                provider       = $result.provider
+                model          = $result.model
+                taskType       = $TaskType
                 criticalAction = $CriticalAction
-                agentId = $agent
-                approvalId = $ApprovalId
-                ragEvidenceId = $RagEvidenceId
-                dryRun = [bool]$DryRun
+                agentId        = $agent
+                approvalId     = $ApprovalId
+                ragEvidenceId  = $RagEvidenceId
+                dryRun         = [bool]$DryRun
+                usage          = $result.usage
+                toolCalls      = if ($result.rawResponse.choices[0].message.tool_calls) { $true } else { $false }
+            }
+
+            # Check for Tool Calls (Orchestration)
+            $finalOutput = $result.output
+            if ($result.rawResponse.choices[0].message.tool_calls) {
+                foreach ($tc in $result.rawResponse.choices[0].message.tool_calls) {
+                    if ($tc.function.name -eq "Invoke_SubAgent") {
+                        $toolArgs = $tc.function.arguments | ConvertFrom-Json
+                        $subAgent = $toolArgs.TargetAgent
+                        $subPrompt = $toolArgs.Prompt
+                        
+                        Write-Output "    >>> ORCHESTRATION: Delegating to '$subAgent'..."
+
+                        # Recursive Call (using the core script directly as we are in it)
+                        # MUST propagate all context paths and flags to ensure child behaves consistently
+                        $subResultJson = & pwsh -NoProfile -File $PSCommandPath `
+                            -Action invoke `
+                            -AgentId $subAgent `
+                            -Prompt $subPrompt `
+                            -ConfigPath $ConfigPath `
+                            -StatePath $StatePath `
+                            -EventLogPath $EventLogPath `
+                            -FeedbackLogPath $FeedbackLogPath `
+                            -ApprovalDir $ApprovalDir `
+                            -BypassRagEvidence:$BypassRagEvidence `
+                            -JsonOutput
+
+                        try {
+                            $subResult = $subResultJson | ConvertFrom-Json
+                            $finalOutput += "`n`n[SubAgent '$subAgent' Result]:`n$($subResult.output)"
+                        }
+                        catch {
+                            $finalOutput += "`n`n[SubAgent '$subAgent' Failed]: $_"
+                        }
+                    }
+                }
             }
 
             Write-OutputObj @{
-                status = "ok"
-                runId = $runId
+                status   = "ok"
+                runId    = $runId
                 provider = $result.provider
-                model = $result.model
-                output = $result.output
+                model    = $result.model
+                output   = $finalOutput
+                usage    = $result.usage
             }
         }
         catch {
@@ -476,15 +693,15 @@ switch ($Action) {
             Save-State -State $state -Path $StatePath
 
             Write-Event -Path $EventLogPath -EventObj @{
-                timestamp = (Get-Date).ToString("o")
-                runId = $runId
-                type = "invoke_failed"
-                provider = $chosen.name
-                model = $chosen.model
-                error = $_.Exception.Message
-                taskType = $TaskType
+                timestamp      = (Get-Date).ToString("o")
+                runId          = $runId
+                type           = "invoke_failed"
+                provider       = $chosen.name
+                model          = $chosen.model
+                error          = $_.Exception.Message
+                taskType       = $TaskType
                 criticalAction = $CriticalAction
-                agentId = $agent
+                agentId        = $agent
             }
 
             throw

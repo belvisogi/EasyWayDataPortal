@@ -1,7 +1,7 @@
 Param(
-  [Parameter(Mandatory=$false)][string]$Agent,
-  [Parameter(Mandatory=$false)][string]$ManifestPath,
-  [Parameter(Mandatory=$false)][string[]]$CheckPaths,
+  [Parameter(Mandatory = $false)][string]$Agent,
+  [Parameter(Mandatory = $false)][string]$ManifestPath,
+  [Parameter(Mandatory = $false)][string[]]$CheckPaths,
   [switch]$GitDiff,
   [switch]$Quiet
 )
@@ -9,7 +9,7 @@ Param(
 $ErrorActionPreference = 'Stop'
 
 function Load-Manifest {
-  param([string]$agent,[string]$manifestPath)
+  param([string]$agent, [string]$manifestPath)
   if ($manifestPath) { return Get-Content $manifestPath -Raw | ConvertFrom-Json }
   if (-not $agent) { throw 'Specify -Agent or -ManifestPath' }
   $p = Join-Path (Join-Path 'agents' $agent) 'manifest.json'
@@ -19,7 +19,7 @@ function Load-Manifest {
 
 function PatternToRegex {
   param([string]$pattern)
-  $pat = ($pattern -replace '\\','/')
+  $pat = ($pattern -replace '\\', '/')
 
   # Replace wildcards before escaping, then re-inject as regex.
   $dbl = '__EW_DBLSTAR__'
@@ -35,8 +35,8 @@ function PatternToRegex {
 }
 
 function IsAllowed {
-  param([string]$path,[string[]]$allowed)
-  $n = ($path -replace '\\','/')
+  param([string]$path, [string[]]$allowed)
+  $n = ($path -replace '\\', '/')
   foreach ($p in $allowed) {
     $rx = PatternToRegex $p
     if ($n -match $rx) { return $true }
@@ -55,12 +55,29 @@ function Get-GitChangedPaths {
       return $files
     }
     return (git diff --name-only $base HEAD)
-  } catch { return @() }
+  }
+  catch { return @() }
 }
 
 try {
   $manifest = Load-Manifest -agent $Agent -manifestPath $ManifestPath
-  $allowed = @($manifest.allowed_paths)
+
+  # Handle structured allowed_paths (read/write) or flat array
+  $rawAllowed = $manifest.allowed_paths
+  $allowed = @()
+  
+  if ($rawAllowed.PSObject.Properties['read'] -or $rawAllowed.PSObject.Properties['write']) {
+    if ($rawAllowed.read) { $allowed += $rawAllowed.read }
+    if ($rawAllowed.write) { $allowed += $rawAllowed.write }
+  } 
+  elseif ($rawAllowed -is [Array]) {
+    $allowed = $rawAllowed
+  }
+  else {
+    # Fallback for unexpected structure or empty
+    if ($rawAllowed) { $allowed += $rawAllowed }
+  }
+
   if (-not $allowed -or $allowed.Count -eq 0) { throw 'Manifest has no allowed_paths' }
 
   $paths = @()
@@ -76,11 +93,13 @@ try {
   if ($violations.Count -gt 0) {
     Write-Error ("Enforcer: disallowed paths detected for agent '{0}':`n - {1}" -f ($Agent ?? $ManifestPath), ($violations -join "`n - "))
     exit 2
-  } else {
+  }
+  else {
     if (-not $Quiet) { Write-Host 'Enforcer: all paths allowed.' -ForegroundColor Green }
     exit 0
   }
-} catch {
+}
+catch {
   Write-Error $_
   exit 1
 }

@@ -116,7 +116,8 @@ $selectedRemotes = @()
 foreach ($r in $Remotes) {
     if ($existingRemotes -contains $r) {
         $selectedRemotes += $r
-    } elseif ($StrictRemotes) {
+    }
+    elseif ($StrictRemotes) {
         throw "Remote '$r' not found."
     }
 }
@@ -125,7 +126,8 @@ if ($selectedRemotes.Count -eq 0) {
     if ($existingRemotes -contains "origin") {
         Write-Host "Requested remotes not found. Falling back to 'origin'." -ForegroundColor Yellow
         $selectedRemotes = @("origin")
-    } else {
+    }
+    else {
         throw "No usable remotes found. Configure remotes (ado/github/forgejo) or origin."
     }
 }
@@ -158,16 +160,23 @@ if (-not $VerifyOnly) {
                 if ($commit.ExitCode -ne 0) {
                     if ($commit.Output -match "nothing to commit") {
                         Write-Host "No commit created (nothing to commit)." -ForegroundColor Yellow
-                    } else {
+                    }
+                    else {
                         throw "Commit failed: $($commit.Output)"
                     }
-                } else {
+                }
+                else {
                     Write-Host $commit.Output
                 }
             }
-        } else {
+        }
+        else {
             Write-Host "Working tree clean. Skipping commit."
         }
+    }
+
+    foreach ($r in $selectedRemotes) {
+        Ensure-RemoteExists -Remote $r
     }
 
     foreach ($r in $selectedRemotes) {
@@ -176,7 +185,13 @@ if (-not $VerifyOnly) {
             Write-Host "DRY-RUN: git push -u $r $Branch"
             continue
         }
-        Invoke-Git -Args @("push", "-u", $r, $Branch)
+        try {
+            Invoke-Git -Args @("push", "-u", $r, $Branch)
+        }
+        catch {
+            Write-Error "Failed to push to $r. Stopping sync to prevent further drift. Manual intervention required."
+            throw $_
+        }
     }
 }
 
@@ -193,13 +208,13 @@ foreach ($r in $selectedRemotes) {
     Write-Step "Verifying '$Branch' on '$r'"
     if ($DryRun) {
         $report += [PSCustomObject]@{
-            Remote    = $r
-            Branch    = $Branch
-            Status    = "dry-run"
-            Check     = 0
-            Ref       = ""
-            Repaired  = "-"
-            Detail    = ""
+            Remote   = $r
+            Branch   = $Branch
+            Status   = "dry-run"
+            Check    = 0
+            Ref      = ""
+            Repaired = "-"
+            Detail   = ""
         }
         continue
     }
@@ -213,13 +228,13 @@ foreach ($r in $selectedRemotes) {
     }
 
     $report += [PSCustomObject]@{
-        Remote    = $r
-        Branch    = $Branch
-        Status    = "ok"
-        Check     = 1
-        Ref       = $firstCheck.Ref
-        Repaired  = "no"
-        Detail    = "initial-presence"
+        Remote   = $r
+        Branch   = $Branch
+        Status   = "ok"
+        Check    = 1
+        Ref      = $firstCheck.Ref
+        Repaired = "no"
+        Detail   = "initial-presence"
     }
 }
 
@@ -232,13 +247,13 @@ if (-not $DryRun -and $PostPushChecks -gt 1) {
             $check = Test-BranchOnRemote -Remote $r -BranchName $Branch
             if ($check.Present) {
                 $report += [PSCustomObject]@{
-                    Remote    = $r
-                    Branch    = $Branch
-                    Status    = "ok"
-                    Check     = $checkIndex
-                    Ref       = $check.Ref
-                    Repaired  = "no"
-                    Detail    = "present"
+                    Remote   = $r
+                    Branch   = $Branch
+                    Status   = "ok"
+                    Check    = $checkIndex
+                    Ref      = $check.Ref
+                    Repaired = "no"
+                    Detail   = "present"
                 }
                 continue
             }
@@ -258,13 +273,13 @@ if (-not $DryRun -and $PostPushChecks -gt 1) {
                         $repairState = "yes"
                         $detail = "repaired"
                         $report += [PSCustomObject]@{
-                            Remote    = $r
-                            Branch    = $Branch
-                            Status    = "ok"
-                            Check     = $checkIndex
-                            Ref       = $postRepair.Ref
-                            Repaired  = $repairState
-                            Detail    = $detail
+                            Remote   = $r
+                            Branch   = $Branch
+                            Status   = "ok"
+                            Check    = $checkIndex
+                            Ref      = $postRepair.Ref
+                            Repaired = $repairState
+                            Detail   = $detail
                         }
                         continue
                     }
@@ -278,13 +293,13 @@ if (-not $DryRun -and $PostPushChecks -gt 1) {
             }
 
             $report += [PSCustomObject]@{
-                Remote    = $r
-                Branch    = $Branch
-                Status    = "failed"
-                Check     = $checkIndex
-                Ref       = ""
-                Repaired  = $repairState
-                Detail    = $detail
+                Remote   = $r
+                Branch   = $Branch
+                Status   = "failed"
+                Check    = $checkIndex
+                Ref      = ""
+                Repaired = $repairState
+                Detail   = $detail
             }
             $verificationFailures += "$r (check $checkIndex): $detail"
         }

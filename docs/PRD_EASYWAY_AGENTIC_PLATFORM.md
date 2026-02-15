@@ -368,18 +368,28 @@ Regola:
 4. Rendere output metadata completo (provider/model/policyDecision).
 
 ### P1
-1. Provider gateway con adapter cloud/local.
-2. Preference profile e routing policy.
-3. Telemetria costi per request.
+1. Provider gateway con adapter cloud/local [DONE].
+2. Preference profile e routing policy [DONE].
+3. Telemetria costi per request [DONE].
+   - Stima token in/out per provider.
+   - Calcolo costo USD basato su listino pubblico.
+   - Logging su `llm-router-events.jsonl`.
 
 ### P2
-1. Learning loop su quality metrics.
-2. Multi-agent workflow orchestration.
-3. UX avanzata per decision profile guidato.
-4. Product Factory Kit (template + checklist + pipeline standard).
-5. Processo di propagazione manutenzione core verso prodotti derivati.
-6. Productization Review checklist obbligatoria in chiusura progetto cliente.
-7. Catalogo "dime" (pattern riusabili) con scoring di maturita' e riuso.
+1. Learning loop su quality metrics [DONE].
+3. Product Factory Kit (template + checklist + pipeline standard) [DONE].
+   - *Motivazione*: Standardizzare struttura agenti (Manifest, Memory) è prerequisito per l'orchestrazione.
+   - *Strategia*:
+     - **Phase 1 (Bootstrap Local)**: Uso di `scripts/pwsh/agent-bootstrap.ps1` per creazione rapida e test locale (Developer Experience).
+     - **Phase 2 (Automated Factory)**: Aggiornamento di `agent_creator` (n8n-driven) per usare i nuovi template standard, per creazione massiva/governata.
+4. Multi-agent workflow orchestration [DONE].
+   - *Result*: Implementato `Invoke_SubAgent` tool nel Router. Permette chiamate ricorsive e governate tra agenti.
+5. UX avanzata per decision profile guidato (P2.4).
+6. Processo di propagazione manutenzione core verso prodotti derivati [DONE].
+   - *Result*: Implementato `scripts/pwsh/agent-maintenance.ps1` per Lint/Update automatico dei manifesti.
+7. Productization Review checklist obbligatoria in chiusura progetto cliente [DONE].
+   - *Result*: Creata checklist in `docs/ops/productization-review.md`.
+8. Catalogo "dime" (pattern riusabili) con scoring di maturita' e riuso.
 
 ## 16. Rischi e mitigazioni
 

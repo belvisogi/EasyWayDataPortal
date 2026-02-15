@@ -43,5 +43,27 @@
     "utilities.json-validate",
     "utilities.retry-backoff"
   ],
-  "classification": "arm"
+  "classification": "arm",
+  "role": "{{AGENT_ROLE}}",
+  "allowed_tools": [
+    "pwsh",
+    "node"
+  ],
+  "required_gates": [
+    "Checklist"
+  ],
+  "approvals": {},
+  "knowledge_sources": [
+    {
+      "priority": "high",
+      "type": "document",
+      "path": "agents/{{AGENT_NAME}}/README.md"
+    },
+    {
+      "priority": "medium",
+      "type": "data",
+      "path": "agents/kb/recipes.jsonl"
+    }
+  ],
+  "readme": "README.md"
 }

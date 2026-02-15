@@ -69,5 +69,6 @@
   "skills_optional": [
     "utilities.json-validate",
     "utilities.retry-backoff"
-  ]
+  ],
+  "approvals": {}
 }

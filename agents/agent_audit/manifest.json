@@ -163,5 +163,12 @@
   ],
   "classification": "head",
   "readme": "README.md",
-  "evolution_level": 1
+  "evolution_level": 1,
+  "approvals": {},
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  }
 }
