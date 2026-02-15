@@ -136,6 +136,35 @@ Regole operative:
 6. Attendi CI + approvazione.
 7. Merge senza bypass policy.
 
+## Verifica allineamento (comandi esempio)
+Verifica rapida su `develop`:
+
+```powershell
+git checkout develop
+git fetch --prune origin
+git status -sb
+git rev-list --left-right --count origin/develop...develop
+```
+
+Interpretazione:
+- `git status -sb` deve mostrare working tree pulito.
+- `git rev-list --left-right --count origin/develop...develop`:
+  - `0 0` = allineato;
+  - primo numero > 0 = locale indietro;
+  - secondo numero > 0 = locale avanti.
+
+Verifica presenza branch remoto (es. branch PR):
+
+```powershell
+git ls-remote --heads origin chore-git-safe-sync develop main
+```
+
+Verifica safe-sync in preview (nessuna modifica):
+
+```powershell
+pwsh -NoProfile -File .\scripts\pwsh\git-safe-sync.ps1 -Branch develop -Remote origin -Mode align -SetGuardrails -DryRun
+```
+
 ## Audit periodico (settimanale)
 1. Verifica presenza branch protection su `main`/`develop`.
 2. Verifica che delete/force-push siano negati ai contributor.
