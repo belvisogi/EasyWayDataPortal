@@ -1069,6 +1069,34 @@ Stato runtime (git-ignored):
 2. `docs/ops/logs/llm-router-events.jsonl`
 3. `docs/ops/approvals/*.json`
 
+### 22.19 Handoff operativo ad Antigravity (vincolante)
+
+Obiettivo:
+- trasferire l'operativita' quotidiana ad Antigravity mantenendo gli stessi guardrail e la stessa evidenza audit.
+
+Entrypoint canonici:
+1. sync branch sicuro:
+- `pwsh -NoProfile -File .\scripts\pwsh\git-safe-sync.ps1 -Branch develop -Remote origin -Mode align -SetGuardrails`
+2. runbook branch guardrails multi-provider:
+- `Wiki/EasyWayData.wiki/Runbooks/multivcs-branch-guardrails.md`
+3. policy check required (ADO):
+- `Wiki/EasyWayData.wiki/checklist-ado-required-job.md`
+4. guardrail CI enforcer:
+- `Wiki/EasyWayData.wiki/enforcer-guardrail.md`
+
+Checklist minima prima del passaggio:
+1. branch protection coerente su `Azure DevOps`, `GitHub`, `Forgejo` per `main`/`develop`;
+2. `Force push` e delete branch negati ai contributor su branch critici;
+3. PR policy con check required attivi e verificati;
+4. runbook aggiornati e versionati in repo;
+5. owner e backup owner nominati per ogni piattaforma.
+
+Definition of Done handoff:
+1. Antigravity completa almeno 1 ciclo end-to-end (`sync -> branch -> commit -> PR -> merge`) senza bypass policy;
+2. audit log disponibile con evidenza di controlli e approvazioni;
+3. nessun incidente `branch missing` per almeno 7 giorni operativi consecutivi;
+4. documentazione allineata: PRD + runbook + eventuali note operative.
+
 ## 23. ToDo List Vivente e Gestione Contesto
 
 ### 23.1 ToDo List Vivente
