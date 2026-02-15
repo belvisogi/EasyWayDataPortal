@@ -1,0 +1,64 @@
+{
+    "classification": "brain",
+    "role": "Factory Tester",
+    "name": "agent_factory_test",
+    "description": "Agent created to verify the Product Factory Kit",
+    "id": "agent_factory_test",
+    "owner": "team-platform",
+    "version": "0.1.0",
+    "evolution_level": 1,
+    "allowed_paths": {
+        "read": [
+            "README.md",
+            "agents/agent_factory_test/**",
+            "agents/kb/**",
+            "docs/**"
+        ],
+        "write": [
+            "agents/agent_factory_test/memory/",
+            "agents/logs/"
+        ]
+    },
+    "allowed_tools": [
+        "pwsh",
+        "node"
+    ],
+    "required_gates": [
+        "Checklist"
+    ],
+    "approvals": {},
+    "knowledge_sources": [
+        {
+            "priority": "high",
+            "type": "document",
+            "path": "agents/agent_factory_test/README.md"
+        },
+        {
+            "priority": "medium",
+            "type": "data",
+            "path": "agents/kb/recipes.jsonl"
+        }
+    ],
+    "readme": "README.md",
+    "context_config": {
+        "memory_files": [],
+        "context_limit_tokens": 128000,
+        "enable_memory": true
+    },
+    "llm_config": {
+        "provider": "deepseek",
+        "model": "deepseek-chat",
+        "temperature": 0.0,
+        "max_tokens": 2000,
+        "system_prompt": "agents/agent_factory_test/PROMPTS.md",
+        "tools": [
+            "function_calling"
+        ]
+    },
+    "error_handling": {
+        "fallback_mode": "log_and_skip",
+        "alert_on_failure": false,
+        "retry_delay_seconds": 15,
+        "retry_count": 2
+    }
+}

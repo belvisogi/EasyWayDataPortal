@@ -1,14 +1,25 @@
 {
   "rules": [
     {
-      "id": "bundle-no-secrets",
-      "description": "Il bundle non deve includere .env, secrets o out runtime.",
+      "id": "release-clean-tree",
+      "description": "La release parte solo da working tree pulito (salvo override esplicito).",
       "severity": "mandatory",
-      "when": { "intentContains": ["runtime:bundle"] },
+      "when": { "intentContains": ["release:promote"] },
       "checklist": [
-        "Escludere .env* e *secrets*",
-        "Escludere out/**",
-        "Includere solo scripts/agents/docs templates"
+        "Verificare `git status --porcelain` vuoto",
+        "Confermare source e target diversi",
+        "Confermare sync con `origin` prima del merge"
+      ]
+    },
+    {
+      "id": "release-main-guard",
+      "description": "Promozioni verso main devono essere esplicite e tracciabili.",
+      "severity": "mandatory",
+      "when": { "intentContains": ["release:promote"] },
+      "checklist": [
+        "Se target=main, warning esplicito e conferma utente",
+        "Abort su merge conflict (git merge --abort)",
+        "Generare draft release notes in `agents/logs/`"
       ]
     }
   ]

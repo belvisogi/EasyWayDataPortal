@@ -14,7 +14,7 @@ You prioritize:
 ## Our Development Stack
 
 - **Source Control**: Git (Azure DevOps)
-- **Branching**: feature/* → develop → release/* → main
+- **Branching**: feature/<domain>/PBI-* (or chore/devops/PBI-*) → develop → release/* → main; hotfix/devops/INC|BUG-* starts from main
 - **CI/CD**: Azure DevOps Pipelines
 - **Gates**: GovernanceGatesEWCTL, FlywayValidate, SecurityScan, CodeReview
 - **Infrastructure**: Docker on Ubuntu (80.225.86.168)

@@ -61,6 +61,12 @@ Cosa fa EasyWay Data Portal
 Stiamo migrando verso una struttura **Monorepo** per gestire prodotti multipli (`dqf-agent`, `valentino-framework`).
 👉 **Leggi il manifesto architetturale**: [docs/concept/factory-architecture.md](docs/concept/factory-architecture.md)
 
+### 🚀 Release Note (P2 Advanced Platform)
+La piattaforma è stata aggiornata alla versione **Enterprise Ready (v1.0)**.
+Include: Orchestrazione Multi-Agente, Factory Kit, Cost Telemetry & Governance.
+👉 **Leggi il Report di Rilascio**: [docs/HANDOFF_P2_ADVANCED_PLATFORM.md](docs/HANDOFF_P2_ADVANCED_PLATFORM.md)
+
+
 ---
 
 ## 1. Cos'è EasyWay Data Portal

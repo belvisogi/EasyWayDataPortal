@@ -27,7 +27,7 @@
       "name": "guard:validate",
       "description": "Esegue validazione completa (Branch, Target, Commit) rispetto a policies.json.",
       "parameters": {
-        "SourceBranch": "string (e.g., feature/PBI-123)",
+        "SourceBranch": "string (e.g., feature/devops/PBI-123-my-change or hotfix/devops/INC-321-fix-auth)",
         "TargetBranch": "string (e.g., develop)",
         "CommitMessage": "string (optional)"
       }
@@ -69,5 +69,6 @@
   "skills_optional": [
     "utilities.json-validate",
     "utilities.retry-backoff"
-  ]
+  ],
+  "approvals": {}
 }

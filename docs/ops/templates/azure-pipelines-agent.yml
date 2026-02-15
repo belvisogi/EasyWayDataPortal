@@ -1,0 +1,37 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)-$(SourceBranchName)
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - agents/{{AGENT_NAME}}/**
+
+variables:
+  agentName: '{{AGENT_NAME}}'
+
+stages:
+  - stage: CI
+    displayName: 'Continuous Integration'
+    jobs:
+      - job: LintAndTest
+        pool:
+          vmImage: 'windows-latest'
+        steps:
+          - task: PowerShell@2
+            displayName: 'Lint Manifest'
+            inputs:
+              targetType: 'inline'
+              script: |
+                $manifest = Get-Content "agents/$(agentName)/manifest.json" | ConvertFrom-Json
+                if (-not $manifest.role) { Write-Error "Manifest missing role" }
+                Write-Host "Manifest valid for $(agentName)"
+
+          - task: PowerShell@2
+            displayName: 'Test Agent (Dry Run)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                # Simulate a router call
+                pwsh scripts/pwsh/agent-llm-router.ps1 -Agent $(agentName) -Prompt "CI Test" -PlanOnly

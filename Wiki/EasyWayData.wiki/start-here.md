@@ -56,6 +56,8 @@ type: guide
 
 ## 9) 🛡️ Governance & Sovereign DevOps (Sovereignty Kit)
 *   **Rules**: `standards/gitlab-workflow.md` (Branching, Naming, Labels)
+*   **Release Flow (allineamento 2026-02-12)**: `control-plane/release-flow-alignment-2026-02-12.md` (perche/come/quando + Q&A anti-pattern)
+*   **PRD Wishlist MVP (Multi-VCS)**: `control-plane/prd-agentic-release-multivcs-mvp.md` (ADO + Forgejo + GitHub)
 *   **RBAC**: `governance/gitlab-rbac.md` (Groups, Roles, Security Split)
 *   **Architecture**: `architecture/sovereign-gap-fillers.md` (Gap Fillers & RAG)
 *   **Onboarding**: `guides/client-onboarding-iac.md` (Terraform Quickstart)

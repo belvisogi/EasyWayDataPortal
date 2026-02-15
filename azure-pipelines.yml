@@ -68,6 +68,31 @@ stages:
   - stage: PreChecks
     displayName: Pre-Checks (Guardrails)
     jobs:
+      - job: BranchPolicyGuard
+        displayName: 'Branch Naming + Target Policy Guard (PR)'
+        condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+        steps:
+          - task: PowerShell@2
+            displayName: 'Validate PR source/target against guard policy'
+            inputs:
+              targetType: 'inline'
+              script: |
+                $ErrorActionPreference = 'Stop'
+                git config --global --add safe.directory $(Build.SourcesDirectory)
+                cd $(Build.SourcesDirectory)
+
+                $sourceRef = "$env:SYSTEM_PULLREQUEST_SOURCEBRANCH"
+                $targetRef = "$env:SYSTEM_PULLREQUEST_TARGETBRANCH"
+                if ([string]::IsNullOrWhiteSpace($sourceRef) -or [string]::IsNullOrWhiteSpace($targetRef)) {
+                  throw "PR variables missing. Source='$sourceRef' Target='$targetRef'"
+                }
+
+                $source = $sourceRef -replace '^refs/heads/', ''
+                $target = $targetRef -replace '^refs/heads/', ''
+                Write-Host "Guard check: $source -> $target"
+
+                pwsh scripts/pwsh/agent-guard.ps1 -ContextId "PR-$(System.PullRequest.PullRequestId)" -SourceBranch $source -TargetBranch $target
+
       - job: EnforcerCheck
         displayName: 'Allowed Paths Enforcer (agents)'
         steps:

@@ -26,7 +26,7 @@ Ogni operazione CI/CD genera un `Context Object` che passa di mano in mano.
   "subject": {
     "type": "merge_request",
     "id": 123,
-    "source_branch": "feature/PBI-001",
+    "source_branch": "feature/devops/PBI-001-login",
     "target_branch": "develop",
     "author": "user@example.com"
   },
@@ -46,7 +46,7 @@ Ogni operazione CI/CD genera un `Context Object` che passa di mano in mano.
       "agent": "agent_guard",
       "action": "check:branch-name",
       "result": "PASS",
-      "message": "Branch name complies with regex feature/.*",
+      "message": "Branch name complies with policy (feature/chore PBI or hotfix INC/BUG)",
       "timestamp": "2026-02-04T20:00:05Z"
     }
   ]

@@ -1,24 +1,22 @@
-# Agent Template (Skeleton)
+# Agent: {{AGENT_ROLE}} ({{AGENT_NAME}})
 
-Obiettivo
-- Fornire uno scheletro minimale per creare nuovi agenti agent‑first: accettano Intent JSON, sono idempotenti, producono output strutturato e rispettano `allowed_paths`.
+## Goal
+{{# Agent Template (Standard)
 
-File
-- `manifest.json` — metadati, azioni, allowed_paths
-- `priority.json` — peso/ordinamento azioni
-- `templates/intent.sample.json` — esempio di Intent
-- `scripts/agent-template.ps1` — eseguibile PowerShell con output JSON
+## Update (2026-02-15)
+This template has been aligned with the **Product Factory Kit** (P2.4).
+It is now identical to `agents/templates/basic-agent/`.
 
-Esecuzione (esempio)
-```
-pwsh scripts/agent-template.ps1 -Action sample:echo -IntentPath agents/agent_template/templates/intent.sample.json -NonInteractive -LogEvent
-```
+## Purpose
+This folder serves as the canonical source for:
+1.  **Automated Factory**: When `agent_creator` is running (n8n), it should use this folder as source.
+2.  **Manual Reference**: Developers can look here to see the latest standard structure.
 
-Output
-- JSON con esito, timestamps, action, params, e (se richiesto) evento in `agents/logs/events.jsonl`.
+## Structure
+-   `manifest.json`: Standard configuration.
+-   `PROMPTS.md`: Standard system prompt pattern.
+-   `README.md`: Standard documentation layout.
+-   `memory/`: Standard persistent storage.
 
-Linee Guida
-- Aggiungi nuove azioni aggiornando `manifest.json` e lo script.
-- Implementa `-WhatIf` per azioni con effetti.
-- Mantieni idempotenza: ripetere l’azione non deve produrre effetti collaterali inattesi.
-
+## Legacy Note
+The old `scripts/agent-template.ps1` has been deprecated in favor of `scripts/pwsh/agent-bootstrap.ps1`. stored in `agents/{{AGENT_NAME}}/memory/`.

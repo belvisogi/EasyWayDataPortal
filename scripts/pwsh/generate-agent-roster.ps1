@@ -3,8 +3,8 @@
 
 $ErrorActionPreference = 'Stop'
 
-$agentsDir = Join-Path $PSScriptRoot '../agents'
-$wikiDir = Join-Path $PSScriptRoot '../Wiki/EasyWayData.wiki/agents'
+$agentsDir = Join-Path $PSScriptRoot '../../agents'
+$wikiDir = Join-Path $PSScriptRoot '../../Wiki/EasyWayData.wiki/agents'
 if (-not (Test-Path $wikiDir)) { New-Item -ItemType Directory -Force -Path $wikiDir | Out-Null }
 
 $outFile = Join-Path $wikiDir 'agent-roster.md'
@@ -156,7 +156,7 @@ $md += "- **Total Agents**: $($brains.Count + $arms.Count)"
 $md += "- **Strategic Brains**: $($brains.Count)"
 $md += "- **Executive Arms**: $($arms.Count)"
 $md += ""
-$md += "_(Generated via `scripts/generate-agent-roster.ps1`)_"
+$md += "_(Generated via `scripts/pwsh/generate-agent-roster.ps1`)_"
 
 $md | Out-File -FilePath $outFile -Encoding utf8
 Write-Host "Visual Roster generated at: $outFile" -ForegroundColor Green
