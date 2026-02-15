@@ -8,7 +8,6 @@
   "classification": "arm",
   "evolution_level": 2,
   "readme": "README.md",
-
   "llm_config": {
     "provider": "deepseek",
     "model": "deepseek-chat",
@@ -16,7 +15,9 @@
     "temperature": 0.2,
     "max_tokens": 1000,
     "system_prompt": "agents/agent_docs_sync/PROMPTS.md",
-    "tools": ["function_calling"],
+    "tools": [
+      "function_calling"
+    ],
     "cost_estimate": {
       "per_call": "$0.00025",
       "monthly": "$0.03"
@@ -28,7 +29,6 @@
       "tag_proposal": "Propone tag basandosi sul contenuto reale dei file"
     }
   },
-
   "context_config": {
     "memory_files": [
       "agents/agent_docs_sync/memory/context.json",
@@ -36,69 +36,112 @@
     ],
     "context_limit_tokens": 128000
   },
-
   "skills_required": [
     "utilities.convert-markdown",
     "utilities.json-validate"
   ],
-
   "skills_optional": [
     "utilities.retry-backoff",
     "integration.slack-message",
     "retrieval.llm-with-rag",
     "retrieval.rag-search"
   ],
-
   "rag_config": {
     "enabled": true,
     "collection": "easyway_wiki",
     "top_k": 5,
     "min_score": 0.3,
-    "context_domains": ["docs", "conventions", "metadata", "governance"],
+    "context_domains": [
+      "docs",
+      "conventions",
+      "metadata",
+      "governance"
+    ],
     "description": "RAG provides Wiki context for docs alignment analysis and cross-reference suggestions"
   },
-
-  "allowed_tools": ["pwsh", "git"],
-
+  "allowed_tools": [
+    "pwsh",
+    "git"
+  ],
   "actions": [
     {
       "name": "docs:check",
       "description": "Verifica allineamento tra docs (.md) e scripts (.ps1). Controlla tag consistency, cross-references, esempi validi. Usa LLM per analisi semantica.",
-      "uses_skills": ["utilities.json-validate"],
+      "uses_skills": [
+        "utilities.json-validate"
+      ],
       "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
-        "action": { "type": "string", "required": true, "description": "Azione: 'check', 'validate', 'report', 'sync'" },
-        "scope": { "type": "string", "required": false, "description": "Scope: 'all', 'ado', 'wiki', 'governance'. Default: 'all'" }
+        "action": {
+          "type": "string",
+          "required": true,
+          "description": "Azione: 'check', 'validate', 'report', 'sync'"
+        },
+        "scope": {
+          "type": "string",
+          "required": false,
+          "description": "Scope: 'all', 'ado', 'wiki', 'governance'. Default: 'all'"
+        }
       }
     },
     {
       "name": "docs:validate",
       "description": "Valida metadata YAML frontmatter e .METADATA blocks. Verifica tag taxonomy compliance con LLM reasoning.",
-      "uses_skills": ["utilities.json-validate"],
+      "uses_skills": [
+        "utilities.json-validate"
+      ],
       "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
-        "action": { "type": "string", "required": true, "description": "Sempre 'validate'" },
-        "path": { "type": "string", "required": false, "description": "Path specifico file da validare. Default: all" }
+        "action": {
+          "type": "string",
+          "required": true,
+          "description": "Sempre 'validate'"
+        },
+        "path": {
+          "type": "string",
+          "required": false,
+          "description": "Path specifico file da validare. Default: all"
+        }
       }
     },
     {
       "name": "docs:report",
       "description": "Genera report su coverage metadata, orphaned files, tag statistics. LLM sintetizza findings.",
-      "uses_skills": ["utilities.convert-markdown"],
+      "uses_skills": [
+        "utilities.convert-markdown"
+      ],
       "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
-        "action": { "type": "string", "required": true, "description": "Sempre 'report'" },
-        "format": { "type": "string", "required": false, "description": "Formato: 'console', 'markdown', 'json'. Default: 'console'" }
+        "action": {
+          "type": "string",
+          "required": true,
+          "description": "Sempre 'report'"
+        },
+        "format": {
+          "type": "string",
+          "required": false,
+          "description": "Formato: 'console', 'markdown', 'json'. Default: 'console'"
+        }
       }
     },
     {
       "name": "docs:sync",
       "description": "Sincronizza docs basandosi su script changes. LLM analizza diff e genera aggiornamenti suggeriti.",
-      "uses_skills": ["utilities.convert-markdown"],
+      "uses_skills": [
+        "utilities.convert-markdown"
+      ],
       "script": "../../scripts/pwsh/agent-docs-sync.ps1",
       "params": {
-        "action": { "type": "string", "required": true, "description": "Sempre 'sync'" },
-        "changedFile": { "type": "string", "required": false, "description": "File cambiato che ha triggerato il sync" }
+        "action": {
+          "type": "string",
+          "required": true,
+          "description": "Sempre 'sync'"
+        },
+        "changedFile": {
+          "type": "string",
+          "required": false,
+          "description": "File cambiato che ha triggerato il sync"
+        }
       }
     },
     {
@@ -107,11 +150,14 @@
       "uses_skills": [],
       "script": "../../scripts/pwsh/agent-docs-scanner.ps1",
       "params": {
-        "action": { "type": "string", "required": true, "description": "'Scan' per indice, 'Propose' per suggerimenti" }
+        "action": {
+          "type": "string",
+          "required": true,
+          "description": "'Scan' per indice, 'Propose' per suggerimenti"
+        }
       }
     }
   ],
-
   "allowed_paths": {
     "read": [
       "agents/agent_docs_sync/",
@@ -130,9 +176,9 @@
       "out/**"
     ]
   },
-
-  "required_gates": ["doc_alignment"],
-
+  "required_gates": [
+    "doc_alignment"
+  ],
   "knowledge_sources": [
     {
       "priority": "high",
@@ -160,11 +206,11 @@
       "type": "data"
     }
   ],
-
   "error_handling": {
     "retry_count": 3,
     "retry_delay_seconds": 30,
     "fallback_mode": "skip_llm_analysis",
     "alert_on_failure": true
-  }
+  },
+  "approvals": {}
 }

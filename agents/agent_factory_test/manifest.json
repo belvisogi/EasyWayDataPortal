@@ -1,21 +1,21 @@
 {
     "classification": "brain",
-    "role": "{{AGENT_ROLE}}",
-    "name": "{{AGENT_NAME}}",
-    "description": "{{AGENT_DESCRIPTION}}",
-    "id": "{{AGENT_NAME}}",
+    "role": "Factory Tester",
+    "name": "agent_factory_test",
+    "description": "Agent created to verify the Product Factory Kit",
+    "id": "agent_factory_test",
     "owner": "team-platform",
     "version": "0.1.0",
     "evolution_level": 1,
     "allowed_paths": {
         "read": [
             "README.md",
-            "agents/{{AGENT_NAME}}/**",
+            "agents/agent_factory_test/**",
             "agents/kb/**",
             "docs/**"
         ],
         "write": [
-            "agents/{{AGENT_NAME}}/memory/",
+            "agents/agent_factory_test/memory/",
             "agents/logs/"
         ]
     },
@@ -31,7 +31,7 @@
         {
             "priority": "high",
             "type": "document",
-            "path": "agents/{{AGENT_NAME}}/README.md"
+            "path": "agents/agent_factory_test/README.md"
         },
         {
             "priority": "medium",
@@ -50,7 +50,7 @@
         "model": "deepseek-chat",
         "temperature": 0.0,
         "max_tokens": 2000,
-        "system_prompt": "agents/{{AGENT_NAME}}/PROMPTS.md",
+        "system_prompt": "agents/agent_factory_test/PROMPTS.md",
         "tools": [
             "function_calling"
         ]

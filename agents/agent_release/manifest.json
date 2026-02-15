@@ -128,5 +128,6 @@
     "alert_on_failure": true,
     "retry_delay_seconds": 0,
     "retry_count": 0
-  }
+  },
+  "approvals": {}
 }
