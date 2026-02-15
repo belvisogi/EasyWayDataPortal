@@ -68,6 +68,15 @@ try {
 
   # Pre-Flight Check: Verify Remote Branches
   if ($src) {
+    # GOVERNANCE GUARDRAIL: Strict Gitflow Enforcement
+    if ($src -like "feature/*" -and $TargetBranch -in "main", "master") {
+      Write-Warning "⛔ GOVERNANCE VIOLATION: Stream Crossing Detected."
+      Write-Warning "   Policy: 'feature' branches must merge into 'develop' first."
+      Write-Warning "   You are trying to merge '$src' directly into '$TargetBranch'. THIS IS FORBIDDEN."
+      Write-Error "Action Blocked by Governance Guardrails. Please target 'develop'."
+      exit 1
+    }
+
     Write-Host "🔍 Verifying remote branches on 'origin'..." -ForegroundColor DarkGray
     
     $remoteSrc = git ls-remote --heads origin $src
