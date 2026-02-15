@@ -1097,6 +1097,30 @@ Definition of Done handoff:
 3. nessun incidente `branch missing` per almeno 7 giorni operativi consecutivi;
 4. documentazione allineata: PRD + runbook + eventuali note operative.
 
+Regole naming branch per PBI (vincolanti):
+1. pattern primario DevOps: `feature/devops/PBI-<id>-<slug>`;
+2. pattern ammessi dominio-specifici:
+- `feature/frontend/PBI-<id>-<slug>`
+- `feature/backend/PBI-<id>-<slug>`
+- `hotfix/devops/PBI-<id>-<slug>`
+- `chore/devops/PBI-<id>-<slug>`
+3. ogni PR deve mantenere corrispondenza branch <-> titolo usando stesso `PBI-<id>`.
+
+Modello identita' Antigravity (vincolante):
+1. vietato uso account personali per operazioni agentiche;
+2. creare gruppi minimi:
+- `grp.repo.agents.read`
+- `grp.repo.agents.write`
+- `grp.repo.agents.pr`
+- `grp.repo.agents.release`
+- `grp.repo.agents.admin` (break-glass)
+3. creare utenti servizio minimi:
+- `svc.agent.antigravity.devops`
+- `svc.agent.antigravity.release`
+- `svc.agent.antigravity.guard`
+4. assegnare least privilege ai gruppi e non direttamente agli utenti;
+5. credenziali separate per provider (`ADO`/`GitHub`/`Forgejo`) con rotazione periodica.
+
 ## 23. ToDo List Vivente e Gestione Contesto
 
 ### 23.1 ToDo List Vivente

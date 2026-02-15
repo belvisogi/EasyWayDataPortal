@@ -26,6 +26,25 @@ Definire una baseline unica di protezioni Git per evitare cancellazioni non volu
 - Branch critici: `main`, `develop`
 - Branch operativi: `feature/*`, `chore/*`, `hotfix/*`
 
+## Convenzione branch per PBI (standard)
+Pattern raccomandato per lavoro DevOps/PBI:
+- `feature/devops/PBI-<id>-<slug>`
+
+Esempi:
+- `feature/devops/PBI-342-sync-guardrails`
+- `feature/devops/PBI-410-antigravity-handoff`
+
+Pattern alternativi per dominio:
+- `feature/frontend/PBI-<id>-<slug>`
+- `feature/backend/PBI-<id>-<slug>`
+- `hotfix/devops/PBI-<id>-<slug>`
+- `chore/devops/PBI-<id>-<slug>`
+
+Regole:
+1. ogni branch operativo deve includere `PBI-<id>` quando derivato da backlog ADO;
+2. vietato lavorare su `develop`/`main` come branch di implementazione;
+3. il titolo PR deve iniziare con lo stesso `PBI-<id>`.
+
 ## Allineamento PRD
 Questo runbook implementa operativamente le linee guida del PRD platform:
 - `docs/PRD_EASYWAY_AGENTIC_PLATFORM.md` (integrazione Sprint 1 su `GitHub`/`Azure DevOps`/`Forgejo`)
@@ -44,6 +63,28 @@ Questo runbook implementa operativamente le linee guida del PRD platform:
 - `Contributors`: push consentito su branch operativi, delete/force-push negato.
 - `Maintainers/Release Managers`: eccezioni controllate e tracciate.
 - `Administrators`: pieno controllo, uso limitato a emergenze.
+
+## Identita' agenti (gruppi + utenti servizio)
+Principio:
+- gli agenti non devono operare con account personali; usare service identities dedicate.
+
+Gruppi minimi consigliati:
+1. `grp.repo.agents.read`
+2. `grp.repo.agents.write`
+3. `grp.repo.agents.pr`
+4. `grp.repo.agents.release`
+5. `grp.repo.agents.admin` (break-glass, ristretto)
+
+Utenti servizio consigliati:
+1. `svc.agent.antigravity.devops`
+2. `svc.agent.antigravity.release`
+3. `svc.agent.antigravity.guard`
+
+Regole operative:
+1. 1 identita' per capability critica (non account condivisi umani);
+2. secret/token separati per provider (`ADO`, `GitHub`, `Forgejo`);
+3. rotazione credenziali periodica e revoca immediata su compromise;
+4. ogni azione deve produrre audit con identity tecnica esplicita.
 
 ## Azure DevOps (passi)
 1. `Repos -> Branches -> ... -> Branch security`.
