@@ -1237,3 +1237,24 @@ Relazione con altre regole:
 Criterio di conformita':
 1. commit diretto su `main` o `develop` da parte di un agente = violazione tracciabile;
 2. se avviene, aprire post-mortem con azione correttiva entro 24 ore.
+
+### 22.21 Regola vincolante: Agent-Assisted PR Link Pattern
+
+Decisione operativa (2026-02-16):
+- per mitigare rischi di credenziali (PAT management) e garantire ownership umana, l'agente DEVE privilegiare la creazione assistita rispetto alla creazione diretta via CLI.
+
+Regole obbligatorie:
+1. L'agente prepara il branch (feature), il commit e il push.
+2. L'agente genera il **link diretto pre-compilato** per la creazione della PR (es. `https://dev.azure.com/.../pullrequestcreate?...`).
+3. L'agente fornisce all'utente il link, il titolo e la descrizione da usare.
+4. L'utente umano clicca, verifica visivamente e crea la PR con la propria identità.
+
+Eccezioni ammesse:
+- Pipeline CI/CD completamente automatizzate (dove l'identità è un Service Principal).
+- Task massivi ripetitivi esplicitamente autorizzati (es. dependency update automatici).
+
+Vantaggi attesi:
+- Zero gestione PAT lato agente locale.
+- Audit trail sempre riconducibile a una persona fisica responsabile.
+- Ultimo controllo umano (HITL) obbligatorio prima dell'apertura formale.
+
