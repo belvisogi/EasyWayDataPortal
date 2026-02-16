@@ -1,0 +1,87 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "EasyWay Decision Profile",
+    "description": "Defines a business user's risk appetite for autonomous agent actions.",
+    "type": "object",
+    "required": [
+        "name",
+        "risk_level",
+        "auto_approve_threshold_usd",
+        "require_human_review"
+    ],
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Human-readable profile name",
+            "pattern": "^[a-z0-9_-]+$"
+        },
+        "risk_level": {
+            "type": "string",
+            "enum": [
+                "conservative",
+                "moderate",
+                "aggressive"
+            ],
+            "description": "Overall risk appetite"
+        },
+        "auto_approve_threshold_usd": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Maximum USD cost for auto-approved actions. 0 = always require human review."
+        },
+        "require_human_review": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "read",
+                    "summarize",
+                    "query",
+                    "write",
+                    "delete",
+                    "deploy",
+                    "create",
+                    "update"
+                ]
+            },
+            "description": "Action verbs that always require human approval regardless of cost."
+        },
+        "allowed_actions_without_approval": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "read",
+                    "summarize",
+                    "query",
+                    "write",
+                    "delete",
+                    "deploy",
+                    "create",
+                    "update"
+                ]
+            },
+            "description": "Action verbs that can be auto-approved (up to threshold)."
+        },
+        "escalation_channel": {
+            "type": "string",
+            "description": "Notification channel for escalations (e.g., 'slack:#approvals', 'email:team@co.com').",
+            "default": "console"
+        },
+        "max_concurrent_auto_actions": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 5,
+            "description": "Maximum number of auto-approved actions in a single session."
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "created_by": {
+            "type": "string"
+        }
+    },
+    "additionalProperties": false
+}

@@ -1,6 +1,7 @@
 param(
     [string]$Agent = "user",
     [string]$Preference = "",
+    [string]$DecisionProfile = "",
     [int]$Rating = 0,
     [string]$Comment = "",
     [switch]$PlanOnly,
@@ -49,7 +50,25 @@ if ($Action -eq "invoke" -and [string]::IsNullOrWhiteSpace($Prompt) -and -not $M
     }
     if ($Preference) { Write-Host "Selected: $Preference" -ForegroundColor Green }
 
-    # 3. Enter Prompt
+    # 3. Decision Profile
+    $profilesDir = Join-Path $PSScriptRoot "..\..\agents\config\decision-profiles"
+    if (Test-Path $profilesDir) {
+        $profiles = Get-ChildItem -Path $profilesDir -Filter "*.json" | ForEach-Object { $_.BaseName }
+        if ($profiles.Count -gt 0) {
+            Write-Host "`nDecision Profile (Risk Appetite):" -ForegroundColor Gray
+            for ($i = 0; $i -lt $profiles.Count; $i++) {
+                $pData = Get-Content (Join-Path $profilesDir "$($profiles[$i]).json") -Raw | ConvertFrom-Json
+                Write-Host "  [$($i+1)] $($profiles[$i]) — $($pData.risk_level) (auto < `$$($pData.auto_approve_threshold_usd))"
+            }
+            $dpIdx = Read-Host "`nSelect Decision Profile [Enter = None]"
+            if ($dpIdx -match '^\d+$' -and [int]$dpIdx -le $profiles.Count -and [int]$dpIdx -ge 1) {
+                $DecisionProfile = $profiles[[int]$dpIdx - 1]
+                Write-Host "Selected: $DecisionProfile" -ForegroundColor Green
+            }
+        }
+    }
+
+    # 4. Enter Prompt
     Write-Host "`nPrompt:" -ForegroundColor Gray
     $inputPrompt = Read-Host "> "
     if ([string]::IsNullOrWhiteSpace($inputPrompt)) {
@@ -58,7 +77,7 @@ if ($Action -eq "invoke" -and [string]::IsNullOrWhiteSpace($Prompt) -and -not $M
     }
     $Prompt = $inputPrompt
     
-    Write-Host "`nRunning: agent-llm-router -Agent $Agent -Profile '$Preference' ...`n" -ForegroundColor DarkGray
+    Write-Host "`nRunning: agent-llm-router -Agent $Agent -Profile '$Preference' -DecisionProfile '$DecisionProfile' ...`n" -ForegroundColor DarkGray
 }
 # --- INTERACTIVE WIZARD END ---
 
