@@ -1208,3 +1208,30 @@ Output consigliato del sunto:
 4. `Task aperti`
 5. `Rischi/Blocchi`
 6. `Prompt di ripartenza per nuova chat`
+
+### 22.19 Regola vincolante: Agent Pre-Flight Branch Check
+
+Decisione operativa (2026-02-16):
+- ogni agente (Codex, Antigravity, ClaudeCode, o qualsiasi tool agentico) DEVE verificare il branch attivo PRIMA di toccare qualsiasi file.
+
+Regole obbligatorie:
+1. prima di qualsiasi modifica codice, eseguire: `git branch --show-current`;
+2. se il branch e' `main`, `develop` o `baseline`: STOP. Creare un feature branch (`feature/<scope>-<short-name>`);
+3. il nome del feature branch deve essere concordato con l'utente se non ovvio dal contesto;
+4. solo dopo conferma del branch corretto, procedere con le modifiche;
+5. a fine lavoro, ricordare all'utente di procedere via PR per il merge.
+
+Enforcement tecnico:
+- le istruzioni operative per gli agenti risiedono in `.agent/workflows/`;
+- il file `.agent/workflows/start-feature.md` contiene il workflow pre-flight vincolante;
+- la cartella `.agent/` e' riservata a istruzioni macchina per gli agenti: NON e' documentazione per umani;
+- ogni agente con accesso alla repository deve leggere `.agent/workflows/` prima di iniziare il lavoro.
+
+Relazione con altre regole:
+- 22.17 (Branch Coordination Agent): gli agenti devono eseguire `recommend + claim` prima di lavorare;
+- 22.13 (Branch Governance ADO): i branch protetti hanno `Deny` su force push;
+- la presente regola aggiunge il check pre-flight obbligatorio come primo step operativo.
+
+Criterio di conformita':
+1. commit diretto su `main` o `develop` da parte di un agente = violazione tracciabile;
+2. se avviene, aprire post-mortem con azione correttiva entro 24 ore.

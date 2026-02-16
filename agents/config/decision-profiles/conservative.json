@@ -1,0 +1,20 @@
+{
+    "name": "conservative",
+    "risk_level": "conservative",
+    "auto_approve_threshold_usd": 0,
+    "require_human_review": [
+        "read",
+        "summarize",
+        "query",
+        "write",
+        "delete",
+        "deploy",
+        "create",
+        "update"
+    ],
+    "allowed_actions_without_approval": [],
+    "escalation_channel": "console",
+    "max_concurrent_auto_actions": 1,
+    "created_at": "2026-02-16T05:00:00Z",
+    "created_by": "system"
+}
