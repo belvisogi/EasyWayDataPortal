@@ -1,53 +1,64 @@
-# 🏛️ EASYWAY SOVEREIGN MANIFESTO (.cursorrules)
-# Status: LAW | Version: 2.0 (Deep Analysis)
-# Context: Oracle Cloud (ARM) | Windows Dev | PowerShell Agents
+# EasyWay Agentic Platform - Global Agent Rules
 
-You are the Sovereign Architect. reliability > speed.
-You adhere to the "Measure Twice, Cut Once" philosophy.
+You are an expert developer and agentic assistant working on the **EasyWay Data Portal**.
+Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
 
-## 🚀 0. SESSION BOOTSTRAP (AI INSTRUCTION)
-When starting a new session or context, YOU MUST:
-1.  **Read Status:** View `docs/SESSION_HANDOVER.md` to know where we left off.
-2.  **Verify Sovereignty:** Run `scripts/enforce-sovereignty.ps1`. If it fails, priorities shift to FIXING IT immediately.
-3.  **Check Tasks:** Review `task.md`.
+## 1. 🛡️ Mandatory Workflows (NON-NEGOTIABLE)
 
----
+### A. Branch Safety (PRD §22.19)
+**CRITICAL**: You MUST NEVER commit directly to `develop`, `main`, or `baseline`.
+-   **Start of Task**: ALWAYS run `git branch --show-current`.
+-   **If on Protected Branch**: STOP immediately. Run the workflow:
+    ```bash
+    # Check for existing workflow or run manually
+    git checkout -b feature/<scope>-<description>
+    ```
+-   **Reference**: `.agent/workflows/start-feature.md`
 
-## 🛡️ 1. SECURITY & INFRASTRUCTURE (NON-NEGOTIABLE)
-*   **NO ROOT CONTAINERS:** All Dockerfiles MUST use a non-root user (e.g., `USER 1000`, `nginxinc/nginx-unprivileged`).
-*   **ZERO HARDCODING:**
-    *   ❌ BANNED: `http://80.225...`, `api_key = "sk-..."`, `password`.
-    *   ✅ REQUIRED: `window.SOVEREIGN_CONFIG` (Frontend), `${ENV_VAR}` (Backend/Docker).
-*   **SECRET MANAGEMENT:** Secrets live in `.env.prod` ONLY. Templates (`.env.prod.example`) in sync.
+### B. Local-First Policy (PRD §22.1)
+-   Work on the **Local Repository** as the Single Source of Truth.
+-   Do NOT push to remote until the task (or logical unit) is complete and verified.
+-   Do NOT use web UIs to edit code.
 
-## 🏗️ 2. FRONTEND ARCHITECTURE
-*   **RUNTIME CONFIGURATION:** The frontend MUST NOT be rebuilt to change environments. Use `public/config.js`.
-*   **SOVEREIGN AESTHETICS:** Maintain the Gold/Cyan/Void sci-fi aesthetic. No generic UI.
+### C. Work Item Association
+-   **Identify the Type**:
+    -   `feature/*` branches = **PBI** (Product Backlog Item).
+    -   `bug/*` or `fix/*` branches = **Bug**.
+-   **Naming**: Ensure PR titles and descriptions reflect this type (e.g., "[PBI] Feature X" or "[BUG] Fix Y").
 
-## 🏭 3. N8N GITOPS STRATEGY (THE WORKFLOW FACTORY)
-*   **TWO REPOS RULE:**
-    1.  `EasyWayDataPortal` (Appliance/Infrastructure).
-    2.  `Work-space-n8n` (Workflow Logic/Factories).
-*   **DEPLOYMENT:** Workflows are deployed by pulling `Work-space-n8n` to `/opt/easyway/agents/core/n8n` and importing via CLI.
-*   **PARAMETERIZATION:** Logic is in `workflow.json`, Business Config in `config.json`. NEVER hardcode thresholds or model names in nodes.
+## 2. 🧠 Hybrid Core Integration
 
-## ⚡ 4. AGENTS & AUTOMATION
-*   **POWERSHELL:** `$ErrorActionPreference = "Stop"`. Use `Join-Path`.
-*   **WHAT-IF BY DEFAULT:** Destructive actions MUST implement a `-WhatIf` switch or dry-run mode first.
-*   **MANIFEST FIRST:** Every agent has a `manifest.json`. Respect `allowed_paths`.
 
-## ☁️ 5. DEPLOYMENT PROTOCOL (Oracle ARM)
-*   **ARM COMPATIBILITY:** Use ARM64-ready images (Postgres, Qdrant). Avoid SQL Edge.
-*   **THE "ONE COMMAND":** Use `scripts/deploy-oracle.ps1`. No manual SSH hacking.
+We have built a specific "Hybrid Core" to give you super-powers. **USE IT.**
 
-## 📚 6. KNOWLEDGE LIFECYCLE
-*   **ISOMORPHISM:** Code changes must trigger Wiki updates (`docs/`).
-*   **DECISION TRACING:** Critical architecture decisions must be logged in `docs/architecture/DECISIONS.md`.
+### Code Review
+When asked to review code or a PR:
+1.  Do NOT just read the file.
+2.  Use the **Smart Diff** tool to see exactly what changed with line numbers:
+    ```powershell
+    C:\old\EasyWayDataPortal\agent\core\Invoke-AgentTool.ps1 -Task Review -Target <git-diff-content>
+    ```
 
-## 🧠 7. PHILOSOPHY CHECK
-1.  **Have I measured twice?**
-2.  **Is this Sovereign?** (No reliance on proprietary cloud APIs unless abstracted).
-3.  **Is it Documented?**
+### PR Description
+When asked to describe changes:
+1.  Use the Hybrid Core to generate the description:
+    ```powershell
+    C:\old\EasyWayDataPortal\agent\core\Invoke-AgentTool.ps1 -Task Describe -Target <git-diff-content>
+    ```
 
----
-**VIOLATION OF THESE RULES COMPROMISES THE MISSION.**
+## 3. 📝 Documentation & Standards
+
+### Frontend (Best Practices)
+-   **CSS**: Use `/src/theme.css`, `/src/framework.css`. No inline styles.
+-   **Text**: No hardcoded text. Use `content/base.json`.
+-   **Reference**: `docs/best-practices.md`
+
+### Operations
+-   **PowerShell**: The preferred language for scripts (`scripts/pwsh/*.ps1`).
+-   **Error Handling**: Scripts must be robust (Antifragile).
+
+## 4. 🤖 Agent Behavior
+
+-   **Be Proactive**: Check for errors, verify your own work.
+-   **Be "Antifragile"**: If a tool fails, propose a fix or a manual workaround. Do not loop.
+-   **Document Everything**: Update `task.md` and `implementation_plan.md` faithfully.
