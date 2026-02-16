@@ -1258,3 +1258,34 @@ Vantaggi attesi:
 - Audit trail sempre riconducibile a una persona fisica responsabile.
 - Ultimo controllo umano (HITL) obbligatorio prima dell'apertura formale.
 
+### 22.22 Merge Strategy e Eternal Branches (Policy DevOps)
+
+Decisione operativa (2026-02-16):
+- Al fine di mantenere una history pulita su `main` ma dettagliata su `develop`, si adottano le seguenti strategie di merge vincolanti.
+
+#### A. Strategie di Merge per Target Branch
+
+| Target Branch | Strategia | Settings Policy ADO | Motivo |
+|---------------|-----------|---------------------|--------|
+| **`main`** | **Squash Commit** | `Limit merge types` = `Squash` | Mantiene la history di produzione lineare e pulita (1 release = 1 commit). |
+| **`develop`** | **Merge (No Fast-Forward)** | `Limit merge types` = `Merge` | Mantiene il dettaglio completo di ogni feature e i riferimenti ai branch originali per debug. |
+| **`feature/*`** | **Squash o Rebase** | (Opzionale) | Per feature branch di lunga durata, preferire rebase su develop locale. |
+
+#### B. Eternal Branches (Mai cancellare)
+
+Regola assoluta:
+- I branch **`main`** e **`develop`** sono **ETERNI**.
+- **Mai** selezionare "Delete source branch" quando si fa merge DA `develop`.
+- **Sempre** selezionare "Delete source branch" quando si fa merge DA `feature/*` (o `bugfix/*`, `hotfix/*`).
+
+#### C. Configurazione DevOps (Branch Policies)
+
+Per ogni repo EasyWay, le seguenti policy devono essere attive su `main` e `develop`:
+1. **Require a minimum number of reviewers**: 1 (o 2 per main).
+2. **Check for linked work items**: Required (tracciabilità PBI).
+3. **Limit merge types**:
+   - Su `main`: Bloccare `Merge`, permettere solo `Squash`.
+   - Su `develop`: Permettere `Merge` e `Squash`.
+4. **Build validation**: Pipeline di CI obbligatoria (se presente).
+
+
