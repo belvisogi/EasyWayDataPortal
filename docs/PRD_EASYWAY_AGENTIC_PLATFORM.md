@@ -384,12 +384,14 @@ Regola:
      - **Phase 2 (Automated Factory)**: Aggiornamento di `agent_creator` (n8n-driven) per usare i nuovi template standard, per creazione massiva/governata.
 4. Multi-agent workflow orchestration [DONE].
    - *Result*: Implementato `Invoke_SubAgent` tool nel Router. Permette chiamate ricorsive e governate tra agenti.
-5. UX avanzata per decision profile guidato (P2.4).
+5. UX avanzata per decision profile guidato (P2.4) [DONE].
+   - *Result (P3)*: Implementato `New-DecisionProfile.ps1` wizard interattivo + `decision-profile.schema.json` + 3 profili starter (conservative, moderate, aggressive). Integrato come Step 3 nel Router UX.
 6. Processo di propagazione manutenzione core verso prodotti derivati [DONE].
    - *Result*: Implementato `scripts/pwsh/agent-maintenance.ps1` per Lint/Update automatico dei manifesti.
 7. Productization Review checklist obbligatoria in chiusura progetto cliente [DONE].
    - *Result*: Creata checklist in `docs/ops/productization-review.md`.
-8. Catalogo "dime" (pattern riusabili) con scoring di maturita' e riuso.
+8. Catalogo "dime" (pattern riusabili) con scoring di maturita' e riuso [DONE].
+   - *Result (P3)*: Implementate 3 COSTAR Skills (Invoke-Summarize, Invoke-SQLQuery, Invoke-ClassifyIntent) con campo `costar_prompt` in `registry.json`. n8n bridge operativo per composizione visuale agenti.
 
 ## 16. Rischi e mitigazioni
 
