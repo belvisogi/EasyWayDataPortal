@@ -57,10 +57,13 @@ All features have been verified via checklists located in `brain/`:
 ## 6. Access & Permissions (Known Gaps)
 - **PR Automation**: The agent (`agent_pr_manager`) can generate PR descriptions locally but cannot currently open PRs on Azure DevOps due to missing PAT/permissions in the agent runtime environment. This step remains manual for now.
 
-## 7. Next Steps (P3 Preview)
+## 8. Next Steps (P3 Preview)
 With the foundation solid, the next logical phase is **Workflow Intelligence**:
 1.  **Decision Profile UX**: Guided wizard for business users to define risk profiles.
-2.  **Reusable Pattern Catalog ("Dime")**: Library of common agent skills (e.g., "SQL Query", "Summarize").
+2.  **Reusable Pattern Catalog ("Dime")**: 
+    - Library of common agent skills (e.g., "SQL Query", "Summarize").
+    - **Methodology**: Use `#COSTAR` approach for prompt engineering.
+    - **Reference**: Follow examples from `https://skills.sh`.
 3.  **Visual Orchestration**: Integration with n8n for drag-and-drop flows (building on `agent_creator`).
 
 ---

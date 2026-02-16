@@ -1,0 +1,105 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "EasyWay Agent Node for n8n",
+    "description": "JSON schema defining the contract for an EasyWay Agent node inside n8n workflows. Enables drag-and-drop agent composition.",
+    "type": "object",
+    "required": [
+        "agentId",
+        "action",
+        "prompt"
+    ],
+    "properties": {
+        "agentId": {
+            "type": "string",
+            "description": "Agent identifier (e.g., 'agent_dba', 'agent_chronicler')",
+            "pattern": "^[a-z_]+$"
+        },
+        "action": {
+            "type": "string",
+            "enum": [
+                "invoke",
+                "plan",
+                "feedback"
+            ],
+            "default": "invoke",
+            "description": "Action to execute: invoke (run), plan (dry-run), feedback (learning loop)"
+        },
+        "prompt": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The task/question to send to the agent"
+        },
+        "preference": {
+            "type": "string",
+            "enum": [
+                "speed_first",
+                "privacy_first",
+                "cost_balanced",
+                ""
+            ],
+            "default": "",
+            "description": "Routing preference for LLM provider selection"
+        },
+        "decisionProfile": {
+            "type": "string",
+            "default": "",
+            "description": "Name of the decision profile (risk appetite) to apply"
+        },
+        "skills": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "default": [],
+            "description": "Explicit skill IDs to load for this invocation"
+        },
+        "timeout_seconds": {
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 600,
+            "default": 120,
+            "description": "Maximum execution time before timeout"
+        },
+        "input_data": {
+            "type": "object",
+            "description": "Additional structured data passed from a previous n8n node (key-value pairs)",
+            "additionalProperties": true
+        },
+        "output_schema": {
+            "type": "object",
+            "description": "Expected output format hint (optional, for downstream nodes)",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "success",
+                        "error",
+                        "timeout"
+                    ]
+                },
+                "result": {
+                    "type": "object",
+                    "description": "Agent result payload"
+                },
+                "usage": {
+                    "type": "object",
+                    "properties": {
+                        "costUSD": {
+                            "type": "number"
+                        },
+                        "tokens": {
+                            "type": "integer"
+                        },
+                        "model": {
+                            "type": "string"
+                        },
+                        "duration_ms": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

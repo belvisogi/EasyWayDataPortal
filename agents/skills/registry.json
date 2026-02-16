@@ -806,6 +806,179 @@
         "server-sync",
         "ssh"
       ]
+    },
+    {
+      "id": "analysis.summarize",
+      "name": "Invoke-Summarize",
+      "domain": "analysis",
+      "file": "skills/analysis/Invoke-Summarize.ps1",
+      "version": "1.0.0",
+      "description": "Summarize text using #COSTAR prompt framework. Supports business/technical/conversational styles.",
+      "parameters": [
+        {
+          "name": "InputText",
+          "type": "string",
+          "required": true,
+          "description": "Text to summarize"
+        },
+        {
+          "name": "MaxWords",
+          "type": "integer",
+          "required": false,
+          "default": 150
+        },
+        {
+          "name": "Style",
+          "type": "string",
+          "required": false,
+          "default": "business",
+          "enum": [
+            "business",
+            "technical",
+            "conversational"
+          ]
+        },
+        {
+          "name": "OutputFormat",
+          "type": "string",
+          "required": false,
+          "default": "object",
+          "enum": [
+            "object",
+            "json",
+            "markdown"
+          ]
+        },
+        {
+          "name": "DryRun",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Return assembled prompt without calling LLM"
+        }
+      ],
+      "costar_prompt": {
+        "context": "You are given the following document: {{InputText}}",
+        "objective": "Produce a concise summary in no more than {{MaxWords}} words.",
+        "style": "Configurable: business / technical / conversational",
+        "tone": "Neutral, informative, factual",
+        "audience": "Determined by Style parameter",
+        "response_format": "JSON { summary, key_points, word_count }"
+      },
+      "dependencies": [],
+      "tags": [
+        "analysis",
+        "summarize",
+        "costar",
+        "llm",
+        "nlp"
+      ]
+    },
+    {
+      "id": "analysis.sql-query",
+      "name": "Invoke-SQLQuery",
+      "domain": "analysis",
+      "file": "skills/analysis/Invoke-SQLQuery.ps1",
+      "version": "1.0.0",
+      "description": "Generate safe read-only SQL from natural language using #COSTAR. Optional execution.",
+      "parameters": [
+        {
+          "name": "Question",
+          "type": "string",
+          "required": true,
+          "description": "Natural-language question"
+        },
+        {
+          "name": "SchemaContext",
+          "type": "string",
+          "required": false,
+          "description": "Database DDL / schema"
+        },
+        {
+          "name": "Execute",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "Server",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "Database",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "DryRun",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        }
+      ],
+      "costar_prompt": {
+        "context": "Database schema + user question",
+        "objective": "Generate a safe, read-only SQL SELECT query answering the question.",
+        "style": "Technical SQL with inline comments, CTEs for complex queries",
+        "tone": "Precise, minimal",
+        "audience": "Developer or DBA",
+        "response_format": "JSON { sql, explanation, tables_used }"
+      },
+      "dependencies": [],
+      "tags": [
+        "analysis",
+        "sql",
+        "costar",
+        "llm",
+        "database",
+        "nlp"
+      ]
+    },
+    {
+      "id": "analysis.classify-intent",
+      "name": "Invoke-ClassifyIntent",
+      "domain": "analysis",
+      "file": "skills/analysis/Invoke-ClassifyIntent.ps1",
+      "version": "1.0.0",
+      "description": "Classify user intent into known categories with confidence score using #COSTAR.",
+      "parameters": [
+        {
+          "name": "UserInput",
+          "type": "string",
+          "required": true,
+          "description": "User input to classify"
+        },
+        {
+          "name": "IntentList",
+          "type": "array",
+          "required": false,
+          "description": "Known intent labels"
+        },
+        {
+          "name": "DryRun",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        }
+      ],
+      "costar_prompt": {
+        "context": "User input + known intent categories",
+        "objective": "Classify input into exactly one intent with confidence score.",
+        "style": "Analytical, data-driven classification",
+        "tone": "Objective, precise",
+        "audience": "Orchestration engine for request routing",
+        "response_format": "JSON { intent, confidence, reasoning }"
+      },
+      "dependencies": [],
+      "tags": [
+        "analysis",
+        "intent",
+        "classification",
+        "costar",
+        "llm",
+        "nlp"
+      ]
     }
   ]
 }

@@ -384,12 +384,14 @@ Regola:
      - **Phase 2 (Automated Factory)**: Aggiornamento di `agent_creator` (n8n-driven) per usare i nuovi template standard, per creazione massiva/governata.
 4. Multi-agent workflow orchestration [DONE].
    - *Result*: Implementato `Invoke_SubAgent` tool nel Router. Permette chiamate ricorsive e governate tra agenti.
-5. UX avanzata per decision profile guidato (P2.4).
+5. UX avanzata per decision profile guidato (P2.4) [DONE].
+   - *Result (P3)*: Implementato `New-DecisionProfile.ps1` wizard interattivo + `decision-profile.schema.json` + 3 profili starter (conservative, moderate, aggressive). Integrato come Step 3 nel Router UX.
 6. Processo di propagazione manutenzione core verso prodotti derivati [DONE].
    - *Result*: Implementato `scripts/pwsh/agent-maintenance.ps1` per Lint/Update automatico dei manifesti.
 7. Productization Review checklist obbligatoria in chiusura progetto cliente [DONE].
    - *Result*: Creata checklist in `docs/ops/productization-review.md`.
-8. Catalogo "dime" (pattern riusabili) con scoring di maturita' e riuso.
+8. Catalogo "dime" (pattern riusabili) con scoring di maturita' e riuso [DONE].
+   - *Result (P3)*: Implementate 3 COSTAR Skills (Invoke-Summarize, Invoke-SQLQuery, Invoke-ClassifyIntent) con campo `costar_prompt` in `registry.json`. n8n bridge operativo per composizione visuale agenti.
 
 ## 16. Rischi e mitigazioni
 
@@ -1208,3 +1210,82 @@ Output consigliato del sunto:
 4. `Task aperti`
 5. `Rischi/Blocchi`
 6. `Prompt di ripartenza per nuova chat`
+
+### 22.19 Regola vincolante: Agent Pre-Flight Branch Check
+
+Decisione operativa (2026-02-16):
+- ogni agente (Codex, Antigravity, ClaudeCode, o qualsiasi tool agentico) DEVE verificare il branch attivo PRIMA di toccare qualsiasi file.
+
+Regole obbligatorie:
+1. prima di qualsiasi modifica codice, eseguire: `git branch --show-current`;
+2. se il branch e' `main`, `develop` o `baseline`: STOP. Creare un feature branch (`feature/<scope>-<short-name>`);
+3. il nome del feature branch deve essere concordato con l'utente se non ovvio dal contesto;
+4. solo dopo conferma del branch corretto, procedere con le modifiche;
+5. a fine lavoro, ricordare all'utente di procedere via PR per il merge.
+
+Enforcement tecnico:
+- le istruzioni operative per gli agenti risiedono in `.agent/workflows/`;
+- il file `.agent/workflows/start-feature.md` contiene il workflow pre-flight vincolante;
+- la cartella `.agent/` e' riservata a istruzioni macchina per gli agenti: NON e' documentazione per umani;
+- ogni agente con accesso alla repository deve leggere `.agent/workflows/` prima di iniziare il lavoro.
+
+Relazione con altre regole:
+- 22.17 (Branch Coordination Agent): gli agenti devono eseguire `recommend + claim` prima di lavorare;
+- 22.13 (Branch Governance ADO): i branch protetti hanno `Deny` su force push;
+- la presente regola aggiunge il check pre-flight obbligatorio come primo step operativo.
+
+Criterio di conformita':
+1. commit diretto su `main` o `develop` da parte di un agente = violazione tracciabile;
+2. se avviene, aprire post-mortem con azione correttiva entro 24 ore.
+
+### 22.21 Regola vincolante: Agent-Assisted PR Link Pattern
+
+Decisione operativa (2026-02-16):
+- per mitigare rischi di credenziali (PAT management) e garantire ownership umana, l'agente DEVE privilegiare la creazione assistita rispetto alla creazione diretta via CLI.
+
+Regole obbligatorie:
+1. L'agente prepara il branch (feature), il commit e il push.
+2. L'agente genera il **link diretto pre-compilato** per la creazione della PR (es. `https://dev.azure.com/.../pullrequestcreate?...`).
+3. L'agente fornisce all'utente il link, il titolo e la descrizione da usare.
+4. L'utente umano clicca, verifica visivamente e crea la PR con la propria identità.
+
+Eccezioni ammesse:
+- Pipeline CI/CD completamente automatizzate (dove l'identità è un Service Principal).
+- Task massivi ripetitivi esplicitamente autorizzati (es. dependency update automatici).
+
+Vantaggi attesi:
+- Zero gestione PAT lato agente locale.
+- Audit trail sempre riconducibile a una persona fisica responsabile.
+- Ultimo controllo umano (HITL) obbligatorio prima dell'apertura formale.
+
+### 22.22 Merge Strategy e Eternal Branches (Policy DevOps)
+
+Decisione operativa (2026-02-16):
+- Al fine di mantenere una history pulita su `main` ma dettagliata su `develop`, si adottano le seguenti strategie di merge vincolanti.
+
+#### A. Strategie di Merge per Target Branch
+
+| Target Branch | Strategia | Settings Policy ADO | Motivo |
+|---------------|-----------|---------------------|--------|
+| **`main`** | **Squash Commit** | `Limit merge types` = `Squash` | Mantiene la history di produzione lineare e pulita (1 release = 1 commit). |
+| **`develop`** | **Merge (No Fast-Forward)** | `Limit merge types` = `Merge` | Mantiene il dettaglio completo di ogni feature e i riferimenti ai branch originali per debug. |
+| **`feature/*`** | **Squash o Rebase** | (Opzionale) | Per feature branch di lunga durata, preferire rebase su develop locale. |
+
+#### B. Eternal Branches (Mai cancellare)
+
+Regola assoluta:
+- I branch **`main`** e **`develop`** sono **ETERNI**.
+- **Mai** selezionare "Delete source branch" quando si fa merge DA `develop`.
+- **Sempre** selezionare "Delete source branch" quando si fa merge DA `feature/*` (o `bugfix/*`, `hotfix/*`).
+
+#### C. Configurazione DevOps (Branch Policies)
+
+Per ogni repo EasyWay, le seguenti policy devono essere attive su `main` e `develop`:
+1. **Require a minimum number of reviewers**: 1 (o 2 per main).
+2. **Check for linked work items**: Required (tracciabilità PBI).
+3. **Limit merge types**:
+   - Su `main`: Bloccare `Merge`, permettere solo `Squash`.
+   - Su `develop`: Permettere `Merge` e `Squash`.
+4. **Build validation**: Pipeline di CI obbligatoria (se presente).
+
+

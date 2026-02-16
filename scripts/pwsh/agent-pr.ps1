@@ -42,16 +42,10 @@ function Build-Description {
 # $title
 
 ## Scopo
-- PR proposta dall'agente per consolidare la piattaforma P2 (Advanced Platform).
-- Include: Orchestrazione, Factory Kit, Governance, UX Wizard, Maintenance.
+- PR proposta dall'agente per il merge del feature branch.
 
 ## File cambiati
 $fileList
-
-## Esiti e Artifact attesi
-- Advanced Platform v1.0 Operational
-- Tutti i test di verifica P2 passati
-- Documentazione Handoff generata
 
 ## Rollback
 - Revert del commit di merge.
@@ -60,7 +54,7 @@ $fileList
 
 try {
   $src = if ($AutoDetectSource) { Detect-SourceBranch } else { $null }
-  if (-not $Title) { $Title = "CI: ewctl gates + Flyway validate/migrate (+prod approvals)" }
+  if (-not $Title) { $Title = "PR: merge feature branch" }
   $changed = Collect-ChangedFiles
   $desc = Build-Description -files $changed -title $Title
   $desc | Set-Content -Encoding UTF8 $DescriptionPath
