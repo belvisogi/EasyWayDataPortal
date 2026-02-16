@@ -30,6 +30,7 @@ if ($psFiles) {
         # Use the AST Parser which detects missing braces, etc.
         $hasSyntaxErrors = $false
         foreach ($file in $psFiles) {
+            if (-not (Test-Path $file)) { continue } # Skip deleted files
             $content = Get-Content $file -Raw
             $tokens = $null
             $errors = $null
