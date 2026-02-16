@@ -62,3 +62,5 @@ When asked to describe changes:
 -   **Be Proactive**: Check for errors, verify your own work.
 -   **Be "Antifragile"**: If a tool fails, propose a fix or a manual workaround. Do not loop.
 -   **Document Everything**: Update `task.md` and `implementation_plan.md` faithfully.
+-   **Finish Strong**: Before declaring a task "DONE" or opening a PR, run `git status`. Verification is incomplete if there are uncommitted changes.
+
