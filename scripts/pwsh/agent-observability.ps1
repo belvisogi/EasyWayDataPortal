@@ -39,10 +39,41 @@ switch ($Action) {
       $exists = Test-Path $pp
       $checks += [ordered]@{ path = $pp; exists = [bool]$exists }
     }
+    
+    # DB Health Check Integration
+    $dbCheck = $null
+    try {
+      if (Test-Path "scripts/pwsh/agent-dba.ps1") {
+        $tmpDbIntent = New-TemporaryFile
+        Set-Content -Path $tmpDbIntent -Value (@{ action = "dba:check-health"; params = @{} } | ConvertTo-Json)
+        try {
+          $dbRaw = & pwsh scripts/pwsh/agent-dba.ps1 -Action "dba:check-health" -IntentPath $tmpDbIntent 2>&1 | Out-String
+          # Parse the JSON output from agent-dba
+          # Output might contain logs or other text, try to extract JSON
+          # The agent-dba uses Out-Result which writes JSON.
+          $dbJson = $dbRaw -replace '(?s)^.*(\{[^\{]*"contractId"[^\}]*\}).*$', '$1' 
+          $dbRes = $dbJson | ConvertFrom-Json -ErrorAction SilentlyContinue
+          if ($dbRes -and $dbRes.output) {
+            $dbCheck = $dbRes.output
+          }
+        }
+        finally {
+          Remove-Item -Force $tmpDbIntent -ErrorAction SilentlyContinue
+        }
+      }
+    }
+    catch {
+      $dbCheck = @{ status = "error"; details = $_.Exception.Message }
+    }
+
     $result = [ordered]@{
       action = $Action; ok = $true; whatIf = [bool]$WhatIf; nonInteractive = [bool]$NonInteractive;
       correlationId = ($intent?.correlationId ?? $p?.correlationId); startedAt = $now; finishedAt = (Get-Date).ToUniversalTime().ToString('o');
-      output = [ordered]@{ checks = $checks; hint = 'Healthcheck locale file-based; per runtime aggiungere endpoint/metrics.' }
+      output = [ordered]@{ 
+        fileChecks = $checks; 
+        dbCheck    = $dbCheck;
+        hint       = 'Healthcheck locale file-based + DB connectivity.' 
+      }
     }
     $result.contractId = 'action-result'; $result.contractVersion = '1.0'
     if ($LogEvent) { $null = Write-Event ($result + @{ event = 'agent-observability'; govApproved = $false }) }
@@ -51,6 +82,7 @@ switch ($Action) {
 
   'obs:check-logs' {
     $hours = if ($p.hours) { [double]$p.hours } else { 1 }
+    # Use UTC for robust comparison
     $cutoff = (Get-Date).ToUniversalTime().AddHours(-$hours)
     
     $logFiles = @(
@@ -79,6 +111,7 @@ switch ($Action) {
                 $ts = [DateTime]::Parse($entry.timestamp, $null, 'RoundtripKind')
               }
               
+              # Normalize to Universal Time before comparison
               if ($ts.ToUniversalTime() -ge $cutoff) {
                 $analyzedCount++
                 if ($entry.level -match 'error|warn') {
@@ -87,11 +120,14 @@ switch ($Action) {
               }
             }
           }
-          catch { }
+          catch {
+            # Skip malformed lines
+          }
         }
       }
     }
     
+    # Group by message to find top errors
     $topErrors = $errorsFound | Group-Object message | Sort-Object Count -Descending | Select-Object -First 5
     
     $analysis = $null
