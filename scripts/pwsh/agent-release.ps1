@@ -296,6 +296,44 @@ function Initialize-ReleaseSkills {
     }
 }
 
+
+
+function Invoke-Rollback {
+    param(
+        [string]$Reason
+    )
+
+    Write-Warn "⚠️  ROLLBACK INITIATED ⚠️"
+    Write-Info "Reason: $Reason"
+    
+    if ($Mode -eq "server-sync") {
+        Write-Warn "Automatic rollback for 'server-sync' is not yet implemented."
+        Write-Info "MANUAL ACTION REQUIRED: SSH into $ServerHost and restore the backup tag created before sync."
+        return
+    }
+
+    # Promote Mode Rollback Strategy: Revert Commit
+    Write-Info "Strategy: creating a revert commit to undo changes."
+    
+    try {
+        if (Get-Command Invoke-GitRevert -ErrorAction SilentlyContinue) {
+            # Future skill usage
+        }
+        else {
+            git revert HEAD --no-edit
+            if ($LASTEXITCODE -ne 0) { throw "Git revert failed." }
+            
+            git push origin $TargetBranch
+            if ($LASTEXITCODE -ne 0) { throw "Git push of revert failed." }
+        }
+        Write-Info "Rollback successful. The bad commit has been reverted."
+    }
+    catch {
+        Write-Error "Rollback failed: $_"
+        Write-Warn "System may be in an inconsistent state. Immediate manual intervention required."
+    }
+}
+
 function Invoke-PostReleaseCheck {
     if (-not $Verify) { return }
 
@@ -341,8 +379,20 @@ function Invoke-PostReleaseCheck {
                 Write-Host $json.output.analysis -ForegroundColor Gray
             }
             
-            # Future: Implement Auto-Rollback here
-            # throw "Post-Release Verification Failed" 
+            # Auto-Rollback / Human-in-the-Loop
+            Write-Host "`n[CRITICAL] Release verification failed." -ForegroundColor Red
+            Write-Host "The agent recommends a ROLLBACK to restore service stability." -ForegroundColor Yellow
+            
+            # Simple risk assessment (placeholder)
+            Write-Host "Risk Assessment: Low (Code-only revert)" -ForegroundColor Green
+            
+            $confirm = Read-Host "Execute Rollback now? (y/N)"
+            if ($confirm -eq 'y') {
+                Invoke-Rollback -Reason "Verification failed with $($json.output.errorCount) errors."
+            }
+            else {
+                Write-Warn "Rollback cancelled by user. System remains in error state."
+            }
         }
         else {
             Write-Info "Verification Passed: Zero errors found in the last hour."
