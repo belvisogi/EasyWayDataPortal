@@ -4,6 +4,20 @@
 **Date**: 2026-02-17
 **Status**: Live (Level 3 - Hybrid Agent)
 
+## 0. Executive Summary: EasyWay vs Standard
+We use `pr-agent` (Standard) as our "Server-Side Brain", but EasyWay adds a "Client-Side Nervous System" (Hybrid Core).
+
+| Feature | Standard `pr-agent` (ADO) | **EasyWay Hybrid Core** (Our Plus) |
+| :--- | :---: | :--- |
+| **Review & Describe** | ✅ (Server-Side) | ✅ **+ Local Preview** (`ewctl check`) |
+| **Governance** | ❌ (None) | ✅ **Smart Commit** (Blocks bad commits) |
+| **Security** | ❌ (None) | ✅ **Iron Dome** (Pre-scan for syntax/secrets) |
+| **Domain Tools** | ❌ (Generic Code) | ✅ **Levi (DQF)**, SQL Tools, Custom Scripts |
+| **Execution** | Cloud Only (CI/CD) | **Hybrid** (Local Pipeline `|` + Cloud) |
+| **Parsing** | Text Only | **Structured** (JSON Output for downstream) |
+
+---
+
 ## 1. The Kernel: `ewctl`
 *   **Role**: The central Command Line Interface (CLI) and entry point for all operations.
 *   **Function**: Standardizes inconsistent scripts into unified commands (e.g., `ewctl check`, `ewctl commit`).
