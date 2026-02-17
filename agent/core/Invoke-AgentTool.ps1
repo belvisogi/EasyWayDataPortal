@@ -7,12 +7,30 @@ function Invoke-AgentTool {
         Orchestrates the execution of agent tools (Review, Describe, etc.).
         It prefers Native PowerShell implementations for speed and reliability ('Antifragile'),
         but can be configured to bridge to Python for advanced features.
+        
+        IMPORTANT: Always use the pipeline ('|') to pass large text content like git diffs 
+        to avoid shell parsing errors.
+
+    .EXAMPLE
+        git diff | Invoke-AgentTool -Task Review
+        
+        Description
+        -----------
+        Reviews the changes in the current working directory using the pipeline.
+
+    .EXAMPLE
+        git diff --cached | Invoke-AgentTool -Task Describe
+        
+        Description
+        -----------
+        Generates a PR description from staged changes.
     
     .PARAMETER Task
         The task to perform: 'Review', 'Describe', 'SmartDiff'
     
     .PARAMETER Target
-        The target content (e.g. diff content) or path.
+        The target content (e.g. diff content) or path. 
+        RECOMMENDED: Pass this via Pipeline value.
     #>
     [CmdletBinding()]
     param(

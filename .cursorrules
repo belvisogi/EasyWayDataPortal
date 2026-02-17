@@ -27,24 +27,33 @@ Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
 -   **Naming**: Ensure PR titles and descriptions reflect this type (e.g., "[PBI] Feature X" or "[BUG] Fix Y").
 
 ## 2. 🧠 Hybrid Core Integration
-
-
-We have built a specific "Hybrid Core" to give you super-powers. **USE IT.**
-
-### Code Review
-When asked to review code or a PR:
-1.  Do NOT just read the file.
-2.  Use the **Smart Diff** tool to see exactly what changed with line numbers:
-    ```powershell
-    C:\old\EasyWayDataPortal\agent\core\Invoke-AgentTool.ps1 -Task Review -Target <git-diff-content>
-    ```
-
-### PR Description
-When asked to describe changes:
-1.  Use the Hybrid Core to generate the description:
-    ```powershell
-    C:\old\EasyWayDataPortal\agent\core\Invoke-AgentTool.ps1 -Task Describe -Target <git-diff-content>
-    ```
+ 
+ 
+ We have built a specific "Hybrid Core" to give you super-powers. **USE IT.**
+ 
+ > [!IMPORTANT]
+ > **ALWAYS use the Pipeline (`|`)** to pass content to the Hybrid Core.
+ > Do NOT pass multi-line content (like diffs) as arguments, or PowerShell will fail to parse it.
+ 
+ ### Code Review
+ When asked to review code or a PR:
+ 1.  Do NOT just read the file.
+ 2.  Use the **Smart Diff** tool to see exactly what changed with line numbers:
+     ```powershell
+     # CORRECT: Use Pipeline
+     git diff <target> | Invoke-AgentTool -Task Review
+     
+     # WRONG: Do NOT do this (Parsing Error)
+     # Invoke-AgentTool -Task Review -Target (git diff ...)
+     ```
+ 
+ ### PR Description
+ When asked to describe changes:
+ 1.  Use the Hybrid Core to generate the description:
+     ```powershell
+     # CORRECT: Use Pipeline
+     git diff --cached | Invoke-AgentTool -Task Describe
+     ```
 
 ## 3. 📝 Documentation & Standards
 
@@ -62,5 +71,8 @@ When asked to describe changes:
 -   **Be Proactive**: Check for errors, verify your own work.
 -   **Be "Antifragile"**: If a tool fails, propose a fix or a manual workaround. Do not loop.
 -   **Document Everything**: Update `task.md` and `implementation_plan.md` faithfully.
--   **Finish Strong**: Before declaring a task "DONE" or opening a PR, run `git status`. Verification is incomplete if there are uncommitted changes.
+-   **Finish Strong**:
+    -   Verification is incomplete if there are uncommitted changes.
+    -   **ALWAYS** use `ewctl commit` instead of `git commit`. This enforces quality gates and prevents "forgotten" checks.
+
 
