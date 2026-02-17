@@ -26,7 +26,7 @@ function Write-Event($obj) {
 function Out-Result($obj) { $obj | ConvertTo-Json -Depth 10 | Write-Output }
 
 $intent = Read-Intent $IntentPath
-$p = $intent?.params
+$p = $intent.params
 $now = (Get-Date).ToUniversalTime().ToString('o')
 
 switch ($Action) {
@@ -97,13 +97,37 @@ switch ($Action) {
     # Group by message to find top errors
     $topErrors = $errorsFound | Group-Object message | Sort-Object Count -Descending | Select-Object -First 5
     
+    $analysis = $null
+    if ($p.analyze -and $errorsFound.Count -gt 0) {
+      Write-Host "Analyzing errors with LLM..."
+      $skillPath = Join-Path $PSScriptRoot "../../agents/skills/retrieval/Invoke-LLMWithRAG.ps1"
+      if (Test-Path $skillPath) {
+        . $skillPath
+            
+        $errorSummary = $topErrors | ForEach-Object { "- ($($_.Count)x) $($_.Name)" } | Out-String
+        $prompt = "Analyze these application errors found in the last $hours hours:\n$errorSummary\nSuggest root cause and potential fixes based on the project context."
+            
+        $llmResult = Invoke-LLMWithRAG -Query $prompt -AgentId "agent_observability" -SystemPrompt "You are an SRE assistant."
+        if ($llmResult.Success) {
+          $analysis = $llmResult.Answer
+        }
+        else {
+          $analysis = "LLM Analysis Failed: $($llmResult.Error)"
+        }
+      }
+      else {
+        $analysis = "Skill not found: $skillPath"
+      }
+    }
+    
     $result = [ordered]@{
       action = $Action; ok = $true;
       output = [ordered]@{ 
         windowHours     = $hours; 
         analyzedEntries = $analyzedCount; 
         errorCount      = $errorsFound.Count; 
-        topErrors       = $topErrors 
+        topErrors       = $topErrors;
+        analysis        = $analysis
       }
     }
     Out-Result $result

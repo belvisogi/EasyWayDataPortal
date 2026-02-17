@@ -56,6 +56,11 @@
           "type": "number",
           "description": "Finestra temporale in ore (default: 1)",
           "required": false
+        },
+        "analyze": {
+          "type": "boolean",
+          "description": "Se true, usa l'LLM per analizzare la root cause degli errori trovati.",
+          "required": false
         }
       }
     }
@@ -74,7 +79,9 @@
     "context_limit_tokens": 128000,
     "enable_memory": true
   },
-  "skills_required": [],
+  "skills_required": [
+    "retrieval.llm-with-rag"
+  ],
   "llm_config": {
     "provider": "openai",
     "model": "gpt-4o",
