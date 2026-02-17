@@ -123,3 +123,25 @@ graph TD
     Gate -- Blocks Violations --> Git
     Tools -- Returns Output --> LLM
 ```
+
+## 8. Future Vision: Productization Strategy
+
+Ideally, we can separate the "Vehicle" from the "Driver/Destination" to commercialize the platform while protecting our IP.
+
+### 8.1 The Product ("The Factory")
+*   **Name**: `EasyWay Hybrid Core Framework`
+*   **Outcome**: A governed environment for running AI agents safely.
+*   **Includes**:
+    *   `ewctl` (CLI)
+    *   Simple "Hello World" agents
+    *   Iron Dome & Smart Commit
+    *   Levi Adapter (The interface, not the rules)
+
+### 8.2 The IP ("The Blueprints")
+*   **Name**: `EasyWay Business Agents`
+*   **Outcome**: Our competitive advantage.
+*   **Includes**:
+    *   `agents/` directory (Prompts, Knowledge Base)
+    *   `.toml` configurations (Secrets, Domain Logic)
+    *   Specific Data Quality Rules
+
