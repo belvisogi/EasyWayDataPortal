@@ -1,78 +1,22 @@
-# EasyWay Agentic Platform - Global Agent Rules
+# EasyWay Hybrid Core - Governance Rules
 
-You are an expert developer and agentic assistant working on the **EasyWay Data Portal**.
-Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
+## 1. The Prime Directive: Use the Pipeline
+- **Context**: Our tools (e.g., `Invoke-AgentTool`) are designed to handle large inputs via stdin.
+- **Rule**: ALWAYS use the pipeline pattern `|` when passing data to tools.
+- **Bad**: `Invoke-AgentTool -Task "Analyze this" -Target (Get-Content large.txt)` (Shell parsing limits)
+- **Good**: `Get-Content large.txt | Invoke-AgentTool -Task "Analyze this"`
 
-## 1. 🛡️ Mandatory Workflows (NON-NEGOTIABLE)
+## 2. Commit Protocol: Smart Commit Only
+- **Context**: Direct `git commit` bypasses our safety checks (Iron Dome).
+- **Rule**: ALWAYS use `ewctl commit` for committing changes.
+- **Command**: `ewctl commit -m "type(scope): message"`
 
-### A. Branch Safety (PRD §22.19)
-**CRITICAL**: You MUST NEVER commit directly to `develop`, `main`, or `baseline`.
--   **Start of Task**: ALWAYS run `git branch --show-current`.
--   **If on Protected Branch**: STOP immediately. Run the workflow:
-    ```bash
-    # Check for existing workflow or run manually
-    git checkout -b feature/<scope>-<description>
-    ```
--   **Reference**: `.agent/workflows/start-feature.md`
+## 3. History & Release: The Chronicler
+- **Context**: Release notes and project history must be consistent and narrative.
+- **Rule**: When completing a major feature or release, invoke `agent_chronicler`.
+- **Usage**: Ask the agent to "Record this milestone using agent_chronicler".
+- **Manifest**: `c:\old\EasyWayDataPortal\agents\agent_chronicler\manifest.json`
 
-### B. Local-First Policy (PRD §22.1)
--   Work on the **Local Repository** as the Single Source of Truth.
--   Do NOT push to remote until the task (or logical unit) is complete and verified.
--   Do NOT use web UIs to edit code.
-
-### C. Work Item Association
--   **Identify the Type**:
-    -   `feature/*` branches = **PBI** (Product Backlog Item).
-    -   `bug/*` or `fix/*` branches = **Bug**.
--   **Naming**: Ensure PR titles and descriptions reflect this type (e.g., "[PBI] Feature X" or "[BUG] Fix Y").
-
-## 2. 🧠 Hybrid Core Integration
- 
- 
- We have built a specific "Hybrid Core" to give you super-powers. **USE IT.**
- 
- > [!IMPORTANT]
- > **ALWAYS use the Pipeline (`|`)** to pass content to the Hybrid Core.
- > Do NOT pass multi-line content (like diffs) as arguments, or PowerShell will fail to parse it.
- 
- ### Code Review
- When asked to review code or a PR:
- 1.  Do NOT just read the file.
- 2.  Use the **Smart Diff** tool to see exactly what changed with line numbers:
-     ```powershell
-     # CORRECT: Use Pipeline
-     git diff <target> | Invoke-AgentTool -Task Review
-     
-     # WRONG: Do NOT do this (Parsing Error)
-     # Invoke-AgentTool -Task Review -Target (git diff ...)
-     ```
- 
- ### PR Description
- When asked to describe changes:
- 1.  Use the Hybrid Core to generate the description:
-     ```powershell
-     # CORRECT: Use Pipeline
-     git diff --cached | Invoke-AgentTool -Task Describe
-     ```
-
-## 3. 📝 Documentation & Standards
-
-### Frontend (Best Practices)
--   **CSS**: Use `/src/theme.css`, `/src/framework.css`. No inline styles.
--   **Text**: No hardcoded text. Use `content/base.json`.
--   **Reference**: `docs/best-practices.md`
-
-### Operations
--   **PowerShell**: The preferred language for scripts (`scripts/pwsh/*.ps1`).
--   **Error Handling**: Scripts must be robust (Antifragile).
-
-## 4. 🤖 Agent Behavior
-
--   **Be Proactive**: Check for errors, verify your own work.
--   **Be "Antifragile"**: If a tool fails, propose a fix or a manual workaround. Do not loop.
--   **Document Everything**: Update `task.md` and `implementation_plan.md` faithfully.
--   **Finish Strong**:
-    -   Verification is incomplete if there are uncommitted changes.
-    -   **ALWAYS** use `ewctl commit` instead of `git commit`. This enforces quality gates and prevents "forgotten" checks.
-
-
+## 4. Documentation Standards
+- **MVP**: Keep `docs/concepts/HYBRID_CORE_MVP.md` up to date.
+- **Auth**: Refer to `docs/ops/authentication_standards.md` for token rules.
