@@ -81,3 +81,13 @@ Tracciamento errori commessi durante sessioni agentiche per prevenire ricorrenze
 | **Impatto** | Regressioni nel codice o Violazioni di policy (es. uso errato di tool). |
 | **Fix applicato** | Creato **Smart Commit Wrapper** (`ewctl commit`). |
 | **Prevenzione** | Obbligo (via `.cursorrules`) di usare `ewctl commit` invece di `git commit`. Il wrapper esegue pre-flight checks (Anti-pattern scan + Rapid Audit). |
+ 
+### 2026-02-17  Definizione: Iron Dome
+
+| Campo | Valore |
+|-------|--------|
+| **Data** | 2026-02-17 |
+| **Sessione** | Hybrid Core Release |
+| **Domanda** | Cos'è "Iron Dome"? |
+| **Risposta** | È il nome del Pre-Commit Hook automatico. Si attiva a ogni git commit e blocca errori di sintassi PowerShell e violazioni di linting. Lavora insieme a wctl commit (Smart Commit) per garantire la qualità del codice. |
+
