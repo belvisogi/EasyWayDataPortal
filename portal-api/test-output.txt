@@ -1,0 +1,138 @@
+
+> easyway-portal-api@0.1.0 test
+> jest __tests__/agent-chat.test.ts
+
+info: [GET] /api/agents
+info: [GET] /api/agents
+info: [GET] /api/agents/agent_dba/info
+  console.log
+    GET /info failed: 404 { error: 'agent_not_found', message: 'Agent agent_dba not found' }
+
+      at Object.<anonymous> (__tests__/agent-chat.test.ts:70:45)
+
+info: [GET] /api/agents/unknown_agent/info
+info: [POST] /api/agents/agent_dba/chat
+info: [POST] /api/agents/agent_dba/chat
+info: [GET] /api/agents/agent_dba/conversations
+FAIL __tests__/agent-chat.test.ts (10.478 s)
+  Agent Chat API
+    GET /api/agents
+      ├ù should return list of agents (58 ms)
+      ├ù should handle service errors gracefully (13 ms)
+    GET /api/agents/:agentId/info
+      ├ù should return agent info when found (45 ms)
+      ÔêÜ should return 404 when agent not found (12 ms)
+    POST /api/agents/:agentId/chat
+      ├ù should return chat response on success (36 ms)
+      ├ù should return 403 on INTENT_NOT_ALLOWED (15 ms)
+    GET /api/agents/:agentId/conversations
+      ├ù should return conversations list (12 ms)
+
+  ÔùÅ Agent Chat API ÔÇ║ GET /api/agents ÔÇ║ should return list of agents
+
+    expect(received).toHaveLength(expected)
+
+    Matcher error: received value must have a length property whose value must be a number
+
+    Received has value: undefined
+
+      51 |             if (res.status !== 200) console.log('GET /agents failed:', res.status, res.body);
+      52 |             expect(res.status).toBe(200);
+    > 53 |             expect(res.body.agents).toHaveLength(1);
+         |                                     ^
+      54 |         });
+      55 |
+      56 |         it('should handle service errors gracefully', async () => {
+
+      at Object.<anonymous> (__tests__/agent-chat.test.ts:53:37)
+
+  ÔùÅ Agent Chat API ÔÇ║ GET /api/agents ÔÇ║ should handle service errors gracefully
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 500
+    Received: 200
+
+      57 |             mockChatService.listAgents.mockRejectedValue(new Error('Service failure'));
+      58 |             const res = await request(app).get('/api/agents');
+    > 59 |             expect(res.status).toBe(500);
+         |                                ^
+      60 |         });
+      61 |     });
+      62 |
+
+      at Object.<anonymous> (__tests__/agent-chat.test.ts:59:32)
+
+  ÔùÅ Agent Chat API ÔÇ║ GET /api/agents/:agentId/info ÔÇ║ should return agent info when found
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 404
+
+      69 |
+      70 |             if (res.status !== 200) console.log('GET /info failed:', res.status, res.body);
+    > 71 |             expect(res.status).toBe(200);
+         |                                ^
+      72 |             expect(res.body.id).toBe('agent_dba');
+      73 |         });
+      74 |
+
+      at Object.<anonymous> (__tests__/agent-chat.test.ts:71:32)
+
+  ÔùÅ Agent Chat API ÔÇ║ POST /api/agents/:agentId/chat ÔÇ║ should return chat response on success
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Hello there"
+    Received: undefined
+
+       99 |
+      100 |             expect(res.status).toBe(200);
+    > 101 |             expect(res.body.message).toBe('Hello there');
+          |                                      ^
+      102 |             expect(mockChatService.sendMessage).toHaveBeenCalledWith(expect.objectContaining({
+      103 |                 agentId: 'agent_dba',
+      104 |                 message: 'hello'
+
+      at Object.<anonymous> (__tests__/agent-chat.test.ts:101:38)
+
+  ÔùÅ Agent Chat API ÔÇ║ POST /api/agents/:agentId/chat ÔÇ║ should return 403 on INTENT_NOT_ALLOWED
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 403
+    Received: 200
+
+      115 |                 .send(validPayload);
+      116 |
+    > 117 |             expect(res.status).toBe(403);
+          |                                ^
+      118 |             expect(res.body.error).toBe('intent_not_allowed');
+      119 |         });
+      120 |     });
+
+      at Object.<anonymous> (__tests__/agent-chat.test.ts:117:32)
+
+  ÔùÅ Agent Chat API ÔÇ║ GET /api/agents/:agentId/conversations ÔÇ║ should return conversations list
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: undefined
+
+      129 |             if (res.status !== 200) console.log('GET /conversations failed:', res.status, res.body);
+      130 |             expect(res.status).toBe(200);
+    > 131 |             expect(res.body.total).toBe(0);
+          |                                    ^
+      132 |         });
+      133 |     });
+      134 | });
+
+      at Object.<anonymous> (__tests__/agent-chat.test.ts:131:36)
+
+Test Suites: 1 failed, 1 total
+Tests:       6 failed, 1 passed, 7 total
+Snapshots:   0 total
+Time:        11.11 s, estimated 12 s
+Ran all test suites matching /__tests__\\agent-chat.test.ts/i.
