@@ -22,14 +22,15 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("start-task", "commit-work", "open-pr")]
+    [ValidateSet("start-task", "commit-work", "open-pr", "dev:implement-fix")]
     [string]$Action,
 
     [string]$PBI,
     [string]$Desc,
     [string]$Domain = "devops",
     [string]$Type,
-    [string]$Message
+    [string]$Message,
+    [string]$FixData
 )
 
 $ErrorActionPreference = "Stop"
@@ -77,5 +78,82 @@ switch ($Action) {
         $current = git branch --show-current
         Write-Host "🔗 PR Created: $current -> develop" -ForegroundColor Magenta
         Write-Host "   (Simulated: https://gitlab.local/mr/new?source=$current)"
+    }
+
+    "dev:implement-fix" {
+        if (-not $FixData) { Throw "FixData required for dev:implement-fix" }
+        
+        # 1. Parse Fix Data
+        try {
+            if ($FixData -is [string]) {
+                $fix = $FixData | ConvertFrom-Json
+            }
+            else {
+                $fix = $FixData
+            }
+        }
+        catch {
+            Throw "Invalid FixData JSON: $_"
+        }
+
+        # 2. Start Task (Branching)
+        $myPbi = if ($PBI) { $PBI } else { "AUTO" }
+        $myDesc = if ($Desc) { $Desc } else { "fix-detected-error" }
+         
+        Run-Git "checkout develop"
+        Run-Git "pull origin develop"
+        $branchName = "feature/$Domain/$myPbi-$myDesc"
+        
+        if (git branch --list $branchName) {
+            $branchName += "-" + (Get-Date -Format "yyyyMMddHHmmss")
+        }
+        
+        Write-Host "👷 Starting Auto-Fix on: $branchName" -ForegroundColor Cyan
+        Run-Git "checkout -b $branchName"
+
+        # 3. Apply Fix with Security Check
+        Write-Host "🔧 Applying Fix to $($fix.filePath)..." -ForegroundColor Yellow
+        
+        # Security: Prevent Path Traversal
+        $repoRoot = (git rev-parse --show-toplevel)
+        $fullPath = $null
+        try {
+            $potentialPath = Join-Path $repoRoot $fix.filePath
+            $fullPath = [System.IO.Path]::GetFullPath($potentialPath)
+        }
+        catch {
+            Throw "Invalid path: $($fix.filePath)"
+        }
+        
+        if (-not $fullPath.StartsWith($repoRoot)) {
+            Throw "SECURITY ERROR: Path Traversal detected! Cannot write outside repo root: $fullPath"
+        }
+        
+        $targetPath = $fullPath
+
+        if ($fix.newContent) {
+            $fix.newContent | Set-Content -Path $targetPath -Encoding UTF8
+        }
+        elseif ($fix.search -and $fix.replace) {
+            if (-not (Test-Path $targetPath)) { Throw "File not found for replacement: $targetPath" }
+            $content = Get-Content -Path $targetPath -Raw
+            $newContent = $content.Replace($fix.search, $fix.replace)
+            $newContent | Set-Content -Path $targetPath -Encoding UTF8
+        }
+        else {
+            Throw "FixData must contain 'newContent' OR 'search'/'replace'."
+        }
+
+        # 4. Commit & Push
+        Run-Git "add ."
+        $commitMsg = if ($Message) { $Message } else { "fix: auto-repair $($fix.filePath)" }
+        Run-Git "commit -m `"$commitMsg`""
+        
+        Run-Git "push --set-upstream origin $branchName"
+        Write-Host "✅ Fix pushed to $branchName" -ForegroundColor Green
+
+        # 5. Open PR
+        Write-Host "🔗 PR Created: $branchName -> develop" -ForegroundColor Magenta
+        Write-Host "   (Simulated: https://gitlab.local/mr/new?source=$branchName)"
     }
 }
