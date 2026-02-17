@@ -1,3 +1,23 @@
+# 🚀 Release Notes: v1.0.0 (Post-Security Hardening)
+
+**Date**: 2026-02-17
+**Status**: RELEASED
+**Codename**: "TenantGuard"
+
+---
+
+## 🔒 Security & Governance
+- **TenantGuard**: Implemented `portal-api/src/utils/isolation.ts` for strict tenant isolation.
+- **Agent Chat Security**: Added robust test coverage for `AgentChat` API.
+- **Release Workflow**: Established "Atomic Merge" protocol and governance documentation in `docs/ops/`.
+
+## 🛠️ API & Backend
+- **Version Bump**: `portal-api` upgraded to `1.0.0`.
+- **Testing**: Comprehensive penetration/fuzzing tests added (`__tests__/isolation.test.ts`).
+
+---
+---
+
 # 🛡️ Release Notes: Hybrid Core v1.1 (The Governance Era)
 
 **Date**: 2026-02-17

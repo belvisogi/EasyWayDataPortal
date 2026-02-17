@@ -1,6 +1,6 @@
 {
   "name": "easyway-portal-api",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "API Backend per EasyWay Data Portal — Node.js, TypeScript, multi-tenant, parametrica, enterprise-ready",
   "main": "dist/server.js",
   "scripts": {
