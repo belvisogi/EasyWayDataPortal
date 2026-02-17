@@ -20,3 +20,42 @@
 ## 4. Documentation Standards
 - **MVP**: Keep `docs/concepts/HYBRID_CORE_MVP.md` up to date.
 - **Auth**: Refer to `docs/ops/authentication_standards.md` for token rules.
+
+## 5. Specialized Agents Roster
+When a task falls into these domains, invoke the specific specialist via their manifest.
+
+### 🧠 Planning & governance
+- **Agent ADO UserStory** (`agent_ado_userstory`):
+  - *Role*: PM / Requirements.
+  - *Use for*: Creating User Stories, fetching best practices.
+  - *Action*: `ado:userstory.create`
+
+### 🏗️ Development
+- **Agent Backend** (`agent_backend`):
+  - *Role*: API Developer.
+  - *Use for*: OpenAPI validation, API scaffolding.
+  - *Action*: `api:openapi-validate`
+- **Agent Frontend** (`agent_frontend`):
+  - *Role*: UI Developer.
+  - *Use for*: Building and deploying portal UI.
+  - *Action*: `frontend:build`
+
+### 🛡️ Data & Security
+- **Agent DBA** (`agent_dba`):
+  - *Role*: Database Administrator (Level 2).
+  - *Use for*: Migrations, User creation, Guardrails check.
+  - *Action*: `db-user:create`, `db-guardrails:check`
+- **Agent Security** (`agent_security`):
+  - *Role*: CISO / Ops.
+  - *Use for*: Threat analysis, Key Vault secrets.
+  - *Action*: `security:analyze`, `kv-secret:set`
+
+### 🚀 Operations
+- **Agent Release** (`agent_release`):
+  - *Role*: Release Manager.
+  - *Use for*: Promoting branches (`develop` -> `main`).
+  - *Action*: `release:promote`
+- **Agent Chronicler** (`agent_chronicler`):
+  - *Role*: Historian.
+  - *Use for*: Recording milestones and release notes.
+  - *Action*: `chronicle:record`
