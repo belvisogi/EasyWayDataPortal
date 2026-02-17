@@ -47,6 +47,17 @@
           "required": false
         }
       }
+    },
+    {
+      "name": "obs:check-logs",
+      "description": "Analizza i log applicativi (JSON) per errori/warning in una finestra temporale. Richiede log con timestamp ISO 8601.",
+      "params": {
+        "hours": {
+          "type": "number",
+          "description": "Finestra temporale in ore (default: 1)",
+          "required": false
+        }
+      }
     }
   ],
   "name": "agent_observability",
