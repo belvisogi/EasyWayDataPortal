@@ -83,7 +83,6 @@ Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
 
 
 # EasyWay Hybrid Core - Governance Rules
-
 ## 1. The Prime Directive: Use the Pipeline
 - **Context**: Our tools (e.g., `Invoke-AgentTool`) are designed to handle large inputs via stdin.
 - **Rule**: ALWAYS use the pipeline pattern `|` when passing data to tools.
