@@ -47,6 +47,22 @@
           "required": false
         }
       }
+    },
+    {
+      "name": "obs:check-logs",
+      "description": "Analizza i log applicativi (JSON) per errori/warning in una finestra temporale. Richiede log con timestamp ISO 8601.",
+      "params": {
+        "hours": {
+          "type": "number",
+          "description": "Finestra temporale in ore (default: 1)",
+          "required": false
+        },
+        "analyze": {
+          "type": "boolean",
+          "description": "Se true, usa l'LLM per analizzare la root cause degli errori trovati.",
+          "required": false
+        }
+      }
     }
   ],
   "name": "agent_observability",
@@ -63,7 +79,9 @@
     "context_limit_tokens": 128000,
     "enable_memory": true
   },
-  "skills_required": [],
+  "skills_required": [
+    "retrieval.llm-with-rag"
+  ],
   "llm_config": {
     "provider": "openai",
     "model": "gpt-4o",
