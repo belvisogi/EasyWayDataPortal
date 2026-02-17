@@ -1333,4 +1333,32 @@ Linkare indissolubilmente il mondo "Planning" (ADO User Stories) al mondo "Devel
 - Nessun feature branch deve nascere senza una User Story (o Bug) associata.
 - `Agent ADO UserStory` è l'autorità unica per la generazione dei nomi branch PBI.
 
+### 22.24 Workflow: Testing & UAT Gates
+
+Per garantire che il codice fluisca verso la produzione senza regressioni, si istituiscono due "Dogane" invalicabili.
+
+#### A. The Feature Gate (Feature -> Develop)
+**Obiettivo**: Garantire che il codice funzioni tecnicamente.
+**Responsabile**: Developer (Umano o Agent Backend/Frontend).
+**Trigger**: Apertura PR verso `develop`.
+
+**Checklist Obbligatoria**:
+1.  **Unit Test**: Nuovi test aggiunti per la feature passano.
+2.  **Iron Dome**: Nessuna violazione di sintassi o linting.
+3.  **Local Manual Test**: Il developer conferma: "Ho eseguito il codice sulla mia macchina e fa quello che dice la User Story".
+
+#### B. The UAT Gate (Develop -> Main)
+**Obiettivo**: Garantire che il codice risolva il problema di business.
+**Responsabile**: Product Owner / PM (Umano o Agent UserStory).
+**Trigger**: Fine Sprint o Release Candidate su `develop`.
+
+**Checklist Obbligatoria**:
+1.  **User Acceptance Test (UAT)**: Il PM (o stakeholder) verifica la feature in ambiente di staging/test.
+2.  **Non-Regression**: Le funzionalità esistenti non sono rotte.
+3.  **Approval Formale**: Il PM scrive "UAT OK" o approva la PR di release.
+
+**Regola**:
+- Nessun merge su `main` senza un'approvazione esplicita UAT.
+- Se l'UAT fallisce, si apre un branch `bugfix/` da `develop`, si risolve, e si ripete il test. Mai committare fix diretti su `main`.
+
 
