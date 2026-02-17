@@ -16,6 +16,23 @@ We use `pr-agent` (Standard) as our "Server-Side Brain", but EasyWay adds a "Cli
 | **Execution** | Cloud Only (CI/CD) | **Hybrid** (Local Pipeline `|` + Cloud) |
 | **Parsing** | Text Only | **Structured** (JSON Output for downstream) |
 
+## 0.1 Detailed Capabilities (Inherited vs Native)
+
+Since we built EasyWay on top of `pr-agent` (Azure DevOps Edition), we possess **all** its standard features, plus our upgrades.
+
+| Capability | Feature | Status (ADO) | EasyWay Boost 🚀 |
+| :--- | :--- | :---: | :--- |
+| **Tools** | Describe (`/describe`) | ✅ | **+ Pipeline Support** (Diff | Describe) |
+| | Review (`/review`) | ✅ | **+ Local Filter** (Ignore specific files) |
+| | Improve (`/improve`) | ✅ | **+ Interactive Mode** (Apply via CLI) |
+| | Ask (`/ask`) | ✅ | **+ Context** (Reads local docs) |
+| | Update Changelog | ✅ | **+ Smart Commit** (Guidelines check) |
+| **Core** | Dynamic Context | ✅ | **+ Levi Adapter** (RAG-like retrieval) |
+| | Custom Labels | ✅ | **+ Auto-Classification** (feat/fix/chore) |
+| | **Edit Access** | ✅ | **+ Safety** (Iron Dome prevents breaking) |
+
+*Note: The table above reflects the "Azure DevOps" column of the standard `pr-agent` matrix, fully active in our instance.*
+
 ---
 
 ## 1. The Kernel: `ewctl`
