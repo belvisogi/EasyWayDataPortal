@@ -16,14 +16,14 @@ We need to **execute** the theoretical flow we just designed, simulating a real 
 
 ## 📝 Mission Tasks
 1.  **Read the PRD**: Focus on Section **22.23** (Workflow: PM to Dev Handoff) and **22.24** (Testing & UAT Gates).
-2.  **Scenario**: "Implement strict Tenant Isolation in `agent_backend`".
+2.  **Scenario**: "Implement Database Observability in `agent_dba`".
 3.  **Step 1: Planning (The PM)**:
     - Act as `Agent ADO UserStory`.
-    - Create (or simulate) a User Story on ADO.
-    - **CRITICAL**: Generate the canonical branch name (e.g., `feature/backend/1001-tenant-isolation`).
+    - Create (or simulate) a User Story on ADO (#1002 - DB Health Check).
+    - **CRITICAL**: Generate the canonical branch name (e.g., `feature/dba/1002-db-health-check`).
 4.  **Step 2: Development (The Dev)**:
     - Checkout the branch.
-    - Implement a dummy change in `agents/agent_backend`.
+    - Implement `dba:check-health` in `agents/agent_dba`.
     - Commit using `ewctl commit` (Legacy `git commit` is forbidden).
 5.  **Step 3: Feature Gate**:
     - Verify Unit Tests + Iron Dome locally.

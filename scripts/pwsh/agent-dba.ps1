@@ -1,5 +1,5 @@
 Param(
-  [ValidateSet('db-user:create', 'db-user:rotate', 'db-user:revoke', 'db-doc:ddl-inventory', 'db-table:create')]
+  [ValidateSet('db-user:create', 'db-user:rotate', 'db-user:revoke', 'db-doc:ddl-inventory', 'db-table:create', 'dba:check-health')]
   [string]$Action,
   [string]$IntentPath,
   [switch]$NonInteractive,
@@ -450,6 +450,73 @@ try {
       $result.contractId = 'action-result'
       $result.contractVersion = '1.0'
       if ($LogEvent) { Write-Event ($result + @{ event = 'agent-dba'; govApproved = $false }) }
+      Out-Result $result
+    }
+    'dba:check-health' {
+      $p = $intent.params
+      $database = $p.database
+      # Fallback to env connection string
+      $adminConn = $env:DB_CONN_STRING
+      if (-not $adminConn) { $adminConn = $env:DB_ADMIN_CONN_STRING }
+      
+      $conn = Parse-ConnString $adminConn
+      $server = if ($conn) { $conn.Server } else { $null }
+      $db = if ($database) { $database } elseif ($conn) { $conn.Database } else { $null }
+      $adminUser = $conn?.UserId
+      $adminPass = $conn?.Password
+      $useAAD = $false
+      if (-not $adminUser -and -not $adminPass) { $useAAD = $true }
+
+      $status = "error"
+      $msg = ""
+      
+      if (-not $server -or -not $db) {
+        $msg = "Missing DB connection details (Server/Database)"
+        if ($WhatIf) { $status = "unknown (WhatIf)" }
+      }
+      else {
+        if ($WhatIf) {
+          $status = "ok (WhatIf)"
+          $msg = "Skipped actual connection check in WhatIf mode"
+        }
+        else {
+          try {
+            # Simple connectivity check
+            $res = Invoke-SqlcmdQuery -server $server -database $db -adminUser $adminUser -adminPass $adminPass -UseAAD:$useAAD -query "SELECT 1"
+            if ($res -eq "1") { 
+              $status = "ok" 
+            }
+            else { 
+              $msg = "Unexpected result from SELECT 1: $res"
+            }
+          }
+          catch {
+            $status = "error"
+            $msg = $_.Exception.Message
+          }
+        }
+      }
+
+      $result = [ordered]@{
+        action        = $Action
+        ok            = ($status -match "^ok")
+        whatIf        = [bool]$WhatIf
+        correlationId = $intent?.correlationId
+        startedAt     = $now
+        finishedAt    = (Get-Date).ToUniversalTime().ToString('o')
+        output        = [ordered]@{
+          status     = $status
+          dependency = "database"
+          details    = $msg
+          server     = $server
+          database   = $db
+          summary    = "Database health check: $status"
+        }
+      }
+      $result.contractId = 'action-result'
+      $result.contractVersion = '1.0'
+      # Health checks typically don't need persistent event logging unless failed, but let's follow pattern
+      if ($LogEvent) { Write-Event ($result + @{ event = 'agent-dba' }) }
       Out-Result $result
     }
   }
