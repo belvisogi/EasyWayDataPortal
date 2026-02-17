@@ -59,4 +59,25 @@ Tracciamento errori commessi durante sessioni agentiche per prevenire ricorrenze
 | **Errore** | Durante la scrittura della documentazione sulle policy di merge, ho committato direttamente su `develop` (`99900b0`) invece di usare un feature branch. |
 | **Impatto** | Violazione del Gitflow (Rule: No direct commits to eternal branches). Nessun impatto sul codice (solo docs), ma crea un precedente errato. |
 | **Fix applicato** | Nessuno (accettato il rischio visto che erano solo docs). Il merge su `main` includerà comunque questi commit. |
-| **Prevenzione** | **SEMPRE** creare un branch `docs/*` o `chore/*` anche per modifiche puramente documentali. L'agente deve verificare `git branch --show-current` PRIMA di ogni `git commit`. |
+
+### 2026-02-16 — Hybrid Core: Shell Parsing Errors
+ 
+| Campo | Valore |
+|-------|--------|
+| **Data** | 2026-02-16 |
+| **Sessione** | Governance & Hybrid Core Tests |
+| **Errore** | `Invoke-AgentTool -Target (git diff)` fallisce perché PowerShell interpreta caratteri speciali (`---`, `/dev/null`) nel diff come operatori. |
+| **Impatto** | Impossibile generare descrizioni PR o review automatiche. |
+| **Fix applicato** | Adozione del **Pipeline Pattern**: `git diff | Invoke-AgentTool`. Il tool legge da Stdin, bypassando il parser della shell. |
+| **Prevenzione** | Regola esplicita in `.cursorrules` + warning in `ewctl commit`. Documentazione in `Wiki/Hybrid-Core-Usage.md`. |
+ 
+### 2026-02-16 — Commit Dimenticati / Audit mancante
+ 
+| Campo | Valore |
+|-------|--------|
+| **Data** | 2026-02-16 |
+| **Sessione** | Governance & Hybrid Core Tests |
+| **Errore** | Rischio di committare senza aver runnato l'audit o controllato i pattern vietati. |
+| **Impatto** | Regressioni nel codice o Violazioni di policy (es. uso errato di tool). |
+| **Fix applicato** | Creato **Smart Commit Wrapper** (`ewctl commit`). |
+| **Prevenzione** | Obbligo (via `.cursorrules`) di usare `ewctl commit` invece di `git commit`. Il wrapper esegue pre-flight checks (Anti-pattern scan + Rapid Audit). |

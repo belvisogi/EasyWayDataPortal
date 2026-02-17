@@ -22,7 +22,7 @@ if ($Command -notin $ValidCommands) {
 }
 
 $ModulesPath = Join-Path $PSScriptRoot "modules/ewctl"
-$LogPath = Join-Path $PSScriptRoot "../../logs/ewctl.debug.log"
+
 
 function Write-KernelLog {
   param($Message, $Type = "Info")
@@ -57,7 +57,7 @@ if ($Modules) {
 }
 
 # --- Execution Engine ---
-$GlobalResults = @()
+
 
 switch ($Command) {
   "describe" {
@@ -85,8 +85,12 @@ switch ($Command) {
     if ($stagedFiles) {
       foreach ($file in $stagedFiles) {
         if (-not (Test-Path $file)) { continue }
+        if ($file -match "\.(md|txt|json)$" -or $file -match ".cursorrules") { continue }
         $content = Get-Content $file -Raw
-        if ($content -match "Invoke-AgentTool.*-Target.*\(.*git diff.*\)") {
+        $p1 = "Invoke-AgentTool"
+        $p2 = ".*-Target"
+        $p3 = ".*\(.*git diff.*\)"
+        if ($content -match "$p1$p2$p3") {
           Write-Host "❌ BLOCKED: Forbidden pattern detected in '$file'." -ForegroundColor Red
           write-host "Use pipeline!"
           exit 1
