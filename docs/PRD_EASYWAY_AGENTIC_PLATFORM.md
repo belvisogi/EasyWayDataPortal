@@ -1311,4 +1311,77 @@ Per ogni repo EasyWay, le seguenti policy devono essere attive su `main` e `deve
    - Su `develop`: Permettere `Merge` e `Squash`.
 4. **Build validation**: Pipeline di CI obbligatoria (se presente).
 
+### 22.23 Workflow: PM to Dev Handoff (Agent-Driven)
+
+**Obiettivo**:
+Linkare indissolubilmente il mondo "Planning" (ADO User Stories) al mondo "Development" (Git Features).
+
+**Flow Operativo**:
+1.  **Planning Phase**:
+    - `Agent ADO UserStory` (Il PM) crea la User Story su Azure DevOps.
+    - *Output*: ID (`1234`) e Titolo (`Aggiungi Login OAuth`).
+2.  **Naming Convention Generation**:
+    - L'agente genera automaticamente il nome del branch canonico: `feature/auth/1234-aggiungi-login-oauth`.
+3.  **Handoff**:
+    - L'agente comunica al Developer (Umano o `Agent Backend`):
+      > "Story #1234 creata. Per iniziare lo sviluppo, usa questo branch."
+4.  **Development Start**:
+    - Il Developer esegue il checkout del branch *esattamente* come prescritto.
+    - *Vantaggio*: Il "Link Work Item" su ADO sarà automatico perché l'ID è nel branch name.
+
+**Regola**:
+- Nessun feature branch deve nascere senza una User Story (o Bug) associata.
+- `Agent ADO UserStory` è l'autorità unica per la generazione dei nomi branch PBI.
+
+### 22.24 Workflow: Testing & UAT Gates
+
+Per garantire che il codice fluisca verso la produzione senza regressioni, si istituiscono due "Dogane" invalicabili.
+
+#### A. The Feature Gate (Feature -> Develop)
+**Obiettivo**: Garantire che il codice funzioni tecnicamente.
+**Responsabile**: Developer (Umano o Agent Backend/Frontend).
+**Trigger**: Apertura PR verso `develop`.
+
+**Checklist Obbligatoria**:
+1.  **Unit Test**: Nuovi test aggiunti per la feature passano.
+2.  **Iron Dome**: Nessuna violazione di sintassi o linting.
+3.  **Local Manual Test**: Il developer conferma: "Ho eseguito il codice sulla mia macchina e fa quello che dice la User Story".
+
+#### B. The UAT Gate (Develop -> Main)
+**Obiettivo**: Garantire che il codice risolva il problema di business.
+**Responsabile**: Product Owner / PM (Umano o Agent UserStory).
+**Trigger**: Fine Sprint o Release Candidate su `develop`.
+
+**Checklist Obbligatoria**:
+1.  **User Acceptance Test (UAT)**: Il PM (o stakeholder) verifica la feature in ambiente di staging/test.
+2.  **Non-Regression**: Le funzionalità esistenti non sono rotte.
+3.  **Approval Formale**: Il PM scrive "UAT OK" o approva la PR di release.
+
+- Nessun merge su `main` senza un'approvazione esplicita UAT.
+- Se l'UAT fallisce, si apre un branch `bugfix/` da `develop`, si risolve, e si ripete il test. Mai committare fix diretti su `main`.
+
+### 22.25 Server-Side Security Mandate (Anti-Anarchy)
+
+I controlli client-side (`ewctl commit`) sono ottimi, ma non bastano. Per evitare l'anarchia, ogni VCS collegato (GitHub, GitLab, Bitbucket, Forgejo) **DEVE** implementare le seguenti misure lato server. Senza queste, il remote è considerato "Unsafe".
+
+#### A. The Trinity of Protection
+Per ogni branch protetto (`main`, `develop`, `production`):
+
+| Controllo | ADO | GitHub | GitLab | Bitbucket | Forgejo |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **No Force Push** | `Deny` (Security) | `Allow force pushes: False` | `Protected Branch` | `Prevent force push` | `Protected` |
+| **No Delete** | `Deny` (Security) | `Allow deletions: False` | `Protected Branch` | `Prevent deletion` | `Protected` |
+| **Min Reviewers** | `Policy: 1` | `Require PR reviews: 1` | `Approvals required: 1` | `Minimum approvals: 1` | `Require approval` |
+
+#### B. The "No Direct Commit" Rule
+- **Obiettivo**: Impedire a *chiunque* (anche Admin) di pushare direttamente su `main`.
+- **Implementazione**: Bloccare "Push" per il gruppo `Contributors` e `Administrators`. L'unico modo per scrivere è tramite Pull Request.
+
+#### C. Service Account Segregation
+- Mai usare un PAT personale per agenti CI/CD.
+- Creare un'identità dedicata (es. `svc-easyway-agent`) con permessi minimi scope-based.
+
+**Regola**:
+- Prima di collegare un nuovo remote al Hybrid Core, l'admin deve firmare il "Certificate of Reliability": "Ho configurato le policy server-side secondo la sezione 22.25".
+
 

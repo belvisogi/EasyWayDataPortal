@@ -1,3 +1,59 @@
+# 🚀 Release Notes: v1.0.0 (Post-Security Hardening)
+
+**Date**: 2026-02-17
+**Status**: RELEASED
+**Codename**: "TenantGuard"
+
+---
+
+## 🔒 Security & Governance
+- **TenantGuard**: Implemented `portal-api/src/utils/isolation.ts` for strict tenant isolation.
+- **Agent Chat Security**: Added robust test coverage for `AgentChat` API.
+- **Release Workflow**: Established "Atomic Merge" protocol and governance documentation in `docs/ops/`.
+
+## 🛠️ API & Backend
+- **Version Bump**: `portal-api` upgraded to `1.0.0`.
+- **Testing**: Comprehensive penetration/fuzzing tests added (`__tests__/isolation.test.ts`).
+
+---
+---
+
+# 🛡️ Release Notes: Hybrid Core v1.1 (The Governance Era)
+
+**Date**: 2026-02-17
+**Status**: RELEASED (MVP)
+**Codename**: "Iron Dome"
+
+---
+
+## 🚀 Key Features
+
+### 1. The Hybrid Core (Bridge)
+- **Pipeline Pattern**: `Invoke-AgentTool` now supports standardized input via stdin (`|`).
+- **Local Intelligence**: Levi Adapter and SQL Tools run locally, secured by the core.
+
+### 2. Governance System (Shield)
+- **Smart Commit (`ewctl commit`)**: Replaces `git commit`. Runs pre-flight checks.
+- **Iron Dome**: Git Pre-Commit Hook that blocks syntax errors and secrets.
+- **Policies**: Branch protection rules and "Automatic Reviewers" for email notifications.
+
+### 3. Documentation (Knowledge)
+- **MVP**: Full architecture documented in `docs/concepts/HYBRID_CORE_MVP.md`.
+- **Product Strategy**: Defined distinction between Framework (Product) and Agents (IP).
+
+---
+
+## 📜 Usage
+From now on, **do not use `git commit`**.
+Run:
+```powershell
+ewctl commit -m "your message"
+```
+This ensures your code is audited by the Iron Dome before it enters the history.
+
+---
+---
+
 # 🦅 Release Notes: Protocol v3.1 (Sovereign Symbiosis)
 
 **Date**: 2026-01-30

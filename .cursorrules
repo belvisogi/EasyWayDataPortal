@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # EasyWay Agentic Platform - Global Agent Rules
 
 You are an expert developer and agentic assistant working on the **EasyWay Data Portal**.
@@ -75,4 +76,69 @@ Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
     -   Verification is incomplete if there are uncommitted changes.
     -   **ALWAYS** use `ewctl commit` instead of `git commit`. This enforces quality gates and prevents "forgotten" checks.
 
+## 5. 🗣️ Communication Standards
 
+-   **PR Links**: When creating Pull Requests (Azure DevOps/GitHub), **ALWAYS** output the clickable URL in your final response (e.g., `[PR Title](url)`).
+-   **Conciseness**: prioritizing clarity over verbosity.
+
+
+# EasyWay Hybrid Core - Governance Rules
+## 1. The Prime Directive: Use the Pipeline
+- **Context**: Our tools (e.g., `Invoke-AgentTool`) are designed to handle large inputs via stdin.
+- **Rule**: ALWAYS use the pipeline pattern `|` when passing data to tools.
+- **Bad**: `Invoke-AgentTool -Task "Analyze this" -Target (Get-Content large.txt)` (Shell parsing limits)
+- **Good**: `Get-Content large.txt | Invoke-AgentTool -Task "Analyze this"`
+
+## 2. Commit Protocol: Smart Commit Only
+- **Context**: Direct `git commit` bypasses our safety checks (Iron Dome).
+- **Rule**: ALWAYS use `ewctl commit` for committing changes.
+- **Command**: `ewctl commit -m "type(scope): message"`
+
+## 3. History & Release: The Chronicler
+- **Context**: Release notes and project history must be consistent and narrative.
+- **Rule**: When completing a major feature or release, invoke `agent_chronicler`.
+- **Usage**: Ask the agent to "Record this milestone using agent_chronicler".
+- **Manifest**: `c:\old\EasyWayDataPortal\agents\agent_chronicler\manifest.json`
+
+## 4. Documentation Standards
+- **MVP**: Keep `docs/concepts/HYBRID_CORE_MVP.md` up to date.
+- **Auth**: Refer to `docs/ops/authentication_standards.md` for token rules.
+
+## 5. Specialized Agents Roster
+When a task falls into these domains, invoke the specific specialist via their manifest.
+
+### 🧠 Planning & governance
+- **Agent ADO UserStory** (`agent_ado_userstory`):
+  - *Role*: PM / Requirements.
+  - *Use for*: Creating User Stories, fetching best practices.
+  - *Action*: `ado:userstory.create`
+
+### 🏗️ Development
+- **Agent Backend** (`agent_backend`):
+  - *Role*: API Developer.
+  - *Use for*: OpenAPI validation, API scaffolding.
+  - *Action*: `api:openapi-validate`
+- **Agent Frontend** (`agent_frontend`):
+  - *Role*: UI Developer.
+  - *Use for*: Building and deploying portal UI.
+  - *Action*: `frontend:build`
+
+### 🛡️ Data & Security
+- **Agent DBA** (`agent_dba`):
+  - *Role*: Database Administrator (Level 2).
+  - *Use for*: Migrations, User creation, Guardrails check.
+  - *Action*: `db-user:create`, `db-guardrails:check`
+- **Agent Security** (`agent_security`):
+  - *Role*: CISO / Ops.
+  - *Use for*: Threat analysis, Key Vault secrets.
+  - *Action*: `security:analyze`, `kv-secret:set`
+
+### 🚀 Operations
+- **Agent Release** (`agent_release`):
+  - *Role*: Release Manager.
+  - *Use for*: Promoting branches (`develop` -> `main`).
+  - *Action*: `release:promote`
+- **Agent Chronicler** (`agent_chronicler`):
+  - *Role*: Historian.
+  - *Use for*: Recording milestones and release notes.
+  - *Action*: `chronicle:record`

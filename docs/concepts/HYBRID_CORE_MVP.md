@@ -4,6 +4,37 @@
 **Date**: 2026-02-17
 **Status**: Live (Level 3 - Hybrid Agent)
 
+## 0. Executive Summary: EasyWay vs Standard
+We use `pr-agent` (Standard) as our "Server-Side Brain", but EasyWay adds a "Client-Side Nervous System" (Hybrid Core).
+
+| Feature | Standard `pr-agent` (ADO) | **EasyWay Hybrid Core** (Our Plus) |
+| :--- | :---: | :--- |
+| **Review & Describe** | ✅ (Server-Side) | ✅ **+ Local Preview** (`ewctl check`) |
+| **Governance** | ❌ (None) | ✅ **Smart Commit** (Blocks bad commits) |
+| **Security** | ❌ (None) | ✅ **Iron Dome** (Pre-scan for syntax/secrets) |
+| **Domain Tools** | ❌ (Generic Code) | ✅ **Levi (DQF)**, SQL Tools, Custom Scripts |
+| **Execution** | Cloud Only (CI/CD) | **Hybrid** (Local Pipeline `|` + Cloud) |
+| **Parsing** | Text Only | **Structured** (JSON Output for downstream) |
+
+## 0.1 Detailed Capabilities (Inherited vs Native)
+
+Since we built EasyWay on top of `pr-agent` (Azure DevOps Edition), we possess **all** its standard features, plus our upgrades.
+
+| Capability | Feature | Status (ADO) | EasyWay Boost 🚀 |
+| :--- | :--- | :---: | :--- |
+| **Tools** | Describe (`/describe`) | ✅ | **+ Pipeline Support** (Diff | Describe) |
+| | Review (`/review`) | ✅ | **+ Local Filter** (Ignore specific files) |
+| | Improve (`/improve`) | ✅ | **+ Interactive Mode** (Apply via CLI) |
+| | Ask (`/ask`) | ✅ | **+ Context** (Reads local docs) |
+| | Update Changelog | ✅ | **+ Smart Commit** (Guidelines check) |
+| **Core** | Dynamic Context | ✅ | **+ Levi Adapter** (RAG-like retrieval) |
+| | Custom Labels | ✅ | **+ Auto-Classification** (feat/fix/chore) |
+| | **Edit Access** | ✅ | **+ Safety** (Iron Dome prevents breaking) |
+
+*Note: The table above reflects the "Azure DevOps" column of the standard `pr-agent` matrix, fully active in our instance.*
+
+---
+
 ## 1. The Kernel: `ewctl`
 *   **Role**: The central Command Line Interface (CLI) and entry point for all operations.
 *   **Function**: Standardizes inconsistent scripts into unified commands (e.g., `ewctl check`, `ewctl commit`).
@@ -66,6 +97,8 @@ These policies enforce the "Gatekeeper" role directly on the server.
 3.  **Comment Resolution**: **All comments must be resolved**. (Critical for AI Code Reviews).
 4.  **Build Validation**: Pre-merge pipeline must pass (runs `Iron Dome` + Tests).
 5.  **Limit Merge Types**: Squash Merge (Recommended for clean history).
+6.  **Automatic Reviewers (for Emails)**: Add "EasyWay Team" (or specific groups) as required reviewers.
+    *   *Effect*: ADO sends an "Action Required" email to all members immediately upon PR creation.
 
 ---
 
@@ -90,3 +123,25 @@ graph TD
     Gate -- Blocks Violations --> Git
     Tools -- Returns Output --> LLM
 ```
+
+## 8. Future Vision: Productization Strategy
+
+Ideally, we can separate the "Vehicle" from the "Driver/Destination" to commercialize the platform while protecting our IP.
+
+### 8.1 The Product ("The Factory")
+*   **Name**: `EasyWay Hybrid Core Framework`
+*   **Outcome**: A governed environment for running AI agents safely.
+*   **Includes**:
+    *   `ewctl` (CLI)
+    *   Simple "Hello World" agents
+    *   Iron Dome & Smart Commit
+    *   Levi Adapter (The interface, not the rules)
+
+### 8.2 The IP ("The Blueprints")
+*   **Name**: `EasyWay Business Agents`
+*   **Outcome**: Our competitive advantage.
+*   **Includes**:
+    *   `agents/` directory (Prompts, Knowledge Base)
+    *   `.toml` configurations (Secrets, Domain Logic)
+    *   Specific Data Quality Rules
+
