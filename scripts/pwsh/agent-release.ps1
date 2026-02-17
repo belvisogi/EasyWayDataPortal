@@ -29,7 +29,7 @@ param(
     [string]$ServerRepoPath = "~/EasyWayDataPortal",
     [string]$ServerSshKeyPath,
     [switch]$ServerSkipClean,
-    [string[]]$ServerSudoCleanPaths = @()
+    [switch]$Verify
 )
 
 $ErrorActionPreference = 'Stop'
@@ -218,7 +218,8 @@ function New-ReleaseNotesDraft {
 
     $commitSection = if ($CommitLines.Count -gt 0) {
         ($CommitLines | ForEach-Object { "- $_" }) -join [Environment]::NewLine
-    } else {
+    }
+    else {
         "- No new commits detected between source and target"
     }
 
@@ -287,10 +288,71 @@ function Initialize-ReleaseSkills {
         foreach ($skillId in $manifest.skills_required) {
             try {
                 Import-Skill -SkillId $skillId | Out-Null
-            } catch {
+            }
+            catch {
                 Write-Warn "Skill load failed for '$skillId'. Falling back to native implementation when possible."
             }
         }
+    }
+}
+
+function Invoke-PostReleaseCheck {
+    if (-not $Verify) { return }
+
+    Write-Info "Starting Post-Release Verification (powered by agent_observability)..."
+    
+    # Wait for warm-up (simulated)
+    Write-Info "Waiting 5 seconds for application warm-up..."
+    Start-Sleep -Seconds 5
+    
+    # Call agent_observability via ewctl kernel
+    $ewctl = Join-Path $PSScriptRoot "ewctl.ps1"
+    if (-not (Test-Path $ewctl)) {
+        Write-Warn "Cannot find ewctl kernel at $ewctl. Verification skipped."
+        return
+    }
+
+    $intentFile = Join-Path $PSScriptRoot "../../agents/agent_release/verify_intent.json"
+    @{
+        params = @{
+            hours   = 1
+            analyze = $true
+        }
+    } | ConvertTo-Json | Set-Content -Path $intentFile -Encoding utf8
+
+    try {
+        Write-Info "Asking Agent Observability to check logs and analyze errors..."
+        # We call the script directly to avoid full ewctl wrapper overhead if possible, 
+        # but here we use the specific agent script for direct output control.
+        $obsScript = Join-Path $PSScriptRoot "agent-observability.ps1"
+        
+        $result = & $obsScript -Action "obs:check-logs" -IntentPath $intentFile
+        
+        # Parse result (it returns JSON string usually, but PowerShell might unwrap it)
+        $json = if ($result -is [string]) { $result | ConvertFrom-Json } else { $result }
+        
+        if ($json.output.errorCount -gt 0) {
+            Write-Warn "Verification Failed! Found $($json.output.errorCount) errors."
+            Write-Warn "Top Errors:"
+            $json.output.topErrors | ForEach-Object { Write-Host " - $($_.Name) ($($_.Count))" -ForegroundColor Red }
+            
+            if ($json.output.analysis) {
+                Write-Host "`n[Brain Analysis]:" -ForegroundColor Magenta
+                Write-Host $json.output.analysis -ForegroundColor Gray
+            }
+            
+            # Future: Implement Auto-Rollback here
+            # throw "Post-Release Verification Failed" 
+        }
+        else {
+            Write-Info "Verification Passed: Zero errors found in the last hour."
+        }
+    }
+    catch {
+        Write-Warn "Verification process failed: $_"
+    }
+    finally {
+        if (Test-Path $intentFile) { Remove-Item $intentFile -ErrorAction SilentlyContinue }
     }
 }
 
@@ -383,6 +445,8 @@ git stash push -u -m "pre-sync-`$TS" >/dev/null 2>&1 || true
 
     Write-Info "Server sync completed."
     Write-Host $final.Output
+    
+    Invoke-PostReleaseCheck
 }
 
 function Invoke-PromoteFlow {
@@ -455,7 +519,8 @@ Return:
 "@
             $analysis = Invoke-LLMWithRAG -Query $query -AgentId "agent_release" -SkipRAG $true
             $analysisText = if ($analysis -is [string]) { $analysis } elseif ($analysis.Content) { $analysis.Content } else { ($analysis | Out-String).Trim() }
-        } catch {
+        }
+        catch {
             Write-Warn "LLM analysis failed: $($_.Exception.Message)"
         }
     }
@@ -478,7 +543,8 @@ Return:
     try {
         if (Get-Command Invoke-GitCheckout -ErrorAction SilentlyContinue) {
             Invoke-GitCheckout -Branch $TargetBranch | Out-Null
-        } else {
+        }
+        else {
             git checkout $TargetBranch | Out-Null
         }
 
@@ -490,13 +556,16 @@ Return:
         if (Get-Command Invoke-GitMerge -ErrorAction SilentlyContinue) {
             if ($Strategy -eq "squash") {
                 Invoke-GitMerge -SourceBranch $SourceBranch -Squash | Out-Null
-            } else {
+            }
+            else {
                 Invoke-GitMerge -SourceBranch $SourceBranch -NoFastForward | Out-Null
             }
-        } else {
+        }
+        else {
             if ($Strategy -eq "squash") {
                 git merge --squash $SourceBranch
-            } else {
+            }
+            else {
                 git merge --no-ff $SourceBranch
             }
             if ($LASTEXITCODE -ne 0) {
@@ -506,7 +575,8 @@ Return:
 
         if (Get-Command Invoke-GitPush -ErrorAction SilentlyContinue) {
             Invoke-GitPush -Branch $TargetBranch | Out-Null
-        } else {
+        }
+        else {
             git push origin $TargetBranch
             if ($LASTEXITCODE -ne 0) {
                 throw "Push failed."
@@ -515,6 +585,8 @@ Return:
 
         $releaseSucceeded = $true
         Write-Info "Release completed successfully: $SourceBranch -> $TargetBranch"
+        
+        Invoke-PostReleaseCheck
     }
     finally {
         $currentBranch = (git rev-parse --abbrev-ref HEAD).Trim()
@@ -522,7 +594,8 @@ Return:
             try {
                 git checkout $originalBranch | Out-Null
                 Write-Info "Returned to original branch '$originalBranch'."
-            } catch {
+            }
+            catch {
                 Write-Warn "Could not return to original branch '$originalBranch': $($_.Exception.Message)"
             }
         }
@@ -535,6 +608,7 @@ Return:
 
 if ($Mode -eq "server-sync") {
     Invoke-ServerSync
-} else {
+}
+else {
     Invoke-PromoteFlow
 }
