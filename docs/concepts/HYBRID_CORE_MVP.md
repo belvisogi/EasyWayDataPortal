@@ -66,6 +66,8 @@ These policies enforce the "Gatekeeper" role directly on the server.
 3.  **Comment Resolution**: **All comments must be resolved**. (Critical for AI Code Reviews).
 4.  **Build Validation**: Pre-merge pipeline must pass (runs `Iron Dome` + Tests).
 5.  **Limit Merge Types**: Squash Merge (Recommended for clean history).
+6.  **Automatic Reviewers (for Emails)**: Add "EasyWay Team" (or specific groups) as required reviewers.
+    *   *Effect*: ADO sends an "Action Required" email to all members immediately upon PR creation.
 
 ---
 
