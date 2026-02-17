@@ -1,11 +1,34 @@
 # PRD - EasyWay Agentic Platform
 
-Version: 1.0  
-Date: 2026-02-12  
-Status: Draft for execution  
+Version: 1.1 (Hybrid Core Edition)
+Date: 2026-02-17
+Status: Execution (Level 3 - Hybrid)
 Owner: team-platform
 
 ## 1. Visione e Missione
+(Invariato)
+
+## 10.b Hybrid Core Architecture (v1.1)
+
+### Pipeline Pattern (The "Pipe")
+Per gestire input di grandi dimensioni (es. `git diff` o file di log) senza rompere il parser della shell, EasyWay adotta il **Pipeline Pattern**.
+*   **Standard**: `Source | Invoke-AgentTool -Task <Task>`
+*   **Vantaggio**: I dati viaggiano sullo stream Stdin, evitando limiti di lunghezza cmdline e caratteri speciali.
+*   **Strumenti abilitati**: `Invoke-AgentTool` supporta nativamente input da pipeline.
+
+### Smart Commit Protocol (`ewctl commit`)
+Il comando `git commit` diretto è deprecato per gli agenti.
+*   **Nuovo Standard**: `ewctl commit -m "..."`
+*   **Funzionamento**:
+    1.  **Anti-Pattern Scan**: Blocca commit se rileva pattern vietati (es. `Invoke-AgentTool -Target ...`).
+    2.  **Rapid Audit**: Esegue `agent-audit` (manifest check) prima del commit.
+    3.  **Safe Execute**: Se i check passano, esegue il commit reale.
+
+## 13. KPI e SLA
+(Aggiornamento v1.1)
+### KPI di Qualità
+- **Pipeline Compliance**: 100% degli agenti devono usare `|` per input > 1KB.
+- **Commit Safety**: 0 commit diretti da agenti (devono passare da `ewctl commit`).
 
 ### Visione
 Rendere l'adozione di agenti AI affidabile per processi reali, non solo per demo.
