@@ -1311,4 +1311,26 @@ Per ogni repo EasyWay, le seguenti policy devono essere attive su `main` e `deve
    - Su `develop`: Permettere `Merge` e `Squash`.
 4. **Build validation**: Pipeline di CI obbligatoria (se presente).
 
+### 22.23 Workflow: PM to Dev Handoff (Agent-Driven)
+
+**Obiettivo**:
+Linkare indissolubilmente il mondo "Planning" (ADO User Stories) al mondo "Development" (Git Features).
+
+**Flow Operativo**:
+1.  **Planning Phase**:
+    - `Agent ADO UserStory` (Il PM) crea la User Story su Azure DevOps.
+    - *Output*: ID (`1234`) e Titolo (`Aggiungi Login OAuth`).
+2.  **Naming Convention Generation**:
+    - L'agente genera automaticamente il nome del branch canonico: `feature/auth/1234-aggiungi-login-oauth`.
+3.  **Handoff**:
+    - L'agente comunica al Developer (Umano o `Agent Backend`):
+      > "Story #1234 creata. Per iniziare lo sviluppo, usa questo branch."
+4.  **Development Start**:
+    - Il Developer esegue il checkout del branch *esattamente* come prescritto.
+    - *Vantaggio*: Il "Link Work Item" su ADO sarà automatico perché l'ID è nel branch name.
+
+**Regola**:
+- Nessun feature branch deve nascere senza una User Story (o Bug) associata.
+- `Agent ADO UserStory` è l'autorità unica per la generazione dei nomi branch PBI.
+
 
