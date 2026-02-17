@@ -47,3 +47,28 @@ Bring the changes from `develop` *into* your feature branch to resolve the confl
 2.  Merge Feature A into your local `develop` (Simulation).
 3.  Branch Feature B from this advanced state.
 4.  **Push**: When you push Feature B, it will include A's commits. This is fine. Azure DevOps is smart enough to handle the diffs once A is merged.
+
+---
+
+## Pro Tip: Atomic Merge vs. Context Switching
+You might ask: *"Why fetch and merge origin/develop instead of checking out develop and pulling?"*
+
+### The Human Way
+```bash
+git checkout develop
+git pull
+git checkout feature/my-feature
+git merge develop
+```
+-   **Risk**: If your local `develop` has uncommitted changes or trash, you pollute the merge.
+-   **Slow**: 4 context switches (file system churn).
+
+### The Agent Way (Atomic)
+```bash
+git fetch origin develop
+# (While on feature/my-feature)
+git merge origin/develop
+```
+-   **Safe**: We never touch local `develop` directly. We merge exactly what is on the server.
+-   **Fast**: Zero file system churn on `develop`.
+-   **Precise**: Ensures we resolve against the Production Truth, not local drift.
