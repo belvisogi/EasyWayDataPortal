@@ -42,3 +42,10 @@ Opzionalmente, chiamare `agent_gedi` per philosophical review ("Abbiamo lasciato
 - **Standard Workflow**: [`../AGENT_WORKFLOW_STANDARD.md`](../AGENT_WORKFLOW_STANDARD.md)
 - **GEDI Pattern**: [`../GEDI_INTEGRATION_PATTERN.md`](../GEDI_INTEGRATION_PATTERN.md)
 - **OpenAPI Spec**: `EasyWay-DataPortal/easyway-portal-api/openapi/openapi.yaml`
+
+## 🔒 Tenant Isolation (Simulation)
+> Added by Agent ADO Deep Dive
+
+- Verified `X-Tenant-ID` header propagation.
+- Added middleware `tenantIsolation.js`.
+
