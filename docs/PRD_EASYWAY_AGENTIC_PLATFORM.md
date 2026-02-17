@@ -1357,8 +1357,31 @@ Per garantire che il codice fluisca verso la produzione senza regressioni, si is
 2.  **Non-Regression**: Le funzionalità esistenti non sono rotte.
 3.  **Approval Formale**: Il PM scrive "UAT OK" o approva la PR di release.
 
-**Regola**:
 - Nessun merge su `main` senza un'approvazione esplicita UAT.
 - Se l'UAT fallisce, si apre un branch `bugfix/` da `develop`, si risolve, e si ripete il test. Mai committare fix diretti su `main`.
+
+### 22.25 Server-Side Security Mandate (Anti-Anarchy)
+
+I controlli client-side (`ewctl commit`) sono ottimi, ma non bastano. Per evitare l'anarchia, ogni VCS collegato (GitHub, GitLab, Bitbucket, Forgejo) **DEVE** implementare le seguenti misure lato server. Senza queste, il remote è considerato "Unsafe".
+
+#### A. The Trinity of Protection
+Per ogni branch protetto (`main`, `develop`, `production`):
+
+| Controllo | ADO | GitHub | GitLab | Bitbucket | Forgejo |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **No Force Push** | `Deny` (Security) | `Allow force pushes: False` | `Protected Branch` | `Prevent force push` | `Protected` |
+| **No Delete** | `Deny` (Security) | `Allow deletions: False` | `Protected Branch` | `Prevent deletion` | `Protected` |
+| **Min Reviewers** | `Policy: 1` | `Require PR reviews: 1` | `Approvals required: 1` | `Minimum approvals: 1` | `Require approval` |
+
+#### B. The "No Direct Commit" Rule
+- **Obiettivo**: Impedire a *chiunque* (anche Admin) di pushare direttamente su `main`.
+- **Implementazione**: Bloccare "Push" per il gruppo `Contributors` e `Administrators`. L'unico modo per scrivere è tramite Pull Request.
+
+#### C. Service Account Segregation
+- Mai usare un PAT personale per agenti CI/CD.
+- Creare un'identità dedicata (es. `svc-easyway-agent`) con permessi minimi scope-based.
+
+**Regola**:
+- Prima di collegare un nuovo remote al Hybrid Core, l'admin deve firmare il "Certificate of Reliability": "Ho configurato le policy server-side secondo la sezione 22.25".
 
 
