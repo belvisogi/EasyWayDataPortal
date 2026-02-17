@@ -76,8 +76,13 @@ Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
     -   Verification is incomplete if there are uncommitted changes.
     -   **ALWAYS** use `ewctl commit` instead of `git commit`. This enforces quality gates and prevents "forgotten" checks.
 
-# EasyWay Hybrid Core - Governance Rules
+## 5. 🗣️ Communication Standards
 
+-   **PR Links**: When creating Pull Requests (Azure DevOps/GitHub), **ALWAYS** output the clickable URL in your final response (e.g., `[PR Title](url)`).
+-   **Conciseness**: prioritizing clarity over verbosity.
+
+
+# EasyWay Hybrid Core - Governance Rules
 ## 1. The Prime Directive: Use the Pipeline
 - **Context**: Our tools (e.g., `Invoke-AgentTool`) are designed to handle large inputs via stdin.
 - **Rule**: ALWAYS use the pipeline pattern `|` when passing data to tools.
