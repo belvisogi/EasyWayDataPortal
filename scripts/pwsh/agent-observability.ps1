@@ -4,7 +4,8 @@ Param(
   [string]$IntentPath,
   [switch]$NonInteractive,
   [switch]$WhatIf,
-  [switch]$LogEvent
+  [switch]$LogEvent,
+  [switch]$AutoFix
 )
 
 $ErrorActionPreference = 'Stop'
@@ -38,10 +39,41 @@ switch ($Action) {
       $exists = Test-Path $pp
       $checks += [ordered]@{ path = $pp; exists = [bool]$exists }
     }
+    
+    # DB Health Check Integration
+    $dbCheck = $null
+    try {
+      if (Test-Path "scripts/pwsh/agent-dba.ps1") {
+        $tmpDbIntent = New-TemporaryFile
+        Set-Content -Path $tmpDbIntent -Value (@{ action = "dba:check-health"; params = @{} } | ConvertTo-Json)
+        try {
+          $dbRaw = & pwsh scripts/pwsh/agent-dba.ps1 -Action "dba:check-health" -IntentPath $tmpDbIntent 2>&1 | Out-String
+          # Parse the JSON output from agent-dba
+          # Output might contain logs or other text, try to extract JSON
+          # The agent-dba uses Out-Result which writes JSON.
+          $dbJson = $dbRaw -replace '(?s)^.*(\{[^\{]*"contractId"[^\}]*\}).*$', '$1' 
+          $dbRes = $dbJson | ConvertFrom-Json -ErrorAction SilentlyContinue
+          if ($dbRes -and $dbRes.output) {
+            $dbCheck = $dbRes.output
+          }
+        }
+        finally {
+          Remove-Item -Force $tmpDbIntent -ErrorAction SilentlyContinue
+        }
+      }
+    }
+    catch {
+      $dbCheck = @{ status = "error"; details = $_.Exception.Message }
+    }
+
     $result = [ordered]@{
       action = $Action; ok = $true; whatIf = [bool]$WhatIf; nonInteractive = [bool]$NonInteractive;
       correlationId = ($intent?.correlationId ?? $p?.correlationId); startedAt = $now; finishedAt = (Get-Date).ToUniversalTime().ToString('o');
-      output = [ordered]@{ checks = $checks; hint = 'Healthcheck locale file-based; per runtime aggiungere endpoint/metrics.' }
+      output = [ordered]@{ 
+        fileChecks = $checks; 
+        dbCheck    = $dbCheck;
+        hint       = 'Healthcheck locale file-based + DB connectivity.' 
+      }
     }
     $result.contractId = 'action-result'; $result.contractVersion = '1.0'
     if ($LogEvent) { $null = Write-Event ($result + @{ event = 'agent-observability'; govApproved = $false }) }
@@ -57,6 +89,7 @@ switch ($Action) {
       'portal-api/logs/business.log.json',
       'portal-api/logs/error.log.json'
     )
+    if ($p.logFiles) { $logFiles = $p.logFiles }
     
     $errorsFound = @()
     $analyzedCount = 0
@@ -100,16 +133,55 @@ switch ($Action) {
     $analysis = $null
     if ($p.analyze -and $errorsFound.Count -gt 0) {
       Write-Host "Analyzing errors with LLM..."
+      
+      # Load Redaction Skill
+      $redactScript = Join-Path $PSScriptRoot "Redact-Log.ps1"
+      if (Test-Path $redactScript) { . $redactScript }
+      else { function Redact-SensitiveData($t) { return $t } }
+      
       $skillPath = Join-Path $PSScriptRoot "../../agents/skills/retrieval/Invoke-LLMWithRAG.ps1"
+      if ($p.skillPath) { $skillPath = $p.skillPath }
+      
       if (Test-Path $skillPath) {
         . $skillPath
             
         $errorSummary = $topErrors | ForEach-Object { "- ($($_.Count)x) $($_.Name)" } | Out-String
-        $prompt = "Analyze these application errors found in the last $hours hours:\n$errorSummary\nSuggest root cause and potential fixes based on the project context."
+        
+        # Redact before sending to LLM
+        $redactedSummary = Redact-SensitiveData -InputText $errorSummary
+        
+        $promptInfo = "Analyze these application errors found in the last $hours hours:\n$redactedSummary\nSuggest root cause and potential fixes based on the project context."
+        $promptInstruction = "If you are 100% confident in a code fix, provide the response in JSON format: { ""analysis"": ""..."", ""fixable"": true, ""fix"": { ""filePath"": ""path/to/file"", ""newContent"": ""full content"" } } OR { ""analysis"": ""..."", ""fixable"": true, ""fix"": { ""filePath"": ""path/to/file"", ""search"": ""exact string to replace"", ""replace"": ""replacement string"" } }. If not fixable, just return text analysis."
+
+        $prompt = "$promptInfo\n\n$promptInstruction"
             
         $llmResult = Invoke-LLMWithRAG -Query $prompt -AgentId "agent_observability" -SystemPrompt "You are an SRE assistant."
         if ($llmResult.Success) {
-          $analysis = $llmResult.Answer
+          $output = $llmResult.Answer
+          
+          # Try parse JSON
+          $fixData = $null
+          try { 
+            $cleanJson = $output -replace '^```json\s*', '' -replace '\s*```$', ''
+            $parsed = $cleanJson | ConvertFrom-Json 
+            if ($parsed.analysis) { $analysis = $parsed.analysis } else { $analysis = $output }
+            
+            if ($parsed.fixable -and $parsed.fix) {
+              Write-Host "💡 Fix proposed by LLM: $($parsed.fix.filePath)" -ForegroundColor Yellow
+              $fixData = $parsed.fix
+            }
+          }
+          catch {
+            $analysis = $output
+          }
+          
+          # Auto-Fix Trigger
+          if ($AutoFix -and $fixData) {
+            Write-Host "🚀 Auto-Fix Enabled: Triggering Agent Developer..." -ForegroundColor Cyan
+            $devScript = Join-Path $PSScriptRoot "agent-developer.ps1"
+            & $devScript -Action "dev:implement-fix" -FixData ($fixData | ConvertTo-Json -Depth 10) -PBI "AUTOFIX" -Desc "sre-repair"
+            $analysis += "`n`n✅ AUTO-FIX INITIATED: PR Created."
+          }
         }
         else {
           $analysis = "LLM Analysis Failed: $($llmResult.Error)"

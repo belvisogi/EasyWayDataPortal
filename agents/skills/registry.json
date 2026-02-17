@@ -1,6 +1,6 @@
 {
-  "version": "2.4.0",
-  "last_updated": "2026-02-12T02:10:00Z",
+  "version": "2.5.0",
+  "last_updated": "2026-02-17T00:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -61,7 +61,13 @@
         "docker",
         "vulnerability",
         "scanning"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": true,
+        "allowed_callers": ["agent_vulnerability_scanner", "agent_security"]
+      }
     },
     {
       "id": "security.secret-vault",
@@ -111,7 +117,13 @@
         "keyvault",
         "secrets",
         "azure"
-      ]
+      ],
+      "security": {
+        "requires_approval": true,
+        "blast_radius": "MEDIUM",
+        "audit_log": true,
+        "allowed_callers": ["agent_security"]
+      }
     },
     {
       "id": "utilities.version-compatibility",
@@ -148,7 +160,13 @@
         "compatibility",
         "version",
         "validation"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
     },
     {
       "id": "utilities.retry-backoff",
@@ -193,7 +211,13 @@
         "backoff",
         "resilience",
         "error-handling"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
     },
     {
       "id": "utilities.convert-markdown",
@@ -238,7 +262,13 @@
         "report",
         "formatting",
         "export"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
     },
     {
       "id": "utilities.json-validate",
@@ -275,7 +305,13 @@
         "validation",
         "schema",
         "manifest"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
     },
     {
       "id": "observability.health-check",
@@ -306,7 +342,13 @@
         "monitoring",
         "containers",
         "observability"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": true,
+        "allowed_callers": ["agent_observability", "agent_infra", "agent_security"]
+      }
     },
     {
       "id": "integration.slack-message",
@@ -350,7 +392,13 @@
         "notification",
         "messaging",
         "alert"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": true,
+        "allowed_callers": ["*"]
+      }
     },
     {
       "id": "retrieval.rag-search",
@@ -381,7 +429,13 @@
         "search",
         "wiki",
         "qdrant"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
     },
     {
       "id": "retrieval.rag-enhanced-prompt",
@@ -421,7 +475,13 @@
         "llm",
         "prompt-engineering",
         "context"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
     },
     {
       "id": "retrieval.rag-query-rewriter",
@@ -451,7 +511,13 @@
         "query-optimization",
         "search",
         "antifragile"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
     },
     {
       "id": "database.migration",
@@ -488,7 +554,13 @@
         "migration",
         "sql",
         "schema"
-      ]
+      ],
+      "security": {
+        "requires_approval": true,
+        "blast_radius": "HIGH",
+        "audit_log": true,
+        "allowed_callers": ["agent_dba"]
+      }
     },
     {
       "id": "database.test-connection",
@@ -522,7 +594,13 @@
         "database",
         "connectivity",
         "validation"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": true,
+        "allowed_callers": ["agent_dba", "agent_observability"]
+      }
     },
     {
       "id": "retrieval.llm-with-rag",
@@ -588,7 +666,13 @@
         "deepseek",
         "level2",
         "agent-bridge"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": true,
+        "allowed_callers": ["agent_backend", "agent_dba", "agent_docs_sync", "agent_governance", "agent_infra", "agent_pr_manager", "agent_review", "agent_security", "agent_vulnerability_scanner", "agent_retrieval"]
+      }
     },
     {
       "id": "analysis.impact-analysis",
@@ -624,7 +708,13 @@
         "impact",
         "cascade",
         "butterfly-effect"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
     },
     {
       "id": "git.checkout",
@@ -657,7 +747,13 @@
         "git",
         "checkout",
         "branch"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "MEDIUM",
+        "audit_log": true,
+        "allowed_callers": ["agent_pr_manager", "agent_release", "agent_developer"]
+      }
     },
     {
       "id": "git.merge",
@@ -689,7 +785,13 @@
       "tags": [
         "git",
         "merge"
-      ]
+      ],
+      "security": {
+        "requires_approval": true,
+        "blast_radius": "HIGH",
+        "audit_log": true,
+        "allowed_callers": ["agent_pr_manager", "agent_release"]
+      }
     },
     {
       "id": "git.push",
@@ -736,7 +838,13 @@
       "tags": [
         "git",
         "push"
-      ]
+      ],
+      "security": {
+        "requires_approval": true,
+        "blast_radius": "HIGH",
+        "audit_log": true,
+        "allowed_callers": ["agent_pr_manager", "agent_release"]
+      }
     },
     {
       "id": "git.server-sync",
@@ -805,7 +913,13 @@
         "deploy",
         "server-sync",
         "ssh"
-      ]
+      ],
+      "security": {
+        "requires_approval": true,
+        "blast_radius": "CRITICAL",
+        "audit_log": true,
+        "allowed_callers": ["agent_release", "agent_infra"]
+      }
     },
     {
       "id": "analysis.summarize",
@@ -872,7 +986,13 @@
         "costar",
         "llm",
         "nlp"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
     },
     {
       "id": "analysis.sql-query",
@@ -933,7 +1053,13 @@
         "llm",
         "database",
         "nlp"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "MEDIUM",
+        "audit_log": true,
+        "allowed_callers": ["agent_dba", "agent_backend"]
+      }
     },
     {
       "id": "analysis.classify-intent",
@@ -978,7 +1104,13 @@
         "costar",
         "llm",
         "nlp"
-      ]
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
     }
   ]
 }
