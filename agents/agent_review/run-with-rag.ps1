@@ -177,7 +177,7 @@ Write-Host ""
 Write-Host $result.Answer
 Write-Host ""
 
-if ($result.EvaluatorRuns -gt 0) {
+if ($result.PSObject.Properties['EvaluatorRuns'] -and $result.EvaluatorRuns -gt 0) {
     Write-Host "---------------------------------------------" -ForegroundColor DarkGray
     Write-Host " Evaluator: $($result.EvaluatorRuns) iteration(s), final: $($result.EvaluatorStatus)" -ForegroundColor DarkGray
 }
