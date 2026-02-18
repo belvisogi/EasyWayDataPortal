@@ -77,9 +77,9 @@ Set-StrictMode -Version 3.0
 $ErrorActionPreference = 'Stop'
 
 # ---------------------------------------------------------------------------
-# Resolve repo root (two levels up from this script: skills/orchestration/ -> agents/ -> repo)
+# Resolve repo root (three levels up: orchestration/ -> skills/ -> agents/ -> repo)
 # ---------------------------------------------------------------------------
-$repoRoot = (Get-Item $PSScriptRoot).Parent.Parent.FullName
+$repoRoot = (Get-Item $PSScriptRoot).Parent.Parent.Parent.FullName
 
 # ---------------------------------------------------------------------------
 # Detect Start-ThreadJob availability (PS7+)
