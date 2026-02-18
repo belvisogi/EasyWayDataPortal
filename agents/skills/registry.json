@@ -1,6 +1,6 @@
 {
-  "version": "2.5.0",
-  "last_updated": "2026-02-17T00:00:00Z",
+  "version": "2.6.0",
+  "last_updated": "2026-02-18T00:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -51,6 +51,20 @@
           ]
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "CVE scan results for the specified Docker image",
+        "output_fields": [
+          { "name": "image", "type": "string", "description": "Image name scanned" },
+          { "name": "scanner", "type": "string", "description": "Scanner used" },
+          { "name": "critical", "type": "integer", "description": "Count of CRITICAL CVEs" },
+          { "name": "high", "type": "integer", "description": "Count of HIGH CVEs" },
+          { "name": "medium", "type": "integer", "description": "Count of MEDIUM CVEs" },
+          { "name": "low", "type": "integer", "description": "Count of LOW CVEs" },
+          { "name": "passed", "type": "boolean", "description": "True if below FailOnSeverity threshold" },
+          { "name": "raw", "type": "object", "description": "Full scanner output" }
+        ]
+      },
       "dependencies": [
         "docker",
         "docker-scout OR snyk OR trivy"
@@ -109,6 +123,16 @@
           "required": false
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Result of the Key Vault operation",
+        "output_fields": [
+          { "name": "operation", "type": "string", "description": "Operation performed (set/reference/list/rotate)" },
+          { "name": "secretName", "type": "string", "description": "Secret name involved" },
+          { "name": "vaultUri", "type": "string", "description": "Key Vault URI" },
+          { "name": "secrets", "type": "array", "description": "List of secret names (list operation only)" }
+        ]
+      },
       "dependencies": [
         "az"
       ],
@@ -155,6 +179,17 @@
           "required": false
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Compatibility check result for the specified component and version",
+        "output_fields": [
+          { "name": "component", "type": "string", "description": "Component name checked" },
+          { "name": "version", "type": "string", "description": "Version checked" },
+          { "name": "compatible", "type": "boolean", "description": "True if version is compatible" },
+          { "name": "conflicts", "type": "array", "description": "List of conflicting components/versions" },
+          { "name": "recommendation", "type": "string", "description": "Suggested compatible version if conflict found" }
+        ]
+      },
       "dependencies": [],
       "tags": [
         "compatibility",
@@ -205,6 +240,16 @@
           "required": false
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Result of the script block execution after retries",
+        "output_fields": [
+          { "name": "result", "type": "object", "description": "Return value of the ScriptBlock on success" },
+          { "name": "attempts", "type": "integer", "description": "Number of attempts made (1 = success on first try)" },
+          { "name": "totalDurationSec", "type": "number", "description": "Total elapsed time including waits" },
+          { "name": "lastError", "type": "string", "description": "Last error message if all retries exhausted" }
+        ]
+      },
       "dependencies": [],
       "tags": [
         "retry",
@@ -256,6 +301,16 @@
           "default": true
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Formatted report in the requested output format",
+        "output_fields": [
+          { "name": "content", "type": "string", "description": "Formatted report content (markdown/console/json)" },
+          { "name": "title", "type": "string", "description": "Report title used" },
+          { "name": "format", "type": "string", "description": "Output format used" },
+          { "name": "generatedAt", "type": "string", "description": "ISO timestamp of report generation" }
+        ]
+      },
       "dependencies": [],
       "tags": [
         "markdown",
@@ -299,6 +354,16 @@
           "required": false
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "JSON validation result with errors and field coverage",
+        "output_fields": [
+          { "name": "valid", "type": "boolean", "description": "True if JSON is syntactically valid and passes all checks" },
+          { "name": "errors", "type": "array", "description": "List of validation errors (syntax, missing fields, schema)" },
+          { "name": "missingFields", "type": "array", "description": "Required fields not found in the JSON" },
+          { "name": "schemaViolations", "type": "array", "description": "Schema constraint violations (if SchemaPath provided)" }
+        ]
+      },
       "dependencies": [],
       "tags": [
         "json",
@@ -334,6 +399,16 @@
           "default": 10
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Health status of containers and services",
+        "output_fields": [
+          { "name": "healthy", "type": "boolean", "description": "True if all checked services are healthy" },
+          { "name": "services", "type": "array", "description": "Per-service health results (name, status, uptime)" },
+          { "name": "unhealthyCount", "type": "integer", "description": "Number of services in unhealthy state" },
+          { "name": "checkedAt", "type": "string", "description": "ISO timestamp of the check" }
+        ]
+      },
       "dependencies": [
         "docker"
       ],
@@ -386,6 +461,16 @@
           ]
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Result of the Slack message delivery",
+        "output_fields": [
+          { "name": "delivered", "type": "boolean", "description": "True if Slack returned HTTP 200" },
+          { "name": "channel", "type": "string", "description": "Channel the message was sent to" },
+          { "name": "httpStatus", "type": "integer", "description": "HTTP response status from Slack webhook" },
+          { "name": "timestamp", "type": "string", "description": "ISO timestamp of send attempt" }
+        ]
+      },
       "dependencies": [],
       "tags": [
         "slack",
@@ -420,6 +505,15 @@
           "default": 3
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Ranked Wiki chunks matching the query",
+        "output_fields": [
+          { "name": "chunks", "type": "array", "description": "Array of matching chunks (text, source, score)" },
+          { "name": "count", "type": "integer", "description": "Number of chunks returned" },
+          { "name": "queryEmbeddingMs", "type": "integer", "description": "Time to embed the query in ms" }
+        ]
+      },
       "dependencies": [
         "python3",
         "qdrant-client"
@@ -465,6 +559,16 @@
           "description": "Base system prompt to enhance"
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Enhanced prompt with injected Wiki context ready for LLM consumption",
+        "output_fields": [
+          { "name": "EnhancedPrompt", "type": "string", "description": "System prompt with RAG context injected" },
+          { "name": "RAGResultCount", "type": "integer", "description": "Number of Wiki chunks injected" },
+          { "name": "Sources", "type": "array", "description": "Source file paths for the injected chunks" },
+          { "name": "Success", "type": "boolean", "description": "True if RAG retrieval succeeded" }
+        ]
+      },
       "dependencies": [
         "python3",
         "qdrant-client",
@@ -505,6 +609,15 @@
           "description": "Max query variants to generate"
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Rewritten query variants for improved RAG hit rate",
+        "output_fields": [
+          { "name": "original", "type": "string", "description": "Original query as provided" },
+          { "name": "variants", "type": "array", "description": "Array of rewritten query strings" },
+          { "name": "bestVariant", "type": "string", "description": "Recommended query variant for primary search" }
+        ]
+      },
       "dependencies": [],
       "tags": [
         "rag",
@@ -545,6 +658,18 @@
           "default": false
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Database migration execution result",
+        "output_fields": [
+          { "name": "migrationFile", "type": "string", "description": "Path to the migration file executed" },
+          { "name": "applied", "type": "boolean", "description": "True if migration was successfully applied" },
+          { "name": "rolledBack", "type": "boolean", "description": "True if rollback was performed" },
+          { "name": "dryRun", "type": "boolean", "description": "True if executed in dry-run mode (no changes)" },
+          { "name": "sqlOutput", "type": "string", "description": "Raw SQL execution output" },
+          { "name": "durationMs", "type": "integer", "description": "Execution time in milliseconds" }
+        ]
+      },
       "dependencies": [
         "sqlcmd",
         "az"
@@ -587,6 +712,17 @@
           "default": 10
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Database connectivity test result",
+        "output_fields": [
+          { "name": "connected", "type": "boolean", "description": "True if connection succeeded" },
+          { "name": "server", "type": "string", "description": "Server address tested" },
+          { "name": "database", "type": "string", "description": "Database name tested" },
+          { "name": "latencyMs", "type": "integer", "description": "Round-trip latency in milliseconds" },
+          { "name": "error", "type": "string", "description": "Error message if connection failed" }
+        ]
+      },
       "dependencies": [
         "sqlcmd"
       ],
@@ -607,8 +743,8 @@
       "name": "Invoke-LLMWithRAG",
       "domain": "retrieval",
       "file": "skills/retrieval/Invoke-LLMWithRAG.ps1",
-      "version": "1.0.0",
-      "description": "Combined RAG retrieval + DeepSeek LLM call for Level 2 agents. Retrieves Wiki context from Qdrant, injects into system prompt, calls DeepSeek, and tracks usage stats.",
+      "version": "2.0.0",
+      "description": "Combined RAG retrieval + DeepSeek LLM call for Level 2 agents. Retrieves Wiki context from Qdrant, injects into system prompt, calls DeepSeek, and tracks usage stats. Supports optional Evaluator-Optimizer loop.",
       "parameters": [
         {
           "name": "Query",
@@ -653,8 +789,49 @@
           "required": false,
           "default": false,
           "description": "Skip RAG retrieval (LLM-only mode)"
+        },
+        {
+          "name": "EnableEvaluator",
+          "type": "switch",
+          "required": false,
+          "description": "Activate the Evaluator-Optimizer loop (Gap 1)"
+        },
+        {
+          "name": "AcceptanceCriteria",
+          "type": "array",
+          "required": false,
+          "description": "List of AC predicates for the evaluator to check"
+        },
+        {
+          "name": "MaxIterations",
+          "type": "integer",
+          "required": false,
+          "default": 2,
+          "description": "Max generator-evaluator iterations (1-5)"
+        },
+        {
+          "name": "EvaluatorModel",
+          "type": "string",
+          "required": false,
+          "description": "Override model for the evaluator call (defaults to same as Model)"
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "LLM answer with RAG context, usage stats, and optional evaluator results",
+        "output_fields": [
+          { "name": "Answer", "type": "string", "description": "LLM-generated answer text" },
+          { "name": "RAGContext", "type": "string", "description": "Wiki context chunks injected into the prompt" },
+          { "name": "TokensIn", "type": "integer", "description": "Total prompt tokens consumed (all iterations)" },
+          { "name": "TokensOut", "type": "integer", "description": "Total completion tokens generated (all iterations)" },
+          { "name": "CostUSD", "type": "number", "description": "Estimated API cost in USD" },
+          { "name": "DurationSec", "type": "number", "description": "Total duration in seconds" },
+          { "name": "EvaluatorEnabled", "type": "boolean", "description": "True if Evaluator-Optimizer was active" },
+          { "name": "EvaluatorIterations", "type": "integer", "description": "Number of generator-evaluator cycles performed" },
+          { "name": "EvaluatorPassed", "type": "boolean", "description": "True if all AC predicates passed (when evaluator active)" },
+          { "name": "EvaluatorResults", "type": "array", "description": "Per-AC pass/fail results from the evaluator" }
+        ]
+      },
       "dependencies": [
         "python3",
         "qdrant-client",
@@ -665,7 +842,8 @@
         "llm",
         "deepseek",
         "level2",
-        "agent-bridge"
+        "agent-bridge",
+        "evaluator-optimizer"
       ],
       "security": {
         "requires_approval": false,
@@ -702,6 +880,17 @@
           ]
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Cascade impact analysis across the specified scope",
+        "output_fields": [
+          { "name": "affectedComponents", "type": "array", "description": "List of components impacted by the change" },
+          { "name": "riskLevel", "type": "string", "description": "Overall risk: LOW / MEDIUM / HIGH / CRITICAL" },
+          { "name": "cascadeDepth", "type": "integer", "description": "Maximum dependency depth of the impact" },
+          { "name": "summary", "type": "string", "description": "Human-readable impact summary" },
+          { "name": "recommendations", "type": "array", "description": "Mitigation actions to reduce blast radius" }
+        ]
+      },
       "dependencies": [],
       "tags": [
         "analysis",
@@ -740,6 +929,15 @@
           "required": false
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Result of the git checkout operation",
+        "output_fields": [
+          { "name": "branch", "type": "string", "description": "Branch now checked out" },
+          { "name": "created", "type": "boolean", "description": "True if the branch was newly created" },
+          { "name": "previousBranch", "type": "string", "description": "Branch that was active before checkout" }
+        ]
+      },
       "dependencies": [
         "git"
       ],
@@ -779,6 +977,17 @@
           "required": false
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Result of the git merge operation",
+        "output_fields": [
+          { "name": "merged", "type": "boolean", "description": "True if merge completed without conflicts" },
+          { "name": "sourceBranch", "type": "string", "description": "Branch that was merged in" },
+          { "name": "targetBranch", "type": "string", "description": "Branch that received the merge" },
+          { "name": "commitHash", "type": "string", "description": "Resulting merge commit hash" },
+          { "name": "conflicts", "type": "array", "description": "Files with conflicts if merge was aborted" }
+        ]
+      },
       "dependencies": [
         "git"
       ],
@@ -832,6 +1041,16 @@
           ]
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Result of the git push operation",
+        "output_fields": [
+          { "name": "pushed", "type": "boolean", "description": "True if push succeeded" },
+          { "name": "branch", "type": "string", "description": "Branch pushed" },
+          { "name": "remote", "type": "string", "description": "Remote repository pushed to" },
+          { "name": "remoteRef", "type": "string", "description": "Full remote ref updated (e.g. refs/heads/main)" }
+        ]
+      },
       "dependencies": [
         "git"
       ],
@@ -903,6 +1122,17 @@
           "required": false
         }
       ],
+      "returns": {
+        "type": "object",
+        "description": "Result of the server git pull/sync operation",
+        "output_fields": [
+          { "name": "synced", "type": "boolean", "description": "True if server is now at the expected commit" },
+          { "name": "commitBefore", "type": "string", "description": "Server commit hash before sync" },
+          { "name": "commitAfter", "type": "string", "description": "Server commit hash after sync" },
+          { "name": "filesChanged", "type": "integer", "description": "Number of files changed during pull" },
+          { "name": "backupBranch", "type": "string", "description": "Backup branch created on server before sync" }
+        ]
+      },
       "dependencies": [
         "git",
         "ssh"
@@ -979,6 +1209,16 @@
         "audience": "Determined by Style parameter",
         "response_format": "JSON { summary, key_points, word_count }"
       },
+      "returns": {
+        "type": "object",
+        "description": "Concise summary with key points extracted from the input text",
+        "output_fields": [
+          { "name": "summary", "type": "string", "description": "Condensed summary text" },
+          { "name": "key_points", "type": "array", "description": "Bullet-point key takeaways" },
+          { "name": "word_count", "type": "integer", "description": "Actual word count of the summary" },
+          { "name": "style", "type": "string", "description": "Style used (business/technical/conversational)" }
+        ]
+      },
       "dependencies": [],
       "tags": [
         "analysis",
@@ -1045,6 +1285,16 @@
         "audience": "Developer or DBA",
         "response_format": "JSON { sql, explanation, tables_used }"
       },
+      "returns": {
+        "type": "object",
+        "description": "Generated SQL query with explanation; optionally includes execution results",
+        "output_fields": [
+          { "name": "sql", "type": "string", "description": "Generated SELECT SQL query (read-only)" },
+          { "name": "explanation", "type": "string", "description": "Plain-language explanation of the query" },
+          { "name": "tables_used", "type": "array", "description": "List of table names referenced in the query" },
+          { "name": "executionResult", "type": "object", "description": "Query execution result rows (only if Execute=true)" }
+        ]
+      },
       "dependencies": [],
       "tags": [
         "analysis",
@@ -1095,6 +1345,16 @@
         "tone": "Objective, precise",
         "audience": "Orchestration engine for request routing",
         "response_format": "JSON { intent, confidence, reasoning }"
+      },
+      "returns": {
+        "type": "object",
+        "description": "Intent classification with confidence score and reasoning",
+        "output_fields": [
+          { "name": "intent", "type": "string", "description": "Classified intent label" },
+          { "name": "confidence", "type": "number", "description": "Confidence score 0.0-1.0 for the classification" },
+          { "name": "reasoning", "type": "string", "description": "Brief explanation of why this intent was chosen" },
+          { "name": "alternatives", "type": "array", "description": "Runner-up intents with their confidence scores" }
+        ]
       },
       "dependencies": [],
       "tags": [

@@ -1,7 +1,7 @@
 ---
 title: "Platform Operational Memory — EasyWay"
 created: 2026-02-18
-updated: 2026-02-18
+updated: 2026-02-18T18:00:00Z
 status: active
 category: reference
 domain: platform
@@ -142,8 +142,37 @@ Regole persistite in `/etc/iptables/rules.v4`.
 
 ## 5. Git Workflow Corretto
 
+### Flusso PR obbligatorio (NON DEROGABILE)
+
+> **MAI fare PR direttamente da feature branch a main.**
+> Il flusso corretto e' SEMPRE: feature → develop → main (via PR release).
+> Riferimento storico: Session 5 PR 32 (feat → develop) + PR 33 (develop → main).
+
 ```
-feature branch -> ewctl commit -> git push -> PR (Azure DevOps / Gitea) -> merge -> server git pull
+feat/<name>
+    | PR 1: feat -> develop
+    v
+develop
+    | PR 2 (release): develop -> main  [titolo: "[Release] Session N — ..."]
+    v
+main
+    | SSH: cd ~/EasyWayDataPortal && git pull
+    v
+server aggiornato
+    | (se wiki cambiata) WIKI_PATH=Wiki/... node scripts/ingest_wiki.js
+    v
+Qdrant re-indexed
+```
+
+### Flusso completo comandi
+
+```
+ewctl commit
+git push origin feat/<name>
+# Azure DevOps: PR feat/<name> -> develop  (merge)
+# Azure DevOps: PR develop -> main  [Release]  (merge)
+# SSH server:
+cd ~/EasyWayDataPortal && git pull
 ```
 
 **Branch naming**:
@@ -159,6 +188,31 @@ git branch --show-current   # verifica branch corrente
 **Merge commit e file tracking**:
 - `git show --name-only` su merge commit mostra solo diff vs first parent
 - Per file aggiunti via second parent: usare `git log --diff-filter=A --name-only`
+
+### Regola PR Description (OBBLIGATORIO - Session 6)
+
+> **SEMPRE generare e fornire il testo della PR quando si creano pull request.**
+
+Template PR standard:
+```markdown
+## Summary
+- <bullet 1>
+- <bullet 2>
+- <bullet 3>
+
+## Test plan
+- [ ] <check 1>
+- [ ] <check 2>
+
+## Artefatti
+- <file/script creati o modificati>
+```
+
+Titolo: `<tipo>(<scope>): <descrizione breve>` — max 70 caratteri.
+
+Comportamento Claude Code:
+- Se `az repos pr create` disponibile (con `AZURE_DEVOPS_EXT_PAT`) → crea la PR automaticamente
+- Altrimenti → output testo formattato per paste manuale su Azure DevOps/Gitea
 
 ---
 
@@ -255,9 +309,9 @@ Invoke-LLMWithRAG `
 | Gap 1 | Evaluator-Optimizer | DONE (Session 5) | `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` |
 | Gap 2 | Working Memory (session.json) | TODO Q2 2026 | `agents/core/schemas/session.schema.json` |
 | Gap 3 | Parallelization (Start-ThreadJob) | TODO Q3 2026 | orchestrator |
-| Gap 4 | Confidence Scoring (0.0-1.0) | TODO | `agents/core/schemas/action-result.schema.json` |
-| Gap 5 | Fixture Tests per L2 agent | TODO | `agents/{id}/tests/fixtures/` |
-| Gap 6 | `returns` field in registry.json | TODO | `agents/skills/registry.json` -> v2.6.0 |
+| Gap 4 | Confidence Scoring (0.0-1.0) | DONE (Session 6) | `agents/core/schemas/action-result.schema.json` |
+| Gap 5 | Fixture Tests per L2 agent | DONE (Session 6) | `agents/agent_review/tests/fixtures/` |
+| Gap 6 | `returns` field in registry.json | DONE (Session 6) | `agents/skills/registry.json` v2.6.0 |
 
 ---
 
@@ -285,6 +339,9 @@ Invoke-LLMWithRAG `
 8. **`git show --name-only`** su merge commit mostra solo diff vs first parent — usare `git log --diff-filter=A` per file aggiunti via second parent
 9. **`git stash push --include-untracked`** fallisce su file root-owned ma salva il resto
 10. **`az repos pr create`** richiede `AZURE_DEVOPS_EXT_PAT` nella sessione corrente
+11. **Emoji con byte 0x94 in UTF-8** (es. U+1F504 🔄, U+1F50D 🔍) causano lo stesso problema dell'em dash in PS5.1 `ParseFile`. Usare testo ASCII nelle stringhe PS. Il problema NON si manifesta sotto `pwsh` (PS7).
+12. **`WIKI_PATH` per ingest_wiki.js**: passare sempre una DIRECTORY, non un file singolo. Il glob aggiunge `/**/*.md` — un path a file singolo restituisce 0 file trovati.
+13. **Sync-PlatformMemory duplicate marker bug**: `IndexOf("# AUTO-SYNC-END")` trova la PRIMA occorrenza, ma la wiki puo' contenere quel testo come esempio documentale in code block. Usare `LastIndexOf` per il marker di chiusura — garantisce di trovare sempre il vero `# AUTO-SYNC-END` finale.
 
 ---
 
@@ -311,12 +368,76 @@ Richiede: modifica dei 9 `PROMPTS.md` + meccanismo di import nello script di avv
 
 ---
 
+## 13. Platform Knowledge Sync — Infrastruttura (Session 6)
+
+La conoscenza operativa viene sincronizzata automaticamente tra tre fonti tramite uno script dedicato.
+
+### Flusso di Sync
+
+```
+MEMORY.md (note sessione Claude Code)
+      |
+      | (manuale: aggiornare wiki quando la conoscenza e' stabile)
+      v
+Wiki/platform-operational-memory.md   <-- FONTE UNICA DI VERITA'
+      |
+      | Sync-PlatformMemory.ps1 (auto via pre-commit o manuale)
+      v
+.cursorrules [AUTO-SYNC-START ... AUTO-SYNC-END]
+      |
+      | $script:PlatformRules in Invoke-LLMWithRAG.ps1 (garantito a ogni call L2)
+      v
+Qdrant easyway_wiki (collection, query-dependent)
+```
+
+### Script: scripts/pwsh/Sync-PlatformMemory.ps1
+
+| Parametro | Default | Descrizione |
+|---|---|---|
+| `-WikiFile` | `Wiki/.../platform-operational-memory.md` | File wiki sorgente |
+| `-CursorRulesFile` | `.cursorrules` | File target |
+| `-DryRun` | `$false` | Preview senza scrittura |
+
+**Invocazione manuale**: `pwsh scripts/pwsh/Sync-PlatformMemory.ps1`
+**Preview**: `pwsh scripts/pwsh/Sync-PlatformMemory.ps1 -DryRun`
+
+### Trigger automatico (Iron Dome pre-commit)
+
+Se `platform-operational-memory.md` e' staged al momento del commit:
+1. Iron Dome rileva il file nella lista staged
+2. Chiama `Sync-PlatformMemory.ps1` automaticamente
+3. Fa `git add .cursorrules` per includere l'aggiornamento nel commit
+
+### Regola operativa per Claude Code
+
+> **Ogni volta che MEMORY.md viene aggiornata con conoscenza stabile (non note temporanee di sessione),
+> aggiornare anche la wiki e poi eseguire `Sync-PlatformMemory.ps1` per propagare a `.cursorrules`.**
+
+Formato sezione auto-generata in `.cursorrules`:
+- Aperta da: `# AUTO-SYNC-START`
+- Chiusa da: `# AUTO-SYNC-END`
+- Contiene: corpo della wiki senza frontmatter YAML + timestamp di ultima sync
+
+### Markers in .cursorrules
+
+```
+# AUTO-SYNC-START: Regenerated by scripts/pwsh/Sync-PlatformMemory.ps1
+# Source: Wiki/EasyWayData.wiki/agents/platform-operational-memory.md
+# Last sync: <timestamp>
+[contenuto auto-generato dalla wiki]
+# AUTO-SYNC-END
+```
+
+---
+
 ## Riferimenti
 
 - [[agents/agent-design-standards]] — Pattern Anthropic per agenti
 - [[agents/agent-evolution-roadmap]] — Roadmap L1->L2->L3
 - [[agents/agent-roster]] — Roster completo 31 agenti
 - [[security/secrets-management-roadmap]] — 4 opzioni gestione secrets cloud
-- `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` — Bridge LLM+RAG (con Evaluator-Optimizer)
-- `agents/core/schemas/action-result.schema.json` — Schema output standard
-- `agents/skills/registry.json` — Catalogo skills
+- `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` — Bridge LLM+RAG (con Evaluator-Optimizer, Gap 1)
+- `agents/core/schemas/action-result.schema.json` — Schema output standard (con campo `confidence`, Gap 4)
+- `agents/skills/registry.json` v2.6.0 — Catalogo 22 skills con campo `returns` (Gap 6)
+- `agents/agent_review/tests/fixtures/` — 3 fixture JSON per agent_review (Gap 5)
+- `scripts/pwsh/Sync-PlatformMemory.ps1` — Script sync wiki → .cursorrules (Session 6)
