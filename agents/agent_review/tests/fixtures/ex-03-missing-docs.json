@@ -1,0 +1,33 @@
+{
+  "fixture_id": "ex-03-missing-docs",
+  "description": "MR con codice modificato ma Wiki NON aggiornata. Il reviewer deve richiedere modifiche (REQUEST_CHANGES) e indicare quali pagine Wiki mancano.",
+  "agent_id": "agent_review",
+  "action": "review:docs-impact",
+  "input": {
+    "query": "Rivedi questa MR: refactor(dba): migrate db-health-check to async pattern. Modificati: agents/agent_dba/health-check.ps1 (logica completamente riscritta con Start-ThreadJob), agents/agent_dba/manifest.json (versione bump). La Wiki NON e' stata aggiornata.",
+    "context": {
+      "mr_title": "refactor(dba): async db-health-check",
+      "mr_author": "team-dba",
+      "branch": "refactor/dba-async-health",
+      "target_branch": "develop",
+      "changed_files": [
+        "agents/agent_dba/health-check.ps1",
+        "agents/agent_dba/manifest.json"
+      ],
+      "wiki_updated": false,
+      "tests_added": false,
+      "secrets_in_diff": false,
+      "expected_wiki_pages": [
+        "Wiki/EasyWayData.wiki/agents/agent-roster.md",
+        "Wiki/EasyWayData.wiki/agents/agent-dba-runbook.md"
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "REQUEST_CHANGES",
+    "must_contain_keywords": ["REQUEST_CHANGES", "Wiki", "documentazione", "aggiornare"],
+    "must_not_contain": ["APPROVE", "SECURITY_VIOLATION"],
+    "output_format": "review_md",
+    "notes": "Il gate doc_coverage deve fallire: codice riscritto senza aggiornamento Wiki. Il Critic deve elencare le pagine mancanti (agent-roster, agent-dba-runbook) e dare REQUEST_CHANGES."
+  }
+}

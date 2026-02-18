@@ -13,7 +13,13 @@
     "startedAt": { "type": "string" },
     "finishedAt": { "type": "string" },
     "output": { "type": "object", "additionalProperties": true },
-    "error": { "type": ["string", "null"] }
+    "error": { "type": ["string", "null"] },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence score for the agent output (0.0 = no confidence, 1.0 = full confidence). Optional; set by L2 agents when the LLM evaluator is active."
+    }
   },
   "required": ["action", "ok", "whatIf", "output"]
 }
