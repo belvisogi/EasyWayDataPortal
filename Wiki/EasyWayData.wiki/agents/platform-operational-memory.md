@@ -142,8 +142,37 @@ Regole persistite in `/etc/iptables/rules.v4`.
 
 ## 5. Git Workflow Corretto
 
+### Flusso PR obbligatorio (NON DEROGABILE)
+
+> **MAI fare PR direttamente da feature branch a main.**
+> Il flusso corretto e' SEMPRE: feature → develop → main (via PR release).
+> Riferimento storico: Session 5 PR 32 (feat → develop) + PR 33 (develop → main).
+
 ```
-feature branch -> ewctl commit -> git push -> PR (Azure DevOps / Gitea) -> merge -> server git pull
+feat/<name>
+    | PR 1: feat -> develop
+    v
+develop
+    | PR 2 (release): develop -> main  [titolo: "[Release] Session N — ..."]
+    v
+main
+    | SSH: cd ~/EasyWayDataPortal && git pull
+    v
+server aggiornato
+    | (se wiki cambiata) WIKI_PATH=Wiki/... node scripts/ingest_wiki.js
+    v
+Qdrant re-indexed
+```
+
+### Flusso completo comandi
+
+```
+ewctl commit
+git push origin feat/<name>
+# Azure DevOps: PR feat/<name> -> develop  (merge)
+# Azure DevOps: PR develop -> main  [Release]  (merge)
+# SSH server:
+cd ~/EasyWayDataPortal && git pull
 ```
 
 **Branch naming**:
