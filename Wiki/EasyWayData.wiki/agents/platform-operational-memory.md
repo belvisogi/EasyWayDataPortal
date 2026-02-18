@@ -397,11 +397,12 @@ Le regole operative della piattaforma vengono distribuite a tre livelli:
 Garanzia: le regole critiche arrivano sempre, indipendentemente dalla query RAG.
 Overhead: ~80-100 token fissi per chiamata.
 
-### Opzione B — Shared Snippet per PROMPTS.md (IN CANTIERE - Q2 2026)
-Creare `agents/core/prompts/platform-rules.snippet.md`.
-Ogni agente L2 importa lo snippet nel proprio `PROMPTS.md`.
-Permette regole personalizzate per agente (es. agent_dba riceve anche regole DB-specifiche).
-Richiede: modifica dei 9 `PROMPTS.md` + meccanismo di import nello script di avvio.
+### Opzione B — Shared Snippet per PROMPTS.md (DONE - Session 8)
+Snippet canonico: `agents/core/prompts/platform-rules.snippet.md`.
+Ogni agente L2 ha la sezione `## EasyWay Platform Rules` nel proprio `PROMPTS.md` (tra Security Guardrails e sezione dominio).
+Script di sync: `scripts/pwsh/Sync-AgentPlatformRules.ps1` - propaga future modifiche allo snippet nei 9 PROMPTS.md.
+Invocazione: `pwsh scripts/pwsh/Sync-AgentPlatformRules.ps1` (con `-DryRun` per preview, `-AgentFilter agent_dba` per agente singolo).
+Markers: `PLATFORM_RULES_START` / `PLATFORM_RULES_END` (analoghi ad AUTO-SYNC-START/END di .cursorrules).
 
 ---
 
@@ -467,15 +468,24 @@ Formato sezione auto-generata in `.cursorrules`:
 
 ---
 
-## 14. Next Session Priorities (Session 8)
+## 14. Session 8 — Tasks completati e Next Session Priorities
+
+### Session 8 — Completati
+
+| Stato | Task | Note |
+|---|---|---|
+| DONE | Server `git pull` (Gap 2 in main) | Gia' aggiornato (PR 36-39 in main) |
+| DONE | Qdrant re-index `agents/` | 1216 chunk indicizzati |
+| DONE | Option B — `platform-rules.snippet.md` | 9 PROMPTS.md aggiornati via Sync-AgentPlatformRules.ps1 |
+| IN PROGRESS | `agent_review` L3 upgrade | Attivare Evaluator + Session working memory |
+
+### Next Session Priorities (Session 9)
 
 | Priorita' | Task | Note |
 |---|---|---|
-| Alta | Server `git pull` (Gap 2 in main) | PR 36+37 mergiate su main |
-| Alta | Qdrant re-index `agents/` | Wiki cambiata in Session 7 |
-| Media | Option B — `platform-rules.snippet.md` | Aggiornare 9 PROMPTS.md L2 agents |
-| Media | `agent_review` L3 upgrade | Attivare Evaluator + Session working memory |
-| Bassa | Gap 3 — Parallelization | `Start-ThreadJob` per workflow paralleli |
+| Alta | `agent_review` L3 — completare upgrade | Attivare `-EnableEvaluator` + `-SessionFile` nel main script |
+| Media | Gap 3 — Parallelization | `Start-ThreadJob` per workflow paralleli (Q3 2026) |
+| Bassa | Qdrant re-index dopo wiki Session 8 | Ri-indicizzare `agents/` e wiki dopo merge PR Session 8 |
 
 ---
 

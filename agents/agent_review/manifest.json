@@ -2,18 +2,22 @@
   "id": "agent_review",
   "name": "Agent Review (The Critic)",
   "classification": "brain",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "role": "reviewer",
   "owner": "team-quality",
-  "description": "Analizza le Merge Request per qualità documentale e conformità. Suggerisce miglioramenti e verifica che la Wiki sia stata aggiornata.",
+  "description": "Analizza le Merge Request per qualita' documentale e conformita'. L3: LLM+RAG+Evaluator-Optimizer+WorkingMemory. Suggerisce miglioramenti e verifica che la Wiki sia stata aggiornata.",
   "llm_config": {
-    "model": "gpt-4-turbo",
+    "model": "deepseek-chat",
     "temperature": 0.2,
     "system_prompt": "agents/agent_review/PROMPTS.md",
+    "runner": "agents/agent_review/run-with-rag.ps1",
+    "evaluator": true,
+    "max_iterations": 2,
+    "working_memory": true,
     "tools": [
-      "diff_analyze",
-      "doc_check",
-      "comment_pr"
+      "pwsh",
+      "git",
+      "curl"
     ]
   },
   "context_config": {
@@ -59,8 +63,11 @@
       "type": "guide"
     }
   ],
-  "evolution_level": 1,
-  "skills_required": [],
+  "evolution_level": 3,
+  "skills_required": [
+    "retrieval.llm-with-rag",
+    "session.manage"
+  ],
   "error_handling": {
     "fallback_mode": "log_and_skip",
     "alert_on_failure": false,
