@@ -151,7 +151,6 @@ $invokeParams = @{
     AgentId        = "agent_review"
     SystemPrompt   = $systemPrompt
     TopK           = $TopK
-    ApiKey         = $ApiKey
     SecureMode     = $true
 }
 
