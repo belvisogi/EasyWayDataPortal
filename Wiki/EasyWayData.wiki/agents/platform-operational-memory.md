@@ -1,7 +1,7 @@
 ---
 title: "Platform Operational Memory — EasyWay"
 created: 2026-02-18
-updated: 2026-02-18T18:00:00Z
+updated: 2026-02-18T20:00:00Z
 status: active
 category: reference
 domain: platform
@@ -217,9 +217,74 @@ Template PR standard:
 
 Titolo: `<tipo>(<scope>): <descrizione breve>` — max 70 caratteri.
 
+### Creazione PR via az CLI (OPERATIVO - Session 8)
+
+**Prerequisito**: `AZURE_DEVOPS_EXT_PAT` settato con PAT valido (~52 char) nella sessione corrente.
+
+**Setup una-tantum**: creare `C:\old\.env.local` (fuori dal repo, mai committato):
+```
+AZURE_DEVOPS_EXT_PAT=your-52-char-pat-here
+```
+Ottenere il PAT su: `https://dev.azure.com/EasyWayData/_usersSettings/tokens`
+Scope obbligatori: `Code (Read & Write)` + `Pull Request Contribute`
+
+**Inizializzazione sessione** (una volta per sessione Claude Code):
+```powershell
+# Carica PAT da C:\old\.env.local e configura az devops defaults
+pwsh EasyWayDataPortal/scripts/pwsh/Initialize-AzSession.ps1
+
+# Verifica stato sessione
+pwsh EasyWayDataPortal/scripts/pwsh/Initialize-AzSession.ps1 -Verify
+```
+
+Template `.env.local`: vedi `C:\old\.env.local.example`
+
+**Comando PR feat → develop**:
+```powershell
+az repos pr create `
+  --organization https://dev.azure.com/EasyWayData `
+  --project "EasyWay-DataPortal" `
+  --repository EasyWayDataPortal `
+  --source-branch feat/<nome-branch> `
+  --target-branch develop `
+  --title "feat(scope): descrizione breve max 70 char" `
+  --description "## Summary`n- bullet`n`n## Test plan`n- [ ] check`n`n## Artefatti`n- file"
+```
+
+**Comando PR develop → main (Release)**:
+```powershell
+az repos pr create `
+  --organization https://dev.azure.com/EasyWayData `
+  --project "EasyWay-DataPortal" `
+  --repository EasyWayDataPortal `
+  --source-branch develop `
+  --target-branch main `
+  --title "[Release] Session N — titolo" `
+  --description "## Summary`n- bullet`n`n## Test plan`n- [ ] check`n`n## Artefatti`n- file"
+```
+
+**Note critiche**:
+- `AZURE_DEVOPS_EXT_PAT` NON viene ereditato tra sessioni PowerShell diverse
+- PAT valido: ~52 caratteri alfanumerici; se utente restituito e' `aaaa-aaaa-aaaa` il PAT e' invalido
+- Per body lunghi: scrivere prima in `C:\temp\pr-body.md`, poi passare con `--description (Get-Content 'C:\temp\pr-body.md' -Raw)`
+- Se az fallisce con "not authorized": il PAT e' scaduto o non ha scope corretto
+- **PAT scope per automazione completa**: `Code (Read & Write)` + `Pull Request Contribute` + `Work Items (Read, Write & Manage)`
+  (senza Work Items non si puo' creare WI da API per soddisfare la policy obbligatoria del branch `develop`)
+- **Push HTTPS obbligatorio per visibilita' REST API**: il push SSH `git@ssh.dev.azure.com` potrebbe non essere subito visibile via REST API. Prima del merge, eseguire: `git push https://<PAT>@dev.azure.com/EasyWayData/EasyWay-DataPortal/_git/EasyWayDataPortal <branch>`
+- **Policy `develop` richiede work item**: ogni PR verso `develop` deve avere almeno un Work Item linkato. Il PAT deve avere Work Items scope per crearlo automaticamente.
+
+**Merge automatico completo** (quando PAT ha tutti gli scope):
+```powershell
+# 1. Push HTTPS (garantisce visibilita' API)
+git push https://<PAT>@dev.azure.com/EasyWayData/EasyWay-DataPortal/_git/EasyWayDataPortal feat/<name>
+# 2. Crea PR + linka WI + completa (via Initialize-AzSession + script REST API)
+pwsh scripts/pwsh/Initialize-AzSession.ps1
+az repos pr create --source-branch feat/<name> --target-branch develop --title "..." --description "..."
+```
+
 Comportamento Claude Code:
-- Se `az repos pr create` disponibile (con `AZURE_DEVOPS_EXT_PAT`) → crea la PR automaticamente
-- Altrimenti → output testo formattato per paste manuale su Azure DevOps/Gitea
+- Se `az repos pr create` disponibile (con `AZURE_DEVOPS_EXT_PAT` valido + tutti gli scope) → crea e completa la PR automaticamente
+- Altrimenti → output testo formattato + link PR per approvazione manuale su Azure DevOps
 
 ---
 
@@ -360,7 +425,7 @@ Operations: `New`, `Get`, `Update`, `SetStep`, `Close`, `Cleanup` — TTL defaul
 | GitHub mirror non configurato | Mancano repo creation + PAT | Open |
 | `infra/observability/data/` file root-owned sul server | `git stash` fallisce su questi file | Open |
 | `git stash push --include-untracked` su file root-owned | Salva solo i file accessibili, ignora il resto | Known |
-| `az repos pr create` non eredita PAT | Impostare `AZURE_DEVOPS_EXT_PAT` nella sessione corrente | Known |
+| `az repos pr create` non eredita PAT | Impostare `AZURE_DEVOPS_EXT_PAT` nella sessione corrente (vedi sez. 5 per comando completo) | Documented |
 
 ---
 
@@ -379,6 +444,9 @@ Operations: `New`, `Get`, `Update`, `SetStep`, `Close`, `Cleanup` — TTL defaul
 11. **Emoji con byte 0x94 in UTF-8** (es. U+1F504 🔄, U+1F50D 🔍) causano lo stesso problema dell'em dash in PS5.1 `ParseFile`. Usare testo ASCII nelle stringhe PS. Il problema NON si manifesta sotto `pwsh` (PS7).
 12. **`WIKI_PATH` per ingest_wiki.js**: passare sempre una DIRECTORY, non un file singolo. Il glob aggiunge `/**/*.md` — un path a file singolo restituisce 0 file trovati.
 13. **Sync-PlatformMemory duplicate marker bug**: `IndexOf("# AUTO-SYNC-END")` trova la PRIMA occorrenza, ma la wiki puo' contenere quel testo come esempio documentale in code block. Usare `LastIndexOf` per il marker di chiusura — garantisce di trovare sempre il vero `# AUTO-SYNC-END` finale.
+14. **`git push origin` (SSH) vs HTTPS Azure DevOps**: Il remote SSH `git@ssh.dev.azure.com:v3/...` e il remote HTTPS `https://dev.azure.com/...` sono ENTRAMBI Azure DevOps, ma il push SSH non sempre e' visibile immediatamente via REST API. Per PR creation/merge via API, fare prima `git push https://<PAT>@dev.azure.com/EasyWayData/EasyWay-DataPortal/_git/EasyWayDataPortal <branch>` per garantire visibilita'. Script: `C:\temp\push-https.ps1`.
+15. **PAT scope per PR automation completa**: `Code (Read & Write)` + `Pull Request Contribute` + **`Work Items (Read, Write & Manage)`**. Senza Work Items, non si puo' creare WI da API ne' linkarlo alla PR (policy obbligatoria su `develop`). Per merge automatico: aggiungere Work Items scope al PAT e re-salvare in `C:\old\.env.local`.
+16. **`"$key: value"` in PS**: la colon dopo una variabile viene interpretata come scope qualifier. Usare `"$($key): value"` o `"${key}: value"` per evitare il parser error.
 
 ---
 
@@ -397,11 +465,12 @@ Le regole operative della piattaforma vengono distribuite a tre livelli:
 Garanzia: le regole critiche arrivano sempre, indipendentemente dalla query RAG.
 Overhead: ~80-100 token fissi per chiamata.
 
-### Opzione B — Shared Snippet per PROMPTS.md (IN CANTIERE - Q2 2026)
-Creare `agents/core/prompts/platform-rules.snippet.md`.
-Ogni agente L2 importa lo snippet nel proprio `PROMPTS.md`.
-Permette regole personalizzate per agente (es. agent_dba riceve anche regole DB-specifiche).
-Richiede: modifica dei 9 `PROMPTS.md` + meccanismo di import nello script di avvio.
+### Opzione B — Shared Snippet per PROMPTS.md (DONE - Session 8)
+Snippet canonico: `agents/core/prompts/platform-rules.snippet.md`.
+Ogni agente L2 ha la sezione `## EasyWay Platform Rules` nel proprio `PROMPTS.md` (tra Security Guardrails e sezione dominio).
+Script di sync: `scripts/pwsh/Sync-AgentPlatformRules.ps1` - propaga future modifiche allo snippet nei 9 PROMPTS.md.
+Invocazione: `pwsh scripts/pwsh/Sync-AgentPlatformRules.ps1` (con `-DryRun` per preview, `-AgentFilter agent_dba` per agente singolo).
+Markers: `PLATFORM_RULES_START` / `PLATFORM_RULES_END` (analoghi ad AUTO-SYNC-START/END di .cursorrules).
 
 ---
 
@@ -467,15 +536,26 @@ Formato sezione auto-generata in `.cursorrules`:
 
 ---
 
-## 14. Next Session Priorities (Session 8)
+## 14. Session 8 — Tasks completati e Next Session Priorities
+
+### Session 8 — Completati
+
+| Stato | Task | Note |
+|---|---|---|
+| DONE | Server `git pull` (Gap 2 in main) | Gia' aggiornato (PR 36-39 in main) |
+| DONE | Qdrant re-index `agents/` | 1216 chunk indicizzati |
+| DONE | Option B — `platform-rules.snippet.md` | 9 PROMPTS.md aggiornati via Sync-AgentPlatformRules.ps1 |
+| DONE | `agent_review` L3 upgrade | `run-with-rag.ps1` con Evaluator+Session, `manifest.json` v3.0.0 |
+| DONE | `Initialize-AzSession.ps1` + az PR workflow | Script carica PAT da `.env.local`, documenta flow completo in wiki |
+
+### Next Session Priorities (Session 9)
 
 | Priorita' | Task | Note |
 |---|---|---|
-| Alta | Server `git pull` (Gap 2 in main) | PR 36+37 mergiate su main |
-| Alta | Qdrant re-index `agents/` | Wiki cambiata in Session 7 |
-| Media | Option B — `platform-rules.snippet.md` | Aggiornare 9 PROMPTS.md L2 agents |
-| Media | `agent_review` L3 upgrade | Attivare Evaluator + Session working memory |
-| Bassa | Gap 3 — Parallelization | `Start-ThreadJob` per workflow paralleli |
+| Alta | Merge PR 40+41 + server `git pull` | PR 40 bloccata da work item policy - aggiungere Work Items scope al PAT |
+| Media | Qdrant re-index dopo wiki Session 8 | Ri-indicizzare `agents/` e wiki dopo merge PR 40+41 |
+| Bassa | Gap 3 — Parallelization | `Start-ThreadJob` per workflow paralleli (Q3 2026) |
+| Bassa | PR 31 cleanup | Vecchia PR da Session 5 ancora aperta - abbandonare |
 
 ---
 
@@ -491,4 +571,8 @@ Formato sezione auto-generata in `.cursorrules`:
 - `agents/skills/session/Manage-AgentSession.ps1` — CRUD skill working memory (Gap 2, Session 7)
 - `agents/skills/registry.json` v2.7.0 — Catalogo 23 skills con campo `returns` (Gap 6)
 - `agents/agent_review/tests/fixtures/` — 3 fixture JSON per agent_review (Gap 5)
+- `agents/core/prompts/platform-rules.snippet.md` — Snippet canonico platform rules (Option B, Session 8)
+- `scripts/pwsh/Sync-AgentPlatformRules.ps1` — Propagazione snippet ai 9 PROMPTS.md (Session 8)
+- `agents/agent_review/run-with-rag.ps1` — Runner L3 con Evaluator+Session (Session 8)
+- `scripts/pwsh/Initialize-AzSession.ps1` — Setup PAT da .env.local + az devops defaults (Session 8)
 - `scripts/pwsh/Sync-PlatformMemory.ps1` — Script sync wiki → .cursorrules (Session 6)
