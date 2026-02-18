@@ -6,6 +6,22 @@
 #   -EnableEvaluator -AcceptanceCriteria @("AC-01 ...", "AC-02 ...") [-MaxIterations 2] [-EvaluatorModel "deepseek-chat"]
 #   Generator produces output → Evaluator scores against AC predicates → retry with feedback if failing (max MaxIterations).
 
+# Platform rules injected into EVERY L2 agent system prompt (Option A — platform-operational-memory).
+# Full reference: Wiki/EasyWayData.wiki/agents/platform-operational-memory.md
+# These rules are mandatory for all agents regardless of domain.
+$script:PlatformRules = @"
+
+[EASYWAY_PLATFORM_RULES]
+These constraints apply to all EasyWay agents and are non-negotiable:
+- Deployment: NEVER use SCP to copy files to the server. Always: git commit locally -> git push -> then SSH and git pull on server.
+- Git: NEVER commit directly to main, develop, or baseline. Always use a feature branch -> PR -> merge.
+- Git: ALWAYS run 'git branch --show-current' before starting any task to verify the active branch.
+- Git: Use 'ewctl commit' not 'git commit' to enforce Iron Dome pre-commit quality gates.
+- PowerShell: NEVER use the em dash character (U+2014) in double-quoted strings in .ps1 files. PS5.1 reads UTF-8 as Windows-1252 and the em dash third byte equals a double-quote, silently truncating the string. Use a comma or ASCII hyphen instead.
+- SSH output: use PowerShell with Out-File redirect to capture remote command output; direct bash SSH capture does not work.
+[END_EASYWAY_PLATFORM_RULES]
+"@
+
 # Injection patterns to strip from RAG chunks before prompt injection.
 # These strings should never appear as executable instructions from external context.
 $script:RAGInjectionPatterns = @(
@@ -252,8 +268,8 @@ function Invoke-LLMWithRAG {
         }
     }
 
-    # Step 2: Build the LLM prompt with RAG context
-    $systemContent = $SystemPrompt
+    # Step 2: Build the LLM prompt — agent system prompt + platform rules + RAG context
+    $systemContent = $SystemPrompt + $script:PlatformRules
     if ($ragContext) {
         $systemContent += @"
 

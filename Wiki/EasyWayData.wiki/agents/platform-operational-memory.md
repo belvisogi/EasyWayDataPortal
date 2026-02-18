@@ -288,6 +288,29 @@ Invoke-LLMWithRAG `
 
 ---
 
+## 12. Architettura Distribuzione Regole agli Agenti
+
+Le regole operative della piattaforma vengono distribuite a tre livelli:
+
+| Livello | File | Chi lo riceve | Come |
+|---|---|---|---|
+| **L1 — Claude Code / Cursor** | `MEMORY.md`, `.cursorrules` | AI assistant nella IDE | System prompt automatico |
+| **L2 — Agenti L2 (guaranteed)** | `Invoke-LLMWithRAG.ps1` | Tutti i 9 agenti L2 | `$script:PlatformRules` iniettato ad ogni chiamata |
+| **L3 — Agenti L2 (query-dependent)** | `platform-operational-memory.md` (Qdrant) | Agenti L2 con query pertinente | RAG retrieval |
+
+### Opzione A — Inject in Invoke-LLMWithRAG.ps1 (IMPLEMENTATA - Session 5)
+`$script:PlatformRules` e' un blocco di testo costante iniettato nel system prompt di OGNI chiamata L2.
+Garanzia: le regole critiche arrivano sempre, indipendentemente dalla query RAG.
+Overhead: ~80-100 token fissi per chiamata.
+
+### Opzione B — Shared Snippet per PROMPTS.md (IN CANTIERE - Q2 2026)
+Creare `agents/core/prompts/platform-rules.snippet.md`.
+Ogni agente L2 importa lo snippet nel proprio `PROMPTS.md`.
+Permette regole personalizzate per agente (es. agent_dba riceve anche regole DB-specifiche).
+Richiede: modifica dei 9 `PROMPTS.md` + meccanismo di import nello script di avvio.
+
+---
+
 ## Riferimenti
 
 - [[agents/agent-design-standards]] — Pattern Anthropic per agenti
