@@ -1,7 +1,7 @@
 ---
 title: "Platform Operational Memory — EasyWay"
 created: 2026-02-18
-updated: 2026-02-18T20:00:00Z
+updated: 2026-02-18T23:30:00Z
 status: active
 category: reference
 domain: platform
@@ -195,6 +195,11 @@ git branch --show-current   # verifica branch corrente
 **Merge commit e file tracking**:
 - `git show --name-only` su merge commit mostra solo diff vs first parent
 - Per file aggiunti via second parent: usare `git log --diff-filter=A --name-only`
+
+**Merge strategy `develop -> main`** (Azure DevOps - DEFINITIVO - Session 9):
+- Impostazione: **"Merge (no fast-forward)"** — NON Squash
+- Squash generava conflitti da history divergente al merge successivo
+- Configurato su Azure DevOps: Branch Policies di `main` -> Merge strategy -> Merge commit
 
 ### Regola PR Description (OBBLIGATORIO - Session 6)
 
@@ -414,10 +419,17 @@ Poi leggere `C:\temp\out.txt` con il Read tool.
 ### Livelli agenti
 - **L1 (scripted)**: 23 agenti — logica deterministica, no LLM
 - **L2 (LLM+RAG)**: 9 agenti — DeepSeek + Qdrant RAG
-- **L3 (target)**: primo candidato `agent_review` — Evaluator-Optimizer + working memory
+- **L3 (DONE - Session 9)**: `agent_review` — Evaluator-Optimizer + Working Memory + RAG, manifest v3.0.0, evolution_level 3
 
-### Agenti L2 attivi
-`agent_backend`, `agent_dba`, `agent_docs_sync`, `agent_governance`, `agent_infra`, `agent_pr_manager`, `agent_review`, `agent_security`, `agent_vulnerability_scanner`
+### Agenti L2 attivi (9 totali)
+`agent_backend`, `agent_dba`, `agent_docs_sync`, `agent_governance`, `agent_infra`, `agent_pr_manager`, `agent_review` (L3), `agent_security`, `agent_vulnerability_scanner`
+
+### agent_review L3 — dettaglio (DONE - Session 9, runner rinominato Session 10)
+- **Script**: `agents/agent_review/Invoke-AgentReview.ps1` (rinominato da `run-with-rag.ps1` in Session 10) — flag: `-EnableEvaluator`, `-SessionFile`, `-NoEvaluator`
+- **E2E test**: PASSED — 5 RAG chunks, deepseek-chat, $0.0005, 0 errori
+- **Bug fix Session 9**: ApiKey splatting, EvaluatorRuns guard, RAG error guard (PR 49/51/52/53 merged)
+- **AC review:docs-impact**: 4 predicati (verdict, docs analysis, file coverage, recommendations)
+- **AC review:static**: 4 predicati (naming, structure, specific findings, standard reference)
 
 ### Skills Registry
 - **v2.7.0** — 23 skill totali
@@ -476,7 +488,7 @@ Operations: `New`, `Get`, `Update`, `SetStep`, `Close`, `Cleanup` — TTL defaul
 |---|---|---|---|
 | Gap 1 | Evaluator-Optimizer | DONE (Session 5) | `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` |
 | Gap 2 | Working Memory (session.json) | DONE (Session 7) | `agents/core/schemas/session.schema.json`, `agents/skills/session/Manage-AgentSession.ps1` |
-| Gap 3 | Parallelization (Start-ThreadJob) | TODO Q3 2026 | orchestrator |
+| Gap 3 | Parallelization (Start-ThreadJob) | DONE (Session 10) | `agents/skills/orchestration/Invoke-ParallelAgents.ps1`, registry v2.8.0 |
 | Gap 4 | Confidence Scoring (0.0-1.0) | DONE (Session 6) | `agents/core/schemas/action-result.schema.json` |
 | Gap 5 | Fixture Tests per L2 agent | DONE (Session 6) | `agents/agent_review/tests/fixtures/` |
 | Gap 6 | `returns` field in registry.json | DONE (Session 6) | `agents/skills/registry.json` v2.6.0 |
@@ -513,6 +525,11 @@ Operations: `New`, `Get`, `Update`, `SetStep`, `Close`, `Cleanup` — TTL defaul
 14. **`git push origin` (SSH) vs HTTPS Azure DevOps**: Il remote SSH `git@ssh.dev.azure.com:v3/...` e il remote HTTPS `https://dev.azure.com/...` sono ENTRAMBI Azure DevOps, ma il push SSH non sempre e' visibile immediatamente via REST API. Per PR creation/merge via API, fare prima `git push https://<PAT>@dev.azure.com/EasyWayData/EasyWay-DataPortal/_git/EasyWayDataPortal <branch>` per garantire visibilita'. Script: `C:\temp\push-https.ps1`.
 15. **PAT scope per PR automation completa**: `Code (Read & Write)` + `Pull Request Contribute` + **`Work Items (Read, Write & Manage)`**. Senza Work Items, non si puo' creare WI da API ne' linkarlo alla PR (policy obbligatoria su `develop`). Per merge automatico: aggiungere Work Items scope al PAT e re-salvare in `C:\old\.env.local`.
 16. **`"$key: value"` in PS**: la colon dopo una variabile viene interpretata come scope qualifier. Usare `"$($key): value"` o `"${key}: value"` per evitare il parser error.
+17. **Merge strategy `develop->main`** (Session 9): impostata su "Merge (no fast-forward)" su Azure DevOps. Con Squash si generavano conflitti da history divergente. Cambiamento definitivo — non ripristinare Squash.
+18. **SSH single-quote per remote vars**: `ssh host 'export VAR=$(cmd) && ...'` con singoli apici evita espansione bash locale. Con doppi apici usare `\$`, ma `${#VAR}` viene espanso ugualmente. Usare sempre singoli apici per comandi remoti con variabili.
+19. **pip3 su Ubuntu 24.04**: richiede `--break-system-packages` per installare moduli system-wide (`pip3 install qdrant-client sentence-transformers --break-system-packages`). Alternativa consigliata: venv.
+20. **PSObject property guard**: usare `$obj.PSObject.Properties['PropName'] -and $obj.PropName` prima di accedere a proprieta' opzionali su hashtable/oggetti dinamici PS. Evita l'errore "property cannot be found on this object".
+21. **PR creation via curl** (Session 9): quando `az repos pr create` non e' disponibile da bash Claude Code, usare `curl` direttamente con PAT da `.env.local`. Il PAT si legge con `source .env.local && curl -u ":$AZURE_DEVOPS_EXT_PAT" -X POST ...`. Evita problemi di escaping PS in bash.
 
 ---
 
@@ -602,7 +619,41 @@ Formato sezione auto-generata in `.cursorrules`:
 
 ---
 
-## 14. Session 8 — Tasks completati e Next Session Priorities
+## 14. Session 9 — Tasks completati e Next Session Priorities
+
+### Session 9 — Completati
+
+| Stato | Task | Note |
+|---|---|---|
+| DONE | Server `git pull` | Aggiornato a `6dbe718` (PR 51+53) |
+| DONE | Qdrant re-index wiki/agents | 396 chunk (wiki) + 1297 chunk (agents/) |
+| DONE | 3 bug fix agent_review L3 | ApiKey splatting, EvaluatorRuns guard, RAG error guard — PR 49/51/52/53 |
+| DONE | E2E test agent_review L3 | PASSED: 5 RAG chunks, deepseek-chat, $0.0005, 0 errori |
+| DONE | Merge strategy develop->main | Cambiata da Squash a "Merge (no fast-forward)" |
+| DONE | PR 31 abbandonata | Nessuna azione necessaria |
+
+### Session 10 — Completati
+
+| Stato | Task | Note |
+|---|---|---|
+| DONE | Wiki update: agent-roster.md | gpt-4-turbo → deepseek-chat, L3 badge, tools corretti |
+| DONE | Wiki update: agent-evolution-roadmap.md | Tutti i gap DONE, L3 implemented, roadmap aggiornata |
+| DONE | Rename runner | `run-with-rag.ps1` → `Invoke-AgentReview.ps1` (git mv + manifest) |
+| DONE | Gap 3 Parallelization | `Invoke-ParallelAgents.ps1` + registry v2.8.0 (24 skill) |
+| DONE | E2E test Evaluator | EvaluatorIterations=2, EvaluatorPassed=False (graceful degradation OK) |
+
+### Next Session Priorities (Session 11)
+
+| Priorita' | Task | Note |
+|---|---|---|
+| Alta | Server git pull + Qdrant re-index | Dopo merge PR Session 10 |
+| Media | Agentic PRD per altri agenti L2 | agent_security, agent_infra come prossimi candidati L3 |
+| Media | E2E test `Invoke-ParallelAgents.ps1` | Test parallelo review+security su PR reale sul server |
+| Bassa | Fixture tests per altri L2 | Estendere coverage test oltre agent_review |
+
+---
+
+## 14b. Session 8 — Tasks completati e Next Session Priorities (storico)
 
 ### Session 8 — Completati
 
@@ -635,10 +686,11 @@ Formato sezione auto-generata in `.cursorrules`:
 - `agents/core/schemas/action-result.schema.json` — Schema output standard (campo `confidence`, Gap 4)
 - `agents/core/schemas/session.schema.json` — Schema working memory session (Gap 2, Session 7)
 - `agents/skills/session/Manage-AgentSession.ps1` — CRUD skill working memory (Gap 2, Session 7)
-- `agents/skills/registry.json` v2.7.0 — Catalogo 23 skills con campo `returns` (Gap 6)
+- `agents/skills/registry.json` v2.8.0 — Catalogo 24 skills con `returns` field (Gap 6) + `orchestration.parallel-agents` (Gap 3)
 - `agents/agent_review/tests/fixtures/` — 3 fixture JSON per agent_review (Gap 5)
 - `agents/core/prompts/platform-rules.snippet.md` — Snippet canonico platform rules (Option B, Session 8)
 - `scripts/pwsh/Sync-AgentPlatformRules.ps1` — Propagazione snippet ai 9 PROMPTS.md (Session 8)
-- `agents/agent_review/run-with-rag.ps1` — Runner L3 con Evaluator+Session (Session 8)
+- `agents/agent_review/Invoke-AgentReview.ps1` — Runner L3 con Evaluator+Session (rinominato Session 10)
+- `agents/skills/orchestration/Invoke-ParallelAgents.ps1` — Multi-agent parallel runner (Gap 3, Session 10)
 - `scripts/pwsh/Initialize-AzSession.ps1` — Setup PAT da .env.local + az devops defaults (Session 8)
 - `scripts/pwsh/Sync-PlatformMemory.ps1` — Script sync wiki → .cursorrules (Session 6)
