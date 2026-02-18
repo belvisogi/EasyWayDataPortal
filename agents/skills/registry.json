@@ -1,6 +1,6 @@
 {
-  "version": "2.7.0",
-  "last_updated": "2026-02-18T00:00:00Z",
+  "version": "2.8.0",
+  "last_updated": "2026-02-18T23:30:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -1414,6 +1414,60 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
+        "allowed_callers": ["*"]
+      }
+    },
+    {
+      "id": "orchestration.parallel-agents",
+      "name": "Invoke-ParallelAgents",
+      "domain": "orchestration",
+      "file": "skills/orchestration/Invoke-ParallelAgents.ps1",
+      "version": "1.0.0",
+      "description": "Run multiple agent scripts concurrently using Start-ThreadJob (PS7+) or Start-Job (PS5.1 fallback). Returns merged results when all complete or GlobalTimeout is reached. Implements Gap 3 - Parallelization.",
+      "function": "Invoke-ParallelAgents",
+      "parameters": [
+        {
+          "name": "AgentJobs",
+          "type": "array",
+          "required": true,
+          "description": "Array of hashtables: {Name, Script, Args, Timeout}. Script is relative to repo root."
+        },
+        {
+          "name": "GlobalTimeout",
+          "type": "integer",
+          "required": false,
+          "default": 180,
+          "description": "Maximum seconds to wait for ALL jobs. After timeout, remaining jobs are stopped."
+        },
+        {
+          "name": "FailFast",
+          "type": "switch",
+          "required": false,
+          "description": "If set: first job failure aborts all remaining jobs immediately."
+        },
+        {
+          "name": "SecureMode",
+          "type": "switch",
+          "required": false,
+          "description": "If set: suppresses logging of sensitive fields (ApiKey, credentials)."
+        }
+      ],
+      "returns": {
+        "shape": "hashtable",
+        "fields": [
+          { "name": "Success",     "type": "boolean",   "description": "True if at least one job succeeded" },
+          { "name": "JobResults",  "type": "hashtable",  "description": "Keyed by Name; each value is the job output or error hashtable" },
+          { "name": "Failed",      "type": "string[]",  "description": "Names of jobs that failed or timed out" },
+          { "name": "DurationSec", "type": "number",    "description": "Total wall-clock execution time in seconds" }
+        ]
+      },
+      "dependencies": [],
+      "tags": ["parallelization", "multi-agent", "orchestration", "gap3", "start-threadjob", "start-job"],
+      "notes": "Prefers Start-ThreadJob (PS7+) for shared memory performance; falls back to Start-Job (PS5.1) for subprocess isolation. Use case: agent_review + agent_security in parallel for PR gates.",
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "MEDIUM",
+        "audit_log": true,
         "allowed_callers": ["*"]
       }
     }

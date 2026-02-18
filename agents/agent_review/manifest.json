@@ -10,7 +10,7 @@
     "model": "deepseek-chat",
     "temperature": 0.2,
     "system_prompt": "agents/agent_review/PROMPTS.md",
-    "runner": "agents/agent_review/run-with-rag.ps1",
+    "runner": "agents/agent_review/Invoke-AgentReview.ps1",
     "evaluator": true,
     "max_iterations": 2,
     "working_memory": true,

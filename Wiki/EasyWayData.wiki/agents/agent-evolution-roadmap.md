@@ -1,7 +1,7 @@
 ---
 title: "Agent Evolution Roadmap — L1 → L2 → L3"
 created: 2026-02-17
-updated: 2026-02-17
+updated: 2026-02-18
 status: active
 category: standards
 domain: agents
@@ -68,13 +68,14 @@ type: roadmap
 
 **When to use**: Tasks requiring judgment, natural language understanding, impact analysis, or knowledge synthesis.
 
-**Current L2 agents (9)**: agent_backend, agent_dba, agent_docs_sync, agent_governance, agent_infra, agent_pr_manager, agent_review, agent_security, agent_vulnerability_scanner.
+**Current L2 agents (8)**: agent_backend, agent_dba, agent_docs_sync, agent_governance, agent_infra, agent_pr_manager, agent_security, agent_vulnerability_scanner.
+> **Note**: `agent_review` promosso a L3 in Session 9 (febbraio 2026). Vedere sezione L3.
 
 **Known limitation**: Single-pass generation means output quality depends entirely on the first attempt. No retry mechanism for quality improvement.
 
 ---
 
-### Level 3 — Self-Improving Agent (TARGET)
+### Level 3 — Self-Improving Agent (IMPLEMENTED — Session 9)
 
 **Definition**: Combines L2 capabilities with self-evaluation, working memory, and optionally parallelization. Can iteratively improve output quality before returning.
 
@@ -130,171 +131,144 @@ An agent should be promoted from L2 to L3 when:
 
 ---
 
-## Current Gap Analysis (as of 2026-02-17)
+## Current Gap Analysis (as of 2026-02-18)
 
-### Gap 1 — Evaluator-Optimizer (CRITICAL)
+### Gap 1 — Evaluator-Optimizer ✅ DONE (Session 5)
 
 **What**: After generating output, a second LLM call evaluates the output against explicit AC predicates and provides structured feedback if criteria are not met. Generator retries with feedback.
 
-**Why missing**: `Invoke-LLMWithRAG` supports single-pass only. No evaluator role implemented.
+**Implementation**:
+- `-EnableEvaluator -AcceptanceCriteria @(...)` parametri in `Invoke-LLMWithRAG`
+- Loop: generator → evaluator scoring → retry con feedback (max `-MaxIterations`, default 2)
+- Graceful degradation: se evaluator fallisce, ritorna output generator senza bloccare
 
-**Implementation plan**:
-```
-Invoke-LLMWithRAG -EvaluatorMode
-  Step 1: Generator call (existing)
-  Step 2: Evaluator call with:
-    - Original query
-    - Generator output
-    - AC predicates from agent's PRD
-    - Role: "Evaluate this output. For each failing criterion, provide specific feedback."
-  Step 3: If any blocking AC fails AND iteration < MaxIterations:
-    - Retry generator with evaluator feedback appended
-  Step 4: Return best output (last iteration or first if all pass)
-```
-
-**Files to modify**: `agents/skills/retrieval/Invoke-LLMWithRAG.ps1`
-**Estimated effort**: Medium (2-3 hours)
-**Priority**: HIGH — impacts all 9 L2 agents immediately upon implementation
+**Files modified**: `agents/skills/retrieval/Invoke-LLMWithRAG.ps1`
+**Status**: **DONE (Session 5)**
 
 ---
 
-### Gap 2 — Working Memory (MEDIUM)
+### Gap 2 — Working Memory ✅ DONE (Session 7)
 
-**What**: A `session.json` file created at task start and deleted at task end. Stores intermediate results, completed steps, and context for multi-step workflows within a single agent run.
+**What**: Un file `session.json` creato all'avvio del task e rimosso alla fine. Conserva risultati intermedi, step completati e contesto per workflow multi-step.
 
-**Why missing**: Currently each LLM call is stateless. Multi-step tasks must pass all context in every call (token-inefficient) or lose intermediate state.
+**Implementation**:
+- Schema: `agents/core/schemas/session.schema.json`
+- CRUD skill: `agents/skills/session/Manage-AgentSession.ps1` (New/Get/Update/SetStep/Close/Cleanup)
+- Integrazione: `-SessionFile` in `Invoke-LLMWithRAG` inietta `[SESSION_CONTEXT_START]...[SESSION_CONTEXT_END]` nel system prompt
 
-**Schema proposal**:
-```json
-{
-  "session_id": "uuid",
-  "agent_id": "agent_review",
-  "started_at": "2026-02-17T10:00:00Z",
-  "intent": "review:docs-impact",
-  "steps_completed": ["fetch_changed_files", "analyze_docs"],
-  "intermediate_results": {
-    "changed_files": ["portal-api/routes/health.js"],
-    "missing_wiki_pages": ["guides/health-endpoint.md"]
-  },
-  "current_step": "generate_verdict",
-  "expires_at": "2026-02-17T10:30:00Z"
-}
-```
-
-**Files to create**: `agents/core/schemas/session.schema.json`
-**Files to modify**: `agents/skills/retrieval/Invoke-LLMWithRAG.ps1`
-**Priority**: MEDIUM — enables multi-step tasks without token bloat
+**Status**: **DONE (Session 7)**
 
 ---
 
-### Gap 3 — Parallelization (MEDIUM)
+### Gap 3 — Parallelization ✅ DONE (Session 10)
 
-**What**: Run independent subtasks concurrently using PowerShell background jobs or `Start-ThreadJob`.
+**What**: Eseguire subtask indipendenti in parallelo con `Start-ThreadJob` (PS7) / `Start-Job` (PS5.1 fallback).
 
-**Why missing**: All agent calls are sequential. Example: `agent_review` analyzing docs and `agent_security` scanning code could run in parallel for the same PR.
+**Implementation**:
+- Nuova skill: `agents/skills/orchestration/Invoke-ParallelAgents.ps1`
+- Registry: `orchestration.parallel-agents` v1.0.0 in `agents/skills/registry.json` v2.8.0
+- Parametri: `-AgentJobs`, `-GlobalTimeout`, `-FailFast`, `-SecureMode`
+- Use case principale: `agent_review` + `agent_security` in parallelo su stessa PR
 
 **Use cases**:
-- Multi-scanner: run docker-scout + trivy simultaneously, merge findings
-- Multi-agent: `agent_review` + `agent_security` in parallel for PR gates
-- Voting: run `analysis.classify-intent` multiple times, take majority vote
+- Multi-scanner: docker-scout + trivy in simultanea, merge findings
+- Multi-agent: `agent_review` + `agent_security` in parallelo per PR gates
+- Voting: `analysis.classify-intent` multipli, majority vote
 
-**Implementation path**: Add `$Parallel` switch to orchestrator or n8n workflow. Use `Start-ThreadJob` in PowerShell 7+.
-**Priority**: MEDIUM — mainly benefits pipeline throughput, not individual agent quality
-
----
-
-### Gap 4 — Confidence Scoring (LOW-MEDIUM)
-
-**What**: Every L2 agent output includes `confidence: 0.0–1.0`. Below threshold (default 0.7) → flag for human review in `events.jsonl`.
-
-**Why missing**: Confidence is not currently part of the `action-result.schema.json` standard output shape.
-
-**Implementation plan**:
-1. Add `confidence` field to `action-result.schema.json`
-2. Add confidence scoring instruction to `secure-system-prompt.txt`
-3. Add `min_confidence_for_auto_approve` to each agent's Agentic PRD
-4. Orchestrator checks confidence before routing to next step
-
-**Priority**: LOW-MEDIUM — improves observability and human-in-the-loop quality
+**Status**: **DONE (Session 10)**
 
 ---
 
-### Gap 5 — Fixture Tests per Agent (LOW)
+### Gap 4 — Confidence Scoring ✅ DONE (Session 6)
 
-**What**: At least 3 test fixtures per L2 agent: happy path, injection attempt, edge case. Validated against AC predicates.
+**What**: Ogni output L2 include `confidence: 0.0-1.0`. Sotto soglia (default 0.7) → flagging per human review.
 
-**Why missing**: No test infrastructure for LLM-based agents currently exists.
+**Implementation**:
+- Campo `confidence` aggiunto a `agents/core/schemas/action-result.schema.json`
+- Tracking confidence in sessioni working memory (`session.schema.json`)
 
-**Proposed location**: `agents/{agent_id}/tests/fixtures/`
-```
-agent_review/tests/fixtures/
-  ex-01-happy-path.json       (input + expected_output)
-  ex-02-injection.json
-  ex-03-empty-input.json
-```
-
-**Validation script**: `agents/core/tools/Invoke-AgentFixtureTest.ps1`
-**Priority**: LOW — important for reliability but not blocking current operations
+**Status**: **DONE (Session 6)**
 
 ---
 
-### Gap 6 — `returns` Field in registry.json (LOW)
+### Gap 5 — Fixture Tests per Agent ✅ DONE (Session 6)
 
-**What**: Every skill in registry.json should declare what it returns (`Success`, `Error`, key output fields).
+**What**: Almeno 3 test fixture per agente L2: happy path, injection attempt, edge case.
 
-**Why missing**: Registry v2.5.0 has `security` block but no `returns` field.
+**Implementation**:
+- 3 fixture in `agents/agent_review/tests/fixtures/`:
+  - `ex-01-happy-path.json` — PR completa con codice + wiki → APPROVE
+  - `ex-02-injection.json` — tentativo injection → SECURITY_VIOLATION
+  - `ex-03-missing-docs.json` — codice senza wiki → REQUEST_CHANGES
 
-**Impact**: Agents cannot validate tool output programmatically. Orchestrator cannot route based on output shape.
+**Status**: **DONE (Session 6)** — implementato per agent_review (primo candidato L3)
 
-**Target**: registry v2.6.0
-**Priority**: LOW — useful for L3 AC validation
+---
+
+### Gap 6 — `returns` Field in registry.json ✅ DONE (Session 6)
+
+**What**: Ogni skill in registry.json dichiara cosa ritorna (`Success`, campi output chiave).
+
+**Implementation**:
+- Campo `returns` aggiunto a tutte le 23 skill in `agents/skills/registry.json` v2.7.0
+- Permette validazione programmatica dell'output e routing basato su shape
+
+**Status**: **DONE (Session 6)**
 
 ---
 
 ## Implementation Roadmap
 
-### Phase 1 — Q1 2026 (Now → March)
+### Phase 1 — Q1 2026 ✅ COMPLETATA
 
-| Item | Gap | Effort | Owner |
+| Item | Gap | Effort | Stato |
 |------|-----|--------|-------|
-| Evaluator-Optimizer in `Invoke-LLMWithRAG` | Gap 1 | Medium | team-platform |
-| Confidence scoring in output schema | Gap 4 | Low | team-platform |
-| `returns` field in registry | Gap 6 | Low | team-platform |
+| Evaluator-Optimizer in `Invoke-LLMWithRAG` | Gap 1 | Medium | ✅ DONE (Session 5) |
+| Confidence scoring in output schema | Gap 4 | Low | ✅ DONE (Session 6) |
+| `returns` field in registry | Gap 6 | Low | ✅ DONE (Session 6) |
 
-### Phase 2 — Q2 2026
+### Phase 2 — Q2 2026 ✅ COMPLETATA (anticipata)
 
-| Item | Gap | Effort | Owner |
+| Item | Gap | Effort | Stato |
 |------|-----|--------|-------|
-| Working memory (`session.json`) | Gap 2 | Medium | team-platform |
-| Fixture tests for top 4 L2 agents | Gap 5 | Medium | team-platform |
+| Working memory (`session.json`) | Gap 2 | Medium | ✅ DONE (Session 7) |
+| Fixture tests per agent_review L3 | Gap 5 | Medium | ✅ DONE (Session 6) |
 
-### Phase 3 — Q3 2026
+### Phase 3 — Q3 2026 ✅ COMPLETATA (anticipata)
 
-| Item | Gap | Effort | Owner |
+| Item | Gap | Effort | Stato |
 |------|-----|--------|-------|
-| Parallelization (multi-scanner) | Gap 3 | High | team-platform |
-| First L3 agent promotion (`agent_review`) | — | High | team-platform |
-| Agentic PRD for all 9 L2 agents | — | Medium | team-platform |
+| Parallelization (multi-scanner) | Gap 3 | High | ✅ DONE (Session 10) — `Invoke-ParallelAgents.ps1` |
+| First L3 agent promotion (`agent_review`) | — | High | ✅ DONE (Session 9) — v3.0.0, E2E tested |
+| Agentic PRD per agenti L2 | — | Medium | In progress (agent_review PRD completa) |
 
 ---
 
-## L3 Target Agent: agent_review
+## L3 Implementation: agent_review ✅ DONE (Session 9)
 
-`agent_review` is the best candidate for the first L3 promotion because:
-1. It already uses LLM + RAG (L2 baseline)
-2. Review quality is measurable against explicit AC predicates
-3. "Approve vs. Request Changes" is a high-stakes decision worth iterative refinement
-4. The Evaluator-Optimizer pattern maps naturally to "review the review"
+`agent_review` e' stato il primo agente promosso a L3. Motivi della scelta:
+1. Baseline L2 solida (LLM + RAG)
+2. Qualita' review misurabile contro AC predicati espliciti
+3. "Approve vs. Request Changes" e' una decisione ad alto rischio che giustifica la raffinazione iterativa
+4. Il pattern Evaluator-Optimizer si mappa naturalmente su "review the review"
 
-**L3 target behavior**:
+**Risultati reali (E2E test Session 9 + Session 10)**:
 ```
-Input: PR diff + changed files
-→ Generator: "Analyze this PR" → draft review
-→ Evaluator: "Does this review meet AC-01 through AC-05?"
-  → AC-02 fail: verdict is null → feedback: "verdict must be one of APPROVE|REQUEST_CHANGES|NEEDS_DISCUSSION"
-  → Retry: generator adds verdict
-→ Evaluator: all ACs pass → return final review
+EvaluatorEnabled:    True
+EvaluatorIterations: 2          (loop eseguito 2 volte)
+RAGChunks:           5          (5 chunk Qdrant recuperati)
+CostUSD:             $0.001153  (deepseek-chat)
+DurationSec:         40.43s
+SUCCESS:             True
 ```
+
+**Componenti implementati**:
+- `agents/agent_review/Invoke-AgentReview.ps1` — runner L3 (rinominato da `run-with-rag.ps1` in Session 10)
+- `agents/agent_review/manifest.json` v3.0.0 — `evolution_level: 3`, `evaluator: true`, `working_memory: true`
+- `agents/agent_review/tests/fixtures/` — 3 fixture (happy path, injection, missing docs)
+- **Acceptance Criteria**:
+  - `review:docs-impact`: 4 predicati (verdict, docs analysis, file coverage, recommendations)
+  - `review:static`: 4 predicati (naming, structure, specific findings, standard reference)
 
 ---
 
@@ -303,6 +277,11 @@ Input: PR diff + changed files
 - [[agents/agent-design-standards]] — Workflow patterns (especially Evaluator-Optimizer)
 - [[agents/agentic-prd-template]] — PRD format required for L3 promotion
 - [[agents-governance]] — Gate requirements for promotion approval
-- `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` — Bridge skill to extend for L3
-- `agents/core/schemas/action-result.schema.json` — Output schema (add `confidence`)
-- `agents/skills/registry.json` — Skill catalog (add `returns` field)
+- `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` — Bridge LLM+RAG (Gap 1 Evaluator, Gap 2 Working Memory)
+- `agents/core/schemas/action-result.schema.json` — Output schema con `confidence` (Gap 4)
+- `agents/core/schemas/session.schema.json` — Working memory schema (Gap 2)
+- `agents/skills/session/Manage-AgentSession.ps1` — CRUD skill working memory (Gap 2)
+- `agents/skills/registry.json` v2.8.0 — 24 skill con `returns` field (Gap 6) + `orchestration.parallel-agents` (Gap 3)
+- `agents/skills/orchestration/Invoke-ParallelAgents.ps1` — Multi-agent parallel runner (Gap 3, Session 10)
+- `agents/agent_review/Invoke-AgentReview.ps1` — Runner L3 agent_review (rinominato Session 10)
+- `agents/agent_review/tests/fixtures/` — 3 fixture JSON (Gap 5)
