@@ -8,7 +8,6 @@
   "classification": "brain",
   "evolution_level": 2,
   "readme": "README.md",
-
   "llm_config": {
     "provider": "deepseek",
     "model": "deepseek-chat",
@@ -16,7 +15,9 @@
     "temperature": 0.1,
     "max_tokens": 1000,
     "system_prompt": "agents/agent_dba/PROMPTS.md",
-    "tools": ["function_calling"],
+    "tools": [
+      "function_calling"
+    ],
     "cost_estimate": {
       "per_call": "$0.00025",
       "monthly": "$0.05"
@@ -28,7 +29,6 @@
       "guardrails_review": "Valida SQL contro GUARDRAILS.md con reasoning"
     }
   },
-
   "context_config": {
     "memory_files": [
       "agents/agent_dba/memory/context.json",
@@ -36,12 +36,10 @@
     ],
     "context_limit_tokens": 128000
   },
-
   "skills_required": [
     "database.migration",
     "database.test-connection"
   ],
-
   "skills_optional": [
     "security.secret-vault",
     "utilities.retry-backoff",
@@ -50,16 +48,19 @@
     "retrieval.llm-with-rag",
     "retrieval.rag-search"
   ],
-
   "rag_config": {
     "enabled": true,
     "collection": "easyway_wiki",
     "top_k": 5,
     "min_score": 0.3,
-    "context_domains": ["database", "migration", "schema", "sql"],
+    "context_domains": [
+      "database",
+      "migration",
+      "schema",
+      "sql"
+    ],
     "description": "RAG provides Wiki context for schema analysis, migration planning, and guardrails validation"
   },
-
   "security": {
     "required_group": "easyway-admin",
     "rationale": "DBA agent modifies database schema and configurations, requires admin-level access",
@@ -371,6 +372,16 @@
           "required": false
         }
       }
+    },
+    {
+      "name": "dba:check-health",
+      "description": "Esegue un check di connettività al database (SELECT 1). Ritorna { status: 'ok'|'error', dependency: 'database' }.",
+      "params": {
+        "database": {
+          "type": "string",
+          "required": false
+        }
+      }
     }
   ],
   "required_gates": [
@@ -412,7 +423,6 @@
       "priority": "low"
     }
   ],
-
   "error_handling": {
     "retry_count": 3,
     "retry_delay_seconds": 30,

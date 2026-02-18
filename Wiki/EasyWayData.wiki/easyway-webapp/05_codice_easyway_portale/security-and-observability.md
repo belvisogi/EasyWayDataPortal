@@ -110,6 +110,18 @@ Usa questa checklist prima di andare in produzione (umana + agent).
 - Gates sicurezza: SCA/SAST su PR, DAST smoke in pre-prod, pen test pianificato (almeno annuale) e dopo cambi major.
 - Docs: policy e QnA errori aggiornate; KB recipe presente per la preflight.
 
+## Logging for AI Agents (Standard)
+
+Affinché **Agent Observability** possa monitorare l'applicazione in modo autonomo, i log **DEVONO** rispettare questo standard:
+
+1.  **Formato**: JSON (per parsing strutturato).
+2.  **Timestamp**: **OBBLIGATORIO** in formato ISO 8601 (`timestamp: "2024-05-20T10:00:00.123Z"`).
+    -   *Why?* L'agente usa finestre temporali (es. "Errori ultimi 15 minuti") per verificare i rilasci. Senza timestamp, l'agente è cieco al tempo.
+3.  **Livelli**: `info` (business), `warn` (anomalie), `error` (bloccanti).
+4.  **Campi Context**: `requestId`, `correlationId`, `tenantId` sempre presenti se disponibili.
+
+> **Regola**: Se un log non ha timestamp, per l'agente **non esiste**.
+
 
 
 

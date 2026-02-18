@@ -46,6 +46,21 @@ function Send-SlackMessage {
             throw "No webhook URL provided. Set SLACK_WEBHOOK_URL env var or pass -WebhookUrl"
         }
 
+        # Security: only allow Slack's official webhook domain to prevent data exfiltration
+        $allowedHosts = @('hooks.slack.com')
+        try {
+            $parsedUri = [System.Uri]$WebhookUrl
+            if ($parsedUri.Host -notin $allowedHosts) {
+                throw "SECURITY_VIOLATION: WebhookUrl host '$($parsedUri.Host)' is not in the allowlist ($($allowedHosts -join ', '))"
+            }
+            if ($parsedUri.Scheme -ne 'https') {
+                throw "SECURITY_VIOLATION: WebhookUrl must use HTTPS"
+            }
+        }
+        catch [System.UriFormatException] {
+            throw "Invalid WebhookUrl format: $WebhookUrl"
+        }
+
         $color = switch ($Severity) {
             "info"     { "#36a64f" }  # green
             "warning"  { "#ffc107" }  # yellow

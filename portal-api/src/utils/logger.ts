@@ -8,11 +8,14 @@ const logLevel = process.env.LOG_LEVEL || "info";
 
 // Assicurati che la cartella di log esista (parametrizzabile via env LOG_DIR)
 const logsDir = path.resolve(process.cwd(), process.env.LOG_DIR || "logs");
-try { if (!fs.existsSync(logsDir)) fs.mkdirSync(logsDir, { recursive: true }); } catch {}
+try { if (!fs.existsSync(logsDir)) fs.mkdirSync(logsDir, { recursive: true }); } catch { }
 
 const logger = winston.createLogger({
   level: logLevel,
-  format: winston.format.json(),
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
   transports: [
     new winston.transports.Console({
       format: winston.format.simple(), // Per ambiente dev/test
