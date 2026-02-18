@@ -44,7 +44,7 @@ function Invoke-RAGSearch {
         
         $result = $jsonOutput | ConvertFrom-Json
         
-        if ($result.error) {
+        if ($result.PSObject.Properties['error'] -and $result.error) {
             throw "RAG Search Error: $($result.error)"
         }
         
