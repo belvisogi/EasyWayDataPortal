@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 # EasyWay Agentic Platform - Global Agent Rules
 
 You are an expert developer and agentic assistant working on the **EasyWay Data Portal**.
 Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
 
-## 1. 🛡️ Mandatory Workflows (NON-NEGOTIABLE)
+## 1. Mandatory Workflows (NON-NEGOTIABLE)
 
 ### A. Branch Safety (PRD §22.19)
 **CRITICAL**: You MUST NEVER commit directly to `develop`, `main`, or `baseline`.
@@ -27,36 +26,34 @@ Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
     -   `bug/*` or `fix/*` branches = **Bug**.
 -   **Naming**: Ensure PR titles and descriptions reflect this type (e.g., "[PBI] Feature X" or "[BUG] Fix Y").
 
-## 2. 🧠 Hybrid Core Integration
- 
- 
- We have built a specific "Hybrid Core" to give you super-powers. **USE IT.**
- 
- > [!IMPORTANT]
- > **ALWAYS use the Pipeline (`|`)** to pass content to the Hybrid Core.
- > Do NOT pass multi-line content (like diffs) as arguments, or PowerShell will fail to parse it.
- 
- ### Code Review
- When asked to review code or a PR:
- 1.  Do NOT just read the file.
- 2.  Use the **Smart Diff** tool to see exactly what changed with line numbers:
-     ```powershell
-     # CORRECT: Use Pipeline
-     git diff <target> | Invoke-AgentTool -Task Review
-     
-     # WRONG: Do NOT do this (Parsing Error)
-     # Invoke-AgentTool -Task Review -Target (git diff ...)
-     ```
- 
- ### PR Description
- When asked to describe changes:
- 1.  Use the Hybrid Core to generate the description:
-     ```powershell
-     # CORRECT: Use Pipeline
-     git diff --cached | Invoke-AgentTool -Task Describe
-     ```
+## 2. Hybrid Core Integration
 
-## 3. 📝 Documentation & Standards
+We have built a specific "Hybrid Core" to give you super-powers. **USE IT.**
+
+> **ALWAYS use the Pipeline (`|`)** to pass content to the Hybrid Core.
+> Do NOT pass multi-line content (like diffs) as arguments, or PowerShell will fail to parse it.
+
+### Code Review
+When asked to review code or a PR:
+1.  Do NOT just read the file.
+2.  Use the **Smart Diff** tool to see exactly what changed with line numbers:
+    ```powershell
+    # CORRECT: Use Pipeline
+    git diff <target> | Invoke-AgentTool -Task Review
+
+    # WRONG: Do NOT do this (Parsing Error)
+    # Invoke-AgentTool -Task Review -Target (git diff ...)
+    ```
+
+### PR Description
+When asked to describe changes:
+1.  Use the Hybrid Core to generate the description:
+    ```powershell
+    # CORRECT: Use Pipeline
+    git diff --cached | Invoke-AgentTool -Task Describe
+    ```
+
+## 3. Documentation & Standards
 
 ### Frontend (Best Practices)
 -   **CSS**: Use `/src/theme.css`, `/src/framework.css`. No inline styles.
@@ -67,7 +64,7 @@ Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
 -   **PowerShell**: The preferred language for scripts (`scripts/pwsh/*.ps1`).
 -   **Error Handling**: Scripts must be robust (Antifragile).
 
-## 4. 🤖 Agent Behavior
+## 4. Agent Behavior
 
 -   **Be Proactive**: Check for errors, verify your own work.
 -   **Be "Antifragile"**: If a tool fails, propose a fix or a manual workaround. Do not loop.
@@ -76,7 +73,7 @@ Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
     -   Verification is incomplete if there are uncommitted changes.
     -   **ALWAYS** use `ewctl commit` instead of `git commit`. This enforces quality gates and prevents "forgotten" checks.
 
-## 5. 🗣️ Communication Standards
+## 5. Communication Standards
 
 -   **PR Links**: When creating Pull Requests (Azure DevOps/GitHub), **ALWAYS** output the clickable URL in your final response (e.g., `[PR Title](url)`).
 -   **Conciseness**: prioritizing clarity over verbosity.
@@ -107,13 +104,13 @@ Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
 ## 5. Specialized Agents Roster
 When a task falls into these domains, invoke the specific specialist via their manifest.
 
-### 🧠 Planning & governance
+### Planning & governance
 - **Agent ADO UserStory** (`agent_ado_userstory`):
   - *Role*: PM / Requirements.
   - *Use for*: Creating User Stories, fetching best practices.
   - *Action*: `ado:userstory.create`
 
-### 🏗️ Development
+### Development
 - **Agent Backend** (`agent_backend`):
   - *Role*: API Developer.
   - *Use for*: OpenAPI validation, API scaffolding.
@@ -123,7 +120,7 @@ When a task falls into these domains, invoke the specific specialist via their m
   - *Use for*: Building and deploying portal UI.
   - *Action*: `frontend:build`
 
-### 🛡️ Data & Security
+### Data & Security
 - **Agent DBA** (`agent_dba`):
   - *Role*: Database Administrator (Level 2).
   - *Use for*: Migrations, User creation, Guardrails check.
@@ -133,7 +130,7 @@ When a task falls into these domains, invoke the specific specialist via their m
   - *Use for*: Threat analysis, Key Vault secrets.
   - *Action*: `security:analyze`, `kv-secret:set`
 
-### 🚀 Operations
+### Operations
 - **Agent Release** (`agent_release`):
   - *Role*: Release Manager.
   - *Use for*: Promoting branches (`develop` -> `main`).
@@ -142,3 +139,76 @@ When a task falls into these domains, invoke the specific specialist via their m
   - *Role*: Historian.
   - *Use for*: Recording milestones and release notes.
   - *Action*: `chronicle:record`
+
+
+# Platform Operational Knowledge
+
+> Reference: `Wiki/EasyWayData.wiki/agents/platform-operational-memory.md` (full version indexed in Qdrant)
+
+## Deploy Workflow (NEVER USE SCP)
+```
+1. Edit locally in C:\old\EasyWayDataPortal\
+2. ewctl commit (Iron Dome pre-commit checks)
+3. git push origin <branch>
+4. SSH server -> cd ~/EasyWayDataPortal && git pull
+5. Test in container ONLY after pull
+```
+
+## Critical Git Rules
+- ALWAYS run `git branch --show-current` before starting any task
+- Protected branches: `main`, `develop`, `baseline` — feature branch -> PR -> merge only
+- Use `ewctl commit` not `git commit` directly
+- `git show --name-only` on merge commits only shows diff vs first parent — use `git log --diff-filter=A` for files added via second parent
+
+## PowerShell Coding Standards
+
+### Em Dash Prohibition (CRITICAL BUG)
+**NEVER use the em dash character `\u2014` in double-quoted PowerShell strings.**
+
+Reason: PS 5.1 reads UTF-8 files as Windows-1252. The third byte of the UTF-8 em dash (`0x94`) equals `"` in Windows-1252, silently truncating the string and causing cascading parse errors on unrelated lines.
+
+```powershell
+# WRONG - will break PS 5.1 parser
+Write-Warning "Call failed (non-blocking — treating as PASS): $_"
+
+# CORRECT - use comma or ASCII hyphen
+Write-Warning "Call failed (non-blocking, treating as PASS): $_"
+```
+Safe locations: here-strings (`@"..."@`) and line comments (`#`). Only double-quoted strings are affected.
+
+### SSH Output Capture
+SSH from bash in Claude Code does not capture output. Use PowerShell:
+```powershell
+powershell -NoProfile -NonInteractive -Command "ssh -i 'key.pem' ubuntu@host 'cmd' | Out-File 'C:\temp\out.txt'"
+```
+
+### Heredoc and PS Variables
+Bash heredoc interpolates PowerShell `$variables`. For complex PS scripts, write file locally then copy via git.
+
+## Server Quick Reference
+- **SSH**: `ssh -i "C:\old\Virtual-machine\ssh-key-2026-01-25.key" ubuntu@80.225.86.168`
+- **Secrets**: `/opt/easyway/.env.secrets` (DEEPSEEK_API_KEY, GITEA_API_TOKEN)
+- **Qdrant**: port 6333, collection `easyway_wiki`, API key in secrets file
+- **Gitea**: port 3100, admin `easywayadmin`, compose `docker-compose.gitea.yml`
+- **NTT network**: blocks AI/ML sites — use hotspot or server proxy
+
+## L2 Agent Invoke-LLMWithRAG Reference
+```powershell
+$result = Invoke-LLMWithRAG `
+  -Query "..." -AgentId "agent_X" -SystemPrompt $prompt `
+  -SecureMode `                          # mandatory in production
+  -EnableEvaluator `                     # activates Evaluator-Optimizer (Gap 1)
+  -AcceptanceCriteria @("AC-01", "AC-02") `
+  -MaxIterations 2                       # default: 2
+
+# Result fields (evaluator active):
+# $result.Answer, .EvaluatorPassed, .EvaluatorIterations, .EvaluatorResults
+# $result.TokensIn, .TokensOut, .CostUSD, .DurationSec
+```
+
+## Known Pitfalls
+- `git stash push --include-untracked` fails on root-owned files but saves the rest
+- `az repos pr create` requires `AZURE_DEVOPS_EXT_PAT` set in current session
+- `sqlcmd` not in PATH inside Azure SQL Edge container (known issue, open)
+- Gitea rootless requires `INSTALL_LOCK=true` in `app.ini` after first start
+- DOCKER-USER chain is the only way to block Docker-published ports externally (not INPUT chain)
