@@ -9,10 +9,10 @@ $SourceDir = $PWD
 
 Write-Host "📦 Packaging EasyWay MVP Appliance..." -ForegroundColor Cyan
 
-# 1. Ensure Release Dir Exists (cleaned)
+# 1. Clean & Prepare Release Directory
 if (Test-Path $ReleaseDir) {
-    # Don't delete init.sql or deploy.sh which we just put there
-    # actually we should clean everything ELSE
+    # Keep init.sql and deploy.sh if present
+    Get-ChildItem $ReleaseDir -Exclude "init.sql", "deploy.sh" | Remove-Item -Recurse -Force
 }
 else {
     New-Item -ItemType Directory -Path $ReleaseDir | Out-Null
@@ -21,21 +21,63 @@ else {
 # 2. Copy Docker Compose
 Copy-Item "docker-compose.yml" -Destination "$ReleaseDir/docker-compose.yml" -Force
 
-# 3. Copy Frontend Assets (Standardized)
-$WwwDir = "$ReleaseDir/www"
-if (-not (Test-Path $WwwDir)) { New-Item -ItemType Directory -Path $WwwDir | Out-Null }
-# In a real build, we would run 'npm run build' here.
-# For MVP/Prototype, we might copy src if it's not built, but let's assume raw or dist.
-# Checking if dist exists
-if (Test-Path "apps/portal-frontend/dist") {
-    Copy-Item "apps/portal-frontend/dist/*" -Destination $WwwDir -Recurse -Force
-}
-else {
-    Write-Warning "Frontend dist/ not found. Skipping static assets copy (assuming runtime build or manual copy)."
+# 3. Copy Critical Components (Agents, Scripts, Wiki)
+# Required for agent-runner service
+Write-Host "   Copying Agents, Scripts, Wiki..."
+Copy-Item "agents" -Destination "$ReleaseDir/agents" -Recurse -Force
+Copy-Item "scripts" -Destination "$ReleaseDir/scripts" -Recurse -Force
+Copy-Item "Wiki" -Destination "$ReleaseDir/Wiki" -Recurse -Force
+
+# exclude node_modules if accidentally copied
+if (Test-Path "$ReleaseDir/scripts/node_modules") {
+    Remove-Item "$ReleaseDir/scripts/node_modules" -Recurse -Force
 }
 
-# 4. Create Tarball
-# Requires tar on Windows (built-in on Win10/11)
+# 4. Copy Frontend Assets (Standardized)
+$WwwDir = "$ReleaseDir/www"
+if (-not (Test-Path $WwwDir)) { New-Item -ItemType Directory -Path $WwwDir | Out-Null }
+
+if (Test-Path "apps/portal-frontend/dist") {
+    Write-Host "   Copying Frontend dist/..."
+    Copy-Item "apps/portal-frontend/dist/*" -Destination $WwwDir -Recurse -Force
+    
+    # Copy nginx.conf
+    Copy-Item "apps/portal-frontend/nginx.conf" -Destination "$ReleaseDir/nginx.conf" -Force
+}
+else {
+    Write-Warning "Frontend dist/ not found. Release package will lack UI assets."
+}
+
+# 5. Patch docker-compose.yml for Release (Use Nginx Image + Mounts instead of Build)
+Write-Host "   Patching docker-compose.yml for Release..."
+$composeContent = Get-Content "$ReleaseDir/docker-compose.yml" -Raw
+
+# Replace 'build: ... Dockerfile' block with 'image: nginx...' and volumes
+# We target the specic 'frontend' service definition we wrote.
+# Note: Indentation matters in YAML.
+$oldBlock = @"
+    build:
+      context: ./apps/portal-frontend
+      dockerfile: Dockerfile
+"@
+
+$newBlock = @"
+    image: nginxinc/nginx-unprivileged:alpine
+    volumes:
+      - ./www:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+"@
+
+if ($composeContent -match "context: ./apps/portal-frontend") {
+    $composeContent = $composeContent.Replace($oldBlock, $newBlock)
+    $composeContent | Set-Content "$ReleaseDir/docker-compose.yml" -Encoding UTF8
+    Write-Host "   -> Frontend service converted to static nginx mount."
+}
+else {
+    Write-Warning "Could not patch docker-compose.yml (Pattern mismatch). Frontend might fail to Start."
+}
+
+# 6. Create Tarball
 Write-Host "📚 Compressing to $ArtifactName..." -ForegroundColor Cyan
 tar -czf $ArtifactName -C $ReleaseDir .
 
