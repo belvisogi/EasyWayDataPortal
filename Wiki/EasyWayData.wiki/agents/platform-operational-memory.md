@@ -38,6 +38,13 @@ type: reference
 
 ---
 
+## 0. The Sovereign Law (La Costituzione)
+> **Reference**: See `.cursorrules` (Section 0-8) for the full text of the Law.
+> **Status**: The Active Agent MUST follow the Constitution provided in its System Prompt.
+> **Key Principles**: Integrity, Fail-Fast Security, and Strict Standards.
+
+---
+
 ## 1. Deploy Workflow (CRITICO)
 
 > **MAI copiare file direttamente con SCP al server. TUTTO passa per git.**
@@ -281,6 +288,10 @@ Poi leggere `C:\temp\out.txt` con il Read tool.
 ### Agenti L2 attivi
 `agent_backend`, `agent_dba`, `agent_docs_sync`, `agent_governance`, `agent_infra`, `agent_pr_manager`, `agent_review`, `agent_security`, `agent_vulnerability_scanner`
 
+### Skills Registry
+- **v2.7.0** — 23 skill totali
+- **Nuova skill Session 7**: `session.manage` — `agents/skills/session/Manage-AgentSession.ps1`
+
 ### Skill retrieval.llm-with-rag (Invoke-LLMWithRAG)
 Parametri principali:
 ```powershell
@@ -291,7 +302,8 @@ Invoke-LLMWithRAG `
   -SecureMode `                          # obbligatorio in produzione
   -EnableEvaluator `                     # Gap 1 — Evaluator-Optimizer
   -AcceptanceCriteria @("AC-01...", "AC-02...") `
-  -MaxIterations 2                       # default: 2
+  -MaxIterations 2 `                     # default: 2
+  -SessionFile $sessionPath              # Gap 2 — Working Memory (opzionale)
 ```
 
 **Evaluator-Optimizer** (implementato in Session 5):
@@ -300,6 +312,31 @@ Invoke-LLMWithRAG `
 - Graceful degradation: se evaluator call fallisce, restituisce output del generator senza bloccare
 - Backward-compatible: tutti i parametri evaluator sono opzionali
 
+**Working Memory** (implementato in Session 7 — Gap 2):
+- Attivato con `-SessionFile <path>` — inietta stato sessione nel system prompt
+- Il file session.json e' creato da `Manage-AgentSession -Operation New`
+- Consente multi-step senza ripassare tutto il contesto ad ogni call LLM
+- Schema: `agents/core/schemas/session.schema.json`
+
+### Skill session.manage (Manage-AgentSession)
+```powershell
+# Crea sessione
+$s = Manage-AgentSession -Operation New -AgentId agent_review -Intent "review:docs-impact"
+
+# Imposta step corrente
+Manage-AgentSession -Operation SetStep -SessionFile $s.SessionFile -StepName "analyze_docs"
+
+# Aggiorna con risultato step
+Manage-AgentSession -Operation Update -SessionFile $s.SessionFile `
+    -CompletedStep "analyze_docs" `
+    -StepResult @{ missing_wiki_pages = @("guides/health.md") } `
+    -Confidence 0.85
+
+# Chiudi (elimina file, restituisce summary)
+$summary = Manage-AgentSession -Operation Close -SessionFile $s.SessionFile
+```
+Operations: `New`, `Get`, `Update`, `SetStep`, `Close`, `Cleanup` — TTL default 30 minuti.
+
 ---
 
 ## 9. Gaps Roadmap Agent Evolution
@@ -307,7 +344,7 @@ Invoke-LLMWithRAG `
 | Gap | Titolo | Stato | File |
 |---|---|---|---|
 | Gap 1 | Evaluator-Optimizer | DONE (Session 5) | `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` |
-| Gap 2 | Working Memory (session.json) | TODO Q2 2026 | `agents/core/schemas/session.schema.json` |
+| Gap 2 | Working Memory (session.json) | DONE (Session 7) | `agents/core/schemas/session.schema.json`, `agents/skills/session/Manage-AgentSession.ps1` |
 | Gap 3 | Parallelization (Start-ThreadJob) | TODO Q3 2026 | orchestrator |
 | Gap 4 | Confidence Scoring (0.0-1.0) | DONE (Session 6) | `agents/core/schemas/action-result.schema.json` |
 | Gap 5 | Fixture Tests per L2 agent | DONE (Session 6) | `agents/agent_review/tests/fixtures/` |
@@ -430,14 +467,28 @@ Formato sezione auto-generata in `.cursorrules`:
 
 ---
 
+## 14. Next Session Priorities (Session 8)
+
+| Priorita' | Task | Note |
+|---|---|---|
+| Alta | Server `git pull` (Gap 2 in main) | PR 36+37 mergiate su main |
+| Alta | Qdrant re-index `agents/` | Wiki cambiata in Session 7 |
+| Media | Option B — `platform-rules.snippet.md` | Aggiornare 9 PROMPTS.md L2 agents |
+| Media | `agent_review` L3 upgrade | Attivare Evaluator + Session working memory |
+| Bassa | Gap 3 — Parallelization | `Start-ThreadJob` per workflow paralleli |
+
+---
+
 ## Riferimenti
 
 - [[agents/agent-design-standards]] — Pattern Anthropic per agenti
 - [[agents/agent-evolution-roadmap]] — Roadmap L1->L2->L3
 - [[agents/agent-roster]] — Roster completo 31 agenti
 - [[security/secrets-management-roadmap]] — 4 opzioni gestione secrets cloud
-- `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` — Bridge LLM+RAG (con Evaluator-Optimizer, Gap 1)
-- `agents/core/schemas/action-result.schema.json` — Schema output standard (con campo `confidence`, Gap 4)
-- `agents/skills/registry.json` v2.6.0 — Catalogo 22 skills con campo `returns` (Gap 6)
+- `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` — Bridge LLM+RAG (Evaluator-Optimizer Gap 1, Working Memory Gap 2)
+- `agents/core/schemas/action-result.schema.json` — Schema output standard (campo `confidence`, Gap 4)
+- `agents/core/schemas/session.schema.json` — Schema working memory session (Gap 2, Session 7)
+- `agents/skills/session/Manage-AgentSession.ps1` — CRUD skill working memory (Gap 2, Session 7)
+- `agents/skills/registry.json` v2.7.0 — Catalogo 23 skills con campo `returns` (Gap 6)
 - `agents/agent_review/tests/fixtures/` — 3 fixture JSON per agent_review (Gap 5)
 - `scripts/pwsh/Sync-PlatformMemory.ps1` — Script sync wiki → .cursorrules (Session 6)
