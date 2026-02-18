@@ -219,14 +219,15 @@ Titolo: `<tipo>(<scope>): <descrizione breve>` — max 70 caratteri.
 
 ### Creazione PR via az CLI (OPERATIVO - Session 8)
 
-**Prerequisito**: `AZURE_DEVOPS_EXT_PAT` settato con PAT valido (~52 char) nella sessione corrente.
+**Prerequisito**: `AZURE_DEVOPS_EXT_PAT` del **service account** `ew-svc-azuredevops-agent` settato in `C:\old\.env.local`.
 
 **Setup una-tantum**: creare `C:\old\.env.local` (fuori dal repo, mai committato):
 ```
-AZURE_DEVOPS_EXT_PAT=your-52-char-pat-here
+AZURE_DEVOPS_EXT_PAT=<pat-del-service-account>
 ```
-Ottenere il PAT su: `https://dev.azure.com/EasyWayData/_usersSettings/tokens`
+Ottenere il PAT accedendo come `ew-svc-azuredevops-agent` su: `https://dev.azure.com/EasyWayData/_usersSettings/tokens`
 Scope obbligatori: `Code (Read & Write)` + `Pull Request Contribute`
+**NON aggiungere Work Items** — il service account non deve poter creare WI autonomamente.
 
 **Inizializzazione sessione** (una volta per sessione Claude Code):
 ```powershell
@@ -285,6 +286,71 @@ az repos pr create --source-branch feat/<name> --target-branch develop --title "
 Comportamento Claude Code:
 - Se `az repos pr create` disponibile (con `AZURE_DEVOPS_EXT_PAT` valido + tutti gli scope) → crea e completa la PR automaticamente
 - Altrimenti → output testo formattato + link PR per approvazione manuale su Azure DevOps
+
+---
+
+## 5b. Service Account — Agente Sviluppatore (Session 8 - DEFINITIVO)
+
+### Identita' del service account
+
+| Campo | Valore |
+|---|---|
+| Display name | `Service Azure DevOps Agent` |
+| Username | `ew-svc-azuredevops-agent` |
+| UPN | `ew-svc-azuredevops-ag...@giuseppebelvisogmail.onmicrosoft.com` |
+| Azure DevOps ID | `dda3ec11-05a2-405d-8ea7-8675e4e001ca` |
+| Ruolo | Automation agent (Claude Code / CI) |
+| Gruppo appartenenza | **NON membro** di `EasyWay-DataPortal Team` |
+
+### Perche' un service account separato
+
+Il PAT personale `giuseppe belviso` era membro del gruppo `EasyWay-DataPortal Team` (auto-reviewer Required).
+Usando il PAT personale, il voto dell'agente soddisfaceva il Required reviewer anche se "Allow requestors to approve their own changes" era OFF.
+Con il service account separato (non nel Team), questa bypass e' impossibile.
+
+### Protezioni attive (testate Session 8)
+
+| Policy | Branch | Valore | Effetto |
+|---|---|---|---|
+| Require min 1 reviewer | develop, main | ON - min 1 | Serve approvazione umana |
+| Allow requestors to approve own changes | develop, main | OFF | Il service account non puo' approvare le proprie PR |
+| Prohibit most recent pusher from approving | develop, main | ON | Chi ha pushato non puo' approvare |
+| Check for linked work items | develop | Required | Ogni PR verso develop deve avere WI |
+| Automatically included reviewers | develop, main | `EasyWay-DataPortal Team` (Required) | Solo giuseppe belviso puo' soddisfare |
+
+### Flusso PR produzione (verificato)
+
+```
+[Claude Code / ew-svc-azuredevops-agent]
+    |
+    |-- git push feat/<name>  (HTTPS)
+    |-- az repos pr create feat/<name> -> develop
+    |-- az repos pr set-vote approve   --> IGNORATO (e' l'autore)
+    |
+    v
+[Azure DevOps - policy check]
+    |-- Work item linked?         --> deve essere linkato manualmente
+    |-- EasyWay-DataPortal Team?  --> PENDING (service account non e' nel team)
+    |
+    v
+[giuseppe belviso - approvazione umana]
+    |-- Approva PR su Azure DevOps
+    |-- Completa merge
+```
+
+### PAT scope del service account
+
+| Scope | Incluso | Motivo |
+|---|---|---|
+| Code (Read & Write) | SI | Push + lettura repo |
+| Pull Request Contribute | SI | Crea PR, vota (voto ignorato se autore) |
+| Work Items (R/W/Manage) | NO | Non deve creare WI autonomamente |
+| Build | NO | Non necessario |
+
+### Regola operativa
+
+> **Claude Code usa SEMPRE il PAT del service account `ew-svc-azuredevops-agent`**, mai il PAT personale di giuseppe belviso.
+> Il PAT personale deve rimanere FUORI da `.env.local` e da qualsiasi file/script automatizzato.
 
 ---
 
