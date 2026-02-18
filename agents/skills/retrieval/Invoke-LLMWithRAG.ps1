@@ -215,7 +215,15 @@ function Invoke-LLMWithRAG {
 
         # Model to use for the evaluator call. Defaults to the same model as the generator.
         [Parameter(Mandatory = $false)]
-        [string]$EvaluatorModel = ""
+        [string]$EvaluatorModel = "",
+
+        # Working memory session file path (Gap 2 - agent-evolution-roadmap).
+        # When provided, the current session state is injected into the system prompt as
+        # [SESSION_CONTEXT_START]...[SESSION_CONTEXT_END] so the LLM can resume from the
+        # previous step without re-passing all intermediate context.
+        # Use Manage-AgentSession.ps1 (agents/skills/session/) to create/update/close sessions.
+        [Parameter(Mandatory = $false)]
+        [string]$SessionFile = ""
     )
 
     # SecureMode enforcement: SkipRAG is not allowed
@@ -285,6 +293,34 @@ $ragContext
 
 [EXTERNAL_CONTEXT_END]
 "@
+    }
+
+    # Step 2b: Inject working memory session context (Gap 2 - agent-evolution-roadmap)
+    if ($SessionFile -and (Test-Path $SessionFile)) {
+        try {
+            $sessionData = Get-Content $SessionFile -Raw -Encoding UTF8 | ConvertFrom-Json
+            $stepsCompleted = ($sessionData.steps_completed -join ", ")
+            $currentStep    = if ($sessionData.current_step) { $sessionData.current_step } else { "(none)" }
+            $irJson         = $sessionData.intermediate_results | ConvertTo-Json -Depth 5 -Compress
+
+            $systemContent += @"
+
+
+[SESSION_CONTEXT_START — working memory for multi-step task continuity]
+Session ID   : $($sessionData.session_id)
+Agent        : $($sessionData.agent_id)
+Intent       : $($sessionData.intent)
+Current Step : $currentStep
+Steps Done   : $stepsCompleted
+Results So Far:
+$irJson
+[SESSION_CONTEXT_END]
+"@
+            Write-Verbose "[$AgentId] Session context injected (id=$($sessionData.session_id), steps=$stepsCompleted)"
+        }
+        catch {
+            Write-Warning "[$AgentId] Failed to load session context from '$SessionFile' (non-blocking): $_"
+        }
     }
 
     # Step 3: Generator-Evaluator loop
@@ -447,6 +483,12 @@ $($evalResponse.SummaryFeedback)
         $result.EvaluatorIterations = $iteration
         $result.EvaluatorPassed     = $evalPassed
         $result.EvaluatorResults    = $evalResults
+    }
+
+    # Session metadata — only present when a session file was provided (Gap 2)
+    if ($SessionFile) {
+        $result.SessionFile = $SessionFile
+        $result.SessionContextInjected = (Test-Path $SessionFile)
     }
 
     return $result
