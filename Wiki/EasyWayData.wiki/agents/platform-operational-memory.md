@@ -217,8 +217,48 @@ Template PR standard:
 
 Titolo: `<tipo>(<scope>): <descrizione breve>` — max 70 caratteri.
 
+### Creazione PR via az CLI (OPERATIVO - Session 8)
+
+**Prerequisito**: `AZURE_DEVOPS_EXT_PAT` settato con PAT valido (~52 char) nella sessione corrente.
+
+**Verifica PAT prima di usare az**:
+```powershell
+# Un PAT valido ha lunghezza ~52 char. Lunghezza 10 o utente "aaaa-aaaa" = PAT non valido.
+$env:AZURE_DEVOPS_EXT_PAT = "incolla-il-tuo-pat-qui"   # settare PRIMA di chiamare az
+```
+
+**Comando PR feat → develop**:
+```powershell
+az repos pr create `
+  --organization https://dev.azure.com/EasyWayData `
+  --project "EasyWay-DataPortal" `
+  --repository EasyWayDataPortal `
+  --source-branch feat/<nome-branch> `
+  --target-branch develop `
+  --title "feat(scope): descrizione breve max 70 char" `
+  --description "## Summary`n- bullet`n`n## Test plan`n- [ ] check`n`n## Artefatti`n- file"
+```
+
+**Comando PR develop → main (Release)**:
+```powershell
+az repos pr create `
+  --organization https://dev.azure.com/EasyWayData `
+  --project "EasyWay-DataPortal" `
+  --repository EasyWayDataPortal `
+  --source-branch develop `
+  --target-branch main `
+  --title "[Release] Session N — titolo" `
+  --description "## Summary`n- bullet`n`n## Test plan`n- [ ] check`n`n## Artefatti`n- file"
+```
+
+**Note critiche**:
+- `AZURE_DEVOPS_EXT_PAT` NON viene ereditato tra sessioni PowerShell diverse
+- PAT valido: ~52 caratteri alfanumerici; se utente restituito e' `aaaa-aaaa-aaaa` il PAT e' invalido
+- Per body lunghi: scrivere prima in `C:\temp\pr-body.md`, poi passare con `--description (Get-Content 'C:\temp\pr-body.md' -Raw)`
+- Se az fallisce con "not authorized": il PAT e' scaduto o non ha scope `Code (Read & Write)` + `Pull Request Contribute`
+
 Comportamento Claude Code:
-- Se `az repos pr create` disponibile (con `AZURE_DEVOPS_EXT_PAT`) → crea la PR automaticamente
+- Se `az repos pr create` disponibile (con `AZURE_DEVOPS_EXT_PAT` valido) → crea la PR automaticamente
 - Altrimenti → output testo formattato per paste manuale su Azure DevOps/Gitea
 
 ---
@@ -360,7 +400,7 @@ Operations: `New`, `Get`, `Update`, `SetStep`, `Close`, `Cleanup` — TTL defaul
 | GitHub mirror non configurato | Mancano repo creation + PAT | Open |
 | `infra/observability/data/` file root-owned sul server | `git stash` fallisce su questi file | Open |
 | `git stash push --include-untracked` su file root-owned | Salva solo i file accessibili, ignora il resto | Known |
-| `az repos pr create` non eredita PAT | Impostare `AZURE_DEVOPS_EXT_PAT` nella sessione corrente | Known |
+| `az repos pr create` non eredita PAT | Impostare `AZURE_DEVOPS_EXT_PAT` nella sessione corrente (vedi sez. 5 per comando completo) | Documented |
 
 ---
 
