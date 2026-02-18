@@ -62,6 +62,13 @@ type: guide
 **Suggerisci altri termini o errori ricorrenti: la pagina cresce con le domande della community!**
 
 
+
+**❓ Problemi di Encoding su PowerShell 5.1 (Windows)?**
+- **Sintomo**: Stringhe troncate o caratteri strani (es. `â€”`).
+- **Causa**: PS 5.1 interpreta UTF-8 no-BOM come Windows-1252 se non configurato. Caratteri come Em Dash (`—`, byte `E2 80 94`) possono rompere il parsing (il byte `94` viene letto come `"` troncando la stringa).
+- **Workaround**: Usare solo ASCII (sostituire `—` con `-`) o forzare output encoding UTF8.
+- **File Affetti (Identificati)**: `New-DecisionProfile.ps1`, `db-generate-table-artifacts.ps1`, `agent-pr.ps1`, `agent-llm-router.ps1`, `agent-governance.ps1`.
+
 ## Vedi anche
 
 - [Proposte Cross-link, FAQ mancanti, Ricette edge-case e automazioni](./onboarding/proposte-crosslink-faq-edgecase.md)
