@@ -1,0 +1,31 @@
+{
+  "fixture_id": "ex-01-happy-path",
+  "description": "MR completa e conforme: codice + test + Wiki aggiornata. Il reviewer deve approvare.",
+  "agent_id": "agent_review",
+  "action": "review:docs-impact",
+  "input": {
+    "query": "Rivedi questa MR: feat(api): add /api/v1/health endpoint. Modificati: api/routes/health.ts (nuovo endpoint), docs/openapi.yaml (spec aggiornata), tests/health.test.ts (3 test nuovi), Wiki/EasyWayData.wiki/api/endpoints.md (documentazione aggiornata).",
+    "context": {
+      "mr_title": "feat(api): add health-check endpoint",
+      "mr_author": "team-backend",
+      "branch": "feat/api-health-endpoint",
+      "target_branch": "develop",
+      "changed_files": [
+        "api/routes/health.ts",
+        "docs/openapi.yaml",
+        "tests/health.test.ts",
+        "Wiki/EasyWayData.wiki/api/endpoints.md"
+      ],
+      "wiki_updated": true,
+      "tests_added": true,
+      "secrets_in_diff": false
+    }
+  },
+  "expected": {
+    "verdict": "APPROVE",
+    "must_contain_keywords": ["APPROVE", "health", "documentazione", "OK"],
+    "must_not_contain": ["SECURITY_VIOLATION", "REQUEST_CHANGES"],
+    "output_format": "review_md",
+    "notes": "Tutti i gate sono verdi: codice presente, test presenti, Wiki aggiornata, nessun secret. Il Critic deve dare APPROVE."
+  }
+}
