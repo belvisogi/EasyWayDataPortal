@@ -1,7 +1,7 @@
 ---
 title: "Platform Operational Memory — EasyWay"
 created: 2026-02-18
-updated: 2026-02-18
+updated: 2026-02-18T18:00:00Z
 status: active
 category: reference
 domain: platform
@@ -189,6 +189,31 @@ git branch --show-current   # verifica branch corrente
 - `git show --name-only` su merge commit mostra solo diff vs first parent
 - Per file aggiunti via second parent: usare `git log --diff-filter=A --name-only`
 
+### Regola PR Description (OBBLIGATORIO - Session 6)
+
+> **SEMPRE generare e fornire il testo della PR quando si creano pull request.**
+
+Template PR standard:
+```markdown
+## Summary
+- <bullet 1>
+- <bullet 2>
+- <bullet 3>
+
+## Test plan
+- [ ] <check 1>
+- [ ] <check 2>
+
+## Artefatti
+- <file/script creati o modificati>
+```
+
+Titolo: `<tipo>(<scope>): <descrizione breve>` — max 70 caratteri.
+
+Comportamento Claude Code:
+- Se `az repos pr create` disponibile (con `AZURE_DEVOPS_EXT_PAT`) → crea la PR automaticamente
+- Altrimenti → output testo formattato per paste manuale su Azure DevOps/Gitea
+
 ---
 
 ## 6. PowerShell Coding Standards
@@ -316,6 +341,7 @@ Invoke-LLMWithRAG `
 10. **`az repos pr create`** richiede `AZURE_DEVOPS_EXT_PAT` nella sessione corrente
 11. **Emoji con byte 0x94 in UTF-8** (es. U+1F504 🔄, U+1F50D 🔍) causano lo stesso problema dell'em dash in PS5.1 `ParseFile`. Usare testo ASCII nelle stringhe PS. Il problema NON si manifesta sotto `pwsh` (PS7).
 12. **`WIKI_PATH` per ingest_wiki.js**: passare sempre una DIRECTORY, non un file singolo. Il glob aggiunge `/**/*.md` — un path a file singolo restituisce 0 file trovati.
+13. **Sync-PlatformMemory duplicate marker bug**: `IndexOf("# AUTO-SYNC-END")` trova la PRIMA occorrenza, ma la wiki puo' contenere quel testo come esempio documentale in code block. Usare `LastIndexOf` per il marker di chiusura — garantisce di trovare sempre il vero `# AUTO-SYNC-END` finale.
 
 ---
 

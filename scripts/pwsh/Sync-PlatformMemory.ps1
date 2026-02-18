@@ -109,7 +109,7 @@ $startMarker = '# AUTO-SYNC-START'
 $endMarker   = '# AUTO-SYNC-END'
 
 $startIdx = $cursorContent.IndexOf($startMarker)
-$endIdx   = $cursorContent.IndexOf($endMarker)
+$endIdx   = $cursorContent.LastIndexOf($endMarker)  # LastIndexOf: wiki body may contain marker text as doc examples
 
 if ($startIdx -lt 0 -or $endIdx -lt 0) {
     Write-Error ".cursorrules is missing AUTO-SYNC markers. Add '# AUTO-SYNC-START' and '# AUTO-SYNC-END' to the file."
