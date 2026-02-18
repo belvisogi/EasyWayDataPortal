@@ -1,5 +1,5 @@
 {
-  "version": "2.6.0",
+  "version": "2.7.0",
   "last_updated": "2026-02-18T00:00:00Z",
   "skills": [
     {
@@ -1365,6 +1365,51 @@
         "llm",
         "nlp"
       ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
+    },
+    {
+      "id": "session.manage",
+      "name": "Manage-AgentSession",
+      "domain": "session",
+      "file": "skills/session/Manage-AgentSession.ps1",
+      "version": "1.0.0",
+      "description": "CRUD operations for agent working memory sessions (Gap 2 - agent-evolution-roadmap). Creates, reads, updates, and closes ephemeral session.json files that store intermediate state for multi-step L2/L3 agent workflows. Sessions expire automatically (default TTL: 30 min).",
+      "parameters": [
+        { "name": "Operation", "type": "string", "required": true, "description": "One of: New, Get, Update, SetStep, Close, Cleanup" },
+        { "name": "AgentId", "type": "string", "required": false, "description": "Agent ID (required for Operation=New)" },
+        { "name": "Intent", "type": "string", "required": false, "description": "Task intent in '<domain>:<action>' format (required for Operation=New)" },
+        { "name": "SessionFile", "type": "string", "required": false, "description": "Path to session.json (required for Get/Update/SetStep/Close)" },
+        { "name": "CompletedStep", "type": "string", "required": false, "description": "Step name to mark as completed (for Operation=Update)" },
+        { "name": "StepResult", "type": "hashtable", "required": false, "description": "Key-value pairs to merge into intermediate_results (for Operation=Update)" },
+        { "name": "Confidence", "type": "number", "required": false, "description": "Confidence score 0.0-1.0 to update on the session (for Operation=Update); -1 = skip" },
+        { "name": "StepName", "type": "string", "required": false, "description": "Step name to set as current_step (for Operation=SetStep)" },
+        { "name": "TtlMinutes", "type": "integer", "required": false, "description": "Session TTL in minutes (default: 30, for Operation=New)" },
+        { "name": "InitialMetadata", "type": "hashtable", "required": false, "description": "Agent-specific metadata to store (for Operation=New)" },
+        { "name": "CorrelationId", "type": "string", "required": false, "description": "External correlation ID (PR number, n8n execution ID, etc.)" },
+        { "name": "CleanupAgentId", "type": "string", "required": false, "description": "Agent ID whose expired sessions to remove (for Operation=Cleanup; empty = all agents)" }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Result hashtable. Shape varies by Operation: New returns SessionId+SessionFile+ExpiresAt; Get returns Session object; Update/SetStep return SessionId; Close returns summary; Cleanup returns RemovedCount.",
+        "output_fields": [
+          { "name": "Success", "type": "boolean", "description": "True if the operation succeeded" },
+          { "name": "SessionId", "type": "string", "description": "UUID of the session (New/Update/SetStep/Close)" },
+          { "name": "SessionFile", "type": "string", "description": "Absolute path to session.json (New)" },
+          { "name": "ExpiresAt", "type": "string", "description": "ISO 8601 expiry timestamp (New)" },
+          { "name": "Session", "type": "object", "description": "Full session object (Get)" },
+          { "name": "Expired", "type": "boolean", "description": "True if the session has passed its expires_at (Get)" },
+          { "name": "StepsCompleted", "type": "array", "description": "Ordered list of completed step names (Close)" },
+          { "name": "FinalConfidence", "type": "number", "description": "Confidence at session close, or null (Close)" },
+          { "name": "RemovedCount", "type": "integer", "description": "Number of expired sessions removed (Cleanup)" }
+        ]
+      },
+      "dependencies": [],
+      "tags": ["session", "working-memory", "gap2", "state", "l2", "l3"],
       "security": {
         "requires_approval": false,
         "blast_radius": "LOW",

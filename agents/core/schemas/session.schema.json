@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://easywaydataportal/schemas/session.schema.json",
+  "title": "Agent Working Memory Session",
+  "description": "Ephemeral session file created at task start and deleted at task end. Stores intermediate state for multi-step workflows within a single L2/L3 agent run. File path: agents/<agent_id>/memory/session.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["session_id", "agent_id", "started_at", "expires_at", "intent", "status"],
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this session (UUID v4)."
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "ID of the agent that owns this session (e.g. 'agent_review')."
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the session was created."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp after which the session is considered stale and may be garbage-collected. Default TTL: 30 minutes from started_at."
+    },
+    "intent": {
+      "type": "string",
+      "description": "High-level task intent in '<domain>:<action>' format (e.g. 'review:docs-impact', 'dba:health-check')."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "completed", "failed", "expired"],
+      "description": "Lifecycle status of the session."
+    },
+    "current_step": {
+      "type": ["string", "null"],
+      "description": "Name of the step currently being executed. Null when no step is in progress.",
+      "default": null
+    },
+    "steps_completed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ordered list of step names that have been completed successfully.",
+      "default": []
+    },
+    "steps_failed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of step names that failed. Does not block subsequent steps unless the orchestrator checks this field.",
+      "default": []
+    },
+    "intermediate_results": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Key-value store for intermediate results produced during the session. Keys are step names or logical labels; values are arbitrary JSON.",
+      "default": {}
+    },
+    "confidence": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Running confidence score for the session output (0.0 = no confidence, 1.0 = full confidence). Updated after each evaluator call. Null if evaluator is not active.",
+      "default": null
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Agent-specific or caller-specific metadata (e.g. PR number, branch name, correlation ID).",
+      "default": {}
+    },
+    "correlation_id": {
+      "type": ["string", "null"],
+      "description": "Correlates this session with an external event (e.g. ADO PR ID, n8n execution ID).",
+      "default": null
+    }
+  },
+  "examples": [
+    {
+      "session_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "agent_id": "agent_review",
+      "started_at": "2026-02-18T10:00:00Z",
+      "expires_at": "2026-02-18T10:30:00Z",
+      "intent": "review:docs-impact",
+      "status": "active",
+      "current_step": "generate_verdict",
+      "steps_completed": ["fetch_changed_files", "analyze_docs"],
+      "steps_failed": [],
+      "intermediate_results": {
+        "changed_files": ["portal-api/routes/health.js"],
+        "missing_wiki_pages": ["guides/health-endpoint.md"]
+      },
+      "confidence": 0.82,
+      "metadata": { "pr_id": "42", "branch": "feat/health-endpoint" },
+      "correlation_id": "42"
+    }
+  ]
+}
