@@ -68,4 +68,25 @@ if ($psFiles) {
     }
 }
 
+# ---------------------------------------------------------------------------
+# Auto-sync: regenerate .cursorrules platform section if wiki source changed
+# ---------------------------------------------------------------------------
+$wikiSource = 'Wiki/EasyWayData.wiki/agents/platform-operational-memory.md'
+$wikiStaged = $stagedFiles | Where-Object { $_ -eq $wikiSource }
+if ($wikiStaged) {
+    Write-Host "[SYNC] Platform wiki changed - syncing .cursorrules..." -ForegroundColor Cyan
+    $syncScript = Join-Path $PSScriptRoot '..\Sync-PlatformMemory.ps1'
+    if (Test-Path $syncScript) {
+        & $syncScript
+        if ($LASTEXITCODE -ne 0) {
+            Write-Warning "Sync-PlatformMemory.ps1 failed (exit $LASTEXITCODE). .cursorrules may be stale."
+        } else {
+            git add .cursorrules
+            Write-Host "  ✅ .cursorrules auto-updated and staged." -ForegroundColor Green
+        }
+    } else {
+        Write-Warning "Sync script not found at: $syncScript (skipping auto-sync)"
+    }
+}
+
 exit 0
