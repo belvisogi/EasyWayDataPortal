@@ -1,83 +1,80 @@
-# EasyWay Agentic Platform - Global Agent Rules
+# EasyWay Agentic Platform - The Sovereign Law
 
-You are an expert developer and agentic assistant working on the **EasyWay Data Portal**.
-Your goal is to build an **Antifragile**, **Enterprise-Grade** platform.
+**THE PARADOX OF TOLERANCE:**
+"We cannot be tolerant of the intolerant. Unchecked chaos destroys the system."
 
-## 1. Mandatory Workflows (NON-NEGOTIABLE)
+To guarantee the **Democracy of the Code** (where every agent can work safely), we must be **INTOLERANT** of violations.
+These rules are not guidelines. They are **Law**.
 
-### A. Branch Safety (PRD §22.19)
-**CRITICAL**: You MUST NEVER commit directly to `develop`, `main`, or `baseline`.
--   **Start of Task**: ALWAYS run `git branch --show-current`.
--   **If on Protected Branch**: STOP immediately. Run the workflow:
-    ```bash
-    # Check for existing workflow or run manually
-    git checkout -b feature/<scope>-<description>
-    ```
--   **Reference**: `.agent/workflows/start-feature.md`
+**VIOLATIONS ARE NOT TOLERATED.**
+Continued negligence will result in **Context Reset** and **Task Rejection**.
 
-### B. Local-First Policy (PRD §22.1)
--   Work on the **Local Repository** as the Single Source of Truth.
--   Do NOT push to remote until the task (or logical unit) is complete and verified.
--   Do NOT use web UIs to edit code.
+---
 
-### C. Work Item Association
--   **Identify the Type**:
-    -   `feature/*` branches = **PBI** (Product Backlog Item).
-    -   `bug/*` or `fix/*` branches = **Bug**.
--   **Naming**: Ensure PR titles and descriptions reflect this type (e.g., "[PBI] Feature X" or "[BUG] Fix Y").
+## 0. The Integrity Rule (The "Blank Sheet" Doctrine) [Enforcer: agent_gedi]
+**"Better a Blank Sheet than a Bullshit Answer."**
+- **Non inventare**: Se non hai l'informazione, DICHIARALO.
+- **Stop al Guessing**: Indovinare è vietato. Eseguire comandi a caso è vietato.
+- **La Toppa peggio del Buco**: Se il fix è incerto, meglio lasciare il bug visibile che nasconderlo con codice spazzatura.
+- **VIOLAZIONE**: Allucinazione = **GRAVE**.
 
-## 2. Hybrid Core Integration
+## 1. Security Guidelines ("Fail-Fast") [Enforcer: agent_security]
+- **Config**: MUST Fail-Fast (no defaults like `${PASS:-default}`). NO IP Hardcoding.
+- **Docker**: Pin versions. Automation tools get Least Privilege.
+- **VIOLAZIONE**: Hardcoded secrets = Immediato Revert.
 
-We have built a specific "Hybrid Core" to give you super-powers. **USE IT.**
+## 2. Naming & Secrets [Enforcer: agent_security]
+- **Bots**: Functional names (`svc_provisioner`).
+- **Secrets**: `UPPER-KEBAB-CASE` in Key Vault.
 
-> **ALWAYS use the Pipeline (`|`)** to pass content to the Hybrid Core.
-> Do NOT pass multi-line content (like diffs) as arguments, or PowerShell will fail to parse it.
+## 3. Database (SQL) [Enforcer: agent_dba]
+- **Inserts**: Explicit Columns ONLY.
+- **Robustness**: Idempotent scripts. No Random `DISTINCT`.
 
-### Code Review
-When asked to review code or a PR:
-1.  Do NOT just read the file.
-2.  Use the **Smart Diff** tool to see exactly what changed with line numbers:
-    ```powershell
-    # CORRECT: Use Pipeline
-    git diff <target> | Invoke-AgentTool -Task Review
+## 4. Server Standards [Enforcer: agent_infra]
+- **Path**: All app code in `/opt/easyway/`.
+- **Docker**: Bind Mounts (`./data:/data`) preferred.
 
-    # WRONG: Do NOT do this (Parsing Error)
-    # Invoke-AgentTool -Task Review -Target (git diff ...)
-    ```
+## 5. Agent Architecture [Enforcer: agent_governance]
+- **Structure**: `manifest.json` + `README.md` required.
+- **Scripts**: Support `-DryRun`.
 
-### PR Description
-When asked to describe changes:
-1.  Use the Hybrid Core to generate the description:
-    ```powershell
-    # CORRECT: Use Pipeline
-    git diff --cached | Invoke-AgentTool -Task Describe
-    ```
+## 6. Git Protocol [Enforcer: agent_pr_manager]
+- **Main**: Squash Merge.
+- **Develop**: Merge Commit. NEVER delete.
 
-## 3. Documentation & Standards
+## 7. Frontend (UI Creed) [Enforcer: agent_frontend]
+- **Separation**: HTML (Skeleton) vs JSON (Text) vs CSS (Skin).
+- **No Hardcoded Text**: Use `content.json`.
+- **Vanilla**: Native Web Components only.
 
-### Frontend (Best Practices)
--   **CSS**: Use `/src/theme.css`, `/src/framework.css`. No inline styles.
--   **Text**: No hardcoded text. Use `content/base.json`.
--   **Reference**: `docs/best-practices.md`
+## 8. Manifesto Alignment
+- **Legacy > Speed**: Code for 2036.
+- **Sovereign**: LAN-ready (No Internet dependency).
+- **Golden Path**: Use the Standard Template, don't invent new ways.
 
-### Operations
--   **PowerShell**: The preferred language for scripts (`scripts/pwsh/*.ps1`).
--   **Error Handling**: Scripts must be robust (Antifragile).
+---
 
-## 4. Agent Behavior
+## 9. Potential Side Effects (The Cost of Sovereignty)
+**Warning**: Strict enforcement has consequences.
 
--   **Be Proactive**: Check for errors, verify your own work.
--   **Be "Antifragile"**: If a tool fails, propose a fix or a manual workaround. Do not loop.
--   **Document Everything**: Update `task.md` and `implementation_plan.md` faithfully.
--   **Finish Strong**:
-    -   Verification is incomplete if there are uncommitted changes.
-    -   **ALWAYS** use `ewctl commit` instead of `git commit`. This enforces quality gates and prevents "forgotten" checks.
+1.  **Velocity Drop (Short Term)**: 
+    *   *Effect*: Devs (and Agents) will hit walls.
+    *   *Mitigation*: Better error messages ("Missing Env Var", not "Connection Refused").
+2.  **Legacy Paralysis**: 
+    *   *Effect*: Touching an old "Illegal" file might trigger a refactor mandate.
+    *   *Mitigation*: Allow `@supress-rule` comments for Legacy hotfixes (with `TODO`).
+3.  **Agent Refusal (Pedantry)**: 
+    *   *Effect*: The AI might say "I cannot write this..."
+    *   *Mitigation*: Pre-generating skeletons.
 
-## 5. Communication Standards
-
--   **PR Links**: When creating Pull Requests (Azure DevOps/GitHub), **ALWAYS** output the clickable URL in your final response (e.g., `[PR Title](url)`).
--   **Conciseness**: prioritizing clarity over verbosity.
-
+### Universal Escalation Protocol
+**IF YOU HIT THESE WALLS**:
+- **DO NOT** try to bypass the law.
+- **DO NOT** make up a complexity to hide a compliance failure.
+- **DO:** **STOP and ASK THE HUMAN.**
+  > *"I am blocked by the Sovereign Law (Rule X). Please provide guidance or a Key Vault secret."*
+  > *Better a visible block than an invisible hack.*
 
 # EasyWay Hybrid Core - Governance Rules
 ## 1. The Prime Directive: Use the Pipeline
@@ -140,17 +137,22 @@ When a task falls into these domains, invoke the specific specialist via their m
   - *Use for*: Recording milestones and release notes.
   - *Action*: `chronicle:record`
 
-
-# Platform Operational Knowledge
 # AUTO-SYNC-START: Regenerated by scripts/pwsh/Sync-PlatformMemory.ps1
 # Source: Wiki/EasyWayData.wiki/agents/platform-operational-memory.md
-# Last sync: 2026-02-18T10:01:24Z
+# Last sync: 2026-02-18T13:30:58Z
 # To refresh manually: pwsh scripts/pwsh/Sync-PlatformMemory.ps1
 # Runs automatically on pre-commit when the wiki source file is staged.
 
 # Platform Operational Memory — EasyWay
 
 > **Scopo**: Questo documento e' la memoria operativa del team platform. Contiene tutto cio' che abbiamo imparato lavorando sulla piattaforma: workflow corretti, configurazioni, errori da non ripetere, e riferimenti rapidi. E' indicizzato in Qdrant e accessibile a tutti gli agenti L2 tramite RAG.
+
+---
+
+## 0. The Sovereign Law (La Costituzione)
+> **Reference**: See `.cursorrules` (Section 0-8) for the full text of the Law.
+> **Status**: The Active Agent MUST follow the Constitution provided in its System Prompt.
+> **Key Principles**: Integrity, Fail-Fast Security, and Strict Standards.
 
 ---
 
@@ -397,6 +399,10 @@ Poi leggere `C:\temp\out.txt` con il Read tool.
 ### Agenti L2 attivi
 `agent_backend`, `agent_dba`, `agent_docs_sync`, `agent_governance`, `agent_infra`, `agent_pr_manager`, `agent_review`, `agent_security`, `agent_vulnerability_scanner`
 
+### Skills Registry
+- **v2.7.0** — 23 skill totali
+- **Nuova skill Session 7**: `session.manage` — `agents/skills/session/Manage-AgentSession.ps1`
+
 ### Skill retrieval.llm-with-rag (Invoke-LLMWithRAG)
 Parametri principali:
 ```powershell
@@ -407,7 +413,8 @@ Invoke-LLMWithRAG `
   -SecureMode `                          # obbligatorio in produzione
   -EnableEvaluator `                     # Gap 1 — Evaluator-Optimizer
   -AcceptanceCriteria @("AC-01...", "AC-02...") `
-  -MaxIterations 2                       # default: 2
+  -MaxIterations 2 `                     # default: 2
+  -SessionFile $sessionPath              # Gap 2 — Working Memory (opzionale)
 ```
 
 **Evaluator-Optimizer** (implementato in Session 5):
@@ -416,6 +423,31 @@ Invoke-LLMWithRAG `
 - Graceful degradation: se evaluator call fallisce, restituisce output del generator senza bloccare
 - Backward-compatible: tutti i parametri evaluator sono opzionali
 
+**Working Memory** (implementato in Session 7 — Gap 2):
+- Attivato con `-SessionFile <path>` — inietta stato sessione nel system prompt
+- Il file session.json e' creato da `Manage-AgentSession -Operation New`
+- Consente multi-step senza ripassare tutto il contesto ad ogni call LLM
+- Schema: `agents/core/schemas/session.schema.json`
+
+### Skill session.manage (Manage-AgentSession)
+```powershell
+# Crea sessione
+$s = Manage-AgentSession -Operation New -AgentId agent_review -Intent "review:docs-impact"
+
+# Imposta step corrente
+Manage-AgentSession -Operation SetStep -SessionFile $s.SessionFile -StepName "analyze_docs"
+
+# Aggiorna con risultato step
+Manage-AgentSession -Operation Update -SessionFile $s.SessionFile `
+    -CompletedStep "analyze_docs" `
+    -StepResult @{ missing_wiki_pages = @("guides/health.md") } `
+    -Confidence 0.85
+
+# Chiudi (elimina file, restituisce summary)
+$summary = Manage-AgentSession -Operation Close -SessionFile $s.SessionFile
+```
+Operations: `New`, `Get`, `Update`, `SetStep`, `Close`, `Cleanup` — TTL default 30 minuti.
+
 ---
 
 ## 9. Gaps Roadmap Agent Evolution
@@ -423,7 +455,7 @@ Invoke-LLMWithRAG `
 | Gap | Titolo | Stato | File |
 |---|---|---|---|
 | Gap 1 | Evaluator-Optimizer | DONE (Session 5) | `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` |
-| Gap 2 | Working Memory (session.json) | TODO Q2 2026 | `agents/core/schemas/session.schema.json` |
+| Gap 2 | Working Memory (session.json) | DONE (Session 7) | `agents/core/schemas/session.schema.json`, `agents/skills/session/Manage-AgentSession.ps1` |
 | Gap 3 | Parallelization (Start-ThreadJob) | TODO Q3 2026 | orchestrator |
 | Gap 4 | Confidence Scoring (0.0-1.0) | DONE (Session 6) | `agents/core/schemas/action-result.schema.json` |
 | Gap 5 | Fixture Tests per L2 agent | DONE (Session 6) | `agents/agent_review/tests/fixtures/` |
@@ -546,16 +578,31 @@ Formato sezione auto-generata in `.cursorrules`:
 
 ---
 
+## 14. Next Session Priorities (Session 8)
+
+| Priorita' | Task | Note |
+|---|---|---|
+| Alta | Server `git pull` (Gap 2 in main) | PR 36+37 mergiate su main |
+| Alta | Qdrant re-index `agents/` | Wiki cambiata in Session 7 |
+| Media | Option B — `platform-rules.snippet.md` | Aggiornare 9 PROMPTS.md L2 agents |
+| Media | `agent_review` L3 upgrade | Attivare Evaluator + Session working memory |
+| Bassa | Gap 3 — Parallelization | `Start-ThreadJob` per workflow paralleli |
+
+---
+
 ## Riferimenti
 
 - [[agents/agent-design-standards]] — Pattern Anthropic per agenti
 - [[agents/agent-evolution-roadmap]] — Roadmap L1->L2->L3
 - [[agents/agent-roster]] — Roster completo 31 agenti
 - [[security/secrets-management-roadmap]] — 4 opzioni gestione secrets cloud
-- `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` — Bridge LLM+RAG (con Evaluator-Optimizer, Gap 1)
-- `agents/core/schemas/action-result.schema.json` — Schema output standard (con campo `confidence`, Gap 4)
-- `agents/skills/registry.json` v2.6.0 — Catalogo 22 skills con campo `returns` (Gap 6)
+- `agents/skills/retrieval/Invoke-LLMWithRAG.ps1` — Bridge LLM+RAG (Evaluator-Optimizer Gap 1, Working Memory Gap 2)
+- `agents/core/schemas/action-result.schema.json` — Schema output standard (campo `confidence`, Gap 4)
+- `agents/core/schemas/session.schema.json` — Schema working memory session (Gap 2, Session 7)
+- `agents/skills/session/Manage-AgentSession.ps1` — CRUD skill working memory (Gap 2, Session 7)
+- `agents/skills/registry.json` v2.7.0 — Catalogo 23 skills con campo `returns` (Gap 6)
 - `agents/agent_review/tests/fixtures/` — 3 fixture JSON per agent_review (Gap 5)
 - `scripts/pwsh/Sync-PlatformMemory.ps1` — Script sync wiki → .cursorrules (Session 6)
 
 # AUTO-SYNC-END
+
