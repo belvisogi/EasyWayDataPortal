@@ -221,11 +221,23 @@ Titolo: `<tipo>(<scope>): <descrizione breve>` — max 70 caratteri.
 
 **Prerequisito**: `AZURE_DEVOPS_EXT_PAT` settato con PAT valido (~52 char) nella sessione corrente.
 
-**Verifica PAT prima di usare az**:
-```powershell
-# Un PAT valido ha lunghezza ~52 char. Lunghezza 10 o utente "aaaa-aaaa" = PAT non valido.
-$env:AZURE_DEVOPS_EXT_PAT = "incolla-il-tuo-pat-qui"   # settare PRIMA di chiamare az
+**Setup una-tantum**: creare `C:\old\.env.local` (fuori dal repo, mai committato):
 ```
+AZURE_DEVOPS_EXT_PAT=your-52-char-pat-here
+```
+Ottenere il PAT su: `https://dev.azure.com/EasyWayData/_usersSettings/tokens`
+Scope obbligatori: `Code (Read & Write)` + `Pull Request Contribute`
+
+**Inizializzazione sessione** (una volta per sessione Claude Code):
+```powershell
+# Carica PAT da C:\old\.env.local e configura az devops defaults
+pwsh EasyWayDataPortal/scripts/pwsh/Initialize-AzSession.ps1
+
+# Verifica stato sessione
+pwsh EasyWayDataPortal/scripts/pwsh/Initialize-AzSession.ps1 -Verify
+```
+
+Template `.env.local`: vedi `C:\old\.env.local.example`
 
 **Comando PR feat → develop**:
 ```powershell
