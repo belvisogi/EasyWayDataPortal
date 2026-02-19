@@ -2,28 +2,33 @@
   "id": "agent_security",
   "name": "agent_security",
   "role": "Agent_Security",
-  "description": "Provisioning governance-driven di segreti/identity accesso (DB/Datalake): Key Vault, reference, audit, registry e AI-driven threat analysis. Level 2 agent con DeepSeek LLM.",
+  "description": "Elite Security Engineer: AI threat analysis, secrets governance, OWASP checks con Evaluator-Optimizer, parallel CVE scan e confidence-gated escalation. Level 3 agent.",
   "owner": "team-platform",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "classification": "arm",
-  "evolution_level": 2,
+  "evolution_level": 3,
 
   "llm_config": {
     "provider": "deepseek",
     "model": "deepseek-chat",
     "api_base": "https://api.deepseek.com",
     "temperature": 0.1,
-    "max_tokens": 1000,
+    "max_tokens": 1500,
     "system_prompt": "agents/agent_security/PROMPTS.md",
     "tools": ["function_calling"],
     "cost_estimate": {
-      "per_call": "$0.00025",
-      "monthly": "$0.05"
+      "per_call": "$0.00035",
+      "monthly": "$0.07"
     },
+    "evaluator": true,
+    "working_memory": true,
+    "parallel_scan": true,
     "usage": {
-      "security_analyze": "AI threat assessment su configurazioni, secrets, OWASP Top 10",
-      "rotation_strategy": "Suggerisce strategia di rotazione secrets basata su risk",
-      "access_audit": "Analizza pattern di accesso e identifica anomalie"
+      "security_analyze": "L3 threat assessment: Evaluator-Optimizer (AC-04/05/07), dual CVE scan, session, confidence gating",
+      "security_owasp_check": "OWASP Top 10 evaluation con Evaluator-Optimizer",
+      "kv_secret_set": "Set/update secret in Azure Key Vault (AC-08 naming check)",
+      "kv_secret_reference": "Generate Key Vault reference for App Settings",
+      "access_registry_propose": "Propose access registry entry (audit trail)"
     }
   },
 
@@ -36,16 +41,17 @@
   },
 
   "skills_required": [
+    "retrieval.llm-with-rag",
+    "retrieval.rag-search",
     "security.secret-vault",
-    "security.cve-scan"
+    "security.cve-scan",
+    "session.manage",
+    "utilities.json-validate"
   ],
 
   "skills_optional": [
     "utilities.retry-backoff",
-    "integration.slack-message",
-    "utilities.json-validate",
-    "retrieval.llm-with-rag",
-    "retrieval.rag-search"
+    "integration.slack-message"
   ],
 
   "rag_config": {
@@ -57,26 +63,43 @@
     "description": "RAG provides Wiki context for AI-driven threat analysis and security assessments"
   },
 
+  "evaluator_config": {
+    "enabled_actions": ["security:analyze", "security:owasp-check"],
+    "max_iterations": 2,
+    "acceptance_criteria_ids": ["AC-04", "AC-05", "AC-07"],
+    "confidence_threshold": 0.70,
+    "graceful_degradation": true
+  },
+
   "allowed_tools": ["pwsh", "az", "curl"],
 
   "actions": [
     {
       "name": "security:analyze",
-      "description": "AI-driven threat analysis su configurazioni, codice o infrastruttura. Usa DeepSeek per risk assessment.",
-      "uses_skills": ["security.cve-scan"],
+      "description": "L3 AI-driven threat assessment. Evaluator-Optimizer su AC-04/05/07, dual CVE scan (docker-scout + trivy) se scan_target presente, working memory per audit multi-step, confidence < 0.70 => requires_human_review.",
+      "uses_skills": ["retrieval.llm-with-rag", "retrieval.rag-search", "security.cve-scan", "session.manage"],
       "params": {
-        "query": { "type": "string", "required": true, "description": "Contesto da analizzare" }
+        "query":       { "type": "string", "required": true,  "description": "Contesto da analizzare" },
+        "scan_target": { "type": "string", "required": false, "description": "Docker image name per CVE scan" }
+      }
+    },
+    {
+      "name": "security:owasp-check",
+      "description": "OWASP Top 10 evaluation con Evaluator-Optimizer. Ritorna risk_level, confidence, findings.",
+      "uses_skills": ["retrieval.llm-with-rag", "retrieval.rag-search"],
+      "params": {
+        "query": { "type": "string", "required": true, "description": "Endpoint o configurazione da verificare" }
       }
     },
     {
       "name": "kv-secret:set",
-      "description": "Imposta/aggiorna un secret in Azure Key Vault (non stampa il valore).",
+      "description": "Imposta/aggiorna un secret in Azure Key Vault. AC-08: naming convention <system>--<area>--<name> obbligatoria.",
       "uses_skills": ["security.secret-vault"],
       "params": {
-        "vaultName": { "type": "string", "required": true },
-        "secretName": { "type": "string", "required": true },
+        "vaultName":   { "type": "string", "required": true },
+        "secretName":  { "type": "string", "required": true },
         "secretValue": { "type": "string", "required": true },
-        "tags": { "type": "object", "required": false }
+        "tags":        { "type": "object", "required": false }
       }
     },
     {
@@ -84,9 +107,9 @@
       "description": "Genera una Key Vault reference per App Settings (non legge il valore).",
       "uses_skills": ["security.secret-vault"],
       "params": {
-        "vaultName": { "type": "string", "required": true },
+        "vaultName":  { "type": "string", "required": true },
         "secretName": { "type": "string", "required": true },
-        "version": { "type": "string", "required": false }
+        "version":    { "type": "string", "required": false }
       }
     },
     {
@@ -101,8 +124,8 @@
 
   "allowed_paths": {
     "read": [
-      "scripts/pwsh/agent-security.ps1",
       "agents/agent_security/",
+      "scripts/pwsh/agent-security.ps1",
       "Wiki/EasyWayData.wiki/security/",
       "Wiki/EasyWayData.wiki/control-plane/",
       "docs/agentic/templates/",
@@ -111,38 +134,22 @@
     ],
     "write": [
       "agents/logs/",
-      "agents/agent_security/memory/",
-      "Wiki/EasyWayData.wiki/security/"
+      "agents/agent_security/memory/"
     ]
   },
 
   "required_gates": ["KB_Consistency"],
 
   "approvals": {
-    "prod": ["Human_Governance_Approval"]
+    "prod": ["Human_Governance_Approval"],
+    "critical_risk": ["Human_Governance_Approval"]
   },
 
   "knowledge_sources": [
-    {
-      "priority": "high",
-      "path": "Wiki/EasyWayData.wiki/security/segreti-e-accessi.md",
-      "type": "document"
-    },
-    {
-      "priority": "high",
-      "path": "Wiki/EasyWayData.wiki/security/operativita-governance-provisioning-accessi.md",
-      "type": "document"
-    },
-    {
-      "priority": "medium",
-      "path": "docs/ci/azure-devops-secrets.md",
-      "type": "document"
-    },
-    {
-      "priority": "medium",
-      "path": "agents/kb/recipes.jsonl",
-      "type": "data"
-    }
+    { "priority": "high", "path": "Wiki/EasyWayData.wiki/security/segreti-e-accessi.md", "type": "document" },
+    { "priority": "high", "path": "Wiki/EasyWayData.wiki/security/operativita-governance-provisioning-accessi.md", "type": "document" },
+    { "priority": "medium", "path": "docs/ci/azure-devops-secrets.md", "type": "document" },
+    { "priority": "medium", "path": "agents/kb/recipes.jsonl", "type": "data" }
   ],
 
   "error_handling": {
@@ -154,4 +161,3 @@
 
   "readme": "README.md"
 }
-
