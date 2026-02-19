@@ -1,0 +1,8 @@
+{
+  "correlationId": "infra-drift-check-001",
+  "action": "infra:drift-check",
+  "nonInteractive": true,
+  "params": {
+    "query": "Verificare se le App Service easyway-portal e easyway-api hanno le impostazioni HTTPS-only, TLS 1.2+ e CORS configurate correttamente. Il plan Terraform mostra: azurerm_app_service.portal - httpsOnly=true (OK), tlsVersion=1.1 (DRIFT: atteso 1.2), corsAllowedOrigins=* (DRIFT: atteso lista specifica). Classificare severita e proporre remediation."
+  }
+}

@@ -1,6 +1,88 @@
 {
+  "id": "agent_infra",
+  "name": "agent_infra",
   "role": "Agent_Infra",
-  "description": "IaC/Terraform governato: validate/plan/apply (WhatIf-by-default), drift infra e runbook.",
+  "description": "IaC/Terraform governato: validate/plan (WhatIf-by-default), AI-driven drift analysis via RAG. Level 2 agent con DeepSeek LLM.",
+  "owner": "team-platform",
+  "version": "2.0.0",
+  "classification": "arm",
+  "evolution_level": 2,
+  "readme": "README.md",
+
+  "llm_config": {
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
+    "temperature": 0.0,
+    "max_tokens": 1000,
+    "system_prompt": "agents/agent_infra/PROMPTS.md",
+    "tools": ["function_calling"],
+    "cost_estimate": {
+      "per_call": "$0.00020",
+      "monthly": "$0.04"
+    },
+    "usage": {
+      "drift_check": "AI-driven drift assessment: confronta stato infra reale vs IaC (Terraform state), classifica severita e propone remediation"
+    }
+  },
+
+  "context_config": {
+    "memory_files": [
+      "agents/agent_infra/memory/context.json",
+      "agents/kb/recipes.jsonl"
+    ],
+    "context_limit_tokens": 128000,
+    "enable_memory": true
+  },
+
+  "skills_required": [
+    "retrieval.llm-with-rag",
+    "retrieval.rag-search"
+  ],
+
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ],
+
+  "rag_config": {
+    "enabled": true,
+    "collection": "easyway_wiki",
+    "top_k": 5,
+    "min_score": 0.3,
+    "context_domains": ["infrastructure", "terraform", "deploy", "dr"],
+    "description": "RAG provides Wiki context for AI-driven drift analysis (deploy-app-service.md, dr-inventory-matrix.md)"
+  },
+
+  "allowed_tools": ["pwsh", "terraform", "az"],
+
+  "actions": [
+    {
+      "name": "infra:terraform-plan",
+      "description": "Esegue terraform init/validate/plan (no apply). Scripted, WhatIf-by-default.",
+      "uses_skills": [],
+      "params": {
+        "workdir": {
+          "type": "string",
+          "required": false,
+          "description": "Directory Terraform (default: infra/terraform)"
+        }
+      }
+    },
+    {
+      "name": "infra:drift-check",
+      "description": "AI-driven drift assessment: analizza stato infra vs IaC tramite RAG su Wiki. Classifica severita (LOW/MEDIUM/HIGH/CRITICAL) e propone remediation.",
+      "uses_skills": ["retrieval.llm-with-rag", "retrieval.rag-search"],
+      "params": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Contesto infra da analizzare (es. output terraform plan, stato risorse Azure)"
+        }
+      }
+    }
+  ],
+
   "allowed_paths": {
     "read": [
       "agents/agent_infra/**",
@@ -16,75 +98,35 @@
       "agents/logs/"
     ]
   },
-  "allowed_tools": [
-    "pwsh",
-    "terraform",
-    "az"
-  ],
-  "required_gates": [
-    "KB_Consistency"
-  ],
+
+  "required_gates": ["KB_Consistency"],
+
   "approvals": {
-    "apply": [
-      "Human_Governance_Approval"
-    ]
+    "apply": ["Human_Governance_Approval"]
   },
+
   "knowledge_sources": [
     {
-      "priority": "medium",
+      "priority": "high",
       "type": "document",
       "path": "Wiki/EasyWayData.wiki/deploy-app-service.md"
     },
     {
-      "priority": "medium",
+      "priority": "high",
       "type": "document",
       "path": "Wiki/EasyWayData.wiki/dr-inventory-matrix.md"
-    }
-  ],
-  "actions": [
+    },
     {
-      "name": "infra:terraform-plan",
-      "description": "Esegue terraform init/validate/plan (no apply).",
-      "params": {
-        "workdir": {
-          "type": "string",
-          "required": false
-        }
-      }
+      "priority": "medium",
+      "type": "data",
+      "path": "agents/kb/recipes.jsonl"
     }
   ],
-  "name": "agent_infra",
-  "readme": "README.md",
-  "classification": "arm",
-  "id": "agent_infra",
-  "owner": "team-platform",
-  "version": "1.0.0",
-  "evolution_level": 1,
-  "context_config": {
-    "memory_files": [
-      "agents/kb/recipes.jsonl"
-    ],
-    "context_limit_tokens": 128000,
-    "enable_memory": true
-  },
-  "skills_required": [],
-  "llm_config": {
-    "provider": "openai",
-    "model": "gpt-4o",
-    "temperature": 0.0,
-    "system_prompt": "agents/agent_infra/PROMPTS.md",
-    "tools": [
-      "function_calling"
-    ]
-  },
+
   "error_handling": {
-    "fallback_mode": "log_and_skip",
-    "alert_on_failure": false,
+    "retry_count": 2,
     "retry_delay_seconds": 15,
-    "retry_count": 2
-  },
-  "skills_optional": [
-    "utilities.json-validate",
-    "utilities.retry-backoff"
-  ]
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false
+  }
 }
