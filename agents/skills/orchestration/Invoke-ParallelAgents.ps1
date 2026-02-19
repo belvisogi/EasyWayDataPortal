@@ -188,7 +188,7 @@ while ($jobs.Count -gt 0 -and [datetime]::UtcNow -lt $deadline) {
         # Check if completed
         if ($job.State -in 'Completed', 'Failed', 'Stopped') {
             try {
-                $output = Receive-Job -Job $job -ErrorAction Stop
+                $output = Receive-Job -Job $job -ErrorAction SilentlyContinue
                 if ($job.State -eq 'Completed' -and $output -and $output.PSObject.Properties['Success']) {
                     $results[$name] = $output
                     if (-not $output.Success) { $failed.Add($name) }
