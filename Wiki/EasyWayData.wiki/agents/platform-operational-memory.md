@@ -531,6 +531,8 @@ Operations: `New`, `Get`, `Update`, `SetStep`, `Close`, `Cleanup` — TTL defaul
 19. **pip3 su Ubuntu 24.04**: richiede `--break-system-packages` per installare moduli system-wide (`pip3 install qdrant-client sentence-transformers --break-system-packages`). Alternativa consigliata: venv.
 20. **PSObject property guard**: usare `$obj.PSObject.Properties['PropName'] -and $obj.PropName` prima di accedere a proprieta' opzionali su hashtable/oggetti dinamici PS. Evita l'errore "property cannot be found on this object".
 21. **PR creation via curl** (Session 9): quando `az repos pr create` non e' disponibile da bash Claude Code, usare `curl` direttamente con PAT da `.env.local`. Il PAT si legge con `source .env.local && curl -u ":$AZURE_DEVOPS_EXT_PAT" -X POST ...`. Evita problemi di escaping PS in bash.
+22. **`Receive-Job -ErrorAction Stop`** (Session 11): re-throw TUTTI i record di errore del job stream (inclusi Python/Qdrant UserWarning su stderr nativo) come eccezioni PS terminanti, PRIMA che il return value dello scriptBlock sia accessibile. Fix: usare `-ErrorAction SilentlyContinue` + logica di check esplicita nel `if` successivo. Il scriptBlock ha gia' il suo `try/catch` interno.
+23. **repoRoot in `agents/skills/<category>/`** (Session 11): servono 3 livelli `.Parent.Parent.Parent` (`category/` -> `skills/` -> `agents/` -> repo root). Con `.Parent.Parent` si ottiene `agents/`, non la repo root. Verificare sempre il repoRoot in test E2E con `Write-Host "Repo root: $repoRoot"` prima di eseguire.
 
 ---
 
@@ -651,13 +653,29 @@ Formato sezione auto-generata in `.cursorrules`:
 | DONE | Qdrant re-index agents/ | 1297 chunk |
 | DONE | Qdrant re-index wiki/agents/ | 398 chunk |
 
-### Next Session Priorities (Session 11)
+### Session 11 — Completati (2026-02-19)
+
+| Stato | Task | Note |
+|---|---|---|
+| DONE | E2E test `Invoke-ParallelAgents.ps1` | **PASSED**: Success=True, 26s wall, 2/2 job OK (PR #58-#65) |
+| DONE | Bug fix repoRoot | `.Parent.Parent.Parent` (3 livelli) in Invoke-ParallelAgents + test E2E |
+| DONE | Bug fix Receive-Job | `-ErrorAction SilentlyContinue` — Python UserWarning non causa piu' Success=False |
+| DONE | Bug fix ErrorActionPreference | `$ErrorActionPreference='Continue'` nel scriptBlock ThreadJob |
+
+### Session 11 — Post-merge (DONE)
+
+| Stato | Task | Note |
+|---|---|---|
+| DONE | Server `git pull` | Aggiornato a `7adc903` (PR #65) |
+| DONE | Wiki + MEMORY.md aggiornati | Gap 3 DONE, Session 11 completata |
+
+### Next Session Priorities (Session 12)
 
 | Priorita' | Task | Note |
 |---|---|---|
-| Alta | E2E test `Invoke-ParallelAgents.ps1` | Test parallelo review+security su PR reale sul server |
+| Alta | Wiki update `agent-evolution-roadmap.md` | Session 11 completata, doc coverage 0% per `Invoke-ParallelAgents.ps1` |
+| Alta | Creare `guides/parallel-agent-execution.md` | Documentare API, parametri, esempi d'uso, troubleshooting |
 | Media | Agentic PRD per altri agenti L2 | agent_security, agent_infra come prossimi candidati L3 |
-| Bassa | Fixture tests per altri L2 | Estendere coverage test oltre agent_review |
 
 ---
 
