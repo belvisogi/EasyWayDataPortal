@@ -1,0 +1,22 @@
+{
+  "id": "EX-03",
+  "description": "Low confidence - stato infra parzialmente sconosciuto -> escalation",
+  "tags": ["edge-case", "confidence-gating"],
+  "input": {
+    "action": "infra:drift-check",
+    "params": {
+      "query": "Alcune risorse Azure SQL Edge risultano non mappate in Terraform. Non e' chiaro se sono state create manualmente o tramite pipeline CI/CD. Non disponiamo del terraform.tfstate aggiornato."
+    }
+  },
+  "expected_output": {
+    "ok": true,
+    "confidence_max": 0.70,
+    "requires_human_review": true
+  },
+  "assertions": [
+    { "field": "ok", "op": "==", "value": true },
+    { "field": "confidence", "op": "<", "value": 0.70 },
+    { "field": "requires_human_review", "op": "==", "value": true },
+    { "field": "risk_level", "op": "in", "value": ["CRITICAL", "HIGH", "MEDIUM"] }
+  ]
+}
