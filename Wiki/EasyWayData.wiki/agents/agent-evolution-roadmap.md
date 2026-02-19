@@ -175,7 +175,17 @@ An agent should be promoted from L2 to L3 when:
 - Multi-agent: `agent_review` + `agent_security` in parallelo per PR gates
 - Voting: `analysis.classify-intent` multipli, majority vote
 
-**Status**: **DONE (Session 10)**
+**Status**: **DONE (Session 10) — E2E VERIFIED (Session 11)**
+
+**E2E Test Results (Session 11)**:
+```
+Overall success : True
+Duration (wall) : 26.11s   # parallelism confirmed: < 180s serial upper bound
+Failed jobs     : (none)
+Job static      : Success=True, deepseek-chat, 5 RAG chunks
+Job docs-impact : Success=True, deepseek-chat, 5 RAG chunks
+```
+Fix applicati durante Session 11: repoRoot `.Parent.Parent.Parent`, `$ErrorActionPreference='Continue'` in scriptBlock, `Receive-Job -ErrorAction SilentlyContinue`.
 
 ---
 
