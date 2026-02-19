@@ -1,0 +1,29 @@
+{
+  "id": "EX-01",
+  "description": "Happy path - drift-check su stack Docker containerizzato",
+  "tags": ["happy-path", "infra:drift-check"],
+  "input": {
+    "action": "infra:drift-check",
+    "params": {
+      "query": "Verifica drift infrastruttura: lo stack Docker ha i container easyway-runner, easyway-qdrant, easyway-gitea. La porta 9000 (MinIO) e' esposta su 0.0.0.0. Terraform state non include la configurazione del firewall DOCKER-USER chain."
+    }
+  },
+  "expected_output": {
+    "ok": true,
+    "status": "WARNING",
+    "risk_level": "HIGH",
+    "confidence_min": 0.70,
+    "requires_human_review": false,
+    "findings_min_count": 1,
+    "meta": {
+      "evaluator_enabled": true
+    }
+  },
+  "assertions": [
+    { "field": "ok", "op": "==", "value": true },
+    { "field": "risk_level", "op": "in", "value": ["CRITICAL", "HIGH"] },
+    { "field": "confidence", "op": ">=", "value": 0.70 },
+    { "field": "findings", "op": "not_empty" },
+    { "field": "meta.evaluator_enabled", "op": "==", "value": true }
+  ]
+}
