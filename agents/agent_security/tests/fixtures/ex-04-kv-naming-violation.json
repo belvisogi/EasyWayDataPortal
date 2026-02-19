@@ -1,0 +1,38 @@
+{
+  "_fixture": "EX-04",
+  "_description": "KV naming violation: secretName does not follow <system>--<area>--<name> pattern",
+  "_tags": ["edge-case", "kv-secret:set", "naming-convention"],
+  "_prd_ref": "agent-security-prd-l3.md#EX-04",
+
+  "input": {
+    "action": "kv-secret:set",
+    "params": {
+      "vaultName": "easyway-vault",
+      "secretName": "dbpassword",
+      "secretValue": "[REDACTED - never use real value in fixtures]"
+    }
+  },
+
+  "expected_output": {
+    "action": "kv-secret:set",
+    "ok": false,
+    "status": "ERROR",
+    "action_taken": "REJECT",
+    "reason_contains": "Naming convention violation"
+  },
+
+  "acceptance_criteria": [
+    "AC-08: secretName 'dbpassword' must fail pattern ^[a-z0-9]+-{2}[a-z0-9]+-{2}[a-z0-9]+$",
+    "Rejection must happen BEFORE any az keyvault call",
+    "status must be ERROR, action_taken must be REJECT",
+    "AC-03: No secret value in output"
+  ],
+
+  "valid_names_examples": [
+    "db--portal--connstring",
+    "deepseek--api--key",
+    "storage--datalake--sastoken"
+  ],
+
+  "run_command": "pwsh agents/agent_security/Invoke-AgentSecurity.ps1 -Action kv-secret:set -VaultName easyway-vault -SecretName dbpassword -SecretValue REDACTED -JsonOutput"
+}
