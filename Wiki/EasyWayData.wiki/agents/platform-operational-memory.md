@@ -419,13 +419,13 @@ Poi leggere `C:\temp\out.txt` con il Read tool.
 ### Livelli agenti
 - **L1 (scripted)**: 22 agenti — logica deterministica, no LLM
 - **L2 (LLM+RAG)**: 7 agenti — DeepSeek + Qdrant RAG
-- **L3 (DONE)**: `agent_review` (Session 9), `agent_security` (Session 13) — Evaluator-Optimizer + Working Memory + RAG
+- **L3 (DONE)**: `agent_review` (Session 9), `agent_security` (Session 13), `agent_infra` (Session 15) — Evaluator-Optimizer + Working Memory + RAG
 
-### Agenti L2 attivi (7 totali, aggiornato Session 13)
-`agent_backend`, `agent_dba`, `agent_docs_sync`, `agent_governance`, `agent_infra` (promosso L2 Session 13), `agent_pr_manager`, `agent_vulnerability_scanner`
+### Agenti L2 attivi (6 totali, aggiornato Session 15)
+`agent_backend`, `agent_dba`, `agent_docs_sync`, `agent_governance`, `agent_pr_manager`, `agent_vulnerability_scanner`
 
-> **agent_infra L2** (Session 13): manifest v2.0.0, deepseek-chat, nuova action `infra:drift-check` (LLM+RAG, SecureMode). Migrato da gpt-4o.
 > **agent_security L3** (Session 13): manifest v3.0.0, `Invoke-AgentSecurity.ps1`, 4 fixture E2E, Evaluator-Optimizer + dual CVE scan + confidence gating.
+> **agent_infra L3** (Session 15): manifest v3.0.0, `Invoke-AgentInfra.ps1`, 4 fixture E2E, Evaluator-Optimizer + structured JSON output + `infra:compliance-check`. Promosso da L2 (Session 13).
 
 ### agent_review L3 — dettaglio (DONE - Session 9, runner rinominato Session 10)
 - **Script**: `agents/agent_review/Invoke-AgentReview.ps1` (rinominato da `run-with-rag.ps1` in Session 10) — flag: `-EnableEvaluator`, `-SessionFile`, `-NoEvaluator`
@@ -710,6 +710,21 @@ Formato sezione auto-generata in `.cursorrules`:
 | DONE | E2E retest post-fix | security:analyze — rag_chunks > 0 (verifica post-deploy) |
 | DONE | Wiki `agent-platform-faq.md` | FAQ piattaforma: 10 sezioni, 30+ Q&A — secrets, RAG, L1/L2/L3, deploy, Iron Dome, troubleshooting |
 
+### Session 15 — COMPLETATA (2026-02-19)
+
+| Stato | Task | Note |
+|---|---|---|
+| DONE | Merge PR #77 | docs/session14-faq -> develop: agent-platform-faq.md + platform-operational-memory |
+| DONE | Release PR #78 -> main | server git pull (PR #78 applicato) |
+| DONE | Qdrant ingest | 57,868 chunk totali (+17,796 rispetto a Session 13) |
+| DONE | E2E agent_infra L2 | `infra:drift-check` sul server: ok=true, ragChunks=5, $0.000398 |
+| DONE | **agent_infra L2->L3** | Invoke-AgentInfra.ps1, manifest v3.0.0, PROMPTS.md JSON output |
+| DONE | infra:compliance-check | Nuova action L3 (verifica porte, segreti, IaC patterns) |
+| DONE | 4 fixture E2E | EX-01 drift, EX-02 injection, EX-03 low confidence, EX-04 compliance |
+| DONE | Wiki agent-infra-prd-l3.md | PRD completo: 10 AC, 4 EX, evaluator_config, working memory schema |
+| DONE | Release PR #80 -> main | server git pull + E2E L3 runner PASSED |
+| DONE | E2E L3 runner | EX-01 ok=true/HIGH/0.75, EX-02 SECURITY_VIOLATION, EX-04 compliance OK |
+
 ---
 
 ## 14b. Session 8 — Tasks completati e Next Session Priorities (storico)
@@ -763,3 +778,7 @@ Formato sezione auto-generata in `.cursorrules`:
 - `agents/skills/utilities/Import-AgentSecrets.ps1` — SSOT secrets loader, boot call in tutti i runner L2/L3 (Session 14)
 - `Wiki/EasyWayData.wiki/security/secrets-management.md` — guida completa secrets management: ADR, runbook, troubleshooting (Session 14)
 - `Wiki/EasyWayData.wiki/guides/agent-platform-faq.md` — FAQ piattaforma: 10 sezioni, 30+ Q&A (Session 14)
+- `agents/agent_infra/Invoke-AgentInfra.ps1` — Runner L3: Evaluator-Optimizer, structured JSON, compliance-check (Session 15)
+- `agents/agent_infra/manifest.json` v3.0.0 — agent_infra L3: evolution_level=3, evaluator, working_memory (Session 15)
+- `agents/agent_infra/tests/fixtures/` — 4 fixture E2E: EX-01..EX-04 (Session 15)
+- `Wiki/EasyWayData.wiki/agents/agent-infra-prd-l3.md` — PRD L3 agent_infra: 10 AC, 4 EX, compliance-check (Session 15)
