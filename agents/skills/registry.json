@@ -1,6 +1,6 @@
 {
-  "version": "2.8.0",
-  "last_updated": "2026-02-18T23:30:00Z",
+  "version": "2.9.0",
+  "last_updated": "2026-02-19T23:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -376,6 +376,39 @@
         "blast_radius": "LOW",
         "audit_log": false,
         "allowed_callers": ["*"]
+      }
+    },
+    {
+      "id": "utilities.import-secrets",
+      "name": "Import-AgentSecrets",
+      "domain": "utilities",
+      "file": "skills/utilities/Import-AgentSecrets.ps1",
+      "version": "1.0.0",
+      "description": "Loads platform secrets from .env.secrets into process environment (idempotent, non-destructive). Single entry point for secrets in all agent runners. No-op if env vars already set (container/CI scenario).",
+      "parameters": [
+        {
+          "name": "SecretsFile",
+          "type": "string",
+          "required": false,
+          "default": "/opt/easyway/.env.secrets (Linux) or $USERPROFILE\\.easyway\\secrets (Windows)",
+          "description": "Path to .env-format secrets file. Override for CI or testing."
+        }
+      ],
+      "returns": {
+        "type": "hashtable",
+        "description": "Keys loaded during this call (values masked as '***'). Empty if all keys already set or file not found.",
+        "output_fields": [
+          { "name": "<KEY_NAME>", "type": "string", "description": "'***' for each secret key loaded (value never logged)" }
+        ]
+      },
+      "dependencies": [],
+      "tags": ["secrets", "environment", "bootstrap", "security", "idempotent"],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"],
+        "notes": "Never logs actual secret values. Non-destructive: only sets vars not already present."
       }
     },
     {

@@ -60,6 +60,14 @@ function Out-Result($obj) {
   else { $obj | ConvertTo-Json -Depth 5 | Write-Output }
 }
 
+# --- BOOTSTRAP: load platform secrets (idempotent, non-destructive) ---
+# Ensures DEEPSEEK_API_KEY, QDRANT_API_KEY are available in any context.
+$importSecretsSkill = Join-Path $PSScriptRoot '..\..\agents\skills\utilities\Import-AgentSecrets.ps1'
+if (Test-Path $importSecretsSkill) {
+  . $importSecretsSkill
+  Import-AgentSecrets | Out-Null
+}
+
 # --- INIT ---
 
 $intent = Read-Intent $IntentPath
