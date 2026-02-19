@@ -69,7 +69,8 @@ param(
     [Parameter(Mandatory = $false)] [int]$TopK = 5,
 
     # Operational flags
-    [Parameter(Mandatory = $false)] [string]$ApiKey = $env:DEEPSEEK_API_KEY,
+    [Parameter(Mandatory = $false)] [string]$ApiKey       = $env:DEEPSEEK_API_KEY,
+    [Parameter(Mandatory = $false)] [string]$QdrantApiKey = $env:QDRANT_API_KEY,
     [switch]$WhatIf,
     [bool]$LogEvent = $true,
     [switch]$JsonOutput
@@ -291,6 +292,7 @@ try {
                 TopK         = $TopK
                 SecureMode   = $true
                 MaxTokens    = 1500
+                QdrantApiKey = $QdrantApiKey
             }
             if (-not $NoEvaluator) {
                 $invokeParams['EnableEvaluator']    = $true

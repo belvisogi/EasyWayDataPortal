@@ -223,7 +223,12 @@ function Invoke-LLMWithRAG {
         # previous step without re-passing all intermediate context.
         # Use Manage-AgentSession.ps1 (agents/skills/session/) to create/update/close sessions.
         [Parameter(Mandatory = $false)]
-        [string]$SessionFile = ""
+        [string]$SessionFile = "",
+
+        # Qdrant API key for RAG search. Defaults to $env:QDRANT_API_KEY.
+        # Pass explicitly when the env var is not set in the calling process (e.g. SSH shell).
+        [Parameter(Mandatory = $false)]
+        [string]$QdrantApiKey = ""
     )
 
     # SecureMode enforcement: SkipRAG is not allowed
@@ -240,6 +245,13 @@ function Invoke-LLMWithRAG {
     if (-not $SkipRAG) {
         try {
             Write-Verbose "[$AgentId] Querying RAG for context (TopK=$TopK)..."
+
+            # Ensure QDRANT_API_KEY is set for the python subprocess (rag_search.py).
+            # Caller can pass -QdrantApiKey explicitly when the env var is not available
+            # (e.g. direct SSH shell invocation outside the easyway-runner container).
+            if ($QdrantApiKey -and -not $env:QDRANT_API_KEY) {
+                $env:QDRANT_API_KEY = $QdrantApiKey
+            }
 
             # Use basic RAG search directly (proven to work in container)
             $ragSearchScript = Join-Path $PSScriptRoot "Invoke-RAGSearch.ps1"
