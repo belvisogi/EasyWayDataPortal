@@ -97,6 +97,21 @@ foreach ($required in @($LLMWithRAG, $PromptsFile)) {
     }
 }
 
+# ─── Bootstrap: load platform secrets (idempotent, non-destructive) ────────────
+# Ensures DEEPSEEK_API_KEY, QDRANT_API_KEY, GITEA_API_TOKEN are available in any
+# execution context (SSH shell, container, CI/CD). No-op if already set.
+$importSecretsSkill = Join-Path $SkillsDir 'utilities' 'Import-AgentSecrets.ps1'
+if (Test-Path $importSecretsSkill) {
+    . $importSecretsSkill
+    Import-AgentSecrets | Out-Null
+}
+# Resolve ApiKey after secrets are loaded (param default evaluated before load)
+if (-not $ApiKey) { $ApiKey = $env:DEEPSEEK_API_KEY }
+if (-not $ApiKey) {
+    Write-Error "DEEPSEEK_API_KEY not set. Add to /opt/easyway/.env.secrets or pass -ApiKey."
+    exit 1
+}
+
 # ─── Injection patterns (PS-level defense in depth) ────────────────────────────
 $InjectionPatterns = @(
     '(?i)ignore\s+(all\s+)?(previous\s+)?instructions?',
