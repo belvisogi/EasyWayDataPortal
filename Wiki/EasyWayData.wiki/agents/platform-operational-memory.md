@@ -1,7 +1,7 @@
 ---
 title: "Platform Operational Memory — EasyWay"
 created: 2026-02-18
-updated: 2026-02-19T22:00:00Z
+updated: 2026-02-19T23:00:00Z
 status: active
 category: reference
 domain: platform
@@ -708,6 +708,7 @@ Formato sezione auto-generata in `.cursorrules`:
 | DONE | registry.json v2.9.0 | Aggiunta entry `utilities.import-secrets` (25 skill totali) |
 | DONE | Wiki `secrets-management.md` | Guida completa: ADR, perché/come/cosa, runbook, troubleshooting |
 | DONE | E2E retest post-fix | security:analyze — rag_chunks > 0 (verifica post-deploy) |
+| DONE | Wiki `agent-platform-faq.md` | FAQ piattaforma: 10 sezioni, 30+ Q&A — secrets, RAG, L1/L2/L3, deploy, Iron Dome, troubleshooting |
 
 ---
 
@@ -761,3 +762,4 @@ Formato sezione auto-generata in `.cursorrules`:
 - `agents/agent_security/tests/fixtures/` — 4 fixture E2E: EX-01..EX-04 (Session 13)
 - `agents/skills/utilities/Import-AgentSecrets.ps1` — SSOT secrets loader, boot call in tutti i runner L2/L3 (Session 14)
 - `Wiki/EasyWayData.wiki/security/secrets-management.md` — guida completa secrets management: ADR, runbook, troubleshooting (Session 14)
+- `Wiki/EasyWayData.wiki/guides/agent-platform-faq.md` — FAQ piattaforma: 10 sezioni, 30+ Q&A (Session 14)
