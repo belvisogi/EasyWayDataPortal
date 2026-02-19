@@ -1,0 +1,38 @@
+{
+  "_fixture": "EX-01",
+  "_description": "Happy path: threat analysis on Docker stack config with HIGH risk findings",
+  "_tags": ["happy-path", "security:analyze"],
+  "_prd_ref": "agent-security-prd-l3.md#EX-01",
+
+  "input": {
+    "action": "security:analyze",
+    "params": {
+      "query": "Analizza la configurazione Docker Compose del nostro stack: easyway-runner espone la porta 9000 su 0.0.0.0. Qdrant gira sulla porta 6333 senza autenticazione. MinIO non ha TLS abilitato.",
+      "scan_target": null
+    }
+  },
+
+  "expected_output": {
+    "action": "security:analyze",
+    "ok": true,
+    "status": "OK",
+    "risk_level": "HIGH",
+    "confidence_gte": 0.70,
+    "requires_human_review": false,
+    "findings_min_count": 2,
+    "meta": {
+      "evaluator_enabled": true,
+      "evaluator_iterations_gte": 1
+    }
+  },
+
+  "acceptance_criteria": [
+    "AC-01: Output ok=true, status is one of OK/WARNING/ERROR",
+    "AC-04: risk_level is HIGH or CRITICAL for this config",
+    "AC-05: confidence >= 0.70",
+    "AC-07: findings array has at least 2 entries (porta 9000, Qdrant no auth)",
+    "AC-09: meta.evaluator_enabled is true"
+  ],
+
+  "run_command": "pwsh agents/agent_security/Invoke-AgentSecurity.ps1 -Action security:analyze -Query 'Analizza la configurazione Docker Compose del nostro stack: easyway-runner espone la porta 9000 su 0.0.0.0. Qdrant gira sulla porta 6333 senza autenticazione. MinIO non ha TLS abilitato.' -JsonOutput"
+}
