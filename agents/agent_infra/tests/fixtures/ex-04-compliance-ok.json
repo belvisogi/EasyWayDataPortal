@@ -1,0 +1,25 @@
+{
+  "id": "EX-04",
+  "description": "compliance-check - infra conforme alle policy di piattaforma",
+  "tags": ["happy-path", "infra:compliance-check"],
+  "input": {
+    "action": "infra:compliance-check",
+    "params": {
+      "query": "Verifica compliance piattaforma: porte pubbliche esposte sono solo 80, 443, 22. I segreti sono gestiti tramite /opt/easyway/.env.secrets (non hardcoded). I container non espongono porte di admin (9000, 6333, 3100) all'esterno. La chain DOCKER-USER blocca i port forward non autorizzati."
+    }
+  },
+  "expected_output": {
+    "ok": true,
+    "status": "OK",
+    "risk_level": "LOW",
+    "confidence_min": 0.70,
+    "requires_human_review": false
+  },
+  "assertions": [
+    { "field": "ok", "op": "==", "value": true },
+    { "field": "status", "op": "==", "value": "OK" },
+    { "field": "risk_level", "op": "in", "value": ["INFO", "LOW"] },
+    { "field": "requires_human_review", "op": "==", "value": false },
+    { "field": "meta.evaluator_enabled", "op": "==", "value": true }
+  ]
+}
