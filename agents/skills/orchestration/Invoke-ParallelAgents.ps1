@@ -124,8 +124,14 @@ foreach ($jobDef in $AgentJobs) {
 
     $scriptBlock = {
         param($ScriptPath, $ScriptArgs, $JobTimeout)
+        # 'Continue' prevents Python/native stderr warnings from becoming terminating errors
+        # while still allowing the agent script's own error handling to work correctly.
+        $ErrorActionPreference = 'Continue'
         try {
             $result = & $ScriptPath @ScriptArgs
+            if ($LASTEXITCODE -and $LASTEXITCODE -ne 0) {
+                return @{ Success = $false; Error = "Script exited with code $LASTEXITCODE"; Output = $result }
+            }
             return @{ Success = $true; Output = $result }
         } catch {
             return @{ Success = $false; Error = $_.Exception.Message; Output = $null }
