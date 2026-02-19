@@ -13,7 +13,7 @@ Set-StrictMode -Version 3.0
 $ErrorActionPreference = 'Stop'
 
 $scriptDir = $PSScriptRoot
-$repoRoot  = (Get-Item $scriptDir).Parent.Parent.FullName
+$repoRoot  = (Get-Item $scriptDir).Parent.Parent.Parent.FullName
 
 Write-Host "`n=============================================" -ForegroundColor Cyan
 Write-Host " E2E Test: Invoke-ParallelAgents (Gap 3)"    -ForegroundColor Cyan
