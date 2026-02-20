@@ -15,6 +15,7 @@ $ErrorActionPreference = 'Stop'
 $scriptDir = $PSScriptRoot
 $repoRoot = (Get-Item $scriptDir).Parent.Parent.Parent.FullName
 
+
 Write-Host "`n=============================================" -ForegroundColor Cyan
 Write-Host " E2E Test: Invoke-ParallelAgents (Gap 3)"    -ForegroundColor Cyan
 Write-Host "=============================================" -ForegroundColor Cyan
@@ -37,6 +38,7 @@ if (-not $env:QDRANT_API_KEY) {
 
 $parallelScript = Join-Path $scriptDir 'Invoke-ParallelAgents.ps1'
 $reviewScript = 'agents/agent_review/Invoke-AgentReview.ps1'
+
 
 if (-not (Test-Path $parallelScript)) {
     Write-Error "Invoke-ParallelAgents.ps1 not found at: $parallelScript"
@@ -78,6 +80,8 @@ $jobs = @(
     }
 )
 
+
+
 $result = & $parallelScript -AgentJobs $jobs -GlobalTimeout 150 -SecureMode
 
 # ---------------------------------------------------------------------------
@@ -109,6 +113,7 @@ foreach ($jobName in $result.JobResults.Keys) {
         }
     }
     elseif (-not $jr.Success) {
+
         Write-Host "    Error   : $($jr.Error)" -ForegroundColor Red
     }
     Write-Host ""
@@ -130,6 +135,7 @@ if ($result.DurationSec -lt $sumJobTimeout) {
     Write-Host "  PARALLEL OK : wall time < sum of timeouts" -ForegroundColor Green
 }
 else {
+
     Write-Host "  WARNING     : wall time >= sum of timeouts (may have run serially)" -ForegroundColor Yellow
 }
 
