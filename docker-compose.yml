@@ -9,55 +9,69 @@ services:
     container_name: easyway-runner
     environment:
       - EASYWAY_MODE=Framework
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # Fail-Fast Secrets
+      - OPENAI_API_KEY=${OPENAI_API_KEY:?err}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:?err}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:?err}
       - QDRANT_HOST=qdrant
-      - QDRANT_API_KEY=${QDRANT_API_KEY}
-      - CHROMA_HOST=chromadb
+      - QDRANT_API_KEY=${QDRANT_API_KEY:?err}
       - SQL_SERVER=sql-edge
       - AZURITE_HOST=azurite
     volumes:
-      - ./agents:/app/agents  # Persist Memory & Logs
-      - ./Wiki:/app/Wiki      # Live Wiki Edits
-      - ./scripts:/app/scripts # Live Script Debugging
+      - ./agents:/app/agents
+      - ./Wiki:/app/Wiki
+      - ./scripts:/app/scripts
     depends_on:
-      - azurite
-      # - chromadb
-      # - sql-edge
+      qdrant:
+        condition: service_healthy
+      sql-edge:
+        condition: service_healthy
+      azurite:
+        condition: service_started
     networks:
       - easyway-net
-    command: ["pwsh", "-c", "for() { Start-Sleep 1000 }"] # Infinite loop
+    command: ["pwsh", "-c", "for() { Start-Sleep 1000 }"]
 
   # ⚡ Vector Database (Memory Cortex)
-  # ⚡ Vector Database (Memory Cortex) - REPLACED BY QDRANT
-  # chromadb:
-  #   image: chromadb/chroma:0.6.3
-  #   container_name: easyway-cortex
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - chroma-data:/chroma/chroma
-  #   networks:
-  #     - easyway-net
+  qdrant:
+    image: qdrant/qdrant:v1.9.0
+    container_name: easyway-cortex
+    ports:
+      - "6333:6333"
+    environment:
+      - QDRANT__SERVICE__API_KEY=${QDRANT_API_KEY:?err}
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - easyway-net
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/6333'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # 🗄️ Database (SQL Edge - ARM compatible)
-  # sql-edge:
-  #   image: mcr.microsoft.com/azure-sql-edge:2.0.0
-  #   container_name: easyway-db
-  #   environment:
-  #     - ACCEPT_EULA=Y
-  #     - MSSQL_SA_PASSWORD=${SQL_SA_PASSWORD}
-  #   ports:
-  #     - "1433:1433"
-  #   volumes:
-  #     - sql-data:/var/opt/mssql
-  #   networks:
-  #     - easyway-net
+  sql-edge:
+    image: mcr.microsoft.com/azure-sql-edge:2.0.0
+    container_name: easyway-db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${SQL_SA_PASSWORD:?err}
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql-data:/var/opt/mssql
+    networks:
+      - easyway-net
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "${SQL_SA_PASSWORD}", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   # ☁️ Blob Storage Emulator
   azurite:
-    image: mcr.microsoft.com/azure-storage/azurite
+    image: mcr.microsoft.com/azure-storage/azurite:3.29.0
     container_name: easyway-storage
     ports:
       - "10000:10000"
@@ -70,19 +84,24 @@ services:
 
   # 🗄️ Sovereign Storage (MinIO)
   minio:
-    image: minio/minio:latest
+    image: minio/minio:RELEASE.2024-01-31T20-20-33Z
     container_name: easyway-storage-s3
     command: server /data --console-address ":9001"
     environment:
-      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
-      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:?err}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:?err}
     ports:
-      - "9000:9000" # API
-      - "9001:9001" # Console
+      - "9000:9000"
+      - "9001:9001"
     volumes:
       - minio-data:/data
     networks:
       - easyway-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
 
   # 🌐 Frontend (PWA)
   frontend:
@@ -94,10 +113,12 @@ services:
       - "8080:8080"
     networks:
       - easyway-net
+    depends_on:
+      - agent-runner
 
   # 🤖 Orchestrator (n8n - The Portable Brain)
   n8n:
-    image: n8nio/n8n:1.123.20
+    image: n8nio/n8n:1.31.1
     container_name: easyway-orchestrator
     ports:
       - "5678:5678"
@@ -110,7 +131,7 @@ services:
       - GENERIC_TIMEZONE=Europe/Rome
     volumes:
       - n8n-data:/home/node/.n8n
-      - ./agents/core/n8n:/home/node/workflows # Pre-load workflows from repo?
+      - ./agents/core/n8n:/home/node/workflows
     networks:
       - easyway-net
 
@@ -119,7 +140,7 @@ networks:
     driver: bridge
 
 volumes:
-  chroma-data:
+  qdrant-data:
   sql-data:
   azurite-data:
   minio-data:

@@ -37,9 +37,8 @@ function pickLanguage(): string {
 export async function loadContent(): Promise<any> {
     const lang = pickLanguage();
 
-    // Base dictionary (preferred): /content/base.json
-    // Legacy fallback: /content.json
-    const base = (await fetchJson('/content/base.json')) || (await fetchJson('/content.json')) || {};
+    // Base dictionary (Sovereign Law): /content/content.json
+    const base = (await fetchJson('/content/content.json')) || {};
 
     // Optional language overlay: keep it small, override only what differs.
     const overlays = [
