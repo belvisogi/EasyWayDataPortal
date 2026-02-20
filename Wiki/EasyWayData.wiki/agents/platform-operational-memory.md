@@ -2,6 +2,10 @@
 title: "Platform Operational Memory — EasyWay"
 created: 2026-02-18
 updated: 2026-02-19T23:00:00Z
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/develop
 status: active
 category: reference
 domain: platform
@@ -143,6 +147,10 @@ Regole persistite in `/etc/iptables/rules.v4`.
 ### easyway-runner
 - Volume mount: `/app/agents` -> `~/EasyWayDataPortal/agents` sull'host
 - 31 agents caricati, 9 Level 2 (LLM) + 1 Level 3 (agent_review)
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/develop
 - Skills registry: `agents/skills/registry.json` v2.8.0 (24 skill, incl. `orchestration.parallel-agents`)
 
 ---
@@ -656,6 +664,17 @@ Formato sezione auto-generata in `.cursorrules`:
 | DONE | E2E test Evaluator | EvaluatorIterations=2, EvaluatorPassed=False (graceful degradation OK) |
 
 ### Session 10 — Post-merge (DONE)
+<<<<<<< HEAD
+| DONE | Server `git pull` | Aggiornato a `3d86310` (PR 54+55) |
+| DONE | Qdrant re-index agents/ | 1297 chunk |
+| DONE | Qdrant re-index wiki/agents/ | 398 chunk |
+
+### Session 11 — Completati (2026-02-19)
+
+
+| Stato | Task | Note |
+|---|---|---|
+=======
 
 | Stato | Task | Note |
 |---|---|---|
@@ -667,6 +686,7 @@ Formato sezione auto-generata in `.cursorrules`:
 
 | Stato | Task | Note |
 |---|---|---|
+>>>>>>> origin/develop
 | DONE | E2E test `Invoke-ParallelAgents.ps1` | **PASSED**: Success=True, 26s wall, 2/2 job OK (PR #58-#65) |
 | DONE | Bug fix repoRoot | `.Parent.Parent.Parent` (3 livelli) in Invoke-ParallelAgents + test E2E |
 | DONE | Bug fix Receive-Job | `-ErrorAction SilentlyContinue` — Python UserWarning non causa piu' Success=False |
@@ -724,6 +744,10 @@ Formato sezione auto-generata in `.cursorrules`:
 | DONE | Wiki agent-infra-prd-l3.md | PRD completo: 10 AC, 4 EX, evaluator_config, working memory schema |
 | DONE | Release PR #80 -> main | server git pull + E2E L3 runner PASSED |
 | DONE | E2E L3 runner | EX-01 ok=true/HIGH/0.75, EX-02 SECURITY_VIOLATION, EX-04 compliance OK |
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/develop
 
 ---
 

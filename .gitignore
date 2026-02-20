@@ -86,3 +86,7 @@ docs/ops/approvals/*.json
 # Local agent configs (copy from *.example.ps1)
 scripts/pwsh/llm-router.config.ps1
 scripts/pwsh/multi-vcs.config.ps1
+
+# EasyWay Release Artifacts (Consolidated File / MVP Appliance)
+release/
+easyway-mvp.tar.gz
