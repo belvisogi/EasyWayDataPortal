@@ -1,0 +1,56 @@
+{
+  "id": "api.error.triage",
+  "what": {
+    "purpose": "Normalizzare e classificare errori REST, produrre azioni suggerite e log strutturato per orchestrazioni n8n.",
+    "inputs": {
+      "source": { "type": "string", "examples": ["n8n"], "description": "Caller del workflow." },
+      "service": { "type": "string", "examples": ["easyway-portal-api"], "description": "Servizio target." },
+      "environment": { "type": "string", "examples": ["local", "dev", "prod"], "description": "Ambiente di esecuzione." },
+      "request": {
+        "type": "object",
+        "description": "Request REST catturata da n8n.",
+        "properties": {
+          "method": { "type": "string", "examples": ["GET", "POST"] },
+          "url": { "type": "string", "description": "URL completo (no token in query)." },
+          "headers": { "type": "object" },
+          "body": { "type": "object" }
+        },
+        "required": ["method", "url"]
+      },
+      "response": {
+        "type": "object",
+        "description": "Risposta REST (se disponibile).",
+        "properties": {
+          "status": { "type": "number", "examples": [200, 404, 500] },
+          "duration_ms": { "type": "number" },
+          "headers": { "type": "object" },
+          "body": { "type": "object" }
+        }
+      },
+      "error": {
+        "type": "object",
+        "description": "Dettaglio errore (se non c'e response).",
+        "properties": {
+          "code": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      },
+      "correlationId": { "type": "string", "description": "ID di correlazione end-to-end." },
+      "decision_trace_id": { "type": "string", "description": "ID decisioni/gates (opzionale)." }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "errorClass": { "type": "string", "description": "Classe normalizzata (server_error, auth_error, rate_limited, ...)." },
+      "severity": { "type": "string", "description": "low|medium|high." },
+      "retryable": { "type": "boolean" },
+      "recommendedActions": { "type": "array", "items": { "type": "string" } },
+      "kbRefs": { "type": "array", "items": { "type": "string" } },
+      "normalizedEvent": { "type": "object" },
+      "diary": { "type": "array", "items": { "type": "object" } },
+      "logPath": { "type": "string", "description": "Path del log evento (se logEvent=true)." }
+    },
+    "events": ["api.error.triage.started", "api.error.triage.completed"],
+    "success_criteria": ["Input valido", "Classificazione prodotta", "Output machine-readable disponibile"],
+    "failure_criteria": ["Input incompleto o incoerente"]
+  }
+}

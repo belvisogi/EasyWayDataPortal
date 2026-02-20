@@ -1,0 +1,27 @@
+{
+  "id": "docs-related-links-apply",
+  "what": {
+    "purpose": "Generare suggerimenti di link correlati tra pagine Wiki e (opz.) applicare una sezione 'Vedi anche' in modalità human-in-the-loop e reversibile.",
+    "inputs": {
+      "wikiPath": { "type": "string", "default": "Wiki/EasyWayData.wiki" },
+      "topK": { "type": "number", "default": 7 },
+      "apply": { "type": "boolean", "default": false },
+      "applyScope": { "type": "string", "default": "orphans-only", "examples": ["orphans-only", "all"] },
+      "minScore": { "type": "number", "default": 0.35 },
+      "maxLinksToAdd": { "type": "number", "default": 5 },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "suggestionsOut": { "type": "string" },
+      "applySummaryOut": { "type": "string" },
+      "lintOut": { "type": "string" },
+      "ok": { "type": "boolean" }
+    },
+    "events": ["docs.related.links.apply.started", "docs.related.links.apply.completed"],
+    "success_criteria": ["Report generato; apply (se richiesto) completato e link lint OK"],
+    "failure_criteria": ["Report non generato", "Apply fallito", "Link lint fallito"]
+  }
+}
+

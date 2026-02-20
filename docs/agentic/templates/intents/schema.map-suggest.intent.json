@@ -1,0 +1,17 @@
+{
+  "id": "schema.map-suggest",
+  "what": {
+    "purpose": "Proporre mapping header→schema target usando il template Entrate/Uscite",
+    "inputs": {
+      "headers": { "type": "array", "items": { "type": "string" } },
+      "template_ref": { "type": "string", "default": "docs/agentic/templates/mapping.entrate-uscite.template.yaml" }
+    },
+    "outputs": {
+      "mapping_preview": { "type": "object" },
+      "missing_fields": { "type": "array", "items": { "type": "string" } }
+    },
+    "success_criteria": ["Tutti i campi target proposti o con fallback sicuro"],
+    "failure_criteria": ["Campi obbligatori non risolvibili"]
+  }
+}
+

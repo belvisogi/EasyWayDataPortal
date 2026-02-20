@@ -1,0 +1,92 @@
+{
+  "id": "release-preflight-security",
+  "version": "0.1.0",
+  "principle": "WHAT-first orchestration manifest: definire cosa fare (obiettivi, stati, esiti, contratti) prima del come",
+  "intent": {
+    "name": "release.preflight.security",
+    "description": "Checklist pre-go-live per security/compliance/audit con output strutturato e link a evidenze.",
+    "trigger": "release.preflight.security.requested"
+  },
+  "roles": {
+    "requester": "n8n o operatore che richiede la preflight per un rilascio.",
+    "orchestrator": "Sequenzia gli step, valida contratti, propaga correlationId e decision_trace_id.",
+    "agent_governance": "Applica policy/gates minimi (KB, doc, checklist).",
+    "steward_security": "Human-in-the-loop su rischi o eccezioni."
+  },
+  "preconditions": [
+    "Intent release.preflight.security disponibile",
+    "KB recipe release.preflight.security disponibile",
+    "Policy security canoniche accessibili (Wiki)"
+  ],
+  "postconditions": [
+    "Output strutturato con esito e checklist",
+    "Decision trace e riferimenti a evidenze"
+  ],
+  "stages": [
+    {
+      "name": "received",
+      "purpose": "Ricevere input e inizializzare correlationId/run",
+      "entry_criteria": ["Evento release.preflight.security.requested"],
+      "inputs": ["intent_payload"],
+      "outputs": ["correlationId"],
+      "success_criteria": ["Payload ricevuto"],
+      "failure_criteria": ["Payload mancante"],
+      "events_emitted": ["release.preflight.security.started"],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "release_preflight_security_received"
+    },
+    {
+      "name": "validated",
+      "purpose": "Validare input contract (targetEnv/changeSummary) e policy minime.",
+      "entry_criteria": ["received.success"],
+      "inputs": ["intent_payload"],
+      "outputs": ["validation_ok", "validation_notes"],
+      "success_criteria": ["Spec valida"],
+      "failure_criteria": ["Spec invalida"],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "release_preflight_security_validated"
+    },
+    {
+      "name": "evaluated",
+      "purpose": "Valutare checklist preflight (security/compliance/audit) e produrre evidenze/next.",
+      "entry_criteria": ["validated.success"],
+      "inputs": ["intent_payload", "kb_recipe", "policy_docs"],
+      "outputs": ["checks[]", "ok", "next[]"],
+      "success_criteria": ["Checklist prodotta"],
+      "failure_criteria": ["Checklist fallita"],
+      "events_emitted": [],
+      "human_checkpoints": ["Review se presenti fail su sicurezza/compliance"],
+      "timeouts": { "max_ms": 600000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "release_preflight_security_evaluated"
+    },
+    {
+      "name": "completed",
+      "purpose": "Chiudere la run con output e next step.",
+      "entry_criteria": ["evaluated.completed"],
+      "inputs": ["ok", "checks[]", "next[]"],
+      "outputs": ["run_summary"],
+      "success_criteria": ["Output finale disponibile"],
+      "failure_criteria": [],
+      "events_emitted": ["release.preflight.security.completed"],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 1 },
+      "retries": { "max": 0 },
+      "ux_prompts": "release_preflight_security_done"
+    }
+  ],
+  "transitions": [
+    { "from": "received", "to": "validated", "condition": "received.success" },
+    { "from": "validated", "to": "evaluated", "condition": "validation_ok" },
+    { "from": "evaluated", "to": "completed", "condition": "evaluated.completed" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}

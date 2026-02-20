@@ -69,10 +69,26 @@ if ($psFiles) {
 }
 
 # ---------------------------------------------------------------------------
-# Auto-sync: regenerate .cursorrules platform section if wiki source changed
+# Governance guardrail: .cursorrules <-> platform-operational-memory coupling
 # ---------------------------------------------------------------------------
 $wikiSource = 'Wiki/EasyWayData.wiki/agents/platform-operational-memory.md'
+$cursorRulesFile = '.cursorrules'
 $wikiStaged = $stagedFiles | Where-Object { $_ -eq $wikiSource }
+$cursorRulesStaged = $stagedFiles | Where-Object { $_ -eq $cursorRulesFile }
+
+if ($cursorRulesStaged -and -not $wikiStaged) {
+    Write-Host "❌ BLOCKED: '$cursorRulesFile' staged without '$wikiSource'." -ForegroundColor Red
+    Write-Host "   Policy: platform memory updates must stay coupled." -ForegroundColor Red
+    Write-Host "   Next steps:" -ForegroundColor Yellow
+    Write-Host "   1) Update and stage: $wikiSource" -ForegroundColor Yellow
+    Write-Host "   2) Run: pwsh scripts/pwsh/Sync-PlatformMemory.ps1" -ForegroundColor Yellow
+    Write-Host "   3) Stage .cursorrules and commit again" -ForegroundColor Yellow
+    exit 1
+}
+
+# ---------------------------------------------------------------------------
+# Auto-sync: regenerate .cursorrules platform section if wiki source changed
+# ---------------------------------------------------------------------------
 if ($wikiStaged) {
     Write-Host "[SYNC] Platform wiki changed - syncing .cursorrules..." -ForegroundColor Cyan
     $syncScript = Join-Path $PSScriptRoot '..\Sync-PlatformMemory.ps1'

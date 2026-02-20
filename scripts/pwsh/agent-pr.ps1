@@ -1,13 +1,25 @@
 Param(
   [string]$Title,
-  [string]$DescriptionPath = './out/PR_DESC.md',
+  [string]$DescriptionPath,
   [string]$TargetBranch = 'develop',
   [switch]$AutoDetectSource = $true,
   [switch]$WhatIf = $true,
+  [switch]$InitializeAzSession = $true,
+  [string]$InitializeScriptPath = '',
   [switch]$LogEvent
 )
 
 $ErrorActionPreference = 'Stop'
+
+$ScriptRoot = Split-Path -Parent $PSCommandPath
+$RepoRoot = Resolve-Path (Join-Path $ScriptRoot '..\..')
+if (-not $DescriptionPath) {
+  $DescriptionPath = Join-Path $RepoRoot 'out/PR_DESC.md'
+}
+if (-not $InitializeScriptPath) {
+  $InitializeScriptPath = Join-Path $ScriptRoot 'Initialize-AzSession.ps1'
+}
+
 New-Item -ItemType Directory -Force -Path (Split-Path -Parent $DescriptionPath) | Out-Null
 
 function Has-Git { try { $null = git --version 2>$null; return $LASTEXITCODE -eq 0 } catch { return $false } }
@@ -52,6 +64,15 @@ $fileList
 "@
 }
 
+function Initialize-AzDevOpsSession {
+  param([string]$InitScript)
+  if (-not (Test-Path $InitScript)) {
+    throw "Initialize script not found: $InitScript"
+  }
+  Write-Host "Initializing Azure DevOps session..." -ForegroundColor DarkGray
+  & $InitScript
+}
+
 try {
   $src = if ($AutoDetectSource) { Detect-SourceBranch } else { $null }
   if (-not $Title) { $Title = "PR: merge feature branch" }
@@ -63,7 +84,7 @@ try {
   # Pre-Flight Check: Verify Remote Branches
   if ($src) {
     # GOVERNANCE GUARDRAIL: Strict Gitflow Enforcement
-    if ($src -like "feature/*" -and $TargetBranch -in "main", "master") {
+    if ($src -match "^(feature|feat)/" -and $TargetBranch -in "main", "master") {
       Write-Warning "⛔ GOVERNANCE VIOLATION: Stream Crossing Detected."
       Write-Warning "   Policy: 'feature' branches must merge into 'develop' first."
       Write-Warning "   You are trying to merge '$src' directly into '$TargetBranch'. THIS IS FORBIDDEN."
@@ -87,10 +108,16 @@ try {
     }
     else {
       Write-Host "✅ Remote branches verified." -ForegroundColor Green
-      # Fix: Put quotes around the entire argument including the @ symbol to prevent PowerShell here-string parsing error
-      $azCmd = "az repos pr create --source-branch `"$src`" --target-branch `"$TargetBranch`" --title `"$Title`" --description `"@$DescriptionPath`" --auto-complete false --squash false"
-      Write-Host "Suggested command:" -ForegroundColor Cyan
-      Write-Host $azCmd
+      $azCmd = @(
+        "repos", "pr", "create",
+        "--source-branch", $src,
+        "--target-branch", $TargetBranch,
+        "--title", $Title,
+        "--description", (Get-Content $DescriptionPath -Raw),
+        "--auto-complete", "false",
+        "--squash", "false"
+      )
+      Write-Host "Prepared az repos pr create command with description from: $DescriptionPath" -ForegroundColor Cyan
     }
   }
   else {
@@ -98,8 +125,11 @@ try {
   }
 
   if (-not $WhatIf -and $azCmd -and (Has-Az)) {
+    if ($InitializeAzSession) {
+      Initialize-AzDevOpsSession -InitScript $InitializeScriptPath
+    }
     Write-Host "Creating PR via Azure DevOps CLI..." -ForegroundColor Cyan
-    iex $azCmd
+    az @azCmd
   }
   else {
     Write-Host "WhatIf or missing az: not creating PR automatically." -ForegroundColor Yellow
@@ -108,8 +138,10 @@ try {
   if ($LogEvent) {
     try {
       $artifacts = @($DescriptionPath)
-      if (Test-Path 'agents/logs/events.jsonl') { $artifacts += 'agents/logs/events.jsonl' }
-      pwsh 'scripts/activity-log.ps1' -Intent 'pr-proposed' -Actor 'agent_pr_manager' -Env ($env:ENVIRONMENT ?? 'local') -Outcome 'success' -Artifacts $artifacts -Notes $Title | Out-Host
+      $eventsFile = Join-Path $RepoRoot 'agents/logs/events.jsonl'
+      if (Test-Path $eventsFile) { $artifacts += $eventsFile }
+      $activityLogScript = Join-Path $RepoRoot 'scripts/activity-log.ps1'
+      pwsh $activityLogScript -Intent 'pr-proposed' -Actor 'agent_pr_manager' -Env ($env:ENVIRONMENT ?? 'local') -Outcome 'success' -Artifacts $artifacts -Notes $Title | Out-Host
     }
     catch { Write-Warning "Activity log failed: $($_.Exception.Message)" }
   }

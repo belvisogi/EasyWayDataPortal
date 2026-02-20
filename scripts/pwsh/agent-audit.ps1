@@ -43,7 +43,7 @@ if (-not (Test-Path $StandardDoc)) {
     Write-Warning "Standard Document not found at $StandardDoc. Audit proceeds but references might be outdated."
 }
 
-$agents = Get-ChildItem -Path $AgentsRoot -Directory | Where-Object { $_.Name -notin @("logs", "memory") }
+$agents = Get-ChildItem -Path $AgentsRoot -Directory | Where-Object { $_.Name -notin @("logs", "memory", "config", "core", "kb", "skills", "templates", "tests") }
 $totalErrors = 0
 $totalWarnings = 0
 $filesFixed = 0

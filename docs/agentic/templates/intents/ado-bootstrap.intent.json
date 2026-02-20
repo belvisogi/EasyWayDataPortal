@@ -1,0 +1,59 @@
+{
+  "id": "ado-bootstrap",
+  "what": {
+    "purpose": "Bootstrap Azure DevOps per EasyWay: crea Area/Iteration e (opz.) seed backlog per modello ibrido Kanban/Sprint.",
+    "inputs": {
+      "ado": {
+        "type": "object",
+        "properties": {
+          "orgUrl": { "type": "string" },
+          "project": { "type": "string" },
+          "pat": { "type": "string" },
+          "apiVersion": { "type": "string", "default": "7.1-preview.3" }
+        }
+      },
+      "areas": { "type": "array", "items": { "type": "string" } },
+      "iterations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "path": { "type": "string" },
+            "startDate": { "type": "string" },
+            "finishDate": { "type": "string" }
+          }
+        }
+      },
+      "backlog": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": { "type": "string" },
+            "parentKey": { "type": "string" },
+            "workItemType": { "type": "string" },
+            "title": { "type": "string" },
+            "description": { "type": "string" },
+            "acceptanceCriteria": { "type": "string" },
+            "areaPath": { "type": "string" },
+            "iterationPath": { "type": "string" },
+            "tags": { "type": "array", "items": { "type": "string" } },
+            "fields": { "type": "object" }
+          }
+        }
+      },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "planned": { "type": "object" },
+      "created": { "type": "object" }
+    },
+    "events": ["ado-bootstrap.started", "ado-bootstrap.completed"],
+    "success_criteria": ["Area/Iteration create se whatIf=false", "Backlog creato se specificato e whatIf=false"],
+    "failure_criteria": ["OrgUrl/Project mancanti", "ADO PAT mancante (apply)", "Chiamata ADO fallita"]
+  }
+}
+

@@ -1,0 +1,17 @@
+{
+  "id": "etl.merge-target",
+  "what": {
+    "purpose": "Normalizzare, deduplicare e allineare i dati alle tabelle target",
+    "inputs": {
+      "run_id": { "type": "string" },
+      "staging_table": { "type": "string" }
+    },
+    "outputs": {
+      "target_table": { "type": "string" },
+      "merge_stats": { "type": "object" }
+    },
+    "success_criteria": ["Merge riuscito senza violazioni"],
+    "failure_criteria": ["Violazioni chiavi/constraint"]
+  }
+}
+

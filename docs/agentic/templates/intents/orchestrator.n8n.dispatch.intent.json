@@ -1,0 +1,23 @@
+{
+  "id": "orchestrator.n8n.dispatch",
+  "what": {
+    "purpose": "Instradare un intent JSON verso un workflow n8n dichiarato, applicando validazioni minime e propagando metadati (whatIf, correlationId, decision_trace_id).",
+    "inputs": {
+      "action": { "type": "string", "examples": ["wf.excel-csv-upload", "doc-alignment"] },
+      "params": { "type": "object", "description": "Payload specifico dell'azione; deve rispettare il relativo intent WHAT." },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string", "description": "ID per tracciare la run end-to-end." },
+      "decision_trace_id": { "type": "string", "description": "Opzionale; propagato dai gate DQ." }
+    },
+    "outputs": {
+      "workflow_id": { "type": "string", "description": "Nome/id del workflow n8n" },
+      "run_id": { "type": "string", "description": "ID della run n8n" },
+      "dispatch_ok": { "type": "boolean" },
+      "gate_precheck": { "type": "object", "description": "Risultati sintetici dei gate opzionali eseguiti prima del dispatch" }
+    },
+    "events": ["orchestrator.dispatch.started", "orchestrator.dispatch.completed"],
+    "success_criteria": ["Intent valido contro schema", "Workflow n8n invocato con params coerenti"],
+    "failure_criteria": ["Intent non valido", "Workflow non trovato", "Gate precheck KO"]
+  }
+}

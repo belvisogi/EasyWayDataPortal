@@ -161,7 +161,7 @@
       "type": "document"
     }
   ],
-  "classification": "head",
+  "classification": "arm",
   "readme": "README.md",
   "evolution_level": 1,
   "approvals": {},
@@ -172,3 +172,4 @@
     "retry_count": 2
   }
 }
+

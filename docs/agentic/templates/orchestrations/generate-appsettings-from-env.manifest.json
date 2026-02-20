@@ -1,0 +1,27 @@
+{
+  "id": "generate-appsettings-from-env",
+  "version": "0.1.0",
+  "principle": "WHAT-first: definire scopo, contratti e audit prima dell'implementazione",
+  "intent": {
+    "name": "generate-appsettings-from-env",
+    "description": "Generare appsettings.* a partire da .env.local e produrre artifact per az CLI/pipeline.",
+    "trigger": "generate-appsettings-from-env.requested"
+  },
+  "roles": {
+    "requester": "Operatore o n8n che richiede generazione.",
+    "orchestrator": "n8n.dispatch: valida input e invoca runner.",
+    "agent_ams": "Esegue lo script generator e produce artefatti.",
+    "steward_governance": "Review su output e segreti."
+  },
+  "stages": [
+    { "name": "received", "purpose": "Ricevere richiesta e inizializzare correlationId", "entry_criteria": ["generate-appsettings-from-env.requested"], "inputs": ["intent_payload"], "outputs": ["correlationId"], "success_criteria": ["Payload ricevuto"], "failure_criteria": ["Payload mancante"], "human_checkpoints": [], "ux_prompts": "generic_received" },
+    { "name": "validated", "purpose": "Validare input e prerequisiti", "entry_criteria": ["received.success"], "inputs": ["intent_payload"], "outputs": ["validation_ok"], "success_criteria": ["Spec valida"], "failure_criteria": ["Spec invalida"], "human_checkpoints": [], "ux_prompts": "generic_validated" },
+    { "name": "executed", "purpose": "Generare artefatti e registrare evidenze", "entry_criteria": ["validated.success"], "inputs": ["intent_payload"], "outputs": ["artifacts[]"], "success_criteria": ["Artefatti prodotti"], "failure_criteria": ["Esecuzione fallita"], "human_checkpoints": [], "ux_prompts": "generic_executed" },
+    { "name": "completed", "purpose": "Chiudere run con output e next step", "entry_criteria": ["executed.success"], "inputs": ["artifacts[]"], "outputs": ["run_summary"], "success_criteria": ["Output finale disponibile"], "failure_criteria": [], "human_checkpoints": [], "ux_prompts": "generic_done" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}
+

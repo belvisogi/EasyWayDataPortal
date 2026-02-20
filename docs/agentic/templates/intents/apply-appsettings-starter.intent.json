@@ -1,0 +1,23 @@
+{
+  "id": "apply-appsettings-starter",
+  "what": {
+    "purpose": "Applicare un set base di App Settings su App Service (Azure) in modo governato e tracciabile.",
+    "inputs": {
+      "resourceGroup": { "type": "string" },
+      "webAppName": { "type": "string" },
+      "slot": { "type": "string", "description": "Opzionale (staging slot)." },
+      "settings": { "type": "object", "description": "Chiavi App Settings (no segreti in chiaro)." },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "appliedKeys": { "type": "array", "items": { "type": "string" } }
+    },
+    "events": ["apply-appsettings-starter.started", "apply-appsettings-starter.completed"],
+    "success_criteria": ["Settings applicati (apply) o preview prodotto (whatIf)"],
+    "failure_criteria": ["Auth az mancante", "Permessi insufficienti"]
+  }
+}
+
