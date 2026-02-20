@@ -1,0 +1,109 @@
+{
+  "id": "agent_pr_gate",
+  "name": "agent_pr_gate",
+  "role": "Agent_PRGate",
+  "description": "Orchestratore PR Gate: esegue in parallelo agent_review, agent_security e agent_infra e aggrega il verdetto unificato (APPROVE/REQUEST_CHANGES/ESCALATE). Nessuna chiamata LLM diretta - aggregazione programmatica sul worst-case risk.",
+  "owner": "team-platform",
+  "version": "1.0.0",
+  "classification": "arm",
+  "evolution_level": 3,
+  "readme": "README.md",
+  "runner": "agents/agent_pr_gate/Invoke-AgentPRGate.ps1",
+
+  "orchestrator_config": {
+    "type": "parallel",
+    "no_llm": true,
+    "child_agents": ["agent_review", "agent_security", "agent_infra"],
+    "aggregation": "programmatic_worst_case",
+    "verdict_options": ["APPROVE", "REQUEST_CHANGES", "ESCALATE"],
+    "confidence_threshold": 0.70,
+    "engine": "Invoke-ParallelAgents",
+    "cost_estimate": {
+      "per_call": "$0.00130",
+      "note": "sum of 3 child agents; no direct LLM cost"
+    }
+  },
+
+  "context_config": {
+    "memory_files": [],
+    "context_limit_tokens": 0,
+    "enable_memory": false
+  },
+
+  "skills_required": [
+    "orchestration.parallel-agents",
+    "utilities.import-secrets"
+  ],
+
+  "skills_optional": [],
+
+  "rag_config": {
+    "enabled": false,
+    "description": "RAG delegated to child agents (agent_security, agent_infra)"
+  },
+
+  "allowed_tools": ["pwsh"],
+
+  "actions": [
+    {
+      "name": "gate:pr-check",
+      "description": "Esegue in parallelo review:docs-impact + security:analyze + infra:compliance-check. Aggrega i risultati in un verdetto unificato con risk_level, confidence e blocking_findings.",
+      "evolution_level": 3,
+      "uses_skills": ["orchestration.parallel-agents"],
+      "params": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Contesto PR: titolo, files modificati, diff summary, PR number"
+        },
+        "pr_number": {
+          "type": "string",
+          "required": false,
+          "description": "Numero della Pull Request (per logging e metadata output)"
+        },
+        "global_timeout": {
+          "type": "integer",
+          "required": false,
+          "description": "Timeout totale in secondi per tutti i child agents. Default: 300"
+        }
+      }
+    }
+  ],
+
+  "allowed_paths": {
+    "read": [
+      "agents/agent_pr_gate/**",
+      "agents/agent_review/**",
+      "agents/agent_security/**",
+      "agents/agent_infra/**",
+      "agents/skills/**",
+      "agents/logs/**"
+    ],
+    "write": [
+      "agents/logs/"
+    ]
+  },
+
+  "required_gates": [],
+
+  "approvals": {
+    "escalate": ["Human_Governance_Approval"]
+  },
+
+  "knowledge_sources": [],
+
+  "error_handling": {
+    "retry_count": 0,
+    "retry_delay_seconds": 0,
+    "fallback_mode": "escalate_on_failure",
+    "alert_on_failure": true
+  },
+
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "date": "2026-02-19",
+      "changes": "Initial implementation: parallel orchestrator gate:pr-check - programmatic verdict aggregation from 3 L3 child agents"
+    }
+  ]
+}
