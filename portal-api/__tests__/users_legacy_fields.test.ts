@@ -20,11 +20,36 @@ jest.mock('../src/middleware/auth', () => ({
         next();
     }
 }));
+jest.mock('../src/middleware/tenant', () => ({
+    extractTenantId: (req: any, res: any, next: any) => {
+        req.tenantId = 'tenant-test-01';
+        next();
+    }
+}));
 
 describe('Users API - Legacy Fields Deprecation', () => {
 
     const mockToken = 'Bearer mock-jwt-token';
     const testTenantId = 'tenant-test-01';
+
+    beforeAll(() => {
+        // Keep tests isolated from real SQL config.
+        process.env.DB_MODE = 'mock';
+    });
+
+    async function createSeedUser(email: string) {
+        const res = await request(app)
+            .post('/api/users')
+            .set('Authorization', mockToken)
+            .set('X-Tenant-Id', testTenantId)
+            .send({
+                email,
+                display_name: 'Seed User',
+                profile_id: 'user'
+            });
+        expect(res.status).toBe(201);
+        return res.body.user_id;
+    }
 
     describe('POST /api/users - Create User', () => {
 
@@ -82,7 +107,7 @@ describe('Users API - Legacy Fields Deprecation', () => {
     describe('PUT /api/users/:user_id - Update User', () => {
 
         it('should accept legacy "name" + "surname" and concatenate to display_name', async () => {
-            const userId = 'user-123';
+            const userId = await createSeedUser('seed-legacy-fullname@test.com');
 
             const res = await request(app)
                 .put(`/api/users/${userId}`)
@@ -98,7 +123,7 @@ describe('Users API - Legacy Fields Deprecation', () => {
         });
 
         it('should handle only "name" without surname', async () => {
-            const userId = 'user-456';
+            const userId = await createSeedUser('seed-legacy-name@test.com');
 
             const res = await request(app)
                 .put(`/api/users/${userId}`)
@@ -113,7 +138,7 @@ describe('Users API - Legacy Fields Deprecation', () => {
         });
 
         it('should accept canonical display_name directly', async () => {
-            const userId = 'user-789';
+            const userId = await createSeedUser('seed-canonical-update@test.com');
 
             const res = await request(app)
                 .put(`/api/users/${userId}`)
@@ -128,7 +153,7 @@ describe('Users API - Legacy Fields Deprecation', () => {
         });
 
         it('should map legacy profile_code to profile_id', async () => {
-            const userId = 'user-code-test';
+            const userId = await createSeedUser('seed-profile-code@test.com');
 
             const res = await request(app)
                 .put(`/api/users/${userId}`)

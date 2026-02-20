@@ -84,12 +84,12 @@ Include: Orchestrazione Multi-Agente, Factory Kit, Cost Telemetry & Governance.
 1. Clona la repo  
    `git clone ...`
 2. Setup ambiente  
-   - Node.js 18+, npm install in `easyway-portal/easyway-portal-api/`
+   - Node.js 18+, npm install in `portal-api/`
    - Variabili ambiente: vedi [deployment-decision-mvp.md](Wiki/EasyWayData.wiki/deployment-decision-mvp.md)
    - DB: Azure SQL, migrazioni in `db/migrations/` (Git + SQL diretto, vedi [db-migrations.md](Wiki/EasyWayData.wiki/easyway-webapp/01_database_architecture/db-migrations.md))
 3. Avvio locale (dual‑mode)  
    - Sviluppo low‑cost: imposta `DB_MODE=mock` e usa `npm run dev:jwt` per generare token locali; dettagli in [Sviluppo Locale Dual‑Mode](Wiki/EasyWayData.wiki/dev-dual-mode.md)
-   - Avvio: `cd easyway-portal/easyway-portal-api/ && npm run dev`
+   - Avvio: `cd portal-api/ && npm run dev`
    - Test API: vedi collezioni Postman in `tests/postman/`
 4. Deploy cloud  
    - Pipeline Azure DevOps (vedi [roadmap.md](Wiki/EasyWayData.wiki/roadmap.md) e [deployment-decision-mvp.md](Wiki/EasyWayData.wiki/deployment-decision-mvp.md))
@@ -162,7 +162,7 @@ Co-Authored by:
 - [KB – Stubs Workflow E2E](agents/kb/recipes.jsonl) — id: kb-orch-intents-stubs-301
 - [KB – DQ Blueprint Agent](agents/kb/recipes.jsonl) — id: kb-agent-dq-blueprint-201
 - [HOWTO – WHAT‑first + Diario di Bordo](Wiki/EasyWayData.wiki/howto-what-first-team.md)
-- [Onboarding API](easyway-portal/easyway-portal-api/README.md)
+- [Onboarding API](portal-api/README.md)
 - [Database Migrations](db/README.md)
 - [Test & QA](tests/README.md)
 
