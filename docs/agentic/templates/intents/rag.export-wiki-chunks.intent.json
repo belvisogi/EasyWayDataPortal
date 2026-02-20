@@ -1,0 +1,21 @@
+{
+  "id": "rag.export-wiki-chunks",
+  "what": {
+    "purpose": "Rigenerare gli artifact Wiki (index/chunks) per ingestion RAG senza upload (runtime separato).",
+    "inputs": {
+      "wikiRoot": { "type": "string", "default": "Wiki/EasyWayData.wiki" },
+      "outDir": { "type": "string", "default": "Wiki/EasyWayData.wiki" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "artifacts": { "type": "array", "items": { "type": "string" } }
+    },
+    "events": ["rag.export.started", "rag.export.completed"],
+    "success_criteria": ["Artifact generati (se whatIf=false)", "Nessun secret incluso"],
+    "failure_criteria": ["Wiki root mancante", "Script wiki non disponibili"]
+  }
+}
+

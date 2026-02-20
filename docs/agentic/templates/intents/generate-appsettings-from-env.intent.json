@@ -1,0 +1,21 @@
+{
+  "id": "generate-appsettings-from-env",
+  "what": {
+    "purpose": "Generare file appsettings.* a partire da .env.local per flusso agentico (senza segreti in repo).",
+    "inputs": {
+      "apiPath": { "type": "string", "default": "portal-api/easyway-portal-api" },
+      "outDir": { "type": "string", "default": "out" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "artifacts": { "type": "array", "items": { "type": "string" } }
+    },
+    "events": ["generate-appsettings-from-env.started", "generate-appsettings-from-env.completed"],
+    "success_criteria": ["File generati"],
+    "failure_criteria": ["Path mancante", "Parsing env fallito"]
+  }
+}
+

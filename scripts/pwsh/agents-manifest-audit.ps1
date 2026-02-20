@@ -27,7 +27,7 @@ function Add-Issue([ref]$issues, [string]$severity, [string]$code, [string]$mess
 
 if (-not (Test-Path $AgentsDir)) { throw "AgentsDir not found: $AgentsDir" }
 
-$agentDirs = Get-ChildItem $AgentsDir -Directory | Where-Object { $_.Name -notin @('kb','logs','core') } | Sort-Object Name
+$agentDirs = Get-ChildItem $AgentsDir -Directory | Where-Object { $_.Name -notin @('kb','logs','core','config','skills','templates','tests') } | Sort-Object Name
 $results = @()
 $hasErrors = $false
 

@@ -1,0 +1,23 @@
+{
+  "id": "db.ddl-inventory",
+  "what": {
+    "purpose": "Rigenerare l'inventario DB (tabelle + stored procedure) a partire da DDL canonico + provisioning + migrazioni Flyway e aggiornare la pagina Wiki canonica (ddl-inventory).",
+    "inputs": {
+      "dbDir": { "type": "string", "default": "old/db/DataBase_legacy", "description": "Cartella legacy per snapshot/provisioning (non canonico)." },
+      "flywayDir": { "type": "string", "default": "db/flyway/sql", "description": "Cartella migrazioni Flyway (deploy incrementale, fonte canonica per ambienti condivisi)." },
+      "includeProvisioning": { "type": "boolean", "default": false, "description": "Se true include provisioning legacy (non canonico) nel parsing inventario." },
+      "includeSnapshot": { "type": "boolean", "default": false, "description": "Se true include snapshot legacy (non canonico) nel parsing inventario." },
+      "writeWiki": { "type": "boolean", "default": true, "description": "Se true aggiorna la pagina Wiki ddl-inventory.md." },
+      "summaryOut": { "type": "string", "default": "db-ddl-inventory.json", "description": "Percorso output JSON (machine-readable)." }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "counts": { "type": "object", "description": "Conteggi inventario (tables, storedProcedures, ecc.)." },
+      "wikiPage": { "type": "string", "description": "Percorso pagina aggiornata (se writeWiki=true)." },
+      "artifacts": { "type": "array", "items": { "type": "string" }, "description": "File generati o aggiornati." }
+    },
+    "events": ["db.ddl-inventory.started", "db.ddl-inventory.completed"],
+    "success_criteria": ["DDL parsati senza errori", "Inventario generato", "Wiki aggiornata (se richiesto)"],
+    "failure_criteria": ["DDL mancanti/non leggibili", "Parsing fallito", "Scrittura Wiki fallita"]
+  }
+}

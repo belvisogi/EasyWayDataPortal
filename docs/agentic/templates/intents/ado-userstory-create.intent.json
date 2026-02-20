@@ -1,0 +1,51 @@
+{
+  "id": "ado-userstory-create",
+  "what": {
+    "purpose": "Creare una User Story in Azure DevOps con prefetch best practices (Wiki locale + fonti esterne).",
+    "inputs": {
+      "ado": {
+        "type": "object",
+        "properties": {
+          "orgUrl": { "type": "string" },
+          "project": { "type": "string" },
+          "pat": { "type": "string" },
+          "apiVersion": { "type": "string", "default": "7.1-preview.3" }
+        }
+      },
+      "workItemType": { "type": "string", "default": "User Story" },
+      "title": { "type": "string" },
+      "description": { "type": "string" },
+      "acceptanceCriteria": { "type": "string" },
+      "areaPath": { "type": "string" },
+      "iterationPath": { "type": "string" },
+      "tags": { "type": "array", "items": { "type": "string" } },
+      "fields": { "type": "object" },
+      "prefetchBestPractices": { "type": "boolean", "default": true },
+      "wikiRoot": { "type": "string", "default": "Wiki/EasyWayData.wiki" },
+      "outDir": { "type": "string", "default": "out/ado-best-practices" },
+      "downloadExternal": { "type": "boolean", "default": true },
+      "externalSources": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": [
+          "https://learn.microsoft.com/azure/devops/boards/backlogs/create-your-backlog?view=azure-devops",
+          "https://learn.microsoft.com/azure/devops/boards/work-items/guidance/create-work-items?view=azure-devops",
+          "https://learn.microsoft.com/azure/devops/boards/work-items/guidance/user-stories?view=azure-devops",
+          "https://learn.microsoft.com/azure/devops/boards/boards/boards?view=azure-devops"
+        ]
+      },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "workItemId": { "type": "string" },
+      "workItemUrl": { "type": "string" },
+      "bestPracticesArtifacts": { "type": "array", "items": { "type": "string" } }
+    },
+    "events": ["ado-userstory-create.started", "ado-userstory-create.completed"],
+    "success_criteria": ["Best practices raccolte (o skip)", "Work item creato se whatIf=false"],
+    "failure_criteria": ["Titolo mancante", "ADO PAT mancante", "Chiamata ADO fallita"]
+  }
+}

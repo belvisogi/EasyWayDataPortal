@@ -1,0 +1,28 @@
+{
+  "id": "db-user-rotate",
+  "what": {
+    "purpose": "Ruotare credenziali utente DB (WhatIf-by-default) e aggiornare secret_ref se configurato.",
+    "inputs": {
+      "server": { "type": "string" },
+      "database": { "type": "string" },
+      "username": { "type": "string" },
+      "auth": { "type": "string", "examples": ["sql", "aad"], "default": "sql" },
+      "storeInKeyVault": { "type": "boolean", "default": false },
+      "keyVault": { "type": "object" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "executed": { "type": "boolean" },
+      "passwordMasked": { "type": "string" },
+      "stateBefore": { "type": "object" },
+      "stateAfter": { "type": "object" }
+    },
+    "events": ["db-user-rotate.started", "db-user-rotate.completed"],
+    "success_criteria": ["Precheck OK (whatIf) o rotazione completata (apply)"],
+    "failure_criteria": ["Utente mancante", "Permessi insufficienti"]
+  }
+}
+

@@ -1,30 +1,21 @@
 ---
-type: guide
-status: draft
----
-
----
-title: EnforcerCheck – Guardrail allowed_paths in CI
+title: EnforcerCheck - Guardrail allowed_paths in CI
 tags: [ci, guardrail, governance, domain/control-plane, layer/spec, audience/dev, privacy/internal, language/it]
 status: active
-updated: 2026-01-16
-redaction: [email, phone]
+updated: 2026-02-20
 id: ew-enforcer-guardrail
 chunk_hint: 250-400
 entities: []
-include: true
 summary: Guardrail CI che valida i changed files contro allowed_paths dei manifest agent, fail-fast in PreChecks per bloccare modifiche fuori scope.
-llm: 
-pii: none
 owner: team-platform
-
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 250-400
+  pii: low
+type: guide
+---
 
-[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 
-
-Perché
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > `r`n`r`nPerché
 - Serve a bloccare azioni “fuori scope” in modo automatico e precoce. In pratica, verifica che i file toccati da una PR rientrino negli `allowed_paths` dell’agente responsabile (da `agents/<agent>/manifest.json`).
 
 Cosa fa
@@ -62,6 +53,8 @@ Riferimenti
 - [Verifica CI – ewctl gates e Flyway (branch non-main)](./ci-verifica-ewctl-gates-e-flyway.md)
 - [Governance DQ – RACI, Processi e Checklist](./governance-dq.md)
 - [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
+
+
 
 
 

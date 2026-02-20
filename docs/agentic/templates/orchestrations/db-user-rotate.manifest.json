@@ -1,0 +1,28 @@
+{
+  "id": "db-user-rotate",
+  "version": "0.1.0",
+  "principle": "WHAT-first: definire scopo, contratti e audit prima dell'implementazione",
+  "intent": {
+    "name": "db-user-rotate",
+    "description": "Rotazione credenziali DB user in modo governato (WhatIf-by-default) con audit.",
+    "trigger": "db-user-rotate.requested"
+  },
+  "roles": {
+    "requester": "Operatore o n8n che richiede rotazione.",
+    "orchestrator": "n8n.dispatch: valida input e invoca agent_dba.",
+    "agent_dba": "Esegue rotate in WhatIf/apply e produce output strutturato.",
+    "steward_governance": "Approva apply su ambienti condivisi/prod."
+  },
+  "stages": [
+    { "name": "received", "purpose": "Ricevere richiesta e inizializzare correlationId", "entry_criteria": ["db-user-rotate.requested"], "inputs": ["intent_payload"], "outputs": ["correlationId"], "success_criteria": ["Payload ricevuto"], "failure_criteria": ["Payload mancante"], "human_checkpoints": [], "ux_prompts": "generic_received" },
+    { "name": "validated", "purpose": "Validare input e policy", "entry_criteria": ["received.success"], "inputs": ["intent_payload"], "outputs": ["validation_ok"], "success_criteria": ["Spec valida"], "failure_criteria": ["Spec invalida"], "human_checkpoints": [], "ux_prompts": "generic_validated" },
+    { "name": "approved", "purpose": "Checkpoint governance per apply", "entry_criteria": ["validated.success"], "inputs": ["intent_payload"], "outputs": ["approved"], "success_criteria": ["Approvazione registrata"], "failure_criteria": ["Non approvato"], "human_checkpoints": ["Approvazione governance"], "ux_prompts": "generic_approved" },
+    { "name": "executed", "purpose": "Eseguire rotate e registrare evidenze", "entry_criteria": ["approved.success"], "inputs": ["intent_payload"], "outputs": ["stateBefore", "stateAfter"], "success_criteria": ["Output strutturato prodotto"], "failure_criteria": ["Esecuzione fallita"], "human_checkpoints": [], "ux_prompts": "generic_executed" },
+    { "name": "completed", "purpose": "Chiudere run con output e next step", "entry_criteria": ["executed.success"], "inputs": ["stateAfter"], "outputs": ["run_summary"], "success_criteria": ["Output finale disponibile"], "failure_criteria": [], "human_checkpoints": [], "ux_prompts": "generic_done" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}
+

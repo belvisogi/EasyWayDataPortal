@@ -1,0 +1,24 @@
+{
+  "id": "ingest.upload-file",
+  "what": {
+    "purpose": "Ricevere un file xlsx/csv autenticato, salvarlo in landing, generare job/run, produrre anteprima sicura",
+    "inputs": {
+      "file": { "type": "binary", "constraints": { "max_mb": 50, "mime": ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "text/csv"] } },
+      "user_id": { "type": "string" },
+      "tenant": { "type": "string" },
+      "scope": { "type": "object", "properties": { "domain_id": {"type":"string"}, "flow_id": {"type":"string"}, "instance_id": {"type":"string"} }, "required": ["domain_id","flow_id","instance_id"] }
+    },
+    "outputs": {
+      "run_id": { "type": "string" },
+      "job_id": { "type": "string" },
+      "landing_path": { "type": "string" },
+      "file_hash": { "type": "string" },
+      "headers": { "type": "array", "items": { "type": "string" } },
+      "sample_preview_path": { "type": "string" }
+    },
+    "events": ["argos.run.completed"],
+    "success_criteria": ["File salvato con hash", "Anteprima disponibile"],
+    "failure_criteria": ["Formato non supportato", "File troppo grande"]
+  }
+}
+

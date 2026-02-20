@@ -42,7 +42,7 @@
     {
       "name": "frontend:build",
       "description": "Esegue build del frontend",
-      "script": "../../scripts/agent-frontend.ps1",
+      "script": "../../scripts/pwsh/agent-frontend.ps1",
       "params": {
         "Action": "build"
       }
@@ -50,7 +50,7 @@
     {
       "name": "frontend:deploy",
       "description": "Deploya il frontend su Azure Static Web Apps",
-      "script": "../../scripts/agent-frontend.ps1",
+      "script": "../../scripts/pwsh/agent-frontend.ps1",
       "params": {
         "Action": "deploy"
       }

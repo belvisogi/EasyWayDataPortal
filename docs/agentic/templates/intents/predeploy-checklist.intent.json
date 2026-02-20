@@ -1,0 +1,24 @@
+{
+  "id": "predeploy-checklist",
+  "what": {
+    "purpose": "Eseguire la checklist pre-deploy (config/env/connessioni) e produrre un report machine-readable.",
+    "inputs": {
+      "targetEnv": { "type": "string", "examples": ["local", "dev", "test", "prod"] },
+      "apiPath": { "type": "string", "default": "portal-api/easyway-portal-api" },
+      "summaryOut": { "type": "string", "default": "checklist.json" },
+      "checklistOutput": { "type": "string", "default": "both", "examples": ["json", "human", "both"] },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "summaryOut": { "type": "string" },
+      "checklistPath": { "type": "string" },
+      "artifacts": { "type": "array" }
+    },
+    "events": ["predeploy-checklist.started", "predeploy-checklist.completed"],
+    "success_criteria": ["Checklist completata"],
+    "failure_criteria": ["Env incompleto", "Connessioni non disponibili"]
+  }
+}

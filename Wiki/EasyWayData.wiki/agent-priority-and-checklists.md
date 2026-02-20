@@ -1,30 +1,21 @@
 ---
-type: guide
-status: draft
----
-
----
 title: Agent Priority Rules e Checklists (human-in-the-loop)
 tags: [agents, governance, docs, domain/control-plane, layer/reference, audience/dev, privacy/internal, language/it]
 status: active
-updated: 2026-01-16
-redaction: [email, phone]
+updated: 2026-02-20
 id: ew-agent-priority-and-checklists
 chunk_hint: 250-400
 entities: []
-include: true
 summary: Regole per decidere quando un agente deve proporre una checklist (mandatory/advisory) e come applicare human-in-the-loop senza alert fatigue.
-llm: 
-pii: none
 owner: team-platform
-
 llm:
   include: true
-  chunk_hint: 5000---
+  chunk_hint: 250-400
+  pii: low
+type: guide
+---
 
-[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > 
-
-Obiettivo
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > `r`n`r`nObiettivo
 - Rendere la proposta di checklist una metodologia comune a TUTTI gli agenti, ridurre “alert fatigue” e proporre checklists solo quando serve, con regole per‑agente parametriche.
 
 Come funziona
@@ -71,6 +62,8 @@ Riferimenti
 - [Agent ScrumMaster – Single Owner, Multi‑Agent](./agents-scrummaster.md)
 - [Metodo di Lavoro Agent‑First](./agent-first-method.md)
 - [Governance DQ – RACI, Processi e Checklist](./governance-dq.md)
+
+
 
 
 

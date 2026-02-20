@@ -1,0 +1,197 @@
+{
+  "uploaded": {
+    "ok": "File received. Analyzing…",
+    "error": "Unsupported format or file too large."
+  },
+  "parsed": {
+    "ok": "Read headers and a preview.",
+    "error": "I can't read the file. Try our template or export as CSV."
+  },
+  "dq": {
+    "pass": "Quality checks passed.",
+    "defer": "Some warnings. Proceeding safely.",
+    "fail": "Missing fields or wrong types. I’ll show you how to fix."
+  },
+  "mapping": {
+    "ok": "Mapped columns automatically.",
+    "warn": "Some fields are missing: here’s how to complete them."
+  },
+  "staging": {
+    "ok": "Loaded into staging.",
+    "error": "Staging load failed."
+  },
+  "merge": {
+    "ok": "Aligned data to target tables.",
+    "error": "Key or constraint issues."
+  },
+  "views": {
+    "ok": "Views and KPIs updated.",
+    "error": "Materialization failed."
+  },
+  "done": {
+    "ok": "Dashboard ready. Want to ask a question?"
+  },
+  "db_table_create_received": {
+    "ok": "Request received. Validating the table spec."
+  },
+  "db_table_create_validated": {
+    "ok": "Spec valid. Generating DDL and documentation.",
+    "error": "Invalid spec: check schema, table and columns."
+  },
+  "db_table_create_artifacts": {
+    "ok": "Artifacts generated (migration + Wiki page). Want to review before apply?",
+    "error": "Artifact generation failed. Check details."
+  },
+  "db_table_create_apply": {
+    "ok": "Apply completed.",
+    "error": "Apply failed. Check logs and retry after fixing."
+  },
+  "db_table_create_done": {
+    "ok": "Completed. Want to create another table or apply the migration?"
+  },
+  "api_error_triage_received": {
+    "ok": "Request received. Validating the API call data."
+  },
+  "api_error_triage_validated": {
+    "ok": "Spec valid. Starting classification.",
+    "error": "Invalid spec: check method, url and service."
+  },
+  "api_error_triage_triaged": {
+    "ok": "Error classified. Suggesting next actions.",
+    "error": "Classification failed. Check details."
+  },
+  "api_error_triage_logged": {
+    "ok": "Event logged.",
+    "error": "Logging failed. Check permissions and path."
+  },
+  "api_error_triage_done": {
+    "ok": "Triage completed. Want to open an issue or retry?"
+  },
+  "iam_provision_received": {
+    "ok": "Request received. Validating requirements and security policy."
+  },
+  "iam_provision_validated": {
+    "ok": "Spec valid. Approval required to proceed.",
+    "error": "Invalid spec: check target, identity and permissions."
+  },
+  "iam_provision_approved": {
+    "ok": "Approved. Executing steps via agents (WhatIf or apply).",
+    "error": "Not approved. Operation cancelled."
+  },
+  "iam_provision_executed": {
+    "ok": "Execution completed. Recording audit and references.",
+    "error": "Execution failed. Check logs and retry."
+  },
+  "iam_provision_done": {
+    "ok": "Provisioning completed. Want to add another access?"
+  },
+  "rag_export_received": {
+    "ok": "Request received. Regenerating Wiki artifacts for RAG."
+  },
+  "rag_export_done": {
+    "ok": "Export completed. Want to publish artifacts to runtime?"
+  },
+  "runtime_bundle_received": {
+    "ok": "Request received. Creating runtime bundle (partial copy, no secrets)."
+  },
+  "runtime_bundle_done": {
+    "ok": "Bundle created. Want to publish it to the runner?"
+  },
+  "obs_healthcheck_done": {
+    "ok": "Healthcheck completed."
+  },
+  "actions": {
+    "continue": "Continue",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "open_dashboard": "Open Dashboard",
+    "ask_question": "Ask a question",
+    "download_template": "Download CSV template",
+    "choose_column": "Choose column",
+    "see_details": "See details",
+    "apply_mapping": "Apply mapping",
+    "save_template": "Save as template",
+    "open_log": "Open log"
+  },
+  "agent_scaffold_generated": {
+    "ok": "Artifacts generated (WhatIf-by-default). Confirm writing to repo?",
+    "error": "Generation failed. Check details."
+  },
+  "agent_scaffold_received": {
+    "ok": "Request received. Validating agent scaffold."
+  },
+  "agent_scaffold_validated": {
+    "ok": "Spec valid. Preparing RAG context and generating artifacts.",
+    "error": "Invalid spec: check agentName/role and update flags."
+  },
+  "agent_scaffold_done": {
+    "ok": "Scaffold completed. Run gates and propose a PR?"
+  },
+  "agent_scaffold_context": {
+    "ok": "RAG context ready (Azure AI Search) or skipped."
+  },
+  "release_preflight_security_received": {
+    "ok": "Request received. Starting release security preflight."
+  },
+  "release_preflight_security_validated": {
+    "ok": "Spec valid. Running security/compliance/audit checks.",
+    "error": "Invalid spec: check targetEnv and changeSummary."
+  },
+  "release_preflight_security_evaluated": {
+    "ok": "Checklist completed. Summarizing outcome and evidence.",
+    "error": "Evaluation failed. Check details."
+  },
+  "release_preflight_security_done": {
+    "ok": "Preflight completed. Proceed to deploy or fix failed items?"
+  },
+  "ado_userstory_received": {
+    "ok": "Request received. Validating User Story inputs."
+  },
+  "ado_userstory_validated": {
+    "ok": "Spec valid. Starting best practice prefetch.",
+    "error": "Invalid spec: check orgUrl, project and title."
+  },
+  "ado_userstory_bestpractice": {
+    "ok": "Best practices collected (local Wiki + external sources).",
+    "error": "Best practice prefetch failed. Check details."
+  },
+  "ado_userstory_executed": {
+    "ok": "User Story created in Azure DevOps.",
+    "error": "Creation failed. Check logs and permissions."
+  },
+  "ado_userstory_done": {
+    "ok": "Completed. Want to create another User Story?"
+  },
+  "ado_bootstrap_received": {
+    "ok": "Request received. Validating Azure DevOps bootstrap parameters."
+  },
+  "ado_bootstrap_validated": {
+    "ok": "Spec valid. Approval required to proceed with Azure DevOps changes.",
+    "error": "Invalid spec: check orgUrl, project, areas/iterations."
+  },
+  "ado_bootstrap_executed": {
+    "ok": "Bootstrap completed. Areas/iterations created and backlog seed ready.",
+    "error": "Bootstrap failed. Check logs and permissions."
+  },
+  "ado_bootstrap_done": {
+    "ok": "Completed. Want to create the initial epics/features too?"
+  },
+  "generic_received": {
+    "ok": "Request received. Starting operation."
+  },
+  "generic_validated": {
+    "ok": "Spec valid. Proceeding with execution.",
+    "error": "Invalid spec: check required fields."
+  },
+  "generic_approved": {
+    "ok": "Approved. Proceeding.",
+    "error": "Not approved. Operation cancelled."
+  },
+  "generic_executed": {
+    "ok": "Execution completed. Recording evidence.",
+    "error": "Execution failed. Check details."
+  },
+  "generic_done": {
+    "ok": "Operation completed."
+  }
+}

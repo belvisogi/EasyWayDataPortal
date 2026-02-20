@@ -1,0 +1,20 @@
+{
+  "id": "db-generate-docs",
+  "what": {
+    "purpose": "Rigenerare documentazione DB (ERD/indice SP/diagram JSON) da source-of-truth e pubblicare artifact.",
+    "inputs": {
+      "target": { "type": "string", "examples": ["portal-diagram", "wiki"], "description": "Artefatti da rigenerare." },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "artifacts": { "type": "array", "items": { "type": "string" } }
+    },
+    "events": ["db-generate-docs.started", "db-generate-docs.completed"],
+    "success_criteria": ["Artefatti DB aggiornati"],
+    "failure_criteria": ["Generazione fallita"]
+  }
+}
+

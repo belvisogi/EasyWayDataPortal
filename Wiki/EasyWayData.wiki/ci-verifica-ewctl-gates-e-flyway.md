@@ -16,7 +16,7 @@ next: TODO - definire next step.
 type: guide
 ---
 
-[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > [[Layer - Gate|Gate]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > Layer - Gate
 
 Obiettivo
 - Verificare che i governance gates via `ewctl` e lo stage DB/Flyway funzionino su una branch non-main, con logging e artifact attesi.
@@ -69,6 +69,7 @@ Riferimenti
 - [Multi‑Agent & Governance – EasyWay](./agents-governance.md)
 - [Doc Alignment Gate](./doc-alignment-gate.md)
 - [EnforcerCheck – Guardrail allowed_paths in CI](./enforcer-guardrail.md)
+
 
 
 

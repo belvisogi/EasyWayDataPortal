@@ -1,0 +1,17 @@
+{
+  "id": "analytics.materialize-defaults",
+  "what": {
+    "purpose": "Creare viste e materializzazioni standard per KPI e dashboard",
+    "inputs": {
+      "instance_id": { "type": "string" },
+      "target_table": { "type": "string" }
+    },
+    "outputs": {
+      "views": { "type": "array", "items": { "type": "string" } },
+      "kpi": { "type": "object" }
+    },
+    "success_criteria": ["Viste aggiornate e accessibili"],
+    "failure_criteria": ["Materializzazione fallita"]
+  }
+}
+
