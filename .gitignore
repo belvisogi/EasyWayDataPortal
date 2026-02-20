@@ -20,6 +20,12 @@ coverage
 .vscode/
 .idea/
 
+# Python bytecode/cache
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+
 # Wiki tooling/cache
 Wiki/**/.obsidian/
 Wiki/**/.vscode/
