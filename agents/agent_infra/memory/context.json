@@ -1,10 +1,32 @@
 {
   "created": "2026-01-17T21:55:54.8921703+01:00",
+  "updated": "2026-02-19T00:00:00+01:00",
   "stats": {
-    "last_active": null,
+    "total_runs": 0,
+    "successful": 0,
     "errors": 0,
-    "runs": 0
+    "last_run": null,
+    "avg_duration_seconds": 0,
+    "success_rate": 0
   },
-  "preferences": {},
-  "first_run": true
+  "knowledge": {
+    "managed_workdirs": ["infra/terraform"],
+    "known_issues": [],
+    "drift_history": []
+  },
+  "preferences": {
+    "whatif_default": true,
+    "llm_provider": "deepseek",
+    "llm_model": "deepseek-chat",
+    "default_workdir": "infra/terraform"
+  },
+  "llm_usage": {
+    "total_calls": 0,
+    "total_tokens_in": 0,
+    "total_tokens_out": 0,
+    "total_cost_usd": 0,
+    "last_call": null
+  },
+  "last_errors": [],
+  "first_run": false
 }

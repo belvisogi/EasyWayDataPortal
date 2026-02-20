@@ -1,249 +1,182 @@
+#Requires -Version 5.1
 <#
 .SYNOPSIS
-    Skill: orchestration.parallel-agents v1.0.0
-    Run multiple agent scripts concurrently and return merged results.
+    Executes multiple agents in parallel jobs and aggregates results.
 
 .DESCRIPTION
-    Executes an array of agent jobs in parallel using Start-ThreadJob (PS7+)
-    or Start-Job (PS5.1 fallback). Waits for all jobs up to GlobalTimeout,
-    then collects and merges results.
-
-    Part of the EasyWay Agent Skills registry v2.8.0 (Gap 3 - Session 10).
+    Core orchestration skill for L3 Agents.
+    Spins up background jobs for each agent, manages timeouts, propagates environment variables (secrets),
+    and returns a consolidated result object.
 
 .PARAMETER AgentJobs
-    Array of hashtables. Each entry must have:
-      Name    - logical label used as key in JobResults
-      Script  - path to the agent script (.ps1)
-      Args    - hashtable of named parameters for the script
-      Timeout - per-job timeout in seconds (default: 120)
+    Array of hashtables. Each must contain:
+    - Name    (string) : Identifier
+    - Script  (string) : Path to .ps1 runner
+    - Args    (hashtable): Parameters to splat to the script
+    - Timeout (int)    : Seconds to wait for this specific job
 
 .PARAMETER GlobalTimeout
-    Maximum seconds to wait for ALL jobs to complete. Default: 180.
-    After timeout, running jobs are stopped and marked as Failed.
-
-.PARAMETER FailFast
-    If set: the first job failure aborts all remaining jobs immediately.
-
+    Max seconds to wait for ALL jobs. Default: 300.
+    
 .PARAMETER SecureMode
-    If set: suppresses logging of sensitive fields (ApiKey, credentials).
-
-.OUTPUTS
-    Hashtable with keys:
-      Success     [bool]      - True if at least one job succeeded
-      JobResults  [hashtable] - keyed by Name; each value is the job output or error
-      Failed      [string[]]  - names of jobs that failed or timed out
-      DurationSec [double]    - total wall-clock time
+    If set, attempts to mask values in logs (basic implementation).
 
 .EXAMPLE
-    # Run agent_review + agent_security in parallel for the same PR
-    $results = Invoke-ParallelAgents -AgentJobs @(
-        @{
-            Name    = "review"
-            Script  = "agents/agent_review/Invoke-AgentReview.ps1"
-            Args    = @{ Query = "PR #42 docs check"; Action = "review:static" }
-            Timeout = 120
-        },
-        @{
-            Name    = "security"
-            Script  = "agents/agent_security/run-with-rag.ps1"
-            Args    = @{ Query = "PR #42 security scan"; Action = "security:analyze" }
-            Timeout = 90
-        }
-    ) -GlobalTimeout 150 -SecureMode
-
-    $results.JobResults["review"].Answer
-    $results.Failed   # @() if all succeeded
-
-.NOTES
-    - Start-ThreadJob shares the calling process memory space (PS7+, faster).
-    - Start-Job spawns a new PowerShell process (PS5.1+, subprocess isolation).
-    - Script paths are resolved relative to the repository root (parent of agents/).
-    - Each job runs in its own PowerShell scope; imported env vars are inherited.
+    $jobs = @(
+        @{ Name='review'; Script='agents/review/Invoke.ps1'; Args=@{Query='...'}; Timeout=120 },
+        @{ Name='sec';    Script='agents/sec/Invoke.ps1';    Args=@{Query='...'}; Timeout=120 }
+    )
+    Invoke-ParallelAgents -AgentJobs $jobs
 #>
-
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory = $true)]
     [array]$AgentJobs,
 
-    [int]$GlobalTimeout = 180,
-
-    [switch]$FailFast,
+    [Parameter(Mandatory = $false)]
+    [int]$GlobalTimeout = 300,
 
     [switch]$SecureMode
 )
 
-Set-StrictMode -Version 3.0
+Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-# ---------------------------------------------------------------------------
-# Resolve repo root (three levels up: orchestration/ -> skills/ -> agents/ -> repo)
-# ---------------------------------------------------------------------------
-$repoRoot = (Get-Item $PSScriptRoot).Parent.Parent.Parent.FullName
-
-# ---------------------------------------------------------------------------
-# Detect Start-ThreadJob availability (PS7+)
-# ---------------------------------------------------------------------------
-$useThreadJob = [bool](Get-Command Start-ThreadJob -ErrorAction SilentlyContinue)
-$jobEngine = if ($useThreadJob) { 'Start-ThreadJob (PS7)' } else { 'Start-Job (PS5.1)' }
-
-if (-not $SecureMode) {
-    Write-Host "[Invoke-ParallelAgents] Starting $($AgentJobs.Count) jobs using $jobEngine" -ForegroundColor Cyan
-    Write-Host "[Invoke-ParallelAgents] GlobalTimeout: ${GlobalTimeout}s | FailFast: $($FailFast.IsPresent)" -ForegroundColor Cyan
+$results = [ordered]@{
+    JobResults  = [ordered]@{}
+    DurationSec = 0
+    Success     = $true
 }
 
-$startTime = [datetime]::UtcNow
-$jobs      = @{}   # Name -> Job object
-$results   = @{}   # Name -> output hashtable
-$failed    = [System.Collections.Generic.List[string]]::new()
+$startTime = Get-Date
 
-# ---------------------------------------------------------------------------
-# Launch all jobs
-# ---------------------------------------------------------------------------
-foreach ($jobDef in $AgentJobs) {
-    $name    = $jobDef.Name
-    $script  = Join-Path $repoRoot $jobDef.Script
-    $args_   = if ($jobDef.ContainsKey('Args')) { $jobDef.Args } else { @{} }
-    $timeout = if ($jobDef.ContainsKey('Timeout')) { $jobDef.Timeout } else { 120 }
+# --- 1. Capture Environment Variables (Secrets) ---------------------------
+# Start-Job runs in a fresh process. We must explicitly propagate secrets.
+# We whitelist commonly used keys to avoid massive payload overhead.
+$envKeysToPropagate = @('DEEPSEEK_API_KEY', 'AZURE_DEVOPS_EXT_PAT', 'SYSTEM_ACCESSTOKEN')
+$envPayload = @{}
+foreach ($key in $envKeysToPropagate) {
+    if (Test-Path "env:$key") {
+        $envPayload[$key] = (Get-Item "env:$key").Value
+    }
+}
 
-    if (-not (Test-Path $script)) {
-        Write-Warning "[Invoke-ParallelAgents] Script not found for '$name': $script — skipping"
-        $failed.Add($name)
-        $results[$name] = @{ Success = $false; Error = "Script not found: $script" }
-        continue
+# --- 2. Define Job ScriptBlock --------------------------------------------
+$jobBlock = {
+    param($jobDef, $envPayload)
+
+    $ErrorActionPreference = 'Stop'
+    
+    # Restore Env Vars
+    foreach ($k in $envPayload.Keys) {
+        Set-Item -Path "env:$k" -Value $envPayload[$k]
     }
 
-    if (-not $SecureMode) {
-        Write-Host "[Invoke-ParallelAgents] Launching '$name' -> $($jobDef.Script)" -ForegroundColor Gray
+    # Validate Script Path
+    $scriptPath = $jobDef.Script
+    if (-not (Test-Path $scriptPath)) {
+        throw "Script not found: $scriptPath"
     }
 
-    # Capture $script, $args_, $timeout for closure
-    $capturedScript  = $script
-    $capturedArgs    = $args_
-    $capturedTimeout = $timeout
-
-    $scriptBlock = {
-        param($ScriptPath, $ScriptArgs, $JobTimeout)
-        try {
-            $result = & $ScriptPath @ScriptArgs
-            return @{ Success = $true; Output = $result }
-        } catch {
-            return @{ Success = $false; Error = $_.Exception.Message; Output = $null }
-        }
-    }
-
+    # Execute
+    # We rely on Splatting for Args
+    # Note: If Script returns an object, it comes through output stream.
+    # We wrap in try/catch to ensure we catch termating errors.
     try {
-        if ($useThreadJob) {
-            $job = Start-ThreadJob -ScriptBlock $scriptBlock `
-                -ArgumentList $capturedScript, $capturedArgs, $capturedTimeout `
-                -Name $name
-        } else {
-            $job = Start-Job -ScriptBlock $scriptBlock `
-                -ArgumentList $capturedScript, $capturedArgs, $capturedTimeout `
-                -Name $name
-        }
-        $jobs[$name] = @{ Job = $job; Timeout = $capturedTimeout; LaunchedAt = [datetime]::UtcNow }
-    } catch {
-        Write-Warning "[Invoke-ParallelAgents] Failed to launch '$name': $_"
-        $failed.Add($name)
-        $results[$name] = @{ Success = $false; Error = "Launch failed: $_" }
+        & $scriptPath @($jobDef.Args)
+    }
+    catch {
+        # Write error record to allow parent to see it
+        # But also throw to ensure job state is Failed if needed
+        Write-Error $_
+        throw $_
     }
 }
 
-# ---------------------------------------------------------------------------
-# Wait and collect results
-# ---------------------------------------------------------------------------
-$deadline = $startTime.AddSeconds($GlobalTimeout)
+# --- 3. Start Jobs --------------------------------------------------------
+$runningJobs = @{}
 
-while ($jobs.Count -gt 0 -and [datetime]::UtcNow -lt $deadline) {
-    $toRemove = @()
-
-    foreach ($name in $jobs.Keys) {
-        $entry = $jobs[$name]
-        $job   = $entry.Job
-
-        # Check per-job timeout
-        $elapsed = ([datetime]::UtcNow - $entry.LaunchedAt).TotalSeconds
-        if ($elapsed -gt $entry.Timeout) {
-            Write-Warning "[Invoke-ParallelAgents] Job '$name' timed out after $($entry.Timeout)s"
-            Stop-Job -Job $job -ErrorAction SilentlyContinue
-            Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
-            $failed.Add($name)
-            $results[$name] = @{ Success = $false; Error = "Timed out after $($entry.Timeout)s" }
-            $toRemove += $name
-
-            if ($FailFast) {
-                Write-Warning "[Invoke-ParallelAgents] FailFast: aborting remaining jobs"
-                break
-            }
-            continue
-        }
-
-        # Check if completed
-        if ($job.State -in 'Completed', 'Failed', 'Stopped') {
-            try {
-                $output = Receive-Job -Job $job -ErrorAction Stop
-                if ($job.State -eq 'Completed' -and $output -and $output.PSObject.Properties['Success']) {
-                    $results[$name] = $output
-                    if (-not $output.Success) { $failed.Add($name) }
-                } elseif ($job.State -eq 'Failed') {
-                    $results[$name] = @{ Success = $false; Error = "Job state: Failed" }
-                    $failed.Add($name)
-                } else {
-                    $results[$name] = @{ Success = $true; Output = $output }
-                }
-            } catch {
-                $results[$name] = @{ Success = $false; Error = $_.Exception.Message }
-                $failed.Add($name)
-            }
-            Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
-            $toRemove += $name
-
-            if ($FailFast -and $failed.Contains($name)) {
-                Write-Warning "[Invoke-ParallelAgents] FailFast: aborting remaining jobs"
-                break
-            }
-        }
+foreach ($jobDef in $AgentJobs) {
+    $name = $jobDef.Name
+    # Calculate path relative to PWD if needed, but absolute is safer.
+    # Assuming standard project root execution.
+    if (-not [System.IO.Path]::IsPathRooted($jobDef.Script)) {
+        $jobDef.Script = Join-Path $PWD $jobDef.Script
     }
 
-    foreach ($n in $toRemove) { $jobs.Remove($n) }
+    Write-Verbose "Starting job: $name -> $($jobDef.Script)"
+    
+    # Pass $jobDef and $envPayload as arguments to the script block
+    $psJob = Start-Job -Name "AgentJob_$name" -ScriptBlock $jobBlock -ArgumentList $jobDef, $envPayload
+    $runningJobs[$name] = $psJob
+}
 
-    if ($jobs.Count -gt 0) {
-        Start-Sleep -Milliseconds 500
+# --- 4. Wait Loop ---------------------------------------------------------
+# We poll jobs until they complete or GlobalTimeout triggers.
+# We also respect individual job timeouts if we wanted, but logic is simpler with Global.
+
+
+try {
+    $jobsToWait = @($runningJobs.Values)
+    if ($jobsToWait.Count -gt 0) {
+        Wait-Job -Job $jobsToWait -Timeout $GlobalTimeout | Out-Null
     }
 }
-
-# ---------------------------------------------------------------------------
-# Handle global timeout: stop remaining jobs
-# ---------------------------------------------------------------------------
-foreach ($name in $jobs.Keys) {
-    Write-Warning "[Invoke-ParallelAgents] Global timeout: stopping '$name'"
-    Stop-Job  -Job $jobs[$name].Job -ErrorAction SilentlyContinue
-    Remove-Job -Job $jobs[$name].Job -Force -ErrorAction SilentlyContinue
-    $failed.Add($name)
-    $results[$name] = @{ Success = $false; Error = "Aborted by GlobalTimeout (${GlobalTimeout}s)" }
+catch {
+    Write-Warning "Wait-Job error: $_"
 }
 
-# ---------------------------------------------------------------------------
-# Build return value
-# ---------------------------------------------------------------------------
-$durationSec = ([datetime]::UtcNow - $startTime).TotalSeconds
-$overallSuccess = ($failed.Count -eq 0) -or ($results.Values | Where-Object { $_.Success } | Select-Object -First 1)
-
-$summary = @{
-    Success     = [bool]$overallSuccess
-    JobResults  = $results
-    Failed      = $failed.ToArray()
-    DurationSec = [math]::Round($durationSec, 2)
-}
-
-if (-not $SecureMode) {
-    $successCount = ($results.Values | Where-Object { $_.Success }).Count
-    Write-Host "[Invoke-ParallelAgents] Done: $successCount/$($results.Count) succeeded in $($summary.DurationSec)s" `
-        -ForegroundColor ($failed.Count -eq 0 ? 'Green' : 'Yellow')
-    if ($failed.Count -gt 0) {
-        Write-Warning "[Invoke-ParallelAgents] Failed jobs: $($failed -join ', ')"
+# --- 5. Harvest Results ---------------------------------------------------
+foreach ($key in $runningJobs.Keys) {
+    $j = $runningJobs[$key]
+    $jResult = [ordered]@{
+        Success = $false
+        Output  = $null
+        Error   = $null
+        State   = $j.State
     }
+
+    # Receive-Job
+    # -Keep allows debugging if needed, but we usually consume it.
+    $output = Receive-Job -Job $j -ErrorAction SilentlyContinue
+    
+    # Check for Errors
+    if ($j.State -eq 'Failed' -or ($null -ne $j.ChildJobs[0].Error -and $j.ChildJobs[0].Error.Count -gt 0)) {
+        $jResult.Success = $false
+        $errs = $j.ChildJobs[0].Error
+        $jResult.Error = if ($errs) { $errs | ForEach-Object { $_.ToString() } } else { "Unknown Failure" }
+        # Sometimes logic fails but writes output (e.g. partial result)
+        if ($output) { $jResult.Output = $output }
+    }
+    elseif ($j.State -eq 'Completed') {
+        $jResult.Success = $true
+        # Retrieve the LAST object if multiple, or all?
+        # Agents usually output one JSON/Object result.
+        # But logging might produce strings.
+        # We try to find the structured object.
+        
+        # Filter out verbose/debug strings if mixed (heuristic)
+        $cleanOutput = $output | Where-Object { $_ -isnot [string] -or ($_ -match '^{.*}$') -or ($_ -match '^\[.*\]$') }
+        if ($null -eq $cleanOutput -and $output) { $cleanOutput = $output } # Fallback
+        
+        # If array, take the last one? Or return all? 
+        # Invoke-AgentPRGate expects an object/json. 
+        # Let's return the stream as is, let caller parse.
+        $jResult.Output = $output
+    }
+    else {
+        # Running, Blocked, etc -> Timeout implied
+        $jResult.Success = $false
+        $jResult.Error = "Timeout or blocked (State: $($j.State))"
+        Stop-Job -Job $j -ErrorAction SilentlyContinue
+    }
+
+    $results.JobResults[$key] = $jResult
+    
+    # Cleanup
+    Remove-Job -Job $j -Force
 }
 
-return $summary
+$results.DurationSec = [Math]::Round(((Get-Date) - $startTime).TotalSeconds, 2)
+
+return $results

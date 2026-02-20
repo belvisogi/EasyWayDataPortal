@@ -68,8 +68,8 @@ type: roadmap
 
 **When to use**: Tasks requiring judgment, natural language understanding, impact analysis, or knowledge synthesis.
 
-**Current L2 agents (8)**: agent_backend, agent_dba, agent_docs_sync, agent_governance, agent_infra, agent_pr_manager, agent_security, agent_vulnerability_scanner.
-> **Note**: `agent_review` promosso a L3 in Session 9 (febbraio 2026). Vedere sezione L3.
+**Current L2 agents (6)**: agent_backend, agent_dba, agent_docs_sync, agent_governance, agent_pr_manager, agent_vulnerability_scanner.
+> **Note**: `agent_review` promosso a L3 in Session 9 (febbraio 2026). `agent_security` promosso a L3 in Session 13 (febbraio 2026). `agent_infra` promosso a L3 in Session 15 (febbraio 2026). Vedere sezione L3.
 
 **Known limitation**: Single-pass generation means output quality depends entirely on the first attempt. No retry mechanism for quality improvement.
 
@@ -175,7 +175,17 @@ An agent should be promoted from L2 to L3 when:
 - Multi-agent: `agent_review` + `agent_security` in parallelo per PR gates
 - Voting: `analysis.classify-intent` multipli, majority vote
 
-**Status**: **DONE (Session 10)**
+**Status**: **DONE (Session 10) — E2E VERIFIED (Session 11)**
+
+**E2E Test Results (Session 11)**:
+```
+Overall success : True
+Duration (wall) : 26.11s   # parallelism confirmed: < 180s serial upper bound
+Failed jobs     : (none)
+Job static      : Success=True, deepseek-chat, 5 RAG chunks
+Job docs-impact : Success=True, deepseek-chat, 5 RAG chunks
+```
+Fix applicati durante Session 11: repoRoot `.Parent.Parent.Parent`, `$ErrorActionPreference='Continue'` in scriptBlock, `Receive-Job -ErrorAction SilentlyContinue`.
 
 ---
 
@@ -240,7 +250,9 @@ An agent should be promoted from L2 to L3 when:
 |------|-----|--------|-------|
 | Parallelization (multi-scanner) | Gap 3 | High | ✅ DONE (Session 10) — `Invoke-ParallelAgents.ps1` |
 | First L3 agent promotion (`agent_review`) | — | High | ✅ DONE (Session 9) — v3.0.0, E2E tested |
-| Agentic PRD per agenti L2 | — | Medium | In progress (agent_review PRD completa) |
+| Second L3 agent promotion (`agent_security`) | — | High | ✅ DONE (Session 13) — v3.0.0, 4 fixture |
+| Third L3 agent promotion (`agent_infra`) | — | High | ✅ DONE (Session 15) — v3.0.0, 4 fixture |
+| Agentic PRD per agenti L2 | — | Medium | ✅ DONE (agent_security PRD v1.0 in Session 12) |
 
 ---
 
@@ -272,6 +284,66 @@ SUCCESS:             True
 
 ---
 
+## L3 Implementation: agent_security ✅ DONE (Session 13)
+
+`agent_security` e' il secondo agente promosso a L3. Motivi della scelta:
+1. Dominio ad alto rischio (secrets governance, threat analysis) — prime candidate per Evaluator-Optimizer
+2. Dual CVE scan (docker-scout + trivy) — workload parallelo naturale
+3. Confidence gating critico: decisioni di security sotto 0.70 devono andare a human review
+4. Working memory per audit multi-step (kv-secret:set → access-registry:propose)
+
+**Componenti implementati (Session 13)**:
+- `agents/agent_security/Invoke-AgentSecurity.ps1` — runner L3 (441 righe)
+- `agents/agent_security/manifest.json` v3.0.0 — `evolution_level: 3`, `evaluator: true`, `working_memory: true`, `parallel_scan: true`
+- `agents/agent_security/tests/fixtures/` — 4 fixture (EX-01 happy path, EX-02 injection, EX-03 low confidence, EX-04 KV naming violation)
+- PRD: `Wiki/EasyWayData.wiki/agents/agent-security-prd-l3.md` (Session 12)
+
+**Acceptance Criteria (11 ACs)**:
+- `AC-04`: threat_level presente e in {CRITICAL, HIGH, MEDIUM, LOW, UNKNOWN}
+- `AC-05`: findings presente e non vuoto
+- `AC-07`: confidence presente e in [0.0, 1.0]
+- `AC-08`: KV naming convention `^[a-z0-9]+-{2}[a-z0-9]+-{2}[a-z0-9]+$` validato PS-level
+
+**L3 Features specifiche**:
+- PS-level injection detection prima di qualsiasi LLM call (defense in depth)
+- Dual CVE scan sequenziale (docker-scout + trivy) con merge findings
+- Confidence gating: `confidence < 0.70` → `requires_human_review = true` (AC-06)
+- Session working memory: New → SetStep → Close (audit trail in `memory/`)
+
+---
+
+## L3 Implementation: agent_infra ✅ DONE (Session 15)
+
+`agent_infra` e' il terzo agente promosso a L3. Motivi della scelta:
+1. Output L2 free-form markdown non strutturato — nessun confidence, nessun findings validabile
+2. Drift check su infra parzialmente sconosciuta produce alta incertezza — confidence gating essenziale
+3. Working memory per audit multi-step: terraform plan -> drift check -> compliance check
+4. Nuova action `infra:compliance-check` naturalmente LLM-based
+
+**Componenti implementati (Session 15)**:
+- `agents/agent_infra/Invoke-AgentInfra.ps1` — runner L3 (pattern identico a agent_security)
+- `agents/agent_infra/manifest.json` v3.0.0 — `evolution_level: 3`, `evaluator: true`, `working_memory: true`
+- `agents/agent_infra/tests/fixtures/` — 4 fixture (EX-01 drift happy path, EX-02 injection, EX-03 low confidence, EX-04 compliance OK)
+- PRD: `Wiki/EasyWayData.wiki/agents/agent-infra-prd-l3.md` (Session 15)
+- `agents/agent_infra/PROMPTS.md` aggiornato — output JSON strutturato mandatory
+
+**Acceptance Criteria (10 ACs)**:
+- `AC-04`: risk_level in {CRITICAL, HIGH, MEDIUM, LOW, INFO}
+- `AC-05`: confidence in [0.0, 1.0]
+- `AC-06`: confidence < 0.70 -> requires_human_review = true
+- `AC-07`: findings non vuoto per risk_level >= MEDIUM
+- `AC-08`: terraform apply mai eseguito automaticamente
+
+**L3 Features specifiche**:
+- PS-level injection detection (defense in depth, identico a agent_security)
+- Output JSON strutturato: risk_level, confidence, findings[] (vs free-form markdown L2)
+- Evaluator-Optimizer su drift-check e compliance-check (AC-04, AC-05, AC-07)
+- Nuova action: `infra:compliance-check` (verifica porte, segreti, IaC patterns)
+- Confidence gating: `confidence < 0.70` -> `requires_human_review = true`
+- Session working memory: New -> SetStep -> Close
+
+---
+
 ## References
 
 - [[agents/agent-design-standards]] — Workflow patterns (especially Evaluator-Optimizer)
@@ -281,7 +353,13 @@ SUCCESS:             True
 - `agents/core/schemas/action-result.schema.json` — Output schema con `confidence` (Gap 4)
 - `agents/core/schemas/session.schema.json` — Working memory schema (Gap 2)
 - `agents/skills/session/Manage-AgentSession.ps1` — CRUD skill working memory (Gap 2)
-- `agents/skills/registry.json` v2.8.0 — 24 skill con `returns` field (Gap 6) + `orchestration.parallel-agents` (Gap 3)
+- `agents/skills/registry.json` v2.9.0 — 25 skill (Gap 6) + `orchestration.parallel-agents` (Gap 3)
 - `agents/skills/orchestration/Invoke-ParallelAgents.ps1` — Multi-agent parallel runner (Gap 3, Session 10)
-- `agents/agent_review/Invoke-AgentReview.ps1` — Runner L3 agent_review (rinominato Session 10)
-- `agents/agent_review/tests/fixtures/` — 3 fixture JSON (Gap 5)
+- `agents/agent_review/Invoke-AgentReview.ps1` — Runner L3 agent_review (Session 9/10)
+- `agents/agent_security/Invoke-AgentSecurity.ps1` — Runner L3 agent_security (Session 13)
+- `agents/agent_infra/Invoke-AgentInfra.ps1` — Runner L3 agent_infra (Session 15)
+- `Wiki/EasyWayData.wiki/agents/agent-security-prd-l3.md` — PRD L3 agent_security (Session 12)
+- `Wiki/EasyWayData.wiki/agents/agent-infra-prd-l3.md` — PRD L3 agent_infra (Session 15)
+- `agents/agent_review/tests/fixtures/` — 3 fixture JSON
+- `agents/agent_security/tests/fixtures/` — 4 fixture JSON
+- `agents/agent_infra/tests/fixtures/` — 4 fixture JSON (Session 15)

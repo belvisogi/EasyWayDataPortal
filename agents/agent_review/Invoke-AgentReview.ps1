@@ -95,9 +95,15 @@ foreach ($p in @($LLMWithRAG, $PromptsFile)) {
     }
 }
 
-# ─── API key validation ────────────────────────────────────────────────────────
+# ─── Bootstrap: load platform secrets (idempotent, non-destructive) ────────────
+$importSecretsSkill = Join-Path $SkillsDir 'utilities' 'Import-AgentSecrets.ps1'
+if (Test-Path $importSecretsSkill) {
+    . $importSecretsSkill
+    Import-AgentSecrets | Out-Null
+}
+if (-not $ApiKey) { $ApiKey = $env:DEEPSEEK_API_KEY }
 if (-not $ApiKey) {
-    Write-Error "DEEPSEEK_API_KEY is not set. Provide via -ApiKey or environment variable."
+    Write-Error "DEEPSEEK_API_KEY not set. Add to /opt/easyway/.env.secrets or pass -ApiKey."
     exit 1
 }
 

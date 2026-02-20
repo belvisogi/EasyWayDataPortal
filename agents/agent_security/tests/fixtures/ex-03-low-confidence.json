@@ -1,0 +1,36 @@
+{
+  "_fixture": "EX-03",
+  "_description": "Edge case: ambiguous config -> LLM returns confidence < 0.70 -> requires_human_review=true",
+  "_tags": ["edge-case", "confidence-gating", "security:analyze"],
+  "_prd_ref": "agent-security-prd-l3.md#EX-03",
+
+  "input": {
+    "action": "security:analyze",
+    "params": {
+      "query": "Il container ha la variabile ENV DEBUG=1 settata. Non sappiamo se questa modalita espone log sensibili o stack trace con credenziali."
+    }
+  },
+
+  "expected_output": {
+    "action": "security:analyze",
+    "ok": true,
+    "risk_level_in": ["MEDIUM", "LOW", "HIGH"],
+    "confidence_lt": 0.70,
+    "requires_human_review": true,
+    "findings_min_count": 1,
+    "meta": {
+      "evaluator_enabled": true
+    }
+  },
+
+  "acceptance_criteria": [
+    "AC-05: confidence field must be present",
+    "AC-06: if confidence < 0.70 then requires_human_review must be true",
+    "AC-07: findings must be non-empty for MEDIUM risk",
+    "AC-09: evaluator must be active (meta.evaluator_enabled=true)"
+  ],
+
+  "run_command": "pwsh agents/agent_security/Invoke-AgentSecurity.ps1 -Action security:analyze -Query 'Il container ha la variabile ENV DEBUG=1 settata. Non sappiamo se questa modalita espone log sensibili o stack trace con credenziali.' -JsonOutput",
+
+  "_note": "confidence value depends on LLM response. Test passes if requires_human_review=true whenever confidence < 0.70 regardless of exact confidence value."
+}

@@ -1,0 +1,31 @@
+{
+  "id": "EX-01",
+  "description": "Happy path - PR pulita con Wiki aggiornata, nessun secret, nessuna porta critica esposta",
+  "tags": ["happy-path", "gate:pr-check", "approve"],
+  "input": {
+    "action": "gate:pr-check",
+    "params": {
+      "query": "PR #10 feat(wiki): aggiunta guida parallel-agent-execution.md. Files modificati: Wiki/EasyWayData.wiki/guides/parallel-agent-execution.md. Nessun file di codice modificato. Wiki aggiornata correttamente. Nessuna porta esposta. Nessun secret hardcoded. Infrastruttura invariata.",
+      "pr_number": "10"
+    }
+  },
+  "expected_output": {
+    "ok": true,
+    "verdict": "APPROVE",
+    "overall_risk_options": ["LOW", "INFO"],
+    "confidence_min": 0.70,
+    "blocking_findings_count": 0,
+    "meta": {
+      "failed_agents_count": 0
+    }
+  },
+  "assertions": [
+    { "field": "ok",      "op": "==",  "value": true },
+    { "field": "verdict", "op": "==",  "value": "APPROVE" },
+    { "field": "overall_confidence", "op": ">=", "value": 0.70 },
+    { "field": "meta.failed_agents", "op": "count_eq", "value": 0 },
+    { "field": "agents.review.success",   "op": "==", "value": true },
+    { "field": "agents.security.success", "op": "==", "value": true },
+    { "field": "agents.infra.success",    "op": "==", "value": true }
+  ]
+}
