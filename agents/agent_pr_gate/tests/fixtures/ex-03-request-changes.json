@@ -1,0 +1,24 @@
+{
+  "id": "EX-03",
+  "description": "REQUEST_CHANGES - Wiki non aggiornata + nuova porta esposta = review chiede modifiche",
+  "tags": ["request-changes", "gate:pr-check", "docs-missing"],
+  "input": {
+    "action": "gate:pr-check",
+    "params": {
+      "query": "PR #55 feat(infra): nuova configurazione rete Docker. Files modificati: infra/docker-compose.yml, infra/network/firewall.sh. Aggiunta nuova porta 8080 esposta per servizio interno. Wiki EasyWayData.wiki NON aggiornata. Nessun secret hardcoded. Terraform plan non mostra derive critiche.",
+      "pr_number": "55"
+    }
+  },
+  "expected_output": {
+    "ok": true,
+    "verdict": "REQUEST_CHANGES",
+    "agents_review_verdict_options": ["REQUEST_CHANGES", "NEEDS_DISCUSSION"],
+    "overall_risk_options": ["HIGH", "MEDIUM"]
+  },
+  "assertions": [
+    { "field": "ok",      "op": "==", "value": true },
+    { "field": "verdict", "op": "in", "value": ["REQUEST_CHANGES", "ESCALATE"] },
+    { "field": "agents.review.success", "op": "==", "value": true },
+    { "field": "agents.review.verdict", "op": "in", "value": ["REQUEST_CHANGES", "NEEDS_DISCUSSION", "UNKNOWN"] }
+  ]
+}

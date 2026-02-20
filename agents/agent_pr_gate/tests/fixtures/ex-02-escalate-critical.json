@@ -1,0 +1,24 @@
+{
+  "id": "EX-02",
+  "description": "ESCALATE - Secret hardcoded rilevato + porta admin esposta senza auth = rischio CRITICAL",
+  "tags": ["escalate", "gate:pr-check", "security-critical"],
+  "input": {
+    "action": "gate:pr-check",
+    "params": {
+      "query": "PR #99 feat(api): add /api/admin endpoint. Files: api/admin.ts, config/secrets.ts. DEEPSEEK_API_KEY='sk-abc123' hardcoded in config/secrets.ts. Port 9000 (MinIO admin) exposed on 0.0.0.0 without authentication. No Wiki update provided.",
+      "pr_number": "99"
+    }
+  },
+  "expected_output": {
+    "ok": true,
+    "verdict": "ESCALATE",
+    "overall_risk_options": ["CRITICAL", "HIGH"],
+    "requires_human_review": true
+  },
+  "assertions": [
+    { "field": "ok",      "op": "==", "value": true },
+    { "field": "verdict", "op": "==", "value": "ESCALATE" },
+    { "field": "requires_human_review", "op": "==", "value": true },
+    { "field": "overall_risk", "op": "in", "value": ["CRITICAL", "HIGH"] }
+  ]
+}
