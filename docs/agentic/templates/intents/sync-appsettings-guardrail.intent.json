@@ -1,0 +1,26 @@
+{
+  "id": "sync-appsettings-guardrail",
+  "what": {
+    "purpose": "Sincronizzare App Settings con guardrail (approvazione governance obbligatoria su main/prod).",
+    "inputs": {
+      "environment": { "type": "string", "examples": ["dev", "preprod", "prod"] },
+      "enableSync": { "type": "boolean", "default": false },
+      "govApproved": { "type": "boolean", "default": false },
+      "webAppName": { "type": "string" },
+      "resourceGroup": { "type": "string" },
+      "slot": { "type": "string" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "guardrailPassed": { "type": "boolean" },
+      "notes": { "type": "array", "items": { "type": "string" } }
+    },
+    "events": ["sync-appsettings-guardrail.started", "sync-appsettings-guardrail.completed"],
+    "success_criteria": ["Guardrail valutato e output prodotto"],
+    "failure_criteria": ["Guardrail fallito", "Permessi insufficienti"]
+  }
+}
+

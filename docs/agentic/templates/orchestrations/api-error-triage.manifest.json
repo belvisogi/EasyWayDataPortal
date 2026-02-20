@@ -1,0 +1,107 @@
+{
+  "id": "api.error.triage",
+  "version": "0.1.0",
+  "principle": "WHAT-first orchestration manifest: define cosa fare (obiettivi, stati, esiti, contratti) prima del come",
+  "intent": {
+    "name": "api.error.triage",
+    "description": "Da un errore REST a: classificazione, azioni suggerite e log strutturato per n8n.",
+    "trigger": "api.error.triage.requested"
+  },
+  "roles": {
+    "requester": "n8n o operatore che invia request/response/error in formato strutturato.",
+    "orchestrator": "Sequenzia gli step, valida contratti, propaga correlationId e decision_trace_id.",
+    "agent_api": "Classifica errore, normalizza evento, produce azioni suggerite.",
+    "steward_governance": "Human-in-the-loop su errori ricorrenti o impatti su sicurezza."
+  },
+  "preconditions": [
+    "Intent api.error.triage disponibile",
+    "Dati minimi: method, url, service, environment",
+    "Policy di redazione token/cookie"
+  ],
+  "postconditions": [
+    "Output strutturato con classificazione e azioni",
+    "Event log aggiornato (se richiesto)"
+  ],
+  "stages": [
+    {
+      "name": "received",
+      "purpose": "Ricevere input e inizializzare correlationId/run",
+      "entry_criteria": ["Evento api.error.triage.requested"],
+      "inputs": ["intent_payload"],
+      "outputs": ["correlationId"],
+      "success_criteria": ["Payload ricevuto"],
+      "failure_criteria": ["Payload mancante"],
+      "events_emitted": ["api.error.triage.started"],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "api_error_triage_received"
+    },
+    {
+      "name": "validated",
+      "purpose": "Validare input contract e policy minime (redazione token).",
+      "entry_criteria": ["received.success"],
+      "inputs": ["intent_payload"],
+      "outputs": ["validation_ok", "validation_notes"],
+      "success_criteria": ["Spec valida"],
+      "failure_criteria": ["Spec invalida"],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "api_error_triage_validated"
+    },
+    {
+      "name": "triaged",
+      "purpose": "Classificare errore e proporre azioni suggerite.",
+      "entry_criteria": ["validated.success"],
+      "inputs": ["intent_payload"],
+      "outputs": ["error_class", "severity", "retryable", "recommended_actions[]"],
+      "success_criteria": ["Classificazione prodotta"],
+      "failure_criteria": ["Classificazione fallita"],
+      "events_emitted": [],
+      "human_checkpoints": ["Review se impatti di sicurezza o privacy"],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "api_error_triage_triaged"
+    },
+    {
+      "name": "logged",
+      "purpose": "Persistenza log strutturato con decision_trace_id e correlationId.",
+      "entry_criteria": ["triaged.success"],
+      "inputs": ["normalized_event"],
+      "outputs": ["log_path"],
+      "success_criteria": ["Evento loggato"],
+      "failure_criteria": ["Log fallito"],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 60000 },
+      "retries": { "max": 0 },
+      "ux_prompts": "api_error_triage_logged"
+    },
+    {
+      "name": "completed",
+      "purpose": "Chiudere la run con output e next step.",
+      "entry_criteria": ["triaged.success"],
+      "inputs": ["error_class", "recommended_actions[]"],
+      "outputs": ["run_summary"],
+      "success_criteria": ["Output finale disponibile"],
+      "failure_criteria": [],
+      "events_emitted": ["api.error.triage.completed"],
+      "human_checkpoints": [],
+      "timeouts": { "max_ms": 1 },
+      "retries": { "max": 0 },
+      "ux_prompts": "api_error_triage_done"
+    }
+  ],
+  "transitions": [
+    { "from": "received", "to": "validated", "condition": "received.success" },
+    { "from": "validated", "to": "triaged", "condition": "validation_ok" },
+    { "from": "triaged", "to": "logged", "condition": "triaged.success" },
+    { "from": "triaged", "to": "completed", "condition": "triaged.success" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}

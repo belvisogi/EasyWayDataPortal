@@ -1,0 +1,25 @@
+{
+  "id": "db-user-revoke",
+  "what": {
+    "purpose": "Revocare un utente DB (WhatIf-by-default) rimuovendo permessi/ruoli e aggiornando audit/registry.",
+    "inputs": {
+      "server": { "type": "string" },
+      "database": { "type": "string" },
+      "username": { "type": "string" },
+      "auth": { "type": "string", "examples": ["sql", "aad"], "default": "sql" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "executed": { "type": "boolean" },
+      "stateBefore": { "type": "object" },
+      "stateAfter": { "type": "object" }
+    },
+    "events": ["db-user-revoke.started", "db-user-revoke.completed"],
+    "success_criteria": ["Precheck OK (whatIf) o revoca completata (apply)"],
+    "failure_criteria": ["Permessi insufficienti", "Connessione fallita"]
+  }
+}
+

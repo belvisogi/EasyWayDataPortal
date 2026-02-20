@@ -1,0 +1,32 @@
+{
+  "id": "docs-dq-audit",
+  "version": "0.1.0",
+  "principle": "Doc-as-Data Quality: misurare + creare backlog Kanban (revisione) con output ripetibile e HITL per update Wiki",
+  "intent": {
+    "name": "docs.dq.audit",
+    "description": "Esegue uno scorecard DQ della documentazione (frontmatter/tags/links/WHAT-first + connettivita' grafo) e genera un backlog Kanban per la revisitazione.",
+    "trigger": "docs.dq.audit.requested"
+  },
+  "roles": {
+    "requester": "Operatore/team che vuole migliorare la qualita' della documentazione.",
+    "agent_docs_review": "Esegue audit + genera backlog/preview; opz. aggiorna quest board (HITL).",
+    "steward_governance": "Approva eventuale update della pagina Kanban in Wiki (se -WhatIf:$false)."
+  },
+  "runner": {
+    "engine": "ps",
+    "plan_command": "pwsh scripts/docs-dq-scorecard.ps1 -WikiPath \"Wiki/EasyWayData.wiki\" -OutScorecard \"out/docs-dq-scorecard.json\" -OutBacklog \"out/docs-dq-backlog.json\" -OutQuestBoardPreview \"out/docs-dq-quest-board.preview.md\"",
+    "apply_command": "pwsh scripts/docs-dq-scorecard.ps1 -WikiPath \"Wiki/EasyWayData.wiki\" -OutScorecard \"out/docs-dq-scorecard.json\" -OutBacklog \"out/docs-dq-backlog.json\" -OutQuestBoardPreview \"out/docs-dq-quest-board.preview.md\" -UpdateQuestBoard -WhatIf"
+  },
+  "stages": [
+    { "name": "received", "purpose": "Ricevere richiesta e inizializzare correlationId", "entry_criteria": ["docs.dq.audit.requested"], "inputs": ["intent_payload"], "outputs": ["correlationId"], "success_criteria": ["Payload ricevuto"], "failure_criteria": ["Payload mancante"], "human_checkpoints": [], "ux_prompts": "generic_received" },
+    { "name": "validated", "purpose": "Validare input e percorsi", "entry_criteria": ["received.success"], "inputs": ["intent_payload"], "outputs": ["validation_ok"], "success_criteria": ["Spec valida"], "failure_criteria": ["Spec invalida"], "human_checkpoints": [], "ux_prompts": "generic_validated" },
+    { "name": "audited", "purpose": "Eseguire scorecard DQ e backlog Kanban (preview)", "entry_criteria": ["validated.success"], "inputs": ["intent_payload"], "outputs": ["scorecardOut", "backlogOut", "questBoardPreviewOut"], "success_criteria": ["Artefatti prodotti"], "failure_criteria": ["Audit fallito"], "human_checkpoints": [], "ux_prompts": "generic_executed" },
+    { "name": "questboard_updated", "purpose": "Opzionale: aggiornare Quest Board in Wiki (HITL, backup)", "entry_criteria": ["audited.success", "human_approved.update_questboard"], "inputs": ["intent_payload", "questBoardPreviewOut"], "outputs": ["applySummaryOut"], "success_criteria": ["Quest board aggiornato"], "failure_criteria": ["Apply fallito"], "human_checkpoints": ["Approvazione update quest board"], "ux_prompts": "generic_executed" },
+    { "name": "completed", "purpose": "Chiudere run con artifact e next step", "entry_criteria": ["audited.success"], "inputs": ["scorecardOut", "backlogOut", "questBoardPreviewOut", "applySummaryOut"], "outputs": ["run_summary"], "success_criteria": ["Output finale disponibile"], "failure_criteria": [], "human_checkpoints": [], "ux_prompts": "generic_done" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}
+

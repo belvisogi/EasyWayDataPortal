@@ -1,0 +1,21 @@
+{
+  "id": "whatfirst-lint",
+  "what": {
+    "purpose": "Verificare che il metodo WHAT-first (manifest/intents/ux_prompts) sia rispettato e produrre report.",
+    "inputs": {
+      "failOnError": { "type": "boolean", "default": true },
+      "summaryOut": { "type": "string", "default": "whatfirst-lint.json" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "summaryOut": { "type": "string" }
+    },
+    "events": ["whatfirst-lint.started", "whatfirst-lint.completed"],
+    "success_criteria": ["Lint completato"],
+    "failure_criteria": ["File mancanti o JSON non parseabile"]
+  }
+}
+

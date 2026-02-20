@@ -1,0 +1,208 @@
+{
+  "id": "agent.scaffold",
+  "version": "0.1.0",
+  "principle": "WHAT-first orchestration manifest: define cosa fare (obiettivi, stati, esiti, contratti) prima del come",
+  "intent": {
+    "name": "agent.scaffold",
+    "description": "Crea un nuovo agente (es. DBA) basato su template canonico + contesto RAG, e aggiorna doc/KB in modo governato.",
+    "trigger": "agent.scaffold.requested"
+  },
+  "roles": {
+    "requester": "Richiede un nuovo agente e fornisce nome/obiettivi.",
+    "orchestrator": "Sequenzia step, valida contratti, propaga correlationId/decision_trace_id.",
+    "agent_creator": "Genera file/artefatti (manifest, templates, doc) in WhatIf-by-default.",
+    "steward_governance": "Human-in-the-loop su scrittura repo e scope/permessi."
+  },
+  "preconditions": [
+    "Spec input disponibile (intent agent.scaffold)",
+    "Policy WHAT-first e gates attivi",
+    "RAG disponibile via n8n + Azure AI Search (opzionale)"
+  ],
+  "postconditions": [
+    "Nuovo agente creato con manifest/templates",
+    "KB recipe aggiunta",
+    "Pagina Wiki orchestrazione creata/aggiornata",
+    "Agents README riallineato (opz.)"
+  ],
+  "stages": [
+    {
+      "name": "received",
+      "purpose": "Ricevere richiesta e correlationId",
+      "entry_criteria": [
+        "agent.scaffold.requested"
+      ],
+      "inputs": [
+        "intent_payload"
+      ],
+      "outputs": [
+        "correlationId"
+      ],
+      "success_criteria": [
+        "Payload ricevuto"
+      ],
+      "failure_criteria": [
+        "Payload mancante"
+      ],
+      "events_emitted": [
+        "agent.scaffold.started"
+      ],
+      "human_checkpoints": [],
+      "timeouts": {
+        "max_ms": 60000
+      },
+      "retries": {
+        "max": 0
+      },
+      "ux_prompts": "agent_scaffold_received"
+    },
+    {
+      "name": "validated",
+      "purpose": "Validare input e policy minime (naming/allowed_paths/no secrets)",
+      "entry_criteria": [
+        "received.success"
+      ],
+      "inputs": [
+        "intent_payload"
+      ],
+      "outputs": [
+        "validation_ok",
+        "validation_notes"
+      ],
+      "success_criteria": [
+        "Spec valida"
+      ],
+      "failure_criteria": [
+        "Spec invalida"
+      ],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": {
+        "max_ms": 60000
+      },
+      "retries": {
+        "max": 0
+      },
+      "ux_prompts": "agent_scaffold_validated"
+    },
+    {
+      "name": "context_ready",
+      "purpose": "Opzionale: acquisire contesto RAG (Azure AI Search) via n8n e agganciarlo alla run",
+      "entry_criteria": [
+        "validated.success"
+      ],
+      "inputs": [
+        "rag_context?"
+      ],
+      "outputs": [
+        "rag_context_bundle?"
+      ],
+      "success_criteria": [
+        "Context bundle disponibile o skip"
+      ],
+      "failure_criteria": [],
+      "events_emitted": [],
+      "human_checkpoints": [],
+      "timeouts": {
+        "max_ms": 60000
+      },
+      "retries": {
+        "max": 0
+      },
+      "ux_prompts": "agent_scaffold_context"
+    },
+    {
+      "name": "generated",
+      "purpose": "Generare agente + artefatti WHAT-first (manifest/templates/KB/Wiki)",
+      "entry_criteria": [
+        "validated.success"
+      ],
+      "inputs": [
+        "intent_payload",
+        "rag_context_bundle?"
+      ],
+      "outputs": [
+        "artifacts[]",
+        "agentDir"
+      ],
+      "success_criteria": [
+        "Artefatti generati (solo file)"
+      ],
+      "failure_criteria": [
+        "Generazione fallita"
+      ],
+      "events_emitted": [],
+      "human_checkpoints": [
+        "Conferma scrittura repo (whatIf=false)"
+      ],
+      "timeouts": {
+        "max_ms": 180000
+      },
+      "retries": {
+        "max": 0
+      },
+      "ux_prompts": "agent_scaffold_generated"
+    },
+    {
+      "name": "completed",
+      "purpose": "Chiudere con link a doc/KB e next step (gates/PR)",
+      "entry_criteria": [
+        "generated.success"
+      ],
+      "inputs": [
+        "artifacts[]"
+      ],
+      "outputs": [
+        "run_summary"
+      ],
+      "success_criteria": [
+        "Output finale disponibile"
+      ],
+      "failure_criteria": [],
+      "events_emitted": [
+        "agent.scaffold.completed"
+      ],
+      "human_checkpoints": [],
+      "timeouts": {
+        "max_ms": 1
+      },
+      "retries": {
+        "max": 0
+      },
+      "ux_prompts": "agent_scaffold_done"
+    }
+  ],
+  "transitions": [
+    {
+      "condition": "received.success",
+      "to": "validated",
+      "from": "received"
+    },
+    {
+      "condition": "validation_ok",
+      "to": "context_ready",
+      "from": "validated"
+    },
+    {
+      "condition": "validated.success",
+      "to": "generated",
+      "from": "context_ready"
+    },
+    {
+      "condition": "generated.success",
+      "to": "completed",
+      "from": "generated"
+    }
+  ],
+  "observability": {
+    "diary_log_fields": [
+      "timestamp",
+      "stage",
+      "outcome",
+      "reason",
+      "next",
+      "decision_trace_id",
+      "artifacts[]"
+    ],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}

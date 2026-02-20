@@ -1,0 +1,29 @@
+{
+  "id": "api.rbac.configure",
+  "what": {
+    "purpose": "Configurare (per ambiente) i ruoli/scopes ammessi per endpoint sensibili dell'API e verificare che la policy sia applicata.",
+    "inputs": {
+      "targetEnv": { "type": "string", "examples": ["local", "dev", "preprod", "prod"] },
+      "roleClaim": { "type": "string", "default": "roles" },
+      "scopeClaim": { "type": "string", "default": "scp" },
+      "docsRoles": { "type": "array", "items": { "type": "string" } },
+      "docsScopes": { "type": "array", "items": { "type": "string" } },
+      "dbRoles": { "type": "array", "items": { "type": "string" } },
+      "dbScopes": { "type": "array", "items": { "type": "string" } },
+      "notifyRoles": { "type": "array", "items": { "type": "string" } },
+      "notifyScopes": { "type": "array", "items": { "type": "string" } },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "updatedKeys": { "type": "array", "items": { "type": "string" } },
+      "notes": { "type": "array", "items": { "type": "string" } }
+    },
+    "events": ["api.rbac.configure.started", "api.rbac.configure.completed"],
+    "success_criteria": ["Policy RBAC definita", "Output machine-readable disponibile"],
+    "failure_criteria": ["Input invalido", "Ambiente non supportato"]
+  }
+}
+

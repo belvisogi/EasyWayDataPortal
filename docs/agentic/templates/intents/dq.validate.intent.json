@@ -1,0 +1,21 @@
+{
+  "id": "dq.validate",
+  "what": {
+    "purpose": "Valutare regole DQ minime (ARGOS) sul file caricato e produrre una Decision Trace",
+    "inputs": {
+      "run_id": { "type": "string" },
+      "headers": { "type": "array", "items": { "type": "string" } },
+      "sample_preview_path": { "type": "string" },
+      "policy_set_hint": { "type": "string", "default": "personal-finance-light" }
+    },
+    "outputs": {
+      "dq_summary_path": { "type": "string" },
+      "gate_outcome": { "type": "string", "enum": ["PASS", "DEFER", "FAIL"] },
+      "decision_trace_id": { "type": "string" }
+    },
+    "events": ["argos.gate.decision"],
+    "success_criteria": ["Decision Trace emessa"],
+    "failure_criteria": ["FAIL su obbligatori/format/types"]
+  }
+}
+

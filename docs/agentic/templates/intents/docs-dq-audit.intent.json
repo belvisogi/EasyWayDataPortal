@@ -1,0 +1,30 @@
+{
+  "id": "docs-dq-audit",
+  "what": {
+    "purpose": "Misurare Data Quality della documentazione (doc-as-data) e produrre un backlog Kanban per la revisitazione, con update Wiki opzionale (HITL, reversibile).",
+    "inputs": {
+      "wikiPath": { "type": "string", "default": "Wiki/EasyWayData.wiki" },
+      "outScorecard": { "type": "string", "default": "out/docs-dq-scorecard.json" },
+      "outBacklog": { "type": "string", "default": "out/docs-dq-backlog.json" },
+      "outQuestBoardPreview": { "type": "string", "default": "out/docs-dq-quest-board.preview.md" },
+      "questBoardPath": { "type": "string", "default": "Wiki/EasyWayData.wiki/quest-board-docs-dq.md" },
+      "maxCards": { "type": "number", "default": 60 },
+      "updateQuestBoard": { "type": "boolean", "default": false },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": false },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "score": { "type": "number" },
+      "ok": { "type": "boolean" },
+      "scorecardOut": { "type": "string" },
+      "backlogOut": { "type": "string" },
+      "questBoardPreviewOut": { "type": "string" },
+      "applySummaryOut": { "type": "string" }
+    },
+    "events": ["docs.dq.audit.started", "docs.dq.audit.completed"],
+    "success_criteria": ["Scorecard e backlog generati; quest board aggiornato solo se richiesto e approvato"],
+    "failure_criteria": ["Audit non eseguito", "Output mancanti", "Apply quest board fallito"]
+  }
+}
+

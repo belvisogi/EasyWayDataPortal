@@ -1,0 +1,27 @@
+{
+  "id": "db-generate-docs",
+  "version": "0.1.0",
+  "principle": "WHAT-first: definire scopo, contratti e audit prima dell'implementazione",
+  "intent": {
+    "name": "db-generate-docs",
+    "description": "Rigenerare documentazione DB e artefatti (diagram/indice) in modo governato.",
+    "trigger": "db-generate-docs.requested"
+  },
+  "roles": {
+    "requester": "Operatore o n8n che richiede rigenerazione docs.",
+    "orchestrator": "n8n.dispatch: valida input e invoca tool.",
+    "agent_dba": "Esegue generator e aggiorna artefatti.",
+    "steward_governance": "Review su cambi doc."
+  },
+  "stages": [
+    { "name": "received", "purpose": "Ricevere richiesta e inizializzare correlationId", "entry_criteria": ["db-generate-docs.requested"], "inputs": ["intent_payload"], "outputs": ["correlationId"], "success_criteria": ["Payload ricevuto"], "failure_criteria": ["Payload mancante"], "human_checkpoints": [], "ux_prompts": "generic_received" },
+    { "name": "validated", "purpose": "Validare input e prerequisiti", "entry_criteria": ["received.success"], "inputs": ["intent_payload"], "outputs": ["validation_ok"], "success_criteria": ["Spec valida"], "failure_criteria": ["Spec invalida"], "human_checkpoints": [], "ux_prompts": "generic_validated" },
+    { "name": "executed", "purpose": "Rigenerare artefatti e registrare evidenze", "entry_criteria": ["validated.success"], "inputs": ["intent_payload"], "outputs": ["artifacts[]"], "success_criteria": ["Artefatti prodotti"], "failure_criteria": ["Esecuzione fallita"], "human_checkpoints": [], "ux_prompts": "generic_executed" },
+    { "name": "completed", "purpose": "Chiudere run con output e next step", "entry_criteria": ["executed.success"], "inputs": ["artifacts[]"], "outputs": ["run_summary"], "success_criteria": ["Output finale disponibile"], "failure_criteria": [], "human_checkpoints": [], "ux_prompts": "generic_done" }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}
+

@@ -1,0 +1,22 @@
+{
+  "id": "db-migrate",
+  "what": {
+    "purpose": "Eseguire Flyway validate/migrate in modo governato (WhatIf-by-default per azioni distruttive).",
+    "inputs": {
+      "action": { "type": "string", "examples": ["validate", "migrate"], "default": "validate" },
+      "configFiles": { "type": "string", "default": "db/flyway/flyway.conf" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "action": { "type": "string" },
+      "notes": { "type": "array", "items": { "type": "string" } }
+    },
+    "events": ["db-migrate.started", "db-migrate.completed"],
+    "success_criteria": ["Flyway eseguito senza errori"],
+    "failure_criteria": ["Credenziali mancanti", "Migrazione fallita"]
+  }
+}
+

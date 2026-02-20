@@ -1,0 +1,28 @@
+{
+  "id": "iam.provision.access",
+  "what": {
+    "purpose": "Provisioning governance-driven di un accesso tecnico (DB/Datalake) con Key Vault + registry audit (WhatIf-by-default).",
+    "inputs": {
+      "target": { "type": "string", "examples": ["db", "datalake"] },
+      "environment": { "type": "string", "examples": ["dev", "test", "prod"] },
+      "identity_type": { "type": "string", "examples": ["managed-identity", "service-principal", "sql-user"] },
+      "identity_name": { "type": "string" },
+      "scope": { "type": "string", "description": "Risorsa target (server/db/path)." },
+      "permissions": { "type": "string", "examples": ["read", "write", "read/write", "admin"] },
+      "secret_ref": { "type": "string", "description": "Riferimento al secret (no valori in chiaro)." },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" },
+      "decision_trace_id": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "artifacts": { "type": "array", "items": { "type": "string" } },
+      "registry_entry": { "type": "object" }
+    },
+    "events": ["iam.provision.access.started", "iam.provision.access.completed"],
+    "success_criteria": ["Spec valida", "WhatIf/apply completato con audit"],
+    "failure_criteria": ["Spec invalida", "Non approvato", "Esecuzione fallita"]
+  }
+}
+

@@ -16,7 +16,7 @@ next: TODO - definire next step.
 type: guide
 ---
 
-[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > [[Layer - Gate|Gate]]
+[Home](../../scripts/docs/project-root/DEVELOPER_START_HERE.md) >  > Layer - Gate
 
 # Doc Alignment Gate
 Breadcrumb: Home / CI / Doc Alignment
@@ -52,6 +52,7 @@ Integrazione CI
 - [Orchestratore n8n (WHAT)](./orchestrations/orchestrator-n8n.md)
 - [Verifica CI – ewctl gates e Flyway (branch non-main)](./ci-verifica-ewctl-gates-e-flyway.md)
 - [Agent Priority Rules e Checklists (human-in-the-loop)](./agent-priority-and-checklists.md)
+
 
 
 

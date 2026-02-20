@@ -1,0 +1,32 @@
+{
+  "id": "release.preflight.security",
+  "what": {
+    "purpose": "Eseguire una checklist pre-go-live (security/compliance/audit) e produrre esito strutturato e tracciabile.",
+    "inputs": {
+      "targetEnv": { "type": "string", "examples": ["dev", "test", "preprod", "prod"] },
+      "changeSummary": { "type": "string", "description": "Descrizione breve del change (max 500 char)." },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string", "description": "ID per tracciare la run end-to-end." },
+      "decision_trace_id": { "type": "string", "description": "Opzionale; propagato dai gate." }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "checks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "check": { "type": "string" },
+            "outcome": { "type": "string", "enum": ["pass", "warn", "fail", "skipped"] },
+            "evidence": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      },
+      "next": { "type": "array", "items": { "type": "string" } }
+    },
+    "events": ["release.preflight.security.started", "release.preflight.security.completed"],
+    "success_criteria": ["Checklist completata", "Output parsabile e tracciabile"],
+    "failure_criteria": ["Input invalido", "Preflight fallita (fail)"]
+  }
+}

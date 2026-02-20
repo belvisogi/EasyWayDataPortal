@@ -1,0 +1,23 @@
+{
+  "id": "kb.assessment",
+  "what": {
+    "purpose": "Validare e fare assessment della KB (recipes.jsonl): JSON valido, references esistenti, campi minimi.",
+    "inputs": {
+      "path": { "type": "string", "default": "agents/kb/recipes.jsonl" },
+      "out": { "type": "string", "default": "out/kb-assessment.json" },
+      "failOnError": { "type": "boolean", "default": false },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "summary": { "type": "object" },
+      "issues": { "type": "array", "items": { "type": "object" } }
+    },
+    "events": ["kb.assessment.started", "kb.assessment.completed"],
+    "success_criteria": ["Report prodotto"],
+    "failure_criteria": ["Parsing fallito", "Issues presenti (se failOnError=true)"]
+  }
+}
+

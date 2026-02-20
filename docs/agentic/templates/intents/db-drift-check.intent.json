@@ -1,0 +1,21 @@
+{
+  "id": "db-drift-check",
+  "what": {
+    "purpose": "Verificare DB drift: oggetti richiesti presenti (schema/SP/table) e riportare esito machine-readable.",
+    "inputs": {
+      "targetEnv": { "type": "string", "examples": ["local", "dev", "test", "prod"] },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "missing": { "type": "array", "items": { "type": "string" } },
+      "reportPath": { "type": "string" }
+    },
+    "events": ["db-drift-check.started", "db-drift-check.completed"],
+    "success_criteria": ["Report drift prodotto"],
+    "failure_criteria": ["Connessione DB fallita"]
+  }
+}
+

@@ -1,0 +1,80 @@
+{
+  "id": "iam.provision.access",
+  "version": "0.1.0",
+  "principle": "WHAT-first: definire scopo, contratti e audit prima dell'implementazione",
+  "intent": {
+    "name": "iam.provision.access",
+    "description": "Provisioning governance-driven di un accesso tecnico (DB/Datalake) con Key Vault + registry audit.",
+    "trigger": "iam.provision.access.requested"
+  },
+  "roles": {
+    "requester": "Richiede accesso tecnico e fornisce requisiti minimi.",
+    "orchestrator": "n8n.dispatch: valida input, fa precheck e instrada verso agent.",
+    "agent_security": "Gestisce segreti/reference e controlli anti-leak.",
+    "agent_dba": "Crea/ruota/revoca utente DB (se target=db).",
+    "agent_datalake": "Applica structure/ACL (se target=datalake).",
+    "steward_governance": "Human-in-the-loop per approve su ambienti condivisi/prod."
+  },
+  "stages": [
+    {
+      "name": "received",
+      "purpose": "Ricevere richiesta e inizializzare correlationId",
+      "entry_criteria": ["iam.provision.access.requested"],
+      "inputs": ["intent_payload"],
+      "outputs": ["correlationId"],
+      "success_criteria": ["Payload ricevuto"],
+      "failure_criteria": ["Payload mancante"],
+      "human_checkpoints": [],
+      "ux_prompts": "iam_provision_received"
+    },
+    {
+      "name": "validated",
+      "purpose": "Validare requisiti minimi e policy (no secret in log)",
+      "entry_criteria": ["received.success"],
+      "inputs": ["intent_payload"],
+      "outputs": ["validation_ok", "validation_notes"],
+      "success_criteria": ["Spec valida"],
+      "failure_criteria": ["Spec invalida"],
+      "human_checkpoints": [],
+      "ux_prompts": "iam_provision_validated"
+    },
+    {
+      "name": "approved",
+      "purpose": "Checkpoint human-in-the-loop per ambienti condivisi/prod",
+      "entry_criteria": ["validated.success"],
+      "inputs": ["validation_notes"],
+      "outputs": ["approved"],
+      "success_criteria": ["Approvazione registrata"],
+      "failure_criteria": ["Non approvato"],
+      "human_checkpoints": ["Approvazione governance"],
+      "ux_prompts": "iam_provision_approved"
+    },
+    {
+      "name": "executed",
+      "purpose": "Eseguire agent (security + dba/datalake) in WhatIf o apply",
+      "entry_criteria": ["approved.success"],
+      "inputs": ["intent_payload"],
+      "outputs": ["artifacts[]", "registry_entry"],
+      "success_criteria": ["Output strutturato e log"],
+      "failure_criteria": ["Esecuzione fallita"],
+      "human_checkpoints": [],
+      "ux_prompts": "iam_provision_executed"
+    },
+    {
+      "name": "completed",
+      "purpose": "Chiudere run con link a registry e secret_ref",
+      "entry_criteria": ["executed.success"],
+      "inputs": ["artifacts[]"],
+      "outputs": ["run_summary"],
+      "success_criteria": ["Output finale disponibile"],
+      "failure_criteria": [],
+      "human_checkpoints": [],
+      "ux_prompts": "iam_provision_done"
+    }
+  ],
+  "observability": {
+    "diary_log_fields": ["timestamp", "stage", "outcome", "reason", "next", "decision_trace_id", "artifacts[]"],
+    "decision_trace_policy": "Propagare correlationId/decision_trace_id su tutti gli eventi e artifact"
+  }
+}
+

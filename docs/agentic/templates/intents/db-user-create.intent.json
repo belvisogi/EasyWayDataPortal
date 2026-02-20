@@ -1,0 +1,29 @@
+{
+  "id": "db-user-create",
+  "what": {
+    "purpose": "Creare un utente DB (WhatIf-by-default) con ruoli minimi e audit, opzionalmente registrando secret_ref in Key Vault.",
+    "inputs": {
+      "server": { "type": "string" },
+      "database": { "type": "string" },
+      "username": { "type": "string" },
+      "auth": { "type": "string", "examples": ["sql", "aad"], "default": "sql" },
+      "roles": { "type": "array", "items": { "type": "string" } },
+      "storeInKeyVault": { "type": "boolean", "default": false },
+      "keyVault": { "type": "object" },
+      "whatIf": { "type": "boolean", "default": true },
+      "nonInteractive": { "type": "boolean", "default": true },
+      "correlationId": { "type": "string" }
+    },
+    "outputs": {
+      "ok": { "type": "boolean" },
+      "executed": { "type": "boolean" },
+      "passwordMasked": { "type": "string" },
+      "stateBefore": { "type": "object" },
+      "stateAfter": { "type": "object" }
+    },
+    "events": ["db-user-create.started", "db-user-create.completed"],
+    "success_criteria": ["Precheck OK (whatIf) o utente creato (apply)"],
+    "failure_criteria": ["Permessi insufficienti", "Connessione fallita"]
+  }
+}
+
