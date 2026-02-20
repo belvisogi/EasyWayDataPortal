@@ -47,6 +47,16 @@ type: reference
 > **Status**: The Active Agent MUST follow the Constitution provided in its System Prompt.
 > **Key Principles**: Integrity, Fail-Fast Security, and Strict Standards.
 
+## 0b. Fonti Normative e Precedenza (ANTI-CONFUSIONE)
+
+Per evitare conflitti tra documenti con nomi simili:
+
+1. **Source of truth operativa**: `Wiki/EasyWayData.wiki/agents/platform-operational-memory.md`
+2. **Derivato auto-sync**: `.cursorrules` (sincronizzato via `scripts/pwsh/Sync-PlatformMemory.ps1`)
+3. **Entrypoint repo**: `AGENTS.md` in root repo
+
+File `AGENTS.md` dentro `Wiki/**/archive/**` o `Wiki/**/indices/**` sono storici/indice e **non normativi**.
+
 ---
 
 ## 1. Deploy Workflow (CRITICO)
@@ -247,11 +257,23 @@ Scope obbligatori: `Code (Read & Write)` + `Pull Request Contribute`
 # Carica PAT da C:\old\.env.local e configura az devops defaults
 pwsh EasyWayDataPortal/scripts/pwsh/Initialize-AzSession.ps1
 
-# Verifica stato sessione
+# Verifica env nella sessione corrente
 pwsh EasyWayDataPortal/scripts/pwsh/Initialize-AzSession.ps1 -Verify
+
+# Verifica token direttamente da file (anche a sessione nuova)
+pwsh EasyWayDataPortal/scripts/pwsh/Initialize-AzSession.ps1 -VerifyFromFile
 ```
 
 Template `.env.local`: vedi `C:\old\.env.local.example`
+
+**Golden Path Atomico (raccomandato)**:
+```powershell
+pwsh EasyWayDataPortal/scripts/pwsh/agent-pr.ps1 `
+  -Title "fix(scope): descrizione breve max 70 char" `
+  -WhatIf:$false
+```
+
+Il comando sopra esegue init Azure + `az repos pr create` nello stesso processo PowerShell.
 
 **Comando PR feat → develop**:
 ```powershell
@@ -279,6 +301,7 @@ az repos pr create `
 
 **Note critiche**:
 - `AZURE_DEVOPS_EXT_PAT` NON viene ereditato tra sessioni PowerShell diverse
+- `Initialize-AzSession.ps1 -Verify` controlla solo la sessione corrente; per validare il file usare `-VerifyFromFile`
 - PAT valido: ~52 caratteri alfanumerici; se utente restituito e' `aaaa-aaaa-aaaa` il PAT e' invalido
 - Per body lunghi: scrivere prima in `C:\temp\pr-body.md`, poi passare con `--description (Get-Content 'C:\temp\pr-body.md' -Raw)`
 - Se az fallisce con "not authorized": il PAT e' scaduto o non ha scope corretto

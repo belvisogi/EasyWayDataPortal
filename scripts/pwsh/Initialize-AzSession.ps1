@@ -42,7 +42,8 @@ param(
     [string]$SecretsFile = "C:\old\.env.local",
     [string]$OrgUrl     = "https://dev.azure.com/EasyWayData",
     [string]$Project    = "EasyWay-DataPortal",
-    [switch]$Verify
+    [switch]$Verify,
+    [switch]$VerifyFromFile
 )
 
 Set-StrictMode -Version Latest
@@ -71,6 +72,27 @@ if ($Verify) {
     }
     $cfg = az devops configure --list 2>&1
     Write-Host "az devops config: $cfg"
+    return
+}
+
+if ($VerifyFromFile) {
+    if (-not (Test-Path $SecretsFile)) {
+        Write-Host "Secrets file not found: $SecretsFile" -ForegroundColor Red
+        return
+    }
+    $secrets = Read-EnvFile -Path $SecretsFile
+    if (-not $secrets.ContainsKey("AZURE_DEVOPS_EXT_PAT")) {
+        Write-Host "AZURE_DEVOPS_EXT_PAT not found in $SecretsFile" -ForegroundColor Red
+        return
+    }
+    $patFromFile = $secrets["AZURE_DEVOPS_EXT_PAT"]
+    if ([string]::IsNullOrEmpty($patFromFile)) {
+        Write-Host "AZURE_DEVOPS_EXT_PAT in file is empty" -ForegroundColor Red
+    } elseif ($patFromFile.Length -lt 40) {
+        Write-Host "AZURE_DEVOPS_EXT_PAT in file is too short ($($patFromFile.Length) chars)" -ForegroundColor Yellow
+    } else {
+        Write-Host "AZURE_DEVOPS_EXT_PAT in file looks valid ($($patFromFile.Length) chars)" -ForegroundColor Green
+    }
     return
 }
 

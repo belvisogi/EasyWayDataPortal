@@ -91,3 +91,14 @@ Tracciamento errori commessi durante sessioni agentiche per prevenire ricorrenze
 | **Domanda** | Cos'è "Iron Dome"? |
 | **Risposta** | È il nome del Pre-Commit Hook automatico. Si attiva a ogni git commit e blocca errori di sintassi PowerShell e violazioni di linting. Lavora insieme a wctl commit (Smart Commit) per garantire la qualità del codice. |
 
+### 2026-02-20 — PR CLI non atomica tra sessioni PowerShell
+
+| Campo | Valore |
+|-------|--------|
+| **Data** | 2026-02-20 |
+| **Sessione** | PR flow hardening |
+| **Errore** | Esecuzione separata di `Initialize-AzSession.ps1` e `az repos pr create` in sessioni diverse: il PAT non rimane in env e la PR fallisce con auth mismatch. |
+| **Impatto** | PR non creata, diagnosi fuorviante ("token corto") anche con token valido in `C:\old\.env.local`. |
+| **Fix applicato** | `scripts/pwsh/agent-pr.ps1` ora esegue init Azure session nello stesso processo prima del create (`-WhatIf:$false`). |
+| **Prevenzione** | Usare comando atomico: `pwsh scripts/pwsh/agent-pr.ps1 -Title "fix(scope): ..." -WhatIf:$false`. Per debug token usare `pwsh scripts/pwsh/Initialize-AzSession.ps1 -VerifyFromFile`. |
+
