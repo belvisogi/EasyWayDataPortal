@@ -104,19 +104,25 @@ Regole persistite in `/etc/iptables/rules.v4`.
 
 ---
 
-## 3. Secrets Management
+## 3. Secrets Management & Sovereign Gatekeeper (Session 16 - DEFINITIVO)
 
 | Elemento | Dettaglio |
 |---|---|
-| File secrets | `/opt/easyway/.env.secrets` (chmod 600, owner ubuntu) |
-| Contiene | `DEEPSEEK_API_KEY`, `GITEA_API_TOKEN` |
-| Docker override | `docker-compose.secrets.yml` (in .gitignore) |
-| Wrapper script | `scripts/dc.sh` — include secrets automaticamente |
-| Roadmap | `Wiki/.../security/secrets-management-roadmap.md` (4 opzioni cloud) |
+| Sovereign Registry | `C:\old\rbac-master.json` (server: `/etc/easyway/rbac-master.json`) — **FUORI DAL REPO**. |
+| File secrets LLM | `/opt/easyway/.env.secrets` (chmod 600, owner ubuntu) |
+| Profili ADO | `C:\old\.env.discovery`, `.env.planner`, `.env.executor`, `.env.developer` |
+| Universal Broker | `agents/skills/utilities/Import-AgentSecrets.ps1` (Gatekeeper OS-level) |
+| Audit Trail | `C:\old\logs\rbac-audit.log` (Append-only) |
 
-**IMPORTANTE**: le chiavi NON sono piu' in `~/.bashrc` (rimosso in Session 3). Backup a `~/.bashrc.bak.20260209`.
+**IMPORTANTE (L'Era del Gatekeeper)**: 
+Le chiavi NON si leggono più parsando file `.env` manualmente. Tutto passa per `Import-AgentSecrets.ps1`, che consulta il **Sovereign Registry**.
+Il registro definisce per ogni agente:
+- `role`: Livello di permessi ADO associato.
+- `allowed_profiles`: I profili `.env.*` che l'agente è autorizzato a caricare.
+- `llm_access`: Booleano se può usare DeepSeek.
+- `monthly_budget_usd`: Limite di spesa mensile (Stop-Loss). Se superato, il Gatekeeper nega la API Key.
 
----
+Gli script come `Initialize-AzSession.ps1`, `ado-plan-apply.ps1` e i runner degli agenti invocano il broker dichiarando la propria identità: `Import-AgentSecrets -AgentId "agent_name"`. Se l'identità non è nel registro o non ha permessi, scatta l'eccezione `UnauthorizedAccessException`.
 
 ## 4. Servizi Chiave
 
@@ -232,22 +238,18 @@ Template PR standard:
 
 Titolo: `<tipo>(<scope>): <descrizione breve>` — max 70 caratteri.
 
-### Creazione PR via az CLI (OPERATIVO - Session 8)
+### Creazione PR via az CLI (OPERATIVO - Session 16)
 
-**Prerequisito**: `AZURE_DEVOPS_EXT_PAT` del **service account** `ew-svc-azuredevops-agent` settato in `C:\old\.env.local`.
-
-**Setup una-tantum**: creare in `C:\old\` i file di configurazione segregati (fuori dal repo, mai committati). 
-A differenza del vecchio modello monolitico, **NON si usa più un unico `.env.local`**. Esistono 4 profili per il Principio del Minimo Privilegio:
+**Prerequisito**: Avere il proprio PAT personale (o quello del service account) nel file autorizzato dal Sovereign Registry (di default `C:\old\.env.developer`).
+I profili sono segregati (fuori dal repo):
 1. `C:\old\.env.discovery`: Solo `Code (Read)` e `Wiki (Read)`.
 2. `C:\old\.env.planner`: Solo `Work Items (Read)`.
-3. `C:\old\.env.executor`: `Work Items (Read & Write)` (CRITICO: Limitare accesso via permessi OS `chmod 400`).
-4. `C:\old\.env.developer`: `Code (Read & Write)` + `Pull Request Contribute` per creare PR (usato da `Initialize-AzSession`).
+3. `C:\old\.env.executor`: `Work Items (Read & Write)` (Limita accesso via OS `chmod 400`).
+4. `C:\old\.env.developer`: `Code (R/W)` + `Pull Request Contribute`.
 
 Ottenere i PAT da `https://dev.azure.com/EasyWayData/_usersSettings/tokens`.
-**NON aggiungere altri scope oltre quelli strettamente necessari per il ruolo.**
-**NON aggiungere Work Items** — il service account non deve poter creare WI autonomamente.
 
-**Inizializzazione sessione Developer** (una volta per sessione Claude Code):
+**Inizializzazione sessione Developer** (una volta per sessione):
 ```powershell
 # Carica PAT da C:\old\.env.developer e configura az devops defaults
 pwsh EasyWayDataPortal/scripts/pwsh/Initialize-AzSession.ps1
