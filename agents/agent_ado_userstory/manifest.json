@@ -6,6 +6,7 @@
       "agents/agent_ado_userstory/**",
       "agents/**",
       "scripts/pwsh/agent-ado-userstory.ps1",
+      "scripts/pwsh/agent-ado-prd.ps1",
       "scripts/**",
       "docs/agentic/templates/intents/**",
       "docs/agentic/templates/orchestrations/**",
@@ -168,6 +169,39 @@
           "required": false
         },
         "externalSources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "ado:prd.decompose",
+      "description": "Decompone un PRD markdown in Epic/Feature/PBI; in Apply crea e collega i work item in ADO.",
+      "params": {
+        "prdPath": {
+          "type": "string",
+          "required": true
+        },
+        "whatIf": {
+          "type": "boolean",
+          "required": false
+        },
+        "ado": {
+          "type": "object",
+          "required": false
+        },
+        "areaPath": {
+          "type": "string",
+          "required": false
+        },
+        "iterationPath": {
+          "type": "string",
+          "required": false
+        },
+        "tags": {
           "type": "array",
           "items": {
             "type": "string"
