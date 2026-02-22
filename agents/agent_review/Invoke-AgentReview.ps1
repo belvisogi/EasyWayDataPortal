@@ -82,9 +82,9 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # ─── Resolve paths ────────────────────────────────────────────────────────────
-$AgentDir    = $PSScriptRoot
-$SkillsDir   = Join-Path $AgentDir ".." "skills"
-$LLMWithRAG  = Join-Path $SkillsDir "retrieval" "Invoke-LLMWithRAG.ps1"
+$AgentDir = $PSScriptRoot
+$SkillsDir = Join-Path $AgentDir ".." "skills"
+$LLMWithRAG = Join-Path $SkillsDir "retrieval" "Invoke-LLMWithRAG.ps1"
 $SessionSkill = Join-Path $SkillsDir "session" "Manage-AgentSession.ps1"
 $PromptsFile = Join-Path $AgentDir "PROMPTS.md"
 
@@ -99,7 +99,7 @@ foreach ($p in @($LLMWithRAG, $PromptsFile)) {
 $importSecretsSkill = Join-Path $SkillsDir 'utilities' 'Import-AgentSecrets.ps1'
 if (Test-Path $importSecretsSkill) {
     . $importSecretsSkill
-    Import-AgentSecrets | Out-Null
+    Import-AgentSecrets -AgentId "agent_review" | Out-Null
 }
 if (-not $ApiKey) { $ApiKey = $env:DEEPSEEK_API_KEY }
 if (-not $ApiKey) {
@@ -153,17 +153,17 @@ Write-Host "[1/2] Calling Invoke-LLMWithRAG (Action: $Action)..." -ForegroundCol
 . $LLMWithRAG
 
 $invokeParams = @{
-    Query          = $Query
-    AgentId        = "agent_review"
-    SystemPrompt   = $systemPrompt
-    TopK           = $TopK
-    SecureMode     = $true
+    Query        = $Query
+    AgentId      = "agent_review"
+    SystemPrompt = $systemPrompt
+    TopK         = $TopK
+    SecureMode   = $true
 }
 
 if (-not $NoEvaluator) {
-    $invokeParams["EnableEvaluator"]      = $true
-    $invokeParams["AcceptanceCriteria"]   = $acceptanceCriteria
-    $invokeParams["MaxIterations"]        = $MaxIterations
+    $invokeParams["EnableEvaluator"] = $true
+    $invokeParams["AcceptanceCriteria"] = $acceptanceCriteria
+    $invokeParams["MaxIterations"] = $MaxIterations
 }
 
 if ($SessionFile -and (Test-Path $SessionFile)) {
@@ -196,17 +196,17 @@ if ($result.RAGChunks -gt 0) {
 # ─── Session: update with result ──────────────────────────────────────────────
 if ($SessionFile -and (Test-Path $SessionFile) -and (Test-Path $SessionSkill)) {
     $confidence = if ($result.EvaluatorStatus -eq "PASS") { 0.9 } `
-                  elseif ($result.EvaluatorStatus -eq "DEGRADED") { 0.65 } `
-                  else { 0.75 }
+        elseif ($result.EvaluatorStatus -eq "DEGRADED") { 0.65 } `
+        else { 0.75 }
 
     & $SessionSkill -Operation Update `
         -SessionFile $SessionFile `
         -CompletedStep $Action `
         -StepResult @{
-            verdict         = "see_output"
-            evaluator_status = $result.EvaluatorStatus
-            rag_chunks      = $result.RAGChunks
-        } `
+        verdict          = "see_output"
+        evaluator_status = $result.EvaluatorStatus
+        rag_chunks       = $result.RAGChunks
+    } `
         -Confidence $confidence | Out-Null
 
     Write-Host " Session updated (confidence: $confidence)" -ForegroundColor DarkGray

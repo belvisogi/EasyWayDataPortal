@@ -223,6 +223,9 @@ Ogni agente deve avere definiti:
 *   Ambiente autorizzato (Dev/Prod)
 *   Budget massimo
 
+**Mandatory Environment Segregation**:
+Gli agenti non devono condividere file di configurazione con segreti ad alto privilegio (es. un unico `.env.local`). Devono esistere profili specifici per ruolo (es. `.env.discovery`, `.env.planner`, `.env.executor`) che contengono token (PAT) con lo scope strettamente necessario (Least Privilege). Su ambienti Server, l'accesso a questi file deve essere bloccato tramite permessi OS (es. `chmod 400`) e segregazione di service account. Il server non prende decisioni finali di trigger su file ad elevati permessi (es. execution) senza un gate umano esplicito o una pipeline CI/CD approvata.
+
 ### 10.2 Deterministic Gatekeeping
 Ogni azione irreversibile (Deployment, Delete) richiede check precisi (L1):
 *   Verifica ambiente.

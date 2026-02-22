@@ -89,7 +89,7 @@ if (-not (Test-Path $ParallelScript)) {
 $importSecretsSkill = Join-Path $SkillsDir 'utilities' 'Import-AgentSecrets.ps1'
 if (Test-Path $importSecretsSkill) {
     . $importSecretsSkill
-    Import-AgentSecrets | Out-Null
+    Import-AgentSecrets -AgentId "agent_pr_gate" | Out-Null
 }
 if (-not $ApiKey) { $ApiKey = $env:DEEPSEEK_API_KEY }
 if (-not $ApiKey) {

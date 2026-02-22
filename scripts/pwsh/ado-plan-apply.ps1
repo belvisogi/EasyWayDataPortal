@@ -59,9 +59,22 @@ function Get-ExistingWorkItemByTitle([string]$orgUrl, [string]$project, [string]
     }
 }
 
-$pat = $env:ADO_PAT
+$repoRoot = (git rev-parse --show-toplevel 2>$null)
+if (-not $repoRoot) { $repoRoot = $PWD.Path }
+$importSecretsScript = Join-Path $repoRoot "agents" "skills" "utilities" "Import-AgentSecrets.ps1"
+
+if (-not (Test-Path $importSecretsScript)) {
+    Write-Warning "Universal Token Broker not found at $importSecretsScript. Running in Blind-Planner mode (assuming NO items exist)."
+    $pat = $null
+}
+else {
+    . $importSecretsScript
+    $secrets = Import-AgentSecrets -AgentId "agent_planner"
+    $pat = if ($secrets.ContainsKey("AZURE_DEVOPS_EXT_PAT")) { $env:AZURE_DEVOPS_EXT_PAT } else { $null }
+}
+
 if (-not $pat) {
-    Write-Warning "ADO_PAT environment variable not set. Running in Blind-Planner mode (assuming NO items exist)."
+    Write-Warning "ADO_PAT not granted by Global Gatekeeper (RBAC_DENY) or unavailable. Running in Blind-Planner mode."
 }
 else {
     $headers = Get-AdoAuthHeader $pat
