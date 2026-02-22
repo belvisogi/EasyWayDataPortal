@@ -36,12 +36,21 @@ Bootstrap Azure DevOps project structure.
 - Seed backlog for hybrid Kanban/Sprint model
 - WhatIf by default — show plan before executing
 
-### ado:userstory.create
-Create a User Story on Azure DevOps (WhatIf by default).
-- Prefetch best practices first (automatic)
-- Validate against ADO operating model
-- Generate structured work item with all required fields
-- Link to parent Feature/Epic
+### ado:prd.parse (L2 Analyzer)
+Convert a natural language Markdown PRD into a deterministic `backlog.json` payload.
+- No network calls allowed in this phase.
+- Parses Epic -> Feature -> PBI hierarchy.
+
+### ado:prd.plan (L3 Validator)
+Generate an `execution_plan.json` by comparing the `backlog.json` against actual Azure DevOps state.
+- Strictly Read-Only queries to ADO.
+- Outputs exact plan. Represents the ultimate "WhatIf" phase.
+- Requires explicit Human Approval before proceeding to execution.
+
+### ado:prd.apply (L1 Executor)
+Blindly execute the `execution_plan.json`.
+- Uses deterministic Write Operations.
+- No parsing, no AI inference. Just API execution.
 
 ## Output Format
 
