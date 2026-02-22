@@ -1,18 +1,35 @@
 {
-  "action": "ado:prd.decompose",
-  "params": {
-    "prdPath": "docs/prd/sample-prd.md",
-    "whatIf": true,
-    "ado": {
-      "orgUrl": "https://dev.azure.com/EasyWayData",
-      "project": "EasyWay-DataPortal"
+  "description": "Intent to fully decompose a PRD following the Divide et Impera safe execution flow (L2 -> L3 -> L1)",
+  "actions": [
+    {
+      "action": "ado:prd.parse",
+      "description": "L2 Analyzer: Converts Markdown PRD to backlog.json deterministically",
+      "params": {
+        "prdPath": "docs/prd/sample-prd.md",
+        "outputPath": "out/backlog.json"
+      }
     },
-    "areaPath": "EasyWayDataPortal",
-    "iterationPath": "EasyWayDataPortal\\Sprint 01",
-    "tags": [
-      "AutoPRD",
-      "BacklogSeed"
-    ]
-  },
-  "correlationId": "ado-prd-decompose-001"
+    {
+      "action": "ado:prd.plan",
+      "description": "L3 Validator: Queries ADO via Read-Only calls to generate execution_plan.json (WhatIf enforced)",
+      "params": {
+        "backlogPath": "out/backlog.json",
+        "outputPath": "out/execution_plan.json",
+        "ado": {
+          "orgUrl": "https://dev.azure.com/EasyWayData",
+          "project": "EasyWay-DataPortal"
+        },
+        "areaPath": "EasyWayDataPortal",
+        "iterationPath": "EasyWayDataPortal\\Sprint 01"
+      }
+    },
+    {
+      "action": "ado:prd.apply",
+      "description": "L1 Executor: Blindly executes execution_plan.json on ADO (Requires Human Approval Gate before this step)",
+      "params": {
+        "executionPlanPath": "out/execution_plan.json"
+      }
+    }
+  ],
+  "correlationId": "ado-prd-pipeline-001"
 }
