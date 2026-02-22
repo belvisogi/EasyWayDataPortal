@@ -8,11 +8,12 @@ File
 - `priority.json` - checklist minime
 - `templates/intent.ado-userstory-create.sample.json` - esempio di intent per creazione User Story
 - `templates/intent.ado-bestpractice-prefetch.sample.json` - esempio di intent prefetch best practices
-- `scripts/agent-ado-userstory.ps1` - eseguibile PowerShell con output JSON
+- `templates/intent.ado-prd-decompose.sample.json` - esempio di intent PRD -> Epic/Feature/PBI
+- `scripts/pwsh/agent-ado-prd.ps1` - decompone PRD e (opz.) crea backlog in ADO
 
 Esecuzione (esempio)
 ```
-pwsh scripts/agent-ado-userstory.ps1 -Action ado:userstory.create -IntentPath agents/agent_ado_userstory/templates/intent.ado-userstory-create.sample.json -NonInteractive -LogEvent
+pwsh scripts/pwsh/agent-ado-prd.ps1 -Action ado:prd.decompose -IntentPath agents/agent_ado_userstory/templates/intent.ado-prd-decompose.sample.json -WhatIf -LogEvent
 ```
 
 Note

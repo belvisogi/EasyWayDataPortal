@@ -1,0 +1,22 @@
+{
+    "id": "agent_discovery",
+    "name": "agent_discovery",
+    "role": "Agent_Requirement_Design",
+    "description": "Transforms natural language requirements into PRD + High Level Design.",
+    "owner": "team-platform",
+    "version": "1.0.0",
+    "llm_config": {
+        "model": "gpt-4-turbo",
+        "temperature": 0.2,
+        "system_prompt": "PROMPTS.md"
+    },
+    "context_config": {
+        "enable_memory": true
+    },
+    "allowed_tools": [
+        "pwsh",
+        "git",
+        "az"
+    ],
+    "classification": "arm"
+}

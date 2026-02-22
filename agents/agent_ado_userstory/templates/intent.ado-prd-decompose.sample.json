@@ -1,0 +1,18 @@
+{
+  "action": "ado:prd.decompose",
+  "params": {
+    "prdPath": "docs/prd/sample-prd.md",
+    "whatIf": true,
+    "ado": {
+      "orgUrl": "https://dev.azure.com/EasyWayData",
+      "project": "EasyWay-DataPortal"
+    },
+    "areaPath": "EasyWayDataPortal",
+    "iterationPath": "EasyWayDataPortal\\Sprint 01",
+    "tags": [
+      "AutoPRD",
+      "BacklogSeed"
+    ]
+  },
+  "correlationId": "ado-prd-decompose-001"
+}
