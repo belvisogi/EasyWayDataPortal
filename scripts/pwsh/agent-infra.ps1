@@ -65,17 +65,17 @@ function Out-Result($obj) {
 $importSecretsSkill = Join-Path $PSScriptRoot '..\..\agents\skills\utilities\Import-AgentSecrets.ps1'
 if (Test-Path $importSecretsSkill) {
   . $importSecretsSkill
-  Import-AgentSecrets | Out-Null
+  Import-AgentSecrets -AgentId "agent_infra" | Out-Null
 }
 
 # --- INIT ---
 
 $intent = Read-Intent $IntentPath
-$p      = if ($intent) { $intent.params } else { @{} }
+$p = if ($intent) { $intent.params } else { @{} }
 
 if ($IntentPath) {
-  if (-not $Action)  { $Action  = $intent.action }
-  if (-not $Query)   { $Query   = if ($intent.PSObject.Properties['query']) { $intent.query } else { $p.query } }
+  if (-not $Action) { $Action = $intent.action }
+  if (-not $Query) { $Query = if ($intent.PSObject.Properties['query']) { $intent.query } else { $p.query } }
   if (-not $Workdir) { $Workdir = $p.workdir }
 }
 
@@ -91,7 +91,7 @@ try {
   switch ($Action) {
 
     'infra:terraform-plan' {
-      $wd       = if ($Workdir) { $Workdir } else { 'infra/terraform' }
+      $wd = if ($Workdir) { $Workdir } else { 'infra/terraform' }
       $executed = $false
       $errorMsg = $null
 
@@ -114,21 +114,21 @@ try {
       }
 
       $Result = [ordered]@{
-        action        = $Action
-        ok            = ($null -eq $errorMsg)
-        whatIf        = [bool]$WhatIf
+        action         = $Action
+        ok             = ($null -eq $errorMsg)
+        whatIf         = [bool]$WhatIf
         nonInteractive = [bool]$NonInteractive
-        correlationId = if ($intent -and $intent.PSObject.Properties['correlationId']) { $intent.correlationId } else { $null }
-        startedAt     = $now
-        finishedAt    = (Get-Date).ToUniversalTime().ToString('o')
-        output        = [ordered]@{
+        correlationId  = if ($intent -and $intent.PSObject.Properties['correlationId']) { $intent.correlationId } else { $null }
+        startedAt      = $now
+        finishedAt     = (Get-Date).ToUniversalTime().ToString('o')
+        output         = [ordered]@{
           workdir  = $wd
           executed = $executed
           hint     = 'Apply non implementato: usare pipeline con approvazioni Human_Governance_Approval.'
         }
-        error         = $errorMsg
+        error          = $errorMsg
       }
-      $Result.contractId      = 'action-result'
+      $Result.contractId = 'action-result'
       $Result.contractVersion = '1.0'
     }
 
@@ -166,12 +166,12 @@ try {
       }
 
       $Result = [ordered]@{
-        action        = $Action
-        ok            = $true
-        startedAt     = $now
-        finishedAt    = (Get-Date).ToUniversalTime().ToString('o')
-        assessment    = $llmResult.Answer
-        metadata      = [ordered]@{
+        action     = $Action
+        ok         = $true
+        startedAt  = $now
+        finishedAt = (Get-Date).ToUniversalTime().ToString('o')
+        assessment = $llmResult.Answer
+        metadata   = [ordered]@{
           provider    = $Provider
           model       = $llmResult.Model
           ragChunks   = $llmResult.RAGChunks
@@ -181,7 +181,7 @@ try {
           durationSec = $llmResult.DurationSec
         }
       }
-      $Result.contractId      = 'action-result'
+      $Result.contractId = 'action-result'
       $Result.contractVersion = '1.0'
     }
 

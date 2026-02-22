@@ -65,7 +65,7 @@ param(
     # L3 controls
     [Parameter(Mandatory = $false)] [string]$SessionFile = '',
     [Parameter(Mandatory = $false)] [switch]$NoEvaluator,
-    [Parameter(Mandatory = $false)] [ValidateRange(1,5)] [int]$MaxIterations = 2,
+    [Parameter(Mandatory = $false)] [ValidateRange(1, 5)] [int]$MaxIterations = 2,
     [Parameter(Mandatory = $false)] [int]$TopK = 5,
 
     # Operational flags
@@ -80,15 +80,15 @@ $ErrorActionPreference = 'Stop'
 
 # ─── Constants ─────────────────────────────────────────────────────────────────
 $CONFIDENCE_THRESHOLD = 0.70
-$KV_NAME_PATTERN      = '^[a-z0-9]+-{2}[a-z0-9]+-{2}[a-z0-9]+$'
+$KV_NAME_PATTERN = '^[a-z0-9]+-{2}[a-z0-9]+-{2}[a-z0-9]+$'
 
 # ─── Paths ─────────────────────────────────────────────────────────────────────
-$AgentDir     = $PSScriptRoot
-$SkillsDir    = Join-Path $AgentDir '..' 'skills'
-$LLMWithRAG   = Join-Path $SkillsDir 'retrieval' 'Invoke-LLMWithRAG.ps1'
+$AgentDir = $PSScriptRoot
+$SkillsDir = Join-Path $AgentDir '..' 'skills'
+$LLMWithRAG = Join-Path $SkillsDir 'retrieval' 'Invoke-LLMWithRAG.ps1'
 $SessionSkill = Join-Path $SkillsDir 'session'   'Manage-AgentSession.ps1'
 $CVEScanSkill = Join-Path $SkillsDir 'security'  'Invoke-CVEScan.ps1'
-$PromptsFile  = Join-Path $AgentDir  'PROMPTS.md'
+$PromptsFile = Join-Path $AgentDir  'PROMPTS.md'
 
 foreach ($required in @($LLMWithRAG, $PromptsFile)) {
     if (-not (Test-Path $required)) {
@@ -103,7 +103,7 @@ foreach ($required in @($LLMWithRAG, $PromptsFile)) {
 $importSecretsSkill = Join-Path $SkillsDir 'utilities' 'Import-AgentSecrets.ps1'
 if (Test-Path $importSecretsSkill) {
     . $importSecretsSkill
-    Import-AgentSecrets | Out-Null
+    Import-AgentSecrets -AgentId "agent_security" | Out-Null
 }
 # Resolve ApiKey after secrets are loaded (param default evaluated before load)
 if (-not $ApiKey) { $ApiKey = $env:DEEPSEEK_API_KEY }
@@ -149,7 +149,8 @@ function Get-SecurityOutput([string]$raw) {
     $json = ($raw -replace '(?s)```json\s*', '' -replace '(?s)```\s*', '').Trim()
     try {
         return $json | ConvertFrom-Json
-    } catch {
+    }
+    catch {
         return [PSCustomObject]@{
             status                = 'WARNING'
             risk_level            = 'MEDIUM'
@@ -181,16 +182,16 @@ $intent = Read-Intent $IntentPath
 if ($intent) {
     if ($intent.PSObject.Properties['action'] -and -not $PSBoundParameters.ContainsKey('Action')) { $Action = $intent.action }
     $p = if ($intent.PSObject.Properties['params']) { $intent.params } else { [PSCustomObject]@{} }
-    if (-not $Query      -and $p.PSObject.Properties['query'])       { $Query      = $p.query }
+    if (-not $Query -and $p.PSObject.Properties['query']) { $Query = $p.query }
     if (-not $ScanTarget -and $p.PSObject.Properties['scan_target']) { $ScanTarget = $p.scan_target }
-    if (-not $VaultName  -and $p.PSObject.Properties['vaultName'])   { $VaultName  = $p.vaultName }
-    if (-not $SecretName -and $p.PSObject.Properties['secretName'])  { $SecretName = $p.secretName }
+    if (-not $VaultName -and $p.PSObject.Properties['vaultName']) { $VaultName = $p.vaultName }
+    if (-not $SecretName -and $p.PSObject.Properties['secretName']) { $SecretName = $p.secretName }
     if (-not $SecretValue -and $p.PSObject.Properties['secretValue']) { $SecretValue = $p.secretValue }
-    if (-not $Version    -and $p.PSObject.Properties['version'])     { $Version    = $p.version }
-    if (-not $Access     -and $p.PSObject.Properties['access'])      { $Access     = $p.access }
+    if (-not $Version -and $p.PSObject.Properties['version']) { $Version = $p.version }
+    if (-not $Access -and $p.PSObject.Properties['access']) { $Access = $p.access }
 }
 
-$now       = (Get-Date).ToUniversalTime().ToString('o')
+$now = (Get-Date).ToUniversalTime().ToString('o')
 $startTime = Get-Date
 $llmActions = @('security:analyze', 'security:owasp-check')
 
@@ -238,22 +239,23 @@ try {
 
             # 2. Session start (security:analyze only, non-blocking)
             $sessionCreated = $false
-            $activeSession  = $SessionFile
+            $activeSession = $SessionFile
             if ($Action -eq 'security:analyze' -and (Test-Path $SessionSkill)) {
                 try {
-                    $sessionResult  = & $SessionSkill -Operation New -AgentId 'agent_security' -Intent $Action
-                    $activeSession  = $sessionResult.SessionFile
+                    $sessionResult = & $SessionSkill -Operation New -AgentId 'agent_security' -Intent $Action
+                    $activeSession = $sessionResult.SessionFile
                     $sessionCreated = $true
                     Write-Host "[Session] Started: $activeSession" -ForegroundColor DarkGray
-                } catch {
+                }
+                catch {
                     Write-Warning "[Session] Could not start (non-blocking): $_"
                 }
             }
 
             # 3. CVE scan block (when ScanTarget provided, security:analyze only)
-            $cveResults  = @{}
+            $cveResults = @{}
             $cveJobCount = 0
-            $cveContext  = ''
+            $cveContext = ''
             if ($Action -eq 'security:analyze' -and $ScanTarget -and (Test-Path $CVEScanSkill)) {
                 Write-Host '[1/3] Running dual CVE scan (docker-scout + trivy)...' -ForegroundColor Yellow
                 . $CVEScanSkill
@@ -264,7 +266,8 @@ try {
                         $cveJobCount++
                         Write-Host "  [$scanner] $($scan.TotalCount) vulns (C:$($scan.Summary.critical) H:$($scan.Summary.high) M:$($scan.Summary.medium))" -ForegroundColor DarkGray
                         $cveContext += "Scanner $scanner`: $($scan.TotalCount) vulnerabilities found (Critical:$($scan.Summary.critical) High:$($scan.Summary.high) Medium:$($scan.Summary.medium) Low:$($scan.Summary.low)). "
-                    } catch {
+                    }
+                    catch {
                         Write-Warning "  [$scanner] scan failed (non-blocking): $_"
                         $cveResults[$scanner] = @{ error = $_.Exception.Message }
                         $cveContext += "Scanner $scanner`: scan failed. "
@@ -279,7 +282,8 @@ try {
                         & $SessionSkill -Operation Update -SessionFile $activeSession `
                             -CompletedStep 'cve-scan' `
                             -StepResult @{ scan_target = $ScanTarget; job_count = $cveJobCount } | Out-Null
-                    } catch { Write-Warning '[Session] Update cve-scan failed (non-blocking): $_' }
+                    }
+                    catch { Write-Warning '[Session] Update cve-scan failed (non-blocking): $_' }
                 }
             }
 
@@ -308,9 +312,9 @@ try {
                 MaxTokens    = 1500
             }
             if (-not $NoEvaluator) {
-                $invokeParams['EnableEvaluator']    = $true
+                $invokeParams['EnableEvaluator'] = $true
                 $invokeParams['AcceptanceCriteria'] = $acPredicates
-                $invokeParams['MaxIterations']      = $MaxIterations
+                $invokeParams['MaxIterations'] = $MaxIterations
             }
             if ($activeSession -and (Test-Path $activeSession)) {
                 $invokeParams['SessionFile'] = $activeSession
@@ -320,12 +324,12 @@ try {
             if (-not $llmResult.Success) { throw "LLM call failed: $($llmResult.Error)" }
 
             # 5. Parse output + confidence gating
-            $parsed     = Get-SecurityOutput -raw $llmResult.Answer
-            $riskLevel  = if ($parsed.PSObject.Properties['risk_level'])  { [string]$parsed.risk_level } else { 'UNKNOWN' }
-            $confidence = if ($parsed.PSObject.Properties['confidence'])  { [double]$parsed.confidence } else { 0.5 }
-            $findings   = if ($parsed.PSObject.Properties['findings'])    { $parsed.findings }           else { @() }
-            $llmStatus  = if ($parsed.PSObject.Properties['status'])      { [string]$parsed.status }     else { 'WARNING' }
-            $summary    = if ($parsed.PSObject.Properties['summary'])     { [string]$parsed.summary }    else { $llmResult.Answer.Substring(0, [Math]::Min(300, $llmResult.Answer.Length)) }
+            $parsed = Get-SecurityOutput -raw $llmResult.Answer
+            $riskLevel = if ($parsed.PSObject.Properties['risk_level']) { [string]$parsed.risk_level } else { 'UNKNOWN' }
+            $confidence = if ($parsed.PSObject.Properties['confidence']) { [double]$parsed.confidence } else { 0.5 }
+            $findings = if ($parsed.PSObject.Properties['findings']) { $parsed.findings }           else { @() }
+            $llmStatus = if ($parsed.PSObject.Properties['status']) { [string]$parsed.status }     else { 'WARNING' }
+            $summary = if ($parsed.PSObject.Properties['summary']) { [string]$parsed.summary }    else { $llmResult.Answer.Substring(0, [Math]::Min(300, $llmResult.Answer.Length)) }
 
             $requiresHumanReview = $confidence -lt $CONFIDENCE_THRESHOLD
             if ($requiresHumanReview) {
@@ -340,11 +344,12 @@ try {
                         -StepResult @{ risk_level = $riskLevel; confidence = $confidence; escalated = $requiresHumanReview } `
                         -Confidence $confidence | Out-Null
                     & $SessionSkill -Operation Close -SessionFile $activeSession | Out-Null
-                } catch { Write-Warning '[Session] Close failed (non-blocking): $_' }
+                }
+                catch { Write-Warning '[Session] Close failed (non-blocking): $_' }
             }
 
             $durationSec = [Math]::Round(((Get-Date) - $startTime).TotalSeconds, 2)
-            $llmStep2    = if ($ScanTarget -and $Action -eq 'security:analyze') { '[3/3]' } else { '[2/2]' }
+            $llmStep2 = if ($ScanTarget -and $Action -eq 'security:analyze') { '[3/3]' } else { '[2/2]' }
             Write-Host "$llmStep2 Analysis complete. Risk: $riskLevel | Confidence: $confidence" -ForegroundColor Green
 
             $parallelScanMeta = $null
@@ -368,7 +373,7 @@ try {
                 meta                  = [ordered]@{
                     evaluator_enabled    = (-not $NoEvaluator)
                     evaluator_iterations = if ($llmResult.PSObject.Properties['EvaluatorIterations']) { $llmResult.EvaluatorIterations } else { 1 }
-                    evaluator_passed     = if ($llmResult.PSObject.Properties['EvaluatorPassed'])    { $llmResult.EvaluatorPassed }    else { $true }
+                    evaluator_passed     = if ($llmResult.PSObject.Properties['EvaluatorPassed']) { $llmResult.EvaluatorPassed }    else { $true }
                     rag_chunks           = $llmResult.RAGChunks
                     tokens_in            = $llmResult.TokensIn
                     tokens_out           = $llmResult.TokensOut
@@ -399,9 +404,9 @@ try {
                 Out-Result $Result
                 exit 0
             }
-            $executed  = $false
+            $executed = $false
             $secretUri = Build-SecretUri -vaultName $VaultName -secretName $SecretName -version $null
-            $ref       = Get-KVReference -secretUri $secretUri
+            $ref = Get-KVReference -secretUri $secretUri
             if (-not $WhatIf) {
                 if (-not (Get-Command az -ErrorAction SilentlyContinue)) { throw 'az CLI not found in PATH' }
                 $azArgs = @('keyvault', 'secret', 'set', '--vault-name', $VaultName, '--name', $SecretName, '--value', $SecretValue)
@@ -437,7 +442,7 @@ try {
                 action = $Action; ok = $true; status = 'OK'
                 output = [ordered]@{
                     proposedAccess = $Access
-                    targets = [ordered]@{ wiki = 'Wiki/EasyWayData.wiki/security/segreti-e-accessi.md' }
+                    targets        = [ordered]@{ wiki = 'Wiki/EasyWayData.wiki/security/segreti-e-accessi.md' }
                 }
             }
         }
@@ -448,7 +453,8 @@ try {
     Write-AgentLog -EventData @{ success = $true; agent = 'agent_security'; action = $Action; result = $Result }
     Out-Result $Result
 
-} catch {
+}
+catch {
     $errMsg = $_.Exception.Message
     Write-Error "Security Error: $errMsg"
     Write-AgentLog -EventData @{ success = $false; error = $errMsg }

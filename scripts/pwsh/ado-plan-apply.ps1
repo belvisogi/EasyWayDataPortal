@@ -59,24 +59,22 @@ function Get-ExistingWorkItemByTitle([string]$orgUrl, [string]$project, [string]
     }
 }
 
-function Load-EnvProfile([string]$profileName) {
-    if ($env:ADO_PAT) { return $env:ADO_PAT }
-    $candidatePaths = @("C:\old\$profileName", "/etc/easyway/$profileName")
-    foreach ($path in $candidatePaths) {
-        if (Test-Path $path) {
-            $envContent = Get-Content $path
-            $patLine = $envContent | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=(.*)$' } | Select-Object -First 1
-            if ($patLine) {
-                return ($patLine -replace '^AZURE_DEVOPS_EXT_PAT=', '').Trim()
-            }
-        }
-    }
-    return $null
+$repoRoot = (git rev-parse --show-toplevel 2>$null)
+if (-not $repoRoot) { $repoRoot = $PWD.Path }
+$importSecretsScript = Join-Path $repoRoot "agents" "skills" "utilities" "Import-AgentSecrets.ps1"
+
+if (-not (Test-Path $importSecretsScript)) {
+    Write-Warning "Universal Token Broker not found at $importSecretsScript. Running in Blind-Planner mode (assuming NO items exist)."
+    $pat = $null
+}
+else {
+    . $importSecretsScript
+    $secrets = Import-AgentSecrets -AgentId "agent_planner"
+    $pat = if ($secrets.ContainsKey("AZURE_DEVOPS_EXT_PAT")) { $env:AZURE_DEVOPS_EXT_PAT } else { $null }
 }
 
-$pat = Load-EnvProfile -profileName '.env.planner'
 if (-not $pat) {
-    Write-Warning "ADO_PAT environment variable not set and no .env.planner profile found. Running in Blind-Planner mode (assuming NO items exist)."
+    Write-Warning "ADO_PAT not granted by Global Gatekeeper (RBAC_DENY) or unavailable. Running in Blind-Planner mode."
 }
 else {
     $headers = Get-AdoAuthHeader $pat

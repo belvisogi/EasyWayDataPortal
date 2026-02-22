@@ -49,95 +49,36 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-function Read-EnvFile {
-    param([string]$Path)
-    $vars = @{}
-    Get-Content $Path -Encoding UTF8 | Where-Object { $_ -match '^\s*([^#][^=]+)=(.*)$' } | ForEach-Object {
-        $key = $Matches[1].Trim()
-        $value = $Matches[2].Trim()
-        $vars[$key] = $value
-    }
-    return $vars
-}
+# ─── Load secrets via Universal Broker ─────────────────────────────────────────
 
-# ─── Verify mode ─────────────────────────────────────────────────────────────
-if ($Verify) {
-    $pat = $env:AZURE_DEVOPS_EXT_PAT
-    if ([string]::IsNullOrEmpty($pat)) {
-        Write-Host "AZURE_DEVOPS_EXT_PAT: NOT SET" -ForegroundColor Red
-    }
-    elseif ($pat.Length -lt 40) {
-        Write-Host "AZURE_DEVOPS_EXT_PAT: SET but too short ($($pat.Length) chars - probably invalid)" -ForegroundColor Yellow
-    }
-    else {
-        Write-Host "AZURE_DEVOPS_EXT_PAT: SET ($($pat.Length) chars) - OK" -ForegroundColor Green
-    }
-    $cfg = az devops configure --list 2>&1
-    Write-Host "az devops config: $cfg"
-    return
-}
+$repoRoot = (git rev-parse --show-toplevel 2>$null)
+if (-not $repoRoot) { $repoRoot = $PWD.Path }
+$importSecretsScript = Join-Path $repoRoot "agents" "skills" "utilities" "Import-AgentSecrets.ps1"
 
-if ($VerifyFromFile) {
-    if (-not (Test-Path $SecretsFile)) {
-        Write-Host "Secrets file not found: $SecretsFile" -ForegroundColor Red
-        return
-    }
-    $secrets = Read-EnvFile -Path $SecretsFile
-    if (-not $secrets.ContainsKey("AZURE_DEVOPS_EXT_PAT")) {
-        Write-Host "AZURE_DEVOPS_EXT_PAT not found in $SecretsFile" -ForegroundColor Red
-        return
-    }
-    $patFromFile = $secrets["AZURE_DEVOPS_EXT_PAT"]
-    if ([string]::IsNullOrEmpty($patFromFile)) {
-        Write-Host "AZURE_DEVOPS_EXT_PAT in file is empty" -ForegroundColor Red
-    }
-    elseif ($patFromFile.Length -lt 40) {
-        Write-Host "AZURE_DEVOPS_EXT_PAT in file is too short ($($patFromFile.Length) chars)" -ForegroundColor Yellow
-    }
-    else {
-        Write-Host "AZURE_DEVOPS_EXT_PAT in file looks valid ($($patFromFile.Length) chars)" -ForegroundColor Green
-    }
-    return
-}
-
-# ─── Load secrets file ────────────────────────────────────────────────────────
-if (-not (Test-Path $SecretsFile)) {
-    Write-Warning "Secrets file not found: $SecretsFile"
-    Write-Host ""
-    Write-Host "Create it with:"
-    Write-Host "  New-Item '$SecretsFile' -ItemType File"
-    Write-Host "  Add-Content '$SecretsFile' 'AZURE_DEVOPS_EXT_PAT=your-52-char-pat'"
-    Write-Host ""
-    Write-Host "Get a PAT at: https://dev.azure.com/EasyWayData/_usersSettings/tokens"
-    Write-Host "Required scopes: Code (Read & Write) + Pull Request Contribute"
+if (-not (Test-Path $importSecretsScript)) {
+    Write-Error "Universal Token Broker not found at $importSecretsScript"
     exit 1
 }
 
-$secrets = Read-EnvFile -Path $SecretsFile
+# The Broker checks rbac-master.json and loads allowed .env files securely.
+# We claim identity 'agent_developer' which is authorized for ADO PRs.
+. $importSecretsScript
+$secrets = Import-AgentSecrets -AgentId "agent_developer"
 
 # ─── Set AZURE_DEVOPS_EXT_PAT ────────────────────────────────────────────────
 if (-not $secrets.ContainsKey("AZURE_DEVOPS_EXT_PAT")) {
-    Write-Error "AZURE_DEVOPS_EXT_PAT not found in $SecretsFile"
+    Write-Error "AZURE_DEVOPS_EXT_PAT not granted by Global Gatekeeper (RBAC_DENY)"
     exit 1
 }
 
-$pat = $secrets["AZURE_DEVOPS_EXT_PAT"]
+$pat = $env:AZURE_DEVOPS_EXT_PAT
 
 if ($pat.Length -lt 40) {
     Write-Warning "PAT seems too short ($($pat.Length) chars). A valid Azure DevOps PAT is ~52 chars."
     Write-Warning "Get a new PAT at: https://dev.azure.com/EasyWayData/_usersSettings/tokens"
 }
 
-$env:AZURE_DEVOPS_EXT_PAT = $pat
-Write-Host "AZURE_DEVOPS_EXT_PAT: loaded ($($pat.Length) chars)" -ForegroundColor Green
-
-# ─── Set other env vars from secrets file ────────────────────────────────────
-foreach ($key in $secrets.Keys) {
-    if ($key -ne "AZURE_DEVOPS_EXT_PAT") {
-        Set-Item -Path "Env:\$key" -Value $secrets[$key]
-        Write-Host "$($key): loaded" -ForegroundColor DarkGray
-    }
-}
+Write-Host "AZURE_DEVOPS_EXT_PAT: loaded by Gatekeeper ($($pat.Length) chars)" -ForegroundColor Green
 
 # ─── Configure az devops defaults ────────────────────────────────────────────
 Write-Host "Configuring az devops defaults..." -ForegroundColor Cyan

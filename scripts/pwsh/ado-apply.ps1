@@ -73,23 +73,19 @@ $adoOrg = $planDoc.adoOrg
 $adoProject = $planDoc.adoProject
 $apiVersion = '7.0'
 
-function Load-EnvProfile([string]$profileName) {
-    if ($env:ADO_PAT) { return $env:ADO_PAT }
-    $candidatePaths = @("C:\old\$profileName", "/etc/easyway/$profileName")
-    foreach ($path in $candidatePaths) {
-        if (Test-Path $path) {
-            $envContent = Get-Content $path
-            $patLine = $envContent | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=(.*)$' } | Select-Object -First 1
-            if ($patLine) {
-                return ($patLine -replace '^AZURE_DEVOPS_EXT_PAT=', '').Trim()
-            }
-        }
-    }
-    return $null
+$repoRoot = (git rev-parse --show-toplevel 2>$null)
+if (-not $repoRoot) { $repoRoot = $PWD.Path }
+$importSecretsScript = Join-Path $repoRoot "agents" "skills" "utilities" "Import-AgentSecrets.ps1"
+
+if (-not (Test-Path $importSecretsScript)) {
+    throw "CRITICAL L1 ERROR: Universal Token Broker not found at $importSecretsScript. Action Blocked."
 }
 
-$pat = Load-EnvProfile -profileName '.env.executor'
-if (-not $pat) { throw "CRITICAL L1 ERROR: ADO_PAT environment variable is required and no .env.executor profile found! Action Blocked." }
+. $importSecretsScript
+$secrets = Import-AgentSecrets -AgentId "agent_executor"
+$pat = if ($secrets.ContainsKey("AZURE_DEVOPS_EXT_PAT")) { $env:AZURE_DEVOPS_EXT_PAT } else { $null }
+
+if (-not $pat) { throw "CRITICAL L1 ERROR: ADO_PAT not granted by Global Gatekeeper (RBAC_DENY). Action Blocked." }
 $headers = Get-AdoAuthHeader $pat
 
 # ID Map da tempId (es. -1, -2) a RealId (assegnato da ADO). 
