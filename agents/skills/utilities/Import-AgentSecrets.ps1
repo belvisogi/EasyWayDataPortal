@@ -57,62 +57,128 @@
 function Import-AgentSecrets {
     [CmdletBinding()]
     param(
+        [Parameter(Mandatory = $true)]
+        [string]$AgentId,
+
         [Parameter(Mandatory = $false)]
-        [string]$SecretsFile = ''
+        [string]$SecretsFile = '',  # Kept for backward compatibility but overridden by RBAC
+
+        [Parameter(Mandatory = $false)]
+        [string]$RegistryFile = ''
     )
 
-    # ── Resolve secrets file path ──────────────────────────────────────────────
-    if (-not $SecretsFile) {
+    # ── 1. Resolve Sovereign Registry ──────────────────────────────────────────
+    if (-not $RegistryFile) {
         if ($IsLinux -or $IsMacOS) {
-            $SecretsFile = '/opt/easyway/.env.secrets'
-        } else {
-            # Windows: dev workstation path
-            $SecretsFile = Join-Path $env:USERPROFILE '.easyway' 'secrets'
+            $RegistryFile = '/etc/easyway/rbac-master.json'
+            $FallbackRegistry = '/opt/easyway/rbac-master.json'
+            if (-not (Test-Path $RegistryFile) -and (Test-Path $FallbackRegistry)) { $RegistryFile = $FallbackRegistry }
+        }
+        else {
+            $RegistryFile = 'C:\old\rbac-master.json'
         }
     }
 
-    # ── File not found: silent return (container scenario, env vars already set) ─
-    if (-not (Test-Path $SecretsFile)) {
-        Write-Verbose "[Import-AgentSecrets] Secrets file not found: $SecretsFile (assuming env vars already set)"
+    if (-not (Test-Path $RegistryFile)) {
+        Write-Warning "[RBAC-GATEKEEPER] FATAL: Sovereign Registry not found at $RegistryFile"
+        throw "UnauthorizedAccessException: Sovereign Registry Missing. Halting agent execution."
+    }
+
+    $registry = Get-Content $RegistryFile -Raw | ConvertFrom-Json
+    $auditLog = if ($registry.audit_log_path) { $registry.audit_log_path } else { 'C:\old\logs\rbac-audit.log' }
+
+    # ── 2. Enforce Agent Identity ──────────────────────────────────────────────
+    $agentPolicy = $registry.agents.$AgentId
+    if ($null -eq $agentPolicy) {
+        $msg = "DENY: Agent '$AgentId' not registered in $RegistryFile"
+        Write-Warning "[RBAC-GATEKEEPER] $msg"
+        Add-Content -Path $auditLog -Value "$((Get-Date).ToString('o')) | $AgentId | DENY | Unregistered Agent" -ErrorAction SilentlyContinue
+        throw "UnauthorizedAccessException: $msg"
+    }
+
+    # ── 3. Financial Gatekeeping (Stop-Loss) ───────────────────────────────────
+    $budget = if ($null -ne $agentPolicy.monthly_budget_usd) { [double]$agentPolicy.monthly_budget_usd } else { 0.0 }
+    
+    # Try to read agent's current spend from memory
+    $repoRoot = (git rev-parse --show-toplevel 2>$null)
+    if (-not $repoRoot) { $repoRoot = $PWD.Path }
+    $memoryPath = Join-Path $repoRoot "agents" ($AgentId -replace 'agent_', '') "memory" "context.json"
+    $currentSpend = 0.0
+
+    if (Test-Path $memoryPath) {
+        try {
+            $mem = Get-Content $memoryPath -Raw | ConvertFrom-Json
+            if ($mem.llm_usage.total_cost_usd) {
+                $currentSpend = [double]$mem.llm_usage.total_cost_usd
+            }
+        }
+        catch {}
+    }
+
+    $llmBlocked = $false
+    if ($agentPolicy.llm_access) {
+        if ($budget -gt 0 -and $currentSpend -ge $budget) {
+            $msg = "DENY: Agent '$AgentId' exceeded budget (`$$currentSpend / `$$budget)"
+            Write-Warning "[RBAC-GATEKEEPER] $msg"
+            Add-Content -Path $auditLog -Value "$((Get-Date).ToString('o')) | $AgentId | DENY_LLM | Budget Exceeded" -ErrorAction SilentlyContinue
+            $llmBlocked = $true
+        }
+    }
+    else {
+        $llmBlocked = $true
+    }
+
+    # ── 4. Load Allowed Environment Profiles ───────────────────────────────────
+    $loaded = @{}
+    $skipped = @()
+
+    $allowedProfiles = @($agentPolicy.allowed_profiles)
+    if ($allowedProfiles.Count -eq 0 -and -not $agentPolicy.llm_access) {
+        Write-Verbose "[RBAC-GATEKEEPER] Agent '$AgentId' has no valid permissions or profiles."
         return @{}
     }
 
-    # ── Parse and load KEY=VALUE pairs ─────────────────────────────────────────
-    $loaded  = @{}
-    $skipped = @()
+    # Standard secrets location for LLM
+    $llmSecretsFile = if ($IsLinux -or $IsMacOS) { '/opt/easyway/.env.secrets' } else { "$env:USERPROFILE\.easyway\secrets" }
+    if ($agentPolicy.llm_access -and -not $llmBlocked) {
+        $allowedProfiles += $llmSecretsFile
+    }
 
-    foreach ($line in (Get-Content $SecretsFile -Encoding UTF8)) {
-        $line = $line.Trim()
-
-        # Skip blank lines and comments
-        if ([string]::IsNullOrWhiteSpace($line) -or $line.StartsWith('#')) { continue }
-
-        # Match KEY=VALUE (KEY must start with letter, contain only A-Z 0-9 _)
-        if ($line -notmatch '^([A-Za-z][A-Za-z0-9_]*)=(.+)$') { continue }
-
-        $key   = $Matches[1]
-        $value = $Matches[2].Trim()
-
-        # Non-destructive: skip if already present (Docker/CI already set it)
-        $existing = [System.Environment]::GetEnvironmentVariable($key)
-        if ($null -ne $existing -and $existing -ne '') {
-            $skipped += $key
-            Write-Verbose "[Import-AgentSecrets] Skipped (already set): $key"
+    foreach ($profilePath in $allowedProfiles) {
+        if (-not (Test-Path $profilePath)) {
+            Write-Verbose "[RBAC-GATEKEEPER] Profile not found: $profilePath"
             continue
         }
 
-        # Set at process level so child processes (e.g. python3 rag_search.py) inherit it
-        [System.Environment]::SetEnvironmentVariable($key, $value, [System.EnvironmentVariableTarget]::Process)
-        $loaded[$key] = '***'   # Never log actual values
-        Write-Verbose "[Import-AgentSecrets] Loaded: $key"
+        foreach ($line in (Get-Content $profilePath -Encoding UTF8)) {
+            $line = $line.Trim()
+            if ([string]::IsNullOrWhiteSpace($line) -or $line.StartsWith('#')) { continue }
+            if ($line -notmatch '^([A-Za-z][A-Za-z0-9_]*)=(.+)$') { continue }
+
+            $key = $Matches[1]
+            $value = $Matches[2].Trim()
+
+            # Prevent loading LLM keys if blocked
+            if ($llmBlocked -and ($key -match 'API_KEY' -or $key -match 'LLM')) {
+                continue
+            }
+
+            $existing = [System.Environment]::GetEnvironmentVariable($key)
+            if ($null -ne $existing -and $existing -ne '') {
+                $skipped += $key
+                continue
+            }
+
+            [System.Environment]::SetEnvironmentVariable($key, $value, [System.EnvironmentVariableTarget]::Process)
+            $loaded[$key] = '***'
+        }
     }
 
-    # ── Summary ────────────────────────────────────────────────────────────────
+    # ── 5. Setup Audit Trail ───────────────────────────────────────────────────
     if ($loaded.Count -gt 0) {
-        Write-Verbose "[Import-AgentSecrets] Loaded $($loaded.Count) secret(s) from: $SecretsFile"
-    }
-    if ($skipped.Count -gt 0) {
-        Write-Verbose "[Import-AgentSecrets] Skipped $($skipped.Count) already-set key(s): $($skipped -join ', ')"
+        $logMsg = "$((Get-Date).ToString('o')) | $AgentId | ALLOW | Loaded $($loaded.Count) keys. LLM Access: $(if($llmBlocked){'BLOCKED'}else{'YES'}). Spend: `$$currentSpend/`$$budget"
+        Add-Content -Path $auditLog -Value $logMsg -ErrorAction SilentlyContinue
+        Write-Verbose "[RBAC-GATEKEEPER] $logMsg"
     }
 
     return $loaded

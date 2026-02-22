@@ -60,7 +60,7 @@ param(
     # L3 controls
     [Parameter(Mandatory = $false)] [string]$SessionFile = '',
     [Parameter(Mandatory = $false)] [switch]$NoEvaluator,
-    [Parameter(Mandatory = $false)] [ValidateRange(1,5)] [int]$MaxIterations = 2,
+    [Parameter(Mandatory = $false)] [ValidateRange(1, 5)] [int]$MaxIterations = 2,
     [Parameter(Mandatory = $false)] [int]$TopK = 5,
 
     # Operational flags
@@ -77,11 +77,11 @@ $ErrorActionPreference = 'Stop'
 $CONFIDENCE_THRESHOLD = 0.70
 
 # --- Paths ----------------------------------------------------------------------
-$AgentDir     = $PSScriptRoot
-$SkillsDir    = Join-Path $AgentDir '..' 'skills'
-$LLMWithRAG   = Join-Path $SkillsDir 'retrieval' 'Invoke-LLMWithRAG.ps1'
+$AgentDir = $PSScriptRoot
+$SkillsDir = Join-Path $AgentDir '..' 'skills'
+$LLMWithRAG = Join-Path $SkillsDir 'retrieval' 'Invoke-LLMWithRAG.ps1'
 $SessionSkill = Join-Path $SkillsDir 'session'   'Manage-AgentSession.ps1'
-$PromptsFile  = Join-Path $AgentDir  'PROMPTS.md'
+$PromptsFile = Join-Path $AgentDir  'PROMPTS.md'
 
 foreach ($required in @($LLMWithRAG, $PromptsFile)) {
     if (-not (Test-Path $required)) {
@@ -95,7 +95,7 @@ foreach ($required in @($LLMWithRAG, $PromptsFile)) {
 $importSecretsSkill = Join-Path $SkillsDir 'utilities' 'Import-AgentSecrets.ps1'
 if (Test-Path $importSecretsSkill) {
     . $importSecretsSkill
-    Import-AgentSecrets | Out-Null
+    Import-AgentSecrets -AgentId "agent_infra" | Out-Null
 }
 # Resolve ApiKey after secrets are loaded (param default evaluated before load)
 if (-not $ApiKey) { $ApiKey = $env:DEEPSEEK_API_KEY }
@@ -133,7 +133,8 @@ function Get-InfraOutput([string]$raw) {
     $json = ($raw -replace '(?s)```json\s*', '' -replace '(?s)```\s*', '').Trim()
     try {
         return $json | ConvertFrom-Json
-    } catch {
+    }
+    catch {
         return [PSCustomObject]@{
             status                = 'WARNING'
             risk_level            = 'MEDIUM'
@@ -165,11 +166,11 @@ $intent = Read-Intent $IntentPath
 if ($intent) {
     if ($intent.PSObject.Properties['action'] -and -not $PSBoundParameters.ContainsKey('Action')) { $Action = $intent.action }
     $p = if ($intent.PSObject.Properties['params']) { $intent.params } else { [PSCustomObject]@{} }
-    if (-not $Query   -and $p.PSObject.Properties['query'])   { $Query   = $p.query }
+    if (-not $Query -and $p.PSObject.Properties['query']) { $Query = $p.query }
     if (-not $Workdir -and $p.PSObject.Properties['workdir']) { $Workdir = $p.workdir }
 }
 
-$now       = (Get-Date).ToUniversalTime().ToString('o')
+$now = (Get-Date).ToUniversalTime().ToString('o')
 $startTime = Get-Date
 $llmActions = @('infra:drift-check', 'infra:compliance-check')
 
@@ -192,7 +193,7 @@ try {
 
         # -- Scripted: infra:terraform-plan -------------------------------------
         'infra:terraform-plan' {
-            $wd       = if ($Workdir) { $Workdir } else { 'infra/terraform' }
+            $wd = if ($Workdir) { $Workdir } else { 'infra/terraform' }
             $executed = $false
             $errorMsg = $null
 
@@ -202,35 +203,38 @@ try {
             if (-not $errorMsg -and -not $WhatIf) {
                 if (-not (Get-Command terraform -ErrorAction SilentlyContinue)) {
                     $errorMsg = 'terraform not found in PATH'
-                } else {
+                }
+                else {
                     try {
                         Push-Location $wd
                         terraform init -input=false | Out-Host
                         terraform validate | Out-Host
                         terraform plan -input=false | Out-Host
                         $executed = $true
-                    } catch {
+                    }
+                    catch {
                         $errorMsg = $_.Exception.Message
-                    } finally {
+                    }
+                    finally {
                         Pop-Location
                     }
                 }
             }
 
             $Result = [ordered]@{
-                action         = $Action
-                ok             = ($null -eq $errorMsg)
-                whatIf         = [bool]$WhatIf
-                startedAt      = $now
-                finishedAt     = (Get-Date).ToUniversalTime().ToString('o')
-                output         = [ordered]@{
-                    workdir          = $wd
-                    executed         = $executed
-                    executed_apply   = $false
-                    hint             = 'Apply non implementato: richiede Human_Governance_Approval.'
+                action          = $Action
+                ok              = ($null -eq $errorMsg)
+                whatIf          = [bool]$WhatIf
+                startedAt       = $now
+                finishedAt      = (Get-Date).ToUniversalTime().ToString('o')
+                output          = [ordered]@{
+                    workdir        = $wd
+                    executed       = $executed
+                    executed_apply = $false
+                    hint           = 'Apply non implementato: richiede Human_Governance_Approval.'
                 }
-                error          = $errorMsg
-                contractId     = 'action-result'
+                error           = $errorMsg
+                contractId      = 'action-result'
                 contractVersion = '1.0'
             }
         }
@@ -261,14 +265,15 @@ try {
 
             # 2. Session start (non-blocking)
             $sessionCreated = $false
-            $activeSession  = $SessionFile
+            $activeSession = $SessionFile
             if (Test-Path $SessionSkill) {
                 try {
-                    $sessionResult  = & $SessionSkill -Operation New -AgentId 'agent_infra' -Intent $Action
-                    $activeSession  = $sessionResult.SessionFile
+                    $sessionResult = & $SessionSkill -Operation New -AgentId 'agent_infra' -Intent $Action
+                    $activeSession = $sessionResult.SessionFile
                     $sessionCreated = $true
                     Write-Host "[Session] Started: $activeSession" -ForegroundColor DarkGray
-                } catch {
+                }
+                catch {
                     Write-Warning "[Session] Could not start (non-blocking): $_"
                 }
             }
@@ -297,9 +302,9 @@ try {
                 MaxTokens    = 1500
             }
             if (-not $NoEvaluator) {
-                $invokeParams['EnableEvaluator']    = $true
+                $invokeParams['EnableEvaluator'] = $true
                 $invokeParams['AcceptanceCriteria'] = $acPredicates
-                $invokeParams['MaxIterations']      = $MaxIterations
+                $invokeParams['MaxIterations'] = $MaxIterations
             }
             if ($activeSession -and (Test-Path $activeSession)) {
                 $invokeParams['SessionFile'] = $activeSession
@@ -309,12 +314,12 @@ try {
             if (-not $llmResult.Success) { throw "LLM call failed: $($llmResult.Error)" }
 
             # 4. Parse output + confidence gating
-            $parsed     = Get-InfraOutput -raw $llmResult.Answer
-            $riskLevel  = if ($parsed.PSObject.Properties['risk_level'])  { [string]$parsed.risk_level } else { 'UNKNOWN' }
-            $confidence = if ($parsed.PSObject.Properties['confidence'])  { [double]$parsed.confidence } else { 0.5 }
-            $findings   = if ($parsed.PSObject.Properties['findings'])    { $parsed.findings }           else { @() }
-            $llmStatus  = if ($parsed.PSObject.Properties['status'])      { [string]$parsed.status }     else { 'WARNING' }
-            $summary    = if ($parsed.PSObject.Properties['summary'])     { [string]$parsed.summary }    else { $llmResult.Answer.Substring(0, [Math]::Min(300, $llmResult.Answer.Length)) }
+            $parsed = Get-InfraOutput -raw $llmResult.Answer
+            $riskLevel = if ($parsed.PSObject.Properties['risk_level']) { [string]$parsed.risk_level } else { 'UNKNOWN' }
+            $confidence = if ($parsed.PSObject.Properties['confidence']) { [double]$parsed.confidence } else { 0.5 }
+            $findings = if ($parsed.PSObject.Properties['findings']) { $parsed.findings }           else { @() }
+            $llmStatus = if ($parsed.PSObject.Properties['status']) { [string]$parsed.status }     else { 'WARNING' }
+            $summary = if ($parsed.PSObject.Properties['summary']) { [string]$parsed.summary }    else { $llmResult.Answer.Substring(0, [Math]::Min(300, $llmResult.Answer.Length)) }
 
             $requiresHumanReview = $confidence -lt $CONFIDENCE_THRESHOLD
             if ($requiresHumanReview) {
@@ -329,7 +334,8 @@ try {
                         -StepResult @{ risk_level = $riskLevel; confidence = $confidence; escalated = $requiresHumanReview } `
                         -Confidence $confidence | Out-Null
                     & $SessionSkill -Operation Close -SessionFile $activeSession | Out-Null
-                } catch { Write-Warning '[Session] Close failed (non-blocking): $_' }
+                }
+                catch { Write-Warning '[Session] Close failed (non-blocking): $_' }
             }
 
             $durationSec = [Math]::Round(((Get-Date) - $startTime).TotalSeconds, 2)
@@ -347,7 +353,7 @@ try {
                 meta                  = [ordered]@{
                     evaluator_enabled    = (-not $NoEvaluator)
                     evaluator_iterations = if ($llmResult.PSObject.Properties['EvaluatorIterations']) { $llmResult.EvaluatorIterations } else { 1 }
-                    evaluator_passed     = if ($llmResult.PSObject.Properties['EvaluatorPassed'])    { $llmResult.EvaluatorPassed }    else { $true }
+                    evaluator_passed     = if ($llmResult.PSObject.Properties['EvaluatorPassed']) { $llmResult.EvaluatorPassed }    else { $true }
                     rag_chunks           = $llmResult.RAGChunks
                     tokens_in            = $llmResult.TokensIn
                     tokens_out           = $llmResult.TokensOut
@@ -367,7 +373,8 @@ try {
     Write-AgentLog -EventData @{ success = $true; agent = 'agent_infra'; action = $Action; result = $Result }
     Out-Result $Result
 
-} catch {
+}
+catch {
     $errMsg = $_.Exception.Message
     Write-Error "Infra Error: $errMsg"
     Write-AgentLog -EventData @{ success = $false; error = $errMsg }
