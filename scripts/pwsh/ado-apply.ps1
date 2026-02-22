@@ -73,8 +73,23 @@ $adoOrg = $planDoc.adoOrg
 $adoProject = $planDoc.adoProject
 $apiVersion = '7.0'
 
-$pat = $env:ADO_PAT
-if (-not $pat) { throw "CRITICAL L1 ERROR: ADO_PAT environment variable is required for execution." }
+function Load-EnvProfile([string]$profileName) {
+    if ($env:ADO_PAT) { return $env:ADO_PAT }
+    $candidatePaths = @("C:\old\$profileName", "/etc/easyway/$profileName")
+    foreach ($path in $candidatePaths) {
+        if (Test-Path $path) {
+            $envContent = Get-Content $path
+            $patLine = $envContent | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=(.*)$' } | Select-Object -First 1
+            if ($patLine) {
+                return ($patLine -replace '^AZURE_DEVOPS_EXT_PAT=', '').Trim()
+            }
+        }
+    }
+    return $null
+}
+
+$pat = Load-EnvProfile -profileName '.env.executor'
+if (-not $pat) { throw "CRITICAL L1 ERROR: ADO_PAT environment variable is required and no .env.executor profile found! Action Blocked." }
 $headers = Get-AdoAuthHeader $pat
 
 # ID Map da tempId (es. -1, -2) a RealId (assegnato da ADO). 

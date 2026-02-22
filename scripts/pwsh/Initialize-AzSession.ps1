@@ -4,14 +4,14 @@
     Initialize Azure DevOps CLI session for PR creation.
 
 .DESCRIPTION
-    Loads secrets from C:\old\.env.local (outside the git repo) and sets:
+    Loads secrets from C:\old\.env.developer (outside the git repo) and sets:
     - $env:AZURE_DEVOPS_EXT_PAT  → used by az repos pr create
     - az devops default org/project
 
     Run once at the start of each Claude Code session before creating PRs.
 
 .PARAMETER SecretsFile
-    Path to the local secrets file. Defaults to C:\old\.env.local
+    Path to the local secrets file. Defaults to C:\old\.env.developer
     This file must NOT be inside the git repository.
 
 .PARAMETER OrgUrl
@@ -28,7 +28,7 @@
     pwsh scripts/pwsh/Initialize-AzSession.ps1 -Verify
 
 .NOTES
-    Secrets file format (C:\old\.env.local):
+    Secrets file format (C:\old\.env.developer):
         AZURE_DEVOPS_EXT_PAT=your-pat-here-52chars
         DEEPSEEK_API_KEY=sk-...
 
@@ -39,9 +39,9 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$SecretsFile = "C:\old\.env.local",
-    [string]$OrgUrl     = "https://dev.azure.com/EasyWayData",
-    [string]$Project    = "EasyWay-DataPortal",
+    [string]$SecretsFile = "C:\old\.env.developer",
+    [string]$OrgUrl = "https://dev.azure.com/EasyWayData",
+    [string]$Project = "EasyWay-DataPortal",
     [switch]$Verify,
     [switch]$VerifyFromFile
 )
@@ -53,7 +53,7 @@ function Read-EnvFile {
     param([string]$Path)
     $vars = @{}
     Get-Content $Path -Encoding UTF8 | Where-Object { $_ -match '^\s*([^#][^=]+)=(.*)$' } | ForEach-Object {
-        $key   = $Matches[1].Trim()
+        $key = $Matches[1].Trim()
         $value = $Matches[2].Trim()
         $vars[$key] = $value
     }
@@ -65,9 +65,11 @@ if ($Verify) {
     $pat = $env:AZURE_DEVOPS_EXT_PAT
     if ([string]::IsNullOrEmpty($pat)) {
         Write-Host "AZURE_DEVOPS_EXT_PAT: NOT SET" -ForegroundColor Red
-    } elseif ($pat.Length -lt 40) {
+    }
+    elseif ($pat.Length -lt 40) {
         Write-Host "AZURE_DEVOPS_EXT_PAT: SET but too short ($($pat.Length) chars - probably invalid)" -ForegroundColor Yellow
-    } else {
+    }
+    else {
         Write-Host "AZURE_DEVOPS_EXT_PAT: SET ($($pat.Length) chars) - OK" -ForegroundColor Green
     }
     $cfg = az devops configure --list 2>&1
@@ -88,9 +90,11 @@ if ($VerifyFromFile) {
     $patFromFile = $secrets["AZURE_DEVOPS_EXT_PAT"]
     if ([string]::IsNullOrEmpty($patFromFile)) {
         Write-Host "AZURE_DEVOPS_EXT_PAT in file is empty" -ForegroundColor Red
-    } elseif ($patFromFile.Length -lt 40) {
+    }
+    elseif ($patFromFile.Length -lt 40) {
         Write-Host "AZURE_DEVOPS_EXT_PAT in file is too short ($($patFromFile.Length) chars)" -ForegroundColor Yellow
-    } else {
+    }
+    else {
         Write-Host "AZURE_DEVOPS_EXT_PAT in file looks valid ($($patFromFile.Length) chars)" -ForegroundColor Green
     }
     return

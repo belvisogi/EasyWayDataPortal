@@ -59,9 +59,24 @@ function Get-ExistingWorkItemByTitle([string]$orgUrl, [string]$project, [string]
     }
 }
 
-$pat = $env:ADO_PAT
+function Load-EnvProfile([string]$profileName) {
+    if ($env:ADO_PAT) { return $env:ADO_PAT }
+    $candidatePaths = @("C:\old\$profileName", "/etc/easyway/$profileName")
+    foreach ($path in $candidatePaths) {
+        if (Test-Path $path) {
+            $envContent = Get-Content $path
+            $patLine = $envContent | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=(.*)$' } | Select-Object -First 1
+            if ($patLine) {
+                return ($patLine -replace '^AZURE_DEVOPS_EXT_PAT=', '').Trim()
+            }
+        }
+    }
+    return $null
+}
+
+$pat = Load-EnvProfile -profileName '.env.planner'
 if (-not $pat) {
-    Write-Warning "ADO_PAT environment variable not set. Running in Blind-Planner mode (assuming NO items exist)."
+    Write-Warning "ADO_PAT environment variable not set and no .env.planner profile found. Running in Blind-Planner mode (assuming NO items exist)."
 }
 else {
     $headers = Get-AdoAuthHeader $pat
