@@ -2,6 +2,7 @@
   "action": "ado:prd.decompose",
   "params": {
     "prdPath": "docs/prd/sample-prd.md",
+    "prdId": "[AUTO]",
     "whatIf": true,
     "ado": {
       "orgUrl": "https://dev.azure.com/EasyWayData",

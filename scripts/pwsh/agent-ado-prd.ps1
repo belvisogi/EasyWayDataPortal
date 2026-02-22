@@ -37,9 +37,12 @@ function Join-AdoUrl([string]$orgUrl, [string]$project, [string]$pathAndQuery) {
   return ("{0}/{1}{2}" -f $base, $projEnc, $pathAndQuery)
 }
 
-function Get-ExistingWorkItemByTitle([string]$orgUrl, [string]$project, [string]$workItemType, [string]$title, [hashtable]$headers, [string]$apiVersion) {
+function Get-ExistingWorkItemByTitle([string]$orgUrl, [string]$project, [string]$workItemType, [string]$title, [string]$prdId, [hashtable]$headers, [string]$apiVersion) {
   $safeTitle = $title.Replace("'", "''")
   $wiql = "SELECT [System.Id] FROM WorkItems WHERE [System.TeamProject] = @project AND [System.WorkItemType] = '$workItemType' AND [System.Title] = '$safeTitle'"
+  if ($prdId) {
+    $wiql += " AND [System.Tags] CONTAINS 'PRD:$prdId'"
+  }
   $postUrl = Join-AdoUrl $orgUrl $project ("/_apis/wit/wiql?api-version={0}" -f $apiVersion)
   $body = @{ query = $wiql } | ConvertTo-Json
   $resp = Invoke-RestMethod -Method Post -Uri $postUrl -Headers $headers -ContentType 'application/json' -Body $body
@@ -89,6 +92,7 @@ function Parse-Prd([string]$path) {
   $lines = Get-Content -Path $path -Encoding UTF8
 
   $title = [IO.Path]::GetFileNameWithoutExtension($path)
+  $prdId = $null
   $epics = New-Object System.Collections.Generic.List[object]
   $currentEpic = $null
   $currentFeature = $null
@@ -99,6 +103,11 @@ function Parse-Prd([string]$path) {
 
     if ($line -match '^#\s+(.+)$') {
       $title = $Matches[1].Trim()
+      continue
+    }
+
+    if ($line -match '^PRD-ID:\s*(.+)$') {
+      $prdId = $Matches[1].Trim()
       continue
     }
 
@@ -189,6 +198,7 @@ function Parse-Prd([string]$path) {
 
   return [ordered]@{
     prdTitle = $title
+    prdId = $prdId
     epics = $epics
   }
 }
@@ -205,10 +215,25 @@ if ($Action -eq 'ado:prd.decompose') {
   if (-not $prdPath) { throw "params.prdPath is required" }
 
   $model = Parse-Prd -path $prdPath
+  $prdId = $model.prdId
+  if (-not $prdId -or $prdId -eq '[AUTO]') {
+      $prdId = [IO.Path]::GetFileNameWithoutExtension($prdPath)
+  }
+  
+  $epicCount = 0
+  $featureCount = 0
+  $pbiCount = 0
+  foreach ($e in $model.epics) {
+      $epicCount++
+      foreach ($f in $e.features) { $featureCount++; $pbiCount += $f.pbis.Count }
+  }
+
   $result = [ordered]@{
     action = $Action
     ok = $true
     whatIf = $effectiveWhatIf
+    counts = [ordered]@{ epics = $epicCount; features = $featureCount; pbis = $pbiCount }
+    prdId = $prdId
     generated = $model
     created = @()
     error = $null
@@ -230,12 +255,13 @@ if ($Action -eq 'ado:prd.decompose') {
     }
 
     $headers = Get-AdoAuthHeader $pat
+    $prdTag = "PRD:$prdId"
     foreach ($epic in $model.epics) {
       $epicTitle = [string]$epic.title
-      $epicId = Get-ExistingWorkItemByTitle -orgUrl $orgUrl -project $project -workItemType 'Epic' -title $epicTitle -headers $headers -apiVersion $apiVersion
+      $epicId = Get-ExistingWorkItemByTitle -orgUrl $orgUrl -project $project -workItemType 'Epic' -title $epicTitle -prdId $prdId -headers $headers -apiVersion $apiVersion
       $epicCreated = $false
       if (-not $epicId) {
-        $epicPatch = Build-JsonPatch -title $epicTitle -description $epic.description -acceptanceCriteria '' -areaPath $areaPath -iterationPath $iterationPath -tags ($globalTags + @('AutoPRD'))
+        $epicPatch = Build-JsonPatch -title $epicTitle -description $epic.description -acceptanceCriteria '' -areaPath $areaPath -iterationPath $iterationPath -tags ($globalTags + @('AutoPRD', $prdTag))
         $epicResp = Create-WorkItem -orgUrl $orgUrl -project $project -workItemType 'Epic' -patch $epicPatch -headers $headers -apiVersion $apiVersion
         $epicId = [int]$epicResp.id
         $epicCreated = $true
@@ -244,10 +270,10 @@ if ($Action -eq 'ado:prd.decompose') {
 
       foreach ($feature in $epic.features) {
         $featureTitle = [string]$feature.title
-        $featureId = Get-ExistingWorkItemByTitle -orgUrl $orgUrl -project $project -workItemType 'Feature' -title $featureTitle -headers $headers -apiVersion $apiVersion
+        $featureId = Get-ExistingWorkItemByTitle -orgUrl $orgUrl -project $project -workItemType 'Feature' -title $featureTitle -prdId $prdId -headers $headers -apiVersion $apiVersion
         $featureCreated = $false
         if (-not $featureId) {
-          $featurePatch = Build-JsonPatch -title $featureTitle -description $feature.description -acceptanceCriteria '' -areaPath $areaPath -iterationPath $iterationPath -tags ($globalTags + @('AutoPRD'))
+          $featurePatch = Build-JsonPatch -title $featureTitle -description $feature.description -acceptanceCriteria '' -areaPath $areaPath -iterationPath $iterationPath -tags ($globalTags + @('AutoPRD', $prdTag))
           $featureResp = Create-WorkItem -orgUrl $orgUrl -project $project -workItemType 'Feature' -patch $featurePatch -headers $headers -apiVersion $apiVersion
           $featureId = [int]$featureResp.id
           Link-ParentChild -orgUrl $orgUrl -project $project -childId $featureId -parentId $epicId -headers $headers -apiVersion $apiVersion
@@ -257,10 +283,10 @@ if ($Action -eq 'ado:prd.decompose') {
 
         foreach ($pbi in $feature.pbis) {
           $pbiTitle = [string]$pbi.title
-          $pbiId = Get-ExistingWorkItemByTitle -orgUrl $orgUrl -project $project -workItemType 'Product Backlog Item' -title $pbiTitle -headers $headers -apiVersion $apiVersion
+          $pbiId = Get-ExistingWorkItemByTitle -orgUrl $orgUrl -project $project -workItemType 'Product Backlog Item' -title $pbiTitle -prdId $prdId -headers $headers -apiVersion $apiVersion
           $pbiCreated = $false
           if (-not $pbiId) {
-            $pbiPatch = Build-JsonPatch -title $pbiTitle -description '' -acceptanceCriteria $pbi.acceptanceCriteria -areaPath $areaPath -iterationPath $iterationPath -tags ($globalTags + @('AutoPRD'))
+            $pbiPatch = Build-JsonPatch -title $pbiTitle -description '' -acceptanceCriteria $pbi.acceptanceCriteria -areaPath $areaPath -iterationPath $iterationPath -tags ($globalTags + @('AutoPRD', $prdTag))
             $pbiResp = Create-WorkItem -orgUrl $orgUrl -project $project -workItemType 'Product Backlog Item' -patch $pbiPatch -headers $headers -apiVersion $apiVersion
             $pbiId = [int]$pbiResp.id
             Link-ParentChild -orgUrl $orgUrl -project $project -childId $pbiId -parentId $featureId -headers $headers -apiVersion $apiVersion
