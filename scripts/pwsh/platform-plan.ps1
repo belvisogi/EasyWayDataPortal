@@ -41,6 +41,9 @@ $adapterDir = Join-Path $coreDir 'adapters'
 
 Import-Module (Join-Path $coreDir 'PlatformCommon.psm1') -Force
 Import-Module (Join-Path $adapterDir 'IPlatformAdapter.psm1') -Force
+Import-Module (Join-Path $coreDir 'TelemetryLogger.psm1') -Force
+
+Initialize-TelemetryLogger -TraceId "plan-$(Get-Date -Format 'yyyyMMdd-HHmm')"
 
 # ── Load config ───────────────────────────────────────────────────────────────
 $config = Read-PlatformConfig -ConfigPath $ConfigPath
@@ -198,3 +201,6 @@ $planDoc = [ordered]@{
 
 $planDoc | ConvertTo-Json -Depth 30 -Compress | Out-File -FilePath $OutputPath -Encoding utf8
 Write-Host "L3 Validation Complete. Plan saved to $OutputPath ($($planDoc.itemsToCreate) items to create)"
+
+Write-TelemetryEvent -AgentId 'agent_backlog_planner' -AgentLevel 'L3' -Action 'plan:complete' -Outcome 'success' `
+    -PrdId $prdId -Details @{ itemsToCreate = $planDoc.itemsToCreate; outputPath = $OutputPath }
