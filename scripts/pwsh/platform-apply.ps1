@@ -81,7 +81,11 @@ foreach ($task in $planDoc.plan) {
                     -AcceptanceCriteria  $task.acceptanceCriteria `
                     -AreaPath            $task.areaPath `
                     -IterationPath       $task.iterationPath `
-                    -Tags                $task.tags
+                    -Tags                $task.tags `
+                    -Effort              ([int]$task.effort) `
+                    -Priority            ([int]$task.priority) `
+                    -BusinessValue       $task.businessValue `
+                    -TargetDate          $task.targetDate
             }
             default {
                 # Generic: just pass title/description as key-value patch
