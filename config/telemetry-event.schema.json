@@ -1,0 +1,139 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "telemetry-event.schema.json",
+    "title": "EasyWay Agentic Telemetry Event Schema",
+    "description": "Canonical JSON event schema for all agent actions. Aligned with OpenTelemetry conventions. Used by TelemetryLogger.psm1.",
+    "type": "object",
+    "required": [
+        "timestamp",
+        "eventType",
+        "agentId",
+        "agentLevel",
+        "action",
+        "outcome"
+    ],
+    "properties": {
+        "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp with timezone (e.g. 2026-02-23T18:00:00+01:00)."
+        },
+        "eventType": {
+            "type": "string",
+            "enum": [
+                "action",
+                "transition",
+                "gate",
+                "error",
+                "metric"
+            ],
+            "description": "Category of event."
+        },
+        "traceId": {
+            "type": "string",
+            "description": "Pipeline/session trace ID for correlating events across a single run."
+        },
+        "spanId": {
+            "type": "string",
+            "description": "Unique identifier for this specific event/span."
+        },
+        "agentId": {
+            "type": "string",
+            "description": "Agent that produced the event.",
+            "examples": [
+                "agent_discovery",
+                "agent_backlog_planner",
+                "agent_developer",
+                "agent_review"
+            ]
+        },
+        "agentLevel": {
+            "type": "string",
+            "enum": [
+                "L1",
+                "L2",
+                "L3",
+                "human",
+                "system"
+            ],
+            "description": "Agent intelligence level (L1=executor, L2=router, L3=planner)."
+        },
+        "action": {
+            "type": "string",
+            "description": "Action performed.",
+            "examples": [
+                "plan:whatif",
+                "apply:create_workitem",
+                "review:pr_audit",
+                "transition:state_change"
+            ]
+        },
+        "prdId": {
+            "type": "string",
+            "description": "PRD identifier for traceability."
+        },
+        "workItemId": {
+            "type": "integer",
+            "description": "ADO/platform work item ID (if applicable)."
+        },
+        "workItemType": {
+            "type": "string",
+            "description": "Work item type (Epic, Feature, Product Backlog Item)."
+        },
+        "pipelineState": {
+            "type": "string",
+            "description": "Current state machine state (if applicable).",
+            "examples": [
+                "DISCOVERY",
+                "PLANNING",
+                "APPLY",
+                "PR_REVIEW"
+            ]
+        },
+        "durationMs": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Duration of the action in milliseconds."
+        },
+        "outcome": {
+            "type": "string",
+            "enum": [
+                "success",
+                "failure",
+                "skipped",
+                "blocked",
+                "timeout"
+            ],
+            "description": "Result of the action."
+        },
+        "confidence": {
+            "type": "string",
+            "enum": [
+                "High",
+                "Medium",
+                "Low"
+            ],
+            "description": "Confidence score (for discovery/planning actions)."
+        },
+        "details": {
+            "type": "object",
+            "description": "Free-form key-value details specific to this event.",
+            "additionalProperties": true
+        },
+        "error": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "stackTrace": {
+                    "type": "string"
+                }
+            },
+            "description": "Error details (only if outcome=failure)."
+        }
+    }
+}
