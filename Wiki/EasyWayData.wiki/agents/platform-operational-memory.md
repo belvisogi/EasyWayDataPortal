@@ -1,7 +1,7 @@
 ---
 title: "Platform Operational Memory — EasyWay"
 created: 2026-02-18
-updated: 2026-02-19T23:00:00Z
+updated: 2026-02-23T15:06:00Z
 status: active
 category: reference
 domain: platform
@@ -519,6 +519,60 @@ Operations: `New`, `Get`, `Update`, `SetStep`, `Close`, `Cleanup` — TTL defaul
 
 ---
 
+## 8b. Platform Adapter SDK (Session 16 - Phase 9 Feature 17)
+
+> **Principio**: Il processo e' invariante, solo l'adapter cambia (EASYWAY_AGENTIC_SDLC_MASTER.md §11.1).
+
+### Architettura
+
+```
+config/platform-config.json  -->  platform-plan.ps1 (L3 Planner)
+                              -->  platform-apply.ps1 (L1 Executor)
+                                        |
+                                   PlatformCommon.psm1 (8 utility functions)
+                                        |
+                                   IPlatformAdapter.psm1 (factory + classes)
+                                        |
+                              AdoAdapter / GitHubAdapter / BusinessMapAdapter
+```
+
+### File principali
+
+| File | Scopo |
+|---|---|
+| `config/platform-config.json` | Config ADO Scrum (gerarchia, auth, tags, paths) |
+| `config/platform-config.schema.json` | JSON Schema per IntelliSense e validazione CI |
+| `scripts/pwsh/core/PlatformCommon.psm1` | 8 funzioni: config, auth, URL, hierarchy, token |
+| `scripts/pwsh/core/adapters/IPlatformAdapter.psm1` | Modulo consolidato: 3 adapter + factory |
+| `scripts/pwsh/platform-plan.ps1` | L3 Planner generico (sostituisce ado-plan-apply) |
+| `scripts/pwsh/platform-apply.ps1` | L1 Executor generico (sostituisce ado-apply) |
+
+### Come usare
+
+```powershell
+# Planning (genera execution_plan.json senza creare nulla)
+pwsh scripts/pwsh/platform-plan.ps1 -BacklogPath out/phase9_backlog.json -ConfigPath config/platform-config.json
+
+# Apply (crea i work item sulla piattaforma)
+pwsh scripts/pwsh/platform-apply.ps1 -PlanPath out/execution_plan.json -ConfigPath config/platform-config.json
+
+# Backward compat (delegano ai nuovi script)
+pwsh scripts/pwsh/ado-plan-apply.ps1
+pwsh scripts/pwsh/ado-apply.ps1
+```
+
+### Regole operative Platform Adapter SDK
+
+1. **Cambiare piattaforma = cambiare `platform-config.json`**. Zero code changes.
+2. **MAI hardcodare** URL, project, work item types, o PAT negli script. Tutto dal config.
+3. **Nuovi adapter**: aggiungere la classe in `IPlatformAdapter.psm1` + case nella factory `New-PlatformAdapter`.
+4. **PS v5 classi**: tutte le classi con ereditarieta' DEVONO vivere nello stesso `.psm1` (vedi Lesson 24).
+5. **Token security**: il config contiene solo il *nome* della env var (`auth.envVariable`), MAI il valore.
+6. **Piattaforme supportate**: ado, github, jira, forgejo, businessmap, witboost (6 totali, §11.3 SDLC MASTER).
+7. **Wiki completa**: `docs/wiki/Platform-Adapter-SDK.md` — Cosa, Come, Perche', Q&A.
+
+---
+
 ## 9. Gaps Roadmap Agent Evolution
 
 | Gap | Titolo | Stato | File |
@@ -569,6 +623,9 @@ Operations: `New`, `Get`, `Update`, `SetStep`, `Close`, `Cleanup` — TTL defaul
 21. **PR creation via curl** (Session 9): quando `az repos pr create` non e' disponibile da bash Claude Code, usare `curl` direttamente con PAT da `.env.local`. Il PAT si legge con `source .env.local && curl -u ":$AZURE_DEVOPS_EXT_PAT" -X POST ...`. Evita problemi di escaping PS in bash.
 22. **`Receive-Job -ErrorAction Stop`** (Session 11): re-throw TUTTI i record di errore del job stream (inclusi Python/Qdrant UserWarning su stderr nativo) come eccezioni PS terminanti, PRIMA che il return value dello scriptBlock sia accessibile. Fix: usare `-ErrorAction SilentlyContinue` + logica di check esplicita nel `if` successivo. Il scriptBlock ha gia' il suo `try/catch` interno.
 23. **repoRoot in `agents/skills/<category>/`** (Session 11): servono 3 livelli `.Parent.Parent.Parent` (`category/` -> `skills/` -> `agents/` -> repo root). Con `.Parent.Parent` si ottiene `agents/`, non la repo root. Verificare sempre il repoRoot in test E2E con `Write-Host "Repo root: $repoRoot"` prima di eseguire.
+24. **PS v5 class inheritance cross-module** (Session 16): `class AdoAdapter : IPlatformAdapter` dichiarato in file diverso dal base class produce `Unable to find type [IPlatformAdapter]`. **Regola: in PS v5, tutte le classi con relazione di ereditarieta' devono vivere nello stesso `.psm1`**. L'alternativa `using module` richiede path assoluti, inutilizzabile in CI/CD.
+25. **Pester v3 vs v5 assertion syntax** (Session 16): `Should -Be` (Pester v5 syntax) fallisce con Pester v3.4.0 — il trattino e' ambiguo. Usare v3 syntax: `Should Be` (senza trattino). `Should Throw` non funziona con `throw` in funzioni CmdletBinding — usare pattern `try/catch` + `$threw | Should Be $true`. **Verificare versione Pester**: `Get-Module Pester -ListAvailable`.
+26. **Array count gotcha PS** (Session 16): `$patch.Count` su un singolo hashtable ritorna il numero di chiavi (es. 3 per `@{op=x; path=y; value=z}`), non 1. **Regola: SEMPRE wrappare in `@()` quando ci si aspetta un array**: `$patch = @(Build-AdoJsonPatch -Title 'X')`.
 
 ---
 
@@ -756,6 +813,22 @@ Formato sezione auto-generata in `.cursorrules`:
 | DONE | Release PR #80 -> main | server git pull + E2E L3 runner PASSED |
 | DONE | E2E L3 runner | EX-01 ok=true/HIGH/0.75, EX-02 SECURITY_VIOLATION, EX-04 compliance OK |
 
+### Session 16 — COMPLETATA (2026-02-23)
+
+| Stato | Task | Note |
+|---|---|---|
+| DONE | Scrum Migration | Processo migrato da Basic a Scrum (ADO inherited process) |
+| DONE | Platform Adapter SDK | Phase 9 Feature 17: config-driven adapter pattern, 13 file, +1457/-284 righe |
+| DONE | `platform-config.json` + Schema | Config ADO Scrum + JSON Schema per 6 piattaforme |
+| DONE | `PlatformCommon.psm1` | 8 utility condivise (config, auth, URL, hierarchy, token) |
+| DONE | `IPlatformAdapter.psm1` | Modulo consolidato: AdoAdapter + GitHubAdapter (stub) + BusinessMapAdapter (stub) + factory |
+| DONE | `platform-plan.ps1` + `platform-apply.ps1` | L3 Planner + L1 Executor generici |
+| DONE | Backward compat wrappers | `ado-plan-apply.ps1` (186->33 righe) + `ado-apply.ps1` (131->30 righe) |
+| DONE | Pester test suites | PlatformCommon 18/18 + AdoAdapter 6/10 (4 = Pester v3 class scope) |
+| DONE | SDLC MASTER §11 | Aggiunto BusinessMap come 6° adapter + capability matrix |
+| DONE | Wiki Platform-Adapter-SDK.md | Cosa, Come, Perche', Q&A, Verifiche, Lessons Learned (314 righe) |
+| DONE | Iron Dome | PSScriptAnalyzer PASSED, 2 commit su `feature/platform-adapter-sdk` |
+
 ---
 
 ## 14b. Session 8 — Tasks completati e Next Session Priorities (storico)
@@ -813,3 +886,10 @@ Formato sezione auto-generata in `.cursorrules`:
 - `agents/agent_infra/manifest.json` v3.0.0 — agent_infra L3: evolution_level=3, evaluator, working_memory (Session 15)
 - `agents/agent_infra/tests/fixtures/` — 4 fixture E2E: EX-01..EX-04 (Session 15)
 - `Wiki/EasyWayData.wiki/agents/agent-infra-prd-l3.md` — PRD L3 agent_infra: 10 AC, 4 EX, compliance-check (Session 15)
+- `config/platform-config.json` — Config ADO Scrum per Platform Adapter SDK (Session 16)
+- `config/platform-config.schema.json` — JSON Schema per validazione e IntelliSense (Session 16)
+- `scripts/pwsh/core/PlatformCommon.psm1` — 8 utility condivise per tutti gli adapter (Session 16)
+- `scripts/pwsh/core/adapters/IPlatformAdapter.psm1` — Modulo consolidato: 3 adapter + factory (Session 16)
+- `scripts/pwsh/platform-plan.ps1` — L3 Planner generico, sostituisce ado-plan-apply (Session 16)
+- `scripts/pwsh/platform-apply.ps1` — L1 Executor generico, sostituisce ado-apply (Session 16)
+- `docs/wiki/Platform-Adapter-SDK.md` — Wiki completa: Cosa, Come, Perche', Q&A (Session 16)
