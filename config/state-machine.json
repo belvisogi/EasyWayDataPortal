@@ -1,0 +1,170 @@
+{
+    "$schema": "./state-machine.schema.json",
+    "id": "sdlc-default-v1",
+    "version": "1.0.0",
+    "initialState": "DISCOVERY",
+    "states": {
+        "DISCOVERY": {
+            "displayName": "Discovery & PRD Formulation",
+            "phase": "discovery",
+            "agent": "agent_discovery",
+            "requiresHumanGate": false,
+            "timeout": "48h"
+        },
+        "PRD_REVIEW": {
+            "displayName": "PRD Human Review",
+            "phase": "discovery",
+            "agent": "human",
+            "requiresHumanGate": true,
+            "timeout": "72h"
+        },
+        "PLANNING": {
+            "displayName": "Backlog Decomposition (WhatIf)",
+            "phase": "planning",
+            "agent": "agent_backlog_planner",
+            "requiresHumanGate": false,
+            "timeout": "4h"
+        },
+        "BACKLOG_REVIEW": {
+            "displayName": "Backlog Human Review",
+            "phase": "planning",
+            "agent": "human",
+            "requiresHumanGate": true,
+            "timeout": "72h"
+        },
+        "APPLY": {
+            "displayName": "Backlog Apply (Create Work Items)",
+            "phase": "execution",
+            "agent": "agent_backlog_planner",
+            "requiresHumanGate": false,
+            "timeout": "1h"
+        },
+        "SPRINT_EXECUTION": {
+            "displayName": "Sprint Execution (Development)",
+            "phase": "execution",
+            "agent": "agent_developer",
+            "requiresHumanGate": false,
+            "timeout": "336h"
+        },
+        "PR_REVIEW": {
+            "displayName": "Pull Request & Audit",
+            "phase": "verification",
+            "agent": "agent_review",
+            "requiresHumanGate": true,
+            "timeout": "48h"
+        },
+        "UAT": {
+            "displayName": "User Acceptance Testing",
+            "phase": "verification",
+            "agent": "human",
+            "requiresHumanGate": true,
+            "timeout": "120h"
+        },
+        "RELEASE": {
+            "displayName": "Release to Main",
+            "phase": "release",
+            "agent": "agent_devops",
+            "requiresHumanGate": false,
+            "timeout": "2h"
+        },
+        "DONE": {
+            "displayName": "Pipeline Complete",
+            "phase": "release",
+            "agent": "system",
+            "isFinal": true
+        },
+        "ABORTED": {
+            "displayName": "Pipeline Aborted",
+            "phase": "release",
+            "agent": "system",
+            "isFinal": true
+        }
+    },
+    "transitions": [
+        {
+            "from": "DISCOVERY",
+            "to": "PRD_REVIEW",
+            "trigger": "auto",
+            "guard": "prd.confidenceScore >= 'Medium'"
+        },
+        {
+            "from": "DISCOVERY",
+            "to": "DISCOVERY",
+            "trigger": "gate_fail",
+            "guard": "prd.confidenceScore == 'Low'"
+        },
+        {
+            "from": "PRD_REVIEW",
+            "to": "PLANNING",
+            "trigger": "human_approve"
+        },
+        {
+            "from": "PRD_REVIEW",
+            "to": "DISCOVERY",
+            "trigger": "human_reject"
+        },
+        {
+            "from": "PRD_REVIEW",
+            "to": "ABORTED",
+            "trigger": "timeout"
+        },
+        {
+            "from": "PLANNING",
+            "to": "BACKLOG_REVIEW",
+            "trigger": "auto",
+            "guard": "plan.itemsToCreate > 0"
+        },
+        {
+            "from": "PLANNING",
+            "to": "DONE",
+            "trigger": "auto",
+            "guard": "plan.itemsToCreate == 0"
+        },
+        {
+            "from": "BACKLOG_REVIEW",
+            "to": "APPLY",
+            "trigger": "human_approve"
+        },
+        {
+            "from": "BACKLOG_REVIEW",
+            "to": "PLANNING",
+            "trigger": "human_reject"
+        },
+        {
+            "from": "APPLY",
+            "to": "SPRINT_EXECUTION",
+            "trigger": "auto"
+        },
+        {
+            "from": "SPRINT_EXECUTION",
+            "to": "PR_REVIEW",
+            "trigger": "auto",
+            "guard": "pr.created == true"
+        },
+        {
+            "from": "PR_REVIEW",
+            "to": "UAT",
+            "trigger": "human_approve"
+        },
+        {
+            "from": "PR_REVIEW",
+            "to": "SPRINT_EXECUTION",
+            "trigger": "human_reject"
+        },
+        {
+            "from": "UAT",
+            "to": "RELEASE",
+            "trigger": "human_approve"
+        },
+        {
+            "from": "UAT",
+            "to": "SPRINT_EXECUTION",
+            "trigger": "human_reject"
+        },
+        {
+            "from": "RELEASE",
+            "to": "DONE",
+            "trigger": "auto"
+        }
+    ]
+}

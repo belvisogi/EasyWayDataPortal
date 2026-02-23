@@ -1,0 +1,130 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "state-machine.schema.json",
+    "title": "EasyWay SDLC State Machine Schema",
+    "description": "Defines valid states, transitions, and gates for the Agentic SDLC pipeline. Referenced by EASYWAY_AGENTIC_SDLC_MASTER.md section 4.",
+    "type": "object",
+    "required": [
+        "id",
+        "version",
+        "initialState",
+        "states",
+        "transitions"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "Unique identifier for this state machine definition.",
+            "examples": [
+                "sdlc-default-v1"
+            ]
+        },
+        "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$",
+            "description": "Semantic version of this state machine definition."
+        },
+        "initialState": {
+            "type": "string",
+            "description": "The starting state for new pipeline runs."
+        },
+        "states": {
+            "type": "object",
+            "description": "Map of state ID to state definition.",
+            "additionalProperties": {
+                "$ref": "#/definitions/State"
+            }
+        },
+        "transitions": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Transition"
+            }
+        }
+    },
+    "definitions": {
+        "State": {
+            "type": "object",
+            "required": [
+                "displayName",
+                "phase",
+                "agent"
+            ],
+            "properties": {
+                "displayName": {
+                    "type": "string",
+                    "description": "Human-readable name for this state."
+                },
+                "phase": {
+                    "type": "string",
+                    "enum": [
+                        "discovery",
+                        "planning",
+                        "execution",
+                        "verification",
+                        "release"
+                    ],
+                    "description": "SDLC phase this state belongs to."
+                },
+                "agent": {
+                    "type": "string",
+                    "description": "Agent responsible for this state.",
+                    "examples": [
+                        "agent_discovery",
+                        "agent_backlog_planner",
+                        "agent_developer"
+                    ]
+                },
+                "isFinal": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "If true, reaching this state completes the pipeline."
+                },
+                "requiresHumanGate": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "If true, transition OUT of this state requires explicit human approval."
+                },
+                "timeout": {
+                    "type": "string",
+                    "pattern": "^\\d+[hdm]$",
+                    "description": "Max time in this state before auto-escalation (e.g. '24h', '30m')."
+                }
+            }
+        },
+        "Transition": {
+            "type": "object",
+            "required": [
+                "from",
+                "to",
+                "trigger"
+            ],
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "description": "Source state ID."
+                },
+                "to": {
+                    "type": "string",
+                    "description": "Target state ID."
+                },
+                "trigger": {
+                    "type": "string",
+                    "enum": [
+                        "auto",
+                        "human_approve",
+                        "human_reject",
+                        "gate_pass",
+                        "gate_fail",
+                        "timeout"
+                    ],
+                    "description": "What causes this transition."
+                },
+                "guard": {
+                    "type": "string",
+                    "description": "Optional condition expression that must be true for the transition to fire."
+                }
+            }
+        }
+    }
+}

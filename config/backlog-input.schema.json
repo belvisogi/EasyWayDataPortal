@@ -1,0 +1,143 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "backlog-input.schema.json",
+    "title": "EasyWay Backlog Input Schema",
+    "description": "Defines the expected fields for each work item type in a backlog input file. Used by platform-plan.ps1 to generate execution plans.",
+    "type": "object",
+    "required": [
+        "prdId",
+        "epics"
+    ],
+    "properties": {
+        "prdId": {
+            "type": "string",
+            "description": "Unique PRD identifier. Used for dedup tagging (PRD:<id>) and traceability.",
+            "examples": [
+                "Phase-9-CoreFramework",
+                "PRD-2026-IngestSaldi"
+            ]
+        },
+        "epics": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/definitions/Epic"
+            }
+        }
+    },
+    "definitions": {
+        "Epic": {
+            "type": "object",
+            "description": "Level 1 — ADO: Epic. Rappresenta un'iniziativa strategica o una macro-area di lavoro.",
+            "required": [
+                "title",
+                "description"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Titolo dell'Epic. Il prefisso [Epic] viene aggiunto automaticamente dal planner.",
+                    "examples": [
+                        "[Phase 9] Core Agentic Framework (Runtime & SDK)"
+                    ]
+                },
+                "description": {
+                    "type": "string",
+                    "minLength": 50,
+                    "description": "Descrizione estratta dal PRD: obiettivo strategico, scope, valore atteso. Minimo 50 caratteri."
+                },
+                "businessValue": {
+                    "type": "string",
+                    "description": "Valore di business (opzionale). Mappato a Microsoft.VSTS.Common.BusinessValue su ADO.",
+                    "examples": [
+                        "Riduzione lead time backlog 60%, eliminazione vendor lock-in"
+                    ]
+                },
+                "features": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/definitions/Feature"
+                    }
+                }
+            }
+        },
+        "Feature": {
+            "type": "object",
+            "description": "Level 2 — ADO: Feature. Funzionalita' concreta e deliverable entro 1-2 sprint.",
+            "required": [
+                "title",
+                "description"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Titolo della Feature. Il prefisso [Feature] viene aggiunto automaticamente.",
+                    "examples": [
+                        "Platform Adapter SDK (IPlatformAdapter)"
+                    ]
+                },
+                "description": {
+                    "type": "string",
+                    "minLength": 30,
+                    "description": "Descrizione funzionale: cosa fa, perche' serve, come si integra. Minimo 30 caratteri."
+                },
+                "targetDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Data target di completamento (opzionale). Formato ISO 8601."
+                },
+                "pbis": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PBI"
+                    }
+                }
+            }
+        },
+        "PBI": {
+            "type": "object",
+            "description": "Level 3 — ADO: Product Backlog Item. Unita' di lavoro assegnabile a uno sprint. Deve essere completabile in 1-3 giorni.",
+            "required": [
+                "title",
+                "description",
+                "acceptanceCriteria"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Titolo del PBI. Il prefisso [PBI] viene aggiunto automaticamente.",
+                    "examples": [
+                        "Adapter Conformance Test Suite"
+                    ]
+                },
+                "description": {
+                    "type": "string",
+                    "minLength": 50,
+                    "description": "Descrizione dettagliata: cosa implementare, contesto tecnico, dipendenze. Minimo 50 caratteri."
+                },
+                "acceptanceCriteria": {
+                    "type": "string",
+                    "minLength": 20,
+                    "description": "Criteri di accettazione verificabili. Formato: condizioni chiare e testabili. Minimo 20 caratteri.",
+                    "examples": [
+                        "All 4 interface methods tested. ADO adapter passes all tests. Stub adapters throw NotImplemented. Test runner works via Invoke-Pester."
+                    ]
+                },
+                "effort": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 13,
+                    "description": "Story points (Fibonacci: 1,2,3,5,8,13). Opzionale — se omesso, da stimare in sprint planning."
+                },
+                "priority": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 4,
+                    "description": "Priorita' (1=Critical, 2=High, 3=Medium, 4=Low). Opzionale, default 3.",
+                    "default": 3
+                }
+            }
+        }
+    }
+}
