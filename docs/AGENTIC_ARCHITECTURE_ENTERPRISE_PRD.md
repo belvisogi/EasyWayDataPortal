@@ -392,3 +392,29 @@ La maturità agentica non è avere l’agente più intelligente.
 *   **Sicurezza**
 
 Un sistema agentico enterprise-ready è un **ecosistema**. Non un Super Agente.
+
+---
+
+## 19. Azure DevOps Governance: Nomenclatura e Tassonomia Mandatoria
+
+Per garantire coerenza e auditability, ogni Agente (in particolare il Planner L3) deve conformarsi al seguente standard tassonomico quando interagisce con Azure DevOps. Non sono ammesse creazioni "creative" di ticket.
+
+### 19.1 Titoli (Prefixing)
+Ogni ticket generato da un Agente deve dichiarare esplicitamente la sua natura nel titolo usando i prefissi standardizzati (in inglese per universalità). Questo permette di distinguere a colpo d'occhio la gerarchia, specialmente se i Process Template di ADO non mostrano l'icona esatta.
+
+*   **Epic**: `[Epic] Titolo...` (Es: *[Epic] [Phase 9] Core Agentic Framework*)
+*   **Feature / Issue**: `[Feature] Titolo...` (Adattato a *Issue* nel template Scrum/Basic, ma semanticamente rappresenta una Feature di prodotto).
+*   **Task/PBI**: `[Task] Titolo...` o `[PBI] Titolo...`
+*   **Bug/Sicurezza**: `[Bug]` o `[SecurityDefect]`
+
+### 19.2 Tag Obbligatori (Audit Tags)
+Tutti i Work Item materializzati da un'entità non umana devono recare tag identificativi inossidabili.
+*   `AutoPRD`: Identifica che il ticket è stato partorito da un Planner L3 decodificando un PRD.
+*   `PRD:<ID>`: (Es: `PRD:Phase-9-CoreFramework`) La **Tracciabilità Bidirezionale**. Ogni ticket deve esporre brutalmente la chiave del documento architetturale da cui è nato.
+*   `AI-Generated`: Tag esplicito per indicare che la prima stesura (Description/Acceptance) proviene da un LLM.
+
+### 19.3 Mapping Scrum/Agile (Auto-Adattamento)
+L'Agente Panner deve essere resiliente rispetto al Process Template in uso dal team umano:
+*   Se l'istanza è **Agile**: Usa la catena `Epic -> Feature -> User Story`.
+*   Se l'istanza è **Scrum** o **Basic**: Fallback automatico alla catena `Epic -> Issue -> Task` (o `Product Backlog Item`).
+L'Agente *non fallisce* silenziosamente, ma adatta la propria request API rispettando la tassonomia radice.

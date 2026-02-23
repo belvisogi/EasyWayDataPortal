@@ -112,6 +112,21 @@ Nota organizzativa sulla collocazione della documentazione UX
   - creare una copia/trasferimento dei file nella directory Wiki/EasyWayData.wiki/UX/ per rendere il contenuto parte integrante della Wiki del progetto.
 - Raccomandazione pratica: per l'allenamento degli LLM mantieni una versione "canonica" nella Wiki principale e usa le copie di lavoro per bozze; versiona e marca la pagina canonica come "LLM‑readable" (es. aggiungendo meta JSON all'inizio del file) in modo che gli agenti sappiano quale file usare come fonte primaria.
 
+---
+
+## Il Valore Enterprise: Augmented Agile Governance vs Basic GenAI Coding
+
+Mentre l'industria si concentra principalmente su strumenti come GitHub Copilot o Cursor per accelerare la scrittura di singole righe di codice (**Execution L1/L2**), EasyWay colma un vuoto critico nel panorama Enterprise: la **Governance Agentica guidata dall'AI (L3-L5)**.
+
+Nessun "AI Coding Assistant" out-of-the-box gestisce autonomamente:
+1. **La Traduzione Architetturale**: Leggere un PRD o analizzare il RAG per dedurre automaticamente le vere Feature necessarie, senza che un umano debba scriverle a mano.
+2. **Il Budgeting e lo Stop-Loss**: Impedire all'A.I. di bruciare crediti API (es. OpenAI/DeepSeek) disattivandone l'accesso a runtime tramite policy hardware-level gestite da un Gatekeeper.
+3. **Il Sovereign Gatekeeper (Human-in-the-Loop)**: Richiedere un'approvazione umana esplicita (Four-Eyes Principle) prima di scatenare l'esecuzione massiva, per evitare la sindrome del *Rubber Stamping*.
+4. **La Segregazione RBAC (Principle of Least Privilege)**: Forzare l'Agente "Scrum Master" a usare un PAT cliptato ai soli `Work Items`, impedendogli crittograficamente di alterare codice protetto, diversamente da come farebbe un Agente "Sviluppatore".
+5. **L'Integrazione ITIL/Scrum Immersiva**: Non bypassare l'Agile, ma potenziarlo. L'Agente "Brain" negozia l'Epic con l'essere umano, l'Agente "Planner" converte l'Epic in User Story su Azure DevOps, e gli Agenti "Arm" consumano i task automatici.
+
+EasyWayDataPortal non è l'ennesimo bot che scrive codice in modo più veloce: è un **Framework di Orchestrazione e Governance Platform**, concepito per aziende che desiderano scalare l'intelligenza artificiale governandola dall'alto tramite processi Zero-Trust.
+
 
 
 
