@@ -37,6 +37,9 @@ $adapterDir = Join-Path $coreDir 'adapters'
 
 Import-Module (Join-Path $coreDir 'PlatformCommon.psm1') -Force
 Import-Module (Join-Path $adapterDir 'IPlatformAdapter.psm1') -Force
+Import-Module (Join-Path $coreDir 'TelemetryLogger.psm1') -Force
+
+Initialize-TelemetryLogger -TraceId "apply-$(Get-Date -Format 'yyyyMMdd-HHmm')"
 
 # ── Load config ───────────────────────────────────────────────────────────────
 $config = Read-PlatformConfig -ConfigPath $ConfigPath
@@ -101,6 +104,8 @@ foreach ($task in $planDoc.plan) {
         $idMap["$($task.tempId)"] = $realId
 
         Write-Host "             Created ID: $realId"
+        Write-TelemetryEvent -AgentId 'agent_backlog_planner' -AgentLevel 'L1' -Action 'apply:create_workitem' -Outcome 'success' `
+            -WorkItemId $realId -WorkItemType $task.type -Details @{ title = $task.title }
 
         if ($task.parentId) {
             $realParentId = $idMap["$($task.parentId)"]
@@ -115,3 +120,5 @@ foreach ($task in $planDoc.plan) {
 }
 
 Write-Host "L1 Execution Complete."
+Write-TelemetryEvent -AgentId 'agent_backlog_planner' -AgentLevel 'L1' -Action 'apply:complete' -Outcome 'success' `
+    -Details @{ itemsCreated = $idMap.Count }

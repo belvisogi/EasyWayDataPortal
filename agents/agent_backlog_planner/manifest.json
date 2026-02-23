@@ -1,0 +1,53 @@
+{
+    "id": "agent_backlog_planner",
+    "name": "agent_backlog_planner",
+    "role": "Agent_Backlog_Planning",
+    "description": "Decomposes PRD into ADO work items (Epic → Feature → PBI) via Platform Adapter SDK. Wraps platform-plan.ps1 (WhatIf) and platform-apply.ps1 (Apply).",
+    "owner": "team-platform",
+    "version": "1.0.0",
+    "level": "L2",
+    "llm_config": {
+        "model": "gpt-4-turbo",
+        "temperature": 0.1,
+        "system_prompt": "PROMPTS.md"
+    },
+    "context_config": {
+        "enable_memory": true
+    },
+    "skills": {
+        "global": [
+            "platform-adapter",
+            "state-machine",
+            "observability",
+            "utilities"
+        ],
+        "local": [
+            "backlog-decomposition",
+            "whatif-preview"
+        ]
+    },
+    "actions": {
+        "backlog:whatif": {
+            "description": "Dry-run: decompose PRD into execution plan without creating work items. Human reviews before apply.",
+            "runner": "backlog-run.ps1",
+            "args": {
+                "backlogPath": "Path to backlog JSON (produced by PRD decomposition)",
+                "action": "whatif"
+            }
+        },
+        "backlog:apply": {
+            "description": "Execute: create work items on ADO based on certified execution plan.",
+            "runner": "backlog-run.ps1",
+            "args": {
+                "planPath": "Path to execution_plan.json (produced by whatif)",
+                "action": "apply"
+            }
+        }
+    },
+    "allowed_tools": [
+        "pwsh",
+        "git",
+        "az"
+    ],
+    "classification": "arm"
+}
