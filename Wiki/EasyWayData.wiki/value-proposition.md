@@ -82,6 +82,25 @@ Il Framework EasyWay si inserisce come un livello di orchestrazione "sopra" gli 
 3. **Pluggable & Bring-Your-Own-LLM:** Il framework pilota in sicurezza OpenAI, DeepSeek o modelli on-premise, mascherandoli dietro interfacce standard.
 4. **Agenti "Scrum-Ready":** Non offriamo plugin per l'IDE dei programmatori, offriamo "Assunti Digitali" (Agent Product Owner, Agent Scrum Master) che dialogano nativamente con Jira/ADO per convertire requisiti aziendali in User Story, rispettando rigorosamente le board e le cerimonie Agile dell'azienda cliente.
 
+---
+
+## 🧪 The "Kiuwan for AI": Benchmark Sandbox as a Service
+
+Oltre all'integrazione, EasyWay apre un mercato totalmente nuovo: la **Valutazione e il Benchmarking degli Agenti AI Enterprise**.
+
+Proprio come *Kiuwan* o *SonarQube* misurano la qualità del codice, e piattaforme come *Artificial Analysis* misurano le performance brute degli LLM, EasyWay si posiziona come l'**Analizzatore delle Performance Operative dell'AI**.
+
+Le Enterprise sono inondate di offerte da vendor AI (Copilot, Devin, agenti custom). Come fanno a sapere di chi fidarsi?
+EasyWay fornisce una **Sandbox Isolata e Certificata** dove le aziende possono "testare" gli agenti AI su task reali misurandone l'efficacia tramite metriche di business chiare (KPI).
+
+### I KPI di Benchmarking forniti da EasyWay:
+1. **Resolution Rate Reale:** L'agente è riuscito a chiudere la User Story senza rompere la compilazione in un ambiente strutturato?
+2. **Cost-per-Task:** Quanto budget (token) ha bruciato l'agente per risolvere un singolo requisito? (Il framework lo espelle se sfora il limite).
+3. **Governance Compliance:** Quante volte l'agente ha tentato un'azione vietata (es. deploy senza branch) venendo bloccato dal Sovereign Gatekeeper?
+4. **Documentation Alignment:** L'agente ha aggiornato correttamente la documentazione di prodotto dopi aver modificato il codice?
+
+*Visione per i CISO/CIO:* **"Prima di assumere il nuovo super-agente AI dell'azienda X, fallo girare nella Sandobx di EasyWay. Noi ti forniremo la pagella crittografica sulle sue reali performance, sui suoi costi nascosti e sulla sua conformità alle policy Zero-Trust."**
+
 
 
 
