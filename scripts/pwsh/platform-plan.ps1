@@ -142,7 +142,7 @@ foreach ($epic in $backlog.epics) {
                         type               = $lvl3.type
                         tempId             = $pbiId
                         title              = $pbi.title
-                        description        = ''
+                        description        = $pbi.description
                         acceptanceCriteria = $pbi.acceptanceCriteria
                         areaPath           = $config.paths.areaPath
                         iterationPath      = $config.paths.iterationPath
