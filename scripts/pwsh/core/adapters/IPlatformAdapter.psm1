@@ -132,7 +132,11 @@ function Build-AdoJsonPatch {
         [Parameter(Mandatory = $false)] [string]$AcceptanceCriteria,
         [Parameter(Mandatory = $false)] [string]$AreaPath,
         [Parameter(Mandatory = $false)] [string]$IterationPath,
-        [Parameter(Mandatory = $false)] [string[]]$Tags
+        [Parameter(Mandatory = $false)] [string[]]$Tags,
+        [Parameter(Mandatory = $false)] [int]$Effort,
+        [Parameter(Mandatory = $false)] [int]$Priority,
+        [Parameter(Mandatory = $false)] [string]$BusinessValue,
+        [Parameter(Mandatory = $false)] [string]$TargetDate
     )
 
     $patch = @( @{ op = 'add'; path = '/fields/System.Title'; value = $Title } )
@@ -143,6 +147,10 @@ function Build-AdoJsonPatch {
     if ($Tags -and $Tags.Count -gt 0) {
         $patch += @{ op = 'add'; path = '/fields/System.Tags'; value = ($Tags -join '; ') }
     }
+    if ($Effort -gt 0) { $patch += @{ op = 'add'; path = '/fields/Microsoft.VSTS.Scheduling.Effort'; value = $Effort } }
+    if ($Priority -gt 0) { $patch += @{ op = 'add'; path = '/fields/Microsoft.VSTS.Common.Priority'; value = $Priority } }
+    if ($BusinessValue) { $patch += @{ op = 'add'; path = '/fields/Microsoft.VSTS.Common.BusinessValue'; value = $BusinessValue } }
+    if ($TargetDate) { $patch += @{ op = 'add'; path = '/fields/Microsoft.VSTS.Scheduling.TargetDate'; value = $TargetDate } }
     return $patch
 }
 
