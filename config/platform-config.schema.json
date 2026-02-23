@@ -1,0 +1,202 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://easyway.dev/schemas/platform-config.schema.json",
+    "title": "EasyWay Platform Configuration",
+    "description": "Defines the target platform, authentication, work item hierarchy, and governance policies for the EasyWay Agentic SDLC. See EASYWAY_AGENTIC_SDLC_MASTER.md §11.",
+    "type": "object",
+    "required": [
+        "platform",
+        "connection",
+        "auth",
+        "workItemHierarchy"
+    ],
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "description": "Path to this JSON Schema for editor IntelliSense."
+        },
+        "platform": {
+            "type": "string",
+            "enum": [
+                "ado",
+                "github",
+                "jira",
+                "forgejo",
+                "businessmap",
+                "witboost"
+            ],
+            "description": "Target platform identifier. Must match an available adapter."
+        },
+        "displayName": {
+            "type": "string",
+            "description": "Human-readable name for this configuration."
+        },
+        "connection": {
+            "type": "object",
+            "required": [
+                "baseUrl",
+                "project"
+            ],
+            "properties": {
+                "baseUrl": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Base URL of the platform instance."
+                },
+                "project": {
+                    "type": "string",
+                    "description": "Project or repository identifier on the platform."
+                },
+                "apiVersion": {
+                    "type": "string",
+                    "description": "API version to use for REST calls."
+                }
+            },
+            "additionalProperties": false
+        },
+        "auth": {
+            "type": "object",
+            "required": [
+                "method",
+                "envVariable"
+            ],
+            "properties": {
+                "method": {
+                    "type": "string",
+                    "enum": [
+                        "pat",
+                        "oauth",
+                        "ssh",
+                        "api_key"
+                    ],
+                    "description": "Authentication method."
+                },
+                "envVariable": {
+                    "type": "string",
+                    "description": "Environment variable name containing the auth token. Loaded by Import-AgentSecrets.ps1."
+                },
+                "headerScheme": {
+                    "type": "string",
+                    "enum": [
+                        "Basic",
+                        "Bearer",
+                        "token"
+                    ],
+                    "description": "HTTP Authorization header scheme."
+                }
+            },
+            "additionalProperties": false
+        },
+        "workItemHierarchy": {
+            "type": "object",
+            "required": [
+                "chain"
+            ],
+            "properties": {
+                "processTemplate": {
+                    "type": "string",
+                    "description": "Name of the process template (e.g., 'EasyWay Scrum', 'Agile')."
+                },
+                "chain": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "level",
+                            "type",
+                            "prefix"
+                        ],
+                        "properties": {
+                            "level": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "description": "Position in hierarchy (1 = top level)."
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "Platform-native work item type name."
+                            },
+                            "prefix": {
+                                "type": "string",
+                                "description": "Title prefix per EasyWay nomenclatura (PRD §19.1)."
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "description": "Ordered hierarchy chain from top (Epic) to bottom (Task/PBI)."
+                },
+                "parentChildLinkType": {
+                    "type": "string",
+                    "description": "Platform-specific relation type for parent-child links."
+                }
+            },
+            "additionalProperties": false
+        },
+        "paths": {
+            "type": "object",
+            "properties": {
+                "areaPath": {
+                    "type": "string",
+                    "description": "Default area path for new work items."
+                },
+                "iterationPath": {
+                    "type": "string",
+                    "description": "Default iteration/sprint path for new work items."
+                }
+            },
+            "additionalProperties": false
+        },
+        "tags": {
+            "type": "object",
+            "properties": {
+                "autoGenerated": {
+                    "type": "string",
+                    "description": "Tag applied to all agent-generated items (PRD §19.2)."
+                },
+                "aiGenerated": {
+                    "type": "string",
+                    "description": "Tag indicating AI-authored content."
+                }
+            },
+            "additionalProperties": true
+        },
+        "pr": {
+            "type": "object",
+            "properties": {
+                "creationPattern": {
+                    "type": "string",
+                    "enum": [
+                        "link",
+                        "api",
+                        "cli"
+                    ],
+                    "description": "How PRs are created on this platform."
+                },
+                "targetBranch": {
+                    "type": "string",
+                    "description": "Default target branch for PRs."
+                }
+            },
+            "additionalProperties": false
+        },
+        "branchPolicy": {
+            "type": "object",
+            "properties": {
+                "protectedBranches": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Branches that require PR for changes."
+                },
+                "featureBranchPrefix": {
+                    "type": "string",
+                    "description": "Prefix for feature branches."
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}
