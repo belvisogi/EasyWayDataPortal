@@ -16,8 +16,8 @@ Param(
 
     [string]$AdoOrgUrl = "https://dev.azure.com/EasyWayData",
     [string]$AdoProject = "EasyWay-DataPortal",
-    [string]$AreaPath = "EasyWayDataPortal",
-    [string]$IterationPath = "EasyWayDataPortal\Sprint 01"
+    [string]$AreaPath = "\EasyWay-DataPortal",
+    [string]$IterationPath = ""
 )
 
 $ErrorActionPreference = 'Stop'
@@ -59,6 +59,13 @@ function Get-ExistingWorkItemByTitle([string]$orgUrl, [string]$project, [string]
     }
 }
 
+function Format-AdoTitle([string]$title, [string]$prefix) {
+    if (-not $title.Trim().StartsWith($prefix, [System.StringComparison]::InvariantCultureIgnoreCase)) {
+        return "$prefix $($title.Trim())"
+    }
+    return $title.Trim()
+}
+
 $repoRoot = (git rev-parse --show-toplevel 2>$null)
 if (-not $repoRoot) { $repoRoot = $PWD.Path }
 $importSecretsScript = Join-Path $repoRoot "agents" "skills" "utilities" "Import-AgentSecrets.ps1"
@@ -91,6 +98,7 @@ $globalTags = @('AutoPRD', "PRD:$prdId")
 $virtualIdCounter = -1
 
 foreach ($epic in $backlog.epics) {
+    $epic.title = Format-AdoTitle -title $epic.title -prefix "[Epic]"
     $epicId = $null
     if ($pat) { $epicId = Get-ExistingWorkItemByTitle -orgUrl $AdoOrgUrl -project $AdoProject -workItemType 'Epic' -title $epic.title -prdId $prdId -headers $headers -apiVersion $apiVersion }
   
@@ -113,6 +121,7 @@ foreach ($epic in $backlog.epics) {
     }
 
     foreach ($feature in $epic.features) {
+        $feature.title = Format-AdoTitle -title $feature.title -prefix "[Feature]"
         $featureId = $null
         if ($pat) { $featureId = Get-ExistingWorkItemByTitle -orgUrl $AdoOrgUrl -project $AdoProject -workItemType 'Feature' -title $feature.title -prdId $prdId -headers $headers -apiVersion $apiVersion }
     
@@ -135,6 +144,7 @@ foreach ($epic in $backlog.epics) {
         }
 
         foreach ($pbi in $feature.pbis) {
+            $pbi.title = Format-AdoTitle -title $pbi.title -prefix "[PBI]"
             $pbiId = $null
             if ($pat) { $pbiId = Get-ExistingWorkItemByTitle -orgUrl $AdoOrgUrl -project $AdoProject -workItemType 'Product Backlog Item' -title $pbi.title -prdId $prdId -headers $headers -apiVersion $apiVersion }
       
