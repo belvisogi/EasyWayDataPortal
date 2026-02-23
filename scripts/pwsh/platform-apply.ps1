@@ -52,10 +52,7 @@ $headers = Get-AuthHeader -Config $config -Token $token
 # ── Load adapter ──────────────────────────────────────────────────────────────
 $adapter = New-PlatformAdapter -Config $config -Headers $headers
 
-# ── Load ADO adapter helpers (for Build-AdoJsonPatch) ─────────────────────────
-if ($config.platform -eq 'ado') {
-    Import-Module (Join-Path $adapterDir 'AdoAdapter.psm1') -Force
-}
+# NOTE: Build-AdoJsonPatch is exported from IPlatformAdapter.psm1 (consolidated module).
 
 # ── Load execution plan ──────────────────────────────────────────────────────
 Write-Host "L1 Executor: Engaging System..."
