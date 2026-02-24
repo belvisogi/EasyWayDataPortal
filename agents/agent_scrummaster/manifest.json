@@ -62,6 +62,7 @@
     }
   ],
   "name": "agent_scrummaster",
+  "level": "L2",
   "readme": "README.md",
   "classification": "brain",
   "id": "agent_scrummaster",

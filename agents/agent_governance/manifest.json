@@ -78,6 +78,7 @@
   ],
   "readme": "README.md",
   "name": "agent_governance",
+  "level": "L3",
   "id": "agent_governance",
   "owner": "team-platform",
   "version": "1.0.0",

@@ -50,6 +50,69 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+function Get-PatMetadataFromFile {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    if (-not (Test-Path $Path)) {
+        return [pscustomobject]@{
+            Found = $false
+            Length = 0
+        }
+    }
+
+    $line = Get-Content $Path -Encoding UTF8 | Where-Object { $_ -match '^\s*AZURE_DEVOPS_EXT_PAT\s*=' } | Select-Object -Last 1
+    if (-not $line) {
+        return [pscustomobject]@{
+            Found = $false
+            Length = 0
+        }
+    }
+
+    $value = ($line -replace '^\s*AZURE_DEVOPS_EXT_PAT\s*=\s*', '').Trim()
+    $value = $value.Trim('"').Trim("'")
+
+    return [pscustomobject]@{
+        Found = $true
+        Length = $value.Length
+    }
+}
+
+function Test-AdoAccess {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Org,
+        [Parameter(Mandatory = $true)]
+        [string]$ProjectName
+    )
+
+    $output = az devops project show --project $ProjectName --organization $Org --output table 2>&1
+    $text = ($output | Out-String).Trim()
+
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "VERIFY_OK: ADO project access confirmed for $ProjectName." -ForegroundColor Green
+        return $true
+    }
+
+    if ($text -match 'VS800075') {
+        Write-Warning "VERIFY_FAIL: Project permission issue detected (VS800075)."
+        Write-Warning "Action: add PR service account to the project with repo/PR permissions."
+        return $false
+    }
+
+    if ($text -match 'TF400813' -or $text -match 'Failed to authenticate') {
+        Write-Warning "VERIFY_FAIL: Authentication failed (TF400813 / invalid-or-expired PAT)."
+        Write-Warning "Action: rotate AZURE_DEVOPS_EXT_PAT and retry."
+        return $false
+    }
+
+    Write-Warning "VERIFY_FAIL: Unknown ADO error."
+    Write-Warning $text
+    return $false
+}
+
 # ─── Load secrets via Universal Broker ─────────────────────────────────────────
 if (-not $NoTokenReset) {
     # Prevent stale process token from shadowing a newer value in .env profiles.
@@ -96,3 +159,19 @@ Write-Host "Session initialized. Ready to create PRs:" -ForegroundColor Cyan
 Write-Host "  az repos pr create --source-branch feat/<name> --target-branch develop --title '...' --description '...'"
 Write-Host ""
 Write-Host "Tip: use -Verify flag to check current session state."
+
+if ($VerifyFromFile) {
+    $filePat = Get-PatMetadataFromFile -Path $SecretsFile
+    if (-not $filePat.Found) {
+        Write-Warning "VERIFY_FROM_FILE: AZURE_DEVOPS_EXT_PAT not found in $SecretsFile"
+    }
+    else {
+        Write-Host "VERIFY_FROM_FILE: AZURE_DEVOPS_EXT_PAT found in $SecretsFile ($($filePat.Length) chars)" -ForegroundColor Cyan
+    }
+}
+
+if ($Verify -or $VerifyFromFile) {
+    if (-not (Test-AdoAccess -Org $OrgUrl -ProjectName $Project)) {
+        exit 1
+    }
+}

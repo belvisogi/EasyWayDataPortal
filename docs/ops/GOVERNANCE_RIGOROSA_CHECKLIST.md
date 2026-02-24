@@ -31,12 +31,12 @@ Definire controlli minimi obbligatori per mantenere separation-of-duties, least 
 - [ ] Nessun account tecnico in gruppi admin non necessari.
 
 ### B. Branch Protection
-- [ ] `main` e `develop` protetti.
-- [ ] PR obbligatoria su branch protetti.
-- [ ] Minimo 1 reviewer richiesto.
-- [ ] `Allow requestors to approve their own changes` = OFF.
-- [ ] `Prohibit most recent pusher from approving` = ON.
-- [ ] Status checks required (CI + guardrail).
+- [x] `main` e `develop` protetti.
+- [x] PR obbligatoria su branch protetti.
+- [x] Minimo 1 reviewer richiesto.
+- [x] `Allow requestors to approve their own changes` = OFF.
+- [x] `Prohibit most recent pusher from approving` = ON.
+- [x] Status checks required (CI + guardrail).
 
 ### C. Least Privilege sui Token
 - [ ] PAT `svc-agent-pr-creator`: `Code (Read & Write)` + `Pull Request Contribute`.
@@ -75,3 +75,4 @@ Un ambiente e' "compliant" quando tutte le sezioni A-F sono complete senza eccez
 ## Scorecard
 - Stato sintetico e progress tracking: `docs/ops/SECURITY_SCORECARD.md`
 - Parita multi-provider: `docs/ops/MULTI_PROVIDER_SECURITY_PARITY_MATRIX.md`
+- One-pager operativo atomico: `docs/ops/ACCESS_MODEL_ONE_PAGER.md`
