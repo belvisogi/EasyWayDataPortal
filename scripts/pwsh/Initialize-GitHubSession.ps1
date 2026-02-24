@@ -14,6 +14,7 @@
 [CmdletBinding()]
 param(
     [string]$AgentId = "agent_developer",
+    [switch]$NoTokenReset,
     [switch]$Verify
 )
 
@@ -22,6 +23,12 @@ $ErrorActionPreference = "Stop"
 
 $repoRoot = (git rev-parse --show-toplevel 2>$null)
 if (-not $repoRoot) { $repoRoot = $PWD.Path }
+
+# Prevent stale process token values from shadowing .env/RBAC values.
+if (-not $NoTokenReset) {
+    Remove-Item Env:GH_TOKEN -ErrorAction SilentlyContinue
+    Remove-Item Env:GITHUB_TOKEN -ErrorAction SilentlyContinue
+}
 
 $importSecretsScript = Join-Path $repoRoot "agents" "skills" "utilities" "Import-AgentSecrets.ps1"
 if (-not (Test-Path $importSecretsScript)) {
