@@ -1,104 +1,52 @@
 {
-  "role": "Agent_Observability",
-  "description": "Osservabilita': health check (system/db), standard logging, suggerimenti OTel/AppInsights e runbook troubleshooting (no secrets).",
-  "allowed_paths": {
-    "read": [
-      "agents/agent_observability/**",
-      "scripts/pwsh/agent-observability.ps1",
-      "Wiki/EasyWayData.wiki/**",
-      "agents/kb/recipes.jsonl",
-      "agents/logs/**",
-      "out/**"
-    ],
-    "write": [
-      "agents/agent_observability/memory/",
-      "agents/logs/"
-    ]
-  },
-  "allowed_tools": [
-    "pwsh"
-  ],
-  "required_gates": [
-    "KB_Consistency"
-  ],
-  "approvals": {},
-  "knowledge_sources": [
-    {
-      "priority": "medium",
-      "type": "document",
-      "path": "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/security-and-observability.md"
+    "id": "agent_observability",
+    "name": "agent_observability",
+    "role": "Agent_Observability",
+    "description": "Runs health and log checks with telemetry-first observability workflows.",
+    "owner": "team-platform",
+    "version": "2.0.0",
+    "level": "L2",
+    "llm_config": {
+        "model": "gpt-4-turbo",
+        "temperature": 0.0,
+        "system_prompt": "PROMPTS.md"
     },
-    {
-      "priority": "medium",
-      "type": "data",
-      "path": "agents/logs/events.jsonl"
-    }
-  ],
-  "actions": [
-    {
-      "name": "obs:healthcheck",
-      "description": "Esegue un healthcheck locale (file/log) e produce output strutturato per n8n.",
-      "params": {
-        "paths": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "required": false
-        }
-      }
+    "context_config": {
+        "enable_memory": true
     },
-    {
-      "name": "obs:check-logs",
-      "description": "Analizza i log applicativi (JSON) per errori/warning in una finestra temporale. Richiede log con timestamp ISO 8601.",
-      "params": {
-        "hours": {
-          "type": "number",
-          "description": "Finestra temporale in ore (default: 1)",
-          "required": false
+    "skills": {
+        "global": [
+            "observability",
+            "analysis",
+            "retrieval",
+            "utilities"
+        ],
+        "local": [
+            "health-diagnostics",
+            "log-triage"
+        ]
+    },
+    "actions": {
+        "obs:healthcheck": {
+            "description": "Run local observability health checks.",
+            "runner": "observability-run.ps1",
+            "args": {
+                "action": "healthcheck",
+                "inputPath": "Optional JSON intent path"
+            }
         },
-        "analyze": {
-          "type": "boolean",
-          "description": "Se true, usa l'LLM per analizzare la root cause degli errori trovati.",
-          "required": false
+        "obs:check-logs": {
+            "description": "Analyze recent logs for warning/error patterns.",
+            "runner": "observability-run.ps1",
+            "args": {
+                "action": "check-logs",
+                "inputPath": "Optional JSON intent path"
+            }
         }
-      }
-    }
-  ],
-  "name": "agent_observability",
-  "readme": "README.md",
-  "classification": "arm",
-  "id": "agent_observability",
-  "owner": "team-platform",
-  "version": "1.0.0",
-  "evolution_level": 1,
-  "context_config": {
-    "memory_files": [
-      "agents/kb/recipes.jsonl"
+    },
+    "allowed_tools": [
+        "pwsh"
     ],
-    "context_limit_tokens": 128000,
-    "enable_memory": true
-  },
-  "skills_required": [
-    "retrieval.llm-with-rag"
-  ],
-  "llm_config": {
-    "provider": "openai",
-    "model": "gpt-4o",
-    "temperature": 0.0,
-    "system_prompt": "agents/agent_observability/PROMPTS.md",
-    "tools": [
-      "function_calling"
-    ]
-  },
-  "error_handling": {
-    "fallback_mode": "log_and_skip",
-    "alert_on_failure": false,
-    "retry_delay_seconds": 15,
-    "retry_count": 2
-  },
-  "skills_optional": [
-    "utilities.json-validate",
-    "utilities.retry-backoff"
-  ]
+    "classification": "arm",
+    "readme": "README.md"
 }

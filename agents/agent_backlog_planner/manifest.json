@@ -49,5 +49,6 @@
         "git",
         "az"
     ],
-    "classification": "arm"
+    "classification": "arm",
+    "readme": "README.md"
 }

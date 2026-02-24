@@ -49,5 +49,6 @@
         "git",
         "az"
     ],
-    "classification": "head"
+    "classification": "brain",
+    "readme": "README.md"
 }

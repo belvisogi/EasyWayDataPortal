@@ -34,6 +34,11 @@
       "pattern": "^\\d+\\.\\d+\\.\\d+$",
       "description": "Semantic version (e.g., '1.0.0')"
     },
+    "level": {
+      "type": "string",
+      "enum": ["L1", "L2", "L3"],
+      "description": "Agent execution level"
+    },
     "llm_config": {
       "type": "object",
       "description": "LLM integration configuration (required for Level 2+ agents)",
@@ -116,33 +121,65 @@
       },
       "description": "Skills that are optional"
     },
-    "actions": {
-      "type": "array",
-      "description": "Actions the agent can perform",
-      "items": {
-        "type": "object",
-        "required": ["name", "description"],
-        "properties": {
-          "name": {
-            "type": "string",
-            "pattern": "^[a-z]+:[a-z-]+$",
-            "description": "Action name (e.g., 'vuln-scan:full')"
-          },
-          "description": {
-            "type": "string",
-            "description": "Action description"
-          },
-          "uses_skills": {
-            "type": "array",
-            "items": { "type": "string" },
-            "description": "Skills used by this action"
-          },
-          "params": {
-            "type": "object",
-            "description": "Parameter schema (JSON Schema format)"
-          }
+    "skills": {
+      "type": "object",
+      "description": "Hybrid skills model (global + local)",
+      "properties": {
+        "global": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "local": {
+          "type": "array",
+          "items": { "type": "string" }
         }
       }
+    },
+    "actions": {
+      "description": "Actions the agent can perform (legacy array or v2 object map).",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "description"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[a-z]+:[a-z-]+$",
+                "description": "Action name (e.g., 'vuln-scan:full')"
+              },
+              "description": {
+                "type": "string",
+                "description": "Action description"
+              },
+              "uses_skills": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Skills used by this action"
+              },
+              "params": {
+                "type": "object",
+                "description": "Parameter schema (JSON Schema format)"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "patternProperties": {
+            "^[a-z]+:[a-z-]+$": {
+              "type": "object",
+              "required": ["description", "runner"],
+              "properties": {
+                "description": { "type": "string" },
+                "runner": { "type": "string" },
+                "args": { "type": "object" }
+              }
+            }
+          }
+        }
+      ]
     },
     "allowed_paths": {
       "type": "object",

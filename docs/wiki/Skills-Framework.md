@@ -7,6 +7,15 @@
 
 ## Modello Ibrido
 
+## Stato Formalizzazione (Session 18)
+
+- Freeze Batch 1 L2: `agent_review`, `agent_release`, `agent_pr_manager`, `agent_developer`, `agent_observability`
+- Agenti formalizzati: **7/34**
+  - Pre-esistenti: `agent_discovery`, `agent_backlog_planner`
+  - Nuovi in Session 18: i 5 agenti del batch freeze
+
+---
+
 ```mermaid
 graph TB
     subgraph Global["🌐 Global Skills (agents/skills/)"]
@@ -68,6 +77,21 @@ graph TB
 
 ---
 
+## Governance Rigorosa (Skills)
+
+Per tutte le skill con impatto su repo/PR/release/ADO:
+
+1. **Separation of Duties**: chi esegue non approva.
+2. **Least Privilege**: token/scope minimi per ruolo.
+3. **Human Gate**: nessun apply critico senza checkpoint umano.
+4. **Traceability**: log evento + audit trail per ogni azione.
+5. **No Bypass**: branch policy e guardrail non disattivabili da skill.
+
+Riferimento operativo:
+- `docs/ops/GOVERNANCE_RIGOROSA_CHECKLIST.md`
+
+---
+
 ## Agent Manifest — Sezione Skills
 
 Ogni `manifest.json` dichiara le skill che l'agente può usare:
@@ -94,6 +118,7 @@ Ogni `manifest.json` dichiara le skill che l'agente può usare:
 
 1. **Proposta**: PR con nuova skill + test Pester
 2. **Review**: code review + conformance check
-3. **Registrazione**: aggiungere a `agents/skills/registry.json`
-4. **Consumo**: aggiungere al `manifest.json` degli agenti che la usano
-5. **Versionamento**: ogni skill ha un `version` nel registry
+3. **Governance check**: validare SoD + least privilege + human gate
+4. **Registrazione**: aggiungere a `agents/skills/registry.json`
+5. **Consumo**: aggiungere al `manifest.json` degli agenti che la usano
+6. **Versionamento**: ogni skill ha un `version` nel registry

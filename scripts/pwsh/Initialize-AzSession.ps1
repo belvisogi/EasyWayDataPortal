@@ -42,6 +42,7 @@ param(
     [string]$SecretsFile = "C:\old\.env.developer",
     [string]$OrgUrl = "https://dev.azure.com/EasyWayData",
     [string]$Project = "EasyWay-DataPortal",
+    [switch]$NoTokenReset,
     [switch]$Verify,
     [switch]$VerifyFromFile
 )
@@ -50,6 +51,10 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # ─── Load secrets via Universal Broker ─────────────────────────────────────────
+if (-not $NoTokenReset) {
+    # Prevent stale process token from shadowing a newer value in .env profiles.
+    Remove-Item Env:AZURE_DEVOPS_EXT_PAT -ErrorAction SilentlyContinue
+}
 
 $repoRoot = (git rev-parse --show-toplevel 2>$null)
 if (-not $repoRoot) { $repoRoot = $PWD.Path }
@@ -66,7 +71,7 @@ if (-not (Test-Path $importSecretsScript)) {
 $secrets = Import-AgentSecrets -AgentId "agent_developer"
 
 # ─── Set AZURE_DEVOPS_EXT_PAT ────────────────────────────────────────────────
-if (-not $secrets.ContainsKey("AZURE_DEVOPS_EXT_PAT")) {
+if (-not $env:AZURE_DEVOPS_EXT_PAT) {
     Write-Error "AZURE_DEVOPS_EXT_PAT not granted by Global Gatekeeper (RBAC_DENY)"
     exit 1
 }
