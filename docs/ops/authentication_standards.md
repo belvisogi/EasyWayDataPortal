@@ -78,3 +78,8 @@ Expected local profiles (outside repo):
 - [ ] All provider initializers expose a `-Verify` mode for diagnostics.
 - [ ] All provider tokens are scoped in RBAC profiles by agent role.
 - [ ] Deprecated provider-specific helpers are moved to `C:\old\old\legacy-scripts\`.
+
+## 7. Governance Reference
+
+For full enterprise controls (SoD, branch policy, audit cadence), see:
+- `docs/ops/GOVERNANCE_RIGOROSA_CHECKLIST.md`

@@ -395,6 +395,26 @@ Con il service account separato (non nel Team), questa bypass e' impossibile.
 
 ---
 
+## 5c. Governance Rigorosa (Enterprise Minimum)
+
+### Modello a 4 identita' (raccomandato)
+1. `svc-agent-pr-creator` -> branch/push/create PR
+2. `svc-agent-ado-executor` -> apply Work Items/ADO execution
+3. `svc-agent-scrum-master` -> planning/boards/reporting
+4. `human-approver` -> approvazione PR/release finale
+
+### Controlli obbligatori
+- Separation of Duties: creator PR != approver PR.
+- Least Privilege: scope PAT minimi per ruolo.
+- Branch Protection: PR obbligatoria, min reviewer 1, no self-approval.
+- Human Gate: apply critici solo dopo checkpoint umano.
+- Audit Trail: log RBAC + policy + pipeline sempre disponibili.
+
+### Riferimento checklist operativa
+- `docs/ops/GOVERNANCE_RIGOROSA_CHECKLIST.md`
+
+---
+
 ## 6. PowerShell Coding Standards
 
 ### Encoding: Em Dash nei file .ps1
