@@ -71,3 +71,7 @@ Un ambiente e' "compliant" quando tutte le sezioni A-F sono complete senza eccez
 - Scope token "full access" senza motivazione.
 - Override manuale policy branch senza ticket.
 - Token in repository o in script versionati.
+
+## Scorecard
+- Stato sintetico e progress tracking: `docs/ops/SECURITY_SCORECARD.md`
+- Parita multi-provider: `docs/ops/MULTI_PROVIDER_SECURITY_PARITY_MATRIX.md`
