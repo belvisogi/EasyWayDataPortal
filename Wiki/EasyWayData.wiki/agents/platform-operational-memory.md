@@ -259,6 +259,15 @@ pwsh EasyWayDataPortal/scripts/pwsh/Initialize-AzSession.ps1 -Verify
 pwsh EasyWayDataPortal/scripts/pwsh/Initialize-AzSession.ps1 -VerifyFromFile -SecretsFile C:\old\.env.developer
 ```
 
+**Inizializzazione sessione GitHub** (multi-provider):
+```powershell
+# Carica GH_TOKEN/GITHUB_TOKEN da C:\old\.env.github via RBAC Gatekeeper
+pwsh EasyWayDataPortal/scripts/pwsh/Initialize-GitHubSession.ps1
+
+# Verifica auth gh nella stessa sessione
+pwsh EasyWayDataPortal/scripts/pwsh/Initialize-GitHubSession.ps1 -Verify
+```
+
 Template segregati disponibili in: `config/environments/.env.*.sample`
 
 **Golden Path Atomico (raccomandato)**:
@@ -297,6 +306,7 @@ az repos pr create `
 **Note critiche**:
 - `AZURE_DEVOPS_EXT_PAT` NON viene ereditato tra sessioni PowerShell diverse
 - `Initialize-AzSession.ps1 -Verify` controlla solo la sessione corrente; per validare il file usare `-VerifyFromFile`
+- Gli initializer resettano i token di processo per default (evita cache/stale creds); usare `-NoTokenReset` solo per debug
 - PAT valido: ~52 caratteri alfanumerici; se utente restituito e' `aaaa-aaaa-aaaa` il PAT e' invalido
 - Per body lunghi: scrivere prima in `C:\temp\pr-body.md`, poi passare con `--description (Get-Content 'C:\temp\pr-body.md' -Raw)`
 - Se az fallisce con "not authorized": il PAT e' scaduto o non ha scope corretto
