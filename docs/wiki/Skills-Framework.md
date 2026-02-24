@@ -7,6 +7,15 @@
 
 ## Modello Ibrido
 
+## Stato Formalizzazione (Session 18)
+
+- Freeze Batch 1 L2: `agent_review`, `agent_release`, `agent_pr_manager`, `agent_developer`, `agent_observability`
+- Agenti formalizzati: **7/34**
+  - Pre-esistenti: `agent_discovery`, `agent_backlog_planner`
+  - Nuovi in Session 18: i 5 agenti del batch freeze
+
+---
+
 ```mermaid
 graph TB
     subgraph Global["🌐 Global Skills (agents/skills/)"]
