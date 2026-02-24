@@ -1,182 +1,54 @@
 {
-  "id": "agent_pr_manager",
-  "name": "agent_pr_manager",
-  "role": "Agent_PR_Manager",
-  "description": "Gestione Pull Request lifecycle: analizza changes, genera descrizioni intelligenti, propone reviewer, valida gates pre-merge. Level 2 agent con DeepSeek LLM per PR description generation e change analysis.",
-  "owner": "team-platform",
-  "version": "2.0.0",
-  "classification": "arm",
-  "evolution_level": 2,
-  "readme": "README.md",
-  "llm_config": {
-    "provider": "deepseek",
-    "model": "deepseek-chat",
-    "api_base": "https://api.deepseek.com",
-    "temperature": 0.3,
-    "max_tokens": 1000,
-    "system_prompt": "agents/agent_pr_manager/PROMPTS.md",
-    "tools": [
-      "function_calling"
-    ],
-    "cost_estimate": {
-      "per_call": "$0.00025",
-      "monthly": "$0.03"
+    "id": "agent_pr_manager",
+    "name": "agent_pr_manager",
+    "role": "Agent_PR_Manager",
+    "description": "Manages pull request lifecycle with description generation and gate validation.",
+    "owner": "team-platform",
+    "version": "2.1.0",
+    "level": "L2",
+    "llm_config": {
+        "model": "gpt-4-turbo",
+        "temperature": 0.2,
+        "system_prompt": "PROMPTS.md"
     },
-    "usage": {
-      "pr_description_generation": "Genera descrizioni PR intelligenti basate sui diff reali",
-      "change_impact_analysis": "Analizza impatto dei cambiamenti su componenti del sistema",
-      "reviewer_suggestion": "Suggerisce reviewer appropriati basandosi sui file modificati",
-      "gates_validation": "Valida che tutti i gates richiesti siano soddisfatti pre-merge"
-    }
-  },
-  "context_config": {
-    "memory_files": [
-      "agents/agent_pr_manager/memory/context.json",
-      "agents/kb/recipes.jsonl"
-    ],
-    "context_limit_tokens": 128000
-  },
-  "skills_required": [
-    "utilities.convert-markdown",
-    "utilities.json-validate"
-  ],
-  "skills_optional": [
-    "utilities.retry-backoff",
-    "integration.slack-message",
-    "retrieval.llm-with-rag",
-    "retrieval.rag-search"
-  ],
-  "rag_config": {
-    "enabled": true,
-    "collection": "easyway_wiki",
-    "top_k": 3,
-    "min_score": 0.3,
-    "context_domains": [
-      "pr",
-      "checklist",
-      "governance",
-      "deploy"
-    ],
-    "description": "RAG provides Wiki context for PR description generation and change impact analysis"
-  },
-  "allowed_tools": [
-    "pwsh",
-    "git",
-    "az"
-  ],
-  "actions": [
-    {
-      "name": "pr:create",
-      "description": "Crea una PR con descrizione auto-generata dal LLM basata sui diff. Supporta WhatIf per preview.",
-      "uses_skills": [
-        "utilities.convert-markdown"
-      ],
-      "script": "../../scripts/pwsh/agent-pr.ps1",
-      "params": {
-        "title": {
-          "type": "string",
-          "required": false,
-          "description": "Titolo della PR. Se omesso, LLM lo genera dal diff."
+    "context_config": {
+        "enable_memory": true
+    },
+    "skills": {
+        "global": [
+            "git",
+            "analysis",
+            "observability",
+            "utilities"
+        ],
+        "local": [
+            "pr-description",
+            "gate-validation"
+        ]
+    },
+    "actions": {
+        "pr:create": {
+            "description": "Prepare PR title/description and optionally create the PR.",
+            "runner": "pr-manager-run.ps1",
+            "args": {
+                "title": "PR title",
+                "targetBranch": "PR target branch",
+                "whatIf": "true|false"
+            }
         },
-        "targetBranch": {
-          "type": "string",
-          "required": false,
-          "description": "Branch target. Default: 'develop'"
-        },
-        "whatIf": {
-          "type": "boolean",
-          "required": false,
-          "description": "Preview senza creare. Default: true"
+        "pr:validate-gates": {
+            "description": "Validate branch-level governance gates before merge.",
+            "runner": "pr-manager-run.ps1",
+            "args": {
+                "action": "validate-gates"
+            }
         }
-      }
     },
-    {
-      "name": "pr:analyze",
-      "description": "Analizza i cambiamenti nel branch corrente e genera un report di impatto con LLM reasoning.",
-      "uses_skills": [
-        "utilities.json-validate"
-      ],
-      "params": {
-        "scope": {
-          "type": "string",
-          "required": false,
-          "description": "Scope: 'full', 'summary', 'risks'. Default: 'full'"
-        }
-      }
-    },
-    {
-      "name": "pr:suggest-reviewers",
-      "description": "Suggerisce reviewer appropriati basandosi sui file modificati e la ownership map.",
-      "uses_skills": [],
-      "params": {
-        "maxReviewers": {
-          "type": "number",
-          "required": false,
-          "description": "Numero massimo reviewer. Default: 3"
-        }
-      }
-    },
-    {
-      "name": "pr:validate-gates",
-      "description": "Valida che tutti i gates richiesti (CI, tests, governance) siano soddisfatti prima del merge.",
-      "uses_skills": [
-        "utilities.json-validate"
-      ],
-      "params": {
-        "gates": {
-          "type": "array",
-          "required": false,
-          "description": "Lista gates da validare. Default: tutti"
-        },
-        "strict": {
-          "type": "boolean",
-          "required": false,
-          "description": "Fallisce su qualsiasi warning. Default: false"
-        }
-      }
-    }
-  ],
-  "allowed_paths": {
-    "read": [
-      "agents/agent_pr_manager/",
-      "agents/**",
-      "scripts/**",
-      "Wiki/EasyWayData.wiki/",
-      "docs/",
-      "out/**",
-      ".git/"
+    "allowed_tools": [
+        "pwsh",
+        "git",
+        "az"
     ],
-    "write": [
-      "agents/agent_pr_manager/memory/",
-      "agents/logs/",
-      "out/**"
-    ]
-  },
-  "required_gates": [
-    "KB_Consistency"
-  ],
-  "knowledge_sources": [
-    {
-      "priority": "high",
-      "path": "Wiki/EasyWayData.wiki/checklist-ado-required-job.md",
-      "type": "document"
-    },
-    {
-      "priority": "medium",
-      "path": "Wiki/EasyWayData.wiki/governance-dq.md",
-      "type": "document"
-    },
-    {
-      "priority": "medium",
-      "path": "agents/kb/recipes.jsonl",
-      "type": "data"
-    }
-  ],
-  "error_handling": {
-    "retry_count": 3,
-    "retry_delay_seconds": 30,
-    "fallback_mode": "skip_llm_analysis",
-    "alert_on_failure": true
-  },
-  "approvals": {}
+    "classification": "arm",
+    "readme": "README.md"
 }

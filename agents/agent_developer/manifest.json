@@ -1,84 +1,60 @@
 {
-  "id": "agent_developer",
-  "name": "Agent Developer (The Contributor)",
-  "classification": "arm",
-  "version": "2.0.0",
-  "role": "developer",
-  "owner": "team-devops",
-  "description": "Gestisce il ciclo di vita Git: stacca branch, orchestra modifiche, committa semanticamente e apre PR. È il 'braccio operativo' che risale la catena.",
-  "llm_config": {
-    "model": "gpt-4-turbo",
-    "temperature": 0.0,
-    "system_prompt": "agents/agent_developer/PROMPTS.md",
-    "tools": [
-      "git_flow_automate",
-      "pr_create"
-    ]
-  },
-  "context_config": {
-    "memory_files": [
-      "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md"
-    ],
-    "context_limit_tokens": 8000
-  },
-  "actions": [
-    {
-      "name": "dev:start-task",
-      "description": "Inizia un lavoro: checkout feature branch da develop.",
-      "parameters": {
-        "PBI": "string",
-        "Desc": "string"
-      }
+    "id": "agent_developer",
+    "name": "agent_developer",
+    "role": "Agent_Developer",
+    "description": "Executes branch-per-PBI workflow, semantic commits, and PR opening tasks.",
+    "owner": "team-devops",
+    "version": "2.1.0",
+    "level": "L2",
+    "llm_config": {
+        "model": "gpt-4-turbo",
+        "temperature": 0.1,
+        "system_prompt": "PROMPTS.md"
     },
-    {
-      "name": "dev:commit-work",
-      "description": "Stage + Commit (Semantic) + Push.",
-      "parameters": {
-        "Type": "feat|fix|docs",
-        "Message": "string"
-      }
+    "context_config": {
+        "enable_memory": true
     },
-    {
-      "name": "dev:open-pr",
-      "description": "Apre PR verso develop (o hotfix->main)."
-    }
-  ],
-  "readme": "README.md",
-  "allowed_paths": {
-    "read": [
-      "**"
+    "skills": {
+        "global": [
+            "git",
+            "security",
+            "observability",
+            "utilities"
+        ],
+        "local": [
+            "branch-per-pbi",
+            "semantic-commit"
+        ]
+    },
+    "actions": {
+        "dev:start-task": {
+            "description": "Create and switch to feature branch from develop.",
+            "runner": "developer-run.ps1",
+            "args": {
+                "pbi": "PBI id",
+                "desc": "Short task description"
+            }
+        },
+        "dev:commit-work": {
+            "description": "Commit and push work using semantic message.",
+            "runner": "developer-run.ps1",
+            "args": {
+                "type": "feat|fix|docs",
+                "message": "Commit message"
+            }
+        },
+        "dev:open-pr": {
+            "description": "Open PR from current branch to develop.",
+            "runner": "developer-run.ps1",
+            "args": {
+                "action": "open-pr"
+            }
+        }
+    },
+    "allowed_tools": [
+        "pwsh",
+        "git"
     ],
-    "write": [
-      "agents/agent_developer/memory/",
-      "agents/logs/"
-    ]
-  },
-  "allowed_tools": [
-    "pwsh",
-    "git"
-  ],
-  "required_gates": [
-    "guard_check"
-  ],
-  "knowledge_sources": [
-    {
-      "priority": "high",
-      "path": "Wiki/EasyWayData.wiki/standards/gitlab-workflow.md",
-      "type": "standard"
-    }
-  ],
-  "entry_point": "scripts/pwsh/agent-developer.ps1",
-  "evolution_level": 1,
-  "skills_required": [],
-  "error_handling": {
-    "fallback_mode": "log_and_skip",
-    "alert_on_failure": false,
-    "retry_delay_seconds": 15,
-    "retry_count": 2
-  },
-  "skills_optional": [
-    "utilities.json-validate",
-    "utilities.retry-backoff"
-  ],
-  "approvals": {}
+    "classification": "arm",
+    "readme": "README.md"
 }
