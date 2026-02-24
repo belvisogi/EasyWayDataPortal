@@ -66,7 +66,7 @@ if (-not (Test-Path $importSecretsScript)) {
 $secrets = Import-AgentSecrets -AgentId "agent_developer"
 
 # ─── Set AZURE_DEVOPS_EXT_PAT ────────────────────────────────────────────────
-if (-not $secrets.ContainsKey("AZURE_DEVOPS_EXT_PAT")) {
+if (-not $env:AZURE_DEVOPS_EXT_PAT) {
     Write-Error "AZURE_DEVOPS_EXT_PAT not granted by Global Gatekeeper (RBAC_DENY)"
     exit 1
 }
