@@ -73,8 +73,17 @@ agent-console/
 ## Data Sources
 
 - **Agents**: `../../agents/kb/agents-summary.json` (auto-generated fallback)
-- **Skills**: `../../agents/skills/registry.json`
+- **Skills (runtime)**: `../../agents/skills/registry.json`
+- **Skills (macro-use-case)**: `../../docs/skills/catalog.generated.json`
 - **Knowledge Graph**: `../../agents/kb/knowledge-graph.json`
+
+### Macro Skills Bridge
+
+Rigenera il registry macro-use-case consumabile dalla console:
+
+```bash
+pwsh ../../scripts/pwsh/generate-macro-skills-registry.ps1
+```
 
 ## Browser Support
 

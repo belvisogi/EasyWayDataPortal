@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://easyway.local/docs/skills/catalog.schema.json",
+  "title": "EasyWay Macro Skills Catalog",
+  "type": "object",
+  "required": [
+    "version",
+    "updated_at",
+    "skills"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "skills": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "type",
+          "summary",
+          "entrypoint",
+          "orchestrations",
+          "agents",
+          "inputs",
+          "outputs",
+          "prerequisites",
+          "success_criteria",
+          "references"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 3
+          },
+          "type": {
+            "type": "string",
+            "const": "macro-use-case"
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 10
+          },
+          "entrypoint": {
+            "type": "string",
+            "minLength": 3
+          },
+          "orchestrations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "agents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "prerequisites": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "success_criteria": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "references": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

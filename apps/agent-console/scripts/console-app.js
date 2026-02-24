@@ -7,7 +7,8 @@ const ConsoleApp = {
     state: {
         agents: [],
         skills: [],
-        graph: null
+        graph: null,
+        skillsFilter: 'all'
     },
 
     async init() {
@@ -23,23 +24,37 @@ const ConsoleApp = {
 
         // Setup search
         this.setupSearch();
+        this.setupSkillsFilter();
 
         console.log('✅ Agent Console ready');
     },
 
     async loadData() {
         try {
-            const [agentsData, skillsData, graphData] = await Promise.all([
+            const [agentsData, runtimeSkillsData, macroSkillsData, graphData] = await Promise.all([
                 Valentino.data.loadAgents(),
                 Valentino.data.loadSkills(),
+                Valentino.data.loadJSON('../../docs/skills/catalog.generated.json'),
                 Valentino.data.loadKnowledgeGraph()
             ]);
 
             this.state.agents = agentsData?.agents || [];
-            this.state.skills = skillsData?.skills || [];
+            const runtimeSkills = (runtimeSkillsData?.skills || []).map(skill => ({
+                ...skill,
+                type: 'runtime',
+                domain: skill.domain || 'runtime',
+                description: skill.description || 'Runtime skill'
+            }));
+            const macroSkills = (macroSkillsData?.skills || []).map(skill => ({
+                ...skill,
+                type: 'macro-use-case',
+                domain: skill.domain || 'macro-use-case',
+                description: skill.description || skill.summary || 'Macro use-case skill'
+            }));
+            this.state.skills = [...runtimeSkills, ...macroSkills];
             this.state.graph = graphData;
 
-            console.log(`Loaded: ${this.state.agents.length} agents, ${this.state.skills.length} skills`);
+            console.log(`Loaded: ${this.state.agents.length} agents, ${runtimeSkills.length} runtime skills, ${macroSkills.length} macro skills`);
         } catch (error) {
             console.error('Error loading data:', error);
         }
@@ -86,15 +101,37 @@ const ConsoleApp = {
 
         container.innerHTML = '';
 
-        this.state.skills.forEach(skill => {
+        const visibleSkills = this.state.skills.filter(skill => (
+            this.state.skillsFilter === 'all' || skill.type === this.state.skillsFilter
+        ));
+
+        if (visibleSkills.length === 0) {
+            container.innerHTML = '<p class="text-muted">Nessuna skill trovata per il filtro selezionato.</p>';
+            return;
+        }
+
+        visibleSkills.forEach(skill => {
             const card = document.createElement('div');
-            card.className = 'skill-card';
+            card.className = `skill-card ${skill.type === 'macro-use-case' ? 'macro' : 'runtime'}`;
+            const skillTypeLabel = skill.type === 'macro-use-case' ? 'Macro Use Case' : 'Runtime';
             card.innerHTML = `
                 <div class="skill-name">${Valentino.utils.escapeHtml(skill.name || skill.id)}</div>
+                <div class="skill-type-row">
+                    <span class="skill-type-badge">${Valentino.utils.escapeHtml(skillTypeLabel)}</span>
+                </div>
                 <div class="skill-domain">📁 ${Valentino.utils.escapeHtml(skill.domain || 'general')}</div>
                 <div class="skill-description">${Valentino.utils.escapeHtml(skill.description || 'No description')}</div>
             `;
             container.appendChild(card);
+        });
+    },
+
+    setupSkillsFilter() {
+        const filterSelect = document.getElementById('skills-type-filter');
+        if (!filterSelect) return;
+        filterSelect.addEventListener('change', () => {
+            this.state.skillsFilter = filterSelect.value;
+            this.renderSkills();
         });
     },
 
@@ -123,7 +160,9 @@ const ConsoleApp = {
             // Search in skills
             const skillResults = this.state.skills.filter(s =>
                 (s.name || s.id).toLowerCase().includes(query) ||
-                (s.description || '').toLowerCase().includes(query)
+                (s.description || '').toLowerCase().includes(query) ||
+                (s.type || '').toLowerCase().includes(query) ||
+                (s.domain || '').toLowerCase().includes(query)
             );
 
             // Render results
@@ -145,10 +184,11 @@ const ConsoleApp = {
             if (skillResults.length > 0) {
                 html += '<h3 class="mt-md">🛠️ Skills</h3><ul class="activity-list">';
                 skillResults.forEach(s => {
+                    const badge = s.type === 'macro-use-case' ? '[macro]' : '[runtime]';
                     html += `
                         <li class="activity-item">
                             <span class="activity-icon">🛠️</span>
-                            <span class="activity-text"><strong>${Valentino.utils.escapeHtml(s.name || s.id)}</strong> - ${Valentino.utils.escapeHtml(s.description || '')}</span>
+                            <span class="activity-text"><strong>${Valentino.utils.escapeHtml(s.name || s.id)}</strong> ${badge} - ${Valentino.utils.escapeHtml(s.description || '')}</span>
                         </li>
                     `;
                 });
