@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "id": "EX-01",
+    "action": "handoff:update",
+    "description": "Normal session update — git log with real PRs, confident output",
+    "expected_outcome": "ok=true, confidence >= 0.80, session_number > 0, next_steps >= 2 items"
+  },
+  "input": {
+    "Action": "handoff:update",
+    "SessionNumber": 20,
+    "DryRun": true
+  },
+  "context_override": {
+    "branch": "feature/macro-skill-layer-console",
+    "git_log": "89bc1ce feat(levi): add agent_levi + update ops memory and .cursorrules\n1ccf1ee feat(macro-skills): macro-skill layer + console evolution + doc hardening",
+    "recent_merges": "Merged PR 127: Release: macro-skill layer + console evolution\nMerged PR 126: feat(macro-skills): macro-skill layer + console evolution + doc hardening",
+    "server_commit": "c386970",
+    "qdrant_chunks": 84959
+  },
+  "expected": {
+    "ok": true,
+    "session": 20,
+    "confidence_min": 0.80,
+    "next_steps_min_count": 2,
+    "completed_non_empty": true,
+    "platform_state_fields": ["agents_formalized", "qdrant_chunks", "last_release_pr", "server_commit"]
+  }
+}
