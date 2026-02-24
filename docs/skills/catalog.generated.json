@@ -1,0 +1,37 @@
+{
+  "version": "v1",
+  "generated_at": "2026-02-24T19:58:06.8923280Z",
+  "source_catalog": "docs/skills/catalog.json",
+  "skills": [
+    {
+      "id": "pr-server-validation",
+      "name": "PR + Server Validation",
+      "type": "macro-use-case",
+      "domain": "macro-use-case",
+      "description": "Flow completo da feature branch a PR con evidenza formale Go/No-Go sul server.",
+      "entrypoint": "pwsh scripts/pwsh/server-sync-and-test.ps1 -RepoPath . -Branch develop",
+      "agents": [
+        "agent_developer",
+        "agent_pr_manager",
+        "agent_governance",
+        "agent_review"
+      ],
+      "orchestrations": [
+        "release-preflight-security",
+        "predeploy-checklist"
+      ],
+      "references": [
+        "docs/ops/SERVER_STABILIZATION_CHECKLIST.md",
+        "scripts/pwsh/server-sync-and-test.ps1",
+        "scripts/pwsh/agent-pr.ps1",
+        "docs/ops/SECURITY_SCORECARD.md",
+        "docs/ops/GOVERNANCE_RIGOROSA_CHECKLIST.md"
+      ],
+      "success_criteria": [
+        "PR created/updated on target provider",
+        "server-sync-and-test completes with Status: OK",
+        "evidence file stored in docs/ops/evidence or equivalent"
+      ]
+    }
+  ]
+}

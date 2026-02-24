@@ -7,6 +7,16 @@
 
 ## Modello Ibrido
 
+Il framework ora usa due layer distinti:
+
+- Runtime/tool-level: `agents/skills/registry.json` (esecuzione tecnica degli agenti)
+- Macro-use-case: `docs/skills/catalog.json` + `docs/skills/<skill-id>/SKILL.md` (playbook operativi end-to-end)
+
+Bridge di integrazione UI:
+
+- Script: `scripts/pwsh/generate-macro-skills-registry.ps1`
+- Output console: `docs/skills/catalog.generated.json`
+
 ## Stato Formalizzazione (Session 18)
 
 - Freeze Batch 1 L2: `agent_review`, `agent_release`, `agent_pr_manager`, `agent_developer`, `agent_observability`
@@ -89,6 +99,24 @@ Per tutte le skill con impatto su repo/PR/release/ADO:
 
 Riferimento operativo:
 - `docs/ops/GOVERNANCE_RIGOROSA_CHECKLIST.md`
+
+---
+
+## Macro Skill Golden Path (v1)
+
+Prima macro skill formalizzata:
+
+- `pr-server-validation` in `docs/skills/pr-server-validation/SKILL.md`
+
+Quando usarla:
+
+- Passaggio da feature branch a PR con evidenza formale di validazione server su `develop`.
+
+Output atteso:
+
+- Link PR
+- Evidenza log server
+- Verdict `GO` oppure `NO-GO`
 
 ---
 

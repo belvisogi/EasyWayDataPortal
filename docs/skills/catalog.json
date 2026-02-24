@@ -1,0 +1,51 @@
+{
+  "version": "v1",
+  "updated_at": "2026-02-24T00:00:00Z",
+  "skills": [
+    {
+      "id": "pr-server-validation",
+      "name": "PR + Server Validation",
+      "type": "macro-use-case",
+      "summary": "Flow completo da feature branch a PR con evidenza formale Go/No-Go sul server.",
+      "entrypoint": "pwsh scripts/pwsh/server-sync-and-test.ps1 -RepoPath . -Branch develop",
+      "orchestrations": [
+        "release-preflight-security",
+        "predeploy-checklist"
+      ],
+      "agents": [
+        "agent_developer",
+        "agent_pr_manager",
+        "agent_governance",
+        "agent_review"
+      ],
+      "inputs": [
+        "feature branch name",
+        "target branch (default: develop)",
+        "ado/github access token profile",
+        "server ssh reachability"
+      ],
+      "outputs": [
+        "PR link",
+        "server validation log",
+        "gate verdict (GO|NO-GO)"
+      ],
+      "prerequisites": [
+        "Initialize-AzSession and/or Initialize-GitHubSession available",
+        "branch policies active on protected branches",
+        "server path to EasyWayDataPortal known"
+      ],
+      "success_criteria": [
+        "PR created/updated on target provider",
+        "server-sync-and-test completes with Status: OK",
+        "evidence file stored in docs/ops/evidence or equivalent"
+      ],
+      "references": [
+        "docs/ops/SERVER_STABILIZATION_CHECKLIST.md",
+        "scripts/pwsh/server-sync-and-test.ps1",
+        "scripts/pwsh/agent-pr.ps1",
+        "docs/ops/SECURITY_SCORECARD.md",
+        "docs/ops/GOVERNANCE_RIGOROSA_CHECKLIST.md"
+      ]
+    }
+  ]
+}

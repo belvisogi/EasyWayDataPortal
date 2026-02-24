@@ -21,6 +21,23 @@ llm:
   chunk_hint: 5000
 type: guide
 ---
+## Percorso rapido (Decision-Complete)
+
+1) Se devi fare delivery (quando usarla: feature pronta per PR e validazione finale)
+- Golden Path catalog: `docs/skills/catalog.json`
+- Skill PR + Server Validation: `docs/skills/pr-server-validation/SKILL.md`
+- Bridge generator: `scripts/pwsh/generate-macro-skills-registry.ps1`
+
+2) Se devi capire il sistema agentico (quando usarla: onboarding tecnico e governance)
+- Skills framework: `docs/wiki/Skills-Framework.md`
+- Runtime skills registry: `agents/skills/registry.json`
+- Macro skills index: `docs/skills/README.md`
+
+3) Se devi operare la console (quando usarla: consultazione catalogo e troubleshooting)
+- Console entrypoint: `apps/agent-console/index.html`
+- Runtime data source: `agents/skills/registry.json`
+- Macro data source: `docs/skills/catalog.generated.json`
+
 3) Control Plane + Domini (skeleton)
 - Control Plane: `control-plane/index.md`
 - Domini: `domains/index.md`
