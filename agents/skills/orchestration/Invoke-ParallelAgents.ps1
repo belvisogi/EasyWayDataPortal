@@ -53,7 +53,15 @@ $startTime = Get-Date
 # --- 1. Capture Environment Variables (Secrets) ---------------------------
 # Start-Job runs in a fresh process. We must explicitly propagate secrets.
 # We whitelist commonly used keys to avoid massive payload overhead.
-$envKeysToPropagate = @('DEEPSEEK_API_KEY', 'AZURE_DEVOPS_EXT_PAT', 'SYSTEM_ACCESSTOKEN')
+$envKeysToPropagate = @(
+    'DEEPSEEK_API_KEY',
+    'AZURE_DEVOPS_EXT_PAT',
+    'SYSTEM_ACCESSTOKEN',
+    'GH_TOKEN',
+    'GITHUB_TOKEN',
+    'FORGEJO_TOKEN',
+    'GITEA_API_TOKEN'
+)
 $envPayload = @{}
 foreach ($key in $envKeysToPropagate) {
     if (Test-Path "env:$key") {

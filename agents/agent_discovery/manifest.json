@@ -2,9 +2,10 @@
     "id": "agent_discovery",
     "name": "agent_discovery",
     "role": "Agent_Requirement_Design",
-    "description": "Transforms natural language requirements into PRD + High Level Design.",
+    "description": "Transforms natural language requirements into PRD + High Level Design via RAG-enhanced analysis.",
     "owner": "team-platform",
-    "version": "1.0.0",
+    "version": "2.0.0",
+    "level": "L2",
     "llm_config": {
         "model": "gpt-4-turbo",
         "temperature": 0.2,
@@ -13,10 +14,41 @@
     "context_config": {
         "enable_memory": true
     },
+    "skills": {
+        "global": [
+            "retrieval",
+            "analysis",
+            "observability",
+            "utilities"
+        ],
+        "local": [
+            "prd-generation",
+            "evidence-scoring"
+        ]
+    },
+    "actions": {
+        "discovery:generate-prd": {
+            "description": "Generate a PRD from a natural language requirement using RAG + Wiki evidence.",
+            "runner": "discovery-run.ps1",
+            "args": {
+                "requirementPath": "Path to requirement text file or inline text",
+                "outputPath": "Output PRD markdown path (default: out/prd-draft.md)"
+            }
+        },
+        "discovery:validate-prd": {
+            "description": "Validate an existing PRD for completeness and backlog-readiness.",
+            "runner": "discovery-run.ps1",
+            "args": {
+                "prdPath": "Path to existing PRD to validate",
+                "action": "validate"
+            }
+        }
+    },
     "allowed_tools": [
         "pwsh",
         "git",
         "az"
     ],
-    "classification": "arm"
+    "classification": "brain",
+    "readme": "README.md"
 }

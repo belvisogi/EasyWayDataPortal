@@ -1,82 +1,53 @@
 {
-  "id": "agent_review",
-  "name": "Agent Review (The Critic)",
-  "classification": "brain",
-  "version": "3.0.0",
-  "role": "reviewer",
-  "owner": "team-quality",
-  "description": "Analizza le Merge Request per qualita' documentale e conformita'. L3: LLM+RAG+Evaluator-Optimizer+WorkingMemory. Suggerisce miglioramenti e verifica che la Wiki sia stata aggiornata.",
-  "llm_config": {
-    "model": "deepseek-chat",
-    "temperature": 0.2,
-    "system_prompt": "agents/agent_review/PROMPTS.md",
-    "runner": "agents/agent_review/Invoke-AgentReview.ps1",
-    "evaluator": true,
-    "max_iterations": 2,
-    "working_memory": true,
-    "tools": [
-      "pwsh",
-      "git",
-      "curl"
-    ]
-  },
-  "context_config": {
-    "memory_files": [
-      "Wiki/EasyWayData.wiki/tools/dqf-agent-v2-guide.md"
-    ],
-    "context_limit_tokens": 32000
-  },
-  "actions": [
-    {
-      "name": "review:docs-impact",
-      "description": "Verifica se il codice modificato richiedeva aggiornamenti alla Wiki."
+    "id": "agent_review",
+    "name": "agent_review",
+    "role": "Agent_Review",
+    "description": "Reviews pull requests for quality, governance alignment, and documentation impact with escalation gates.",
+    "owner": "team-platform",
+    "version": "3.1.0",
+    "level": "L3",
+    "llm_config": {
+        "model": "gpt-4-turbo",
+        "temperature": 0.2,
+        "system_prompt": "PROMPTS.md"
     },
-    {
-      "name": "review:static",
-      "description": "Analisi statica leggera (naming, structure)."
-    }
-  ],
-  "readme": "README.md",
-  "allowed_paths": {
-    "read": [
-      "**/*.md",
-      "**/*.ts",
-      "**/*.ps1"
+    "context_config": {
+        "enable_memory": true
+    },
+    "skills": {
+        "global": [
+            "analysis",
+            "retrieval",
+            "observability",
+            "utilities"
+        ],
+        "local": [
+            "pr-audit",
+            "docs-impact-review"
+        ]
+    },
+    "actions": {
+        "review:audit-pr": {
+            "description": "Review PR context and provide findings with governance checks.",
+            "runner": "review-run.ps1",
+            "args": {
+                "inputPath": "Path to PR context text file",
+                "action": "audit-pr"
+            }
+        },
+        "review:static-check": {
+            "description": "Run lightweight structural and naming review on supplied context.",
+            "runner": "review-run.ps1",
+            "args": {
+                "inputPath": "Path to review request text file",
+                "action": "static-check"
+            }
+        }
+    },
+    "allowed_tools": [
+        "pwsh",
+        "git"
     ],
-    "write": [
-      "agents/agent_review/memory/",
-      "agents/logs/"
-    ]
-  },
-  "allowed_tools": [
-    "pwsh",
-    "git",
-    "curl"
-  ],
-  "required_gates": [
-    "doc_coverage"
-  ],
-  "knowledge_sources": [
-    {
-      "priority": "medium",
-      "path": "Wiki/EasyWayData.wiki/guides/dqf-workflow-complete.md",
-      "type": "guide"
-    }
-  ],
-  "evolution_level": 3,
-  "skills_required": [
-    "retrieval.llm-with-rag",
-    "session.manage"
-  ],
-  "error_handling": {
-    "fallback_mode": "log_and_skip",
-    "alert_on_failure": false,
-    "retry_delay_seconds": 15,
-    "retry_count": 2
-  },
-  "skills_optional": [
-    "utilities.json-validate",
-    "utilities.retry-backoff"
-  ],
-  "approvals": {}
+    "classification": "brain",
+    "readme": "README.md"
 }

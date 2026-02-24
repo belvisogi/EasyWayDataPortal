@@ -5,6 +5,7 @@
   "description": "Elite Security Engineer: AI threat analysis, secrets governance, OWASP checks con Evaluator-Optimizer, parallel CVE scan e confidence-gated escalation. Level 3 agent.",
   "owner": "team-platform",
   "version": "3.0.0",
+  "level": "L3",
   "classification": "arm",
   "evolution_level": 3,
 
