@@ -1,0 +1,20 @@
+{
+  "_meta": {
+    "id": "EX-04",
+    "action": "md:fix",
+    "description": "Scan docs/ — finds real issues, issues array non-empty, confidence >= 0.80",
+    "expected_outcome": "ok=true, files_scanned > 0, issues array present, confidence >= 0.70"
+  },
+  "input": {
+    "Action": "md:fix",
+    "Scope": "docs/",
+    "DryRun": true
+  },
+  "expected": {
+    "ok": true,
+    "files_scanned_min": 1,
+    "issues_is_array": true,
+    "confidence_min": 0.70,
+    "contractId": "action-result"
+  }
+}

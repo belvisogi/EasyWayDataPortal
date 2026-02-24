@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "id": "EX-03",
+    "action": "handoff:update",
+    "description": "Empty git log — LLM cannot ground next_steps, confidence should drop below threshold",
+    "expected_outcome": "ok=true, requires_human_review=true, confidence < 0.80"
+  },
+  "input": {
+    "Action": "handoff:update",
+    "SessionNumber": 20,
+    "DryRun": true,
+    "NoEvaluator": false
+  },
+  "context_override": {
+    "branch": "develop",
+    "git_log": "",
+    "recent_merges": "",
+    "server_commit": "unknown",
+    "qdrant_chunks": "unknown"
+  },
+  "expected": {
+    "requires_human_review": true,
+    "confidence_max": 0.79
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "id": "agent_levi",
+  "name": "Agent Levi (The Sovereign Cleaner)",
+  "classification": "arm",
+  "version": "3.0.0",
+  "role": "doc-maintainer",
+  "owner": "team-platform",
+  "evolution_level": 3,
+  "description": "Guardiano della documentazione. L3: Evaluator-Optimizer su handoff:update (next_steps traceability) e md:fix (zero false-positive). Working memory per tracking sessione.",
+  "llm_config": {
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
+    "temperature": 0.2,
+    "max_tokens": 2000,
+    "system_prompt": "agents/agent_levi/PROMPTS.md",
+    "cost_estimate": {
+      "per_call": "$0.0008",
+      "monthly": "$0.08"
+    }
+  },
+  "evaluator_config": {
+    "enabled": true,
+    "max_iterations": 2,
+    "confidence_threshold": 0.80,
+    "criteria": {
+      "handoff:update": [
+        "AC-01: output JSON must contain 'session_number' as a positive integer",
+        "AC-02: output JSON must contain 'next_steps' as a non-empty array with at least 2 items",
+        "AC-03: output JSON must contain 'confidence' between 0.0 and 1.0",
+        "AC-04: output JSON 'platform_state' must have 'agents_formalized', 'qdrant_chunks', 'last_release_pr', 'server_commit'",
+        "AC-05: output JSON must contain 'completed' as a non-empty array"
+      ],
+      "md:fix": [
+        "AC-01: output JSON must contain 'action' equal to 'md:fix'",
+        "AC-02: output JSON must contain 'issues' as an array",
+        "AC-03: each issue must have 'file', 'type', 'description', 'fix', 'auto_fixable' fields",
+        "AC-04: output JSON must contain 'confidence' between 0.0 and 1.0"
+      ]
+    }
+  },
+  "working_memory": {
+    "enabled": true,
+    "session_skill": "session.manage-agent-session",
+    "schema": "agents/core/schemas/session.schema.json"
+  },
+  "rag_config": {
+    "enabled": true,
+    "collection": "easyway_wiki",
+    "top_k": 5,
+    "min_score": 0.35,
+    "context_domains": ["docs", "governance", "agents", "session"]
+  },
+  "actions": {
+    "handoff:update": {
+      "description": "Aggiorna docs/HANDOFF_LATEST.md con stato sessione corrente via Evaluator-Optimizer. Verifica traceabilita' dei next_steps rispetto al git log reale.",
+      "runner": "agents/agent_levi/Invoke-AgentLevi.ps1",
+      "args": { "Action": "handoff:update" }
+    },
+    "md:fix": {
+      "description": "Scansiona .md files, rileva frontmatter mancanti/incompleti, sezioni vuote. LLM+Evaluator verifica zero false-positive prima di emettere il report.",
+      "runner": "agents/agent_levi/Invoke-AgentLevi.ps1",
+      "args": { "Action": "md:fix" }
+    }
+  },
+  "allowed_paths": {
+    "read": ["docs/", "Wiki/EasyWayData.wiki/", "agents/", ".cursorrules"],
+    "write": ["docs/HANDOFF_LATEST.md", "docs/HANDOFF_SESSION_*.md", "Wiki/EasyWayData.wiki/", "agents/agent_levi/memory/"]
+  },
+  "allowed_tools": ["pwsh", "git"],
+  "skills_required": ["utilities.import-secrets", "session.manage-agent-session"],
+  "skills_optional": ["retrieval.llm-with-rag", "retrieval.rag-search"],
+  "error_handling": {
+    "retry_count": 2,
+    "retry_delay_seconds": 10,
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false
+  },
+  "approvals": {
+    "handoff:update": "none",
+    "md:fix": "none"
+  }
+}

@@ -176,7 +176,7 @@ main
     | SSH: cd ~/EasyWayDataPortal && git pull
     v
 server aggiornato
-    | (se wiki cambiata) WIKI_PATH=Wiki/... node scripts/ingest_wiki.js
+    | (se wiki cambiata) WIKI_PATH=Wiki node scripts/ingest_wiki.js
     v
 Qdrant re-indexed
 ```
@@ -188,9 +188,28 @@ ewctl commit
 git push origin feat/<name>
 # Azure DevOps: PR feat/<name> -> develop  (merge)
 # Azure DevOps: PR develop -> main  [Release]  (merge)
-# SSH server:
-cd ~/EasyWayDataPortal && git pull
+# SSH server (se PAT valido):
+cd ~/EasyWayDataPortal && git pull origin main
+# SSH server (se PAT scaduto — aggiornare remote prima):
+git remote set-url origin 'https://Tokens:<PAT>@dev.azure.com/EasyWayData/EasyWay-DataPortal/_git/EasyWayDataPortal' && git pull origin main
 ```
+
+### Qdrant full re-index (comando completo)
+
+```bash
+source /opt/easyway/.env.secrets && \
+  QDRANT_API_KEY=$QDRANT_API_KEY WIKI_PATH=Wiki \
+  node scripts/ingest_wiki.js > /tmp/ingest.log 2>&1
+# Verifica:
+grep -E "Found|Complete|Error" /tmp/ingest.log | tail -5
+curl -s "http://localhost:6333/collections/easyway_wiki" -H "api-key: $QDRANT_API_KEY" | python3 -c "import sys,json; d=json.load(sys.stdin); print('chunks:', d['result']['points_count'])"
+```
+
+### PAT management
+
+- **File attivo**: `C:\old\.env.developer` — scope `Code R/W` + `PR Contribute`
+- **Se `.env.local` scaduto**: `source C:\old\.env.developer` o copiare su `.env.local`
+- **Verificare validita' PAT**: `pwsh scripts/pwsh/Initialize-AzSession.ps1 -Verify`
 
 **Branch naming**:
 - Feature: `feat/<scope>-<description>`
@@ -656,6 +675,8 @@ pwsh scripts/pwsh/ado-apply.ps1
 24. **PS v5 class inheritance cross-module** (Session 16): `class AdoAdapter : IPlatformAdapter` dichiarato in file diverso dal base class produce `Unable to find type [IPlatformAdapter]`. **Regola: in PS v5, tutte le classi con relazione di ereditarieta' devono vivere nello stesso `.psm1`**. L'alternativa `using module` richiede path assoluti, inutilizzabile in CI/CD.
 25. **Pester v3 vs v5 assertion syntax** (Session 16): `Should -Be` (Pester v5 syntax) fallisce con Pester v3.4.0 — il trattino e' ambiguo. Usare v3 syntax: `Should Be` (senza trattino). `Should Throw` non funziona con `throw` in funzioni CmdletBinding — usare pattern `try/catch` + `$threw | Should Be $true`. **Verificare versione Pester**: `Get-Module Pester -ListAvailable`.
 26. **Array count gotcha PS** (Session 16): `$patch.Count` su un singolo hashtable ritorna il numero di chiavi (es. 3 per `@{op=x; path=y; value=z}`), non 1. **Regola: SEMPRE wrappare in `@()` quando ci si aspetta un array**: `$patch = @(Build-AdoJsonPatch -Title 'X')`.
+27. **PAT ADO scaduto su server** (Session 20): il remote `origin` sul server ha il PAT hardcoded nell'URL HTTPS. Quando scade, `git pull` restituisce `Authentication failed`. Fix: `git remote set-url origin 'https://Tokens:<NEW_PAT>@dev.azure.com/...'`. Il PAT valido e' in `C:\old\.env.developer` (locale) — NON in `.env.local` che puo' essere stale.
+28. **Qdrant ingest EPIPE** (Session 20): `ingest_wiki.js` termina con `EPIPE` quando rediretto via SSH se il terminale chiude il pipe prima del flush finale. Non e' un errore reale — verificare con `curl /collections/easyway_wiki` per il conteggio finale. Usare `> /tmp/ingest.log 2>&1` (redirect su server) per evitare il problema.
 
 ---
 
