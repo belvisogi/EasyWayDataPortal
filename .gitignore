@@ -54,8 +54,6 @@ scripts/easyway-secrets.json
 
 scripts/infra/remote/remote.config.ps1
 
-scripts/infra/remote/remote.config.ps1
-
 # Sensitive production configs (extra safety)
 .env.prod
 .env.production
@@ -96,3 +94,10 @@ scripts/pwsh/multi-vcs.config.ps1
 # EasyWay Release Artifacts (Consolidated File / MVP Appliance)
 release/
 easyway-mvp.tar.gz
+
+# Local scratch/workbench content (keep outside repo scope)
+New folder/
+#innovazione_agenti/
+scratch/
+tmp/
+notes-local/

@@ -41,13 +41,13 @@ Garantire lo stesso livello di sicurezza su tutti gli execution planes VCS, senz
 
 | Provider | Gap principale | Priorita |
 |---|---|---|
-| Azure DevOps | Membership/permessi service account su project (`VS800075`) | High |
+| Azure DevOps | Gap accesso project chiuso (evidenza PR `#122`), mantenere monitoraggio auth CLI | Low |
 | GitHub | Definire/validare mapping gruppi + branch rules equivalenti | High |
 | Forgejo | Formalizzare initializer sessione + parity check automatico | Medium |
 
 ## Rollout Plan
 
-1. Chiudere ADO access gap del PR creator.
+1. Consolidare ADO: required reviewer umano e policy anti-bypass verificate.
 2. Implementare stessa policy branch su GitHub e Forgejo.
 3. Introdurre `Initialize-ForgejoSession.ps1` con stesso pattern reset+RBAC.
 4. Aggiungere test conformance multi-provider (fail se un provider e' sotto baseline).

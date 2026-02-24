@@ -2,10 +2,10 @@
     "id": "agent_review",
     "name": "agent_review",
     "role": "Agent_Review",
-    "description": "Reviews pull requests for quality, governance alignment, and documentation impact.",
+    "description": "Reviews pull requests for quality, governance alignment, and documentation impact with escalation gates.",
     "owner": "team-platform",
     "version": "3.1.0",
-    "level": "L2",
+    "level": "L3",
     "llm_config": {
         "model": "gpt-4-turbo",
         "temperature": 0.2,

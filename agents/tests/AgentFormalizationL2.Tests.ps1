@@ -1,4 +1,4 @@
-# Agent L2 formalization conformance tests
+# Agent formalization conformance tests
 # Validates manifest/runners for the currently formalized agent set.
 
 $repoRoot = (git rev-parse --show-toplevel 2>$null)
@@ -7,14 +7,14 @@ if (-not $repoRoot) { $repoRoot = (Resolve-Path '.').Path }
 $expected = @(
     @{ Id = 'agent_discovery'; Runner = 'discovery-run.ps1'; Level = 'L2' },
     @{ Id = 'agent_backlog_planner'; Runner = 'backlog-run.ps1'; Level = 'L2' },
-    @{ Id = 'agent_review'; Runner = 'review-run.ps1'; Level = 'L2' },
+    @{ Id = 'agent_review'; Runner = 'review-run.ps1'; Level = 'L3' },
     @{ Id = 'agent_release'; Runner = 'release-run.ps1'; Level = 'L2' },
     @{ Id = 'agent_pr_manager'; Runner = 'pr-manager-run.ps1'; Level = 'L2' },
     @{ Id = 'agent_developer'; Runner = 'developer-run.ps1'; Level = 'L2' },
     @{ Id = 'agent_observability'; Runner = 'observability-run.ps1'; Level = 'L2' }
 )
 
-Describe 'L2 Agent Formalization Conformance' {
+Describe 'Agent Formalization Conformance' {
     It 'Should track 7 formalized agents' {
         $expected.Count | Should Be 7
     }
@@ -29,11 +29,11 @@ Describe 'L2 Agent Formalization Conformance' {
                 (Test-Path $manifestPath) | Should Be $true
             }
 
-            It 'Should have a L2 runner script' {
+            It 'Should have a formalized runner script' {
                 (Test-Path $runnerPath) | Should Be $true
             }
 
-            It 'Manifest should declare level L2 and at least one action' {
+            It 'Manifest should declare expected level and at least one action' {
                 $manifest = Get-Content $manifestPath -Raw | ConvertFrom-Json
                 $manifest.level | Should Be $entry.Level
                 $manifest.actions | Should Not Be $null

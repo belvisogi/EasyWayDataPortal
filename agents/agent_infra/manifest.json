@@ -5,6 +5,7 @@
   "description": "IaC/Terraform governance e infrastructure drift/compliance assessment. Level 3 agent con DeepSeek LLM, Evaluator-Optimizer, Working Memory e structured JSON output.",
   "owner": "team-platform",
   "version": "3.0.0",
+  "level": "L2",
   "classification": "arm",
   "evolution_level": 3,
   "readme": "README.md",
