@@ -21,8 +21,8 @@ COPY --chown=node:node --from=builder /app/node_modules ./node_modules
 
 ENV NODE_ENV=production
 
-# Pre-create logs directory with correct permissions to avoid runtime EACCES
-RUN mkdir logs && chown node:node logs
+# Pre-create directories with correct permissions to avoid runtime EACCES
+RUN mkdir logs data && chown node:node logs data
 
 # Switch to non-root user for security
 USER node

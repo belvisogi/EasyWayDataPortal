@@ -12,6 +12,13 @@ function getTenantFromClaims(payload: JWTPayload): string | undefined {
 }
 
 export async function authenticateJwt(req: Request, res: Response, next: NextFunction) {
+  // In mock/dev mode skip JWT validation entirely
+  if (process.env.DB_MODE === "mock" || process.env.NODE_ENV === "development") {
+    (req as any).user = { sub: "dev-user", ew_tenant_id: process.env.DEFAULT_TENANT_ID || "demo" };
+    (req as any).tenantId = process.env.DEFAULT_TENANT_ID || "demo";
+    return next();
+  }
+
   try {
     const auth = req.headers.authorization || "";
     const token = auth.startsWith("Bearer ") ? auth.substring(7) : null;

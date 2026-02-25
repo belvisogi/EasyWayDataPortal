@@ -71,7 +71,7 @@
 		# PORTAL API (No Authentication - handled at app level)
 		# --------------------------------------------------------------------
 		handle /api/* {
-			reverse_proxy api:3000
+			reverse_proxy easyway-api:3000
 		}
 
 		# --------------------------------------------------------------------
