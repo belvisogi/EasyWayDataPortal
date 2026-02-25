@@ -62,6 +62,61 @@ export interface AgentChatConversationRecord {
   lastMessage?: string | null;
 }
 
+export interface AppointmentRecord {
+  appointment_id: string;
+  tenant_id: string;
+  customer_name: string;
+  customer_email: string;
+  scheduled_at: string;
+  status: 'CONFIRMED' | 'PENDING' | 'CANCELLED';
+  notes?: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface AppointmentsRepo {
+  list(tenantId: string): Promise<AppointmentRecord[]>;
+  create(tenantId: string, data: {
+    customer_name: string;
+    customer_email: string;
+    scheduled_at: string;
+    notes?: string | null;
+  }): Promise<AppointmentRecord>;
+  update(tenantId: string, appointment_id: string, data: {
+    status?: 'CONFIRMED' | 'PENDING' | 'CANCELLED';
+    notes?: string | null;
+    scheduled_at?: string;
+  }): Promise<AppointmentRecord>;
+  cancel(tenantId: string, appointment_id: string): Promise<void>;
+}
+
+export interface QuoteRecord {
+  quote_id: string;
+  tenant_id: string;
+  customer_name: string;
+  customer_email: string;
+  total_amount: number;
+  status: 'DRAFT' | 'SENT' | 'ACCEPTED' | 'REJECTED';
+  valid_until?: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface QuotesRepo {
+  list(tenantId: string): Promise<QuoteRecord[]>;
+  create(tenantId: string, data: {
+    customer_name: string;
+    customer_email: string;
+    total_amount: number;
+    valid_until?: string | null;
+  }): Promise<QuoteRecord>;
+  update(tenantId: string, quote_id: string, data: {
+    status?: 'DRAFT' | 'SENT' | 'ACCEPTED' | 'REJECTED';
+    total_amount?: number;
+    valid_until?: string | null;
+  }): Promise<QuoteRecord>;
+}
+
 export interface AgentChatRepo {
   logMessage(tenantId: string, input: {
     actor: string;

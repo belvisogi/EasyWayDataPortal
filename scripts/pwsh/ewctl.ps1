@@ -109,6 +109,18 @@ switch ($Command) {
       }
     }
 
+    # 2b. OpenAPI Lint (only when openapi.yaml is staged)
+    $openApiStaged = $stagedFiles | Where-Object { $_ -match 'openapi\.yaml$' }
+    if ($openApiStaged) {
+      $OpenApiLintScript = Join-Path $PSScriptRoot "Invoke-OpenApiLint.ps1"
+      if (Test-Path $OpenApiLintScript) {
+        & $OpenApiLintScript -FailOnError $false
+        if ($LASTEXITCODE -ne 0) {
+          Write-Host "⚠️  OpenAPI lint failed — proceeding (Warn mode)." -ForegroundColor Yellow
+        }
+      }
+    }
+
     # 3. Execute Git Commit
     Write-Host "✅ Checks Passed. Committing..." -ForegroundColor Green
     if ($RestArgs.Count -eq 0) {
