@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "id": "EX-02",
+    "action": "api:openapi-validate",
+    "description": "OpenAPI spec validation via LLM+RAG — expects structured violations array, confidence >= 0.50",
+    "expected_outcome": "ok=true, violations_is_array=true, confidence >= 0.50, contractId=action-result"
+  },
+  "input": {
+    "Action": "api:openapi-validate",
+    "DryRun": true
+  },
+  "expected": {
+    "ok": true,
+    "violations_is_array": true,
+    "confidence_min": 0.50,
+    "contractId": "action-result"
+  }
+}

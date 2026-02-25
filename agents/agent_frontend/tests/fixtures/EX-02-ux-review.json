@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "id": "EX-02",
+    "action": "frontend:ux-review",
+    "description": "UX review componenti frontend via LLM+RAG — expects issues array, confidence >= 0.50",
+    "expected_outcome": "ok=true, issues_is_array=true, confidence >= 0.50, contractId=action-result"
+  },
+  "input": {
+    "Action": "frontend:ux-review",
+    "DryRun": true
+  },
+  "expected": {
+    "ok": true,
+    "issues_is_array": true,
+    "confidence_min": 0.50,
+    "contractId": "action-result"
+  }
+}

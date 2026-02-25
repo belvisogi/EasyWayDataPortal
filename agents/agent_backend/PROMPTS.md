@@ -108,25 +108,35 @@ Validate the local OpenAPI spec for schema consistency and completeness.
 
 ## Output Format
 
-Respond in Italian. Structure as:
+**ALWAYS respond with valid JSON only** — no markdown, no prose. Pick the schema matching the action.
 
+### api:openapi-validate
+```json
+{
+  "action": "api:openapi-validate",
+  "ok": true,
+  "paths_count": 12,
+  "violations": [
+    {"path": "/api/users", "issue": "Missing operationId", "severity": "HIGH", "fix": "Add operationId: listUsers"}
+  ],
+  "auth_coverage_pct": 92,
+  "breaking_changes": [],
+  "compliant_count": 11,
+  "summary": "1 violazione HIGH trovata — operationId mancante su /api/users.",
+  "confidence": 0.85
+}
 ```
-## Backend Report
 
-### Operazione: [nome]
-### Stato: [OK/WARNING/ERROR]
-
-### OpenAPI Validation
-- Paths: [N validati] / [M totali]
-- Breaking changes: [lista o NONE]
-- Auth coverage: [percentuale]
-
-### Scaffolding
-- Endpoints generati: [lista]
-- Middleware applicati: [auth, tenant, ...]
-
-### Issues
-1. [SEVERITY] Descrizione -> Fix suggerito
+### api:health-check
+```json
+{
+  "action": "api:health-check",
+  "ok": true,
+  "status": "ok",
+  "dependency": "portal-api",
+  "detail": "portal-api stack disponibile",
+  "meta": {"node_available": true, "npm_available": true, "pkg_json_exists": true, "openapi_exists": true}
+}
 ```
 
 ## Non-Negotiables

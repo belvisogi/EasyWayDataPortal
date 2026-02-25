@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "id": "EX-01",
+    "action": "api:health-check",
+    "description": "Health check portal-api stack (deterministic) — expects ok=true/degraded, contractId=action-result",
+    "expected_outcome": "ok=true, status in [ok, degraded], contractId=action-result"
+  },
+  "input": {
+    "Action": "api:health-check"
+  },
+  "expected": {
+    "ok": true,
+    "status_in": ["ok", "degraded"],
+    "contractId": "action-result"
+  }
+}
