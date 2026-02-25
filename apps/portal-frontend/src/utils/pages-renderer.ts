@@ -1,4 +1,5 @@
 import type {
+    ActionFormSection,
     CardsCatalogItem,
     ComparisonSection,
     CtaSection,
@@ -591,6 +592,16 @@ function renderDataList(section: import('../types/runtime-pages').DataListSectio
             thead.appendChild(headerRow);
             table.appendChild(thead);
 
+            if (rows.length === 0) {
+                const emptyMsg = el('p', 'data-list-empty');
+                emptyMsg.textContent = getContentValue('backoffice.table.empty');
+                emptyMsg.style.padding = '1.5rem 1rem';
+                emptyMsg.style.color = 'rgba(255,255,255,0.45)';
+                emptyMsg.style.fontStyle = 'italic';
+                tableWrapper.appendChild(emptyMsg);
+                return;
+            }
+
             const tbody = document.createElement('tbody');
             for (const row of rows) {
                 const tr = document.createElement('tr');
@@ -631,6 +642,114 @@ function renderDataList(section: import('../types/runtime-pages').DataListSectio
     return wrapper;
 }
 
+function renderActionForm(section: ActionFormSection): HTMLElement {
+    const wrapper = el('section', 'action-form-section');
+    wrapper.style.maxWidth = '640px';
+    wrapper.style.margin = '2rem auto';
+    wrapper.style.padding = '2rem';
+    wrapper.style.background = 'rgba(255,255,255,0.04)';
+    wrapper.style.border = '1px solid rgba(255,255,255,0.10)';
+    wrapper.style.borderRadius = '12px';
+
+    const h2 = el('h2', 'h2');
+    h2.textContent = getContentValue(section.titleKey);
+    h2.style.marginBottom = '1.5rem';
+    wrapper.appendChild(h2);
+
+    const form = document.createElement('form');
+    form.style.display = 'flex';
+    form.style.flexDirection = 'column';
+    form.style.gap = '1rem';
+
+    for (const field of section.fields) {
+        const group = el('div', 'action-form-group');
+        group.style.display = 'flex';
+        group.style.flexDirection = 'column';
+        group.style.gap = '0.35rem';
+
+        const label = el('label');
+        label.textContent = getContentValue(field.labelKey);
+        label.setAttribute('for', field.name);
+        label.style.fontSize = '0.8rem';
+        label.style.color = 'rgba(255,255,255,0.6)';
+        label.style.fontWeight = '500';
+        group.appendChild(label);
+
+        const inputStyle = 'background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;color:#fff;font-size:0.875rem;padding:0.5rem 0.75rem;outline:none;width:100%;box-sizing:border-box;';
+
+        if (field.type === 'textarea') {
+            const area = document.createElement('textarea');
+            area.name = field.name;
+            area.id = field.name;
+            area.rows = field.rows ?? 3;
+            if (field.required) { area.required = true; area.setAttribute('aria-required', 'true'); }
+            if (field.placeholderKey) area.placeholder = getContentValue(field.placeholderKey);
+            area.setAttribute('style', inputStyle);
+            group.appendChild(area);
+        } else {
+            const input = document.createElement('input');
+            input.type = field.type;
+            input.name = field.name;
+            input.id = field.name;
+            if (field.required) { input.required = true; input.setAttribute('aria-required', 'true'); }
+            if (field.placeholderKey) input.placeholder = getContentValue(field.placeholderKey);
+            input.setAttribute('style', inputStyle);
+            group.appendChild(input);
+        }
+        form.appendChild(group);
+    }
+
+    const feedback = el('p', 'action-form-feedback');
+    feedback.style.display = 'none';
+    feedback.style.marginTop = '0.5rem';
+
+    const submitBtn = document.createElement('button');
+    submitBtn.type = 'submit';
+    submitBtn.className = 'btn btn-primary';
+    submitBtn.textContent = getContentValue(section.submitKey);
+    submitBtn.style.marginTop = '0.5rem';
+    submitBtn.style.alignSelf = 'flex-start';
+    form.appendChild(submitBtn);
+    form.appendChild(feedback);
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        const raw = Object.fromEntries(new FormData(form).entries());
+        // coerce numeric fields
+        const payload: Record<string, unknown> = {};
+        for (const field of section.fields) {
+            const v = raw[field.name];
+            if (field.type === 'number' && v !== '' && v !== undefined) {
+                payload[field.name] = Number(v);
+            } else if (v !== '' && v !== undefined) {
+                payload[field.name] = v;
+            }
+        }
+        try {
+            const res = await fetch(section.submitUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            if (!res.ok) throw new Error('server error');
+            feedback.textContent = getContentValue(section.successKey);
+            feedback.style.display = '';
+            feedback.style.color = 'var(--accent-neural-cyan, #00d4ff)';
+            form.reset();
+        } catch {
+            feedback.textContent = 'Errore. Riprova.';
+            feedback.style.display = '';
+            feedback.style.color = '#ff6b6b';
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+
+    wrapper.appendChild(form);
+    return wrapper;
+}
+
 import { renderAgentDashboard, renderAgentGraph, renderAgentList } from './agent-console-renderers';
 
 function renderSection(section: SectionSpec): HTMLElement {
@@ -661,6 +780,8 @@ function renderSection(section: SectionSpec): HTMLElement {
             return renderAgentList(section);
         case 'data-list':
             return renderDataList(section);
+        case 'action-form':
+            return renderActionForm(section);
         default:
             return el('div');
     }

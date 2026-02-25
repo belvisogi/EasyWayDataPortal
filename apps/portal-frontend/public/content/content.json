@@ -377,6 +377,9 @@
         }
     },
     "backoffice": {
+        "table": {
+            "empty": "Nessun dato disponibile."
+        },
         "appointments": {
             "hero": {
                 "title": "Appuntamenti",
@@ -413,6 +416,15 @@
                 "body": "Gli agenti EasyWay coordinano conferme, reminder e sincronizzazione senza intervento manuale.",
                 "primary": "Vai ai Preventivi",
                 "secondary": "Apri Console"
+            },
+            "form": {
+                "title": "Nuovo Appuntamento",
+                "field_customer_name": "Nome cliente",
+                "field_customer_email": "Email cliente",
+                "field_scheduled_at": "Data e ora",
+                "field_notes": "Note",
+                "submit": "Crea Appuntamento",
+                "success": "Appuntamento creato con successo."
             }
         },
         "quotes": {
@@ -451,6 +463,15 @@
                 "body": "Dall'analisi della richiesta alla generazione del documento: gli agenti gestiscono l'intero flusso.",
                 "primary": "Vai agli Appuntamenti",
                 "secondary": "Apri Console"
+            },
+            "form": {
+                "title": "Nuovo Preventivo",
+                "field_customer_name": "Nome cliente",
+                "field_customer_email": "Email cliente",
+                "field_amount": "Importo (€)",
+                "field_valid_until": "Valido fino al",
+                "submit": "Crea Preventivo",
+                "success": "Preventivo creato con successo."
             }
         },
         "agents": {

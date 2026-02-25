@@ -58,6 +58,19 @@
       ]
     },
     {
+      "type": "action-form",
+      "titleKey": "backoffice.appointments.form.title",
+      "submitUrl": "/api/appointments",
+      "submitKey": "backoffice.appointments.form.submit",
+      "successKey": "backoffice.appointments.form.success",
+      "fields": [
+        { "name": "customer_name",  "type": "text",           "labelKey": "backoffice.appointments.form.field_customer_name",  "required": true },
+        { "name": "customer_email", "type": "email",          "labelKey": "backoffice.appointments.form.field_customer_email", "required": true },
+        { "name": "scheduled_at",   "type": "datetime-local", "labelKey": "backoffice.appointments.form.field_scheduled_at",   "required": true },
+        { "name": "notes",          "type": "textarea",       "labelKey": "backoffice.appointments.form.field_notes",          "rows": 3 }
+      ]
+    },
+    {
       "type": "cta",
       "titleKey": "backoffice.appointments.cta.title",
       "bodyKey": "backoffice.appointments.cta.body",

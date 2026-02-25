@@ -131,6 +131,25 @@ export type DataListSection = {
     columns: DataListColumnSpec[];
 };
 
+export type ActionFormFieldSpec = {
+    name: string;
+    type: 'text' | 'email' | 'number' | 'date' | 'datetime-local' | 'textarea';
+    labelKey: string;
+    placeholderKey?: string;
+    required?: boolean;
+    rows?: number;
+};
+
+export type ActionFormSection = {
+    type: 'action-form';
+    titleKey: string;
+    submitUrl: string;
+    submitKey: string;
+    successKey: string;
+    fields: ActionFormFieldSpec[];
+    refreshListSelector?: string;
+};
+
 export type SectionSpec =
     | HeroSection
     | CardsSection
@@ -144,7 +163,8 @@ export type SectionSpec =
     | AgentDashboardSection
     | AgentGraphSection
     | AgentListSection
-    | DataListSection;
+    | DataListSection
+    | ActionFormSection;
 
 export type PageSpecV1 = {
     version: '1';

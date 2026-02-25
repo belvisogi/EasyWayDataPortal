@@ -58,6 +58,19 @@
       ]
     },
     {
+      "type": "action-form",
+      "titleKey": "backoffice.quotes.form.title",
+      "submitUrl": "/api/quotes",
+      "submitKey": "backoffice.quotes.form.submit",
+      "successKey": "backoffice.quotes.form.success",
+      "fields": [
+        { "name": "customer_name",  "type": "text",   "labelKey": "backoffice.quotes.form.field_customer_name",  "required": true },
+        { "name": "customer_email", "type": "email",  "labelKey": "backoffice.quotes.form.field_customer_email", "required": true },
+        { "name": "total_amount",   "type": "number", "labelKey": "backoffice.quotes.form.field_amount",         "required": true },
+        { "name": "valid_until",    "type": "date",   "labelKey": "backoffice.quotes.form.field_valid_until" }
+      ]
+    },
+    {
       "type": "cta",
       "titleKey": "backoffice.quotes.cta.title",
       "bodyKey": "backoffice.quotes.cta.body",
