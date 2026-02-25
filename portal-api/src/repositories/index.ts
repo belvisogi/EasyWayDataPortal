@@ -1,10 +1,14 @@
-import { UsersRepo, OnboardingRepo, NotificationsRepo, AgentChatRepo } from "./types";
+import { UsersRepo, OnboardingRepo, NotificationsRepo, AgentChatRepo, AppointmentsRepo, QuotesRepo } from "./types";
 import { SqlUsersRepo } from "./sql/usersRepo.sql";
 import { MockUsersRepo } from "./mock/usersRepo.mock";
 import { SqlNotificationsRepo } from "./sql/notificationsRepo.sql";
 import { MockNotificationsRepo } from "./mock/notificationsRepo.mock";
 import { SqlAgentChatRepo } from "./sql/agentChatRepo.sql";
 import { MockAgentChatRepo } from "./mock/agentChatRepo.mock";
+import { SqlAppointmentsRepo } from "./sql/appointmentsRepo.sql";
+import { MockAppointmentsRepo } from "./mock/appointmentsRepo.mock";
+import { SqlQuotesRepo } from "./sql/quotesRepo.sql";
+import { MockQuotesRepo } from "./mock/quotesRepo.mock";
 
 function getDbMode(): string {
   const v = (process.env.DB_MODE || "sql").toLowerCase();
@@ -26,4 +30,12 @@ export function getNotificationsRepo(): NotificationsRepo {
 
 export function getAgentChatRepo(): AgentChatRepo {
   return getDbMode() === "mock" ? new MockAgentChatRepo() : new SqlAgentChatRepo();
+}
+
+export function getAppointmentsRepo(): AppointmentsRepo {
+  return getDbMode() === "mock" ? new MockAppointmentsRepo() : new SqlAppointmentsRepo();
+}
+
+export function getQuotesRepo(): QuotesRepo {
+  return getDbMode() === "mock" ? new MockQuotesRepo() : new SqlQuotesRepo();
 }
