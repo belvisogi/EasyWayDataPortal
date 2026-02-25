@@ -620,7 +620,8 @@ function renderDataList(section: import('../types/runtime-pages').DataListSectio
                         value = Number(raw).toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
                     }
                     if (col.key === 'status') {
-                        const badge = el('span', 'badge');
+                        const statusClass = { CONFIRMED: 'badge--confirmed', PENDING: 'badge--pending', CANCELLED: 'badge--cancelled' }[value.toUpperCase()] ?? '';
+                        const badge = el('span', `badge ${statusClass}`.trim());
                         badge.textContent = value;
                         badge.style.fontSize = '0.75rem';
                         td.appendChild(badge);

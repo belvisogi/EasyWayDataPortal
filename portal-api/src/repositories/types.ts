@@ -117,6 +117,19 @@ export interface QuotesRepo {
   }): Promise<QuoteRecord>;
 }
 
+export interface AgentRecord {
+  agent_id: string;
+  name: string;
+  level: string;
+  description?: string | null;
+  status: string;
+  last_run?: string | null;
+}
+
+export interface AgentsRepo {
+  list(): Promise<AgentRecord[]>;
+}
+
 export interface AgentChatRepo {
   logMessage(tenantId: string, input: {
     actor: string;
