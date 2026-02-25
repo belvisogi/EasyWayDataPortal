@@ -1,4 +1,4 @@
-import { UsersRepo, OnboardingRepo, NotificationsRepo, AgentChatRepo, AppointmentsRepo, QuotesRepo } from "./types";
+import { UsersRepo, OnboardingRepo, NotificationsRepo, AgentChatRepo, AppointmentsRepo, QuotesRepo, AgentsRepo } from "./types";
 import { SqlUsersRepo } from "./sql/usersRepo.sql";
 import { MockUsersRepo } from "./mock/usersRepo.mock";
 import { SqlNotificationsRepo } from "./sql/notificationsRepo.sql";
@@ -9,6 +9,7 @@ import { SqlAppointmentsRepo } from "./sql/appointmentsRepo.sql";
 import { MockAppointmentsRepo } from "./mock/appointmentsRepo.mock";
 import { SqlQuotesRepo } from "./sql/quotesRepo.sql";
 import { MockQuotesRepo } from "./mock/quotesRepo.mock";
+import { MockAgentsRepo } from "./mock/agentsRepo.mock";
 
 function getDbMode(): string {
   const v = (process.env.DB_MODE || "sql").toLowerCase();
@@ -38,4 +39,9 @@ export function getAppointmentsRepo(): AppointmentsRepo {
 
 export function getQuotesRepo(): QuotesRepo {
   return getDbMode() === "mock" ? new MockQuotesRepo() : new SqlQuotesRepo();
+}
+
+// Agents are filesystem-sourced (manifest scan) — no SQL impl needed
+export function getAgentsRepo(): AgentsRepo {
+  return new MockAgentsRepo();
 }

@@ -24,6 +24,7 @@ import agentChatRouter from "./routes/agent-chat";
 import storageRoutes from "./routes/storage";
 import appointmentsRoutes from "./routes/appointments";
 import quotesRoutes from "./routes/quotes";
+import agentsRoutes from "./routes/agents";
 
 
 // Carica variabili di ambiente (.env) e fallback opzionale .env.local
@@ -115,6 +116,7 @@ app.use("/api", agentChatRouter);  // Agent Chat API
 app.use("/api/storage", storageRoutes);
 app.use("/api/appointments", appointmentsRoutes);
 app.use("/api/quotes", quotesRoutes);
+app.use("/api/agents", agentsRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

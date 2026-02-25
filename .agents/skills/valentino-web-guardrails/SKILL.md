@@ -35,6 +35,7 @@ Fetch latest UI guidelines before each review:
 - `agent-console` remains ops-first (not a second product UI).
 - Routing/state structure is maintainable (no uncontrolled global logic growth).
 - Evidence of reliability hooks (`health`, `correlationId`, degraded handling) where relevant.
+- **AI Discoverability** (run `valentino-llm-seo` check): `llms.txt` Agent Instructions present, meta description set, Schema.org JSON-LD in `index.html`, `sitemap.xml` exists.
 
 ## Output Format
 - Findings first, with `file:line` references.
