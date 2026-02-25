@@ -6,7 +6,8 @@
     "pricing": "Pricing",
     "demo": "Demo",
     "console": "Console",
-    "cta_demo": "Request Demo"
+    "cta_demo": "Request Demo",
+    "backoffice": "Backoffice"
   },
   "page": {
     "home": {

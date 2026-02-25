@@ -47,6 +47,17 @@
       ]
     },
     {
+      "type": "data-list",
+      "titleKey": "backoffice.appointments.table.title",
+      "dataUrl": "/data/mock/appointments.json",
+      "columns": [
+        { "key": "customer_name", "labelKey": "backoffice.appointments.table.col_customer" },
+        { "key": "scheduled_at",  "labelKey": "backoffice.appointments.table.col_date", "format": "datetime" },
+        { "key": "status",        "labelKey": "backoffice.appointments.table.col_status" },
+        { "key": "notes",         "labelKey": "backoffice.appointments.table.col_notes" }
+      ]
+    },
+    {
       "type": "cta",
       "titleKey": "backoffice.appointments.cta.title",
       "bodyKey": "backoffice.appointments.cta.body",

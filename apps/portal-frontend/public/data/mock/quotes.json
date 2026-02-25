@@ -1,0 +1,42 @@
+[
+  {
+    "quote_id": "QT001",
+    "customer_name": "Mario Rossi",
+    "customer_email": "mario.rossi@example.com",
+    "total_amount": 4800.00,
+    "status": "SENT",
+    "valid_until": "2026-03-15"
+  },
+  {
+    "quote_id": "QT002",
+    "customer_name": "Acme S.r.l.",
+    "customer_email": "acquisti@acme.it",
+    "total_amount": 12500.00,
+    "status": "ACCEPTED",
+    "valid_until": "2026-03-01"
+  },
+  {
+    "quote_id": "QT003",
+    "customer_name": "TechLab Europe",
+    "customer_email": "info@techlab.eu",
+    "total_amount": 3200.00,
+    "status": "DRAFT",
+    "valid_until": "2026-04-01"
+  },
+  {
+    "quote_id": "QT004",
+    "customer_name": "FinGroup Italia",
+    "customer_email": "procurement@fingroup.it",
+    "total_amount": 28000.00,
+    "status": "SENT",
+    "valid_until": "2026-03-20"
+  },
+  {
+    "quote_id": "QT005",
+    "customer_name": "Laura Bianchi",
+    "customer_email": "laura.bianchi@example.com",
+    "total_amount": 1800.00,
+    "status": "REJECTED",
+    "valid_until": "2026-02-20"
+  }
+]

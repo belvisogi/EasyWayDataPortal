@@ -82,7 +82,11 @@
       "id": "backoffice-appointments",
       "route": "/backoffice/appointments",
       "titleKey": "backoffice.appointments.hero.title",
-      "spec": "/pages/backoffice-appointments.json"
+      "spec": "/pages/backoffice-appointments.json",
+      "nav": {
+        "labelKey": "nav.backoffice",
+        "order": 45
+      }
     },
     {
       "id": "backoffice-quotes",

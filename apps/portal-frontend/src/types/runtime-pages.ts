@@ -118,6 +118,19 @@ export type AgentListSection = {
     descKey?: string;
 };
 
+export type DataListColumnSpec = {
+    key: string;
+    labelKey: string;
+    format?: 'datetime' | 'date' | 'currency';
+};
+
+export type DataListSection = {
+    type: 'data-list';
+    titleKey?: string;
+    dataUrl: string;
+    columns: DataListColumnSpec[];
+};
+
 export type SectionSpec =
     | HeroSection
     | CardsSection
@@ -130,7 +143,8 @@ export type SectionSpec =
     | ComponentShowcaseSection
     | AgentDashboardSection
     | AgentGraphSection
-    | AgentListSection;
+    | AgentListSection
+    | DataListSection;
 
 export type PageSpecV1 = {
     version: '1';
