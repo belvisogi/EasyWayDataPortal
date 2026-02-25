@@ -12,7 +12,8 @@
         "demo": "Demo",
         "memory": "Memory",
         "pricing": "Pricing",
-        "agents": "Agents"
+        "agents": "Agents",
+        "backoffice": "Backoffice"
     },
     "manifesto": {
         "title": "The Code",
@@ -400,6 +401,13 @@
                     "desc": "Agente dedicato alla sincronizzazione automatica del calendario."
                 }
             },
+            "table": {
+                "title": "Lista Appuntamenti",
+                "col_customer": "Cliente",
+                "col_date": "Data",
+                "col_status": "Stato",
+                "col_notes": "Note"
+            },
             "cta": {
                 "title": "Automatizza la gestione appuntamenti",
                 "body": "Gli agenti EasyWay coordinano conferme, reminder e sincronizzazione senza intervento manuale.",
@@ -430,6 +438,13 @@
                     "badge": "ANALISI AI",
                     "desc": "Tasso di conversione analizzato dall'agente su base storica."
                 }
+            },
+            "table": {
+                "title": "Lista Preventivi",
+                "col_customer": "Cliente",
+                "col_amount": "Importo",
+                "col_status": "Stato",
+                "col_expiry": "Scadenza"
             },
             "cta": {
                 "title": "Pipeline preventivi intelligente",

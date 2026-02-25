@@ -47,6 +47,17 @@
       ]
     },
     {
+      "type": "data-list",
+      "titleKey": "backoffice.quotes.table.title",
+      "dataUrl": "/data/mock/quotes.json",
+      "columns": [
+        { "key": "customer_name", "labelKey": "backoffice.quotes.table.col_customer" },
+        { "key": "total_amount",  "labelKey": "backoffice.quotes.table.col_amount", "format": "currency" },
+        { "key": "status",        "labelKey": "backoffice.quotes.table.col_status" },
+        { "key": "valid_until",   "labelKey": "backoffice.quotes.table.col_expiry", "format": "date" }
+      ]
+    },
+    {
       "type": "cta",
       "titleKey": "backoffice.quotes.cta.title",
       "bodyKey": "backoffice.quotes.cta.body",

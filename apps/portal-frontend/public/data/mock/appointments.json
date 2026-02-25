@@ -1,0 +1,42 @@
+[
+  {
+    "appointment_id": "APT001",
+    "customer_name": "Mario Rossi",
+    "customer_email": "mario.rossi@example.com",
+    "scheduled_at": "2026-02-26T09:00:00Z",
+    "status": "CONFIRMED",
+    "notes": "Prima visita conoscitiva"
+  },
+  {
+    "appointment_id": "APT002",
+    "customer_name": "Laura Bianchi",
+    "customer_email": "laura.bianchi@example.com",
+    "scheduled_at": "2026-02-26T11:30:00Z",
+    "status": "PENDING",
+    "notes": "Demo EasyWay Core"
+  },
+  {
+    "appointment_id": "APT003",
+    "customer_name": "Giuseppe Ferrari",
+    "customer_email": "g.ferrari@acme.it",
+    "scheduled_at": "2026-02-27T14:00:00Z",
+    "status": "CONFIRMED",
+    "notes": "Follow-up proposta commerciale"
+  },
+  {
+    "appointment_id": "APT004",
+    "customer_name": "Anna Conti",
+    "customer_email": "a.conti@techlab.eu",
+    "scheduled_at": "2026-02-28T10:00:00Z",
+    "status": "CANCELLED",
+    "notes": "Rinviato a data da definire"
+  },
+  {
+    "appointment_id": "APT005",
+    "customer_name": "Roberto Greco",
+    "customer_email": "roberto.greco@fingroup.it",
+    "scheduled_at": "2026-03-01T15:30:00Z",
+    "status": "PENDING",
+    "notes": "Valutazione infrastruttura sovereign"
+  }
+]

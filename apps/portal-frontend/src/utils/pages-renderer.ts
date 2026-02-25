@@ -549,6 +549,88 @@ function renderComponentShowcase(section: import('../types/runtime-pages').Compo
     return showcase;
 }
 
+function renderDataList(section: import('../types/runtime-pages').DataListSection): HTMLElement {
+    const wrapper = el('section', 'container');
+    wrapper.style.paddingBottom = '4rem';
+    wrapper.style.marginTop = '2rem';
+
+    if (section.titleKey) {
+        const h2 = el('h2', 'h2');
+        setMaybeHtml(h2, getContentValue(section.titleKey));
+        wrapper.appendChild(h2);
+    }
+
+    const tableWrapper = el('div', 'data-list-wrapper');
+    tableWrapper.style.overflowX = 'auto';
+    tableWrapper.style.marginTop = '1.5rem';
+    tableWrapper.appendChild(el('p', '', 'Caricamento…'));
+    wrapper.appendChild(tableWrapper);
+
+    fetch(section.dataUrl)
+        .then(r => r.json())
+        .then((rows: any[]) => {
+            tableWrapper.innerHTML = '';
+            const table = document.createElement('table');
+            table.className = 'data-list-table';
+            table.style.width = '100%';
+            table.style.borderCollapse = 'collapse';
+            table.style.fontSize = '0.875rem';
+
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            for (const col of section.columns) {
+                const th = document.createElement('th');
+                th.textContent = getContentValue(col.labelKey);
+                th.style.textAlign = 'left';
+                th.style.padding = '0.5rem 1rem';
+                th.style.borderBottom = '1px solid rgba(255,255,255,0.15)';
+                th.style.color = 'var(--accent-neural-cyan, #00d4ff)';
+                th.style.fontWeight = '600';
+                headerRow.appendChild(th);
+            }
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            for (const row of rows) {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid rgba(255,255,255,0.06)';
+                for (const col of section.columns) {
+                    const td = document.createElement('td');
+                    td.style.padding = '0.6rem 1rem';
+                    td.style.verticalAlign = 'middle';
+                    const raw = row[col.key];
+                    let value: string = raw != null ? String(raw) : '—';
+                    if (col.format === 'datetime' && raw) {
+                        value = new Date(raw).toLocaleString('it-IT', { dateStyle: 'short', timeStyle: 'short' });
+                    } else if (col.format === 'date' && raw) {
+                        value = new Date(raw).toLocaleDateString('it-IT');
+                    } else if (col.format === 'currency' && raw != null) {
+                        value = Number(raw).toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+                    }
+                    if (col.key === 'status') {
+                        const badge = el('span', 'badge');
+                        badge.textContent = value;
+                        badge.style.fontSize = '0.75rem';
+                        td.appendChild(badge);
+                    } else {
+                        td.textContent = value;
+                    }
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr);
+            }
+            table.appendChild(tbody);
+            tableWrapper.appendChild(table);
+        })
+        .catch(() => {
+            tableWrapper.innerHTML = '';
+            tableWrapper.appendChild(el('p', '', 'Errore nel caricamento dei dati.'));
+        });
+
+    return wrapper;
+}
+
 import { renderAgentDashboard, renderAgentGraph, renderAgentList } from './agent-console-renderers';
 
 function renderSection(section: SectionSpec): HTMLElement {
@@ -577,6 +659,8 @@ function renderSection(section: SectionSpec): HTMLElement {
             return renderAgentGraph(section);
         case 'agent-list':
             return renderAgentList(section);
+        case 'data-list':
+            return renderDataList(section);
         default:
             return el('div');
     }
