@@ -1,0 +1,69 @@
+{
+  "version": "1",
+  "id": "backoffice-appointments",
+  "activeNav": "backoffice-appointments",
+  "sections": [
+    {
+      "type": "hero",
+      "titleKey": "backoffice.appointments.hero.title",
+      "taglineKey": "backoffice.appointments.hero.tagline",
+      "cta": {
+        "labelKey": "backoffice.appointments.hero.cta_primary",
+        "action": {
+          "type": "link",
+          "href": "/agents-console"
+        }
+      },
+      "ctaSecondary": {
+        "labelKey": "backoffice.appointments.hero.cta_secondary",
+        "action": {
+          "type": "link",
+          "href": "/backoffice/quotes"
+        }
+      }
+    },
+    {
+      "type": "cards",
+      "variant": "catalog",
+      "items": [
+        {
+          "iconText": "TODAY",
+          "titleKey": "backoffice.appointments.cards.today.title",
+          "badgeKey": "backoffice.appointments.cards.today.badge",
+          "descKey": "backoffice.appointments.cards.today.desc"
+        },
+        {
+          "iconText": "PIPE",
+          "titleKey": "backoffice.appointments.cards.pipeline.title",
+          "badgeKey": "backoffice.appointments.cards.pipeline.badge",
+          "descKey": "backoffice.appointments.cards.pipeline.desc"
+        },
+        {
+          "iconText": "SYNC",
+          "titleKey": "backoffice.appointments.cards.sync.title",
+          "badgeKey": "backoffice.appointments.cards.sync.badge",
+          "descKey": "backoffice.appointments.cards.sync.desc"
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "titleKey": "backoffice.appointments.cta.title",
+      "bodyKey": "backoffice.appointments.cta.body",
+      "primary": {
+        "labelKey": "backoffice.appointments.cta.primary",
+        "action": {
+          "type": "link",
+          "href": "/backoffice/quotes"
+        }
+      },
+      "secondary": {
+        "labelKey": "backoffice.appointments.cta.secondary",
+        "action": {
+          "type": "link",
+          "href": "/agents-console"
+        }
+      }
+    }
+  ]
+}

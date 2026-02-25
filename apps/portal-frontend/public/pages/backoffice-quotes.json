@@ -1,0 +1,69 @@
+{
+  "version": "1",
+  "id": "backoffice-quotes",
+  "activeNav": "backoffice-quotes",
+  "sections": [
+    {
+      "type": "hero",
+      "titleKey": "backoffice.quotes.hero.title",
+      "taglineKey": "backoffice.quotes.hero.tagline",
+      "cta": {
+        "labelKey": "backoffice.quotes.hero.cta_primary",
+        "action": {
+          "type": "link",
+          "href": "/backoffice/appointments"
+        }
+      },
+      "ctaSecondary": {
+        "labelKey": "backoffice.quotes.hero.cta_secondary",
+        "action": {
+          "type": "link",
+          "href": "/agents-console"
+        }
+      }
+    },
+    {
+      "type": "cards",
+      "variant": "catalog",
+      "items": [
+        {
+          "iconText": "DRAFT",
+          "titleKey": "backoffice.quotes.cards.draft.title",
+          "badgeKey": "backoffice.quotes.cards.draft.badge",
+          "descKey": "backoffice.quotes.cards.draft.desc"
+        },
+        {
+          "iconText": "SENT",
+          "titleKey": "backoffice.quotes.cards.sent.title",
+          "badgeKey": "backoffice.quotes.cards.sent.badge",
+          "descKey": "backoffice.quotes.cards.sent.desc"
+        },
+        {
+          "iconText": "WIN",
+          "titleKey": "backoffice.quotes.cards.winrate.title",
+          "badgeKey": "backoffice.quotes.cards.winrate.badge",
+          "descKey": "backoffice.quotes.cards.winrate.desc"
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "titleKey": "backoffice.quotes.cta.title",
+      "bodyKey": "backoffice.quotes.cta.body",
+      "primary": {
+        "labelKey": "backoffice.quotes.cta.primary",
+        "action": {
+          "type": "link",
+          "href": "/backoffice/appointments"
+        }
+      },
+      "secondary": {
+        "labelKey": "backoffice.quotes.cta.secondary",
+        "action": {
+          "type": "link",
+          "href": "/agents-console"
+        }
+      }
+    }
+  ]
+}
