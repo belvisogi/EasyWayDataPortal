@@ -1,35 +1,78 @@
 {
-  "role": "Agent_Backend",
-  "description": "Owner implementazione API: OpenAPI, pattern middleware auth/tenant, lint e scaffolding endpoint (distinct da agent_api triage).",
+  "id": "agent_backend",
+  "name": "agent_backend",
+  "version": "2.0.0",
+  "evolution_level": 2,
+  "classification": "arm",
+  "role": "L2_Brain_APIArchitect",
+  "owner": "team-platform",
+  "description": "Owner implementazione API: OpenAPI validation, health check portal-api, pattern middleware auth/tenant. L2: LLM+RAG+structured JSON.",
+  "readme": "README.md",
+  "llm_config": {
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "temperature": 0.0,
+    "max_tokens": 1400,
+    "system_prompt": "agents/agent_backend/PROMPTS.md"
+  },
+  "context_config": {
+    "memory_files": ["agents/kb/recipes.jsonl"],
+    "context_limit_tokens": 128000,
+    "enable_memory": true
+  },
+  "actions": {
+    "api:health-check": {
+      "description": "Verifica disponibilita' portal-api (node, npm, openapi.yaml) — deterministic, no LLM.",
+      "runner": "Invoke-AgentBackend.ps1",
+      "params": {
+        "Action": { "type": "string", "required": true, "default": "api:health-check" }
+      }
+    },
+    "api:openapi-validate": {
+      "description": "Valida openapi.yaml contro best-practice (auth coverage, operationId, breaking changes) via LLM+RAG.",
+      "runner": "Invoke-AgentBackend.ps1",
+      "params": {
+        "Action": { "type": "string", "required": true, "default": "api:openapi-validate" },
+        "ApiPath": { "type": "string", "required": false },
+        "DryRun": { "type": "boolean", "required": false }
+      }
+    }
+  },
   "allowed_paths": {
     "read": [
       "agents/agent_backend/**",
-      "scripts/pwsh/agent-backend.ps1",
-      "portal-api/easyway-portal-api/**",
+      "portal-api/openapi/openapi.yaml",
+      "portal-api/package.json",
       "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/**",
       "agents/kb/recipes.jsonl",
-      "agents/logs/**",
-      "out/**"
+      "agents/logs/**"
     ],
     "write": [
       "agents/agent_backend/memory/",
       "agents/logs/"
     ]
   },
-  "allowed_tools": [
-    "pwsh",
-    "npm"
+  "allowed_tools": ["pwsh", "npm"],
+  "required_gates": ["Checklist", "KB_Consistency"],
+  "skills_required": [
+    "retrieval.Invoke-LLMWithRAG",
+    "utilities.Import-AgentSecrets"
   ],
-  "required_gates": [
-    "Checklist",
-    "KB_Consistency"
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
   ],
-  "approvals": {},
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
   "knowledge_sources": [
     {
-      "priority": "medium",
+      "priority": "high",
       "type": "document",
-      "path": "portal-api/easyway-portal-api/openapi/openapi.yaml"
+      "path": "portal-api/openapi/openapi.yaml"
     },
     {
       "priority": "medium",
@@ -40,57 +83,7 @@
       "priority": "medium",
       "type": "document",
       "path": "agents/AGENT_WORKFLOW_STANDARD.md"
-    },
-    {
-      "priority": "medium",
-      "type": "document",
-      "path": "agents/GEDI_INTEGRATION_PATTERN.md"
     }
   ],
-  "actions": [
-    {
-      "name": "api:openapi-validate",
-      "description": "Valida l'OpenAPI locale (schema/consistenza).",
-      "params": {
-        "apiPath": {
-          "type": "string",
-          "required": false
-        }
-      }
-    }
-  ],
-  "name": "agent_backend",
-  "readme": "README.md",
-  "classification": "arm",
-  "id": "agent_backend",
-  "owner": "team-platform",
-  "version": "1.0.0",
-  "evolution_level": 1,
-  "context_config": {
-    "memory_files": [
-      "agents/kb/recipes.jsonl"
-    ],
-    "context_limit_tokens": 128000,
-    "enable_memory": true
-  },
-  "skills_required": [],
-  "llm_config": {
-    "provider": "openai",
-    "model": "gpt-4o",
-    "temperature": 0.0,
-    "system_prompt": "agents/agent_backend/PROMPTS.md",
-    "tools": [
-      "function_calling"
-    ]
-  },
-  "error_handling": {
-    "fallback_mode": "log_and_skip",
-    "alert_on_failure": false,
-    "retry_delay_seconds": 15,
-    "retry_count": 2
-  },
-  "skills_optional": [
-    "utilities.json-validate",
-    "utilities.retry-backoff"
-  ]
+  "approvals": {}
 }

@@ -1,10 +1,43 @@
 {
+  "id": "agent_frontend",
   "name": "agent_frontend",
+  "version": "2.0.0",
+  "evolution_level": 2,
   "classification": "arm",
-  "role": "frontend-developer",
+  "role": "L2_Brain_PortalCraftsman",
   "owner": "team-frontend",
-  "description": "Gestisce sviluppo e deployment frontend (UI/UX, React, static assets, portal interface)",
+  "description": "Gestisce sviluppo e deployment frontend: build check, UX review componenti React/TS. L2: LLM+RAG+structured JSON.",
   "readme": "README.md",
+  "llm_config": {
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "temperature": 0.0,
+    "max_tokens": 1400,
+    "system_prompt": "agents/agent_frontend/PROMPTS.md"
+  },
+  "context_config": {
+    "memory_files": ["agents/kb/recipes.jsonl"],
+    "context_limit_tokens": 128000,
+    "enable_memory": true
+  },
+  "actions": {
+    "frontend:build-check": {
+      "description": "Verifica stato build frontend (node, npm, src/, dist/) — deterministic, no LLM.",
+      "runner": "Invoke-AgentFrontend.ps1",
+      "params": {
+        "Action": { "type": "string", "required": true, "default": "frontend:build-check" }
+      }
+    },
+    "frontend:ux-review": {
+      "description": "Analizza componenti UI contro linee guida UX (WCAG, responsive, pattern) via LLM+RAG.",
+      "runner": "Invoke-AgentFrontend.ps1",
+      "params": {
+        "Action": { "type": "string", "required": true, "default": "frontend:ux-review" },
+        "FrontendPath": { "type": "string", "required": false },
+        "DryRun": { "type": "boolean", "required": false }
+      }
+    }
+  },
   "allowed_paths": {
     "read": [
       "apps/portal-frontend/src/**",
@@ -12,23 +45,39 @@
       "apps/portal-frontend/*.json",
       "apps/portal-frontend/*.ts",
       "apps/portal-frontend/*.html",
-      "apps/portal-frontend/*.js",
       "Wiki/EasyWayData.wiki/UX/**",
-      "Wiki/EasyWayData.wiki/frontend/**"
+      "Wiki/EasyWayData.wiki/frontend/**",
+      "agents/logs/**"
     ],
     "write": [
       "agents/agent_frontend/memory/",
       "agents/logs/"
     ]
   },
+  "allowed_tools": ["pwsh", "git", "npm"],
+  "required_gates": ["doc_alignment"],
+  "skills_required": [
+    "retrieval.Invoke-LLMWithRAG",
+    "utilities.Import-AgentSecrets"
+  ],
+  "skills_optional": [
+    "utilities.json-validate",
+    "utilities.retry-backoff"
+  ],
+  "error_handling": {
+    "fallback_mode": "log_and_skip",
+    "alert_on_failure": false,
+    "retry_delay_seconds": 15,
+    "retry_count": 2
+  },
   "knowledge_sources": [
     {
-      "priority": "medium",
+      "priority": "high",
       "type": "document",
       "path": "Wiki/EasyWayData.wiki/UX/agent-chat-interface.md"
     },
     {
-      "priority": "medium",
+      "priority": "high",
       "type": "document",
       "path": "Wiki/EasyWayData.wiki/UX/agentic-ux.md"
     },
@@ -37,62 +86,6 @@
       "type": "document",
       "path": "Wiki/EasyWayData.wiki/easyway-webapp/05_codice_easyway_portale/easyway_portal_frontend/**"
     }
-  ],
-  "actions": [
-    {
-      "name": "frontend:build",
-      "description": "Esegue build del frontend",
-      "script": "../../scripts/pwsh/agent-frontend.ps1",
-      "params": {
-        "Action": "build"
-      }
-    },
-    {
-      "name": "frontend:deploy",
-      "description": "Deploya il frontend su Azure Static Web Apps",
-      "script": "../../scripts/pwsh/agent-frontend.ps1",
-      "params": {
-        "Action": "deploy"
-      }
-    }
-  ],
-  "allowed_tools": [
-    "pwsh",
-    "git",
-    "npm"
-  ],
-  "required_gates": [
-    "doc_alignment"
-  ],
-  "id": "agent_frontend",
-  "version": "1.0.0",
-  "evolution_level": 1,
-  "context_config": {
-    "memory_files": [
-      "agents/kb/recipes.jsonl"
-    ],
-    "context_limit_tokens": 128000,
-    "enable_memory": true
-  },
-  "skills_required": [],
-  "llm_config": {
-    "provider": "openai",
-    "model": "gpt-4o",
-    "temperature": 0.0,
-    "system_prompt": "agents/agent_frontend/PROMPTS.md",
-    "tools": [
-      "function_calling"
-    ]
-  },
-  "error_handling": {
-    "fallback_mode": "log_and_skip",
-    "alert_on_failure": false,
-    "retry_delay_seconds": 15,
-    "retry_count": 2
-  },
-  "skills_optional": [
-    "utilities.json-validate",
-    "utilities.retry-backoff"
   ],
   "approvals": {}
 }
