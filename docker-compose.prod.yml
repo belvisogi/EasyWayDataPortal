@@ -175,7 +175,7 @@ services:
 
 networks:
   easyway-net:
-    driver: bridge
+    external: true
 
 volumes:
   qdrant-data:
