@@ -89,6 +89,12 @@
       "route": "/backoffice/quotes",
       "titleKey": "backoffice.quotes.hero.title",
       "spec": "/pages/backoffice-quotes.json"
+    },
+    {
+      "id": "backoffice-agents",
+      "route": "/backoffice/agents",
+      "titleKey": "backoffice.agents.hero.title",
+      "spec": "/pages/backoffice-agents.json"
     }
   ]
 }

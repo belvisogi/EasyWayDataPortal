@@ -374,5 +374,100 @@
                 "desc": "Integrate memory into your agents with a simple, declarative API. Whether it's Python, TypeScript, or Go, your memory is just one HTTP call away."
             }
         }
+    },
+    "backoffice": {
+        "appointments": {
+            "hero": {
+                "title": "Appuntamenti",
+                "tagline": "Gestione centralizzata degli appuntamenti e del calendario operativo.",
+                "cta_primary": "Vai alla Console",
+                "cta_secondary": "Preventivi"
+            },
+            "cards": {
+                "today": {
+                    "title": "Oggi",
+                    "badge": "IN AGENDA",
+                    "desc": "Appuntamenti confermati per la giornata corrente."
+                },
+                "pipeline": {
+                    "title": "Pipeline",
+                    "badge": "DA CONFERMARE",
+                    "desc": "Richieste in attesa di conferma o assegnazione."
+                },
+                "sync": {
+                    "title": "Sincronizzazione",
+                    "badge": "AGENTE ATTIVO",
+                    "desc": "Agente dedicato alla sincronizzazione automatica del calendario."
+                }
+            },
+            "cta": {
+                "title": "Automatizza la gestione appuntamenti",
+                "body": "Gli agenti EasyWay coordinano conferme, reminder e sincronizzazione senza intervento manuale.",
+                "primary": "Vai ai Preventivi",
+                "secondary": "Apri Console"
+            }
+        },
+        "quotes": {
+            "hero": {
+                "title": "Preventivi",
+                "tagline": "Pipeline preventivi dalla bozza alla firma, orchestrata dagli agenti.",
+                "cta_primary": "Vai agli Appuntamenti",
+                "cta_secondary": "Apri Console"
+            },
+            "cards": {
+                "draft": {
+                    "title": "Bozze",
+                    "badge": "IN LAVORAZIONE",
+                    "desc": "Preventivi in preparazione, in attesa di revisione o approvazione."
+                },
+                "sent": {
+                    "title": "Inviati",
+                    "badge": "IN ATTESA",
+                    "desc": "Preventivi inviati al cliente, in attesa di risposta."
+                },
+                "winrate": {
+                    "title": "Win Rate",
+                    "badge": "ANALISI AI",
+                    "desc": "Tasso di conversione analizzato dall'agente su base storica."
+                }
+            },
+            "cta": {
+                "title": "Pipeline preventivi intelligente",
+                "body": "Dall'analisi della richiesta alla generazione del documento: gli agenti gestiscono l'intero flusso.",
+                "primary": "Vai agli Appuntamenti",
+                "secondary": "Apri Console"
+            }
+        },
+        "agents": {
+            "hero": {
+                "title": "Agenti",
+                "tagline": "Stato operativo della flotta agenti: monitoring, task attivi e ultimo audit.",
+                "cta_primary": "Apri Console",
+                "cta_secondary": "Appuntamenti"
+            },
+            "cards": {
+                "active": {
+                    "title": "Agenti Attivi",
+                    "badge": "L3 ONLINE",
+                    "desc": "Agenti L3 con Evaluator-Optimizer attivo e RAG operativo."
+                },
+                "tasks": {
+                    "title": "Task in Esecuzione",
+                    "badge": "LIVE",
+                    "desc": "Task attualmente in elaborazione nella pipeline agenti."
+                },
+                "audit": {
+                    "title": "Ultimo Audit",
+                    "badge": "IRON DOME",
+                    "desc": "Risultato dell'ultimo ciclo di audit automatico pre-commit."
+                }
+            },
+            "cta": {
+                "title": "Sovereign Agent Fleet",
+                "body": "22 agenti L1, 7 L2 e 6 L3 coordinati dalla piattaforma EasyWay. Zero cloud dependency.",
+                "primary": "Vai alla Console",
+                "secondary": "Appuntamenti"
+            }
+        }
     }
 }

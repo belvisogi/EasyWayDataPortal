@@ -1,0 +1,69 @@
+{
+  "version": "1",
+  "id": "backoffice-agents",
+  "activeNav": "backoffice-agents",
+  "sections": [
+    {
+      "type": "hero",
+      "titleKey": "backoffice.agents.hero.title",
+      "taglineKey": "backoffice.agents.hero.tagline",
+      "cta": {
+        "labelKey": "backoffice.agents.hero.cta_primary",
+        "action": {
+          "type": "link",
+          "href": "/agents-console"
+        }
+      },
+      "ctaSecondary": {
+        "labelKey": "backoffice.agents.hero.cta_secondary",
+        "action": {
+          "type": "link",
+          "href": "/backoffice/appointments"
+        }
+      }
+    },
+    {
+      "type": "cards",
+      "variant": "catalog",
+      "items": [
+        {
+          "iconText": "L3",
+          "titleKey": "backoffice.agents.cards.active.title",
+          "badgeKey": "backoffice.agents.cards.active.badge",
+          "descKey": "backoffice.agents.cards.active.desc"
+        },
+        {
+          "iconText": "RUN",
+          "titleKey": "backoffice.agents.cards.tasks.title",
+          "badgeKey": "backoffice.agents.cards.tasks.badge",
+          "descKey": "backoffice.agents.cards.tasks.desc"
+        },
+        {
+          "iconText": "AUDIT",
+          "titleKey": "backoffice.agents.cards.audit.title",
+          "badgeKey": "backoffice.agents.cards.audit.badge",
+          "descKey": "backoffice.agents.cards.audit.desc"
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "titleKey": "backoffice.agents.cta.title",
+      "bodyKey": "backoffice.agents.cta.body",
+      "primary": {
+        "labelKey": "backoffice.agents.cta.primary",
+        "action": {
+          "type": "link",
+          "href": "/agents-console"
+        }
+      },
+      "secondary": {
+        "labelKey": "backoffice.agents.cta.secondary",
+        "action": {
+          "type": "link",
+          "href": "/backoffice/appointments"
+        }
+      }
+    }
+  ]
+}
