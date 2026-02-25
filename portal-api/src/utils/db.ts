@@ -43,7 +43,7 @@ export async function getPool(): Promise<sql.ConnectionPool> {
       config = {
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
-        server: process.env.DB_HOST as string,
+        server: (process.env.DB_HOST || process.env.DB_SERVER) as string,
         database: process.env.DB_NAME,
         options: { encrypt: true },
         pool: { max: 5 }
