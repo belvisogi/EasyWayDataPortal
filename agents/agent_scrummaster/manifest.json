@@ -3,6 +3,7 @@
   "name": "Agent ScrumMaster (Agile Facilitator)",
   "classification": "brain",
   "version": "3.0.0",
+  "readme": "README.md",
   "role": "scrum-facilitator",
   "owner": "team-platform",
   "evolution_level": 3,
