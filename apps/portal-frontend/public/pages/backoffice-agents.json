@@ -47,6 +47,17 @@
       ]
     },
     {
+      "type": "data-list",
+      "titleKey": "backoffice.agents.table.title",
+      "dataUrl": "/data/mock/agents.json",
+      "columns": [
+        { "key": "agent_id",  "labelKey": "backoffice.agents.table.col_id" },
+        { "key": "level",     "labelKey": "backoffice.agents.table.col_level" },
+        { "key": "status",    "labelKey": "backoffice.agents.table.col_status" },
+        { "key": "last_run",  "labelKey": "backoffice.agents.table.col_last_run", "format": "datetime" }
+      ]
+    },
+    {
       "type": "cta",
       "titleKey": "backoffice.agents.cta.title",
       "bodyKey": "backoffice.agents.cta.body",

@@ -32,10 +32,11 @@ services:
     restart: unless-stopped
     environment:
       - PORT=3000
-      - DB_SERVER=sql-edge
-      - DB_USER=sa
+      - DB_HOST=${DB_HOST:-sql-edge}
+      - DB_USER=${DB_USER:-sa}
       - DB_PASS=${SQL_SA_PASSWORD}
-      - DB_NAME=EasyWay
+      - DB_NAME=${DB_NAME:-EasyWay}
+      - DB_MODE=${DB_MODE:-sql}
       - TENANT_ID_HEADER=x-tenant-id
     ports:
       - "3000:3000"
