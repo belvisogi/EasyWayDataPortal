@@ -477,6 +477,13 @@
                     "desc": "Risultato dell'ultimo ciclo di audit automatico pre-commit."
                 }
             },
+            "table": {
+                "title": "Flotta Agenti",
+                "col_id": "Agente",
+                "col_level": "Livello",
+                "col_status": "Stato",
+                "col_last_run": "Ultimo Run"
+            },
             "cta": {
                 "title": "Sovereign Agent Fleet",
                 "body": "22 agenti L1, 7 L2 e 6 L3 coordinati dalla piattaforma EasyWay. Zero cloud dependency.",
