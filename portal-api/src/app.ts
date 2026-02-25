@@ -112,6 +112,7 @@ app.use("/api/onboarding", onboardingRoutes);
 app.use("/api/notifications", notificationsRoutes);
 app.use("/api/docs", docsRoutes);
 app.use("/api/db", dbRoutes);
+app.use("/api/agents", agentsRoutes);  // before agentChatRouter (which catches /api/*)
 app.use("/api", agentChatRouter);  // Agent Chat API
 app.use("/api/storage", storageRoutes);
 app.use("/api/appointments", appointmentsRoutes);
