@@ -31,12 +31,11 @@ function Invoke-RAGSearch {
         
         # Ensure python calls the script
         # Pass env vars if needed, though they should be inherited from the container env
-        $command = "python3 `"$scriptPath`" `"$Query`""
-        
-        Write-Verbose "Executing: $command"
-        
-        # Execute and capture JSON output
-        $jsonOutput = Invoke-Expression $command
+        Write-Verbose "Executing: python3 $scriptPath [query length=$($Query.Length)]"
+
+        # Use & operator to pass $Query as a proper argument (avoids Invoke-Expression
+        # parsing errors when $Query contains JSON braces, colons, or quotes).
+        $jsonOutput = & python3 $scriptPath $Query
         
         if (-not $jsonOutput) {
             throw "No output from RAG search script."
