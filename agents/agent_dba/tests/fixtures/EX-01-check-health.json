@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "id": "EX-01",
+    "action": "dba:check-health",
+    "description": "DB connectivity check — sqlcmd may not be available on server (Azure SQL Edge PATH issue), expects degraded or ok",
+    "expected_outcome": "ok=true (ok or degraded), status in ['ok','degraded','error'], contractId=action-result"
+  },
+  "input": {
+    "Action": "dba:check-health"
+  },
+  "expected": {
+    "ok": true,
+    "status_not_null": true,
+    "dependency": "database",
+    "contractId": "action-result"
+  }
+}

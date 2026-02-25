@@ -1,0 +1,19 @@
+{
+  "_meta": {
+    "id": "EX-02",
+    "action": "db-guardrails:check",
+    "description": "Guardrails check on db/ SQL files via LLM+RAG — expects structured violations array",
+    "expected_outcome": "ok=true, violations_found >= 0, confidence >= 0.50, contractId=action-result"
+  },
+  "input": {
+    "Action": "db-guardrails:check",
+    "Scope": "all",
+    "DryRun": true
+  },
+  "expected": {
+    "ok": true,
+    "violations_is_array": true,
+    "confidence_min": 0.50,
+    "contractId": "action-result"
+  }
+}

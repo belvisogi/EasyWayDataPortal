@@ -1,0 +1,19 @@
+{
+  "_meta": {
+    "id": "EX-03",
+    "action": "backlog:health",
+    "description": "Backlog health analysis — LLM+RAG, structured output with health_score and issues",
+    "expected_outcome": "ok=true, health_score between 0.0 and 1.0, issues array present, confidence >= 0.70"
+  },
+  "input": {
+    "Action": "backlog:health",
+    "DryRun": true
+  },
+  "expected": {
+    "ok": true,
+    "health_score_range": [0.0, 1.0],
+    "issues_is_array": true,
+    "confidence_min": 0.70,
+    "contractId": "action-result"
+  }
+}

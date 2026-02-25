@@ -1,99 +1,89 @@
 {
-  "role": "Agent_ScrumMaster",
-  "description": "Facilitatione agile conversazionale: backlog/roadmap, governance operativa, DoD/gates, allineamento Epics/Features/Tasks.",
-  "allowed_paths": {
-    "read": [
-      "scripts/ado/**",
-      "azure-pipelines.yml",
-      "agents/kb/**",
-      "Wiki/EasyWayData.wiki/**"
-    ],
-    "write": [
-      "agents/agent_scrummaster/memory/",
-      "agents/logs/"
-    ]
-  },
-  "allowed_tools": [
-    "pwsh",
-    "az",
-    "curl"
-  ],
-  "required_gates": [
-    "KB_Consistency"
-  ],
-  "approvals": {
-    "boards": [
-      "Human_ProductOwner_Approval"
-    ],
-    "prod": [
-      "Human_Governance_Approval"
-    ]
-  },
-  "knowledge_sources": [
-    {
-      "priority": "medium",
-      "type": "data",
-      "path": "agents/kb/recipes.jsonl"
-    },
-    {
-      "priority": "medium",
-      "type": "document",
-      "path": "Wiki/EasyWayData.wiki/agents-governance.md"
-    },
-    {
-      "priority": "medium",
-      "type": "document",
-      "path": "Wiki/EasyWayData.wiki/todo-checklist.md"
-    },
-    {
-      "priority": "medium",
-      "type": "document",
-      "path": "Wiki/EasyWayData.wiki/agents-scrummaster.md"
-    },
-    {
-      "priority": "medium",
-      "type": "document",
-      "path": "scripts/ado/README.md"
-    },
-    {
-      "priority": "medium",
-      "type": "document",
-      "path": "Wiki/EasyWayData.wiki/agent-priority-and-checklists.md"
-    }
-  ],
-  "name": "agent_scrummaster",
-  "level": "L2",
-  "readme": "README.md",
-  "classification": "brain",
   "id": "agent_scrummaster",
+  "name": "Agent ScrumMaster (Agile Facilitator)",
+  "classification": "brain",
+  "version": "3.0.0",
+  "role": "scrum-facilitator",
   "owner": "team-platform",
-  "version": "1.0.0",
-  "evolution_level": 1,
-  "context_config": {
-    "memory_files": [
-      "agents/kb/recipes.jsonl"
-    ],
-    "context_limit_tokens": 128000,
-    "enable_memory": true
-  },
-  "skills_required": [],
+  "evolution_level": 3,
+  "description": "Agile facilitator L3: sprint reporting e backlog health analysis con Evaluator-Optimizer. Genera output JSON strutturato con confidence e requires_human_review.",
   "llm_config": {
-    "provider": "openai",
-    "model": "gpt-4o",
-    "temperature": 0.0,
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "api_base": "https://api.deepseek.com",
+    "temperature": 0.1,
+    "max_tokens": 1500,
     "system_prompt": "agents/agent_scrummaster/PROMPTS.md",
-    "tools": [
-      "function_calling"
-    ]
+    "cost_estimate": {
+      "per_call": "$0.001",
+      "monthly": "$0.10"
+    }
   },
+  "evaluator_config": {
+    "enabled": true,
+    "max_iterations": 2,
+    "confidence_threshold": 0.80,
+    "criteria": {
+      "sprint:report": [
+        "AC-01: output JSON must contain 'action' equal to 'sprint:report'",
+        "AC-02: output JSON must contain 'sprint_status' object with all 5 fields",
+        "AC-03: output JSON must contain 'blockers' as an array",
+        "AC-04: output JSON must contain 'next_actions' as non-empty array with >= 2 items",
+        "AC-05: output JSON must contain 'confidence' between 0.0 and 1.0"
+      ],
+      "backlog:health": [
+        "AC-01: output JSON must contain 'action' equal to 'backlog:health'",
+        "AC-02: output JSON must contain 'issues' as an array",
+        "AC-03: output JSON must contain 'health_score' between 0.0 and 1.0",
+        "AC-04: output JSON must contain 'confidence' between 0.0 and 1.0"
+      ]
+    }
+  },
+  "working_memory": {
+    "enabled": true,
+    "session_skill": "session.manage-agent-session",
+    "schema": "agents/core/schemas/session.schema.json"
+  },
+  "rag_config": {
+    "enabled": true,
+    "collection": "easyway_wiki",
+    "top_k": 5,
+    "min_score": 0.35,
+    "context_domains": ["agents", "governance", "sprint", "backlog", "scrum"]
+  },
+  "actions": {
+    "sprint:report": {
+      "description": "Genera report sprint strutturato via LLM+RAG+Evaluator. Verifica traceabilita' next_actions rispetto al git context.",
+      "runner": "agents/agent_scrummaster/Invoke-AgentScrummaster.ps1",
+      "args": { "Action": "sprint:report" }
+    },
+    "backlog:health": {
+      "description": "Analizza qualita' backlog: AC mancanti, items stale, mancanza traceabilita' Epic/Feature.",
+      "runner": "agents/agent_scrummaster/Invoke-AgentScrummaster.ps1",
+      "args": { "Action": "backlog:health" }
+    }
+  },
+  "allowed_paths": {
+    "read": ["agents/kb/recipes.jsonl", "Wiki/EasyWayData.wiki/**", "docs/"],
+    "write": ["agents/agent_scrummaster/memory/", "agents/logs/"]
+  },
+  "allowed_tools": ["pwsh", "git"],
+  "skills_required": ["utilities.import-secrets", "session.manage-agent-session"],
+  "skills_optional": ["retrieval.llm-with-rag", "retrieval.rag-search"],
   "error_handling": {
+    "retry_count": 2,
+    "retry_delay_seconds": 10,
     "fallback_mode": "log_and_skip",
-    "alert_on_failure": false,
-    "retry_delay_seconds": 15,
-    "retry_count": 2
+    "alert_on_failure": false
   },
-  "skills_optional": [
-    "utilities.json-validate",
-    "utilities.retry-backoff"
+  "approvals": {
+    "sprint:report": "none",
+    "backlog:health": "none"
+  },
+  "required_gates": ["KB_Consistency"],
+  "knowledge_sources": [
+    { "priority": "medium", "type": "document", "path": "Wiki/EasyWayData.wiki/agents-governance.md" },
+    { "priority": "medium", "type": "document", "path": "Wiki/EasyWayData.wiki/agents-scrummaster.md" },
+    { "priority": "medium", "type": "data",     "path": "agents/kb/recipes.jsonl" }
   ]
 }
