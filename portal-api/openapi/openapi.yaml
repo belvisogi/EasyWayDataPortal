@@ -1,10 +1,10 @@
 openapi: 3.0.3
 info:
   title: EasyWay Data Portal API
-  version: 0.2.0
+  version: 0.3.0
   description: |
     API per EasyWay Data Portal.
-    Include convenzioni errori, security headers e endpoint: health, users, onboarding, notifications.
+    Include convenzioni errori, security headers e endpoint: health, users, onboarding, notifications, appointments, quotes.
 servers:
   - url: http://localhost:3000
     description: Local dev
@@ -14,11 +14,14 @@ tags:
   - name: onboarding
   - name: notifications
   - name: db
+  - name: appointments
+  - name: quotes
 security:
   - BearerAuth: []
 paths:
   /api/health:
     get:
+      operationId: health-check
       tags: [health]
       summary: Health check
       responses:
@@ -38,6 +41,7 @@ paths:
                     type: string
   /api/users:
     get:
+      operationId: list-users
       tags: [users]
       summary: Lista utenti
       responses:
@@ -52,6 +56,7 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
     post:
+      operationId: create-user
       tags: [users]
       summary: Crea utente
       requestBody:
@@ -73,6 +78,7 @@ paths:
           $ref: '#/components/responses/ServerError'
   /api/users/{user_id}:
     put:
+      operationId: update-user
       tags: [users]
       summary: Aggiorna utente
       parameters:
@@ -98,6 +104,7 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
     delete:
+      operationId: delete-user
       tags: [users]
       summary: Disattiva utente
       parameters:
@@ -112,6 +119,7 @@ paths:
           $ref: '#/components/responses/ServerError'
   /api/onboarding:
     post:
+      operationId: start-onboarding
       tags: [onboarding]
       summary: Avvia onboarding per un tenant/utente
       requestBody:
@@ -133,6 +141,7 @@ paths:
           $ref: '#/components/responses/ServerError'
   /api/notifications/send:
     post:
+      operationId: send-notification
       tags: [notifications]
       summary: Invia una notifica a utenti del tenant
       requestBody:
@@ -150,6 +159,7 @@ paths:
           $ref: '#/components/responses/ServerError'
   /api/db/diagram:
     get:
+      operationId: get-db-diagram
       tags: [db]
       summary: Diagramma DB (PORTAL) per viewer interno
       parameters:
@@ -172,6 +182,168 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /api/appointments:
+    get:
+      operationId: list-appointments
+      tags: [appointments]
+      summary: Lista appuntamenti del tenant
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [PENDING, CONFIRMED, CANCELLED]
+        - name: date_from
+          in: query
+          required: false
+          schema: { type: string, format: date }
+        - name: date_to
+          in: query
+          required: false
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Elenco appuntamenti
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      operationId: create-appointment
+      tags: [appointments]
+      summary: Crea un nuovo appuntamento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentCreate'
+      responses:
+        '201':
+          description: Appuntamento creato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/appointments/{appointment_id}:
+    patch:
+      operationId: update-appointment
+      tags: [appointments]
+      summary: Aggiorna stato o dettagli di un appuntamento
+      parameters:
+        - name: appointment_id
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentUpdate'
+      responses:
+        '200':
+          description: Appuntamento aggiornato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Appuntamento non trovato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/quotes:
+    get:
+      operationId: list-quotes
+      tags: [quotes]
+      summary: Lista preventivi del tenant
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [DRAFT, SENT, ACCEPTED, REJECTED]
+      responses:
+        '200':
+          description: Elenco preventivi
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Quote'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      operationId: create-quote
+      tags: [quotes]
+      summary: Crea un nuovo preventivo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteCreate'
+      responses:
+        '201':
+          description: Preventivo creato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/quotes/{quote_id}:
+    patch:
+      operationId: update-quote
+      tags: [quotes]
+      summary: Aggiorna stato o contenuto di un preventivo
+      parameters:
+        - name: quote_id
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteUpdate'
+      responses:
+        '200':
+          description: Preventivo aggiornato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Preventivo non trovato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/ServerError'
 components:
   schemas:
     Error:
@@ -260,6 +432,87 @@ components:
         channel: { type: string }
         message: { type: string }
         ext_attributes: { type: object, additionalProperties: true }
+    Appointment:
+      type: object
+      properties:
+        appointment_id: { type: string }
+        tenant_id: { type: string }
+        customer_name: { type: string }
+        customer_email: { type: string, format: email }
+        scheduled_at: { type: string, format: date-time }
+        status:
+          type: string
+          enum: [PENDING, CONFIRMED, CANCELLED]
+        notes: { type: string }
+        created_at: { type: string, format: date-time }
+    AppointmentCreate:
+      type: object
+      required: [customer_name, customer_email, scheduled_at]
+      properties:
+        customer_name: { type: string }
+        customer_email: { type: string, format: email }
+        scheduled_at: { type: string, format: date-time }
+        notes: { type: string }
+    AppointmentUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [PENDING, CONFIRMED, CANCELLED]
+        scheduled_at: { type: string, format: date-time }
+        notes: { type: string }
+    Quote:
+      type: object
+      properties:
+        quote_id: { type: string }
+        tenant_id: { type: string }
+        customer_name: { type: string }
+        customer_email: { type: string, format: email }
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              description: { type: string }
+              unit_price: { type: number, format: float }
+              quantity: { type: integer }
+        total_amount: { type: number, format: float }
+        status:
+          type: string
+          enum: [DRAFT, SENT, ACCEPTED, REJECTED]
+        valid_until: { type: string, format: date }
+        created_at: { type: string, format: date-time }
+    QuoteCreate:
+      type: object
+      required: [customer_name, customer_email, items]
+      properties:
+        customer_name: { type: string }
+        customer_email: { type: string, format: email }
+        items:
+          type: array
+          items:
+            type: object
+            required: [description, unit_price, quantity]
+            properties:
+              description: { type: string }
+              unit_price: { type: number, format: float }
+              quantity: { type: integer }
+        valid_until: { type: string, format: date }
+    QuoteUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [DRAFT, SENT, ACCEPTED, REJECTED]
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              description: { type: string }
+              unit_price: { type: number, format: float }
+              quantity: { type: integer }
+        valid_until: { type: string, format: date }
   responses:
     BadRequest:
       description: Richiesta non valida

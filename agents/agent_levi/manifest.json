@@ -3,6 +3,7 @@
   "name": "Agent Levi (The Sovereign Cleaner)",
   "classification": "arm",
   "version": "3.0.0",
+  "readme": "README.md",
   "role": "doc-maintainer",
   "owner": "team-platform",
   "evolution_level": 3,
