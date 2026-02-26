@@ -130,6 +130,19 @@ export interface AgentsRepo {
   list(): Promise<AgentRecord[]>;
 }
 
+export interface AgentRun {
+  runId: string;
+  agentId: string;
+  action: string;
+  status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED';
+  startedAt: string;
+  completedAt?: string;
+  durationMs?: number;
+  output?: string;
+  exitCode?: number;
+  triggeredBy: 'manual' | 'cron';
+}
+
 export interface AgentChatRepo {
   logMessage(tenantId: string, input: {
     actor: string;

@@ -8,7 +8,14 @@ export type ErrorCode =
   | "not_found"
   | "rate_limit"
   | "cors_denied"
-  | "internal_error";
+  | "internal_error"
+  | "invalid_agent_id"
+  | "no_action"
+  | "knowledge_query_required"
+  | "knowledge_query_too_long"
+  | "knowledge_parse_error"
+  | "knowledge_timeout"
+  | "knowledge_error";
 
 export class AppError extends Error {
   status: number;

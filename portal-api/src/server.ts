@@ -17,6 +17,16 @@ import { initSecrets } from "./utils/secrets";
     app.listen(PORT, () => {
       // eslint-disable-next-line no-console
       console.log(`EasyWay API running on port ${PORT}`);
+
+      // 4. Start autonomous cron scheduler (only in production)
+      if ((process.env.CRON_ENABLED || "false").toLowerCase() === "true") {
+        import("./cron/scheduler").then(({ startScheduler }) => {
+          startScheduler();
+        }).catch(err => {
+          // eslint-disable-next-line no-console
+          console.error("Failed to start scheduler:", err);
+        });
+      }
     });
   } catch (err) {
     // eslint-disable-next-line no-console

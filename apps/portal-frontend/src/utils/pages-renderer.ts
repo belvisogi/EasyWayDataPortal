@@ -589,6 +589,16 @@ function renderDataList(section: import('../types/runtime-pages').DataListSectio
                 th.style.fontWeight = '600';
                 headerRow.appendChild(th);
             }
+            if (section.rowActions && section.rowActions.length > 0) {
+                const thAct = document.createElement('th');
+                thAct.textContent = getContentValue('backoffice.table.col_actions') || 'Azioni';
+                thAct.style.textAlign = 'center';
+                thAct.style.padding = '0.5rem 1rem';
+                thAct.style.borderBottom = '1px solid rgba(255,255,255,0.15)';
+                thAct.style.color = 'var(--accent-neural-cyan, #00d4ff)';
+                thAct.style.fontWeight = '600';
+                headerRow.appendChild(thAct);
+            }
             thead.appendChild(headerRow);
             table.appendChild(thead);
 
@@ -601,6 +611,13 @@ function renderDataList(section: import('../types/runtime-pages').DataListSectio
                 tableWrapper.appendChild(emptyMsg);
                 return;
             }
+
+            const STATUS_BADGE_MAP: Record<string, string> = {
+                CONFIRMED: 'badge--confirmed', PENDING: 'badge--pending', CANCELLED: 'badge--cancelled',
+                ONLINE: 'badge--confirmed', ACTIVE: 'badge--confirmed', SUCCESS: 'badge--confirmed',
+                IDLE: 'badge--pending', RUNNING: 'badge--pending',
+                FAILED: 'badge--cancelled', OFFLINE: 'badge--cancelled',
+            };
 
             const tbody = document.createElement('tbody');
             for (const row of rows) {
@@ -620,7 +637,7 @@ function renderDataList(section: import('../types/runtime-pages').DataListSectio
                         value = Number(raw).toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
                     }
                     if (col.key === 'status') {
-                        const statusClass = { CONFIRMED: 'badge--confirmed', PENDING: 'badge--pending', CANCELLED: 'badge--cancelled' }[value.toUpperCase()] ?? '';
+                        const statusClass = STATUS_BADGE_MAP[value.toUpperCase()] ?? '';
                         const badge = el('span', `badge ${statusClass}`.trim());
                         badge.textContent = value;
                         badge.style.fontSize = '0.75rem';
@@ -629,6 +646,42 @@ function renderDataList(section: import('../types/runtime-pages').DataListSectio
                         td.textContent = value;
                     }
                     tr.appendChild(td);
+                }
+                // Per-row action buttons
+                if (section.rowActions && section.rowActions.length > 0) {
+                    const tdAct = document.createElement('td');
+                    tdAct.style.padding = '0.4rem 1rem';
+                    tdAct.style.textAlign = 'center';
+                    tdAct.style.verticalAlign = 'middle';
+                    for (const act of section.rowActions) {
+                        if (act.type === 'run') {
+                            const idField = act.idField || 'agent_id';
+                            const agentId = row[idField] as string;
+                            const btn = document.createElement('button');
+                            btn.textContent = getContentValue(act.labelKey) || '▶';
+                            btn.style.cssText = 'padding:0.3rem 0.8rem;border-radius:4px;border:1px solid rgba(0,212,255,0.4);background:rgba(0,212,255,0.08);color:#00d4ff;cursor:pointer;font-size:0.75rem;transition:background 0.15s;';
+                            btn.addEventListener('mouseenter', () => { btn.style.background = 'rgba(0,212,255,0.18)'; });
+                            btn.addEventListener('mouseleave', () => { btn.style.background = 'rgba(0,212,255,0.08)'; });
+                            btn.addEventListener('click', () => {
+                                btn.disabled = true;
+                                btn.textContent = '…';
+                                fetch(`/api/agents/${encodeURIComponent(agentId)}/run`, { method: 'POST', headers: { 'Content-Type': 'application/json' } })
+                                    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+                                    .then(() => {
+                                        btn.textContent = getContentValue('backoffice.agents.run_ok') || '✓';
+                                        btn.style.color = '#4caf50';
+                                        setTimeout(() => { btn.textContent = getContentValue(act.labelKey) || '▶'; btn.style.color = '#00d4ff'; btn.disabled = false; }, 3000);
+                                    })
+                                    .catch(() => {
+                                        btn.textContent = getContentValue('backoffice.agents.run_fail') || '✗';
+                                        btn.style.color = '#ff6b6b';
+                                        setTimeout(() => { btn.textContent = getContentValue(act.labelKey) || '▶'; btn.style.color = '#00d4ff'; btn.disabled = false; }, 3000);
+                                    });
+                            });
+                            tdAct.appendChild(btn);
+                        }
+                    }
+                    tr.appendChild(tdAct);
                 }
                 tbody.appendChild(tr);
             }

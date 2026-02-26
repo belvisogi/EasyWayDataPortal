@@ -25,6 +25,8 @@ import storageRoutes from "./routes/storage";
 import appointmentsRoutes from "./routes/appointments";
 import quotesRoutes from "./routes/quotes";
 import agentsRoutes from "./routes/agents";
+import agentRunsRoutes from "./routes/agentRuns";
+import knowledgeRoutes from "./routes/knowledge";
 
 
 // Carica variabili di ambiente (.env) e fallback opzionale .env.local
@@ -112,12 +114,13 @@ app.use("/api/onboarding", onboardingRoutes);
 app.use("/api/notifications", notificationsRoutes);
 app.use("/api/docs", docsRoutes);
 app.use("/api/db", dbRoutes);
-app.use("/api/agents", agentsRoutes);  // before agentChatRouter (which catches /api/*)
-app.use("/api", agentChatRouter);  // Agent Chat API
+app.use("/api/agents", agentRunsRoutes); // POST /:id/run, GET /:id/runs — before agentChatRouter
+app.use("/api/agents", agentsRoutes);   // GET /  — before agentChatRouter
+app.use("/api", agentChatRouter);       // Agent Chat API (catch-all for /api/agents/*)
 app.use("/api/storage", storageRoutes);
 app.use("/api/appointments", appointmentsRoutes);
 app.use("/api/quotes", quotesRoutes);
-app.use("/api/agents", agentsRoutes);
+app.use("/api/knowledge", knowledgeRoutes); // RAG public API (X-EasyWay-Key auth)
 
 app.use(notFoundHandler);
 app.use(errorHandler);
