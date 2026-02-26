@@ -124,11 +124,18 @@ export type DataListColumnSpec = {
     format?: 'datetime' | 'date' | 'currency';
 };
 
+export type RowActionSpec = {
+    type: 'run';
+    labelKey: string;
+    idField?: string; // row field to use as :id in the API call (default: 'agent_id')
+};
+
 export type DataListSection = {
     type: 'data-list';
     titleKey?: string;
     dataUrl: string;
     columns: DataListColumnSpec[];
+    rowActions?: RowActionSpec[];
 };
 
 export type ActionFormFieldSpec = {

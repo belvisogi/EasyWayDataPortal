@@ -378,7 +378,8 @@
     },
     "backoffice": {
         "table": {
-            "empty": "Nessun dato disponibile."
+            "empty": "Nessun dato disponibile.",
+            "col_actions": "Azioni"
         },
         "appointments": {
             "hero": {
@@ -505,6 +506,9 @@
                 "col_status": "Stato",
                 "col_last_run": "Ultimo Run"
             },
+            "btn_run": "▶ Esegui",
+            "run_ok": "Avviato ✓",
+            "run_fail": "Errore ✗",
             "cta": {
                 "title": "Sovereign Agent Fleet",
                 "body": "22 agenti L1, 7 L2 e 6 L3 coordinati dalla piattaforma EasyWay. Zero cloud dependency.",

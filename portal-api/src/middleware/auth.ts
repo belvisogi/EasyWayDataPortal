@@ -12,6 +12,15 @@ function getTenantFromClaims(payload: JWTPayload): string | undefined {
 }
 
 export async function authenticateJwt(req: Request, res: Response, next: NextFunction) {
+  // Machine-to-machine API key auth (X-EasyWay-Key header)
+  const apiKey = req.headers["x-easyway-key"];
+  const configuredKey = process.env.EASYWAY_API_KEY;
+  if (apiKey && configuredKey && apiKey === configuredKey) {
+    (req as any).user = { sub: "machine", ew_tenant_id: "system" };
+    (req as any).tenantId = "system";
+    return next();
+  }
+
   // In mock/dev mode skip JWT validation entirely
   if (process.env.DB_MODE === "mock" || process.env.NODE_ENV === "development") {
     (req as any).user = { sub: "dev-user", ew_tenant_id: process.env.DEFAULT_TENANT_ID || "demo" };
