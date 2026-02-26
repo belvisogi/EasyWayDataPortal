@@ -57,7 +57,8 @@
         { "key": "last_run",  "labelKey": "backoffice.agents.table.col_last_run", "format": "datetime" }
       ],
       "rowActions": [
-        { "type": "run", "labelKey": "backoffice.agents.btn_run", "idField": "agent_id" }
+        { "type": "run",  "labelKey": "backoffice.agents.btn_run",  "idField": "agent_id" },
+        { "type": "link", "labelKey": "backoffice.agents.btn_runs", "href": "/backoffice/agent-runs" }
       ]
     },
     {

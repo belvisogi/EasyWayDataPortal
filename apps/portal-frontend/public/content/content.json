@@ -507,6 +507,7 @@
                 "col_last_run": "Ultimo Run"
             },
             "btn_run": "▶ Esegui",
+            "btn_runs": "Cronologia",
             "run_ok": "Avviato ✓",
             "run_fail": "Errore ✗",
             "cta": {
@@ -514,6 +515,22 @@
                 "body": "22 agenti L1, 7 L2 e 6 L3 coordinati dalla piattaforma EasyWay. Zero cloud dependency.",
                 "primary": "Vai alla Console",
                 "secondary": "Appuntamenti"
+            }
+        },
+        "runs": {
+            "hero": {
+                "title": "Cronologia Run",
+                "tagline": "Ultime esecuzioni degli agenti: stato, durata e azione eseguita.",
+                "back": "← Agenti"
+            },
+            "table": {
+                "title": "Run recenti",
+                "col_id": "Run ID",
+                "col_agent": "Agente",
+                "col_action": "Azione",
+                "col_status": "Stato",
+                "col_started": "Avviato",
+                "col_duration": "Durata (ms)"
             }
         }
     }

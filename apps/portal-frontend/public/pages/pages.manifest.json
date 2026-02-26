@@ -99,6 +99,12 @@
       "route": "/backoffice/agents",
       "titleKey": "backoffice.agents.hero.title",
       "spec": "/pages/backoffice-agents.json"
+    },
+    {
+      "id": "backoffice-agent-runs",
+      "route": "/backoffice/agent-runs",
+      "titleKey": "backoffice.runs.hero.title",
+      "spec": "/pages/backoffice-agent-runs.json"
     }
   ]
 }

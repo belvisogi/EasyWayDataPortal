@@ -1,0 +1,32 @@
+{
+  "version": "1",
+  "id": "backoffice-agent-runs",
+  "activeNav": "backoffice-agents",
+  "sections": [
+    {
+      "type": "hero",
+      "titleKey": "backoffice.runs.hero.title",
+      "taglineKey": "backoffice.runs.hero.tagline",
+      "cta": {
+        "labelKey": "backoffice.runs.hero.back",
+        "action": {
+          "type": "link",
+          "href": "/backoffice/agents"
+        }
+      }
+    },
+    {
+      "type": "data-list",
+      "titleKey": "backoffice.runs.table.title",
+      "dataUrl": "/api/runs",
+      "columns": [
+        { "key": "runId",      "labelKey": "backoffice.runs.table.col_id" },
+        { "key": "agentId",    "labelKey": "backoffice.runs.table.col_agent" },
+        { "key": "action",     "labelKey": "backoffice.runs.table.col_action" },
+        { "key": "status",     "labelKey": "backoffice.runs.table.col_status" },
+        { "key": "startedAt",  "labelKey": "backoffice.runs.table.col_started", "format": "datetime" },
+        { "key": "durationMs", "labelKey": "backoffice.runs.table.col_duration" }
+      ]
+    }
+  ]
+}

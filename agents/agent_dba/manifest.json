@@ -2,18 +2,36 @@
   "id": "agent_dba",
   "name": "agent_dba",
   "role": "Agent_DBA",
-  "description": "Gestione migrazioni DB, drift check, documentazione ERD/SP, RLS rollout. Level 2 agent con DeepSeek LLM per schema analysis e migration planning.",
+  "description": "Database Guardian L3: gestione migrazioni DB, drift check, guardrails check via LLM+RAG+Evaluator-Optimizer. Output JSON strutturato con confidence e requires_human_review.",
   "owner": "team-platform",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "classification": "brain",
-  "evolution_level": 2,
+  "evolution_level": 3,
   "readme": "README.md",
+  "evaluator_config": {
+    "enabled": true,
+    "max_iterations": 2,
+    "confidence_threshold": 0.80,
+    "criteria": {
+      "db-guardrails:check": [
+        "AC-01: output JSON must contain 'action' equal to 'db-guardrails:check'",
+        "AC-02: output JSON must contain 'violations' as an array (can be empty)",
+        "AC-03: output JSON must contain 'summary' as a non-empty string",
+        "AC-04: output JSON must contain 'confidence' between 0.0 and 1.0"
+      ]
+    }
+  },
+  "working_memory": {
+    "enabled": true,
+    "session_skill": "session.manage-agent-session",
+    "schema": "agents/core/schemas/session.schema.json"
+  },
   "llm_config": {
     "provider": "deepseek",
     "model": "deepseek-chat",
     "api_base": "https://api.deepseek.com",
     "temperature": 0.1,
-    "max_tokens": 1000,
+    "max_tokens": 1500,
     "system_prompt": "agents/agent_dba/PROMPTS.md",
     "tools": [
       "function_calling"

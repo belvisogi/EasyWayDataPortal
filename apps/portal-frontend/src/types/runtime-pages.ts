@@ -124,11 +124,9 @@ export type DataListColumnSpec = {
     format?: 'datetime' | 'date' | 'currency';
 };
 
-export type RowActionSpec = {
-    type: 'run';
-    labelKey: string;
-    idField?: string; // row field to use as :id in the API call (default: 'agent_id')
-};
+export type RowActionSpec =
+    | { type: 'run'; labelKey: string; idField?: string; } // trigger agent run (POST /api/agents/:id/run)
+    | { type: 'link'; labelKey: string; href: string; };   // static navigation link
 
 export type DataListSection = {
     type: 'data-list';

@@ -33,3 +33,14 @@ export async function getAgentRuns(req: Request, res: Response, next: NextFuncti
     next(err);
   }
 }
+
+/** GET /api/runs — recent runs across all agents (flat array for data-list UI) */
+export async function getAllRuns(req: Request, res: Response, next: NextFunction) {
+  try {
+    const limit = Math.min(parseInt((req.query.limit as string) || "20", 10), 100);
+    const runs = listRuns(undefined, limit);
+    res.json(runs);
+  } catch (err: any) {
+    next(err);
+  }
+}
