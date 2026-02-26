@@ -1,10 +1,11 @@
 openapi: 3.0.3
 info:
   title: EasyWay Data Portal API
-  version: 0.4.0
+  version: 0.5.0
   description: |
     API per EasyWay Data Portal.
-    Include convenzioni errori, security headers e endpoint: health, users, onboarding, notifications, appointments, quotes, agents, knowledge.
+    Include convenzioni errori, security headers e endpoint: health, users, onboarding, notifications, appointments, quotes, agents, runs, knowledge.
+    I link OpenAPI 3.0 documentano i contratti di navigazione tra endpoint (equivalente API del RowActionSpec type:link nel frontend).
 servers:
   - url: http://localhost:3000
     description: Local dev
@@ -20,6 +21,8 @@ tags:
   - name: quotes
   - name: agents
     description: Agent fleet management and run execution
+  - name: runs
+    description: Cronologia run cross-agent (flat list per UI data-list)
   - name: knowledge
     description: RAG full-text knowledge search (Qdrant)
 security:
@@ -317,6 +320,42 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '500':
           $ref: '#/components/responses/ServerError'
+  /api/runs:
+    get:
+      operationId: list-runs
+      tags: [runs]
+      summary: Lista run recenti di tutti gli agenti (flat, per UI data-list)
+      description: |
+        Restituisce le run più recenti dell'intera fleet, indipendentemente dall'agente.
+        Usato dalla pagina backoffice `/backoffice/agent-runs` (data-list section, dataUrl: /api/runs).
+        Per la cronologia di un singolo agente usare `list-agent-runs`.
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          description: Numero massimo di run da restituire (ordine newest-first)
+      responses:
+        '200':
+          description: Elenco run recenti
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AgentRun'
+          links:
+            AgentRunHistory:
+              operationId: list-agent-runs
+              description: Naviga alla cronologia completa dell'agente che ha eseguito la run
+              parameters:
+                agent_id: '$response.body#/0/agentId'
+        '500':
+          $ref: '#/components/responses/ServerError'
   /api/agents:
     get:
       operationId: list-agents
@@ -360,6 +399,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentRunAccepted'
+          links:
+            AgentRunHistory:
+              operationId: list-agent-runs
+              description: Naviga alla cronologia dell'agente appena eseguito
+              parameters:
+                agent_id: '$request.path.agent_id'
+            AllRuns:
+              operationId: list-runs
+              description: Naviga alla lista runs cross-agent (UI data-list)
         '400':
           $ref: '#/components/responses/BadRequest'
         '422':
