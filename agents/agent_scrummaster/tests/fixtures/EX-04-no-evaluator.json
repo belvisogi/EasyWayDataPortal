@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "id": "EX-04",
+    "action": "sprint:report",
+    "description": "Single-shot mode via -NoEvaluator: no Evaluator-Optimizer overhead. Verifica che meta.evaluator_enabled=false e output JSON valido",
+    "expected_outcome": "ok=true, meta.evaluator_enabled=false, sprint_status present, confidence present",
+    "tags": ["no-evaluator", "sprint:report", "single-shot"],
+    "prd_ref": "agents/agent_scrummaster/README.md#L3-flags"
+  },
+  "input": {
+    "Action": "sprint:report",
+    "SprintName": "Sprint 29 - NoEvaluator Test",
+    "NoEvaluator": true,
+    "DryRun": true
+  },
+  "expected": {
+    "ok": true,
+    "evaluator_enabled": false,
+    "sprint_status_present": true,
+    "confidence_range": [0.0, 1.0],
+    "contractId": "action-result"
+  },
+  "run_command": "pwsh agents/agent_scrummaster/Invoke-AgentScrummaster.ps1 -Action sprint:report -SprintName 'Sprint 29 - NoEvaluator Test' -NoEvaluator -DryRun",
+  "notes": "Verifica path -NoEvaluator: output deve avere meta.evaluator_enabled=false. Costo atteso: singola chiamata LLM (< $0.002). Non verifica confidence minima perche' l'Evaluator non itera."
+}
