@@ -1,7 +1,7 @@
 ---
 title: "Platform Operational Memory — EasyWay"
 created: 2026-02-18
-updated: 2026-02-25T00:00:00Z
+updated: 2026-02-26T08:00:00Z
 status: active
 category: reference
 domain: platform
@@ -82,7 +82,7 @@ File `AGENTS.md` dentro `Wiki/**/archive/**` o `Wiki/**/indices/**` sono storici
 | Server OS | Ubuntu on OCI |
 | IP pubblico | `80.225.86.168` |
 | SSH key | `C:\old\Virtual-machine\ssh-key-2026-01-25.key` |
-| SSH comando | `ssh -i "C:\old\Virtual-machine\ssh-key-2026-01-25.key" ubuntu@80.225.86.168` |
+| SSH comando (bash) | `"/c/Windows/System32/OpenSSH/ssh.exe" -i "/c/old/Virtual-machine/ssh-key-2026-01-25.key" ubuntu@80.225.86.168` |
 | Interfaccia esterna | `enp0s6` |
 | Rete NTT Data | Blocca siti AI/ML — usare hotspot o proxy server |
 
@@ -101,6 +101,50 @@ Porte bloccate esternamente (via `enp0s6`):
 Porte pubbliche: **80, 443** (Caddy reverse proxy), **22** (SSH).
 
 Regole persistite in `/etc/iptables/rules.v4`.
+
+### Docker Networks (CRITICO)
+| Rete | Stack | Servizi |
+|------|-------|---------|
+| `easyway-net` | `docker-compose.apps.yml` | API, Frontend, Caddy |
+| `easywaydataportal_easyway-net` | `docker-compose.yml` (root) | Qdrant, DB, Gitea |
+
+**L'API container deve essere su ENTRAMBE le reti** per raggiungere Qdrant:
+```yaml
+# docker-compose.apps.yml (server-local, NON committato)
+networks:
+  easyway-net:
+    external: true
+  qdrant-net:
+    external: true
+    name: easywaydataportal_easyway-net
+services:
+  api:
+    networks: [easyway-net, qdrant-net]
+```
+Se manca `qdrant-net`: `ECONNREFUSED` su `/api/knowledge`. Fix: `docker network connect easywaydataportal_easyway-net easyway-api`.
+
+### docker-compose.apps.yml — Configurazione server-local (NON committata)
+Questo file sul server contiene extra rispetto al repo:
+```yaml
+environment:
+  - AGENTS_PATH=/app/agents
+  - CRON_ENABLED=true
+  - EASYWAY_API_KEY=<from .env.secrets>
+volumes:
+  - ./agents:/app/agents:ro
+networks: [easyway-net, qdrant-net]
+```
+**MAI sovrascrivere con `git checkout` o `git restore`** — ricreare manualmente se perso.
+
+### API Container — Vincoli critici
+| Fatto | Dettaglio |
+|-------|-----------|
+| Base image | `node:20-alpine` — **NO python3**, NO pip, NO ML libs |
+| Porta interna | **3000** (non 4000); Caddy fa proxy su 80/443 |
+| User | `node` (uid=1000) — `/app/data` deve avere `chown 1000:1000` |
+| `DB_MODE=mock` | Sempre attivo (no SQL Server live) → agent run sempre mock 500ms |
+| Knowledge search | Solo `fetch()` su Qdrant REST — MAI `execFile('python3',...)` |
+| Qdrant text index | Già creato sul server (una-tantum): `PUT /collections/easyway_wiki/index {"field_name":"content","field_schema":"text"}` — non ricreare |
 
 ---
 
@@ -136,8 +180,10 @@ Regole persistite in `/etc/iptables/rules.v4`.
 | Porta | 6333 (bloccata esternamente) |
 | API Key | `wgs6XqCt8qglELghWG6IE4kvzdDgh3Kk` |
 | Collection | `easyway_wiki` |
-| Dimensioni | ~103,156 chunk (post Session 21-C), 384 dim (MiniLM-L6-v2), cosine |
+| Dimensioni | ~130,558 chunk (post Session 28), 384 dim (MiniLM-L6-v2), cosine |
+| Text index | Campo `content` indicizzato (una-tantum, già creato) — richiesto per `GET /api/knowledge` |
 | Ingest script | `scripts/ingest_wiki.js` — usa env var `WIKI_PATH` per targeting parziale |
+| Ingest comando | `source /opt/easyway/.env.secrets && QDRANT_API_KEY=$QDRANT_API_KEY WIKI_PATH=Wiki node scripts/ingest_wiki.js` |
 
 ### Gitea (Git interno)
 | Parametro | Valore |
@@ -158,6 +204,13 @@ Regole persistite in `/etc/iptables/rules.v4`.
 ---
 
 ## 5. Git Workflow Corretto
+
+### Regole Git — NON DEROGABILI
+- **`ewctl commit`** — MAI `git commit` diretto (bypassa Iron Dome pre-commit checks)
+- **Branch protetti**: `main`, `develop`, `baseline` — MAI commit diretto
+- **Merge develop→main**: sempre **Merge (no fast-forward)** — MAI Squash (causa history divergente)
+- **PAT**: `C:\old\.env.local` (Code R/W + PR Contribute); se scaduto → `C:\old\.env.developer`
+- **PR**: MAI approvare/votare/mergare senza ok esplicito dell'utente
 
 ### Flusso PR obbligatorio (NON DEROGABILE)
 
