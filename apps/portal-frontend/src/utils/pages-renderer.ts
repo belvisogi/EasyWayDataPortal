@@ -654,7 +654,15 @@ function renderDataList(section: import('../types/runtime-pages').DataListSectio
                     tdAct.style.textAlign = 'center';
                     tdAct.style.verticalAlign = 'middle';
                     for (const act of section.rowActions) {
-                        if (act.type === 'run') {
+                        if (act.type === 'link') {
+                            const a = document.createElement('a');
+                            a.href = act.href;
+                            a.textContent = getContentValue(act.labelKey) || '→';
+                            a.style.cssText = 'padding:0.3rem 0.8rem;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);cursor:pointer;font-size:0.75rem;text-decoration:none;display:inline-block;transition:background 0.15s;margin-left:0.4rem;';
+                            a.addEventListener('mouseenter', () => { a.style.background = 'rgba(255,255,255,0.10)'; });
+                            a.addEventListener('mouseleave', () => { a.style.background = 'rgba(255,255,255,0.05)'; });
+                            tdAct.appendChild(a);
+                        } else if (act.type === 'run') {
                             const idField = act.idField || 'agent_id';
                             const agentId = row[idField] as string;
                             const btn = document.createElement('button');

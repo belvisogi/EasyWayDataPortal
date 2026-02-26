@@ -79,10 +79,15 @@ export function listRuns(agentId?: string, limit = 10): AgentRun[] {
   return filtered.slice(-limit).reverse();
 }
 
-const isMock = (): boolean =>
-  process.env.DB_MODE === "mock" ||
-  process.env.NODE_ENV === "development" ||
-  process.platform === "win32";
+const isMock = (): boolean => {
+  // AGENT_EXECUTION=real bypasses mock mode (used on server when DB_MODE=mock but pwsh is available)
+  if (process.env.AGENT_EXECUTION === "real") return false;
+  return (
+    process.env.DB_MODE === "mock" ||
+    process.env.NODE_ENV === "development" ||
+    process.platform === "win32"
+  );
+};
 
 /** Start an agent run (async — does not wait for completion) */
 export function runAgent(
