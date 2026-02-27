@@ -840,56 +840,56 @@ stages:
                 }
 
 # Database Prod Migrate with approvals (main only)
-- stage: DBProd
-  displayName: Database (Prod Migrate with approvals)
-  dependsOn: BuildAndTest
-  condition: and(succeeded(), eq(variables['FLYWAY_ENABLED'], 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['GOV_APPROVED'], 'true'))
-  jobs:
-    - deployment: FlywayMigrateMain
-      displayName: 'Flyway Migrate (main, requires environment approval)'
-      environment: 'prod'
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-              - script: |
-                  set -e
-                  FLYWAY_VERSION=$(flyway_version)
-                  curl -L -o /tmp/flyway.tar.gz https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
-                  tar -xzf /tmp/flyway.tar.gz -C /tmp
-                  echo "##vso[task.prependpath]/tmp/flyway-${FLYWAY_VERSION}"
-                displayName: 'Install Flyway CLI'
-              - script: |
-                  cd db/flyway
-                  echo "Flyway URL: $(FLYWAY_URL)"
-                  export FLYWAY_URL="$(FLYWAY_URL)"
-                  export FLYWAY_USER="$(FLYWAY_USER)"
-                  export FLYWAY_PASSWORD="$(FLYWAY_PASSWORD)"
-                  flyway -configFiles=flyway.conf validate
-                  flyway -configFiles=flyway.conf migrate
-                displayName: 'Run Flyway validate + migrate (prod)'
+  - stage: DBProd
+    displayName: Database (Prod Migrate with approvals)
+    dependsOn: BuildAndTest
+    condition: and(succeeded(), eq(variables['FLYWAY_ENABLED'], 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['GOV_APPROVED'], 'true'))
+    jobs:
+      - deployment: FlywayMigrateMain
+        displayName: 'Flyway Migrate (main, requires environment approval)'
+        environment: 'prod'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: |
+                    set -e
+                    FLYWAY_VERSION=$(flyway_version)
+                    curl -L -o /tmp/flyway.tar.gz https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
+                    tar -xzf /tmp/flyway.tar.gz -C /tmp
+                    echo "##vso[task.prependpath]/tmp/flyway-${FLYWAY_VERSION}"
+                  displayName: 'Install Flyway CLI'
+                - script: |
+                    cd db/flyway
+                    echo "Flyway URL: $(FLYWAY_URL)"
+                    export FLYWAY_URL="$(FLYWAY_URL)"
+                    export FLYWAY_USER="$(FLYWAY_USER)"
+                    export FLYWAY_PASSWORD="$(FLYWAY_PASSWORD)"
+                    flyway -configFiles=flyway.conf validate
+                    flyway -configFiles=flyway.conf migrate
+                  displayName: 'Run Flyway validate + migrate (prod)'
 
 # GitHub Mirror (main only) — push automatico dopo ogni merge su main
-- stage: GitHubMirror
-  displayName: 'GitHub Mirror (publish main → github)'
-  dependsOn: BuildAndTest
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-  jobs:
-    - job: MirrorToGitHub
-      displayName: 'Push main → github.com/belvisogi/EasyWayDataPortal'
-      pool:
-        vmImage: 'ubuntu-latest'
-      steps:
-        - checkout: self
-          fetchDepth: 0
-          persistCredentials: false
-        - script: |
-            set -e
-            git config user.email "ew-svc-azuredevops-agent@easyway.local"
-            git config user.name "EasyWay CI"
-            REMOTE="https://$(GITHUB_PAT)@github.com/belvisogi/EasyWayDataPortal.git"
-            git push "$REMOTE" HEAD:main --force-with-lease
-            echo "##[section]GitHub mirror: OK — $(git rev-parse --short HEAD)"
-          displayName: 'git push → GitHub'
-          env:
-            GITHUB_PAT: $(GITHUB_PAT)
+  - stage: GitHubMirror
+    displayName: 'GitHub Mirror (publish main → github)'
+    dependsOn: BuildAndTest
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - job: MirrorToGitHub
+        displayName: 'Push main → github.com/belvisogi/EasyWayDataPortal'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - checkout: self
+            fetchDepth: 0
+            persistCredentials: false
+          - script: |
+              set -e
+              git config user.email "ew-svc-azuredevops-agent@easyway.local"
+              git config user.name "EasyWay CI"
+              REMOTE="https://$(GITHUB_PAT)@github.com/belvisogi/EasyWayDataPortal.git"
+              git push "$REMOTE" HEAD:main --force-with-lease
+              echo "##[section]GitHub mirror: OK — $(git rev-parse --short HEAD)"
+            displayName: 'git push → GitHub'
+            env:
+              GITHUB_PAT: $(GITHUB_PAT)
