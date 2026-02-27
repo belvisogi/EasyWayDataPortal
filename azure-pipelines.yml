@@ -5,7 +5,7 @@ trigger:
       - develop
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: Default
 
 variables:
   - template: ci/versions.yml
@@ -873,7 +873,7 @@ stages:
       - job: MirrorToGitHub
         displayName: 'Push main → github.com/belvisogi/EasyWayDataPortal'
         pool:
-          vmImage: 'ubuntu-latest'
+          name: Default
         steps:
           - checkout: self
             fetchDepth: 0
