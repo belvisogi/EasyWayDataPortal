@@ -811,12 +811,7 @@ stages:
 
       - job: SyncAppSettingsDev
         displayName: 'Sync App Settings from .env.local (Dev Slot)'
-        condition: and(
-          succeeded(),
-          eq(variables['ENABLE_SYNC_APPSETTINGS'], 'true'),
-          or(ne(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['GOV_APPROVED'], 'true')),
-          or(ne(variables['ENVIRONMENT'], 'prod'), eq(variables['GOV_APPROVED'], 'true'))
-        )
+        condition: "and(succeeded(), eq(variables['ENABLE_SYNC_APPSETTINGS'], 'true'), or(ne(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['GOV_APPROVED'], 'true')), or(ne(variables['ENVIRONMENT'], 'prod'), eq(variables['GOV_APPROVED'], 'true')))"
         steps:
           - task: PowerShell@2
             displayName: 'Generate appsettings from .env.local'
