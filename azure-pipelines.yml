@@ -17,7 +17,9 @@ variables:
   - template: ci/versions.yml
   - group: EasyWay-Secrets  # Variable Group in ADO with AZURE_STORAGE_* and  # Path API
   - name: API_PATH
-    value: 'portal-api/easyway-portal-api'
+    value: 'portal-api'
+  - name: workingDirectory
+    value: '$(Build.SourcesDirectory)/portal-api'
   - name: ENABLE_ORCHESTRATOR
     value: 'true'
   - name: ORCHESTRATOR_INTENT
@@ -83,15 +85,17 @@ stages:
                 pwsh scripts/pwsh/agent-guard.ps1 -ContextId "PR-$(System.PullRequest.PullRequestId)" -SourceBranch $source -TargetBranch $target
 
       - job: SourceSyncGuard
-        displayName: 'Source Branch Sync Guard (PR)'
+        displayName: 'Source Branch Sync Guard (PR) [warn-only]'
         condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+        continueOnError: true
         steps:
           - task: PowerShell@2
-            displayName: 'Check source is not behind target (sync/rebase required)'
+            displayName: 'Check source is not behind target (warn-only, non-blocking)'
+            continueOnError: true
             inputs:
               targetType: 'inline'
               script: |
-                $ErrorActionPreference = 'Stop'
+                $ErrorActionPreference = 'Continue'
                 git config --global --add safe.directory $(Build.SourcesDirectory)
                 cd $(Build.SourcesDirectory)
 
@@ -108,14 +112,16 @@ stages:
                 if ($commonAncestor -ne $targetHead) {
                   $behind = git rev-list --count "origin/$source..origin/$target"
                   Write-Host ""
-                  Write-Host "##[error]Source branch '$source' is $behind commit(s) behind '$target'."
+                  Write-Host "##[warning]SYNC ADVISORY: '$source' is $behind commit(s) behind '$target'."
+                  Write-Host "##[warning]This PR may be missing recent changes from '$target'."
                   Write-Host ""
-                  Write-Host "Fix options:"
+                  Write-Host "If intentional (cherry-pick, hotfix): proceed as-is."
+                  Write-Host "If not intentional, fix options:"
                   Write-Host "  SYNC:   git fetch origin && git merge origin/$target"
                   Write-Host "  REBASE: git fetch origin && git rebase origin/$target"
                   Write-Host ""
-                  Write-Host "Then push and re-open the PR."
-                  exit 1
+                  # warn only — do not exit 1, human decides
+                  exit 0
                 }
 
                 Write-Host "OK: '$source' is up-to-date with '$target'." -ForegroundColor Green
@@ -545,7 +551,7 @@ stages:
                 $changedAdoScripts = $false
                 $changedAgentsDocs = $false
                 foreach ($f in $changed) {
-                  if ($f -like 'db/*' -or $f -like 'portal-api/easyway-portal-api/src/*') { $changedDbApi = $true }
+                  if ($f -like 'db/*' -or $f -like 'portal-api/src/*') { $changedDbApi = $true }
                   if ($f -like 'scripts/ado/*') { $changedAdoScripts = $true }
                   if ($f -like 'Wiki/EasyWayData.wiki/agents-*.md') { $changedAgentsDocs = $true }
                 }
