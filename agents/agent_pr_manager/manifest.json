@@ -49,6 +49,17 @@
         "git",
         "az"
     ],
+    "allowed_paths": {
+        "read": [
+            "agents/**",
+            "scripts/pwsh/**",
+            "azure-pipelines.yml",
+            "Wiki/EasyWayData.wiki/**"
+        ],
+        "write": [
+            "agents/agent_pr_manager/memory/**"
+        ]
+    },
     "classification": "arm",
     "readme": "README.md"
 }

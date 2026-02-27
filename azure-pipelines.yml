@@ -4,6 +4,12 @@ trigger:
       - main
       - develop
 
+pr:
+  branches:
+    include:
+      - main
+      - develop
+
 pool:
   name: Default
 
@@ -95,6 +101,7 @@ stages:
 
       - job: EnforcerCheck
         displayName: 'Allowed Paths Enforcer (agents)'
+        condition: eq(variables['Build.Reason'], 'PullRequest')
         steps:
           - task: PowerShell@2
             displayName: 'Run enforcer for agents (git diff)'
@@ -112,7 +119,7 @@ stages:
                 pwsh scripts/pwsh/enforcer.ps1 -Agent agent_pr_manager -GitDiff
       - job: WikiFrontmatterLint
         displayName: 'Wiki LLM Front-Matter Lint (Phased scopes)'
-        condition: and(succeeded(), eq(variables['ENABLE_WIKI_LLM_LINT'], 'true'))
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_LLM_LINT'], 'true'), eq(variables['Build.Reason'], 'PullRequest'))
         steps:
           - task: PowerShell@2
             displayName: 'Run wiki-frontmatter-lint (phased, fail on error)'
@@ -139,7 +146,7 @@ stages:
               ArtifactName: 'wiki-frontmatter-lint'
       - job: WikiTagsLintPhased
         displayName: 'Wiki Tag Taxonomy Lint (Phased scopes)'
-        condition: and(succeeded(), eq(variables['ENABLE_WIKI_TAGS_LINT'], 'true'))
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_TAGS_LINT'], 'true'), eq(variables['Build.Reason'], 'PullRequest'))
         steps:
           - task: PowerShell@2
             displayName: 'Run wiki-tags-lint (phased, fail on error)'
@@ -165,7 +172,7 @@ stages:
               ArtifactName: 'wiki-tags-lint'
       - job: WikiLinksAnchorsLintPhased
         displayName: 'Wiki Links + Anchors Lint (Phased scopes)'
-        condition: and(succeeded(), eq(variables['ENABLE_WIKI_LINKS_ANCHORS_LINT'], 'true'))
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_LINKS_ANCHORS_LINT'], 'true'), eq(variables['Build.Reason'], 'PullRequest'))
         steps:
           - task: PowerShell@2
             displayName: 'Run wiki-links-anchors-lint (phased, fail on error)'
@@ -191,7 +198,7 @@ stages:
               ArtifactName: 'wiki-links-anchors-lint'
       - job: WikiSummaryLintPortalApiFrontend
         displayName: 'Wiki Summary Lint (portal-api-frontend-20)'
-        condition: and(succeeded(), eq(variables['ENABLE_WIKI_SUMMARY_LINT'], 'true'))
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_SUMMARY_LINT'], 'true'), eq(variables['Build.Reason'], 'PullRequest'))
         steps:
           - task: PowerShell@2
             displayName: 'Run wiki-summary-lint (fail on error)'
@@ -208,7 +215,7 @@ stages:
               ArtifactName: 'wiki-summary-lint'
       - job: WikiIndexLint
         displayName: 'Wiki Index Lint (Phased scopes)'
-        condition: and(succeeded(), eq(variables['ENABLE_WIKI_INDEX_LINT'], 'true'))
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_INDEX_LINT'], 'true'), eq(variables['Build.Reason'], 'PullRequest'))
         steps:
           - task: PowerShell@2
             displayName: 'Run wiki-index-lint (phased, fail on error)'
@@ -234,7 +241,7 @@ stages:
               ArtifactName: 'wiki-index-lint'
       - job: WikiGapReport
         displayName: 'Wiki Gap Report (Phased scopes)'
-        condition: and(succeeded(), eq(variables['ENABLE_WIKI_GAP_REPORT'], 'true'))
+        condition: and(succeeded(), eq(variables['ENABLE_WIKI_GAP_REPORT'], 'true'), eq(variables['Build.Reason'], 'PullRequest'))
         steps:
           - task: PowerShell@2
             displayName: 'Run wiki-gap-report (phased/all, fail on error)'
@@ -267,7 +274,7 @@ stages:
               ArtifactName: 'wiki-gap-report'
       - job: WhatFirstLint
         displayName: 'WHAT-first + Diary Lint (manifests/intents/ux_prompts)'
-        condition: and(succeeded(), eq(variables['ENABLE_WHATFIRST_LINT'], 'true'))
+        condition: and(succeeded(), eq(variables['ENABLE_WHATFIRST_LINT'], 'true'), eq(variables['Build.Reason'], 'PullRequest'))
         steps:
           - task: PowerShell@2
             displayName: 'Run whatfirst-lint (fail on error)'
