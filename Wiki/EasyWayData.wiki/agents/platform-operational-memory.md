@@ -948,6 +948,7 @@ pwsh scripts/pwsh/ado-apply.ps1
 50. **curl ADO API: variabile PAT in .env.local** (Session 34): la variabile si chiama `AZURE_DEVOPS_EXT_PAT` (non `AZURE_DEVOPS_PAT`). Usare `source /c/old/.env.local` + `B64=$(printf ":%s" "$AZURE_DEVOPS_EXT_PAT" | base64 -w0)`.
 51. **Nohup + SSH ingest** (Session 34): lanciare script node in background via SSH con `&` causa EPIPE quando la sessione SSH si chiude. Usare `nohup bash -c "..." &` per sopravvivere alla disconnessione.
 52. **Iron Dome: .cursorrules accoppiato a platform-operational-memory** (Session 34): il pre-commit hook blocca se `.cursorrules` e' staged senza `platform-operational-memory.md`. Aggiornare sempre la wiki prima di runnare Sync-PlatformMemory e committare entrambi insieme.
+53. **Squash-merge rompe l'ancestry git** (Session 35): PR di sync develop<-main eseguita con squash produce un nuovo commit senza i parent originali. Al Release PR successivo (develop->main) git vede conflitti su file gia' risolti, perche' non riconosce la comune discendenza. **Regola**: sync develop<-main SEMPRE con Merge (no fast-forward), mai squash. Merge strategy configurata su ADO Branch Policies per `main`; applicare la stessa policy a `develop`.
 
 ---
 
