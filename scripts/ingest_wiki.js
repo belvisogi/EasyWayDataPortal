@@ -83,9 +83,12 @@ async function main() {
         }
 
         if (points.length > 0) {
-            await client.upsert(COLLECTION_NAME, {
-                points: points
-            });
+            const BATCH_SIZE = 20;
+            for (let b = 0; b < points.length; b += BATCH_SIZE) {
+                await client.upsert(COLLECTION_NAME, {
+                    points: points.slice(b, b + BATCH_SIZE)
+                });
+            }
             console.log(`Indexed ${filename}: ${points.length} chunks.`);
             totalPoints += points.length;
         }

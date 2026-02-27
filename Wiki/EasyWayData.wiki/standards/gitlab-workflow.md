@@ -35,6 +35,21 @@ Obiettivo: Garantire stabilità, tracciabilità e una collaborazione fluida tra 
 *   **Destinazione**: Merge su `main` **E** su `develop` (per evitare regressioni future).
 *   **Naming**: `hotfix/devops/INC-XXX-descrizione` oppure `hotfix/devops/BUG-XXX-descrizione`
 
+### `release/*`
+*   **Ruolo**: Release candidate — codice pronto per UAT su CERT.
+*   **Origine**: Staccato da `develop`.
+*   **Destinazione**: Merge su `main` dopo UAT superato.
+*   **Naming**: `release/X.Y.Z` (es. `release/1.2.0`)
+*   **Regola**: Solo bugfix/revert ammessi. Nessuna nuova feature.
+*   **Backport obbligatorio**: Dopo merge su `main`, ri-mergiare `release/*` su `develop`.
+
+### `certfix/*`
+*   **Ruolo**: Fix urgente applicato direttamente su CERT quando UAT è bloccato.
+*   **Origine**: Staccato dalla `release/*` attiva (NON da `develop`).
+*   **Destinazione**: Merge su `release/*` **E** backport obbligatorio su `develop`.
+*   **Naming**: `certfix/INC-XXX-short-desc` oppure `certfix/BUG-XXX-short-desc`
+*   **Quando usare**: Solo se il fix non può attendere il ciclo standard.
+
 ### `baseline`
 *   **Ruolo**: Base stabile per Vendor / Freeze specifici.
 *   **Regola di Flusso**: Si aggiorna **SOLO da develop** (o main).
@@ -53,7 +68,10 @@ Standardizzare i nomi permette agli Agenti di capire il contesto.
 | **Feature (Domain)** | `feature/<domain>/PBI-000-short-desc` | `PBI-000: Titolo descrittivo` |
 | **Chore (DevOps)** | `chore/devops/PBI-000-short-desc` | `PBI-000: Titolo descrittivo` |
 | **Bugfix** | `bugfix/FIX-000-short-desc` | `FIX-000: Titolo descrittivo` |
-| **Hotfix** | `hotfix/devops/INC-000-short-desc` o `hotfix/devops/BUG-000-short-desc` | `INC-000/BUG-000: Titolo urgente` |
+| **Hotfix (PROD)** | `hotfix/devops/INC-000-short-desc` o `hotfix/devops/BUG-000-short-desc` | `INC-000/BUG-000: Titolo urgente` |
+| **Release** | `release/X.Y.Z` | `Release X.Y.Z` |
+| **Certfix (CERT)** | `certfix/INC-000-short-desc` o `certfix/BUG-000-short-desc` | `INC-000/BUG-000: Fix CERT` |
+| **Sync GitHub** | `sync/github-YYYYMMDD-SHORTSHA` | `[GitHub Sync] Titolo commit` |
 
 **Descrizione PR Template**:
 > **Cosa cambia**: ...
@@ -143,7 +161,74 @@ Su GitLab i "Tags" si chiamano **Labels**. Abbiamo definito queste Standard (Sco
 
 ---
 
-## 8. 🔗 Linking & Grouping (Le Relazioni)
+## 8. 🌍 Environment Mapping (Branch → Ambiente)
+
+Ogni ambiente di deploy corrisponde a un branch specifico. Nessuna ambiguità.
+
+| Branch | Ambiente | Deploy | Trigger |
+| :--- | :--- | :--- | :--- |
+| `develop` | **DEV** | Automatico | Merge su `develop` |
+| `release/*` | **CERT** | Automatico | Creazione branch `release/*` |
+| `main` | **PROD** | Manuale + approval gate | PR `release/*` → `main` mergiata |
+
+### Principio universale: Feature salgono, Fix scendono
+
+```
+feat/* ──────────────────────────────────────► develop → DEV
+                                                   │
+                                              release/* → CERT (UAT)
+                                                   │  ▲
+                                                   │  └─ certfix/* (backport ↓ obbligatorio)
+                                                   │
+                                                 main → PROD
+                                                   │  ▲
+                                                tag   └─ hotfix/* (backport ↓ obbligatorio)
+```
+
+**Regola**: ogni fix applicato su un ambiente superiore DEVE essere backportato su tutti i branch inferiori. Un fix su PROD che non scende su `develop` verrà sovrascritto al prossimo rilascio.
+
+### Backport obbligatorio
+
+| Scenario | Backport richiesto |
+| :--- | :--- |
+| `hotfix/*` mergiato su `main` | → `release/*` attiva (se presente) + `develop` |
+| `certfix/*` mergiato su `release/*` | → `develop` |
+| `release/*` mergiato su `main` | → `develop` (porta i revert/fix del release branch) |
+
+---
+
+## 9. 🗑️ Branch Retention Policy (Lifecycle)
+
+### Branch permanenti — MAI cancellare
+
+| Branch | Motivo |
+| :--- | :--- |
+| `main` | Storia di produzione — perdere commit = perdere prod |
+| `develop` | Spina dorsale dell'integrazione continua |
+| `baseline` | Snapshot frozen per vendor/freeze — cancellare = perdere il riferimento |
+
+### Branch effimeri — cancellare dopo merge
+
+| Tipo | Quando cancellare | Note |
+| :--- | :--- | :--- |
+| `feature/*`, `chore/*`, `bugfix/*` | Dopo merge su `develop` + pipeline verde | Manuale — `Delete source branch` disattivato di default |
+| `hotfix/*` | Dopo merge su `main` **E** backport su `develop` completato | Non cancellare prima del backport |
+| `certfix/*` | Dopo merge su `release/*` **E** backport su `develop` completato | Non cancellare prima del backport |
+| `release/*` | Dopo merge su `main` + tag `vX.Y.Z` creato + backport su `develop` | Archiviare con tag prima di cancellare |
+| `sync/github-*` | Dopo merge su `develop`, max 7 giorni | Branch auto-creati dal workflow GitHub→ADO |
+
+### Regola pre-cancellazione
+
+Prima di cancellare qualsiasi branch effimero, verificare:
+1. Pipeline verde sul branch di destinazione
+2. Backport completato (dove obbligatorio)
+3. Tag creato (solo per `release/*`)
+
+> **Recupero da cancellazione accidentale**: `git reflog` + `git push origin <sha>:refs/heads/<branch>`
+
+---
+
+## 10. 🔗 Linking & Grouping (Le Relazioni)
 
 Come colleghiamo tutto insieme?
 

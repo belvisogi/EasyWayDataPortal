@@ -1,7 +1,7 @@
 ---
 title: "Platform Operational Memory — EasyWay"
 created: 2026-02-18
-updated: 2026-02-26T08:00:00Z
+updated: 2026-02-27T18:00:00Z
 status: active
 category: reference
 domain: platform
@@ -487,6 +487,193 @@ Con il service account separato (non nel Team), questa bypass e' impossibile.
 
 ---
 
+## 5d. GitHub Mirror — Integrazione Bidirezionale (Session 34)
+
+### Architettura
+
+```
+ADO main  ──[GitHubMirror stage]──► github.com/belvisogi/EasyWayDataPortal (main)
+                                              │
+                               (push esterno? detect-origin)
+                                              │
+                               ┌─────── SHA match? ──────────┐
+                               │ YES (mirror ADO)            │ NO (contributor esterno)
+                               ▼                             ▼
+                          skip sync              cherry-pick su ADO develop base
+                                                  └─► branch sync/github-{date}-{sha}
+                                                  └─► PR ADO: sync/* → develop
+```
+
+**Flusso normale** (interno):
+`feat/*` → PR → develop → PR [Release] → main → **ADO pipeline** → `git push GitHub main --force`
+
+**Flusso contributo esterno** (GitHub):
+Contributor PR su GitHub → merge su GitHub main → **sync-to-ado.yml** → cherry-pick → branch su ADO → PR ADO `sync/* → develop`
+
+---
+
+### ADO → GitHub Mirror (azure-pipelines.yml)
+
+Stage `GitHubMirror` — gira SOLO su push a `main`, dopo `BuildAndTest`:
+
+```yaml
+- stage: GitHubMirror
+  dependsOn: BuildAndTest
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+    - job: MirrorToGitHub
+      steps:
+        - script: |
+            REMOTE="https://$(GITHUB_PAT)@github.com/belvisogi/EasyWayDataPortal.git"
+            git push "$REMOTE" HEAD:main --force
+```
+
+**Variabile richiesta**: `GITHUB_PAT` nel variable group `EasyWay-Secrets` (ADO).
+- Scope PAT GitHub: `Contents: Read & Write` sul repo `belvisogi/EasyWayDataPortal`
+- Usa `--force` (NON `--force-with-lease`) — mirror unidirezionale, stale info accettabile (Lesson 49)
+
+---
+
+### GitHub → ADO Sync (.github/workflows/sync-to-ado.yml)
+
+Workflow attivato su ogni push a `main` di GitHub. Due job in sequenza:
+
+**Job 1 — detect-origin**: confronta SHA di GitHub con SHA di ADO main via REST API.
+- Se SHA coincidono → push dal mirror ADO → `should_sync=false` → skip
+- Se SHA diversi → push da contributor esterno → `should_sync=true` → procede
+
+**Job 2 — sync-to-ado** (solo se `should_sync=true`):
+1. Calcola i commit presenti in GitHub main ma non in ADO main (`git log ado/main..HEAD`)
+2. Crea branch `sync/github-{date}-{sha7}` basato su `ado/develop` (non su main → PR diff pulito)
+3. Cherry-pick dei nuovi commit in ordine cronologico (abort + error su conflitto)
+4. Push branch su ADO + crea PR ADO `sync/* → develop` con descrizione arricchita
+
+**Segreto richiesto**: `ADO_PAT` nelle GitHub Repo Settings → Secrets → Actions.
+- Stesso token di `C:\old\.env.local` — scope `Code (Read & Write)` + `Pull Request Contribute`
+
+**Loop Breaker**: il confronto SHA-to-SHA impedisce il ciclo infinito
+`ADO push → GitHub → workflow → ADO push → GitHub → ...`
+
+---
+
+### Configurazione Iniziale (checklist)
+
+#### Lato GitHub (fare UNA VOLTA)
+```
+1. Creare repo: github.com/belvisogi/EasyWayDataPortal (se non esiste)
+   - Visibility: Public o Private
+   - Default branch: main
+   - NON inizializzare con README (il repo sarà popolato dal mirror ADO)
+
+2. Aggiungere secret ADO_PAT:
+   GitHub repo → Settings → Secrets and variables → Actions → New repository secret
+   Name: ADO_PAT
+   Value: <PAT da C:\old\.env.local con scope Code R/W + PR Contribute>
+
+3. Verificare che sync-to-ado.yml sia già nel repo (committato via ADO mirror)
+```
+
+#### Lato ADO (fare UNA VOLTA)
+```
+4. Aggiungere GITHUB_PAT al variable group EasyWay-Secrets:
+   ADO → Pipelines → Library → EasyWay-Secrets → + Add
+   Name: GITHUB_PAT
+   Value: <GitHub PAT con scope repo:Contents:Write su belvisogi/EasyWayDataPortal>
+   Tipo: Secret
+
+5. Verificare che il pipeline abbia accesso al variable group:
+   azure-pipelines.yml → variables → group: EasyWay-Secrets (già configurato)
+```
+
+#### Verifica funzionamento
+```bash
+# Dopo un merge su main, controllare che il mirror abbia pushato:
+# GitHub → Actions → "Sync GitHub → ADO" (deve essere saltato: mirror dal server)
+# GitHub → commits → deve corrispondere a ADO main
+
+# Per simulare push esterno (test loop breaker):
+# Fare un commit diretto su GitHub main via UI → workflow deve attivare sync-to-ado
+```
+
+---
+
+### Gestione conflitti cherry-pick
+
+Se il cherry-pick fallisce (conflitto), il workflow:
+1. Abort del cherry-pick
+2. Log `::error::Conflitto cherry-pick su <sha>`
+3. Exit 1 → workflow fallisce con messaggio esplicito
+
+**Azione richiesta**: aprire PR manualmente su ADO.
+```bash
+# Comando locale suggerito dal workflow:
+git cherry-pick <sha>
+# Risolvere conflitti manualmente → git cherry-pick --continue
+```
+
+---
+
+### Files chiave
+
+| File | Scopo |
+|------|-------|
+| `azure-pipelines.yml` → stage `GitHubMirror` | ADO → GitHub push su ogni main |
+| `.github/workflows/sync-to-ado.yml` | GitHub → ADO cherry-pick + PR |
+| `.github/pull_request_template.md` | Security checklist per PR GitHub |
+| Variable group `EasyWay-Secrets` (ADO) | `GITHUB_PAT` per mirror |
+| GitHub Secrets (repo) | `ADO_PAT` per sync inverso |
+
+---
+
+## 5e. ADO Session Awareness — Layer 0 (Session 35)
+
+### Problema
+Claude Code non riceve push da ADO. Senza un meccanismo attivo, ogni sessione
+parte cieca: stato PR, branch e pipeline sconosciuti.
+
+### Regola operativa (NON DEROGABILE)
+
+> **Claude chiama `Get-ADOBriefing.ps1` come PRIMA azione di ogni sessione**,
+> prima di qualsiasi decisione su branch, PR o deploy.
+> Se il briefing fallisce (ADO irraggiungibile), fermarsi e segnalarlo.
+> Non procedere su informazioni stantie.
+
+```powershell
+# Eseguire ALL'INIZIO di ogni sessione
+pwsh scripts/pwsh/Get-ADOBriefing.ps1
+
+# Output JSON per elaborazione script
+pwsh scripts/pwsh/Get-ADOBriefing.ps1 -Json
+
+# Solo PR aperte (veloce)
+pwsh scripts/pwsh/Get-ADOBriefing.ps1 -OnlyOpen
+
+# Finestra temporale diversa (default 24h)
+pwsh scripts/pwsh/Get-ADOBriefing.ps1 -HoursBack 48
+```
+
+### Architettura a layer (antifragile)
+
+```
+Layer 2 - Fallback umano        -> Handoff document fine sessione (sempre attivo)
+Layer 1 - Enhancement           -> ADO Webhook -> n8n -> session-state.md (PLANNED)
+Layer 0 - Base obbligatoria     -> Get-ADOBriefing.ps1 (DONE)
+```
+
+Ogni layer e' autonomo: Layer 0 non dipende da Layer 1.
+Il sistema funziona anche con tutti i layer automatici down.
+
+**Perche' questa scelta vs webhook-only**: i webhook (Layer 1) falliscono
+silenziosamente quando n8n e' down. Il polling (Layer 0) fallisce
+esplicitamente: l'errore e' visibile e immediato. Failure silenzioso
+e' il caso peggiore in un sistema distribuito.
+
+### Riferimento completo
+- `Wiki/EasyWayData.wiki/guides/ado-session-awareness.md` — strategia completa + rationale
+- `scripts/pwsh/Get-ADOBriefing.ps1` — implementazione Layer 0
+
+---
+
 ## 6. PowerShell Coding Standards
 
 ### Encoding: Em Dash nei file .ps1
@@ -700,7 +887,7 @@ pwsh scripts/pwsh/ado-apply.ps1
 | Problema | Workaround | Stato |
 |---|---|---|
 | `sqlcmd` non trovato in Azure SQL Edge | PATH non configurato nel container | Open |
-| GitHub mirror non configurato | Mancano repo creation + PAT | Open |
+| GitHub mirror bidirezionale | Vedi §5d — ADO→GitHub (GITHUB_PAT in EasyWay-Secrets) + GitHub→ADO (ADO_PAT in GitHub Secrets) | Documented |
 | `infra/observability/data/` file root-owned sul server | `git stash` fallisce su questi file | Open |
 | `git stash push --include-untracked` su file root-owned | Salva solo i file accessibili, ignora il resto | Known |
 | `az repos pr create` non eredita PAT | Impostare `AZURE_DEVOPS_EXT_PAT` nella sessione corrente (vedi sez. 5 per comando completo) | Documented |
@@ -756,6 +943,11 @@ pwsh scripts/pwsh/ado-apply.ps1
 45. **API_PATH typo silente** (Session 31): `portal-api/easyway-portal-api` era il nome pianificato ma il path reale e' `portal-api/`. Il bug era invisibile finche' Terraform crashava prima che NodeBuild fosse raggiunto. Lezione: le variabili di path vanno testate subito, non "quando ci arriveremo".
 46. **ESLint + tsconfig exclude** (Session 31): se `tsconfig.json` esclude `__tests__/**` (corretto per build), ESLint con `parserOptions.project: ["./tsconfig.json"]` crasha su ogni file di test con "TSConfig does not include this file". Fix: creare `tsconfig.eslint.json` che estende tsconfig.json ma include `__tests__/**`, e puntarci in `.eslintrc.json`.
 47. **Due .env files identici** (Session 31): `.env.local` e `.env.developer` avevano lo stesso PAT. Erano nati per ruoli diversi (service account vs developer) ma sono stati unificati per semplificita'. Tenerne uno solo o documentare la distinzione se serve davvero.
+48. **Pipeline ADO: exists() vs succeededOrFailed()** (Session 32): `exists(file)` in una condition YAML ADO non esiste — causa errore silente. Usare `succeededOrFailed()` per job che devono girare anche dopo fallimenti upstream.
+49. **GitHub mirror --force vs --force-with-lease** (Session 32): `--force-with-lease` fallisce se il remote ha commit che il local non conosce (stale info dopo fetch altrui). Per mirror unidirezionale usare `--force` direttamente.
+50. **curl ADO API: variabile PAT in .env.local** (Session 34): la variabile si chiama `AZURE_DEVOPS_EXT_PAT` (non `AZURE_DEVOPS_PAT`). Usare `source /c/old/.env.local` + `B64=$(printf ":%s" "$AZURE_DEVOPS_EXT_PAT" | base64 -w0)`.
+51. **Nohup + SSH ingest** (Session 34): lanciare script node in background via SSH con `&` causa EPIPE quando la sessione SSH si chiude. Usare `nohup bash -c "..." &` per sopravvivere alla disconnessione.
+52. **Iron Dome: .cursorrules accoppiato a platform-operational-memory** (Session 34): il pre-commit hook blocca se `.cursorrules` e' staged senza `platform-operational-memory.md`. Aggiornare sempre la wiki prima di runnare Sync-PlatformMemory e committare entrambi insieme.
 
 ---
 
@@ -1152,3 +1344,10 @@ Formato sezione auto-generata in `.cursorrules`:
 - `apps/portal-frontend/public/pages/backoffice-agents.json` — rowActions RUN button su data-list (Session 28)
 - `Wiki/EasyWayData.wiki/guides/knowledge-api-guide.md` — Guida GET /api/knowledge: cosa, perché, come, Q&A (Session 28)
 - `Wiki/EasyWayData.wiki/guides/agent-run-dashboard.md` — Guida agent run history + RUN button backoffice (Session 28)
+- `azure-pipelines.yml` — Pipeline riorganizzata: PreChecks→BuildAndTest→DeployDev→DeployCert→GitHubMirror; quality checks PR-only; stage Terraform/Flyway/Deploy rimossi (Sessions 31-32)
+- `portal-api/tsconfig.eslint.json` — Estende tsconfig.json + include `__tests__/**` per ESLint su test files (Session 31)
+- `Wiki/EasyWayData.wiki/standards/gitlab-workflow.md` — release/*, certfix/*, Environment Mapping (§8), Branch Retention Policy (§9) (Session 33)
+- `Wiki/EasyWayData.wiki/control-plane/release-use-cases.md` — 4 UC: rilascio selettivo, hotfix PROD, fix CERT, contributo esterno (Session 33)
+- `Wiki/EasyWayData.wiki/deployment/multi-environment-docker-strategy.md` — Architettura due stack Docker DEV/CERT su singolo server OCI (Session 33)
+- `agents/agent_guard/policies.json` — Aggiunto release/*, certfix/*, sync/* con routing rules (Session 34)
+- `docker-compose.cert.yml` — Stack CERT isolato: porte 4000/1434/5679, rete easyway-cert-net, volumi separati (Session 34)
