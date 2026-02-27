@@ -105,11 +105,11 @@ stages:
                 git config --global --add safe.directory $(Build.SourcesDirectory)
                 cd $(Build.SourcesDirectory)
                 echo "== Enforcer: agent_governance =="
-                pwsh scripts/enforcer.ps1 -Agent agent_governance -GitDiff
+                pwsh scripts/pwsh/enforcer.ps1 -Agent agent_governance -GitDiff
                 echo "== Enforcer: agent_docs_review =="
-                pwsh scripts/enforcer.ps1 -Agent agent_docs_review -GitDiff
+                pwsh scripts/pwsh/enforcer.ps1 -Agent agent_docs_review -GitDiff
                 echo "== Enforcer: agent_pr_manager =="
-                pwsh scripts/enforcer.ps1 -Agent agent_pr_manager -GitDiff
+                pwsh scripts/pwsh/enforcer.ps1 -Agent agent_pr_manager -GitDiff
       - job: WikiFrontmatterLint
         displayName: 'Wiki LLM Front-Matter Lint (Phased scopes)'
         condition: and(succeeded(), eq(variables['ENABLE_WIKI_LLM_LINT'], 'true'))
