@@ -328,7 +328,7 @@ stages:
                 $ErrorActionPreference = 'Stop'
                 git config --global --add safe.directory $(Build.SourcesDirectory)
                 cd $(Build.SourcesDirectory)
-                $res = pwsh scripts/doc-alignment-check.ps1 -FailOnError
+                $res = pwsh scripts/pwsh/doc-alignment-check.ps1 -FailOnError
                 Write-Host $res
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: doc-alignment-report'
@@ -623,7 +623,7 @@ stages:
                 if (Test-Path "$(workingDirectory)/drift.json") { $artifacts += 'drift.json' }
                 if (Test-Path "$(Build.SourcesDirectory)/versions-report.txt") { $artifacts += 'versions-report.txt' }
                 if (Test-Path "$(Build.SourcesDirectory)/orchestrator-plan.json") { $artifacts += 'orchestrator-plan.json' }
-                pwsh scripts/activity-log.ps1 -Intent $intent -Actor $actor -Env $env -Outcome $outcome -Refs $refs -Artifacts $artifacts -Notes "CI run"
+                pwsh scripts/pwsh/activity-log.ps1 -Intent $intent -Actor $actor -Env $env -Outcome $outcome -Refs $refs -Artifacts $artifacts -Notes "CI run"
           - task: PublishBuildArtifacts@1
             displayName: 'Publish artifact: activity-log'
             inputs:
