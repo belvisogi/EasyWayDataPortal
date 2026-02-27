@@ -12,6 +12,9 @@
                 "^hotfix/devops/(INC|BUG)-\\d+-[a-z0-9-]+$",
                 "^bugfix/FIX-\\d{3,}-[a-z0-9-]+$",
                 "^hotfix/(INC|BUG)-\\d{3,}-[a-z0-9-]+$",
+                "^sync/github-[0-9]{8}-[a-f0-9]{7}$",
+                "^release/[0-9]{4}\\.[0-9]+-[a-z0-9-]+$",
+                "^certfix/(INC|BUG)-\\d{3,}-[a-z0-9-]+$",
                 "^develop$",
                 "^main$"
             ],
@@ -25,6 +28,26 @@
         "target_branch_policy": {
             "enabled": true,
             "rules": [
+                {
+                    "from": "sync/*",
+                    "to": "develop",
+                    "allow": true
+                },
+                {
+                    "from": "release/*",
+                    "to": "main",
+                    "allow": true
+                },
+                {
+                    "from": "certfix/*",
+                    "to": "release/*",
+                    "allow": true
+                },
+                {
+                    "from": "certfix/*",
+                    "to": "develop",
+                    "allow": true
+                },
                 {
                     "from": "feature/*",
                     "to": "develop",

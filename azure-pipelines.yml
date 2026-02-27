@@ -3,6 +3,9 @@ trigger:
     include:
       - main
       - develop
+      - sync/*
+      - release/*
+      - certfix/*
 
 pr:
   branches:
@@ -663,6 +666,56 @@ stages:
             inputs:
               PathtoPublish: '$(Build.SourcesDirectory)/gates-report.json'
               ArtifactName: 'gates-report'
+
+# Deploy DEV — merge su develop
+  - stage: DeployDev
+    displayName: 'Deploy → DEV (stack easyway-dev)'
+    dependsOn: BuildAndTest
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    jobs:
+      - job: DeployDevJob
+        displayName: 'docker compose up — easyway-dev'
+        pool:
+          name: Default
+        steps:
+          - script: |
+              set -e
+              cd ~/EasyWayDataPortal
+              git pull origin develop
+              source /opt/easyway/.env.secrets
+              OPENAI_API_KEY=placeholder ANTHROPIC_API_KEY=placeholder \
+                docker compose -p easyway-dev \
+                  -f docker-compose.yml \
+                  up -d --build
+              echo "##[section]DeployDev OK — $(git rev-parse --short HEAD)"
+            displayName: 'git pull + docker compose up (DEV)'
+
+# Deploy CERT — push su release/*
+  - stage: DeployCert
+    displayName: 'Deploy → CERT (stack easyway-cert)'
+    dependsOn: BuildAndTest
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+    jobs:
+      - job: DeployCertJob
+        displayName: 'docker compose up — easyway-cert'
+        pool:
+          name: Default
+        steps:
+          - script: |
+              set -e
+              BRANCH="$(echo '$(Build.SourceBranch)' | sed 's|refs/heads/||')"
+              cd ~/EasyWayDataPortal
+              git fetch origin
+              git checkout "$BRANCH" || git checkout -b "$BRANCH" "origin/$BRANCH"
+              git pull origin "$BRANCH"
+              source /opt/easyway/.env.secrets
+              OPENAI_API_KEY=placeholder ANTHROPIC_API_KEY=placeholder \
+                docker compose -p easyway-cert \
+                  -f docker-compose.yml \
+                  -f docker-compose.cert.yml \
+                  up -d --build
+              echo "##[section]DeployCert OK — branch=$BRANCH $(git rev-parse --short HEAD)"
+            displayName: 'git pull + docker compose up (CERT)'
 
 # GitHub Mirror (main only) — push automatico dopo ogni merge su main
   - stage: GitHubMirror
