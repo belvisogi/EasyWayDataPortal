@@ -1,0 +1,81 @@
+{
+  "id": "agent_diskwatcher",
+  "name": "Agent DiskWatcher (The Sentinel)",
+  "classification": "arm",
+  "version": "1.0.0",
+  "role": "monitor",
+  "owner": "team-devops",
+  "description": "Monitora l'utilizzo del disco sul server OCI. Emette alert (warn-only) quando le soglie sono superate. Non esegue mai pulizie automatiche — l'umano decide.",
+  "llm_config": {
+    "model": "rule-based",
+    "temperature": 0.0,
+    "system_prompt": null,
+    "tools": [
+      "df",
+      "docker_system_df",
+      "du"
+    ]
+  },
+  "context_config": {
+    "memory_files": [
+      "agents/agent_diskwatcher/memory/last-report.json"
+    ],
+    "context_limit_tokens": 1000
+  },
+  "actions": [
+    {
+      "name": "diskwatcher:check",
+      "description": "Controlla utilizzo disco e Docker. Emette warning se soglie superate.",
+      "parameters": {
+        "WarnAt": "int (% utilizzo per WARNING, default 80)",
+        "CritAt": "int (% utilizzo per CRITICAL, default 90)",
+        "Json": "switch (output JSON invece di human-readable)"
+      }
+    },
+    {
+      "name": "diskwatcher:report",
+      "description": "Mostra il report dell'ultimo check.",
+      "parameters": {}
+    }
+  ],
+  "thresholds": {
+    "warn_pct": 80,
+    "crit_pct": 90,
+    "info_pct": 70
+  },
+  "schedule": {
+    "cron": "0 */6 * * *",
+    "description": "Ogni 6 ore sul server OCI"
+  },
+  "readme": "README.md",
+  "allowed_paths": {
+    "read": [
+      "/",
+      "agents/agent_diskwatcher/memory/"
+    ],
+    "write": [
+      "agents/agent_diskwatcher/memory/",
+      "agents/logs/"
+    ]
+  },
+  "allowed_tools": [
+    "df",
+    "du",
+    "docker",
+    "pwsh"
+  ],
+  "required_gates": [],
+  "entry_point": "scripts/pwsh/agent-diskwatcher.ps1",
+  "evolution_level": 1,
+  "skills_required": [],
+  "error_handling": {
+    "fallback_mode": "log_and_warn",
+    "alert_on_failure": false,
+    "retry_count": 0
+  },
+  "approvals": {
+    "cleanup": "human_required"
+  },
+  "antifragile": true,
+  "note": "Warn-only by design. Cleanup actions richiedono approvazione esplicita umana (-Cleanup flag + conferma interattiva)."
+}

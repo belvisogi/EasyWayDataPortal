@@ -681,7 +681,8 @@ stages:
           - script: |
               set -e
               cd ~/EasyWayDataPortal
-              git pull origin develop
+              git fetch origin develop
+              git reset --hard origin/develop
               source /opt/easyway/.env.secrets
               OPENAI_API_KEY=placeholder ANTHROPIC_API_KEY=placeholder \
                 docker compose -p easyway-dev \
@@ -707,7 +708,8 @@ stages:
               cd ~/EasyWayDataPortal
               git fetch origin
               git checkout "$BRANCH" || git checkout -b "$BRANCH" "origin/$BRANCH"
-              git pull origin "$BRANCH"
+              git fetch origin "$BRANCH"
+              git reset --hard "origin/$BRANCH"
               source /opt/easyway/.env.secrets
               OPENAI_API_KEY=placeholder ANTHROPIC_API_KEY=placeholder \
                 docker compose -p easyway-cert \

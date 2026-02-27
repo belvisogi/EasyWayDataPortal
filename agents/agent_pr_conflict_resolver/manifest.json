@@ -1,0 +1,49 @@
+{
+  "id": "agent_pr_conflict_resolver",
+  "name": "Agent PR Conflict Resolver",
+  "classification": "arm",
+  "version": "1.0.0",
+  "role": "conflict-resolution",
+  "owner": "team-devops",
+  "description": "Risolve automaticamente i conflitti di merge per PR ADO con strategie predefinite. Per file sconosciuti: escalate (non tocca mai). Human gate obbligatorio: la PR di risoluzione richiede approvazione di giuseppe.belviso prima del merge.",
+  "llm_config": {
+    "model": "rule-based",
+    "temperature": 0.0,
+    "system_prompt": null,
+    "tools": ["git", "pwsh"]
+  },
+  "trigger": {
+    "manual": "pwsh agents/skills/git/Resolve-PRConflicts.ps1 -PRId <id>",
+    "planned_automation": "ADO Service Hook (PR Updated) -> n8n -> Resolve-PRConflicts.ps1",
+    "n8n_endpoint": "http://server:5678/webhook/ado-pr-conflict (PLANNED, richiede Caddy route)"
+  },
+  "resolution_strategies": {
+    ".cursorrules": "theirs+sync (source branch wins + Sync-PlatformMemory)",
+    "Wiki/EasyWayData.wiki/agents/platform-operational-memory.md": "theirs (source branch, piu' recente)",
+    "azure-pipelines.yml": "theirs+fix-yaml (source branch + rimuovi pr: duplicati)",
+    "unknown": "ESCALATE — non toccare, richiedere intervento umano"
+  },
+  "human_gates": {
+    "review_required": true,
+    "approver": "giuseppe.belviso",
+    "note": "Il resolver crea un branch fix/conflict-resolution-* e apre una PR. L'umano approva e mergia. MAI merge automatico."
+  },
+  "allowed_paths": {
+    "read": [".git/**", "**/*"],
+    "write": [
+      "agents/agent_pr_conflict_resolver/memory/",
+      "agents/logs/"
+    ]
+  },
+  "allowed_tools": ["git", "pwsh", "python3"],
+  "entry_point": "agents/skills/git/Resolve-PRConflicts.ps1",
+  "evolution_level": 1,
+  "skills_required": ["git.resolve-pr-conflicts"],
+  "error_handling": {
+    "fallback_mode": "escalate_to_human",
+    "alert_on_failure": true,
+    "retry_count": 0
+  },
+  "antifragile": true,
+  "note": "Risolve solo file in whitelist. Qualsiasi file non noto -> escalate immediato senza modifiche."
+}
