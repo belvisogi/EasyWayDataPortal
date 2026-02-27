@@ -9,7 +9,7 @@ Param(
 )
 
 $ErrorActionPreference = 'Stop'
-$root = Split-Path -Parent $MyInvocation.MyCommand.Path | Split-Path -Parent
+$root = Split-Path -Parent $MyInvocation.MyCommand.Path | Split-Path -Parent | Split-Path -Parent
 $logsDir = Join-Path $root 'agents/logs'
 $monthTag = (Get-Date).ToUniversalTime().ToString('yyyyMM')
 $eventsPath = Join-Path $logsDir ("events-" + $monthTag + ".jsonl")
