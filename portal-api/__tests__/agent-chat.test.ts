@@ -1,8 +1,16 @@
 import request from 'supertest';
 import { AgentChatService } from '../src/services/agent-chat.service';
+import { getAgentsRepo } from '../src/repositories';
 
 // 1. Mock dependencies
 jest.mock('../src/services/agent-chat.service');
+
+// GET /api/agents is handled by agentsController (manifest scan), not AgentChatService.
+// Partial mock: override only getAgentsRepo so tests control the response.
+jest.mock('../src/repositories', () => ({
+    ...jest.requireActual('../src/repositories'),
+    getAgentsRepo: jest.fn(),
+}));
 
 jest.mock('../src/middleware/auth', () => ({
     authenticateJwt: (req: any, res: any, next: any) => {
@@ -53,18 +61,19 @@ describe('Agent Chat API', () => {
 
     describe('GET /api/agents', () => {
         it('should return list of agents', async () => {
-            const mockAgents = [{ id: 'agent_dba', name: 'DBA Agent' }];
-            mockChatService.listAgents.mockResolvedValue(mockAgents);
+            // agentsController returns a plain array (not {agents:[...]})
+            const mockAgents = [{ agent_id: 'agent_dba', name: 'DBA Agent', level: 'L2', status: 'ONLINE', last_run: null }];
+            (getAgentsRepo as jest.Mock).mockReturnValueOnce({ list: jest.fn().mockResolvedValue(mockAgents) });
 
             const res = await request(app).get('/api/agents');
 
             if (res.status !== 200) console.log('GET /agents failed:', res.status, res.body);
             expect(res.status).toBe(200);
-            expect(res.body.agents).toHaveLength(1);
+            expect(res.body).toHaveLength(1);
         });
 
         it('should handle service errors gracefully', async () => {
-            mockChatService.listAgents.mockRejectedValue(new Error('Service failure'));
+            (getAgentsRepo as jest.Mock).mockReturnValueOnce({ list: jest.fn().mockRejectedValue(new Error('Service failure')) });
             const res = await request(app).get('/api/agents');
             expect(res.status).toBe(500);
         });

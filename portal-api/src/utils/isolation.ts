@@ -27,6 +27,13 @@ export class TenantGuard {
      * @returns True if safe, throws Error if unsafe.
      */
     validatePath(targetPath: string, tenantId: string, operation: 'read' | 'write' = 'read'): boolean {
+        // Reject backslash separators: on Linux/macOS they are literal filename chars,
+        // not path separators, so path.resolve won't normalize them and traversal
+        // patterns like `..\..` can bypass the baseDir check.
+        if (targetPath.includes('\\')) {
+            throw new Error(`Security Violation: Path '${targetPath}' contains invalid characters.`);
+        }
+
         // Resolve absolute path
         const resolvedPath = path.isAbsolute(targetPath)
             ? path.resolve(targetPath)
