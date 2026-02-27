@@ -498,7 +498,7 @@ stages:
             inputs:
               PathtoPublish: 'Wiki/EasyWayData.wiki/logs'
               ArtifactName: 'wiki-logs'
-            condition: and(succeeded(), exists('Wiki/EasyWayData.wiki/logs'))
+            condition: succeededOrFailed()
 
       - job: PreDeployChecklist
         displayName: 'Pre-Deploy Checklist (Gate)'
