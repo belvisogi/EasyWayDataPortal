@@ -683,7 +683,7 @@ stages:
               git config user.email "ew-svc-azuredevops-agent@easyway.local"
               git config user.name "EasyWay CI"
               REMOTE="https://$(GITHUB_PAT)@github.com/belvisogi/EasyWayDataPortal.git"
-              git push "$REMOTE" HEAD:main --force-with-lease
+              git push "$REMOTE" HEAD:main --force
               echo "##[section]GitHub mirror: OK — $(git rev-parse --short HEAD)"
             displayName: 'git push → GitHub'
             env:
