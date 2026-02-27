@@ -1,0 +1,27 @@
+{
+  "$schema": "./publish-targets.schema.json",
+  "version": "1.0.0",
+  "default": "ado",
+  "targets": [
+    {
+      "id": "ado",
+      "name": "Azure DevOps",
+      "description": "Repository principale — origin",
+      "remote": "origin",
+      "branch": "main",
+      "enabled": true,
+      "auto_on_main": true,
+      "auth": { "type": "ssh" }
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "description": "Mirror pubblico — belvisogi/EasyWayDataPortal",
+      "remote": "https://github.com/belvisogi/EasyWayDataPortal.git",
+      "branch": "main",
+      "enabled": true,
+      "auto_on_main": true,
+      "auth": { "type": "pat", "env_var": "GITHUB_PAT" }
+    }
+  ]
+}
