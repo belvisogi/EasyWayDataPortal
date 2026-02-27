@@ -1,0 +1,84 @@
+# docker-compose.dev.yml — Stack DEV (sviluppo locale / CI)
+# Uso: docker compose -p easyway-dev -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+# Branch: develop → deploy su DEV
+
+services:
+  agent-runner:
+    container_name: easyway-dev-runner
+    environment:
+      - EASYWAY_MODE=Dev
+      - ENVIRONMENT=dev
+    volumes:
+      - ./agents:/app/agents      # hot-reload: mount live del codice
+      - ./Wiki:/app/Wiki
+      - ./scripts:/app/scripts
+    networks:
+      - easyway-dev-net
+
+  qdrant:
+    container_name: easyway-dev-cortex
+    ports:
+      - "6333:6333"              # esposto in DEV per debug locale
+    volumes:
+      - qdrant-dev-data:/qdrant/storage
+    networks:
+      - easyway-dev-net
+
+  sql-edge:
+    container_name: easyway-dev-db
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql-dev-data:/var/opt/mssql
+    networks:
+      - easyway-dev-net
+
+  azurite:
+    container_name: easyway-dev-storage
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    volumes:
+      - azurite-dev-data:/data
+    networks:
+      - easyway-dev-net
+
+  minio:
+    container_name: easyway-dev-storage-s3
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-dev-data:/data
+    networks:
+      - easyway-dev-net
+
+  frontend:
+    container_name: easyway-dev-portal
+    ports:
+      - "3000:8080"              # host 3000 → container 8080
+    environment:
+      - ENVIRONMENT=dev
+    networks:
+      - easyway-dev-net
+
+  n8n:
+    container_name: easyway-dev-orchestrator
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n-dev-data:/home/node/.n8n
+    networks:
+      - easyway-dev-net
+
+networks:
+  easyway-dev-net:
+    driver: bridge
+
+volumes:
+  qdrant-dev-data:
+  sql-dev-data:
+  azurite-dev-data:
+  minio-dev-data:
+  n8n-dev-data:

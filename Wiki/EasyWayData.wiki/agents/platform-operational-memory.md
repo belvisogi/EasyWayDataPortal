@@ -1,7 +1,7 @@
 ---
 title: "Platform Operational Memory — EasyWay"
 created: 2026-02-18
-updated: 2026-02-26T08:00:00Z
+updated: 2026-02-27T18:00:00Z
 status: active
 category: reference
 domain: platform
@@ -756,6 +756,11 @@ pwsh scripts/pwsh/ado-apply.ps1
 45. **API_PATH typo silente** (Session 31): `portal-api/easyway-portal-api` era il nome pianificato ma il path reale e' `portal-api/`. Il bug era invisibile finche' Terraform crashava prima che NodeBuild fosse raggiunto. Lezione: le variabili di path vanno testate subito, non "quando ci arriveremo".
 46. **ESLint + tsconfig exclude** (Session 31): se `tsconfig.json` esclude `__tests__/**` (corretto per build), ESLint con `parserOptions.project: ["./tsconfig.json"]` crasha su ogni file di test con "TSConfig does not include this file". Fix: creare `tsconfig.eslint.json` che estende tsconfig.json ma include `__tests__/**`, e puntarci in `.eslintrc.json`.
 47. **Due .env files identici** (Session 31): `.env.local` e `.env.developer` avevano lo stesso PAT. Erano nati per ruoli diversi (service account vs developer) ma sono stati unificati per semplificita'. Tenerne uno solo o documentare la distinzione se serve davvero.
+48. **Pipeline ADO: exists() vs succeededOrFailed()** (Session 32): `exists(file)` in una condition YAML ADO non esiste — causa errore silente. Usare `succeededOrFailed()` per job che devono girare anche dopo fallimenti upstream.
+49. **GitHub mirror --force vs --force-with-lease** (Session 32): `--force-with-lease` fallisce se il remote ha commit che il local non conosce (stale info dopo fetch altrui). Per mirror unidirezionale usare `--force` direttamente.
+50. **curl ADO API: variabile PAT in .env.local** (Session 34): la variabile si chiama `AZURE_DEVOPS_EXT_PAT` (non `AZURE_DEVOPS_PAT`). Usare `source /c/old/.env.local` + `B64=$(printf ":%s" "$AZURE_DEVOPS_EXT_PAT" | base64 -w0)`.
+51. **Nohup + SSH ingest** (Session 34): lanciare script node in background via SSH con `&` causa EPIPE quando la sessione SSH si chiude. Usare `nohup bash -c "..." &` per sopravvivere alla disconnessione.
+52. **Iron Dome: .cursorrules accoppiato a platform-operational-memory** (Session 34): il pre-commit hook blocca se `.cursorrules` e' staged senza `platform-operational-memory.md`. Aggiornare sempre la wiki prima di runnare Sync-PlatformMemory e committare entrambi insieme.
 
 ---
 
@@ -1152,3 +1157,10 @@ Formato sezione auto-generata in `.cursorrules`:
 - `apps/portal-frontend/public/pages/backoffice-agents.json` — rowActions RUN button su data-list (Session 28)
 - `Wiki/EasyWayData.wiki/guides/knowledge-api-guide.md` — Guida GET /api/knowledge: cosa, perché, come, Q&A (Session 28)
 - `Wiki/EasyWayData.wiki/guides/agent-run-dashboard.md` — Guida agent run history + RUN button backoffice (Session 28)
+- `azure-pipelines.yml` — Pipeline riorganizzata: PreChecks→BuildAndTest→DeployDev→DeployCert→GitHubMirror; quality checks PR-only; stage Terraform/Flyway/Deploy rimossi (Sessions 31-32)
+- `portal-api/tsconfig.eslint.json` — Estende tsconfig.json + include `__tests__/**` per ESLint su test files (Session 31)
+- `Wiki/EasyWayData.wiki/standards/gitlab-workflow.md` — release/*, certfix/*, Environment Mapping (§8), Branch Retention Policy (§9) (Session 33)
+- `Wiki/EasyWayData.wiki/control-plane/release-use-cases.md` — 4 UC: rilascio selettivo, hotfix PROD, fix CERT, contributo esterno (Session 33)
+- `Wiki/EasyWayData.wiki/deployment/multi-environment-docker-strategy.md` — Architettura due stack Docker DEV/CERT su singolo server OCI (Session 33)
+- `agents/agent_guard/policies.json` — Aggiunto release/*, certfix/*, sync/* con routing rules (Session 34)
+- `docker-compose.cert.yml` — Stack CERT isolato: porte 4000/1434/5679, rete easyway-cert-net, volumi separati (Session 34)

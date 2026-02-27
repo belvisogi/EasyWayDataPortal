@@ -19,6 +19,12 @@ pr:
       - main
       - develop
 
+pr:
+  branches:
+    include:
+      - main
+      - develop
+
 pool:
   name: Default
 
