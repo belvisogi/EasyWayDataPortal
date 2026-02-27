@@ -754,60 +754,59 @@ stages:
               archiveFile: '$(Pipeline.Workspace)/api-dist.zip'
               replaceExistingArchive: true
 
-          - task: AzureWebApp@1
-            displayName: 'Deploy package to WebApp'
-            inputs:
-              azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
-              appName: '$(WEBAPP_NAME)'
-              package: '$(Pipeline.Workspace)/api-dist.zip'
-              resourceGroupName: '$(RESOURCE_GROUP)'
-              slotName: '$(WEBAPP_SLOT)'
+          - ${{ if ne(variables['AZURE_SERVICE_CONNECTION'], '') }}:
+            - task: AzureWebApp@1
+              displayName: 'Deploy package to WebApp'
+              inputs:
+                azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+                appName: '$(WEBAPP_NAME)'
+                package: '$(Pipeline.Workspace)/api-dist.zip'
+                resourceGroupName: '$(RESOURCE_GROUP)'
+                slotName: '$(WEBAPP_SLOT)'
 
-          - task: AzureAppServiceSettings@1
-            displayName: 'Configure App Settings'
-            inputs:
-              azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
-              appName: '$(WEBAPP_NAME)'
-              resourceGroupName: '$(RESOURCE_GROUP)'
-              slotName: '$(WEBAPP_SLOT)'
-              # Note: DB_MODE can be set to 'sql' (default) or 'mock' for low-cost dev slots.
-              # If you want to run the API against file-backed mock in a dev slot, add:
-              # {"name":"DB_MODE","value":"mock","slotSetting":false}
-              appSettings: |
-                [
-                  {"name":"AUTH_ISSUER","value":"$(AUTH_ISSUER)","slotSetting":false},
-                  {"name":"AUTH_JWKS_URI","value":"$(AUTH_JWKS_URI)","slotSetting":false},
-                  {"name":"AUTH_AUDIENCE","value":"$(AUTH_AUDIENCE)","slotSetting":false},
-                  {"name":"AUTH_CLIENT_ID","value":"$(AUTH_CLIENT_ID)","slotSetting":false},
-                  {"name":"AUTH_TENANT_ID","value":"$(AUTH_TENANT_ID)","slotSetting":false},
-                  {"name":"TENANT_CLAIM","value":"$(TENANT_CLAIM)","slotSetting":false},
-                  {"name":"DB_CONN_STRING","value":"$(DB_CONN_STRING)","slotSetting":false},
-                  {"name":"AZURE_STORAGE_CONNECTION_STRING","value":"$(AZURE_STORAGE_CONNECTION_STRING)","slotSetting":false},
-                  {"name":"AZURE_STORAGE_ACCOUNT","value":"$(AZURE_STORAGE_ACCOUNT)","slotSetting":false},
-                  {"name":"BRANDING_CONTAINER","value":"$(BRANDING_CONTAINER)","slotSetting":false},
-                  {"name":"BRANDING_PREFIX","value":"$(BRANDING_PREFIX)","slotSetting":false},
-                  {"name":"DEFAULT_TENANT_ID","value":"$(DEFAULT_TENANT_ID)","slotSetting":false},
-                  {"name":"RLS_CONTEXT_ENABLED","value":"$(RLS_CONTEXT_ENABLED)","slotSetting":false},
-                  {"name":"LOG_LEVEL","value":"$(LOG_LEVEL)","slotSetting":false},
-                  {"name":"LOG_DIR","value":"$(LOG_DIR)","slotSetting":false},
-                  {"name":"APPLICATIONINSIGHTS_CONNECTION_STRING","value":"$(APPLICATIONINSIGHTS_CONNECTION_STRING)","slotSetting":false},
-                  {"name":"OTEL_ENABLED","value":"$(OTEL_ENABLED)","slotSetting":false},
-                  {"name":"OTEL_TRACES_SAMPLER","value":"$(OTEL_TRACES_SAMPLER)","slotSetting":false},
-                  {"name":"OTEL_TRACES_SAMPLER_ARG","value":"$(OTEL_TRACES_SAMPLER_ARG)","slotSetting":false},
-                  {"name":"PORTAL_BASE_PATH","value":"$(PORTAL_BASE_PATH)","slotSetting":false},
-                  {"name":"RATE_LIMIT_WINDOW_MS","value":"$(RATE_LIMIT_WINDOW_MS)","slotSetting":false},
-                  {"name":"RATE_LIMIT_MAX","value":"$(RATE_LIMIT_MAX)","slotSetting":false},
-                  {"name":"BODY_LIMIT","value":"$(BODY_LIMIT)","slotSetting":false}
-                ]
-          - task: AzureAppServiceManage@0
-            displayName: 'Swap Slots'
-            condition: and(succeeded(), eq(variables['ENABLE_SWAP'], 'true'))
-            inputs:
-              azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
-              Action: 'Swap Slots'
-              WebAppName: '$(WEBAPP_NAME)'
-              ResourceGroupName: '$(RESOURCE_GROUP)'
-              SourceSlot: '$(WEBAPP_SLOT)'
+            - task: AzureAppServiceSettings@1
+              displayName: 'Configure App Settings'
+              inputs:
+                azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+                appName: '$(WEBAPP_NAME)'
+                resourceGroupName: '$(RESOURCE_GROUP)'
+                slotName: '$(WEBAPP_SLOT)'
+                appSettings: |
+                  [
+                    {"name":"AUTH_ISSUER","value":"$(AUTH_ISSUER)","slotSetting":false},
+                    {"name":"AUTH_JWKS_URI","value":"$(AUTH_JWKS_URI)","slotSetting":false},
+                    {"name":"AUTH_AUDIENCE","value":"$(AUTH_AUDIENCE)","slotSetting":false},
+                    {"name":"AUTH_CLIENT_ID","value":"$(AUTH_CLIENT_ID)","slotSetting":false},
+                    {"name":"AUTH_TENANT_ID","value":"$(AUTH_TENANT_ID)","slotSetting":false},
+                    {"name":"TENANT_CLAIM","value":"$(TENANT_CLAIM)","slotSetting":false},
+                    {"name":"DB_CONN_STRING","value":"$(DB_CONN_STRING)","slotSetting":false},
+                    {"name":"AZURE_STORAGE_CONNECTION_STRING","value":"$(AZURE_STORAGE_CONNECTION_STRING)","slotSetting":false},
+                    {"name":"AZURE_STORAGE_ACCOUNT","value":"$(AZURE_STORAGE_ACCOUNT)","slotSetting":false},
+                    {"name":"BRANDING_CONTAINER","value":"$(BRANDING_CONTAINER)","slotSetting":false},
+                    {"name":"BRANDING_PREFIX","value":"$(BRANDING_PREFIX)","slotSetting":false},
+                    {"name":"DEFAULT_TENANT_ID","value":"$(DEFAULT_TENANT_ID)","slotSetting":false},
+                    {"name":"RLS_CONTEXT_ENABLED","value":"$(RLS_CONTEXT_ENABLED)","slotSetting":false},
+                    {"name":"LOG_LEVEL","value":"$(LOG_LEVEL)","slotSetting":false},
+                    {"name":"LOG_DIR","value":"$(LOG_DIR)","slotSetting":false},
+                    {"name":"APPLICATIONINSIGHTS_CONNECTION_STRING","value":"$(APPLICATIONINSIGHTS_CONNECTION_STRING)","slotSetting":false},
+                    {"name":"OTEL_ENABLED","value":"$(OTEL_ENABLED)","slotSetting":false},
+                    {"name":"OTEL_TRACES_SAMPLER","value":"$(OTEL_TRACES_SAMPLER)","slotSetting":false},
+                    {"name":"OTEL_TRACES_SAMPLER_ARG","value":"$(OTEL_TRACES_SAMPLER_ARG)","slotSetting":false},
+                    {"name":"PORTAL_BASE_PATH","value":"$(PORTAL_BASE_PATH)","slotSetting":false},
+                    {"name":"RATE_LIMIT_WINDOW_MS","value":"$(RATE_LIMIT_WINDOW_MS)","slotSetting":false},
+                    {"name":"RATE_LIMIT_MAX","value":"$(RATE_LIMIT_MAX)","slotSetting":false},
+                    {"name":"BODY_LIMIT","value":"$(BODY_LIMIT)","slotSetting":false}
+                  ]
+
+            - task: AzureAppServiceManage@0
+              displayName: 'Swap Slots'
+              condition: and(succeeded(), eq(variables['ENABLE_SWAP'], 'true'))
+              inputs:
+                azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+                Action: 'Swap Slots'
+                WebAppName: '$(WEBAPP_NAME)'
+                ResourceGroupName: '$(RESOURCE_GROUP)'
+                SourceSlot: '$(WEBAPP_SLOT)'
 
       - job: SyncAppSettingsDev
         displayName: 'Sync App Settings from .env.local (Dev Slot)'
@@ -820,19 +819,20 @@ stages:
               script: |
                 pwsh scripts/generate-appsettings.ps1 -ApiPath portal-api/easyway-portal-api -OutDir ./out
                 Get-Content ./out/appsettings.cli.json | Write-Host
-          - task: AzureCLI@2
-            displayName: 'Apply appsettings (Azure CLI)'
-            inputs:
-              azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
-              scriptType: 'pscore'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                if (-not (Test-Path './out/appsettings.cli.json')) { Write-Error 'Missing ./out/appsettings.cli.json'; exit 1 }
-                if ([string]::IsNullOrWhiteSpace('$(WEBAPP_SLOT)')) {
-                  az webapp config appsettings set -g "$(RESOURCE_GROUP)" -n "$(WEBAPP_NAME)" --settings @./out/appsettings.cli.json
-                } else {
-                  az webapp config appsettings set -g "$(RESOURCE_GROUP)" -n "$(WEBAPP_NAME)" --slot "$(WEBAPP_SLOT)" --settings @./out/appsettings.cli.json
-                }
+          - ${{ if ne(variables['AZURE_SERVICE_CONNECTION'], '') }}:
+            - task: AzureCLI@2
+              displayName: 'Apply appsettings (Azure CLI)'
+              inputs:
+                azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+                scriptType: 'pscore'
+                scriptLocation: 'inlineScript'
+                inlineScript: |
+                  if (-not (Test-Path './out/appsettings.cli.json')) { Write-Error 'Missing ./out/appsettings.cli.json'; exit 1 }
+                  if ([string]::IsNullOrWhiteSpace('$(WEBAPP_SLOT)')) {
+                    az webapp config appsettings set -g "$(RESOURCE_GROUP)" -n "$(WEBAPP_NAME)" --settings @./out/appsettings.cli.json
+                  } else {
+                    az webapp config appsettings set -g "$(RESOURCE_GROUP)" -n "$(WEBAPP_NAME)" --slot "$(WEBAPP_SLOT)" --settings @./out/appsettings.cli.json
+                  }
 
 # Database Prod Migrate with approvals (main only)
   - stage: DBProd
