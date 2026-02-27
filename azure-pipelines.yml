@@ -99,6 +99,44 @@ stages:
 
                 pwsh scripts/pwsh/agent-guard.ps1 -ContextId "PR-$(System.PullRequest.PullRequestId)" -SourceBranch $source -TargetBranch $target
 
+      - job: SourceSyncGuard
+        displayName: 'Source Branch Sync Guard (PR)'
+        condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+        steps:
+          - task: PowerShell@2
+            displayName: 'Check source is not behind target (sync/rebase required)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                $ErrorActionPreference = 'Stop'
+                git config --global --add safe.directory $(Build.SourcesDirectory)
+                cd $(Build.SourcesDirectory)
+
+                $source = "$env:SYSTEM_PULLREQUEST_SOURCEBRANCH" -replace '^refs/heads/', ''
+                $target = "$env:SYSTEM_PULLREQUEST_TARGETBRANCH" -replace '^refs/heads/', ''
+                Write-Host "Sync guard: checking if '$source' is up-to-date with '$target'"
+
+                git fetch origin $target 2>&1 | Out-Null
+                git fetch origin $source 2>&1 | Out-Null
+
+                $commonAncestor = git merge-base "origin/$source" "origin/$target"
+                $targetHead     = git rev-parse "origin/$target"
+
+                if ($commonAncestor -ne $targetHead) {
+                  $behind = git rev-list --count "origin/$source..origin/$target"
+                  Write-Host ""
+                  Write-Host "##[error]Source branch '$source' is $behind commit(s) behind '$target'."
+                  Write-Host ""
+                  Write-Host "Fix options:"
+                  Write-Host "  SYNC:   git fetch origin && git merge origin/$target"
+                  Write-Host "  REBASE: git fetch origin && git rebase origin/$target"
+                  Write-Host ""
+                  Write-Host "Then push and re-open the PR."
+                  exit 1
+                }
+
+                Write-Host "OK: '$source' is up-to-date with '$target'." -ForegroundColor Green
+
       - job: EnforcerCheck
         displayName: 'Allowed Paths Enforcer (agents)'
         condition: eq(variables['Build.Reason'], 'PullRequest')
