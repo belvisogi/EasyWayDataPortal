@@ -4,7 +4,7 @@ Param(
   [string]$Env = "dev",
   [string]$Outcome = "OK",
   [string[]]$Refs,
-  [string[]]$Artifacts,
+  [string[]]$Artifacts = @(),
   [string]$Notes
 )
 
