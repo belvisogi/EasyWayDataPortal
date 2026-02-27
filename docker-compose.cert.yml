@@ -13,7 +13,7 @@ services:
 
   qdrant:
     container_name: easyway-cert-cortex
-    ports: []          # nessuna porta esposta all'host in CERT
+    ports: !reset []   # nessuna porta esposta all'host in CERT
     volumes:
       - qdrant-cert-data:/qdrant/storage
     networks:
@@ -41,7 +41,7 @@ services:
 
   minio:
     container_name: easyway-cert-storage-s3
-    ports: []          # nessuna porta esposta — accessibile solo via rete interna
+    ports: !reset []   # nessuna porta esposta — accessibile solo via rete interna
     volumes:
       - minio-cert-data:/data
     networks:
