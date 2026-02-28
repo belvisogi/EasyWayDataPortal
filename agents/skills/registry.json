@@ -1,6 +1,6 @@
 {
   "version": "2.9.0",
-  "last_updated": "2026-02-19T23:00:00Z",
+  "last_updated": "2026-02-28T06:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -55,14 +55,46 @@
         "type": "object",
         "description": "CVE scan results for the specified Docker image",
         "output_fields": [
-          { "name": "image", "type": "string", "description": "Image name scanned" },
-          { "name": "scanner", "type": "string", "description": "Scanner used" },
-          { "name": "critical", "type": "integer", "description": "Count of CRITICAL CVEs" },
-          { "name": "high", "type": "integer", "description": "Count of HIGH CVEs" },
-          { "name": "medium", "type": "integer", "description": "Count of MEDIUM CVEs" },
-          { "name": "low", "type": "integer", "description": "Count of LOW CVEs" },
-          { "name": "passed", "type": "boolean", "description": "True if below FailOnSeverity threshold" },
-          { "name": "raw", "type": "object", "description": "Full scanner output" }
+          {
+            "name": "image",
+            "type": "string",
+            "description": "Image name scanned"
+          },
+          {
+            "name": "scanner",
+            "type": "string",
+            "description": "Scanner used"
+          },
+          {
+            "name": "critical",
+            "type": "integer",
+            "description": "Count of CRITICAL CVEs"
+          },
+          {
+            "name": "high",
+            "type": "integer",
+            "description": "Count of HIGH CVEs"
+          },
+          {
+            "name": "medium",
+            "type": "integer",
+            "description": "Count of MEDIUM CVEs"
+          },
+          {
+            "name": "low",
+            "type": "integer",
+            "description": "Count of LOW CVEs"
+          },
+          {
+            "name": "passed",
+            "type": "boolean",
+            "description": "True if below FailOnSeverity threshold"
+          },
+          {
+            "name": "raw",
+            "type": "object",
+            "description": "Full scanner output"
+          }
         ]
       },
       "dependencies": [
@@ -80,7 +112,10 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": true,
-        "allowed_callers": ["agent_vulnerability_scanner", "agent_security"]
+        "allowed_callers": [
+          "agent_vulnerability_scanner",
+          "agent_security"
+        ]
       }
     },
     {
@@ -127,10 +162,26 @@
         "type": "object",
         "description": "Result of the Key Vault operation",
         "output_fields": [
-          { "name": "operation", "type": "string", "description": "Operation performed (set/reference/list/rotate)" },
-          { "name": "secretName", "type": "string", "description": "Secret name involved" },
-          { "name": "vaultUri", "type": "string", "description": "Key Vault URI" },
-          { "name": "secrets", "type": "array", "description": "List of secret names (list operation only)" }
+          {
+            "name": "operation",
+            "type": "string",
+            "description": "Operation performed (set/reference/list/rotate)"
+          },
+          {
+            "name": "secretName",
+            "type": "string",
+            "description": "Secret name involved"
+          },
+          {
+            "name": "vaultUri",
+            "type": "string",
+            "description": "Key Vault URI"
+          },
+          {
+            "name": "secrets",
+            "type": "array",
+            "description": "List of secret names (list operation only)"
+          }
         ]
       },
       "dependencies": [
@@ -146,7 +197,9 @@
         "requires_approval": true,
         "blast_radius": "MEDIUM",
         "audit_log": true,
-        "allowed_callers": ["agent_security"]
+        "allowed_callers": [
+          "agent_security"
+        ]
       }
     },
     {
@@ -183,11 +236,31 @@
         "type": "object",
         "description": "Compatibility check result for the specified component and version",
         "output_fields": [
-          { "name": "component", "type": "string", "description": "Component name checked" },
-          { "name": "version", "type": "string", "description": "Version checked" },
-          { "name": "compatible", "type": "boolean", "description": "True if version is compatible" },
-          { "name": "conflicts", "type": "array", "description": "List of conflicting components/versions" },
-          { "name": "recommendation", "type": "string", "description": "Suggested compatible version if conflict found" }
+          {
+            "name": "component",
+            "type": "string",
+            "description": "Component name checked"
+          },
+          {
+            "name": "version",
+            "type": "string",
+            "description": "Version checked"
+          },
+          {
+            "name": "compatible",
+            "type": "boolean",
+            "description": "True if version is compatible"
+          },
+          {
+            "name": "conflicts",
+            "type": "array",
+            "description": "List of conflicting components/versions"
+          },
+          {
+            "name": "recommendation",
+            "type": "string",
+            "description": "Suggested compatible version if conflict found"
+          }
         ]
       },
       "dependencies": [],
@@ -200,7 +273,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -244,10 +319,26 @@
         "type": "object",
         "description": "Result of the script block execution after retries",
         "output_fields": [
-          { "name": "result", "type": "object", "description": "Return value of the ScriptBlock on success" },
-          { "name": "attempts", "type": "integer", "description": "Number of attempts made (1 = success on first try)" },
-          { "name": "totalDurationSec", "type": "number", "description": "Total elapsed time including waits" },
-          { "name": "lastError", "type": "string", "description": "Last error message if all retries exhausted" }
+          {
+            "name": "result",
+            "type": "object",
+            "description": "Return value of the ScriptBlock on success"
+          },
+          {
+            "name": "attempts",
+            "type": "integer",
+            "description": "Number of attempts made (1 = success on first try)"
+          },
+          {
+            "name": "totalDurationSec",
+            "type": "number",
+            "description": "Total elapsed time including waits"
+          },
+          {
+            "name": "lastError",
+            "type": "string",
+            "description": "Last error message if all retries exhausted"
+          }
         ]
       },
       "dependencies": [],
@@ -261,7 +352,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -305,10 +398,26 @@
         "type": "object",
         "description": "Formatted report in the requested output format",
         "output_fields": [
-          { "name": "content", "type": "string", "description": "Formatted report content (markdown/console/json)" },
-          { "name": "title", "type": "string", "description": "Report title used" },
-          { "name": "format", "type": "string", "description": "Output format used" },
-          { "name": "generatedAt", "type": "string", "description": "ISO timestamp of report generation" }
+          {
+            "name": "content",
+            "type": "string",
+            "description": "Formatted report content (markdown/console/json)"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "description": "Report title used"
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "description": "Output format used"
+          },
+          {
+            "name": "generatedAt",
+            "type": "string",
+            "description": "ISO timestamp of report generation"
+          }
         ]
       },
       "dependencies": [],
@@ -322,7 +431,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -358,10 +469,26 @@
         "type": "object",
         "description": "JSON validation result with errors and field coverage",
         "output_fields": [
-          { "name": "valid", "type": "boolean", "description": "True if JSON is syntactically valid and passes all checks" },
-          { "name": "errors", "type": "array", "description": "List of validation errors (syntax, missing fields, schema)" },
-          { "name": "missingFields", "type": "array", "description": "Required fields not found in the JSON" },
-          { "name": "schemaViolations", "type": "array", "description": "Schema constraint violations (if SchemaPath provided)" }
+          {
+            "name": "valid",
+            "type": "boolean",
+            "description": "True if JSON is syntactically valid and passes all checks"
+          },
+          {
+            "name": "errors",
+            "type": "array",
+            "description": "List of validation errors (syntax, missing fields, schema)"
+          },
+          {
+            "name": "missingFields",
+            "type": "array",
+            "description": "Required fields not found in the JSON"
+          },
+          {
+            "name": "schemaViolations",
+            "type": "array",
+            "description": "Schema constraint violations (if SchemaPath provided)"
+          }
         ]
       },
       "dependencies": [],
@@ -375,7 +502,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -398,16 +527,28 @@
         "type": "hashtable",
         "description": "Keys loaded during this call (values masked as '***'). Empty if all keys already set or file not found.",
         "output_fields": [
-          { "name": "<KEY_NAME>", "type": "string", "description": "'***' for each secret key loaded (value never logged)" }
+          {
+            "name": "<KEY_NAME>",
+            "type": "string",
+            "description": "'***' for each secret key loaded (value never logged)"
+          }
         ]
       },
       "dependencies": [],
-      "tags": ["secrets", "environment", "bootstrap", "security", "idempotent"],
+      "tags": [
+        "secrets",
+        "environment",
+        "bootstrap",
+        "security",
+        "idempotent"
+      ],
       "security": {
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"],
+        "allowed_callers": [
+          "*"
+        ],
         "notes": "Never logs actual secret values. Non-destructive: only sets vars not already present."
       }
     },
@@ -436,10 +577,26 @@
         "type": "object",
         "description": "Health status of containers and services",
         "output_fields": [
-          { "name": "healthy", "type": "boolean", "description": "True if all checked services are healthy" },
-          { "name": "services", "type": "array", "description": "Per-service health results (name, status, uptime)" },
-          { "name": "unhealthyCount", "type": "integer", "description": "Number of services in unhealthy state" },
-          { "name": "checkedAt", "type": "string", "description": "ISO timestamp of the check" }
+          {
+            "name": "healthy",
+            "type": "boolean",
+            "description": "True if all checked services are healthy"
+          },
+          {
+            "name": "services",
+            "type": "array",
+            "description": "Per-service health results (name, status, uptime)"
+          },
+          {
+            "name": "unhealthyCount",
+            "type": "integer",
+            "description": "Number of services in unhealthy state"
+          },
+          {
+            "name": "checkedAt",
+            "type": "string",
+            "description": "ISO timestamp of the check"
+          }
         ]
       },
       "dependencies": [
@@ -455,7 +612,11 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": true,
-        "allowed_callers": ["agent_observability", "agent_infra", "agent_security"]
+        "allowed_callers": [
+          "agent_observability",
+          "agent_infra",
+          "agent_security"
+        ]
       }
     },
     {
@@ -498,10 +659,26 @@
         "type": "object",
         "description": "Result of the Slack message delivery",
         "output_fields": [
-          { "name": "delivered", "type": "boolean", "description": "True if Slack returned HTTP 200" },
-          { "name": "channel", "type": "string", "description": "Channel the message was sent to" },
-          { "name": "httpStatus", "type": "integer", "description": "HTTP response status from Slack webhook" },
-          { "name": "timestamp", "type": "string", "description": "ISO timestamp of send attempt" }
+          {
+            "name": "delivered",
+            "type": "boolean",
+            "description": "True if Slack returned HTTP 200"
+          },
+          {
+            "name": "channel",
+            "type": "string",
+            "description": "Channel the message was sent to"
+          },
+          {
+            "name": "httpStatus",
+            "type": "integer",
+            "description": "HTTP response status from Slack webhook"
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "description": "ISO timestamp of send attempt"
+          }
         ]
       },
       "dependencies": [],
@@ -515,7 +692,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": true,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -542,9 +721,21 @@
         "type": "object",
         "description": "Ranked Wiki chunks matching the query",
         "output_fields": [
-          { "name": "chunks", "type": "array", "description": "Array of matching chunks (text, source, score)" },
-          { "name": "count", "type": "integer", "description": "Number of chunks returned" },
-          { "name": "queryEmbeddingMs", "type": "integer", "description": "Time to embed the query in ms" }
+          {
+            "name": "chunks",
+            "type": "array",
+            "description": "Array of matching chunks (text, source, score)"
+          },
+          {
+            "name": "count",
+            "type": "integer",
+            "description": "Number of chunks returned"
+          },
+          {
+            "name": "queryEmbeddingMs",
+            "type": "integer",
+            "description": "Time to embed the query in ms"
+          }
         ]
       },
       "dependencies": [
@@ -561,7 +752,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -596,10 +789,26 @@
         "type": "object",
         "description": "Enhanced prompt with injected Wiki context ready for LLM consumption",
         "output_fields": [
-          { "name": "EnhancedPrompt", "type": "string", "description": "System prompt with RAG context injected" },
-          { "name": "RAGResultCount", "type": "integer", "description": "Number of Wiki chunks injected" },
-          { "name": "Sources", "type": "array", "description": "Source file paths for the injected chunks" },
-          { "name": "Success", "type": "boolean", "description": "True if RAG retrieval succeeded" }
+          {
+            "name": "EnhancedPrompt",
+            "type": "string",
+            "description": "System prompt with RAG context injected"
+          },
+          {
+            "name": "RAGResultCount",
+            "type": "integer",
+            "description": "Number of Wiki chunks injected"
+          },
+          {
+            "name": "Sources",
+            "type": "array",
+            "description": "Source file paths for the injected chunks"
+          },
+          {
+            "name": "Success",
+            "type": "boolean",
+            "description": "True if RAG retrieval succeeded"
+          }
         ]
       },
       "dependencies": [
@@ -617,7 +826,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -646,9 +857,21 @@
         "type": "object",
         "description": "Rewritten query variants for improved RAG hit rate",
         "output_fields": [
-          { "name": "original", "type": "string", "description": "Original query as provided" },
-          { "name": "variants", "type": "array", "description": "Array of rewritten query strings" },
-          { "name": "bestVariant", "type": "string", "description": "Recommended query variant for primary search" }
+          {
+            "name": "original",
+            "type": "string",
+            "description": "Original query as provided"
+          },
+          {
+            "name": "variants",
+            "type": "array",
+            "description": "Array of rewritten query strings"
+          },
+          {
+            "name": "bestVariant",
+            "type": "string",
+            "description": "Recommended query variant for primary search"
+          }
         ]
       },
       "dependencies": [],
@@ -662,7 +885,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -695,12 +920,36 @@
         "type": "object",
         "description": "Database migration execution result",
         "output_fields": [
-          { "name": "migrationFile", "type": "string", "description": "Path to the migration file executed" },
-          { "name": "applied", "type": "boolean", "description": "True if migration was successfully applied" },
-          { "name": "rolledBack", "type": "boolean", "description": "True if rollback was performed" },
-          { "name": "dryRun", "type": "boolean", "description": "True if executed in dry-run mode (no changes)" },
-          { "name": "sqlOutput", "type": "string", "description": "Raw SQL execution output" },
-          { "name": "durationMs", "type": "integer", "description": "Execution time in milliseconds" }
+          {
+            "name": "migrationFile",
+            "type": "string",
+            "description": "Path to the migration file executed"
+          },
+          {
+            "name": "applied",
+            "type": "boolean",
+            "description": "True if migration was successfully applied"
+          },
+          {
+            "name": "rolledBack",
+            "type": "boolean",
+            "description": "True if rollback was performed"
+          },
+          {
+            "name": "dryRun",
+            "type": "boolean",
+            "description": "True if executed in dry-run mode (no changes)"
+          },
+          {
+            "name": "sqlOutput",
+            "type": "string",
+            "description": "Raw SQL execution output"
+          },
+          {
+            "name": "durationMs",
+            "type": "integer",
+            "description": "Execution time in milliseconds"
+          }
         ]
       },
       "dependencies": [
@@ -717,7 +966,9 @@
         "requires_approval": true,
         "blast_radius": "HIGH",
         "audit_log": true,
-        "allowed_callers": ["agent_dba"]
+        "allowed_callers": [
+          "agent_dba"
+        ]
       }
     },
     {
@@ -749,11 +1000,31 @@
         "type": "object",
         "description": "Database connectivity test result",
         "output_fields": [
-          { "name": "connected", "type": "boolean", "description": "True if connection succeeded" },
-          { "name": "server", "type": "string", "description": "Server address tested" },
-          { "name": "database", "type": "string", "description": "Database name tested" },
-          { "name": "latencyMs", "type": "integer", "description": "Round-trip latency in milliseconds" },
-          { "name": "error", "type": "string", "description": "Error message if connection failed" }
+          {
+            "name": "connected",
+            "type": "boolean",
+            "description": "True if connection succeeded"
+          },
+          {
+            "name": "server",
+            "type": "string",
+            "description": "Server address tested"
+          },
+          {
+            "name": "database",
+            "type": "string",
+            "description": "Database name tested"
+          },
+          {
+            "name": "latencyMs",
+            "type": "integer",
+            "description": "Round-trip latency in milliseconds"
+          },
+          {
+            "name": "error",
+            "type": "string",
+            "description": "Error message if connection failed"
+          }
         ]
       },
       "dependencies": [
@@ -768,7 +1039,10 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": true,
-        "allowed_callers": ["agent_dba", "agent_observability"]
+        "allowed_callers": [
+          "agent_dba",
+          "agent_observability"
+        ]
       }
     },
     {
@@ -853,16 +1127,56 @@
         "type": "object",
         "description": "LLM answer with RAG context, usage stats, and optional evaluator results",
         "output_fields": [
-          { "name": "Answer", "type": "string", "description": "LLM-generated answer text" },
-          { "name": "RAGContext", "type": "string", "description": "Wiki context chunks injected into the prompt" },
-          { "name": "TokensIn", "type": "integer", "description": "Total prompt tokens consumed (all iterations)" },
-          { "name": "TokensOut", "type": "integer", "description": "Total completion tokens generated (all iterations)" },
-          { "name": "CostUSD", "type": "number", "description": "Estimated API cost in USD" },
-          { "name": "DurationSec", "type": "number", "description": "Total duration in seconds" },
-          { "name": "EvaluatorEnabled", "type": "boolean", "description": "True if Evaluator-Optimizer was active" },
-          { "name": "EvaluatorIterations", "type": "integer", "description": "Number of generator-evaluator cycles performed" },
-          { "name": "EvaluatorPassed", "type": "boolean", "description": "True if all AC predicates passed (when evaluator active)" },
-          { "name": "EvaluatorResults", "type": "array", "description": "Per-AC pass/fail results from the evaluator" }
+          {
+            "name": "Answer",
+            "type": "string",
+            "description": "LLM-generated answer text"
+          },
+          {
+            "name": "RAGContext",
+            "type": "string",
+            "description": "Wiki context chunks injected into the prompt"
+          },
+          {
+            "name": "TokensIn",
+            "type": "integer",
+            "description": "Total prompt tokens consumed (all iterations)"
+          },
+          {
+            "name": "TokensOut",
+            "type": "integer",
+            "description": "Total completion tokens generated (all iterations)"
+          },
+          {
+            "name": "CostUSD",
+            "type": "number",
+            "description": "Estimated API cost in USD"
+          },
+          {
+            "name": "DurationSec",
+            "type": "number",
+            "description": "Total duration in seconds"
+          },
+          {
+            "name": "EvaluatorEnabled",
+            "type": "boolean",
+            "description": "True if Evaluator-Optimizer was active"
+          },
+          {
+            "name": "EvaluatorIterations",
+            "type": "integer",
+            "description": "Number of generator-evaluator cycles performed"
+          },
+          {
+            "name": "EvaluatorPassed",
+            "type": "boolean",
+            "description": "True if all AC predicates passed (when evaluator active)"
+          },
+          {
+            "name": "EvaluatorResults",
+            "type": "array",
+            "description": "Per-AC pass/fail results from the evaluator"
+          }
         ]
       },
       "dependencies": [
@@ -882,7 +1196,18 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": true,
-        "allowed_callers": ["agent_backend", "agent_dba", "agent_docs_sync", "agent_governance", "agent_infra", "agent_pr_manager", "agent_review", "agent_security", "agent_vulnerability_scanner", "agent_retrieval"]
+        "allowed_callers": [
+          "agent_backend",
+          "agent_dba",
+          "agent_docs_sync",
+          "agent_governance",
+          "agent_infra",
+          "agent_pr_manager",
+          "agent_review",
+          "agent_security",
+          "agent_vulnerability_scanner",
+          "agent_retrieval"
+        ]
       }
     },
     {
@@ -917,11 +1242,31 @@
         "type": "object",
         "description": "Cascade impact analysis across the specified scope",
         "output_fields": [
-          { "name": "affectedComponents", "type": "array", "description": "List of components impacted by the change" },
-          { "name": "riskLevel", "type": "string", "description": "Overall risk: LOW / MEDIUM / HIGH / CRITICAL" },
-          { "name": "cascadeDepth", "type": "integer", "description": "Maximum dependency depth of the impact" },
-          { "name": "summary", "type": "string", "description": "Human-readable impact summary" },
-          { "name": "recommendations", "type": "array", "description": "Mitigation actions to reduce blast radius" }
+          {
+            "name": "affectedComponents",
+            "type": "array",
+            "description": "List of components impacted by the change"
+          },
+          {
+            "name": "riskLevel",
+            "type": "string",
+            "description": "Overall risk: LOW / MEDIUM / HIGH / CRITICAL"
+          },
+          {
+            "name": "cascadeDepth",
+            "type": "integer",
+            "description": "Maximum dependency depth of the impact"
+          },
+          {
+            "name": "summary",
+            "type": "string",
+            "description": "Human-readable impact summary"
+          },
+          {
+            "name": "recommendations",
+            "type": "array",
+            "description": "Mitigation actions to reduce blast radius"
+          }
         ]
       },
       "dependencies": [],
@@ -935,7 +1280,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -966,9 +1313,21 @@
         "type": "object",
         "description": "Result of the git checkout operation",
         "output_fields": [
-          { "name": "branch", "type": "string", "description": "Branch now checked out" },
-          { "name": "created", "type": "boolean", "description": "True if the branch was newly created" },
-          { "name": "previousBranch", "type": "string", "description": "Branch that was active before checkout" }
+          {
+            "name": "branch",
+            "type": "string",
+            "description": "Branch now checked out"
+          },
+          {
+            "name": "created",
+            "type": "boolean",
+            "description": "True if the branch was newly created"
+          },
+          {
+            "name": "previousBranch",
+            "type": "string",
+            "description": "Branch that was active before checkout"
+          }
         ]
       },
       "dependencies": [
@@ -983,7 +1342,11 @@
         "requires_approval": false,
         "blast_radius": "MEDIUM",
         "audit_log": true,
-        "allowed_callers": ["agent_pr_manager", "agent_release", "agent_developer"]
+        "allowed_callers": [
+          "agent_pr_manager",
+          "agent_release",
+          "agent_developer"
+        ]
       }
     },
     {
@@ -1014,11 +1377,31 @@
         "type": "object",
         "description": "Result of the git merge operation",
         "output_fields": [
-          { "name": "merged", "type": "boolean", "description": "True if merge completed without conflicts" },
-          { "name": "sourceBranch", "type": "string", "description": "Branch that was merged in" },
-          { "name": "targetBranch", "type": "string", "description": "Branch that received the merge" },
-          { "name": "commitHash", "type": "string", "description": "Resulting merge commit hash" },
-          { "name": "conflicts", "type": "array", "description": "Files with conflicts if merge was aborted" }
+          {
+            "name": "merged",
+            "type": "boolean",
+            "description": "True if merge completed without conflicts"
+          },
+          {
+            "name": "sourceBranch",
+            "type": "string",
+            "description": "Branch that was merged in"
+          },
+          {
+            "name": "targetBranch",
+            "type": "string",
+            "description": "Branch that received the merge"
+          },
+          {
+            "name": "commitHash",
+            "type": "string",
+            "description": "Resulting merge commit hash"
+          },
+          {
+            "name": "conflicts",
+            "type": "array",
+            "description": "Files with conflicts if merge was aborted"
+          }
         ]
       },
       "dependencies": [
@@ -1032,7 +1415,10 @@
         "requires_approval": true,
         "blast_radius": "HIGH",
         "audit_log": true,
-        "allowed_callers": ["agent_pr_manager", "agent_release"]
+        "allowed_callers": [
+          "agent_pr_manager",
+          "agent_release"
+        ]
       }
     },
     {
@@ -1078,10 +1464,26 @@
         "type": "object",
         "description": "Result of the git push operation",
         "output_fields": [
-          { "name": "pushed", "type": "boolean", "description": "True if push succeeded" },
-          { "name": "branch", "type": "string", "description": "Branch pushed" },
-          { "name": "remote", "type": "string", "description": "Remote repository pushed to" },
-          { "name": "remoteRef", "type": "string", "description": "Full remote ref updated (e.g. refs/heads/main)" }
+          {
+            "name": "pushed",
+            "type": "boolean",
+            "description": "True if push succeeded"
+          },
+          {
+            "name": "branch",
+            "type": "string",
+            "description": "Branch pushed"
+          },
+          {
+            "name": "remote",
+            "type": "string",
+            "description": "Remote repository pushed to"
+          },
+          {
+            "name": "remoteRef",
+            "type": "string",
+            "description": "Full remote ref updated (e.g. refs/heads/main)"
+          }
         ]
       },
       "dependencies": [
@@ -1095,7 +1497,10 @@
         "requires_approval": true,
         "blast_radius": "HIGH",
         "audit_log": true,
-        "allowed_callers": ["agent_pr_manager", "agent_release"]
+        "allowed_callers": [
+          "agent_pr_manager",
+          "agent_release"
+        ]
       }
     },
     {
@@ -1159,11 +1564,31 @@
         "type": "object",
         "description": "Result of the server git pull/sync operation",
         "output_fields": [
-          { "name": "synced", "type": "boolean", "description": "True if server is now at the expected commit" },
-          { "name": "commitBefore", "type": "string", "description": "Server commit hash before sync" },
-          { "name": "commitAfter", "type": "string", "description": "Server commit hash after sync" },
-          { "name": "filesChanged", "type": "integer", "description": "Number of files changed during pull" },
-          { "name": "backupBranch", "type": "string", "description": "Backup branch created on server before sync" }
+          {
+            "name": "synced",
+            "type": "boolean",
+            "description": "True if server is now at the expected commit"
+          },
+          {
+            "name": "commitBefore",
+            "type": "string",
+            "description": "Server commit hash before sync"
+          },
+          {
+            "name": "commitAfter",
+            "type": "string",
+            "description": "Server commit hash after sync"
+          },
+          {
+            "name": "filesChanged",
+            "type": "integer",
+            "description": "Number of files changed during pull"
+          },
+          {
+            "name": "backupBranch",
+            "type": "string",
+            "description": "Backup branch created on server before sync"
+          }
         ]
       },
       "dependencies": [
@@ -1181,7 +1606,10 @@
         "requires_approval": true,
         "blast_radius": "CRITICAL",
         "audit_log": true,
-        "allowed_callers": ["agent_release", "agent_infra"]
+        "allowed_callers": [
+          "agent_release",
+          "agent_infra"
+        ]
       }
     },
     {
@@ -1246,10 +1674,26 @@
         "type": "object",
         "description": "Concise summary with key points extracted from the input text",
         "output_fields": [
-          { "name": "summary", "type": "string", "description": "Condensed summary text" },
-          { "name": "key_points", "type": "array", "description": "Bullet-point key takeaways" },
-          { "name": "word_count", "type": "integer", "description": "Actual word count of the summary" },
-          { "name": "style", "type": "string", "description": "Style used (business/technical/conversational)" }
+          {
+            "name": "summary",
+            "type": "string",
+            "description": "Condensed summary text"
+          },
+          {
+            "name": "key_points",
+            "type": "array",
+            "description": "Bullet-point key takeaways"
+          },
+          {
+            "name": "word_count",
+            "type": "integer",
+            "description": "Actual word count of the summary"
+          },
+          {
+            "name": "style",
+            "type": "string",
+            "description": "Style used (business/technical/conversational)"
+          }
         ]
       },
       "dependencies": [],
@@ -1264,7 +1708,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -1322,10 +1768,26 @@
         "type": "object",
         "description": "Generated SQL query with explanation; optionally includes execution results",
         "output_fields": [
-          { "name": "sql", "type": "string", "description": "Generated SELECT SQL query (read-only)" },
-          { "name": "explanation", "type": "string", "description": "Plain-language explanation of the query" },
-          { "name": "tables_used", "type": "array", "description": "List of table names referenced in the query" },
-          { "name": "executionResult", "type": "object", "description": "Query execution result rows (only if Execute=true)" }
+          {
+            "name": "sql",
+            "type": "string",
+            "description": "Generated SELECT SQL query (read-only)"
+          },
+          {
+            "name": "explanation",
+            "type": "string",
+            "description": "Plain-language explanation of the query"
+          },
+          {
+            "name": "tables_used",
+            "type": "array",
+            "description": "List of table names referenced in the query"
+          },
+          {
+            "name": "executionResult",
+            "type": "object",
+            "description": "Query execution result rows (only if Execute=true)"
+          }
         ]
       },
       "dependencies": [],
@@ -1341,7 +1803,10 @@
         "requires_approval": false,
         "blast_radius": "MEDIUM",
         "audit_log": true,
-        "allowed_callers": ["agent_dba", "agent_backend"]
+        "allowed_callers": [
+          "agent_dba",
+          "agent_backend"
+        ]
       }
     },
     {
@@ -1383,10 +1848,26 @@
         "type": "object",
         "description": "Intent classification with confidence score and reasoning",
         "output_fields": [
-          { "name": "intent", "type": "string", "description": "Classified intent label" },
-          { "name": "confidence", "type": "number", "description": "Confidence score 0.0-1.0 for the classification" },
-          { "name": "reasoning", "type": "string", "description": "Brief explanation of why this intent was chosen" },
-          { "name": "alternatives", "type": "array", "description": "Runner-up intents with their confidence scores" }
+          {
+            "name": "intent",
+            "type": "string",
+            "description": "Classified intent label"
+          },
+          {
+            "name": "confidence",
+            "type": "number",
+            "description": "Confidence score 0.0-1.0 for the classification"
+          },
+          {
+            "name": "reasoning",
+            "type": "string",
+            "description": "Brief explanation of why this intent was chosen"
+          },
+          {
+            "name": "alternatives",
+            "type": "array",
+            "description": "Runner-up intents with their confidence scores"
+          }
         ]
       },
       "dependencies": [],
@@ -1402,7 +1883,9 @@
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -1413,41 +1896,146 @@
       "version": "1.0.0",
       "description": "CRUD operations for agent working memory sessions (Gap 2 - agent-evolution-roadmap). Creates, reads, updates, and closes ephemeral session.json files that store intermediate state for multi-step L2/L3 agent workflows. Sessions expire automatically (default TTL: 30 min).",
       "parameters": [
-        { "name": "Operation", "type": "string", "required": true, "description": "One of: New, Get, Update, SetStep, Close, Cleanup" },
-        { "name": "AgentId", "type": "string", "required": false, "description": "Agent ID (required for Operation=New)" },
-        { "name": "Intent", "type": "string", "required": false, "description": "Task intent in '<domain>:<action>' format (required for Operation=New)" },
-        { "name": "SessionFile", "type": "string", "required": false, "description": "Path to session.json (required for Get/Update/SetStep/Close)" },
-        { "name": "CompletedStep", "type": "string", "required": false, "description": "Step name to mark as completed (for Operation=Update)" },
-        { "name": "StepResult", "type": "hashtable", "required": false, "description": "Key-value pairs to merge into intermediate_results (for Operation=Update)" },
-        { "name": "Confidence", "type": "number", "required": false, "description": "Confidence score 0.0-1.0 to update on the session (for Operation=Update); -1 = skip" },
-        { "name": "StepName", "type": "string", "required": false, "description": "Step name to set as current_step (for Operation=SetStep)" },
-        { "name": "TtlMinutes", "type": "integer", "required": false, "description": "Session TTL in minutes (default: 30, for Operation=New)" },
-        { "name": "InitialMetadata", "type": "hashtable", "required": false, "description": "Agent-specific metadata to store (for Operation=New)" },
-        { "name": "CorrelationId", "type": "string", "required": false, "description": "External correlation ID (PR number, n8n execution ID, etc.)" },
-        { "name": "CleanupAgentId", "type": "string", "required": false, "description": "Agent ID whose expired sessions to remove (for Operation=Cleanup; empty = all agents)" }
+        {
+          "name": "Operation",
+          "type": "string",
+          "required": true,
+          "description": "One of: New, Get, Update, SetStep, Close, Cleanup"
+        },
+        {
+          "name": "AgentId",
+          "type": "string",
+          "required": false,
+          "description": "Agent ID (required for Operation=New)"
+        },
+        {
+          "name": "Intent",
+          "type": "string",
+          "required": false,
+          "description": "Task intent in '<domain>:<action>' format (required for Operation=New)"
+        },
+        {
+          "name": "SessionFile",
+          "type": "string",
+          "required": false,
+          "description": "Path to session.json (required for Get/Update/SetStep/Close)"
+        },
+        {
+          "name": "CompletedStep",
+          "type": "string",
+          "required": false,
+          "description": "Step name to mark as completed (for Operation=Update)"
+        },
+        {
+          "name": "StepResult",
+          "type": "hashtable",
+          "required": false,
+          "description": "Key-value pairs to merge into intermediate_results (for Operation=Update)"
+        },
+        {
+          "name": "Confidence",
+          "type": "number",
+          "required": false,
+          "description": "Confidence score 0.0-1.0 to update on the session (for Operation=Update); -1 = skip"
+        },
+        {
+          "name": "StepName",
+          "type": "string",
+          "required": false,
+          "description": "Step name to set as current_step (for Operation=SetStep)"
+        },
+        {
+          "name": "TtlMinutes",
+          "type": "integer",
+          "required": false,
+          "description": "Session TTL in minutes (default: 30, for Operation=New)"
+        },
+        {
+          "name": "InitialMetadata",
+          "type": "hashtable",
+          "required": false,
+          "description": "Agent-specific metadata to store (for Operation=New)"
+        },
+        {
+          "name": "CorrelationId",
+          "type": "string",
+          "required": false,
+          "description": "External correlation ID (PR number, n8n execution ID, etc.)"
+        },
+        {
+          "name": "CleanupAgentId",
+          "type": "string",
+          "required": false,
+          "description": "Agent ID whose expired sessions to remove (for Operation=Cleanup; empty = all agents)"
+        }
       ],
       "returns": {
         "type": "object",
         "description": "Result hashtable. Shape varies by Operation: New returns SessionId+SessionFile+ExpiresAt; Get returns Session object; Update/SetStep return SessionId; Close returns summary; Cleanup returns RemovedCount.",
         "output_fields": [
-          { "name": "Success", "type": "boolean", "description": "True if the operation succeeded" },
-          { "name": "SessionId", "type": "string", "description": "UUID of the session (New/Update/SetStep/Close)" },
-          { "name": "SessionFile", "type": "string", "description": "Absolute path to session.json (New)" },
-          { "name": "ExpiresAt", "type": "string", "description": "ISO 8601 expiry timestamp (New)" },
-          { "name": "Session", "type": "object", "description": "Full session object (Get)" },
-          { "name": "Expired", "type": "boolean", "description": "True if the session has passed its expires_at (Get)" },
-          { "name": "StepsCompleted", "type": "array", "description": "Ordered list of completed step names (Close)" },
-          { "name": "FinalConfidence", "type": "number", "description": "Confidence at session close, or null (Close)" },
-          { "name": "RemovedCount", "type": "integer", "description": "Number of expired sessions removed (Cleanup)" }
+          {
+            "name": "Success",
+            "type": "boolean",
+            "description": "True if the operation succeeded"
+          },
+          {
+            "name": "SessionId",
+            "type": "string",
+            "description": "UUID of the session (New/Update/SetStep/Close)"
+          },
+          {
+            "name": "SessionFile",
+            "type": "string",
+            "description": "Absolute path to session.json (New)"
+          },
+          {
+            "name": "ExpiresAt",
+            "type": "string",
+            "description": "ISO 8601 expiry timestamp (New)"
+          },
+          {
+            "name": "Session",
+            "type": "object",
+            "description": "Full session object (Get)"
+          },
+          {
+            "name": "Expired",
+            "type": "boolean",
+            "description": "True if the session has passed its expires_at (Get)"
+          },
+          {
+            "name": "StepsCompleted",
+            "type": "array",
+            "description": "Ordered list of completed step names (Close)"
+          },
+          {
+            "name": "FinalConfidence",
+            "type": "number",
+            "description": "Confidence at session close, or null (Close)"
+          },
+          {
+            "name": "RemovedCount",
+            "type": "integer",
+            "description": "Number of expired sessions removed (Cleanup)"
+          }
         ]
       },
       "dependencies": [],
-      "tags": ["session", "working-memory", "gap2", "state", "l2", "l3"],
+      "tags": [
+        "session",
+        "working-memory",
+        "gap2",
+        "state",
+        "l2",
+        "l3"
+      ],
       "security": {
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -1488,20 +2076,138 @@
       "returns": {
         "shape": "hashtable",
         "fields": [
-          { "name": "Success",     "type": "boolean",   "description": "True if at least one job succeeded" },
-          { "name": "JobResults",  "type": "hashtable",  "description": "Keyed by Name; each value is the job output or error hashtable" },
-          { "name": "Failed",      "type": "string[]",  "description": "Names of jobs that failed or timed out" },
-          { "name": "DurationSec", "type": "number",    "description": "Total wall-clock execution time in seconds" }
+          {
+            "name": "Success",
+            "type": "boolean",
+            "description": "True if at least one job succeeded"
+          },
+          {
+            "name": "JobResults",
+            "type": "hashtable",
+            "description": "Keyed by Name; each value is the job output or error hashtable"
+          },
+          {
+            "name": "Failed",
+            "type": "string[]",
+            "description": "Names of jobs that failed or timed out"
+          },
+          {
+            "name": "DurationSec",
+            "type": "number",
+            "description": "Total wall-clock execution time in seconds"
+          }
         ]
       },
       "dependencies": [],
-      "tags": ["parallelization", "multi-agent", "orchestration", "gap3", "start-threadjob", "start-job"],
+      "tags": [
+        "parallelization",
+        "multi-agent",
+        "orchestration",
+        "gap3",
+        "start-threadjob",
+        "start-job"
+      ],
       "notes": "Prefers Start-ThreadJob (PS7+) for shared memory performance; falls back to Start-Job (PS5.1) for subprocess isolation. Use case: agent_review + agent_security in parallel for PR gates.",
       "security": {
         "requires_approval": false,
         "blast_radius": "MEDIUM",
         "audit_log": true,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
+      }
+    },
+    {
+      "id": "devops.deploy-server",
+      "name": "Invoke-ServerDeploy",
+      "domain": "devops",
+      "file": "scripts/pwsh/Deploy-Server.ps1",
+      "version": "1.0.0",
+      "description": "SSH deploy on-demand sul server OCI: git fetch+reset + docker compose up. Supporta deploy di singolo service (-Service agent-runner) o stack completo. Il deploy automatico su merge main e'in DeployMain stage (azure-pipelines.yml).",
+      "parameters": [
+        {
+          "name": "Branch",
+          "type": "string",
+          "required": false,
+          "default": "main",
+          "description": "Branch da deployare sul server"
+        },
+        {
+          "name": "Service",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "Vuoto = stack completo; es. agent-runner = solo runner"
+        },
+        {
+          "name": "SshKey",
+          "type": "string",
+          "required": false,
+          "default": "C:\\old\\Virtual-machine\\ssh-key-2026-01-25.key"
+        },
+        {
+          "name": "SshHost",
+          "type": "string",
+          "required": false,
+          "default": "ubuntu@80.225.86.168"
+        },
+        {
+          "name": "WhatIf",
+          "type": "switch",
+          "required": false,
+          "description": "Dry-run: stampa il comando SSH senza eseguirlo"
+        },
+        {
+          "name": "Json",
+          "type": "switch",
+          "required": false,
+          "description": "Output JSON per agent consumption"
+        }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Risultato del deploy con SHA post-deploy",
+        "output_fields": [
+          {
+            "name": "success",
+            "type": "boolean",
+            "description": "True se DEPLOY_OK ricevuto"
+          },
+          {
+            "name": "sha",
+            "type": "string",
+            "description": "SHA breve del commit deployato"
+          },
+          {
+            "name": "branch",
+            "type": "string"
+          },
+          {
+            "name": "service",
+            "type": "string",
+            "description": "Service deployato (vuoto = tutti)"
+          }
+        ]
+      },
+      "dependencies": [
+        "ssh.exe"
+      ],
+      "tags": [
+        "devops",
+        "deploy",
+        "ssh",
+        "docker",
+        "server"
+      ],
+      "security": {
+        "requires_approval": true,
+        "blast_radius": "HIGH",
+        "audit_log": true,
+        "allowed_callers": [
+          "agent_infra",
+          "agent_scrummaster",
+          "*"
+        ]
       }
     }
   ]
