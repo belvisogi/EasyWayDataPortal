@@ -1503,6 +1503,42 @@
         "audit_log": true,
         "allowed_callers": ["*"]
       }
+    },
+    {
+      "id": "devops.create-release-pr",
+      "name": "New-ReleasePR",
+      "domain": "devops",
+      "file": "scripts/pwsh/Create-ReleasePR.ps1",
+      "version": "1.0.0",
+      "description": "Crea una Release PR da develop verso main su ADO con titolo/descrizione auto-generati (tabella PR mergeate + delta SHA + checklist deploy) e governance integrata. Merge strategy noFastForward.",
+      "parameters": [
+        { "name": "SourceBranch", "type": "string",  "required": false, "default": "develop",  "description": "Branch sorgente (deve essere 'develop' o 'release/*')" },
+        { "name": "TargetBranch", "type": "string",  "required": false, "default": "main",     "description": "Branch destinazione (deve essere 'main')" },
+        { "name": "SessionLabel", "type": "string",  "required": false, "default": "",         "description": "Etichetta sessione (es. 'Session 37'). Se vuoto, auto-detect dall'ultima Release PR su main." },
+        { "name": "Pat",          "type": "string",  "required": false, "default": "",         "description": "ADO PAT. Fallback: env:AZURE_DEVOPS_EXT_PAT → C:\\old\\.env.local" },
+        { "name": "WhatIf",       "type": "switch",  "required": false,                        "description": "Dry-run: stampa titolo+descrizione senza creare la PR" },
+        { "name": "Json",         "type": "switch",  "required": false,                        "description": "Output JSON machine-readable per agent consumption" }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "PR creata con ID, URL e metadati delta",
+        "output_fields": [
+          { "name": "id",         "type": "integer", "description": "ADO PR ID" },
+          { "name": "url",        "type": "string",  "description": "Link diretto alla PR" },
+          { "name": "title",      "type": "string",  "description": "Titolo generato" },
+          { "name": "sourceSHA",  "type": "string",  "description": "SHA breve del branch sorgente" },
+          { "name": "targetSHA",  "type": "string",  "description": "SHA breve del branch target" },
+          { "name": "deltaCount", "type": "integer", "description": "Numero di PR nel delta" }
+        ]
+      },
+      "dependencies": ["Invoke-RestMethod"],
+      "tags": ["devops", "pr", "release", "ado", "governance"],
+      "security": {
+        "requires_approval": true,
+        "blast_radius": "MEDIUM",
+        "audit_log": true,
+        "allowed_callers": ["agent_scrummaster", "agent_pr_gate", "*"]
+      }
     }
   ]
 }
