@@ -1,6 +1,9 @@
 # docker-compose.cert.yml — Stack CERT (UAT)
 # Uso: docker compose -p easyway-cert -f docker-compose.yml -f docker-compose.cert.yml up -d --build
 # Branch: release/* → deploy su CERT
+# Nota sui tag compose per override array:
+#   !reset []        → azzera l'array (nessuna porta esposta)
+#   !override [...]  → sostituisce l'array completamente (non concatena)
 
 services:
   agent-runner:
@@ -13,7 +16,7 @@ services:
 
   qdrant:
     container_name: easyway-cert-cortex
-    ports: []          # nessuna porta esposta all'host in CERT
+    ports: !reset []
     volumes:
       - qdrant-cert-data:/qdrant/storage
     networks:
@@ -21,8 +24,7 @@ services:
 
   sql-edge:
     container_name: easyway-cert-db
-    ports:
-      - "1434:1433"    # host 1434 → container 1433
+    ports: !override ["1434:1433"]
     volumes:
       - sql-cert-data:/var/opt/mssql
     networks:
@@ -30,10 +32,7 @@ services:
 
   azurite:
     container_name: easyway-cert-storage
-    ports:
-      - "11000:10000"
-      - "11001:10001"
-      - "11002:10002"
+    ports: !override ["11000:10000", "11001:10001", "11002:10002"]
     volumes:
       - azurite-cert-data:/data
     networks:
@@ -41,7 +40,7 @@ services:
 
   minio:
     container_name: easyway-cert-storage-s3
-    ports: []          # nessuna porta esposta — accessibile solo via rete interna
+    ports: !reset []
     volumes:
       - minio-cert-data:/data
     networks:
@@ -49,8 +48,7 @@ services:
 
   frontend:
     container_name: easyway-cert-portal
-    ports:
-      - "4000:8080"    # host 4000 → container 8080
+    ports: !override ["4000:8080"]
     environment:
       - ENVIRONMENT=cert
     networks:
@@ -58,8 +56,7 @@ services:
 
   n8n:
     container_name: easyway-cert-orchestrator
-    ports:
-      - "5679:5678"    # host 5679 → container 5678
+    ports: !override ["5679:5678"]
     volumes:
       - n8n-cert-data:/home/node/.n8n
     networks:
