@@ -1,9 +1,0 @@
-{
-  "id": "docs-confluence-dq-kanban",
-  "runner": {
-    "engine": "ps",
-    "plan": "pwsh scripts/confluence-board.ps1 -IntentPath \"intents/confluence.params.json\" -PlanOnly",
-    "apply": "pwsh scripts/confluence-board.ps1 -IntentPath \"intents/confluence.params.json\" -Export -UpdateBoard -WhatIf"
-  }
-}
-
