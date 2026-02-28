@@ -1,6 +1,6 @@
 {
-  "version": "2.10.0",
-  "last_updated": "2026-02-28T16:00:00Z",
+  "version": "2.11.0",
+  "last_updated": "2026-02-28T19:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -2384,6 +2384,211 @@
       },
       "dependencies": ["Invoke-RestMethod"],
       "tags": ["devops", "pr", "release", "ado", "governance"],
+      "security": {
+        "requires_approval": true,
+        "blast_radius": "MEDIUM",
+        "audit_log": true,
+        "allowed_callers": ["agent_scrummaster", "agent_pr_gate", "*"]
+      }
+    },
+    {
+      "id": "planning.business-analyst",
+      "name": "BusinessAnalyst",
+      "domain": "planning",
+      "file": "agents/skills/planning/business-analyst/SKILL.md",
+      "version": "1.0.0",
+      "description": "Product discovery e analisi requisiti. Conduce stakeholder interview, ricerca mercato, problem discovery e crea product brief pronti per handoff al PM. Usa wiki-first: RAG su epic-taxonomy prima di ogni discovery.",
+      "parameters": [
+        {
+          "name": "Command",
+          "type": "string",
+          "required": false,
+          "default": "product-brief",
+          "enum": ["product-brief", "brainstorm-project", "research"],
+          "description": "Workflow da eseguire"
+        },
+        {
+          "name": "Domain",
+          "type": "string",
+          "required": false,
+          "description": "Dominio EasyWay (Infra/AMS/Frontend/Logic/Reporting/Data/Governance)"
+        }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Product brief o research report",
+        "output_fields": [
+          {
+            "name": "briefPath",
+            "type": "string",
+            "description": "Path wiki del product brief creato"
+          },
+          {
+            "name": "epicId",
+            "type": "integer",
+            "description": "ADO Epic ID identificato o proposto"
+          },
+          {
+            "name": "domain",
+            "type": "string",
+            "description": "Dominio EasyWay identificato"
+          }
+        ]
+      },
+      "dependencies": ["retrieval.rag-search"],
+      "tags": ["planning", "discovery", "requirements", "product-brief", "ba"],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
+    },
+    {
+      "id": "planning.product-manager",
+      "name": "ProductManager",
+      "domain": "planning",
+      "file": "agents/skills/planning/product-manager/SKILL.md",
+      "version": "1.0.0",
+      "description": "Crea PRD e tech spec con FR/NFR testabili e tracciabili. Prioritizza con MoSCoW/RICE, scompone in epiche ADO e user story. Output diretto verso planning.prd-to-pbi per creazione PBI su ADO.",
+      "parameters": [
+        {
+          "name": "Command",
+          "type": "string",
+          "required": false,
+          "default": "prd",
+          "enum": ["prd", "tech-spec", "prioritize"],
+          "description": "Workflow da eseguire"
+        },
+        {
+          "name": "ProductBriefPath",
+          "type": "string",
+          "required": false,
+          "description": "Path al product brief generato dal BA"
+        },
+        {
+          "name": "EpicId",
+          "type": "integer",
+          "required": false,
+          "description": "ADO Epic ID a cui linkare i PBI"
+        }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "PRD o tech spec pronti per handoff a planning.prd-to-pbi",
+        "output_fields": [
+          {
+            "name": "prdPath",
+            "type": "string",
+            "description": "Path wiki del PRD creato"
+          },
+          {
+            "name": "requirementCount",
+            "type": "integer",
+            "description": "Numero totale di requisiti FR+NFR"
+          },
+          {
+            "name": "epicCount",
+            "type": "integer",
+            "description": "Numero di epiche identificate"
+          },
+          {
+            "name": "suggestedPbis",
+            "type": "array",
+            "description": "Lista titoli PBI suggeriti per decomposizione"
+          }
+        ]
+      },
+      "dependencies": ["planning.business-analyst", "retrieval.rag-search"],
+      "tags": ["planning", "prd", "requirements", "moscow", "rice", "epics", "pm"],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["*"]
+      }
+    },
+    {
+      "id": "planning.prd-to-pbi",
+      "name": "Convert-PrdToPbi",
+      "domain": "planning",
+      "file": "agents/skills/planning/Convert-PrdToPbi.ps1",
+      "version": "1.0.0",
+      "description": "Fase 2 SDLC agentico: legge un PRD.md, usa LLM (DeepSeek) per decomporre in PBI strutturati, e li crea su ADO via REST API. WhatIf per dry-run. Output: lista PBI ID creati, feed naturale per git.new-pbi-branch.",
+      "parameters": [
+        {
+          "name": "PrdPath",
+          "type": "string",
+          "required": true,
+          "description": "Path al file PRD.md da processare"
+        },
+        {
+          "name": "EpicId",
+          "type": "integer",
+          "required": false,
+          "description": "ADO Epic ID a cui linkare i PBI (default: auto-detect da sezione ADO Mapping del PRD)"
+        },
+        {
+          "name": "WhatIf",
+          "type": "switch",
+          "required": false,
+          "description": "Dry-run: mostra PBI che verrebbero creati senza toccare ADO"
+        },
+        {
+          "name": "Apply",
+          "type": "switch",
+          "required": false,
+          "description": "Crea i PBI su ADO (richiede conferma umana prima di eseguire)"
+        },
+        {
+          "name": "MaxPbi",
+          "type": "integer",
+          "required": false,
+          "default": 20,
+          "description": "Numero massimo di PBI da creare (protezione blast radius)"
+        },
+        {
+          "name": "Pat",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "ADO PAT. Fallback: env:AZURE_DEVOPS_EXT_PAT → C:\\old\\.env.local"
+        },
+        {
+          "name": "Json",
+          "type": "switch",
+          "required": false,
+          "description": "Output JSON machine-readable per agent consumption"
+        }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Lista PBI creati su ADO, pronti per git.new-pbi-branch",
+        "output_fields": [
+          {
+            "name": "pbiIds",
+            "type": "array",
+            "description": "Lista ID dei PBI creati su ADO"
+          },
+          {
+            "name": "epicId",
+            "type": "integer",
+            "description": "Epic ID a cui i PBI sono stati linkati"
+          },
+          {
+            "name": "count",
+            "type": "integer",
+            "description": "Numero di PBI creati"
+          },
+          {
+            "name": "whatIfPlan",
+            "type": "array",
+            "description": "Piano PBI (solo in WhatIf mode)"
+          }
+        ]
+      },
+      "dependencies": ["Invoke-RestMethod", "DEEPSEEK_API_KEY"],
+      "tags": ["planning", "prd", "pbi", "ado", "llm", "sdlc"],
       "security": {
         "requires_approval": true,
         "blast_radius": "MEDIUM",
