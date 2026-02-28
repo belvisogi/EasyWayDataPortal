@@ -64,21 +64,46 @@ Questo documento traduce quella visione in **componenti implementabili**.
 
 Il sistema deve funzionare **anche quando i pezzi automatici falliscono**.
 
-Principio applicato a ogni step:
+### 3.1 Gate di governance — non negoziabili
+
+Questi gate non hanno bypass silenziosi. Possono essere superati solo con azione umana esplicita.
+
+| Gate | Condizione | Conseguenza se non rispettato |
+|------|-----------|-------------------------------|
+| **PRD validato** | Umano approva PRD prima di creare PBI | Nessun PBI viene creato |
+| **WhatIf → Apply** | Umano conferma il piano prima dell'Apply su ADO | Nessun work item viene scritto |
+| **Business Approved** | PBI in stato "Business Approved" su ADO | `New-PbiBranch.ps1` blocca con exit 2, nessun branch creato |
+| **Approvazione PR** | Umano approva la PR prima del merge | Branch non viene integrato in develop |
+
+### 3.2 Degradazione graceful — dove il sistema è flessibile
 
 | Step | Automazione | Fallback manuale |
 |------|-------------|-----------------|
 | Discovery → PRD | `agent_discovery` con RAG su Wiki | Umano scrive il PRD |
 | PRD → PBI in ADO | `agent-ado-prd.ps1` (WhatIf → Apply) | Umano crea PBI manualmente in ADO |
-| PBI → Branch + PR template | `New-PbiBranch.ps1` | Umano esegue `git checkout -b feat/PBI-<id>-...` e copia AC a mano |
+| Fetch AC del PBI | ADO API via `New-PbiBranch.ps1` | Placeholder nel template — AC compilati dal developer |
 | PR → Merge | `agent_pr_gate` + gate umano | Umano approva come sempre |
 
-**Regola di antifragilità**: ogni step deve aggiungere valore **in isolamento**, senza richiedere che lo step precedente sia automatizzato. Un developer può creare il PBI manualmente in ADO e usare `New-PbiBranch.ps1` — il sistema funziona lo stesso.
+**Regola di antifragilità**: ogni step deve aggiungere valore **in isolamento**, senza richiedere che lo step precedente sia automatizzato. Un developer può creare il PBI manualmente in ADO (porta lo stato a "Business Approved") e usare `New-PbiBranch.ps1` — il sistema funziona lo stesso.
 
-**Gate umani obbligatori** (non negoziabili):
-- PRD validato dall'umano prima di creare PBI
-- WhatIf preview prima di Apply su ADO
-- Approvazione PR prima del merge
+### 3.3 Gate "Business Approved" — dettaglio
+
+Il gate è implementato direttamente in `New-PbiBranch.ps1`:
+
+```
+PBI stato = "New" / "Active" / qualsiasi non-approvato
+    → exit 2 con messaggio chiaro e stato attuale mostrato
+    → nessun branch creato
+
+PBI stato = "Business Approved"
+    → gate superato → branch creato
+
+ADO irraggiungibile (rete / PAT scaduto)
+    → exit 2 con messaggio chiaro (safe-by-default)
+    → escape valve: -ForceOffline (solo vera emergenza, logga l'override)
+```
+
+**Perché questo gate è duro**: un developer che parte prima dell'approvazione business crea lavoro potenzialmente da buttare. Il costo di correzione (branch da chiudere, PR da annullare, sviluppo da rifare) è molto più alto del costo di aspettare l'approvazione.
 
 ---
 
@@ -251,33 +276,38 @@ Il collegamento `PBI ID → branch name → PR body` non è mai stato implementa
 
 ## 8. Piano di Implementazione
 
-### Step 1 — `New-PbiBranch.ps1` (Session 40, priorità immediata)
+### Step 1 — `New-PbiBranch.ps1` (Session 40 — COMPLETATO)
 
 **Cosa fa:**
 ```powershell
-pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123 [-DryRun]
+# Verifica stato + crea branch + template PR
+pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123
+
+# Dry-run: verifica stato e mostra piano senza toccare nulla
+pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123 -DryRun
+
+# Push + apre PR ADO con template pre-compilato
+pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123 -CreatePR
+
+# Emergenza: ADO irraggiungibile (logga override, NON bypassa gate di stato)
+pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123 -ForceOffline
 ```
 
 **Comportamento:**
-1. Fetch work item `123` da ADO API → title + acceptance criteria
-2. Genera slug: `feat/PBI-123-<title-kebab-case>`
-3. `git checkout -b feat/PBI-123-<slug>`
-4. Stampa PR description template (copy-paste ready):
-   ```
-   [PBI-123] Title
+1. Fetch `System.State` + `System.Title` + `AcceptanceCriteria` da ADO API
+2. **GATE**: verifica stato in `AllowedStates` (default: `["Business Approved"]`) → exit 2 se non approvato
+3. Genera slug: `feat/PBI-123-<title-kebab-case>`
+4. `git checkout -b feat/PBI-123-<slug>` da `BaseBranch` (default: develop)
+5. Scrive `.git/PBI_PR_TEMPLATE.md` con `AB#123` + AC formattati
+6. Stampa template su stdout (copy-paste ready)
+7. Con `-CreatePR`: push + crea PR ADO con template pre-compilato
 
-   AB#123
+**Exit codes:**
+- `0` = successo (branch creato)
+- `2` = gate bloccato (stato non approvato o ADO irraggiungibile)
+- `1` = errore tecnico
 
-   ## Acceptance Criteria
-   <AC dal work item ADO>
-
-   ## Test Plan
-   - [ ] <AC1>
-   - [ ] <AC2>
-   ```
-5. Con `-DryRun`: mostra senza creare il branch
-
-**Registrazione**: in `agents/skills/registry.json` come `git.new-pbi-branch`
+**Registrazione**: `agents/skills/registry.json` → `git.new-pbi-branch` v1.0.0
 
 ---
 
