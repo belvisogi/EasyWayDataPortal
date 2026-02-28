@@ -4,33 +4,45 @@
   Crea un branch git per un PBI ADO e genera il template PR pre-compilato
   con AB#<id> e gli Acceptance Criteria recuperati dall'ADO API.
 
-  PRINCIPIO ANTIFRAGILE:
-    Il developer NON viene mai bloccato. Se ADO API non e' raggiungibile
-    (rete, PAT scaduto, work item non trovato), lo script crea il branch
-    comunque e genera il template con placeholder. Il sistema degrada
-    gracefully: branch sempre creato, AC completi quando possibile.
+  GOVERNANCE GATE (non negoziabile):
+    Il branch viene creato SOLO se il PBI e' in stato "Business Approved"
+    (o in uno degli stati in -AllowedStates). Questo gate non ha bypass
+    silenziosi: se lo stato non e' approvato, lo script esce con errore
+    chiaro e non crea nulla.
+
+  ANTIFRAGILITA':
+    La verifica dello stato richiede connettivita' ADO. Se ADO non e'
+    raggiungibile:
+      - Comportamento default: BLOCCO (safe-by-default)
+      - Con -ForceOffline: continua, ma logga l'override in modo esplicito
+        e rumoroso. L'operatore si assume la responsabilita'.
+    NOTA: -ForceOffline bypassa la verifica di connettivita', NON il gate
+    di stato. Se riesci a raggiungere ADO, il gate si applica sempre.
 
   FLUSSO:
-    1. Fetch work item da ADO API  →  se fallisce: warn + placeholder
-    2. Genera branch name:  feat/PBI-<id>-<slug>
+    1. Fetch work item da ADO API (stato + titolo + AC)
+       → se ADO non raggiungibile e non -ForceOffline: BLOCCO
+       → se ADO non raggiungibile e -ForceOffline: warn + placeholder
+    2. GATE: verifica stato == "Business Approved"
+       → se stato non approvato: BLOCCO (neanche -ForceOffline bypassa)
     3. DryRun: mostra piano senza toccare nulla
-    4. git checkout -b feat/PBI-<id>-<slug>  da BaseBranch
-    5. Scrive .git/PBI_PR_TEMPLATE.md (riusabile per il corpo della PR)
+    4. git checkout -b feat/PBI-<id>-<slug> da BaseBranch
+    5. Scrive .git/PBI_PR_TEMPLATE.md
     6. Stampa PR template su stdout (copy-paste ready)
     7. Opzionale (-CreatePR): push + crea PR ADO con template pre-compilato
 
   USO:
-    # Dry-run: mostra cosa farebbe
+    # Dry-run: verifica stato e mostra cosa farebbe
     pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123 -DryRun
 
-    # Crea branch + template PR
+    # Crea branch + template PR (richiede stato Business Approved)
     pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123
 
     # Crea branch + push + apre PR su ADO
     pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123 -CreatePR
 
-    # Senza fetch ADO (offline / PAT non disponibile)
-    pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123 -SkipFetch
+    # EMERGENZA: ADO irraggiungibile, operatore si assume responsabilita'
+    pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123 -ForceOffline
 
     # Output JSON per agent consumption
     pwsh agents/skills/git/New-PbiBranch.ps1 -PbiId 123 -Json
@@ -43,17 +55,26 @@
 
 Param(
     [Parameter(Mandatory = $true)]
-    [int]    $PbiId,
+    [int]      $PbiId,
 
-    [string] $Pat          = $env:AZURE_DEVOPS_EXT_PAT,
-    [string] $OrgUrl       = 'https://dev.azure.com/EasyWayData',
-    [string] $Project      = 'EasyWay-DataPortal',
-    [string] $BaseBranch   = 'develop',
+    [string]   $Pat           = $env:AZURE_DEVOPS_EXT_PAT,
+    [string]   $OrgUrl        = 'https://dev.azure.com/EasyWayData',
+    [string]   $Project       = 'EasyWay-DataPortal',
+    [string]   $BaseBranch    = 'develop',
 
-    [switch] $DryRun,
-    [switch] $SkipFetch,
-    [switch] $CreatePR,
-    [switch] $Json
+    # Stati ADO che autorizzano la creazione del branch.
+    # Di default solo "Business Approved". Modificabile via parametro
+    # per ambienti con naming diverso (es. "Approved", "Ready for Dev").
+    [string[]] $AllowedStates = @('Business Approved'),
+
+    [switch]   $DryRun,
+    [switch]   $CreatePR,
+
+    # ESCAPE VALVE: usa solo se ADO e' irraggiungibile e hai certezza
+    # che il PBI sia approvato. L'override viene loggato esplicitamente.
+    [switch]   $ForceOffline,
+
+    [switch]   $Json
 )
 
 $ErrorActionPreference = 'Stop'
@@ -72,9 +93,23 @@ function Write-Ok([string]$msg) {
     if (-not $Json) { Write-Host "  ✓  $msg" -ForegroundColor Green }
 }
 
+function Write-Gate([string]$msg) {
+    Write-Host "  🚫 GATE: $msg" -ForegroundColor Red
+}
+
+function Exit-Blocked([string]$reason, [hashtable]$extra = @{}) {
+    if ($Json) {
+        @{ blocked = $true; reason = $reason } + $extra | ConvertTo-Json -Depth 3
+    } else {
+        Write-Host ""
+        Write-Gate $reason
+        Write-Host ""
+    }
+    exit 2
+}
+
 function ConvertFrom-HtmlToText([string]$html) {
     if ([string]::IsNullOrWhiteSpace($html)) { return '' }
-    # Strip HTML tags e decode entita' comuni
     $text = $html -replace '<br\s*/?>', "`n"
     $text = $text -replace '<li[^>]*>', "`n- "
     $text = $text -replace '<[^>]+>', ''
@@ -83,7 +118,6 @@ function ConvertFrom-HtmlToText([string]$html) {
     $text = $text -replace '&gt;', '>'
     $text = $text -replace '&amp;', '&'
     $text = $text -replace '&quot;', '"'
-    # Normalizza spazi/newline
     $text = $text -replace '\r\n', "`n"
     $text = ($text -split "`n" | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' }) -join "`n"
     return $text.Trim()
@@ -101,11 +135,11 @@ function New-BranchSlug([string]$title, [int]$maxLen = 35) {
     return $slug
 }
 
-function Build-PrTemplate([int]$id, [string]$title, [string]$acText) {
+function Build-PrTemplate([int]$id, [string]$title, [string]$acText, [string]$state) {
     $acLines = if ($acText) {
         $acText -split "`n" | Where-Object { $_ } | ForEach-Object { "- $_" }
     } else {
-        @('- << Acceptance Criteria non disponibili — compilare manualmente >>')
+        @('- << Acceptance Criteria non compilati sul PBI ADO — aggiungere prima del merge >>')
     }
     $checkboxes = if ($acText) {
         $acText -split "`n" | Where-Object { $_ } | ForEach-Object { "- [ ] $_" }
@@ -113,11 +147,15 @@ function Build-PrTemplate([int]$id, [string]$title, [string]$acText) {
         @('- [ ] << verificare AC con il team >>')
     }
 
+    $offlineNote = if ($state -eq '__OFFLINE__') {
+        "`n> ⚠ Branch creato con -ForceOffline: stato PBI non verificato. Confermare Business Approved su ADO prima del merge.`n"
+    } else { '' }
+
     return @"
 [PBI-$id] $title
 
 AB#$id
-
+$offlineNote
 ## Acceptance Criteria
 
 $($acLines -join "`n")
@@ -140,71 +178,128 @@ if (-not $repoRoot) {
     exit 1
 }
 
-# ── Step 1: Fetch work item da ADO (con fallback) ─────────────────────────────
+# ── Step 1: Fetch work item da ADO ────────────────────────────────────────────
 
-$pbiTitle = "PBI-$PbiId"
-$pbiAC    = ''
-$fetched  = $false
+$pbiTitle   = "PBI-$PbiId"
+$pbiAC      = ''
+$pbiState   = ''
+$fetched    = $false
+$adoReached = $false
 
-if ($SkipFetch) {
-    Write-Warn "SkipFetch attivo — usando placeholder per titolo e AC."
-} elseif (-not $Pat) {
-    Write-Warn "PAT non disponibile (AZURE_DEVOPS_EXT_PAT vuoto) — usando placeholder."
-} else {
+if (-not $Pat -and -not $ForceOffline) {
+    Exit-Blocked "PAT non disponibile (AZURE_DEVOPS_EXT_PAT vuoto). Impossibile verificare stato del PBI. Imposta il PAT o usa -ForceOffline (solo in emergenza)."
+}
+
+if ($Pat) {
     Write-Step "Fetch work item $PbiId da ADO..."
     try {
         $b64     = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$Pat"))
-        $fields  = 'System.Title,Microsoft.VSTS.Common.AcceptanceCriteria'
+        $fields  = 'System.Title,System.State,Microsoft.VSTS.Common.AcceptanceCriteria'
         $uri     = "$OrgUrl/$Project/_apis/wit/workitems/$($PbiId)?`$fields=$fields&api-version=7.1"
         $headers = @{ Authorization = "Basic $b64"; Accept = 'application/json' }
 
-        $resp = Invoke-RestMethod -Uri $uri -Headers $headers -Method Get -TimeoutSec 10
+        $resp       = Invoke-RestMethod -Uri $uri -Headers $headers -Method Get -TimeoutSec 10
+        $adoReached = $true
 
-        $rawTitle = $resp.fields.'System.Title'
-        $rawAC    = $resp.fields.'Microsoft.VSTS.Common.AcceptanceCriteria'
+        $pbiTitle = $resp.fields.'System.Title'
+        $pbiState = $resp.fields.'System.State'
+        $pbiAC    = ConvertFrom-HtmlToText $resp.fields.'Microsoft.VSTS.Common.AcceptanceCriteria'
+        $fetched  = $true
 
-        if ($rawTitle) {
-            $pbiTitle = $rawTitle
-            $pbiAC    = ConvertFrom-HtmlToText $rawAC
-            $fetched  = $true
-            Write-Ok "Work item trovato: `"$pbiTitle`""
-        } else {
-            Write-Warn "Work item $PbiId non ha titolo — verificare l'ID."
-        }
+        Write-Ok "Work item trovato: `"$pbiTitle`" [stato: $pbiState]"
+
     } catch {
-        Write-Warn "Fetch ADO fallita ($($_.Exception.Message)) — continuo con placeholder."
-        Write-Warn "Branch e template verranno creati comunque (antifragile)."
+        $adoReached = $false
+        if ($ForceOffline) {
+            Write-Warn "Fetch ADO fallita: $($_.Exception.Message)"
+            Write-Warn "-ForceOffline attivo — stato NON verificato. Operatore assume responsabilita'."
+            $pbiTitle = "PBI-$PbiId"
+            $pbiState = '__OFFLINE__'
+        } else {
+            Exit-Blocked "ADO non raggiungibile ($($_.Exception.Message)). Impossibile verificare stato del PBI $PbiId. Usa -ForceOffline solo in caso di vera emergenza e con certezza che il PBI sia Business Approved." @{ pbiId = $PbiId }
+        }
     }
+} elseif ($ForceOffline) {
+    # PAT mancante + ForceOffline: permesso solo se esplicito
+    Write-Warn "PAT mancante + -ForceOffline: stato PBI NON verificato."
+    $pbiState = '__OFFLINE__'
 }
 
-# ── Step 2: Branch name ────────────────────────────────────────────────────────
+# ── Step 2: GATE stato Business Approved ──────────────────────────────────────
+#
+# QUESTO GATE NON HA BYPASS.
+# Se ADO e' stato raggiunto e lo stato non e' nella lista allowed → BLOCCO.
+# -ForceOffline bypassa solo il requisito di connettivita', non questo gate.
+
+if ($adoReached) {
+    $stateOk = $AllowedStates -contains $pbiState
+
+    if (-not $stateOk) {
+        if (-not $Json) {
+            Write-Host ""
+            Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Red
+            Write-Host "  GATE: PBI $PbiId non e' Business Approved." -ForegroundColor Red
+            Write-Host "  Stato attuale : $pbiState" -ForegroundColor Red
+            Write-Host "  Stati ammessi : $($AllowedStates -join ', ')" -ForegroundColor Red
+            Write-Host ""
+            Write-Host "  Lo sviluppo parte solo dopo l'approvazione business." -ForegroundColor Yellow
+            Write-Host "  Richiedere l'approvazione su ADO e riprovare." -ForegroundColor Yellow
+            Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Red
+            Write-Host ""
+        } else {
+            @{
+                blocked       = $true
+                reason        = "PBI non in stato Business Approved"
+                pbiId         = $PbiId
+                pbiTitle      = $pbiTitle
+                currentState  = $pbiState
+                allowedStates = $AllowedStates
+            } | ConvertTo-Json -Depth 3
+        }
+        exit 2
+    }
+
+    Write-Ok "Gate superato: stato '$pbiState' e' autorizzato."
+} elseif ($pbiState -eq '__OFFLINE__') {
+    Write-Warn "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Write-Warn " OVERRIDE OFFLINE ATTIVO — stato PBI non verificato."
+    Write-Warn " Questo override viene registrato."
+    Write-Warn " Verificare manualmente che PBI $PbiId sia Business Approved."
+    Write-Warn "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+}
+
+# ── Step 3: Branch name ────────────────────────────────────────────────────────
 
 $slug       = New-BranchSlug $pbiTitle
 $branchName = "feat/PBI-$PbiId-$slug"
-$prTemplate = Build-PrTemplate $PbiId $pbiTitle $pbiAC
+$prTemplate = Build-PrTemplate $PbiId $pbiTitle $pbiAC $pbiState
 $prTitle    = "[PBI-$PbiId] $pbiTitle"
 
-# ── Step 3: DryRun — mostra piano senza eseguire ─────────────────────────────
+# ── Step 4: DryRun — mostra piano senza eseguire ─────────────────────────────
 
 if ($DryRun) {
     if ($Json) {
         @{
-            dryRun     = $true
-            pbiId      = $PbiId
-            pbiTitle   = $pbiTitle
-            branch     = $branchName
-            baseBranch = $BaseBranch
-            prTitle    = $prTitle
-            prTemplate = $prTemplate
-            acFetched  = $fetched
+            dryRun        = $true
+            pbiId         = $PbiId
+            pbiTitle      = $pbiTitle
+            pbiState      = $pbiState
+            stateVerified = $adoReached
+            branch        = $branchName
+            baseBranch    = $BaseBranch
+            prTitle       = $prTitle
+            prTemplate    = $prTemplate
+            acFetched     = $fetched
         } | ConvertTo-Json -Depth 5
     } else {
         Write-Host ""
         Write-Host "━━━  DRY RUN — nessuna modifica eseguita  ━━━" -ForegroundColor Magenta
+        Write-Host "  PBI       : $PbiId — $pbiTitle" -ForegroundColor White
+        Write-Host "  Stato     : $pbiState$(if ($adoReached) { ' ✓' } else { ' (non verificato)' })" -ForegroundColor $(if ($adoReached) { 'Green' } else { 'Yellow' })
         Write-Host "  Branch    : $branchName" -ForegroundColor White
         Write-Host "  Da        : $BaseBranch" -ForegroundColor White
         Write-Host "  PR Title  : $prTitle" -ForegroundColor White
-        Write-Host "  AC fetch  : $(if ($fetched) { 'OK' } else { 'PLACEHOLDER' })" -ForegroundColor $(if ($fetched) { 'Green' } else { 'Yellow' })
+        Write-Host "  AC        : $(if ($pbiAC) { 'presenti' } else { 'placeholder' })" -ForegroundColor $(if ($pbiAC) { 'Green' } else { 'Yellow' })
         Write-Host ""
         Write-Host "── PR Template ─────────────────────────────────" -ForegroundColor DarkGray
         Write-Host $prTemplate
@@ -213,11 +308,10 @@ if ($DryRun) {
     exit 0
 }
 
-# ── Step 4: Crea branch ────────────────────────────────────────────────────────
+# ── Step 5: Crea branch ────────────────────────────────────────────────────────
 
 Write-Step "Checkout branch $branchName da $BaseBranch..."
 
-# Assicura che BaseBranch sia aggiornato
 git fetch origin $BaseBranch --quiet 2>$null
 
 $existing = git branch --list $branchName
@@ -230,13 +324,13 @@ if ($existing) {
 
 Write-Ok "Branch creato: $branchName"
 
-# ── Step 5: Scrivi PR template in .git/ ───────────────────────────────────────
+# ── Step 6: Scrivi PR template ─────────────────────────────────────────────────
 
 $templatePath = Join-Path $repoRoot '.git' 'PBI_PR_TEMPLATE.md'
 $prTemplate | Set-Content -Path $templatePath -Encoding UTF8
 Write-Ok "PR template scritto in .git/PBI_PR_TEMPLATE.md"
 
-# ── Step 6: Output template su stdout ─────────────────────────────────────────
+# ── Step 7: Output template su stdout ─────────────────────────────────────────
 
 if (-not $Json) {
     Write-Host ""
@@ -256,7 +350,7 @@ if (-not $Json) {
     Write-Host ""
 }
 
-# ── Step 7 (opzionale): Push + crea PR su ADO ────────────────────────────────
+# ── Step 8 (opzionale): Push + crea PR su ADO ────────────────────────────────
 
 $prUrl = $null
 
@@ -269,14 +363,14 @@ if ($CreatePR) {
 
         Write-Step "Creazione PR su ADO..."
         try {
-            $b64      = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$Pat"))
-            $apiUrl   = "$OrgUrl/$Project/_apis/git/repositories/EasyWayDataPortal/pullrequests?api-version=7.1"
-            $body     = @{
-                title           = $prTitle
-                description     = $prTemplate
-                sourceRefName   = "refs/heads/$branchName"
-                targetRefName   = "refs/heads/$BaseBranch"
-                mergeStrategy   = 'noFastForward'
+            $b64    = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$Pat"))
+            $apiUrl = "$OrgUrl/$Project/_apis/git/repositories/EasyWayDataPortal/pullrequests?api-version=7.1"
+            $body   = @{
+                title         = $prTitle
+                description   = $prTemplate
+                sourceRefName = "refs/heads/$branchName"
+                targetRefName = "refs/heads/$BaseBranch"
+                mergeStrategy = 'noFastForward'
             } | ConvertTo-Json -Depth 3
 
             $resp  = Invoke-RestMethod -Uri $apiUrl -Method Post -Body $body `
@@ -293,15 +387,17 @@ if ($CreatePR) {
 # ── Output finale ─────────────────────────────────────────────────────────────
 
 $result = @{
-    pbiId      = $PbiId
-    pbiTitle   = $pbiTitle
-    branch     = $branchName
-    baseBranch = $BaseBranch
-    prTitle    = $prTitle
-    prTemplate = $prTemplate
-    acFetched  = $fetched
-    prUrl      = $prUrl
-    templateFile = $templatePath
+    pbiId         = $PbiId
+    pbiTitle      = $pbiTitle
+    pbiState      = $pbiState
+    stateVerified = $adoReached
+    branch        = $branchName
+    baseBranch    = $BaseBranch
+    prTitle       = $prTitle
+    prTemplate    = $prTemplate
+    acFetched     = $fetched
+    prUrl         = $prUrl
+    templateFile  = $templatePath
 }
 
 if ($Json) {
