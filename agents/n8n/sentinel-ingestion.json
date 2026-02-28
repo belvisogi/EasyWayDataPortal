@@ -38,7 +38,7 @@
         },
         {
             "parameters": {
-                "command": "cd /home/ubuntu/EasyWayDataPortal/Wiki && output=$(git pull) && echo \"$output\" && if [[ \"$output\" != *\"Already up to date\"* ]]; then echo \"Changes detected, starting ingestion...\" && docker exec easyway-runner bash -c 'cd /app/scripts && QDRANT_URL=http://qdrant:6333 QDRANT_API_KEY=wgs6XqCt8qglELghWG6IE4kvzdDgh3Kk node ingest_wiki.js'; else echo \"No changes detected.\"; fi"
+                "command": "cd /home/ubuntu/EasyWayDataPortal && git fetch origin main && before=$(git rev-parse HEAD) && git reset --hard origin/main && after=$(git rev-parse HEAD) && if [ \"$before\" != \"$after\" ]; then echo \"Changes detected, starting ingestion...\" && source /opt/easyway/.env.secrets && docker exec easyway-runner bash -c \"cd /app/scripts && QDRANT_URL=http://qdrant:6333 QDRANT_API_KEY=$QDRANT_API_KEY node ingest_wiki.js\"; else echo \"No changes detected.\"; fi"
             },
             "id": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
             "name": "SSH - Ingestion",
