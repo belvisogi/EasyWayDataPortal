@@ -1,6 +1,6 @@
 {
-  "version": "2.9.0",
-  "last_updated": "2026-02-28T06:00:00Z",
+  "version": "2.10.0",
+  "last_updated": "2026-02-28T16:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -1609,6 +1609,134 @@
         "allowed_callers": [
           "agent_release",
           "agent_infra"
+        ]
+      }
+    },
+    {
+      "id": "git.new-pbi-branch",
+      "name": "New-PbiBranch",
+      "domain": "git",
+      "file": "skills/git/New-PbiBranch.ps1",
+      "version": "1.0.0",
+      "description": "Crea un branch git per un PBI ADO (feat/PBI-<id>-<slug>) e genera il template PR pre-compilato con AB#<id> e Acceptance Criteria. Antifragile: funziona anche se ADO non e' raggiungibile (fallback graceful con placeholder).",
+      "parameters": [
+        {
+          "name": "PbiId",
+          "type": "integer",
+          "required": true,
+          "description": "ID del work item ADO (PBI) da collegare al branch"
+        },
+        {
+          "name": "Pat",
+          "type": "string",
+          "required": false,
+          "default": "env:AZURE_DEVOPS_EXT_PAT",
+          "description": "PAT Azure DevOps. Se omesso usa AZURE_DEVOPS_EXT_PAT. Se mancante: fallback a placeholder."
+        },
+        {
+          "name": "BaseBranch",
+          "type": "string",
+          "required": false,
+          "default": "develop",
+          "description": "Branch di partenza per il nuovo branch feature"
+        },
+        {
+          "name": "DryRun",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Mostra piano senza creare branch o PR"
+        },
+        {
+          "name": "SkipFetch",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Salta il fetch ADO API; usa placeholder per titolo e AC"
+        },
+        {
+          "name": "CreatePR",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Push branch + crea PR su ADO con template pre-compilato"
+        },
+        {
+          "name": "Json",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Output strutturato JSON per agent consumption"
+        }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Risultato creazione branch e template PR",
+        "output_fields": [
+          {
+            "name": "pbiId",
+            "type": "integer",
+            "description": "ID work item ADO"
+          },
+          {
+            "name": "pbiTitle",
+            "type": "string",
+            "description": "Titolo del PBI (da ADO o placeholder)"
+          },
+          {
+            "name": "branch",
+            "type": "string",
+            "description": "Nome branch creato: feat/PBI-<id>-<slug>"
+          },
+          {
+            "name": "prTitle",
+            "type": "string",
+            "description": "Titolo PR suggerito: [PBI-<id>] <title>"
+          },
+          {
+            "name": "prTemplate",
+            "type": "string",
+            "description": "Corpo PR pre-compilato con AB#<id> e AC"
+          },
+          {
+            "name": "acFetched",
+            "type": "boolean",
+            "description": "True se AC sono stati recuperati da ADO; false se placeholder"
+          },
+          {
+            "name": "prUrl",
+            "type": "string",
+            "description": "URL PR ADO creata (solo se -CreatePR)"
+          },
+          {
+            "name": "templateFile",
+            "type": "string",
+            "description": "Path .git/PBI_PR_TEMPLATE.md scritto su disco"
+          }
+        ]
+      },
+      "dependencies": [
+        "git",
+        "pwsh"
+      ],
+      "tags": [
+        "git",
+        "ado",
+        "pbi",
+        "branch",
+        "pr",
+        "traceability",
+        "workflow"
+      ],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": [
+          "agent_backlog_planner",
+          "agent_ado_userstory",
+          "agent_developer",
+          "agent_scrummaster"
         ]
       }
     },
