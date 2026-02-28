@@ -1,9 +1,0 @@
-{
-  "id": "docs-dq-audit",
-  "runner": {
-    "engine": "ps",
-    "plan": "pwsh scripts/docs-dq-scorecard.ps1 -WikiPath \"wiki\"",
-    "apply": "pwsh scripts/docs-dq-scorecard.ps1 -WikiPath \"wiki\" -UpdateBoard -WhatIf"
-  }
-}
-
