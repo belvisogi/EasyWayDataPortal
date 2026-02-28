@@ -719,6 +719,30 @@ stages:
               echo "##[section]DeployCert OK — branch=$BRANCH $(git rev-parse --short HEAD)"
             displayName: 'git pull + docker compose up (CERT)'
 
+# Deploy MAIN — merge Release PR su main → git fetch+reset + docker compose up
+  - stage: DeployMain
+    displayName: 'Deploy → MAIN (server OCI, stack easyway-dev)'
+    dependsOn: BuildAndTest
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - job: DeployMainJob
+        displayName: 'git fetch+reset main + docker compose up'
+        pool:
+          name: Default
+        steps:
+          - script: |
+              set -e
+              cd ~/EasyWayDataPortal
+              git fetch origin main
+              git reset --hard origin/main
+              source /opt/easyway/.env.secrets
+              OPENAI_API_KEY=placeholder ANTHROPIC_API_KEY=placeholder \
+                docker compose -p easyway-dev \
+                  -f docker-compose.yml \
+                  up -d --build
+              echo "##[section]DeployMain OK — $(git rev-parse --short HEAD)"
+            displayName: 'git fetch+reset main + docker compose up (DEV)'
+
 # GitHub Mirror (main only) — push automatico dopo ogni merge su main
   - stage: GitHubMirror
     displayName: 'GitHub Mirror (publish main → github)'
