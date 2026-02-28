@@ -30,7 +30,6 @@ services:
         condition: service_started
     networks:
       - easyway-net
-    command: ["pwsh", "-c", "for() { Start-Sleep 1000 }"]
 
   # ⚡ Vector Database (Memory Cortex)
   qdrant:
