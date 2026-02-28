@@ -118,12 +118,24 @@ ADO irraggiungibile (rete / PAT scaduto)
 │  Input: requisito in linguaggio naturale                        │
 │         oppure documento esistente (wiki, email, nota)          │
 │                                                                 │
-│  Agent: agent_discovery  →  RAG su Wiki + repo                  │
+│  ⚠ WIKI-FIRST OBBLIGATORIO — prima di scrivere una riga:       │
+│    1. RAG su wiki → epic-taxonomy.md                            │
+│       → quale dominio? (Infra/AMS/Business/Data/Governance)     │
+│       → esiste già un'epica attiva in ADO per questo dominio?   │
+│       → se sì: aggiungo Features a quella, non creo nuova Epic  │
+│    2. RAG su wiki → ado-operating-model.md                      │
+│       → Area Path corretto                                      │
+│       → Kanban o Sprint?                                        │
+│    3. RAG su repo → codice/API/DB esistente                     │
+│       → impatti tecnici reali, non ipotizzati                   │
+│                                                                 │
+│  Agent: agent_discovery                                         │
 │  Output: PRD.md con:                                            │
-│    - Obiettivo business                                         │
+│    - Dominio + Epic di appartenenza (esistente o nuova)         │
+│    - Feature/PBI attesi per quel dominio (da epic-taxonomy.md)  │
 │    - Impatti tecnici (API, DB, frontend, ETL)                   │
 │    - Evidence + Confidence score (H/M/L)                        │
-│    - Draft AC per ogni area                                     │
+│    - Draft AC per ogni PBI                                      │
 │                                                                 │
 │  ✅ GATE UMANO: validazione PRD prima di procedere              │
 └────────────────────────┬────────────────────────────────────────┘
@@ -135,22 +147,25 @@ ADO irraggiungibile (rete / PAT scaduto)
 │  Agent: agent_backlog_planner / agent_ado_userstory             │
 │  Script: agent-ado-prd.ps1                                      │
 │                                                                 │
-│  WhatIf → mostra: "Creo 1 Epic, 3 Feature, 12 PBI"             │
+│  WhatIf → mostra:                                               │
+│    "Epic [INFRA] esistente #45 — aggiungo Feature"              │
+│    "Creo 1 nuova Feature, 4 PBI"                                │
 │  Apply  → crea in ADO:                                          │
-│    Epic  → Feature → PBI (con title, description, AC)           │
+│    (Epic esistente) → Feature → PBI (title, AC, Area Path)      │
 │                                                                 │
 │  Output: lista PBI creati [{ id: 123, title, ac }, ...]         │
 │                                                                 │
-│  ✅ GATE UMANO: approvazione backlog prima di Apply             │
+│  ✅ GATE UMANO: approvazione backlog + Business Approved su ADO │
 └────────────────────────┬────────────────────────────────────────┘
-                         │ PBI ID + AC
+                         │ PBI in stato "Business Approved"
                          ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  FASE 3 — Branch + PR Template  ← IL GAP ATTUALE               │
+│  FASE 3 — Branch + PR Template                                  │
 │                                                                 │
-│  Skill: New-PbiBranch.ps1  (DA COSTRUIRE — priorità 1)          │
+│  Skill: New-PbiBranch.ps1  ✓ COMPLETATO (Session 40)           │
 │                                                                 │
 │  Input:  --pbi-id 123                                           │
+│  Gate:   verifica stato "Business Approved" su ADO              │
 │  Fetch:  titolo + AC da ADO API                                  │
 │  Esegue: git checkout -b feat/PBI-123-short-title               │
 │  Output: PR description template con:                           │
