@@ -89,13 +89,23 @@ function Get-Pat {
 
 function Get-DeepSeekKey {
     if ($DeepSeekApiKey) { return $DeepSeekApiKey }
-    # tenta import da .env.secrets (ambiente server) o .env.local
     $envFile = 'C:\old\.env.local'
     if (Test-Path $envFile) {
         $line = Get-Content $envFile | Where-Object { $_ -match '^DEEPSEEK_API_KEY=' } | Select-Object -First 1
         if ($line) { return ($line -split '=', 2)[1].Trim().Trim('"') }
     }
-    throw "DEEPSEEK_API_KEY non trovato. Imposta env:DEEPSEEK_API_KEY o aggiungi a .env.local."
+    return $null
+}
+
+function Get-OpenRouterKey {
+    $k = $env:OPENROUTER_API_KEY
+    if ($k) { return $k }
+    $envFile = 'C:\old\.env.local'
+    if (Test-Path $envFile) {
+        $line = Get-Content $envFile | Where-Object { $_ -match '^OPENROUTER_API_KEY=' } | Select-Object -First 1
+        if ($line) { return ($line -split '=', 2)[1].Trim().Trim('"') }
+    }
+    return $null
 }
 
 function Get-B64Auth([string]$pat) {
@@ -126,9 +136,23 @@ if ($detectedEpicId -eq 0) {
 
 # ─── step 3: chiama DeepSeek per strutturare i PBI ────────────────────────
 
-Write-Step "Chiamata DeepSeek ($DeepSeekModel) per decomposizione PRD in PBI..."
-
 $dsKey = Get-DeepSeekKey
+$orKey = Get-OpenRouterKey
+
+if ($dsKey) {
+    Write-Step "Chiamata DeepSeek ($DeepSeekModel) per decomposizione PRD in PBI..."
+    $llmUrl   = 'https://api.deepseek.com/v1/chat/completions'
+    $llmKey   = $dsKey
+    $llmModel = $DeepSeekModel
+} elseif ($orKey) {
+    Write-Warning "DEEPSEEK_API_KEY non trovata — fallback OpenRouter (deepseek/deepseek-chat)..."
+    Write-Step "Chiamata OpenRouter per decomposizione PRD in PBI..."
+    $llmUrl   = 'https://openrouter.ai/api/v1/chat/completions'
+    $llmKey   = $orKey
+    $llmModel = 'deepseek/deepseek-chat'
+} else {
+    throw "Nessuna API key disponibile (DEEPSEEK_API_KEY o OPENROUTER_API_KEY). Impossibile generare PBI."
+}
 
 $systemPrompt = @"
 Sei un Product Manager esperto che lavora con Azure DevOps.
@@ -169,7 +193,7 @@ Esempio output:
 $userPrompt = "Analizza questo PRD ed estrai i PBI:`n`n$prdContent"
 
 $dsBody = @{
-    model    = $DeepSeekModel
+    model    = $llmModel
     messages = @(
         @{ role = 'system'; content = $systemPrompt }
         @{ role = 'user';   content = $userPrompt }
@@ -181,13 +205,13 @@ $dsBody = @{
 
 try {
     $dsResp = Invoke-RestMethod `
-        -Uri     'https://api.deepseek.com/v1/chat/completions' `
+        -Uri     $llmUrl `
         -Method  Post `
-        -Headers @{ Authorization = "Bearer $dsKey"; 'Content-Type' = 'application/json' } `
+        -Headers @{ Authorization = "Bearer $llmKey"; 'Content-Type' = 'application/json' } `
         -Body    ([System.Text.Encoding]::UTF8.GetBytes($dsBody)) `
         -TimeoutSec 60
 } catch {
-    throw "DeepSeek API error: $_`nVerifica DEEPSEEK_API_KEY e connettivita'."
+    throw "LLM API error: $_`nVerifica API key e connettivita'."
 }
 
 $rawJson = $dsResp.choices[0].message.content.Trim()
