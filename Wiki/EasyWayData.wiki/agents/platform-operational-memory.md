@@ -1499,3 +1499,130 @@ Formato sezione auto-generata in `.cursorrules`:
 - n8n sessione dedicata: webhook ADO→n8n→Resolve-PRConflicts, levi-watchman, sentinel-ingestion
 - Fase 3 SDLC: orchestratore interattivo BA/PM via LLM (agent-ado-prd.ps1)
 - AI_DBA_Governance_MVP.md: product document quando l'utente è pronto
+
+---
+
+### Session 42 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- PR #223: [Release] Session 41 develop→main — ship PR #221 (CI fixes) + PR #222 (docs wiki)
+- PR #224: feat(planning) `Invoke-SDLCOrchestrator.ps1` v2 orchestratore interattivo + staging skills ADOPT
+
+**Perché**
+- Il flusso SDLC richiedeva un unico entry-point che guidasse l'utente attraverso BA→PM→PBI→Sprint senza dover invocare ogni script separatamente
+- Le skill BA, PM, Scrum Master erano separate — l'orchestratore le integra in sequenza con gate interattivi (A/R/E/Q) e resume automatico se i file già esistono
+- Staging skills (scrum-master, multi-agent-orchestration) portati a ADOPT per segnalare maturità d'uso
+
+**Come**
+- `Invoke-SDLCOrchestrator.ps1` v2: 5 fasi — [0/4] Contesto (3 domande + Epic Discovery ADO via WIQL), [1/4] Brief BA (LLM Fan-Out 4 dimensioni), [2/4] PRD PM (LLM con approval loop A/R/E/Q), [3/4] PBI ADO (WhatIf→Apply + Saga log), [4/4] Sprint Plan (Scrum Master Fibonacci sizing)
+- Epic Discovery: query WIQL ADO per epiche attive → lista numerata → utente sceglie
+- LLM strategy: DeepSeek primary + OpenRouter fallback (antifragile)
+- Resume automatico: se product-brief.md/prd.md/sprint-plan.md esistono → chiede U/R
+- `sync-to-ado.yml`: GitHub Actions workflow per sincronizzazione bidirezionale contributi esterni
+
+**Q&A**
+- *Perché un orchestratore invece di 3 script separati?* UX: l'utente lancia un comando e viene guidato; nessun rischio di saltare fasi o dimenticare parametri.
+- *Il loop A/R/E/Q è bloccante?* Sì in modalità interattiva. Con `-NoConfirm -Json` si bypassa per agent use.
+- *Come funziona il Saga log?* Se Convert-PrdToPbi -Apply crea solo N/M PBI, mostra quali sono stati creati per cleanup manuale.
+
+**File creati/modificati**
+- `agents/skills/planning/Invoke-SDLCOrchestrator.ps1` — v2 orchestratore completo
+- `agents/skills/scrum-master/SKILL.md` + `agents/skills/orchestration/SKILL.md`
+- `agents/skills/registry.json` v2.13.0 — 33 skill totali
+- `.github/workflows/sync-to-ado.yml` — GitHub→ADO sync bidirezionale
+
+**PR**: #223 main ✓ | #224 develop (in attesa merge al momento)
+
+**Backlog rimasto → Session 43**
+- Test live orchestratore v2
+- n8n sessione dedicata (PLANNED)
+- AI_DBA_Governance_MVP.md
+
+---
+
+### Session 43 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- Test live flusso SDLC agentico end-to-end (5 fasi OK con feature reale)
+- PR #225: fix(planning) OpenRouter fallback + `@(Get-ADOActiveEpics)` array fix
+- Mapping MASTER doc (`EASYWAY_AGENTIC_SDLC_MASTER.md`) vs implementazione v2
+- Rinnovo `GITHUB_PAT` in ADO Library `EasyWay-Secrets`
+
+**Perché**
+- Il test live ha rivelato 2 bug bloccanti in rete aziendale: (1) DeepSeek bloccato → orchestratore si fermava senza fallback in `Convert-PrdToPbi`; (2) `Get-ADOActiveEpics` restituisce `$null` senza epiche → `.Count` su null → eccezione
+- `GITHUB_PAT` scaduto → pipeline GitHubMirror falliva su stage `GitHubMirror`
+- Il confronto MASTER doc ha evidenziato 3 gap critici per la prossima sessione
+
+**Come**
+- `Convert-PrdToPbi.ps1`: aggiunto blocco `elseif ($orKey)` con OpenRouter come fallback DeepSeek (stesso schema OpenAI-compat, model `deepseek/deepseek-chat`, headers HTTP-Referer + X-Title)
+- `Invoke-SDLCOrchestrator.ps1`: `@(Get-ADOActiveEpics)` — il wrapping `@()` forza array anche su `$null`, `.Count` non lancia più eccezione
+- PAT rinnovato manualmente in ADO → Library `EasyWay-Secrets` → variabile `GITHUB_PAT`
+
+**Gap critici identificati (→ Session 44)**
+- ❌ RAG pre-Brief: orchestratore parte da "tabula rasa" — nessuna query Qdrant prima del Brief
+- ❌ Evidence/Confidence nel PRD: sezione mancante — anti-allucinazione non implementata
+- ❌ Traceability `initiative_id`: nessun ID univoco propagato tra documenti e PBI ADO
+
+**Q&A**
+- *Perché `@()` e non `if ($null)`?* PowerShell: `$null.Count` lancia eccezione in StrictMode. `@($null).Count` = 0, sicuro.
+- *OpenRouter ha gli stessi modelli di DeepSeek?* Sì per `deepseek/deepseek-chat`. Il fallback è trasparente per l'utente.
+- *Il GITHUB_PAT va rinnovato periodicamente?* Sì — scadenza configurabile in ADO. Aggiungere reminder in backlog.
+
+**File creati/modificati**
+- `agents/skills/planning/Convert-PrdToPbi.ps1` — fallback OpenRouter
+- `agents/skills/planning/Invoke-SDLCOrchestrator.ps1` — fix `@(Get-ADOActiveEpics)`
+
+**PR**: #225 develop ✓
+
+**Backlog rimasto → Session 44**
+- Implementare v3 orchestratore: RAG + Evidence/Confidence + initiative_id
+- n8n sessione dedicata (PLANNED)
+- AI_DBA_Governance_MVP.md
+
+---
+
+### Session 44 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- PRD formale scritto: `Wiki/EasyWayData.wiki/planning/sdlc-orchestrator-v3/prd.md`
+- `Invoke-SDLCOrchestrator.ps1` v3: 3 gap critici chiusi + 2 UX improvements
+- `Convert-PrdToPbi.ps1`: aggiunto `-InitiativeId` param per traceability
+- `scripts/connect-qdrant-tunnel.ps1`: script SSH tunnel per RAG locale
+- PR #227: feat/planning/sdlc-orchestrator-v3 → develop
+- Test live v3 completato (feature "assistente-cosa-posso-aiutarti") — Brief + PRD + WhatIf OK
+
+**Perché**
+- Gap 1 (RAG): il LLM generava Brief/PRD senza conoscere la wiki EasyWay esistente (167k chunk in Qdrant) — rischio allucinazioni e duplicazione di funzionalità già presenti
+- Gap 2 (Evidence/Confidence): il MASTER doc §6 richiede che ogni decisione architetturale abbia Evidence (fonte) e Confidence (High/Medium/Low) — senza questo il PRD non è governabile
+- Gap 3 (initiative_id): nessuna traccia univoca collegava PRD → PBI → branch → release. La traceability end-to-end è P0 nel MASTER doc §11.1
+- UX: l'utente doveva conoscere a memoria i 7 domini e 3 pattern — l'auto-suggest LLM riduce il cognitive load
+
+**Come**
+- **RAG (FR-001)**: nuova funzione `Invoke-RAGSearch([string[]]$queries, [int]$k)` — chiama Qdrant scroll API con text match filter (`filter.must[].key=content, match.text=query`). Legge `QDRANT_URL` + `QDRANT_API_KEY` da env/`.env.local`. SSH tunnel: `ssh -L 6333:localhost:6333 ubuntu@80.225.86.168 -i <key> -f -N`. Silent skip se non configurato. Context iniettato in BA prompt (`CONOSCENZA WIKI EasyWay`) e PM prompt (`FONTI WIKI DISPONIBILI`).
+- **Evidence/Confidence (FR-002)**: PM prompt aggiornato con sezione `## Evidence & Confidence` obbligatoria (tabella Area / Evidence / Confidence / Note). Confidence=Low → riga con "⚠️ Richiede validazione umana". `max_tokens` portato a 3500 per accomodare la sezione extra.
+- **initiative_id (FR-003)**: `$InitiativeId = "INIT-$(Get-Date -Format 'yyyyMMdd')-$slug"` auto-generato (override via param). YAML front-matter aggiunto a tutti i documenti via `Add-InitiativeHeader`. Passato a `Convert-PrdToPbi.ps1 -InitiativeId` → PBI ADO hanno `<b>Initiative ID</b>: INIT-...` nella descrizione HTML. Incluso in JSON output (`initiativeId`).
+- **Auto-suggest (FR-004)**: `Invoke-LLMAutoSuggest` — call LLM con `max_tokens=150, temperature=0.1` → JSON `{domain, pattern}` → presentato all'utente con INVIO per accettare. Silent skip se LLM offline.
+- **Epic skip silenzioso (FR-005)**: rimosso `Write-Warning` da `Ask-EpicId` quando ADO offline → messaggio neutro DarkGray.
+- **connect-qdrant-tunnel.ps1**: check porta 6333 già in ascolto; avvio `ssh -f -N` background (default) o `-Wait` foreground; `-Verify` chiama `GET /collections/easyway_wiki` per contare vettori; offre di aggiungere `QDRANT_URL` a `.env.local`.
+- **Lesson appresa**: `QDRANT_URL` in `.env.local` non letto durante il test (bug residuo: probabilmente riga duplicata/vuota precedente). Da investigare in Session 45.
+
+**Q&A**
+- *Perché Qdrant direct invece del portal `/api/knowledge`?* Il portal richiede JWT. Chiamare Qdrant direttamente via SSH tunnel è più semplice e non richiede token. Il portal API può essere usato in futuro aggiungendo autenticazione API key all'endpoint.
+- *Il RAG usa embedding o text search?* Text search (Qdrant scroll API con `match.text`). Non richiede embedding model lato orchestratore — stesso approccio del `knowledgeController.ts` del portal.
+- *initiative_id è davvero univoco?* Formato `INIT-YYYYMMDD-<slug>`. Se la stessa feature viene rilavorata lo stesso giorno, l'ID si scontra. Workaround: passare `-InitiativeId` manualmente con un suffisso.
+- *Auto-suggest fallisce se LLM è offline?* Sì, silent skip — si prosegue con le domande standard come in v2.
+- *Il test ha verificato l'Evidence & Confidence?* Sì: Data Model=Low+⚠️, Security=Medium+⚠️, Integration/API=High. Esattamente il comportamento atteso senza RAG (sorgenti N/A → confidence degradata).
+
+**File creati/modificati**
+- `agents/skills/planning/Invoke-SDLCOrchestrator.ps1` — v3 completo (560+ righe)
+- `agents/skills/planning/Convert-PrdToPbi.ps1` — +`-InitiativeId`, +`initiativeId` in output, +`initHtml` in descHtml
+- `scripts/connect-qdrant-tunnel.ps1` — SSH tunnel script Qdrant
+- `Wiki/EasyWayData.wiki/planning/sdlc-orchestrator-v3/prd.md` — PRD formale v3
+
+**PR**: #227 develop (in attesa merge)
+
+**Backlog rimasto → Session 45**
+- Approvare e mergiare PR #227 → develop
+- Fix QDRANT_URL in `.env.local` (investigare riga duplicata/vuota) — test RAG con context wiki
+- n8n sessione dedicata: webhook ADO→n8n→Resolve-PRConflicts, levi-watchman, sentinel-ingestion (PLANNED da Session 42)
+- AI_DBA_Governance_MVP.md — quando l'utente è pronto

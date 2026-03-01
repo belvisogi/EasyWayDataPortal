@@ -1,0 +1,198 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# sync-to-ado.yml
+#
+# PURPOSE: Quando un contributor esterno mergia su GitHub main, questo workflow
+#          cherry-picca i soli commit nuovi su un branch basato su ADO develop,
+#          poi apre una PR su ADO (sync/* → develop) per il review interno.
+#
+# FLUSSO:  GitHub main → cherry-pick su ADO develop base
+#          → PR sync/* → develop → (normale) develop → main
+#
+# LOOP BREAKER: Confronta il SHA di GitHub con quello di ADO main via REST API.
+#               Se coincidono → push dal mirror ADO→GitHub → skip.
+#
+# SECRETS RICHIESTI (GitHub repo → Settings → Secrets → Actions):
+#   ADO_PAT  — PAT ADO con scope: Code (Read & Write) + Pull Request (Contribute)
+#              Stesso token in C:\old\.env.local
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: Sync GitHub → ADO
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # ── STEP 1: Capisce se il push viene dal mirror ADO o da un contributor esterno
+  detect-origin:
+    name: Detect push origin (mirror vs external)
+    runs-on: ubuntu-latest
+    outputs:
+      should_sync: ${{ steps.check.outputs.should_sync }}
+      branch_name: ${{ steps.check.outputs.branch_name }}
+    steps:
+      - name: Compare GitHub SHA vs ADO main SHA
+        id: check
+        env:
+          ADO_PAT: ${{ secrets.ADO_PAT }}
+        run: |
+          set -e
+          GH_SHA="${{ github.sha }}"
+          SHORT_SHA="${GH_SHA:0:7}"
+          DATE="$(date +%Y%m%d)"
+          BRANCH="sync/github-${DATE}-${SHORT_SHA}"
+
+          # Chiama ADO REST API per leggere il SHA corrente di main
+          B64=$(printf ":%s" "$ADO_PAT" | base64 -w0)
+          ADO_RESPONSE=$(curl -sf \
+            -H "Authorization: Basic $B64" \
+            "https://dev.azure.com/EasyWayData/EasyWay-DataPortal/_apis/git/repositories/EasyWayDataPortal/refs?filter=heads/main&api-version=7.1")
+
+          ADO_SHA=$(echo "$ADO_RESPONSE" | jq -r '.value[0].objectId // empty')
+
+          echo "GitHub SHA : $GH_SHA"
+          echo "ADO main SHA: $ADO_SHA"
+
+          if [ "$ADO_SHA" = "$GH_SHA" ]; then
+            echo "Push origin: ADO mirror → skip sync"
+            echo "should_sync=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Push origin: external contributor → sync to ADO"
+            echo "should_sync=true"  >> "$GITHUB_OUTPUT"
+            echo "branch_name=$BRANCH" >> "$GITHUB_OUTPUT"
+          fi
+
+  # ── STEP 2: Cherry-pick dei soli commit nuovi su base ADO develop + PR
+  sync-to-ado:
+    name: Cherry-pick to ADO develop base + open PR
+    needs: detect-origin
+    if: needs.detect-origin.outputs.should_sync == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read   # necessario per lookup GitHub PR via GITHUB_TOKEN
+    env:
+      ADO_ORG: EasyWayData
+      ADO_PROJECT: EasyWay-DataPortal
+      ADO_REPO: EasyWayDataPortal
+      BRANCH: ${{ needs.detect-origin.outputs.branch_name }}
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Cherry-pick new commits onto ADO develop → push branch
+        env:
+          ADO_PAT: ${{ secrets.ADO_PAT }}
+        run: |
+          set -e
+          ADO_REMOTE="https://anything:${ADO_PAT}@dev.azure.com/${ADO_ORG}/${ADO_PROJECT}/_git/${ADO_REPO}"
+          git remote add ado "$ADO_REMOTE"
+          git fetch ado main develop
+
+          # Individua i commit presenti in GitHub main ma non in ADO main
+          # (= i contributi dell'esterno che non abbiamo ancora)
+          NEW_COMMITS=$(git log ado/main..HEAD --pretty=format:"%H" --reverse)
+
+          if [ -z "$NEW_COMMITS" ]; then
+            echo "::warning::Nessun commit nuovo rispetto ad ADO main — sync saltato"
+            exit 0
+          fi
+
+          echo "Commit da portare su ADO develop:"
+          git log ado/main..HEAD --oneline
+
+          # Branch basato su ADO develop (non su main) → PR avrà diff pulito
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name  "github-actions[bot]"
+          git checkout -b "$BRANCH" ado/develop
+
+          # Cherry-pick in ordine cronologico
+          while IFS= read -r sha; do
+            echo "Cherry-picking $sha..."
+            if ! git cherry-pick "$sha"; then
+              git cherry-pick --abort 2>/dev/null || true
+              echo "::error::Conflitto cherry-pick su $sha"
+              echo "Il sync automatico non è possibile — aprire la PR manualmente."
+              echo "Comando locale: git cherry-pick $sha"
+              exit 1
+            fi
+          done <<< "$NEW_COMMITS"
+
+          git push ado "$BRANCH"
+          echo "Branch creato su ADO: $BRANCH"
+
+      - name: Find GitHub PR + create ADO PR → develop
+        env:
+          ADO_PAT: ${{ secrets.ADO_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          B64=$(printf ":%s" "$ADO_PAT" | base64 -w0)
+
+          # Info dal commit di HEAD
+          COMMIT_MSG=$(git log -1 --pretty=%s)
+          COMMIT_AUTHOR=$(git log -1 --pretty='%an <%ae>')
+          COMMIT_SHA="${{ github.sha }}"
+          GH_COMMIT_URL="https://github.com/belvisogi/${ADO_REPO}/commit/${COMMIT_SHA}"
+          GH_WORKFLOW_URL="https://github.com/belvisogi/${ADO_REPO}/actions/runs/${{ github.run_id }}"
+
+          # Cerca la PR GitHub da cui è arrivato questo commit
+          GH_PR_NUMBER=""
+          GH_PR_TITLE=""
+          GH_PR_BODY=""
+          GH_PR_URL=""
+          GH_PR_RESPONSE=$(curl -sf \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/belvisogi/${ADO_REPO}/commits/${COMMIT_SHA}/pulls" || echo "[]")
+
+          GH_PR_NUMBER=$(echo "$GH_PR_RESPONSE" | jq -r '.[0].number // empty')
+          GH_PR_TITLE=$(echo "$GH_PR_RESPONSE"  | jq -r '.[0].title  // empty')
+          GH_PR_BODY=$(echo "$GH_PR_RESPONSE"   | jq -r '.[0].body   // empty' | head -c 500)
+
+          if [ -n "$GH_PR_NUMBER" ]; then
+            GH_PR_URL="https://github.com/belvisogi/${ADO_REPO}/pull/${GH_PR_NUMBER}"
+            echo "GitHub PR trovata: #${GH_PR_NUMBER} — ${GH_PR_TITLE}"
+            PR_ORIGIN_LINE="**PR GitHub originale**: [#${GH_PR_NUMBER} — ${GH_PR_TITLE}](${GH_PR_URL})"
+            if [ -n "$GH_PR_BODY" ]; then
+              PR_ORIGIN_LINE="${PR_ORIGIN_LINE}\n\n> ${GH_PR_BODY}"
+            fi
+          else
+            echo "Nessuna PR GitHub trovata per ${COMMIT_SHA:0:7} (push diretto su main)"
+            PR_ORIGIN_LINE="_Nessuna PR GitHub associata — push diretto su main._"
+          fi
+
+          # Costruisce la descrizione ADO
+          PR_TITLE="[GitHub Sync] ${COMMIT_MSG}"
+          PR_DESC="## GitHub Sync\n\nQuesto branch contiene commit da un contributor esterno su GitHub, cherry-pickati su base ADO develop.\n\n${PR_ORIGIN_LINE}\n\n---\n\n**Commit GitHub**: \`${COMMIT_SHA:0:7}\`  \n**Autore**: ${COMMIT_AUTHOR}  \n**Messaggio**: ${COMMIT_MSG}  \n**Link commit**: ${GH_COMMIT_URL}  \n**Actions run**: ${GH_WORKFLOW_URL}\n\n---\n_Auto-creato da sync-to-ado.yml — revisiona e mergia in develop quando pronto._"
+
+          SAFE_TITLE=$(echo "$PR_TITLE" | jq -Rs '.[0:200]' | tr -d '"')
+          SAFE_DESC=$(echo "$PR_DESC"   | jq -Rs .)
+
+          BODY="{\"sourceRefName\":\"refs/heads/${BRANCH}\",\"targetRefName\":\"refs/heads/develop\",\"title\":\"${SAFE_TITLE}\",\"description\":${SAFE_DESC}}"
+
+          RESPONSE=$(curl -sf -X POST \
+            -H "Authorization: Basic $B64" \
+            -H "Content-Type: application/json" \
+            "https://dev.azure.com/${ADO_ORG}/${ADO_PROJECT}/_apis/git/repositories/${ADO_REPO}/pullrequests?api-version=7.1" \
+            -d "$BODY")
+
+          PR_ID=$(echo "$RESPONSE" | jq -r '.pullRequestId // empty')
+          PR_URL="https://dev.azure.com/${ADO_ORG}/${ADO_PROJECT}/_git/${ADO_REPO}/pullrequest/${PR_ID}"
+
+          echo "PR ADO creata: #${PR_ID}"
+          echo "URL: ${PR_URL}"
+
+          # Job summary visibile su GitHub Actions
+          echo "## Sync completato" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Campo | Valore |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|-------|--------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Branch ADO | \`${BRANCH}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| PR ADO | [#${PR_ID}](${PR_URL}) |" >> "$GITHUB_STEP_SUMMARY"
+          if [ -n "$GH_PR_NUMBER" ]; then
+            echo "| PR GitHub | [#${GH_PR_NUMBER}](${GH_PR_URL}) — ${GH_PR_TITLE} |" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "| Commit GitHub | [\`${COMMIT_SHA:0:7}\`](${GH_COMMIT_URL}) |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Autore | ${COMMIT_AUTHOR} |" >> "$GITHUB_STEP_SUMMARY"
