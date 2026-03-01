@@ -770,7 +770,7 @@ stages:
               set -e
               git config user.email "ew-svc-azuredevops-agent@easyway.local"
               git config user.name "EasyWay CI"
-              REMOTE="https://oauth2:$(GITHUB_PAT)@github.com/belvisogi/EasyWayDataPortal.git"
+              REMOTE="https://oauth2:${GITHUB_PAT}@github.com/belvisogi/EasyWayDataPortal.git"
               git push "$REMOTE" HEAD:main --force
               echo "##[section]GitHub mirror: OK — $(git rev-parse --short HEAD)"
             displayName: 'git push → GitHub'
