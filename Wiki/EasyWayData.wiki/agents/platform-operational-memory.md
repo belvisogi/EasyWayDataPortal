@@ -1400,3 +1400,102 @@ Formato sezione auto-generata in `.cursorrules`:
 - DeployDev #209: verificare `Worker_20260228-044653-utc.log` (contesa DeployMain/DeployDev stessa sessione)
 - n8n sessione dedicata: webhook ADO→n8n→Resolve-PRConflicts, review levi-watchman, n8n-workspace
 - Lesson 57 (da scrivere): pipeline single-agent pool = serialize — non far partire DeployDev e DeployMain in concorrenza
+
+---
+
+### Session 40 — COMPLETATA (2026-02-28)
+
+**Cosa**
+- PR #214: docs wiki Session 39 handoff + platform-operational-memory aggiornato
+- PR #215: fix(ci) `docker compose up --scale sql-edge=0` + GitHub PAT formato `oauth2:`
+- PR #216: docs(wiki) agentic PBI-to-PR workflow
+- PR #217: feat(devops) `New-PbiBranch.ps1` — skill `git.new-pbi-branch` v1.0.0
+- PR #218: docs(wiki) epic taxonomy + vincolo wiki-first per PRD
+
+**Perché**
+- `azure-sql-edge:2.0.0` non ha manifest ARM64: crashava DeployDev e DeployMain su OCI ad ogni pipeline run
+- Il flusso SDLC agentico mancava del "missing link": creare un branch a partire da un PBI ADO con gate di governance
+- Necessario formalizzare la tassonomia delle epiche (7 domini) e la regola wiki-first per evitare PRD duplicati o orfani
+
+**Come**
+- `--scale sql-edge=0` in `docker compose up`: workaround ARM64 (workaround parziale — fix definitivo in Session 41)
+- `New-PbiBranch.ps1`: gate "Business Approved" non bypassabile; `-ForceOffline` solo emergenza con log esplicito; scrive `.git/PBI_PR_TEMPLATE.md`; `-CreatePR` per push + PR ADO automatica
+- `control-plane/epic-taxonomy.md`: 7 domini, 3 domande pre-PRD obbligatorie, anti-duplicazione epiche
+- GitHub PAT: formato `https://oauth2:$(GITHUB_PAT)@github.com` (sintassi ADO inline — poi corretta in Session 41)
+
+**Q&A**
+- *Perché il gate "Business Approved" è non bypassabile?* Per mantenere coerenza tra backlog ADO e codebase. Un branch senza PBI approvato introduce lavoro non autorizzato. `-ForceOffline` logga l'override rumorosamente.
+- *La tassonomia è fissa?* No — `epic-taxonomy.md` è il punto di modifica. Agenti e umani la consultano prima di ogni PRD.
+- *`--scale sql-edge=0` non bastava?* Corretto: Docker Compose durante `--build` risolve manifest di tutti i servizi anche se scale=0. La soluzione definitiva usa `profiles:[sql]` (Session 41).
+
+**File creati/modificati**
+- `agents/skills/git/New-PbiBranch.ps1` — skill git.new-pbi-branch v1.0.0 (405 righe)
+- `Wiki/EasyWayData.wiki/control-plane/epic-taxonomy.md` — 7 domini, pattern canonici
+- `Wiki/EasyWayData.wiki/guides/agentic-pbi-to-pr-workflow.md` — flusso BA→PM→branch completo
+- `agents/skills/registry.json` v2.10.0
+
+**PR**: #214–#218 tutte → develop ✓
+
+**Backlog rimasto → Session 41**
+- Log #209, Lesson 57, Import BA+PM, fix definitivo sql-edge, GitHub PAT syntax
+
+---
+
+### Session 41 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- PR #219: feat(planning) skill BA, PM, Convert-PrdToPbi + Lesson 57 wiki
+- PR #220: [Release] Session 41 develop→main
+- PR #221: fix(ci) sql-edge `profiles:[sql]` definitivo + `${GITHUB_PAT}` fix + Lesson 57 `dependsOn` in pipeline
+- Indagine log DeployDev #209: CHIUSA
+- Fix GitHub PAT: causa "Invalid username or token" identificata e corretta in codice
+
+**Perché**
+- Il flusso SDLC agentico richiedeva le skill BA (product discovery) e PM (PRD/tech-spec) come fase upstream di `Convert-PrdToPbi`
+- `Convert-PrdToPbi.ps1` completa la Fase 2: PRD.md → DeepSeek decomposizione → PBI su ADO → feed naturale per `New-PbiBranch`
+- `--scale sql-edge=0` non bastava: durante `--build` Docker Compose risolve manifest di tutti i servizi inclusi quelli a scale=0. `profiles:[sql]` li esclude completamente dal grafo di risoluzione
+- `$(GITHUB_PAT)` in bash = command substitution (vuoto); `${GITHUB_PAT}` = env var mappata dall'`env:` block. Causa reale del "Password authentication not supported" anche con token valido e rinnovato
+- Lesson 57 `dependsOn`: su single-pool ARM64, DeployMain deve aspettare DeployDev per evitare contesa docker compose sullo stesso server fisico
+
+**Come**
+- `planning.business-analyst`: SKILL.md + fan-out 4 agenti paralleli; workspace `agents/planning/workspace/`; wiki-first + 3 domande pre-PRD
+- `planning.product-manager`: SKILL.md; PRD/tech-spec, MoSCoW/RICE; sezione ADO Mapping obbligatoria (Epic ID + Domain)
+- `planning.prd-to-pbi` — `Convert-PrdToPbi.ps1`: legge PRD.md; chiama DeepSeek con `response_format: json_object`; POST `_apis/wit/workitems/$Product%20Backlog%20Item`; link epic via `System.LinkTypes.Hierarchy-Reverse`; WhatIf/Apply; MaxPbi=20 guard
+- `docker-compose.yml`: `sql-edge` → `profiles: [sql]`; rimosso `--scale sql-edge=0` dalla pipeline
+- `azure-pipelines.yml` GitHubMirror: `${GITHUB_PAT}` sostituisce `$(GITHUB_PAT)`
+- `DeployMain.dependsOn: [BuildAndTest, DeployDev]` con condition `SkippedDueToConditions` (Lesson 57)
+- Log #209: `Worker_20260228-044653-utc.log` → job già in `Failed` al cleanup; causa: azure-sql-edge ARM64; fix in PR #215 (workaround) + PR #221 (definitivo)
+
+**Flusso SDLC Agentico ora completo**
+
+    BA (planning.business-analyst)   → product-brief.md
+    PM (planning.product-manager)    → prd.md [ADO Mapping: Epic ID]
+    Convert-PrdToPbi.ps1 --WhatIf   → piano PBI senza toccare ADO
+    Convert-PrdToPbi.ps1 --Apply    → PBI su ADO (DeepSeek + REST API)
+    New-PbiBranch.ps1 -PbiId <id>   → feat/PBI-<id>-<slug> [gate: Business Approved]
+    Sviluppo + PR
+
+**Q&A**
+- *Perché DeepSeek e non Claude per la decomposizione PRD→PBI?* DeepSeek è già in `.env.secrets` server con buon rapporto costo/qualità per task strutturati. Claude può essere aggiunto come override futuro via `-Model` param.
+- *`profiles:[sql]` non rompe l'uso locale?* No: `docker compose up` senza flag ignora sql-edge; `docker compose --profile sql up` lo include. Chi sviluppa senza DB non cambia nulla.
+- *Perché `${GITHUB_PAT}` e non `$(GITHUB_PAT)`?* In yaml ADO, `$(VAR)` viene sostituito dal preprocessore per variabili normali ma per secret da variable group il comportamento sullo script body è inaffidabile. L'`env:` block è il canale garantito; `${VAR}` in bash legge l'env var passata correttamente.
+- *`SkippedDueToConditions` su DeployDev: quando si attiva?* Quando la pipeline gira su main (merge Release PR). DeployDev ha condition `SourceBranch == develop` → skip → DeployMain vede `Skipped` e continua comunque per il deploy PROD.
+- *`Convert-PrdToPbi` è idempotente?* No — ogni `--Apply` crea nuovi PBI. Usare sempre `--WhatIf` prima. MaxPbi=20 è la guardrail di blast radius.
+- *Log #209 è definitivamente chiuso?* Sì. Causa documentata (azure-sql-edge ARM64 + potenziale overlap DeployMain), fix in PR #221, Lesson 57 applicata in pipeline.
+
+**File creati/modificati**
+- `agents/skills/planning/business-analyst/` — SKILL.md + templates + resources (v1.0.0)
+- `agents/skills/planning/product-manager/` — SKILL.md + templates + resources + prioritize.py (v1.0.0)
+- `agents/skills/planning/Convert-PrdToPbi.ps1` — skill planning.prd-to-pbi v1.0.0
+- `agents/skills/registry.json` v2.11.0 — 31 skill totali
+- `Wiki/EasyWayData.wiki/guides/pipeline-arm64-single-pool-serialization.md` — Lesson 57
+- `docker-compose.yml` — sql-edge: profiles:[sql]
+- `azure-pipelines.yml` — ${GITHUB_PAT}, DeployMain.dependsOn, rimosso --scale sql-edge=0
+
+**PR**: #219 develop ✓ | #220 main ✓ | #221 develop ✓
+
+**Backlog rimasto → Session 42**
+- Release PR develop→main per PR #221 (primo task)
+- n8n sessione dedicata: webhook ADO→n8n→Resolve-PRConflicts, levi-watchman, sentinel-ingestion
+- Fase 3 SDLC: orchestratore interattivo BA/PM via LLM (agent-ado-prd.ps1)
+- AI_DBA_Governance_MVP.md: product document quando l'utente è pronto
