@@ -1502,117 +1502,127 @@ Formato sezione auto-generata in `.cursorrules`:
 
 ---
 
-### Session 42 - COMPLETATA (2026-03-01)
+### Session 42 — COMPLETATA (2026-03-01)
 
 **Cosa**
-- PR #223: [Release] Session 42 develop->main (ship PR #221 CI fixes + PR #222 docs wiki)
-- PR #224: feat(planning) Invoke-SDLCOrchestrator v2 -- orchestratore interattivo BA->PM->PBI->SM
-- GitHub mirror fix: GITHUB_PAT rinnovato in ADO Library EasyWay-Secrets (scaduto)
-- Staging skills promossi: azure-devops (ADOPT), scrum-master (ADOPT), multi-agent-orchestration (ADAPT), workflow-orchestration-patterns (REFERENCE)
-- registry.json v2.13.0 -- 33 skill totali
-- .github/workflows/sync-to-ado.yml committato (Session 34, mai entrato in git)
+- PR #223: [Release] Session 41 develop→main — ship PR #221 (CI fixes) + PR #222 (docs wiki)
+- PR #224: feat(planning) `Invoke-SDLCOrchestrator.ps1` v2 orchestratore interattivo + staging skills ADOPT
 
-**Perche**
-- Il flusso SDLC v1 aveva 4 fasi e la Fase 4 era Branch Creation -- la Fase 4 e stata sostituita con Sprint Plan (Scrum Master LLM, sizing Fibonacci) per dare all'utente business un output tangibile e pianificabile
-- La Fase 0 (Contesto) e stata potenziata con Epic Discovery WIQL: invece di chiedere l'ID epica manualmente, l'orchestratore query ADO e mostra la lista delle epiche attive
-- Il BA Fan-Out (multi-agent-orchestration pattern) simula 4 agenti paralleli in un singolo LLM call: analisi A) Mercato B) Utenti C) Fattibilita tecnica D) Valore business -- brief piu ricco senza latenza multi-hop
-- Il Saga log in Fase 3 mostra cosa e stato creato e cosa no in caso di Apply parziale
-- Il GITHUB_PAT era scaduto: GitHubMirror falliva con "Invalid username or token" ad ogni merge su main
-- sync-to-ado.yml era stato creato in Session 34 ma mai committato
+**Perché**
+- Il flusso SDLC richiedeva un unico entry-point che guidasse l'utente attraverso BA→PM→PBI→Sprint senza dover invocare ogni script separatamente
+- Le skill BA, PM, Scrum Master erano separate — l'orchestratore le integra in sequenza con gate interattivi (A/R/E/Q) e resume automatico se i file già esistono
+- Staging skills (scrum-master, multi-agent-orchestration) portati a ADOPT per segnalare maturità d'uso
 
 **Come**
-- Invoke-SDLCOrchestrator.ps1 v2: aggiunto SkipSprint param, Fase 0 con Get-ADOActiveEpics via WIQL, Fase 4 con prompt Scrum Master LLM (capacity 40 SP, Fibonacci, sprint 2 settimane), Saga log per Apply parziale
-- agents/skills/planning/scrum-master/SKILL.md: skill planning.scrum-master v1.0.0
-- agents/skills/orchestration/SKILL.md: Fan-Out + Saga patterns documentati
-- GitHub mirror fix: rinnovato PAT su github.com, scope repo, aggiornato in ADO Library, Re-run failed stage
+- `Invoke-SDLCOrchestrator.ps1` v2: 5 fasi — [0/4] Contesto (3 domande + Epic Discovery ADO via WIQL), [1/4] Brief BA (LLM Fan-Out 4 dimensioni), [2/4] PRD PM (LLM con approval loop A/R/E/Q), [3/4] PBI ADO (WhatIf→Apply + Saga log), [4/4] Sprint Plan (Scrum Master Fibonacci sizing)
+- Epic Discovery: query WIQL ADO per epiche attive → lista numerata → utente sceglie
+- LLM strategy: DeepSeek primary + OpenRouter fallback (antifragile)
+- Resume automatico: se product-brief.md/prd.md/sprint-plan.md esistono → chiede U/R
+- `sync-to-ado.yml`: GitHub Actions workflow per sincronizzazione bidirezionale contributi esterni
 
 **Q&A**
-- Perche Fan-Out in single-call e non multi-agent reale? Latenza e costo: 4 agenti paralleli = 4 API call. Single-call Fan-Out ottiene 80% della qualita con 1 call. Multi-agent reale e roadmap v3.
-- La Fase 4 Sprint Plan sostituisce o affianca New-PbiBranch? Sostituisce nel flusso orchestratore. New-PbiBranch.ps1 rimane disponibile come skill standalone.
-- Come capire se GITHUB_PAT e scaduto? Il GitHubMirror stage fallisce con "Invalid username or token". Rinnovare su github.com e aggiornare in ADO Library.
-- Perche sync-to-ado.yml non era in git? Creato in Session 34 localmente ma la PR non lo aveva incluso. Recuperato dalle untracked files in Session 42.
-- Perche @(Get-ADOActiveEpics) con il wrap @()? PowerShell unwrappa i risultati del pipeline: se la query ritorna 1 sola epica, $epics diventa un singolo hashtable (non array) e .Count fallisce. @() forza sempre array. Fix applicato in Session 43.
+- *Perché un orchestratore invece di 3 script separati?* UX: l'utente lancia un comando e viene guidato; nessun rischio di saltare fasi o dimenticare parametri.
+- *Il loop A/R/E/Q è bloccante?* Sì in modalità interattiva. Con `-NoConfirm -Json` si bypassa per agent use.
+- *Come funziona il Saga log?* Se Convert-PrdToPbi -Apply crea solo N/M PBI, mostra quali sono stati creati per cleanup manuale.
 
 **File creati/modificati**
-- agents/skills/planning/Invoke-SDLCOrchestrator.ps1 -- v2, 5 fasi
-- agents/skills/planning/scrum-master/SKILL.md -- skill planning.scrum-master v1.0.0
-- agents/skills/orchestration/SKILL.md -- Fan-Out + Saga patterns
-- .github/workflows/sync-to-ado.yml -- GitHub->ADO bidirezionale (primo commit)
-- agents/skills/registry.json v2.13.0
+- `agents/skills/planning/Invoke-SDLCOrchestrator.ps1` — v2 orchestratore completo
+- `agents/skills/scrum-master/SKILL.md` + `agents/skills/orchestration/SKILL.md`
+- `agents/skills/registry.json` v2.13.0 — 33 skill totali
+- `.github/workflows/sync-to-ado.yml` — GitHub→ADO sync bidirezionale
 
-**PR**: #223 main OK | #224 develop OK
+**PR**: #223 main ✓ | #224 develop (in attesa merge al momento)
 
-**Backlog rimasto -> Session 43**
-- Test live del flusso SDLC orchestratore end-to-end
-- Mapping EASYWAY_AGENTIC_SDLC_MASTER.md vs implementazione
-- n8n sessione dedicata
+**Backlog rimasto → Session 43**
+- Test live orchestratore v2
+- n8n sessione dedicata (PLANNED)
 - AI_DBA_Governance_MVP.md
 
 ---
 
-### Session 43 - COMPLETATA (2026-03-01)
+### Session 43 — COMPLETATA (2026-03-01)
 
 **Cosa**
-- Test live completo del flusso SDLC orchestratore su feature reale n8n-webhook-resolver (5 fasi)
-- Bug fix: @(Get-ADOActiveEpics) -- ParentContainsErrorRecordException su .Count
-- Bug fix: Convert-PrdToPbi.ps1 -- aggiunto fallback DeepSeek->OpenRouter (rete aziendale NTT Data blocca DeepSeek)
-- Fix GitHub mirror: GITHUB_PAT rinnovato (scaduto tra Session 42 e 43)
-- PR #225: fix(planning) OpenRouter fallback + epics array fix -> develop
-- Mapping completo EASYWAY_AGENTIC_SDLC_MASTER.md vs implementazione corrente
-- Identificazione 3 gap critici per orchestratore v3
+- Test live flusso SDLC agentico end-to-end (5 fasi OK con feature reale)
+- PR #225: fix(planning) OpenRouter fallback + `@(Get-ADOActiveEpics)` array fix
+- Mapping MASTER doc (`EASYWAY_AGENTIC_SDLC_MASTER.md`) vs implementazione v2
+- Rinnovo `GITHUB_PAT` in ADO Library `EasyWay-Secrets`
 
-**Perche**
-- Il test live e il modo piu efficace per trovare bug che non emergono da code review: il flusso funziona end-to-end ma rivela gap di robustezza (fallback LLM) e di UX (troppo machine-like per utenti business)
-- Convert-PrdToPbi.ps1 aveva la stessa logica di fallback dell'orchestratore ma non era stata applicata al momento della creazione -- ogni script che chiama LLM deve avere il fallback DeepSeek->OpenRouter in autonomia
-- Il mapping MASTER doc e necessario per capire cosa manca prima di scrivere la PRD v3 -- evita di costruire feature che il documento prevede gia diversamente
+**Perché**
+- Il test live ha rivelato 2 bug bloccanti in rete aziendale: (1) DeepSeek bloccato → orchestratore si fermava senza fallback in `Convert-PrdToPbi`; (2) `Get-ADOActiveEpics` restituisce `$null` senza epiche → `.Count` su null → eccezione
+- `GITHUB_PAT` scaduto → pipeline GitHubMirror falliva su stage `GitHubMirror`
+- Il confronto MASTER doc ha evidenziato 3 gap critici per la prossima sessione
 
 **Come**
-- Test flusso: pwsh agents/skills/planning/Invoke-SDLCOrchestrator.ps1 -FeatureName "n8n-webhook-resolver" -Description "Integrazione webhook ADO con n8n per trigger automatico Resolve-PRConflicts"
-- Fix Count: riga 206 $epics = @(Get-ADOActiveEpics $Domain) -- wrap con @() forza array in ogni caso
-- Fix OpenRouter in Convert-PrdToPbi: aggiunto Get-OpenRouterKey function, logica if dsKey DeepSeek elif orKey OpenRouter else throw, variabili $llmUrl/$llmKey/$llmModel usate nella chiamata REST
-- OpenRouter key: aggiunta OPENROUTER_API_KEY in C:\old\.env.local (rete aziendale blocca DeepSeek, OpenRouter passa)
-- Mapping MASTER: lettura EASYWAY_AGENTIC_SDLC_MASTER.md sezioni 4-11, confronto con code esistente
+- `Convert-PrdToPbi.ps1`: aggiunto blocco `elseif ($orKey)` con OpenRouter come fallback DeepSeek (stesso schema OpenAI-compat, model `deepseek/deepseek-chat`, headers HTTP-Referer + X-Title)
+- `Invoke-SDLCOrchestrator.ps1`: `@(Get-ADOActiveEpics)` — il wrapping `@()` forza array anche su `$null`, `.Count` non lancia più eccezione
+- PAT rinnovato manualmente in ADO → Library `EasyWay-Secrets` → variabile `GITHUB_PAT`
 
-**Risultati test live (n8n-webhook-resolver)**
-
-Fase 0 - Contesto dominio/epic/pattern: OK con UX issues (auto-suggest mancante, epic fallback testuale)
-Fase 1 - Brief BA Fan-Out LLM: OK (OpenRouter fallback funziona, output qualita buona)
-Fase 2 - PRD PM: OK (approvato dall'utente)
-Fase 3 - PBI ADO Convert-PrdToPbi: FALLITO poi fixato (DeepSeek bloccato, fix in PR #225)
-Fase 4 - Sprint Plan Scrum Master: OK (Fibonacci, capacity 21/40 SP, DoD, rischi)
-
-**Mapping MASTER vs implementazione**
-
-Gate umani (PRD, backlog, UAT): OK
-Iron Dome (ewctl commit): OK
-Branch per PBI (New-PbiBranch): OK
-Sprint Plan LLM: OK
-RAG pre-Brief (wiki + repo): MANCANTE -- gap critico 1 -- LLM tabula rasa
-Evidence/Confidence nel PRD: MANCANTE -- gap critico 2 -- nessuna fonte citata
-Traceability PRD<->PBI<->Branch<->PR: MANCANTE -- gap critico 3
-Auto-suggest dominio/pattern: MANCANTE -- UX gap
-Platform Adapter (non solo ADO): MANCANTE -- futuro
-Feature level (Epic->Feature->PBI): PARZIALE -- solo PBI, no Feature su ADO
+**Gap critici identificati (→ Session 44)**
+- ❌ RAG pre-Brief: orchestratore parte da "tabula rasa" — nessuna query Qdrant prima del Brief
+- ❌ Evidence/Confidence nel PRD: sezione mancante — anti-allucinazione non implementata
+- ❌ Traceability `initiative_id`: nessun ID univoco propagato tra documenti e PBI ADO
 
 **Q&A**
-- Perche il Brief non legge la wiki se c'e gia Qdrant? Il prompt BA include "Wiki-first: evita duplicazioni" come istruzione testuale ma non c'e una chiamata reale a /api/knowledge prima di generare il brief. L'LLM non conosce Resolve-PRConflicts.ps1 che gia esiste -- il brief dice "baseline 0% PR risolte automaticamente" che e sbagliato.
-- RAG come si integra nel flusso? Prima della Fase 1, l'orchestratore chiama /api/knowledge?q=<feature-description> (o Qdrant REST diretto), prende i top-5 chunk, li inietta nel system prompt del BA. Richiede server raggiungibile o fallback locale.
-- Evidence/Confidence come funziona? Ogni decisione nel PRD deve avere: Evidence (fonte es. "da agents/skills/planning/Convert-PrdToPbi.ps1:L45") e Confidence High/Medium/Low. Se Low -> gate umano obbligatorio. Impedisce backlog "perfetti ma sbagliati".
-- Traceability end-to-end: cosa serve? Un initiative_id univoco generato in Fase 0, propagato: PRD (frontmatter) -> PBI (tag ADO) -> Branch (nome include initiative_id) -> PR (link PRD). Permette risalire da una PR al requisito business originale.
-- L'auto-suggest dominio/pattern e pericoloso? No se presentato come suggerimento con conferma: LLM propone "[1] Infra (suggerito)" -> utente preme Enter per confermare o cambia. Riduce attrito senza togliere controllo.
-- OpenRouter e la soluzione definitiva o transitoria? Transitoria per sviluppo locale su rete aziendale. Sul server OCI, DeepSeek e direttamente accessibile. La chain DeepSeek->OpenRouter e antifragile by design.
-- Il test ha creato PBI reali su ADO? No -- Convert-PrdToPbi e fallita prima dell'Apply per il bug DeepSeek. L'utente ha premuto A ma nessuna chiamata REST e partita (il throw era prima della creazione). Nessun cleanup necessario su ADO.
-- Perche SkipBrief e SkipPrd per riprendere da meta flusso? Gli artefatti (product-brief.md, prd.md) sono persistiti su disco. Il resume permette di saltare fasi gia completate e ripartire dalla fase fallita senza rigenerare tutto. Pattern importante per flussi lunghi.
+- *Perché `@()` e non `if ($null)`?* PowerShell: `$null.Count` lancia eccezione in StrictMode. `@($null).Count` = 0, sicuro.
+- *OpenRouter ha gli stessi modelli di DeepSeek?* Sì per `deepseek/deepseek-chat`. Il fallback è trasparente per l'utente.
+- *Il GITHUB_PAT va rinnovato periodicamente?* Sì — scadenza configurabile in ADO. Aggiungere reminder in backlog.
 
 **File creati/modificati**
-- agents/skills/planning/Invoke-SDLCOrchestrator.ps1 -- fix riga 206: @(Get-ADOActiveEpics)
-- agents/skills/planning/Convert-PrdToPbi.ps1 -- Get-OpenRouterKey + fallback chain LLM
-- Wiki/EasyWayData.wiki/planning/n8n-webhook-resolver/ -- artefatti test: product-brief.md, prd.md, sprint-plan.md
+- `agents/skills/planning/Convert-PrdToPbi.ps1` — fallback OpenRouter
+- `agents/skills/planning/Invoke-SDLCOrchestrator.ps1` — fix `@(Get-ADOActiveEpics)`
 
-**PR**: #225 develop OK
+**PR**: #225 develop ✓
 
-**Backlog rimasto -> Session 44**
-- PRD orchestratore v3: RAG + Evidence/Confidence + Traceability + UX business-friendly
-- Implementare v3 in base alla PRD approvata
-- n8n sessione dedicata (webhook ADO->n8n->Resolve-PRConflicts, levi-watchman, sentinel-ingestion)
-- AI_DBA_Governance_MVP.md -- quando pronto
+**Backlog rimasto → Session 44**
+- Implementare v3 orchestratore: RAG + Evidence/Confidence + initiative_id
+- n8n sessione dedicata (PLANNED)
+- AI_DBA_Governance_MVP.md
+
+---
+
+### Session 44 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- PRD formale scritto: `Wiki/EasyWayData.wiki/planning/sdlc-orchestrator-v3/prd.md`
+- `Invoke-SDLCOrchestrator.ps1` v3: 3 gap critici chiusi + 2 UX improvements
+- `Convert-PrdToPbi.ps1`: aggiunto `-InitiativeId` param per traceability
+- `scripts/connect-qdrant-tunnel.ps1`: script SSH tunnel per RAG locale
+- PR #227: feat/planning/sdlc-orchestrator-v3 → develop
+- Test live v3 completato (feature "assistente-cosa-posso-aiutarti") — Brief + PRD + WhatIf OK
+
+**Perché**
+- Gap 1 (RAG): il LLM generava Brief/PRD senza conoscere la wiki EasyWay esistente (167k chunk in Qdrant) — rischio allucinazioni e duplicazione di funzionalità già presenti
+- Gap 2 (Evidence/Confidence): il MASTER doc §6 richiede che ogni decisione architetturale abbia Evidence (fonte) e Confidence (High/Medium/Low) — senza questo il PRD non è governabile
+- Gap 3 (initiative_id): nessuna traccia univoca collegava PRD → PBI → branch → release. La traceability end-to-end è P0 nel MASTER doc §11.1
+- UX: l'utente doveva conoscere a memoria i 7 domini e 3 pattern — l'auto-suggest LLM riduce il cognitive load
+
+**Come**
+- **RAG (FR-001)**: nuova funzione `Invoke-RAGSearch([string[]]$queries, [int]$k)` — chiama Qdrant scroll API con text match filter (`filter.must[].key=content, match.text=query`). Legge `QDRANT_URL` + `QDRANT_API_KEY` da env/`.env.local`. SSH tunnel: `ssh -L 6333:localhost:6333 ubuntu@80.225.86.168 -i <key> -f -N`. Silent skip se non configurato. Context iniettato in BA prompt (`CONOSCENZA WIKI EasyWay`) e PM prompt (`FONTI WIKI DISPONIBILI`).
+- **Evidence/Confidence (FR-002)**: PM prompt aggiornato con sezione `## Evidence & Confidence` obbligatoria (tabella Area / Evidence / Confidence / Note). Confidence=Low → riga con "⚠️ Richiede validazione umana". `max_tokens` portato a 3500 per accomodare la sezione extra.
+- **initiative_id (FR-003)**: `$InitiativeId = "INIT-$(Get-Date -Format 'yyyyMMdd')-$slug"` auto-generato (override via param). YAML front-matter aggiunto a tutti i documenti via `Add-InitiativeHeader`. Passato a `Convert-PrdToPbi.ps1 -InitiativeId` → PBI ADO hanno `<b>Initiative ID</b>: INIT-...` nella descrizione HTML. Incluso in JSON output (`initiativeId`).
+- **Auto-suggest (FR-004)**: `Invoke-LLMAutoSuggest` — call LLM con `max_tokens=150, temperature=0.1` → JSON `{domain, pattern}` → presentato all'utente con INVIO per accettare. Silent skip se LLM offline.
+- **Epic skip silenzioso (FR-005)**: rimosso `Write-Warning` da `Ask-EpicId` quando ADO offline → messaggio neutro DarkGray.
+- **connect-qdrant-tunnel.ps1**: check porta 6333 già in ascolto; avvio `ssh -f -N` background (default) o `-Wait` foreground; `-Verify` chiama `GET /collections/easyway_wiki` per contare vettori; offre di aggiungere `QDRANT_URL` a `.env.local`.
+- **Lesson appresa**: `QDRANT_URL` in `.env.local` non letto durante il test (bug residuo: probabilmente riga duplicata/vuota precedente). Da investigare in Session 45.
+
+**Q&A**
+- *Perché Qdrant direct invece del portal `/api/knowledge`?* Il portal richiede JWT. Chiamare Qdrant direttamente via SSH tunnel è più semplice e non richiede token. Il portal API può essere usato in futuro aggiungendo autenticazione API key all'endpoint.
+- *Il RAG usa embedding o text search?* Text search (Qdrant scroll API con `match.text`). Non richiede embedding model lato orchestratore — stesso approccio del `knowledgeController.ts` del portal.
+- *initiative_id è davvero univoco?* Formato `INIT-YYYYMMDD-<slug>`. Se la stessa feature viene rilavorata lo stesso giorno, l'ID si scontra. Workaround: passare `-InitiativeId` manualmente con un suffisso.
+- *Auto-suggest fallisce se LLM è offline?* Sì, silent skip — si prosegue con le domande standard come in v2.
+- *Il test ha verificato l'Evidence & Confidence?* Sì: Data Model=Low+⚠️, Security=Medium+⚠️, Integration/API=High. Esattamente il comportamento atteso senza RAG (sorgenti N/A → confidence degradata).
+
+**File creati/modificati**
+- `agents/skills/planning/Invoke-SDLCOrchestrator.ps1` — v3 completo (560+ righe)
+- `agents/skills/planning/Convert-PrdToPbi.ps1` — +`-InitiativeId`, +`initiativeId` in output, +`initHtml` in descHtml
+- `scripts/connect-qdrant-tunnel.ps1` — SSH tunnel script Qdrant
+- `Wiki/EasyWayData.wiki/planning/sdlc-orchestrator-v3/prd.md` — PRD formale v3
+
+**PR**: #227 develop (in attesa merge)
+
+**Backlog rimasto → Session 45**
+- Approvare e mergiare PR #227 → develop
+- Fix QDRANT_URL in `.env.local` (investigare riga duplicata/vuota) — test RAG con context wiki
+- n8n sessione dedicata: webhook ADO→n8n→Resolve-PRConflicts, levi-watchman, sentinel-ingestion (PLANNED da Session 42)
+- AI_DBA_Governance_MVP.md — quando l'utente è pronto
