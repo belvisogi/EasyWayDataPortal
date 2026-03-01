@@ -668,9 +668,60 @@ silenziosamente quando n8n e' down. Il polling (Layer 0) fallisce
 esplicitamente: l'errore e' visibile e immediato. Failure silenzioso
 e' il caso peggiore in un sistema distribuito.
 
+### Aggiornamenti Layer 0 (Session 46)
+
+`Get-ADOBriefing.ps1` mostra ora anche i **PBI in stato "Approved"** (backlog pronto per sviluppo):
+- Richiede `ADO_WORKITEMS_PAT` (scope Work Items R/W) in `C:\old\.env.local`
+- Sezione "BACKLOG APPROVATO" appare solo se il token è presente
+- Legge PBIs via WIQL: `System.State = 'Approved'`
+
+```powershell
+# Token separazione (da .env.local):
+# AZURE_DEVOPS_EXT_PAT  → Code R/W + PR Contribute (git, PR ADO)
+# ADO_WORKITEMS_PAT     → Work Items R/W (PBI, Feature, Epic)
+```
+
 ### Riferimento completo
 - `Wiki/EasyWayData.wiki/guides/ado-session-awareness.md` — strategia completa + rationale
 - `scripts/pwsh/Get-ADOBriefing.ps1` — implementazione Layer 0
+
+---
+
+## 5f. GEDI Consultation Protocol (Session 46)
+
+### Regola operativa
+
+> **Claude DEVE invocare GEDI (OODA loop) ogni volta che ha un dubbio architetturale, di processo o di trade-off**, e presentare la valutazione all'utente PRIMA di procedere.
+
+GEDI non blocca mai l'esecuzione (`bypass_allowed: true`), ma illumina il percorso con i principi del Manifesto EasyWay.
+
+### Trigger obbligatori per invocazione GEDI
+1. Decisione architetturale (naming, pattern, struttura cartelle)
+2. Trade-off (pulire ora vs andare avanti)
+3. Scelta tra più approcci tecnici validi
+4. Richiesta esplicita dell'utente (`"cosa direbbe GEDI?"`)
+
+### Formato risposta GEDI
+```
+🦗 GEDI OODA Loop
+OBSERVE: [cosa sta succedendo]
+ORIENT:  [principi applicabili: Measure Twice | Quality>Speed | Journey Matters | Tangible Legacy | Pragmatic Action]
+DECIDE:  [severity: gentle | warning | gate]
+ACT:     [raccomandazione concreta]
+```
+
+### Principi GEDI (estratto da `agents/agent_gedi/manifest.json`)
+- **Measure Twice, Cut Once** — WhatIf/dry-run sempre prima di execution
+- **Quality > Speed** — timeline realistiche, no scorciatoie
+- **Journey Matters** — documenta il "perché"
+- **Tangible Legacy** — codice leggibile tra 10 anni
+- **Pragmatic Action** (Velasco) — "Non ne parliamo, risolviamo"
+- **Start Small, Scale When Needed** — minimo che funziona, poi scala
+- **Known Bug Over Chaos** — bug noto > fix affrettato non testato
+
+### Riferimento
+- `agents/agent_gedi/manifest.json` — principi completi + esempi
+- `agents/GEDI_INTEGRATION_PATTERN.md` — pattern di integrazione nei flussi agentic
 
 ---
 

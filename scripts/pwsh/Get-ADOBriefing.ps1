@@ -19,11 +19,12 @@
 #>
 
 Param(
-    [string]  $Pat        = $env:AZURE_DEVOPS_EXT_PAT,
-    [string]  $OrgUrl     = 'https://dev.azure.com/EasyWayData',
-    [string]  $Project    = 'EasyWay-DataPortal',
-    [string]  $Repo       = 'EasyWayDataPortal',
-    [int]     $HoursBack  = 24,
+    [string]  $Pat           = $env:AZURE_DEVOPS_EXT_PAT,
+    [string]  $WorkItemsPat  = $env:ADO_WORKITEMS_PAT,
+    [string]  $OrgUrl        = 'https://dev.azure.com/EasyWayData',
+    [string]  $Project       = 'EasyWay-DataPortal',
+    [string]  $Repo          = 'EasyWayDataPortal',
+    [int]     $HoursBack     = 24,
     [switch]  $Json,
     [switch]  $OnlyOpen
 )
@@ -31,12 +32,15 @@ Param(
 $ErrorActionPreference = 'Stop'
 
 # ── PAT: carica da .env.local se non passato esplicitamente ──────────────────
-if (-not $Pat) {
-    $envFile = 'C:\old\.env.local'
-    if (Test-Path $envFile) {
-        Get-Content $envFile | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=' } | ForEach-Object {
-            $Pat = ($_ -split '=', 2)[1].Trim().Trim('"')
-        }
+$envFile = 'C:\old\.env.local'
+if (-not $Pat -and (Test-Path $envFile)) {
+    Get-Content $envFile | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=' } | ForEach-Object {
+        $Pat = ($_ -split '=', 2)[1].Trim().Trim('"')
+    }
+}
+if (-not $WorkItemsPat -and (Test-Path $envFile)) {
+    Get-Content $envFile | Where-Object { $_ -match '^ADO_WORKITEMS_PAT=' } | ForEach-Object {
+        $WorkItemsPat = ($_ -split '=', 2)[1].Trim().Trim('"')
     }
 }
 
@@ -45,10 +49,18 @@ if (-not $Pat) {
     exit 1
 }
 
-# ── Auth header ───────────────────────────────────────────────────────────────
+# ── Auth headers ──────────────────────────────────────────────────────────────
 $bytes   = [System.Text.Encoding]::UTF8.GetBytes(":$Pat")
 $b64     = [System.Convert]::ToBase64String($bytes)
 $headers = @{ Authorization = "Basic $b64"; 'Content-Type' = 'application/json' }
+
+# Work Items header (ADO_WORKITEMS_PAT — scope Work Items R/W)
+$headersWI = $null
+if ($WorkItemsPat) {
+    $bytesWI  = [System.Text.Encoding]::UTF8.GetBytes(":$WorkItemsPat")
+    $b64WI    = [System.Convert]::ToBase64String($bytesWI)
+    $headersWI = @{ Authorization = "Basic $b64WI"; 'Content-Type' = 'application/json' }
+}
 
 $apiBase = "$OrgUrl/$Project/_apis"
 $repoBase = "$apiBase/git/repositories/$Repo"
@@ -92,6 +104,27 @@ $developSHA = Get-BranchSHA 'develop'
 $buildsRaw = Invoke-ADO "$apiBase/build/builds?`$top=5&api-version=7.1"
 $builds    = if ($buildsRaw) { $buildsRaw.value } else { @() }
 
+# ── 5. PBI Approved in backlog (richiede ADO_WORKITEMS_PAT) ──────────────────
+$approvedPBIs = @()
+if ($headersWI) {
+    try {
+        $wiqlBody = '{"query":"SELECT [System.Id],[System.Title],[System.State],[System.Tags] FROM WorkItems WHERE [System.WorkItemType] = ''Product Backlog Item'' AND [System.State] = ''Approved'' ORDER BY [System.Id] ASC"}'
+        $wiqlResp = Invoke-RestMethod -Uri "$OrgUrl/$Project/_apis/wit/wiql?api-version=7.1" `
+            -Method POST -Headers $headersWI -Body $wiqlBody
+        foreach ($wi in $wiqlResp.workItems) {
+            $detail = Invoke-RestMethod -Uri "$OrgUrl/$Project/_apis/wit/workitems/$($wi.id)?api-version=7.1" `
+                -Headers $headersWI
+            $approvedPBIs += [ordered]@{
+                id    = $wi.id
+                title = $detail.fields.'System.Title'
+                tags  = $detail.fields.'System.Tags'
+            }
+        }
+    } catch {
+        # Non blocca — Work Items PAT opzionale
+    }
+}
+
 # ── Struttura dati output ─────────────────────────────────────────────────────
 $snapshot = [ordered]@{
     generatedAt  = (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
@@ -121,6 +154,7 @@ $snapshot = [ordered]@{
             closedAt   = ([datetime]$_.closedDate).ToString('MM-dd HH:mm')
         }
     })
+    approvedPBIs = $approvedPBIs
     recentBuilds = @($builds | ForEach-Object {
         $dur = ''
         if ($_.startTime -and $_.finishTime) {
@@ -179,6 +213,15 @@ if (-not $OnlyOpen) {
             Write-Host ("  #{0,-5} {1}" -f $pr.id, $pr.title) -ForegroundColor Green
             Write-Host ("         {0} -> {1}  |  merged by {2}  |  {3}" -f $pr.source, $pr.target, $pr.mergedBy, $pr.closedAt)
         }
+    }
+}
+
+if ($approvedPBIs.Count -gt 0) {
+    Write-Host ""
+    Write-Host "BACKLOG APPROVATO — PBI pronti per sviluppo ($($approvedPBIs.Count))" -ForegroundColor Magenta
+    foreach ($pbi in $approvedPBIs) {
+        $tagStr = if ($pbi.tags) { "  [tags: $($pbi.tags)]" } else { '' }
+        Write-Host ("  #{0,-5} {1}{2}" -f $pbi.id, $pbi.title, $tagStr) -ForegroundColor White
     }
 }
 
