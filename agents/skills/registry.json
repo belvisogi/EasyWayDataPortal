@@ -1,6 +1,6 @@
 {
-  "version": "2.11.0",
-  "last_updated": "2026-02-28T19:00:00Z",
+  "version": "2.13.0",
+  "last_updated": "2026-03-01T01:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -2594,6 +2594,78 @@
         "blast_radius": "MEDIUM",
         "audit_log": true,
         "allowed_callers": ["agent_scrummaster", "agent_pr_gate", "*"]
+      }
+    },
+    {
+      "id": "planning.sdlc-orchestrator",
+      "name": "Invoke-SDLCOrchestrator",
+      "domain": "planning",
+      "file": "agents/skills/planning/Invoke-SDLCOrchestrator.ps1",
+      "version": "1.0.0",
+      "description": "Orchestratore interattivo SDLC EasyWay: guida l'utente attraverso BA→PM→PBI in 4 fasi. Genera product-brief e PRD via LLM (DeepSeek con fallback OpenRouter), poi crea PBI su ADO via Convert-PrdToPbi. Resume automatico se file esistono. 3 domande pre-PRD obbligatorie (Epic, Dominio, Pattern).",
+      "parameters": [
+        { "name": "FeatureName",  "type": "string",  "required": false, "description": "Nome feature (slug wiki, es. 'agent-interactive-sdlc')" },
+        { "name": "Description",  "type": "string",  "required": false, "description": "Descrizione breve della feature. Chiesta interattivamente se omessa." },
+        { "name": "EpicId",       "type": "integer", "required": false, "default": -1, "description": "ID epica ADO da collegare. 0 = nessuna epica. -1 = chiesto interattivamente." },
+        { "name": "Domain",       "type": "string",  "required": false, "description": "Dominio EasyWay: Infra|AMS|Frontend|Logic|Reporting|Data|Governance" },
+        { "name": "PbiPattern",   "type": "string",  "required": false, "description": "Pattern PBI: 'Feature standard' | 'Task tecnico' | 'Improvement/Bug'" },
+        { "name": "SkipBrief",    "type": "boolean", "required": false, "default": false, "description": "Salta Fase 1: usa product-brief.md esistente" },
+        { "name": "SkipPrd",      "type": "boolean", "required": false, "default": false, "description": "Salta Fase 2: usa prd.md esistente" },
+        { "name": "NoBranch",     "type": "boolean", "required": false, "default": false, "description": "Non mostrare suggerimento New-PbiBranch a fine flusso" },
+        { "name": "NoConfirm",    "type": "boolean", "required": false, "default": false, "description": "Nessuna conferma interattiva — per agent use" },
+        { "name": "Json",         "type": "boolean", "required": false, "default": false, "description": "Output JSON strutturato per agent consumption" }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Risultato completo del flusso SDLC",
+        "output_fields": [
+          { "name": "featureName", "type": "string",  "description": "Nome feature passato in input" },
+          { "name": "slug",        "type": "string",  "description": "Slug usato per i path wiki" },
+          { "name": "epicId",      "type": "integer", "description": "Epic ADO ID (0 se non collegato)" },
+          { "name": "domain",      "type": "string",  "description": "Dominio EasyWay selezionato" },
+          { "name": "briefPath",   "type": "string",  "description": "Path product-brief.md generato" },
+          { "name": "prdPath",     "type": "string",  "description": "Path prd.md generato" },
+          { "name": "pbiIds",      "type": "array",   "description": "Lista ID PBI creati su ADO" }
+        ]
+      },
+      "dependencies": ["Invoke-RestMethod", "DEEPSEEK_API_KEY", "Convert-PrdToPbi.ps1"],
+      "tags": ["planning", "ba", "pm", "prd", "pbi", "ado", "llm", "sdlc", "orchestrator", "interactive"],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "MEDIUM",
+        "audit_log": true,
+        "allowed_callers": ["agent_scrummaster", "agent_backlog_planner", "agent_pr_gate", "*"]
+      }
+    },
+    {
+      "id": "planning.scrum-master",
+      "name": "ScrumMaster",
+      "domain": "planning",
+      "file": "agents/skills/planning/scrum-master/SKILL.md",
+      "version": "1.0.0",
+      "description": "Sprint planning agile EasyWay: scompone PBI in user story, sizing Fibonacci (1-13 SP), pianifica sprint da 2 settimane (40 SP capacity), genera sprint-plan.md. Fase 4 del flusso SDLC agentico. Promosso da staging skills (ADOPT).",
+      "parameters": [
+        { "name": "FeatureName", "type": "string", "required": true,  "description": "Nome feature da pianificare" },
+        { "name": "PrdPath",     "type": "string", "required": true,  "description": "Path al PRD.md" },
+        { "name": "PbiIds",      "type": "array",  "required": false, "description": "Lista PBI ID ADO da includere nel piano sprint" }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Sprint plan generato",
+        "output_fields": [
+          { "name": "sprintPath",    "type": "string",  "description": "Path sprint-plan.md generato" },
+          { "name": "sprintCount",   "type": "integer", "description": "Numero di sprint pianificati" },
+          { "name": "totalSP",       "type": "integer", "description": "Story points totali stimati" },
+          { "name": "complexityLevel", "type": "string", "description": "Level 0-4 complessità feature" }
+        ]
+      },
+      "dependencies": ["Invoke-SDLCOrchestrator.ps1"],
+      "tags": ["planning", "scrum", "sprint", "agile", "story-sizing", "sdlc"],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["agent_scrummaster", "agent_backlog_planner", "*"]
       }
     }
   ]
