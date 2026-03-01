@@ -49,8 +49,11 @@ services:
       timeout: 5s
       retries: 5
 
-  # 🗄️ Database (SQL Edge - ARM compatible)
+  # 🗄️ Database (SQL Edge)
+  # Non ha manifest ARM64: viene escluso automaticamente su OCI (ARM64).
+  # Per avviarlo in locale su x86_64: docker compose --profile sql up
   sql-edge:
+    profiles: [sql]
     image: mcr.microsoft.com/azure-sql-edge:2.0.0
     container_name: easyway-db
     environment:
