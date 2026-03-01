@@ -203,7 +203,7 @@ function Ask-EpicId {
     if ($NoConfirm) { return 0 }
 
     Write-Step "Querying ADO per epiche attive..."
-    $epics = Get-ADOActiveEpics $Domain
+    $epics = @(Get-ADOActiveEpics $Domain)
 
     if ($epics.Count -gt 0) {
         Write-Host ""
