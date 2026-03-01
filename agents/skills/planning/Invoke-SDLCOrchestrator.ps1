@@ -183,12 +183,19 @@ function Add-InitiativeHeader([string]$content, [hashtable]$meta) {
 # Richiede QDRANT_URL (es. http://localhost:6333 via SSH tunnel).
 # Se non configurato o irraggiungibile → restituisce '' (silent skip).
 # embed-query.js: scripts/embed-query.js (Node.js, cache locale, no rete)
+#
+# $script:ragSkipReason: stringa con il motivo del fallimento (per diagnostico finale)
+
+$script:ragSkipReason = ''
 
 function Invoke-RAGSearch([string[]]$queries, [int]$k = 5) {
     $qdrantUrl = $RagUrl
     if (-not $qdrantUrl) { $qdrantUrl = $env:QDRANT_URL }
     if (-not $qdrantUrl) { $qdrantUrl = Read-EnvFile 'QDRANT_URL' }
-    if (-not $qdrantUrl) { return '' }  # non configurato — skip silenzioso
+    if (-not $qdrantUrl) {
+        $script:ragSkipReason = 'QDRANT_URL non configurato in .env.local'
+        return ''
+    }
 
     $qdrantKey = $env:QDRANT_API_KEY
     if (-not $qdrantKey) { $qdrantKey = Read-EnvFile 'QDRANT_API_KEY' }
@@ -196,7 +203,13 @@ function Invoke-RAGSearch([string[]]$queries, [int]$k = 5) {
     # Percorso embed-query.js: 3 livelli su da agents/skills/planning/ → repo root
     $repoRoot    = Split-Path (Split-Path (Split-Path $PSScriptRoot))
     $embedScript = Join-Path $repoRoot 'scripts\embed-query.js'
-    $nodeOk      = (Test-Path $embedScript) -and (Get-Command node -ErrorAction SilentlyContinue)
+    $nodeCmd     = Get-Command node -ErrorAction SilentlyContinue
+    $nodeOk      = (Test-Path $embedScript) -and $nodeCmd
+
+    if (-not $nodeOk) {
+        $script:ragSkipReason = if (-not $nodeCmd) { 'node non trovato in PATH' } else { "embed-query.js non trovato: $embedScript" }
+        return ''
+    }
 
     $searchUrl = "$qdrantUrl/collections/$QDRANT_COLLECTION/points/search"
     $hdrs = @{ 'Content-Type' = 'application/json' }
@@ -204,24 +217,23 @@ function Invoke-RAGSearch([string[]]$queries, [int]$k = 5) {
 
     $allChunks   = [System.Collections.Generic.List[string]]::new()
     $seenContent = [System.Collections.Generic.HashSet[string]]::new()
+    $embedFailed = 0
 
     foreach ($q in $queries) {
         if (-not $q.Trim()) { continue }
 
         # ── Embed query ───────────────────────────────────────────────────────
         $vector = $null
-        if ($nodeOk) {
-            try {
-                $raw = & node $embedScript $q 2>$null
-                if ($raw) {
-                    $parsed = $raw | ConvertFrom-Json -ErrorAction Stop
-                    $vector = $parsed.vector
-                }
-            } catch { $vector = $null }
-        }
+        try {
+            $raw = & node $embedScript $q 2>$null
+            if ($raw) {
+                $parsed = $raw | ConvertFrom-Json -ErrorAction Stop
+                $vector = $parsed.vector
+            }
+        } catch { $vector = $null }
 
         if (-not $vector) {
-            # Embedding non disponibile → skip silenzioso questa query
+            $embedFailed++
             continue
         }
 
@@ -240,7 +252,7 @@ function Invoke-RAGSearch([string[]]$queries, [int]$k = 5) {
                 -Method     Post `
                 -Headers    $hdrs `
                 -Body       ([System.Text.Encoding]::UTF8.GetBytes($bodyJson)) `
-                -TimeoutSec 15
+                -TimeoutSec 10
 
             # /points/search → result è array diretto (non .points)
             $points = $resp.result
@@ -257,16 +269,17 @@ function Invoke-RAGSearch([string[]]$queries, [int]$k = 5) {
                 }
             }
         } catch {
-            # Qdrant irraggiungibile o timeout — skip silenzioso
+            $script:ragSkipReason = "Qdrant non raggiungibile su $qdrantUrl — tunnel SSH attivo?"
             return ''
         }
     }
 
-    if ($allChunks.Count -eq 0) { return '' }
+    if ($allChunks.Count -eq 0) {
+        $script:ragSkipReason = if ($embedFailed -gt 0) { "embedding fallito ($embedFailed query)" } else { 'nessun chunk rilevante trovato' }
+        return ''
+    }
 
-    $header = "CONOSCENZA WIKI EasyWay — $($allChunks.Count) chunk rilevanti (vector search):"
-    $body   = ($allChunks | ForEach-Object { "---`n$_" }) -join "`n"
-    return "$header`n$body"
+    return "CONOSCENZA WIKI EasyWay — $($allChunks.Count) chunk rilevanti (vector search):`n$(($allChunks | ForEach-Object { "---`n$_" }) -join "`n")"
 }
 
 # ─── v3: Auto-suggest Domain e Pattern via LLM ──────────────────────────────
@@ -828,8 +841,13 @@ if ($ragContext) {
     $chunkCount = ([regex]::Matches($ragContext, '---')).Count
     Write-Ok "RAG: $chunkCount chunk trovati da wiki — iniettati nei prompt BA e PM"
 } else {
-    Write-Step "RAG: QDRANT_URL non configurato o Qdrant offline — proseguo senza contesto wiki"
-    Write-Step "(Configura: QDRANT_URL=http://localhost:6333 in .env.local, via SSH tunnel)"
+    $reason = if ($script:ragSkipReason) { $script:ragSkipReason } else { 'motivo sconosciuto' }
+    Write-Step "RAG: skip — $reason"
+    if ($script:ragSkipReason -match 'Qdrant|tunnel') {
+        Write-Step "(Avvia tunnel: pwsh scripts/connect-qdrant-tunnel.ps1 -Verify)"
+    } elseif ($script:ragSkipReason -match 'QDRANT_URL') {
+        Write-Step "(Aggiungi QDRANT_URL=http://localhost:6333 a C:\old\.env.local)"
+    }
 }
 
 # ─── front-matter helper ─────────────────────────────────────────────────────
@@ -1047,7 +1065,8 @@ if ($Json) {
     if ($createdPbiIds.Count -gt 0) {
         Write-Host "  PBI creati    : $($createdPbiIds -join ', ')" -ForegroundColor White
     }
-    Write-Host "  RAG usato     : $(if ($ragContext) { 'Sì' } else { 'No (QDRANT_URL non configurato)' })" -ForegroundColor White
+    $ragStatus = if ($ragContext) { 'Sì' } elseif ($script:ragSkipReason) { "No ($($script:ragSkipReason))" } else { 'No' }
+    Write-Host "  RAG usato     : $ragStatus" -ForegroundColor White
     Write-Host "  ══════════════════════════════════════════════════════" -ForegroundColor Green
     Write-Host ""
 }
