@@ -1669,3 +1669,64 @@ pwsh agents/skills/planning/Invoke-SDLCOrchestrator.ps1
 **Backlog rimasto → Session 46**
 - n8n implementation: 7 PBI su ADO (INIT-20260301-n8n-webhook-integration) — webhook ADO→n8n→Resolve-PRConflicts, levi-watchman, sentinel-ingestion
 - AI_DBA_Governance_MVP.md — quando l'utente è pronto
+
+---
+
+### Session 46 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- Handoff Session 45 → 46: briefing ADO (`Get-ADOBriefing.ps1`), PR #231 mergiata (docs Session 45)
+- Token ADO separato: `ADO_WORKITEMS_PAT` (Work Items R/W) aggiunto a `C:\old\.env.local`
+- Creazione Feature #22 + 7 PBI #23-29 su ADO (n8n ADO PR Conflict Resolver, tag `n8n; INIT-20260301-n8n-webhook-integration`)
+- Stato PBI impostato a `Approved` (stato Scrum ADO valido; "Business Approved" non configurato)
+- Fix `New-PbiBranch.ps1`: param `WorkItemsPat` separato da `Pat` + `AllowedStates` include `Approved`
+- Fix `Get-ADOBriefing.ps1`: sezione "BACKLOG APPROVATO" mostra PBI Approved a inizio sessione
+- GEDI Consultation Protocol: Rule 0b in `.cursorrules` + §5f in wiki — OODA loop obbligatorio su dubbi
+- Cleanup GEDI-approved: PR #232 abbandonata, 8 branch orfani eliminati, titoli PBI rinominati (rimosso prefisso `[PBI]`)
+- PR #233 creata: `feat/devops/ado-workitems-pat-gedi-briefing` → develop
+
+**Perché**
+- Il PAT `AZURE_DEVOPS_EXT_PAT` aveva scope solo "Code R/W + PR Contribute" → 401 su WIQL/work items. Necessario token dedicato per leggere/creare PBI.
+- I 7 PBI di Session 45 erano stati pianificati dall'orchestratore SDLC ma il POST ADO non era mai avvenuto (0 WI su ADO). Creati manualmente in Session 46.
+- `New-PbiBranch.ps1` falliva silenziosamente (401 su WI fetch) → ora usa `ADO_WORKITEMS_PAT`.
+- Branch pre-creati manualmente PRIMA del lavoro reale = rumore + violazione governance gate. GEDI ha correttamente consigliato cleanup.
+- Il briefing mancava della visibilità sul backlog → aggiunta sezione PBI Approved per orientamento a inizio sessione.
+
+**Come**
+- `Create-N8nPBIs.ps1`: crea Feature + 7 PBI via ADO REST API (POST `$Product%20Backlog%20Item`, link gerarchico con `Hierarchy-Reverse` su Epic #4)
+- `_set-pbi-approved.ps1`: PATCH `System.State = Approved` su lista PBI
+- `_cleanup-n8n-branches.ps1`: abandon PR #232, delete 8 branch, PATCH titoli PBI (remove `[PBI]` prefix)
+- `Get-ADOBriefing.ps1`: aggiunto `WorkItemsPat` param + step 5 WIQL query + sezione BACKLOG APPROVATO (human + JSON)
+- `New-PbiBranch.ps1`: `$wiPat = WorkItemsPat ?? Pat`; AllowedStates = `@('Approved','Business Approved')`
+- GEDI: `agents/agent_gedi/manifest.json` letto e integrato in `.cursorrules` Rule 0b + wiki §5f
+
+**Q&A**
+- *Perché "Approved" e non "Business Approved"?* ADO project usa stati Scrum standard. "Business Approved" non è configurato → 400 Bad Request. "Approved" è lo stato corrispondente nel template Scrum ADO.
+- *Perché PR #233 non è linkata a un PBI?* La PR description non conteneva `AB#<id>`. Tooling infrastrutturale trattato come non-PBI. **Lezione**: inserire sempre `AB#<id>` anche per PR infra — usare Feature #22 (`AB#22`) come parent quando applicabile.
+- *Perché i branch manuali erano sbagliati?* `New-PbiBranch.ps1` genera slug dal titolo ADO. Il titolo conteneva `[PBI]` → slug `pbi-setup-e-...` ≠ nome manuale. GEDI: branch vuoti pre-creati violano governance gate (branch = segnale che il lavoro è iniziato).
+- *Come funziona il GEDI protocol?* OODA loop: Observe (cosa succede) → Orient (principi Manifesto) → Decide (severity) → Act (raccomandazione). Non blocca, illumina. Trigger: dubbi architetturali, trade-off, richiesta esplicita utente.
+
+**File creati/modificati**
+- `.cursorrules` — Rule 0b GEDI Consultation Protocol + roster GEDI
+- `Wiki/EasyWayData.wiki/agents/platform-operational-memory.md` — §5e aggiornato + §5f GEDI Protocol
+- `agents/skills/git/New-PbiBranch.ps1` — WorkItemsPat param + AllowedStates
+- `scripts/pwsh/Get-ADOBriefing.ps1` — WorkItemsPat + BACKLOG APPROVATO section
+- `scripts/pwsh/Create-N8nPBIs.ps1` — crea Feature+PBI n8n su ADO
+- `scripts/pwsh/_cleanup-n8n-branches.ps1` — cleanup GEDI-approved
+- `scripts/pwsh/_set-pbi-approved.ps1` — batch PATCH stato PBI
+
+**PR**: #231 (docs S45→develop, mergiata), #232 (test, abbandonata), #233 (feat/devops→develop, da mergere)
+
+**Backlog rimasto → Session 47**
+- Approvare/mergere PR #233 (feat/devops: GEDI + ADO_WORKITEMS_PAT + briefing)
+- n8n implementation (7 PBI #23-29 Approved):
+  - PBI-23: Setup e verifica istanza n8n locale (`/c/old/n8n-workspace/`)
+  - PBI-24: Creare workflow `ado-pr-conflict-resolver.json` (webhook ADO→pwsh Resolve-PRConflicts.ps1)
+  - PBI-25: Parse payload ADO Service Hook (extract PRId, sourceBranch, targetBranch, mergeStatus=conflicts)
+  - PBI-26: Execute Resolve-PRConflicts.ps1 via n8n Execute Command node (-Json flag)
+  - PBI-27: Post ADO PR comment con resolution report (Markdown, REST API)
+  - PBI-28: Handle escalation — ADO comment @giuseppe.belviso + log in escalation-log.jsonl
+  - PBI-29: Configurare ADO Service Hook subscription (PR Updated → mergeStatus=conflicts → n8n webhook)
+- Ogni PBI → `New-PbiBranch.ps1 -PbiId <id> -CreatePR` (gate Approved ✅ + AB# link automatico)
+- Lesson da applicare in ogni PR futura: inserire `AB#<id>` anche per PR infra (usare Feature/Epic parent)
+- AI_DBA_Governance_MVP.md — quando pronto
