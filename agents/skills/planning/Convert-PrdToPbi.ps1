@@ -57,6 +57,7 @@ Param(
 
     [int]    $EpicId          = 0,
     [int]    $MaxPbi          = 20,
+    [string] $InitiativeId    = '',   # v3: propagato come traceability nei PBI ADO
 
     [switch] $WhatIf,
     [switch] $Apply,
@@ -323,7 +324,9 @@ foreach ($pbi in $pbis) {
         $acItems = ($pbi.acceptanceCriteria | ForEach-Object { "<li>$_</li>" }) -join ''
         $acHtml  = "<br><b>Acceptance Criteria:</b><ul>$acItems</ul>"
     }
-    $descHtml = "<p>$($pbi.description)</p>$acHtml"
+    # v3: traceability initiative_id
+    $initHtml = if ($InitiativeId) { "<p><b>Initiative ID</b>: $InitiativeId</p>" } else { '' }
+    $descHtml = "$initHtml<p>$($pbi.description)</p>$acHtml"
 
     # ADO priority: 1=High=1, 2=Medium=2, 3=Low=3
     $adoPriority = [int]$pbi.priority
@@ -380,11 +383,12 @@ foreach ($pbi in $pbis) {
 # ─── step 7: output ────────────────────────────────────────────────────────
 
 $result = @{
-    pbiIds    = $createdIds | ForEach-Object { $_.id }
-    epicId    = $detectedEpicId
-    count     = $createdIds.Count
-    created   = $createdIds
-    errors    = $errors
+    pbiIds       = $createdIds | ForEach-Object { $_.id }
+    epicId       = $detectedEpicId
+    initiativeId = $InitiativeId   # v3: traceability
+    count        = $createdIds.Count
+    created      = $createdIds
+    errors       = $errors
 }
 
 if ($Json) {
