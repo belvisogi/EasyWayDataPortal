@@ -1,6 +1,6 @@
 {
-  "version": "2.12.0",
-  "last_updated": "2026-03-01T00:00:00Z",
+  "version": "2.13.0",
+  "last_updated": "2026-03-01T01:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -2635,6 +2635,37 @@
         "blast_radius": "MEDIUM",
         "audit_log": true,
         "allowed_callers": ["agent_scrummaster", "agent_backlog_planner", "agent_pr_gate", "*"]
+      }
+    },
+    {
+      "id": "planning.scrum-master",
+      "name": "ScrumMaster",
+      "domain": "planning",
+      "file": "agents/skills/planning/scrum-master/SKILL.md",
+      "version": "1.0.0",
+      "description": "Sprint planning agile EasyWay: scompone PBI in user story, sizing Fibonacci (1-13 SP), pianifica sprint da 2 settimane (40 SP capacity), genera sprint-plan.md. Fase 4 del flusso SDLC agentico. Promosso da staging skills (ADOPT).",
+      "parameters": [
+        { "name": "FeatureName", "type": "string", "required": true,  "description": "Nome feature da pianificare" },
+        { "name": "PrdPath",     "type": "string", "required": true,  "description": "Path al PRD.md" },
+        { "name": "PbiIds",      "type": "array",  "required": false, "description": "Lista PBI ID ADO da includere nel piano sprint" }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Sprint plan generato",
+        "output_fields": [
+          { "name": "sprintPath",    "type": "string",  "description": "Path sprint-plan.md generato" },
+          { "name": "sprintCount",   "type": "integer", "description": "Numero di sprint pianificati" },
+          { "name": "totalSP",       "type": "integer", "description": "Story points totali stimati" },
+          { "name": "complexityLevel", "type": "string", "description": "Level 0-4 complessità feature" }
+        ]
+      },
+      "dependencies": ["Invoke-SDLCOrchestrator.ps1"],
+      "tags": ["planning", "scrum", "sprint", "agile", "story-sizing", "sdlc"],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": ["agent_scrummaster", "agent_backlog_planner", "*"]
       }
     }
   ]
