@@ -687,7 +687,7 @@ stages:
               OPENAI_API_KEY=placeholder ANTHROPIC_API_KEY=placeholder \
                 docker compose -p easyway-dev \
                   -f docker-compose.yml \
-                  up -d --build --scale sql-edge=0
+                  up -d --build
               echo "##[section]DeployDev OK — $(git rev-parse --short HEAD)"
             displayName: 'git pull + docker compose up (DEV)'
 
@@ -720,10 +720,19 @@ stages:
             displayName: 'git pull + docker compose up (CERT)'
 
 # Deploy MAIN — merge Release PR su main → git fetch+reset + docker compose up
+# Lesson 57: dipende da DeployDev (SkippedDueToConditions ok) per serializzare
+# i due docker compose up sullo stesso agente ARM64 ed evitare contesa.
   - stage: DeployMain
     displayName: 'Deploy → MAIN (server OCI, stack easyway-dev)'
-    dependsOn: BuildAndTest
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    dependsOn:
+      - BuildAndTest
+      - DeployDev
+    condition: |
+      and(
+        in(dependencies.BuildAndTest.result, 'Succeeded', 'SkippedDueToConditions'),
+        in(dependencies.DeployDev.result, 'Succeeded', 'SkippedDueToConditions'),
+        eq(variables['Build.SourceBranch'], 'refs/heads/main')
+      )
     jobs:
       - job: DeployMainJob
         displayName: 'git fetch+reset main + docker compose up'
@@ -739,7 +748,7 @@ stages:
               OPENAI_API_KEY=placeholder ANTHROPIC_API_KEY=placeholder \
                 docker compose -p easyway-dev \
                   -f docker-compose.yml \
-                  up -d --build --scale sql-edge=0
+                  up -d --build
               echo "##[section]DeployMain OK — $(git rev-parse --short HEAD)"
             displayName: 'git fetch+reset main + docker compose up (DEV)'
 
@@ -761,7 +770,7 @@ stages:
               set -e
               git config user.email "ew-svc-azuredevops-agent@easyway.local"
               git config user.name "EasyWay CI"
-              REMOTE="https://oauth2:$(GITHUB_PAT)@github.com/belvisogi/EasyWayDataPortal.git"
+              REMOTE="https://oauth2:${GITHUB_PAT}@github.com/belvisogi/EasyWayDataPortal.git"
               git push "$REMOTE" HEAD:main --force
               echo "##[section]GitHub mirror: OK — $(git rev-parse --short HEAD)"
             displayName: 'git push → GitHub'
