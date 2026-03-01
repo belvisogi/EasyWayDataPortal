@@ -178,10 +178,11 @@ function Add-InitiativeHeader([string]$content, [hashtable]$meta) {
     return "$fm`n`n$content"
 }
 
-# ─── v3: RAG via Qdrant direct ──────────────────────────────────────────────
-# Chiama Qdrant scroll API con text match.
+# ─── v3.1: RAG via Qdrant vector search ─────────────────────────────────────
+# Embedding locale con Xenova/all-MiniLM-L6-v2 (stesso modello dell'ingest).
 # Richiede QDRANT_URL (es. http://localhost:6333 via SSH tunnel).
 # Se non configurato o irraggiungibile → restituisce '' (silent skip).
+# embed-query.js: scripts/embed-query.js (Node.js, cache locale, no rete)
 
 function Invoke-RAGSearch([string[]]$queries, [int]$k = 5) {
     $qdrantUrl = $RagUrl
@@ -192,32 +193,57 @@ function Invoke-RAGSearch([string[]]$queries, [int]$k = 5) {
     $qdrantKey = $env:QDRANT_API_KEY
     if (-not $qdrantKey) { $qdrantKey = Read-EnvFile 'QDRANT_API_KEY' }
 
-    $scrollUrl = "$qdrantUrl/collections/$QDRANT_COLLECTION/points/scroll"
+    # Percorso embed-query.js: 3 livelli su da agents/skills/planning/ → repo root
+    $repoRoot    = Split-Path (Split-Path (Split-Path $PSScriptRoot))
+    $embedScript = Join-Path $repoRoot 'scripts\embed-query.js'
+    $nodeOk      = (Test-Path $embedScript) -and (Get-Command node -ErrorAction SilentlyContinue)
+
+    $searchUrl = "$qdrantUrl/collections/$QDRANT_COLLECTION/points/search"
     $hdrs = @{ 'Content-Type' = 'application/json' }
     if ($qdrantKey) { $hdrs['api-key'] = $qdrantKey }
 
-    $allChunks = [System.Collections.Generic.List[string]]::new()
+    $allChunks   = [System.Collections.Generic.List[string]]::new()
     $seenContent = [System.Collections.Generic.HashSet[string]]::new()
 
     foreach ($q in $queries) {
         if (-not $q.Trim()) { continue }
+
+        # ── Embed query ───────────────────────────────────────────────────────
+        $vector = $null
+        if ($nodeOk) {
+            try {
+                $raw = & node $embedScript $q 2>$null
+                if ($raw) {
+                    $parsed = $raw | ConvertFrom-Json -ErrorAction Stop
+                    $vector = $parsed.vector
+                }
+            } catch { $vector = $null }
+        }
+
+        if (-not $vector) {
+            # Embedding non disponibile → skip silenzioso questa query
+            continue
+        }
+
+        # ── Vector search ─────────────────────────────────────────────────────
         $bodyObj = @{
-            filter       = @{ must = @(@{ key = 'content'; match = @{ text = $q } }) }
+            vector       = $vector
             limit        = $k
             with_payload = $true
             with_vector  = $false
         }
-        $bodyJson = $bodyObj | ConvertTo-Json -Depth 10
+        $bodyJson = $bodyObj | ConvertTo-Json -Depth 5 -Compress
 
         try {
-            $resp = Invoke-RestMethod `
-                -Uri        $scrollUrl `
+            $resp   = Invoke-RestMethod `
+                -Uri        $searchUrl `
                 -Method     Post `
                 -Headers    $hdrs `
                 -Body       ([System.Text.Encoding]::UTF8.GetBytes($bodyJson)) `
-                -TimeoutSec 10
+                -TimeoutSec 15
 
-            $points = $resp.result.points
+            # /points/search → result è array diretto (non .points)
+            $points = $resp.result
             if ($points) {
                 foreach ($pt in $points) {
                     $content = $pt.payload.content
@@ -225,8 +251,9 @@ function Invoke-RAGSearch([string[]]$queries, [int]$k = 5) {
                     $key = $content.Substring(0, [Math]::Min(80, $content.Length))
                     if (-not $seenContent.Add($key)) { continue }  # dedup
                     $source  = if ($pt.payload.path) { $pt.payload.path } elseif ($pt.payload.filename) { $pt.payload.filename } else { 'wiki' }
+                    $score   = [Math]::Round($pt.score, 3)
                     $excerpt = $content.Substring(0, [Math]::Min(400, $content.Length))
-                    $allChunks.Add("[$source]`n$excerpt")
+                    $allChunks.Add("[score:$score $source]`n$excerpt")
                 }
             }
         } catch {
@@ -237,7 +264,7 @@ function Invoke-RAGSearch([string[]]$queries, [int]$k = 5) {
 
     if ($allChunks.Count -eq 0) { return '' }
 
-    $header = "CONOSCENZA WIKI EasyWay — $($allChunks.Count) chunk rilevanti da Qdrant:"
+    $header = "CONOSCENZA WIKI EasyWay — $($allChunks.Count) chunk rilevanti (vector search):"
     $body   = ($allChunks | ForEach-Object { "---`n$_" }) -join "`n"
     return "$header`n$body"
 }
