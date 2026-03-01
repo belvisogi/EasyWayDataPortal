@@ -1626,3 +1626,46 @@ Formato sezione auto-generata in `.cursorrules`:
 - Fix QDRANT_URL in `.env.local` (investigare riga duplicata/vuota) — test RAG con context wiki
 - n8n sessione dedicata: webhook ADO→n8n→Resolve-PRConflicts, levi-watchman, sentinel-ingestion (PLANNED da Session 42)
 - AI_DBA_Governance_MVP.md — quando l'utente è pronto
+
+---
+
+### Session 45 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- PR #227 mergiata → develop (conflitti `.cursorrules` + `platform-operational-memory.md` risolti via rebase)
+- Fix RAG vector search: PR #228 (`scripts/embed-query.js` + `Invoke-RAGSearch` aggiornata)
+- Fix diagnostico RAG: PR #229 (`$script:ragSkipReason` per ogni failure path)
+- Release PR #230: develop → main (Sessions 42-45), deploy server `2111dcf`
+- Meta-test SDLC live: orchestratore ha pianificato "n8n-webhook-integration" (7 PBI ADO) e "test-rag-verify" (6 PBI ADO) con RAG attivo
+- Tunnel Qdrant verificato: 167,970 vettori, `RAG usato: Sì` confermato end-to-end
+
+**Perché**
+- Il RAG v3 usava `Qdrant scroll + match.text` (keyword AND logic): query multi-parola restituivano 0 risultati perché i termini non co-occorrevano nello stesso chunk. I 167k vettori erano completamente inutilizzati.
+- Il messaggio di errore finale mostrava sempre "QDRANT_URL non configurato" indipendentemente dal vero motivo (tunnel giù, node non in PATH, embedding fallito) — impossibile diagnosticare.
+
+**Come**
+- **embed-query.js**: Node.js ES module (`"type":"module"` in `scripts/package.json`). `env.allowRemoteModels=false` (usa cache locale). Redirige log model-loading su stderr, emette solo JSON `{vector:[384 floats]}` su stdout. Modello: `Xenova/all-MiniLM-L6-v2` (stesso dell'ingest, pooling:mean, normalize:true). Cache già presente in `node_modules/@xenova/transformers/.cache/`.
+- **Invoke-RAGSearch**: sostituisce scroll con `POST /collections/easyway_wiki/points/search` con vettore cosine. Chiama `node embed-query.js <query>` per ogni query. Path `embed-query.js` calcolato via `Split-Path $PSScriptRoot` × 3 livelli (agents/skills/planning → repo root). Dedup invariato. Score cosine incluso nel chunk header `[score:X.XXX file]`.
+- **ragSkipReason**: `$script:ragSkipReason` traccia motivo preciso in ogni exit path. RAG phase mostra hint contestuale (tunnel vs env var). Summary finale mostra motivo reale invece di stringa generica.
+- **Risultato Evidence & Confidence**: con RAG attivo, il PM ora cita fonti wiki reali (es. `DOCKER_COMPOSE_TUTORIAL.md → High`, `TEST_PR_GUIDE.md → High`) invece di `N/A → Low`.
+
+**Q&A**
+- *Perché Node.js e non API embedding?* HuggingFace API è bloccata dalla rete NTT Data. Il modello è già in cache locale dall'ingest — zero dipendenze di rete.
+- *Perché il RAG era "No" nel primo test n8n?* Il tunnel Qdrant era caduto (processo SSH background morto). Ora c'è `ragSkipReason = "Qdrant non raggiungibile su ... — tunnel SSH attivo?"`.
+- *La "Nota RAG" su AND semantics è ancora valida?* No — con vector search le query multi-parola funzionano sempre (embedding semantico, non AND keyword). Il problema AND era specifico di `match.text`.
+
+**File creati/modificati**
+- `scripts/embed-query.js` — nuovo: embedding locale Node.js ESM
+- `agents/skills/planning/Invoke-SDLCOrchestrator.ps1` — Invoke-RAGSearch v3.1: vector search + ragSkipReason
+
+**PR**: #228, #229 develop; #230 Release → main
+
+**Workflow obbligatorio prima dell'orchestratore**:
+```powershell
+pwsh scripts/connect-qdrant-tunnel.ps1 -Verify
+pwsh agents/skills/planning/Invoke-SDLCOrchestrator.ps1
+```
+
+**Backlog rimasto → Session 46**
+- n8n implementation: 7 PBI su ADO (INIT-20260301-n8n-webhook-integration) — webhook ADO→n8n→Resolve-PRConflicts, levi-watchman, sentinel-ingestion
+- AI_DBA_Governance_MVP.md — quando l'utente è pronto
