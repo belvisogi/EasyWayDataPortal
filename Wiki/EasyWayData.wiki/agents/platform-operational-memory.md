@@ -1783,3 +1783,58 @@ pwsh agents/skills/planning/Invoke-SDLCOrchestrator.ps1
 - Ogni PBI → `New-PbiBranch.ps1 -PbiId <id> -CreatePR` (gate Approved ✅ + AB# link automatico)
 - Lesson da applicare in ogni PR futura: inserire `AB#<id>` anche per PR infra (usare Feature/Epic parent)
 - AI_DBA_Governance_MVP.md — quando pronto
+
+---
+
+### Session 47 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- PR #233 già approvata (vote=10 da sessione precedente) → PR #234 aveva conflitto `editEdit` su `.cursorrules`
+- Conflitto PR #234 risolto: merge `origin/develop` in `docs/session-46-memory`, `.cursorrules` rebuilt (Rule 0b da develop + Session 46 notes da docs branch + timestamp aggiornato via Iron Dome sync); push + PR mergiata dall'utente
+- Nuova regola antifragilità: **max 2 tentativi API ADO per la stessa azione**, poi STOP e chiedi umano
+- Gap identificato: agenti che creano PR non verificano conflitti pre-apertura → messo in backlog (`New-PbiBranch.ps1` + `Create-ReleasePR.ps1`)
+- Agent Valentino: migrato da `.agents/agent_valentino/` (non-canonical, non tracked) a `agents/agent_valentino/` (L3, canonical) — PR #235 creata e mergiata
+
+**Perché**
+- PR #234 in conflitto perché PR #233 e PR #234 partivano dallo stesso base commit e modificavano entrambe `.cursorrules`. PR #233 è stata mergiata prima, develop è avanzato, PR #234 era in conflitto.
+- `.agents/` non è la posizione canonica degli agenti — tutti gli L3 vivono in `agents/`. Il manifest L2 era incompleto (niente `llm_config`, `level`, `classification`).
+- La regola "max 2 tentativi" nasce dall'osservazione che il PAT `AZURE_DEVOPS_EXT_PAT` appartiene a `svc-agent-ado-executor`, non a `giuseppe belviso` — il service account non può votare per l'utente umano. Brute-force sul problema non avrebbe mai funzionato.
+
+**Come**
+- Conflict resolution `.cursorrules`: `python3` legge `git show <commitHash>:.cursorrules` con encoding UTF-8 esplicito; base = develop (ha Rule 0b + GEDI roster + §5f); aggiunge blocco Session 46 COMPLETATA da docs branch; `git merge --continue` → Iron Dome re-sync automatico timestamp.
+- Valentino migration: `git checkout -b feat/design/valentino-l3-migration origin/develop`; crea `agents/agent_valentino/` con manifest L3, PROMPTS.md (L2→L3), VALENTINO_ANTIFRAGILE_GUARDRAILS.md, README.md; copia 3 SKILL.md da `.agents/agent_valentino/skills/` a `agents/skills/`; stage anche deletions utente (backoffice-architect, builder, llm-seo, memory-ledger); `git commit`; push; PR #235 + ArtifactLink WI#22.
+
+**Q&A**
+- *Perché il service account non può approvare la PR per giuseppe belviso?* ADO policy `TF401186`: non si può registrare un voto per un altro utente. Il PAT di `svc-agent-ado-executor` autentica solo quell'identità. L'approvazione da giuseppe belviso richiede il suo click manuale nel browser.
+- *Perché la conflict resolution di `.cursorrules` richiedeva un approccio Python e non `git checkout --ours/--theirs`?* La soluzione ottimale era ibrida: tenere le sezioni manuali (Rule 0b, GEDI roster) da `develop` E il blocco Session 46 COMPLETATA da `docs/session-46-memory`. Né `--ours` né `--theirs` puri erano corretti. Python legge entrambe le versioni e le combina con `rfind('# AUTO-SYNC-END')`.
+- *Perché le valentino skill erano duplicate?* Erano in `agents/skills/` (globale, versioni vecchie) E in `.agents/agent_valentino/skills/` (versioni nuove). L'utente stava già rimuovendo le vecchie; la migrazione ha portato le nuove nella posizione canonica.
+
+**File creati/modificati**
+- `agents/agent_valentino/manifest.json` — nuovo, L3 completo
+- `agents/agent_valentino/PROMPTS.md` — da .agents, label L2→L3
+- `agents/agent_valentino/VALENTINO_ANTIFRAGILE_GUARDRAILS.md` — da .agents
+- `agents/agent_valentino/README.md` — nuovo
+- `agents/skills/valentino-premium-design/SKILL.md` — nuovo (da .agents)
+- `agents/skills/valentino-web-guardrails/SKILL.md` — aggiornato (da .agents)
+- `agents/skills/valentino-backoffice-architect/SKILL.md` — eliminato
+- `agents/skills/valentino-backoffice-builder/SKILL.md` — eliminato
+- `agents/skills/valentino-llm-seo/SKILL.md` — eliminato
+- `agents/skills/valentino-memory-ledger/SKILL.md` — eliminato
+- `agents/skills/registry.json` — aggiornato (user)
+- `memory/MEMORY.md` — nuova regola: max 2 tentativi API ADO poi chiedi umano
+
+**PR**: #233 (mergiata), #234 (conflict risolto + mergiata), #235 (valentino L3, mergiata)
+
+**Backlog rimasto → Session 48**
+- n8n implementation (7 PBI #23-29, tutti `Approved`):
+  - PBI-23: Setup e verifica istanza n8n locale (`/c/old/n8n-workspace/`, porta 5678)
+  - PBI-24: Creare workflow `ado-pr-conflict-resolver.json` (webhook ADO → `Resolve-PRConflicts.ps1`)
+  - PBI-25: Parse payload ADO Service Hook (PRId, sourceBranch, targetBranch, mergeStatus=conflicts)
+  - PBI-26: Execute `Resolve-PRConflicts.ps1` via n8n Execute Command node (`-Json` flag)
+  - PBI-27: Post ADO PR comment con resolution report (Markdown, REST API)
+  - PBI-28: Handle escalation (ADO comment @giuseppe.belviso + escalation-log.jsonl)
+  - PBI-29: Configurare ADO Service Hook subscription (PR Updated → mergeStatus=conflicts → n8n webhook)
+- Ogni PBI → `New-PbiBranch.ps1 -PbiId <id> -CreatePR` (gate Approved ✅ + AB# link automatico)
+- Backlog tecnico: **pre-PR conflict check** (dry-run merge in `New-PbiBranch.ps1` + `Create-ReleasePR.ps1`)
+- Backlog tecnico: Root folder cleanup (`chore/root-cleanup`) — ~200 file da riorganizzare
+- AI_DBA_Governance_MVP.md — quando pronto
