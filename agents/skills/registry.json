@@ -1,6 +1,6 @@
 {
-  "version": "2.13.0",
-  "last_updated": "2026-03-01T01:00:00Z",
+  "version": "2.14.0",
+  "last_updated": "2026-03-02T00:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -200,6 +200,60 @@
         "allowed_callers": [
           "agent_security"
         ]
+      }
+    },
+    {
+      "id": "security.secrets-scan",
+      "name": "Invoke-SecretsScan",
+      "domain": "security",
+      "file": "skills/security/Invoke-SecretsScan.ps1",
+      "version": "1.0.0",
+      "description": "Scans git-tracked files for leaked secrets, governance violations, and PAT identity misuse. Rule-based (no LLM). Produces JSON report with findings and compliance status.",
+      "parameters": [
+        {
+          "name": "ScanPath",
+          "type": "string",
+          "required": false,
+          "default": ".",
+          "description": "Repository root to scan"
+        },
+        {
+          "name": "OutputFormat",
+          "type": "string",
+          "required": false,
+          "default": "json",
+          "enum": ["json", "markdown"]
+        },
+        {
+          "name": "Severity",
+          "type": "string",
+          "required": false,
+          "default": "all",
+          "enum": ["all", "critical", "high"]
+        },
+        {
+          "name": "Json",
+          "type": "switch",
+          "required": false,
+          "description": "Machine-readable JSON output"
+        }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Scan report with findings, compliance status, and summary",
+        "output_fields": [
+          { "name": "findings", "type": "array", "description": "List of detected secret leaks" },
+          { "name": "compliance", "type": "array", "description": "PAT governance compliance per script" },
+          { "name": "summary", "type": "object", "description": "Aggregate counts by severity" }
+        ]
+      },
+      "dependencies": ["git"],
+      "tags": ["security", "secrets", "scanning", "governance", "sentinel"],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": true,
+        "allowed_callers": ["agent_sentinel", "agent_security", "agent_pr_gate"]
       }
     },
     {

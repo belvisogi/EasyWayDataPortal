@@ -80,6 +80,21 @@ switch ($Command) {
     # --- SMART COMMIT WRAPPER ---
     Write-Host "🛡️  EasyWay Smart Commit Protocol Initiated..." -ForegroundColor Cyan
 
+    # 0. Secrets Scan (staged files only)
+    if (Get-Command Test-StagedFilesForSecrets -ErrorAction SilentlyContinue) {
+      Write-Host "  Secrets scan..." -ForegroundColor Cyan -NoNewline
+      $scanResult = Test-StagedFilesForSecrets
+      if (-not $scanResult.Passed) {
+        Write-Host " BLOCKED" -ForegroundColor Red
+        foreach ($f in $scanResult.Findings) {
+          Write-Host "    [$($f.Pattern)] $($f.File):$($f.Line)" -ForegroundColor Red
+        }
+        Write-Host "  Remove secrets before committing. Full scan: pwsh agents/skills/security/Invoke-SecretsScan.ps1 -OutputFormat markdown" -ForegroundColor Yellow
+        exit 1
+      }
+      Write-Host " OK" -ForegroundColor Green
+    }
+
     # 1. Anti-Pattern Scan
     $stagedFiles = git diff --name-only --cached
     if ($stagedFiles) {

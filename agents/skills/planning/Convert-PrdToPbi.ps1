@@ -49,7 +49,7 @@ Param(
     [Parameter(Mandatory = $true)]
     [string] $PrdPath,
 
-    [string] $Pat             = $env:AZURE_DEVOPS_EXT_PAT,
+    [string] $Pat             = ($env:ADO_WORKITEMS_PAT ?? $env:AZURE_DEVOPS_EXT_PAT),
     [string] $OrgUrl          = 'https://dev.azure.com/EasyWayData',
     [string] $Project         = 'EasyWay-DataPortal',
     [string] $DeepSeekApiKey  = $env:DEEPSEEK_API_KEY,
@@ -82,10 +82,14 @@ function Get-Pat {
     if ($Pat) { return $Pat }
     $envFile = 'C:\old\.env.local'
     if (Test-Path $envFile) {
-        $line = Get-Content $envFile | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=' } | Select-Object -First 1
+        $lines = Get-Content $envFile
+        $line = $lines | Where-Object { $_ -match '^ADO_WORKITEMS_PAT=' } | Select-Object -First 1
+        if (-not $line) {
+            $line = $lines | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=' } | Select-Object -First 1
+        }
         if ($line) { return ($line -split '=', 2)[1].Trim().Trim('"') }
     }
-    throw "PAT non trovato. Imposta AZURE_DEVOPS_EXT_PAT o usa -Pat."
+    throw "PAT non trovato. Imposta ADO_WORKITEMS_PAT (preferito) o AZURE_DEVOPS_EXT_PAT o usa -Pat."
 }
 
 function Get-DeepSeekKey {

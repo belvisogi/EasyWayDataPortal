@@ -1,0 +1,18 @@
+{
+  "agent_id": "agent_sentinel",
+  "created": "2026-03-02T00:00:00Z",
+  "updated": "2026-03-02T00:00:00Z",
+  "stats": {
+    "total_runs": 0,
+    "successful": 0,
+    "errors": 0,
+    "last_run": null,
+    "avg_duration_ms": 0
+  },
+  "last_scan_summary": null,
+  "known_findings_baseline": [],
+  "llm_usage": {
+    "total_cost_usd": 0.0,
+    "total_calls": 0
+  }
+}

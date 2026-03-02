@@ -55,7 +55,10 @@ $startTime = Get-Date
 # We whitelist commonly used keys to avoid massive payload overhead.
 $envKeysToPropagate = @(
     'DEEPSEEK_API_KEY',
+    'QDRANT_API_KEY',
     'AZURE_DEVOPS_EXT_PAT',
+    'ADO_PR_CREATOR_PAT',
+    'ADO_WORKITEMS_PAT',
     'SYSTEM_ACCESSTOKEN',
     'GH_TOKEN',
     'GITHUB_TOKEN',
