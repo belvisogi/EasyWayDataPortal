@@ -34,7 +34,8 @@ Param(
     [string] $OutputFormat   = 'json',
     [ValidateSet('all', 'critical', 'high')]
     [string] $Severity       = 'all',
-    [switch] $Json
+    [switch] $Json,
+    [string] $RegistryPath   = ''
 )
 
 $ErrorActionPreference = 'Stop'
@@ -236,6 +237,111 @@ foreach ($rule in $patGovernance) {
     }
 }
 
+# ── PAT Expiry Check ─────────────────────────────────────────────────────────
+$patExpiry = [System.Collections.ArrayList]::new()
+
+# Auto-detect registry path if not provided
+if (-not $RegistryPath) {
+    $candidates = @(
+        '/opt/easyway/secrets-registry.json',           # server
+        'C:\old\secrets-registry.json',                  # dev Windows
+        (Join-Path $ScanPath 'secrets-registry.json')    # repo root
+    )
+    foreach ($c in $candidates) {
+        if (Test-Path $c) { $RegistryPath = $c; break }
+    }
+}
+
+if ($RegistryPath -and (Test-Path $RegistryPath)) {
+    try {
+        $registry = Get-Content $RegistryPath -Raw | ConvertFrom-Json
+        $today = [datetime]::UtcNow.Date
+
+        foreach ($pat in $registry.pats) {
+            $expiresDate = [datetime]::Parse($pat.expires)
+            $daysLeft = ($expiresDate - $today).Days
+
+            $status = 'OK'
+            $expSeverity = 'LOW'
+            if ($daysLeft -lt 0) {
+                $status = 'EXPIRED'
+                $expSeverity = 'CRITICAL'
+                $findingId++
+                [void]$findings.Add(@{
+                    id          = "F{0:D3}" -f $findingId
+                    severity    = 'CRITICAL'
+                    category    = 'pat_expired'
+                    pattern     = "PAT Expired: $($pat.env_var)"
+                    file        = $RegistryPath
+                    line        = 0
+                    context     = "$($pat.env_var) ($($pat.account)) expired on $($pat.expires)"
+                    remediation = "Renew PAT for $($pat.account) on ADO portal. Scope: $($pat.scope)"
+                })
+            }
+            elseif ($daysLeft -le 3) {
+                $status = 'URGENT'
+                $expSeverity = 'CRITICAL'
+                $findingId++
+                [void]$findings.Add(@{
+                    id          = "F{0:D3}" -f $findingId
+                    severity    = 'CRITICAL'
+                    category    = 'pat_expiring'
+                    pattern     = "PAT Expiring: $($pat.env_var)"
+                    file        = $RegistryPath
+                    line        = 0
+                    context     = "$($pat.env_var) ($($pat.account)) expires in $daysLeft days ($($pat.expires))"
+                    remediation = "Renew PAT for $($pat.account) on ADO portal URGENTLY. Scope: $($pat.scope)"
+                })
+            }
+            elseif ($daysLeft -le 14) {
+                $status = 'WARNING'
+                $expSeverity = 'HIGH'
+                $findingId++
+                [void]$findings.Add(@{
+                    id          = "F{0:D3}" -f $findingId
+                    severity    = 'HIGH'
+                    category    = 'pat_expiring'
+                    pattern     = "PAT Expiring Soon: $($pat.env_var)"
+                    file        = $RegistryPath
+                    line        = 0
+                    context     = "$($pat.env_var) ($($pat.account)) expires in $daysLeft days ($($pat.expires))"
+                    remediation = "Plan PAT renewal for $($pat.account). Scope: $($pat.scope)"
+                })
+            }
+
+            [void]$patExpiry.Add(@{
+                env_var    = $pat.env_var
+                account    = $pat.account
+                scope      = $pat.scope
+                expires    = $pat.expires
+                days_left  = $daysLeft
+                status     = $status
+                severity   = $expSeverity
+            })
+        }
+
+        # Check API keys that need rotation
+        foreach ($key in $registry.api_keys) {
+            if ($key.rotation_required -eq $true) {
+                $findingId++
+                [void]$findings.Add(@{
+                    id          = "F{0:D3}" -f $findingId
+                    severity    = 'HIGH'
+                    category    = 'key_rotation_pending'
+                    pattern     = "Rotation Required: $($key.env_var)"
+                    file        = $RegistryPath
+                    line        = 0
+                    context     = "$($key.env_var) ($($key.service)) requires rotation"
+                    remediation = "Rotate $($key.env_var) and update $($key.location)"
+                })
+            }
+        }
+    }
+    catch {
+        Write-Warning "Failed to parse secrets registry at '$RegistryPath': $_"
+    }
+}
+
 # ── Summary ──────────────────────────────────────────────────────────────────
 $stopwatch.Stop()
 
@@ -258,6 +364,7 @@ $report = @{
     git_sha        = $gitSha
     findings       = @($findings)
     compliance     = @($compliance)
+    pat_expiry     = @($patExpiry)
     summary        = $summary
 }
 
@@ -287,6 +394,20 @@ else {
     foreach ($c in $compliance) {
         $color = if ($c.status -eq 'COMPLIANT') { 'Green' } else { 'Red' }
         Write-Host "  [$($c.status)] $($c.script) -- expected: $($c.expected_pat), actual: $($c.actual_pat)" -ForegroundColor $color
+    }
+
+    if ($patExpiry.Count -gt 0) {
+        Write-Host ""
+        Write-Host "## PAT Expiry Status" -ForegroundColor Cyan
+        foreach ($pe in $patExpiry) {
+            $color = switch ($pe.status) {
+                'EXPIRED' { 'Red' }
+                'URGENT'  { 'Red' }
+                'WARNING' { 'Yellow' }
+                default   { 'Green' }
+            }
+            Write-Host "  [$($pe.status)] $($pe.env_var) ($($pe.account)) -- expires $($pe.expires) ($($pe.days_left) days)" -ForegroundColor $color
+        }
     }
 
     Write-Host ""
