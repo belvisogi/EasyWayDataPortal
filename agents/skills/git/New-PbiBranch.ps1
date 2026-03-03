@@ -371,24 +371,21 @@ if ($CreatePR) {
         git push origin $branchName
 
         Write-Step "Creazione PR su ADO..."
-        try {
-            $b64    = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$Pat"))
-            $apiUrl = "$OrgUrl/$Project/_apis/git/repositories/EasyWayDataPortal/pullrequests?api-version=7.1"
-            $body   = @{
-                title         = $prTitle
-                description   = $prTemplate
-                sourceRefName = "refs/heads/$branchName"
-                targetRefName = "refs/heads/$BaseBranch"
-                mergeStrategy = 'noFastForward'
-                workItemRefs  = @( @{ id = "$PbiId" } )
-            } | ConvertTo-Json -Depth 3
+        Import-Module "$PSScriptRoot/../../../scripts/pwsh/modules/ewctl/ewctl.ado-pr.psm1" -Force
+        $prHeaders = New-AdoAuthHeaders -Pat $Pat
+        $prResult = New-AdoPullRequest -Headers $prHeaders -Title $prTitle `
+            -SourceBranch $branchName -TargetBranch $BaseBranch `
+            -Description $prTemplate -WorkItemIds @($PbiId)
 
-            $resp  = Invoke-RestMethod -Uri $apiUrl -Method Post -Body $body `
-                        -Headers @{ Authorization = "Basic $b64"; 'Content-Type' = 'application/json' }
-            $prUrl = "$OrgUrl/$Project/_git/EasyWayDataPortal/pullrequest/$($resp.pullRequestId)"
-            Write-Ok "PR #$($resp.pullRequestId) creata: $prUrl"
-        } catch {
-            Write-Warn "Creazione PR fallita: $($_.Exception.Message)"
+        if ($prResult.Success) {
+            $prUrl = $prResult.PrUrl
+            Write-Ok "PR #$($prResult.PrId) creata: $prUrl"
+        } elseif ($prResult.Conflicts -and $prResult.Conflicts.HasConflicts) {
+            $files = $prResult.Conflicts.ConflictedFiles -join ', '
+            Write-Warn "Conflitti rilevati: $files"
+            Write-Warn "Push eseguito — risolvi conflitti e apri la PR manualmente."
+        } else {
+            Write-Warn "Creazione PR fallita: $($prResult.Error)"
             Write-Warn "Push eseguito — apri la PR manualmente su ADO."
         }
     }

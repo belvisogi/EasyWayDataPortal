@@ -33,7 +33,7 @@ param(
     [string] $CommitMsg   = "",           # custom commit message; auto-generated if empty
     [string] $WikiPath    = "Wiki/EasyWayData.wiki",
     [string] $BaseBranch  = "develop",
-    [string] $Pat         = ($env:ADO_PR_CREATOR_PAT ?? $env:AZURE_DEVOPS_EXT_PAT),
+    [string] $Pat         = "",
     [string] $SshKey      = "C:\old\Virtual-machine\ssh-key-2026-01-25.key",
     [string] $ServerHost  = "ubuntu@80.225.86.168",
     [switch] $Reindex,                    # SSH to server and re-index Qdrant after PR creation
@@ -43,10 +43,8 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-# ── ADO constants ────────────────────────────────────────────────────────────
-$OrgUrl   = 'https://dev.azure.com/EasyWayData'
-$Project  = 'EasyWay-DataPortal'
-$RepoId   = 'EasyWayDataPortal'
+# ── Import shared module ─────────────────────────────────────────────────────
+Import-Module "$PSScriptRoot/modules/ewctl/ewctl.ado-pr.psm1" -Force
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 function Write-Step([string]$msg) {
@@ -59,26 +57,13 @@ function Write-Warn([string]$msg) {
     if (-not $Json) { Write-Host "  !! $msg" -ForegroundColor Yellow }
 }
 
-# ── Load PAT ─────────────────────────────────────────────────────────────────
-if (-not $Pat) {
-    $envFile = 'C:\old\.env.local'
-    if (Test-Path $envFile) {
-        $lines = Get-Content $envFile
-        $line = $lines | Where-Object { $_ -match '^ADO_PR_CREATOR_PAT=' } | Select-Object -First 1
-        if (-not $line) {
-            $line = $lines | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=' } | Select-Object -First 1
-        }
-        if ($line) { $Pat = ($line -split '=', 2)[1].Trim().Trim('"') }
-    }
-}
+# ── Resolve PAT & Auth ───────────────────────────────────────────────────────
+$Pat = Resolve-AdoPat -Pat $Pat -EnvVarNames @('ADO_PR_CREATOR_PAT', 'AZURE_DEVOPS_EXT_PAT')
 if (-not $Pat) {
     Write-Error "PAT non trovato. Impostare ADO_PR_CREATOR_PAT o AZURE_DEVOPS_EXT_PAT."
     exit 1
 }
-
-$bytes   = [System.Text.Encoding]::UTF8.GetBytes(":$Pat")
-$b64     = [System.Convert]::ToBase64String($bytes)
-$headers = @{ Authorization = "Basic $b64"; 'Content-Type' = 'application/json' }
+$headers = New-AdoAuthHeaders -Pat $Pat
 
 # ── Repo root ────────────────────────────────────────────────────────────────
 $repoRoot = git rev-parse --show-toplevel 2>$null
@@ -210,27 +195,23 @@ try {
 
     Write-Ok "Pushed $branchName"
 
-    # ── Step 6: Create PR via ADO API ────────────────────────────────────────
+    # ── Step 6: Create PR via shared module ──────────────────────────────────
     Write-Step "Creating PR on ADO..."
 
-    $prBody = @{
-        sourceRefName = "refs/heads/$branchName"
-        targetRefName = "refs/heads/$BaseBranch"
-        title         = $CommitMsg
-        description   = "Auto-published wiki pages:`n`n$($allChanges | ForEach-Object { "- $_" } | Out-String)"
-    } | ConvertTo-Json -Depth 3
-
+    $prDescription = "Auto-published wiki pages:`n`n$($allChanges | ForEach-Object { "- $_" } | Out-String)"
     $prUrl  = $null
     $prId   = $null
 
-    try {
-        $apiUrl = "$OrgUrl/$Project/_apis/git/repositories/$RepoId/pullrequests?api-version=7.1"
-        $resp   = Invoke-RestMethod -Uri $apiUrl -Method Post -Body $prBody -Headers $headers
-        $prId   = $resp.pullRequestId
-        $prUrl  = "$OrgUrl/$Project/_git/$RepoId/pullrequest/$prId"
+    $prResult = New-AdoPullRequest -Headers $headers -Title $CommitMsg `
+        -SourceBranch $branchName -TargetBranch $BaseBranch `
+        -Description $prDescription -SkipConflictCheck
+
+    if ($prResult.Success) {
+        $prId  = $prResult.PrId
+        $prUrl = $prResult.PrUrl
         Write-Ok "PR #$prId created: $prUrl"
-    } catch {
-        Write-Warn "PR creation failed: $($_.Exception.Message)"
+    } else {
+        Write-Warn "PR creation failed: $($prResult.Error)"
         Write-Warn "Branch pushed — create PR manually on ADO."
     }
 
