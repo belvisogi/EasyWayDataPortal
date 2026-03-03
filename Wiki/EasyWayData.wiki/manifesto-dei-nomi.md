@@ -75,9 +75,9 @@ github.com/easyway-data/              La piattaforma
   EasyWayDataPortal                    L'archivio storico
 
 github.com/hale-bopp-data/            L'open source
-  hale-bopp-db                         Il nucleo — schema governance
-  hale-bopp-etl                        La coda — orchestrazione
-  hale-bopp-argos                      Gli occhi — data quality
+  db-hale-bopp                         Il nucleo — schema governance
+  etl-hale-bopp                        La coda — orchestrazione
+  argos-hale-bopp                      Gli occhi — data quality
 ```
 
 > *"Brain vs Muscles — AI orchestra, codice esegue."*
@@ -115,30 +115,5 @@ Lo facciamo per scelta, non per marketing.
 
 ---
 
-### Convenzione di naming
-
-**Pattern unico: `brand-caratterizzazione`** — il brand viene sempre prima.
-
-```
-easyway-portal    (non portal-easyway)
-easyway-wiki      (non wiki-easyway)
-easyway-agents    (non agents-easyway)
-easyway-ado       (non ado-easyway)
-hale-bopp-db      (non db-hale-bopp)
-hale-bopp-etl     (non etl-hale-bopp)
-hale-bopp-argos   (non argos-hale-bopp)
-```
-
-Perche':
-- **Raggruppamento alfabetico** — `hale-bopp-*` appare tutto insieme in ogni lista
-- **Leggibilita'** — "hale-bopp-etl" si legge "il modulo ETL di HALE-BOPP"
-- **Coerenza** — una regola sola, zero eccezioni
-
-> *"La bugia piu' grossa? 'Non e' cosi' semplice.' La verita'? Che lo e'."*
-> — Bleed for This (2016)
-
----
-
 *Scritto durante la Session 54 — La Fabbrica, Sprint 1.*
-*Aggiornato Session 55 — Naming convention fix + easyway-ado.*
 *3 marzo 2026*
