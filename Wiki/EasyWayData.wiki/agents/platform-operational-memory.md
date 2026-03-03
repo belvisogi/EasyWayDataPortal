@@ -1838,3 +1838,79 @@ pwsh agents/skills/planning/Invoke-SDLCOrchestrator.ps1
 - Backlog tecnico: **pre-PR conflict check** (dry-run merge in `New-PbiBranch.ps1` + `Create-ReleasePR.ps1`)
 - Backlog tecnico: Root folder cleanup (`chore/root-cleanup`) — ~200 file da riorganizzare
 - AI_DBA_Governance_MVP.md — quando pronto
+
+---
+
+### Session 48 — COMPLETATA (2026-03-02)
+
+**Cosa**: PAT governance alignment (3 PAT per 3 service account), n8n credentials configurate.
+**Perché**: Least privilege — ogni svc account ha solo gli scope necessari.
+**Come**: Credentials `Microsoft Azure DevOps API` nella UI n8n su server.
+**Q&A**: *3 PAT perché?* executor (Code R/W), scrum-master (Work Items), pr-creator (Code Read + PR Contribute).
+
+---
+
+### Session 49 — COMPLETATA (2026-03-02)
+
+**Cosa**: agent_sentinel v1.1.0 (secrets scanner rule-based), Iron Dome + secrets scan pre-commit, registry v2.14.0.
+**Perché**: Secrets committed = rischio #1. Scanner deterministico = zero false negatives.
+**Come**: `Invoke-SecretsScan.ps1` (regex patterns), `ewctl.secrets-scan.psm1` (hook pre-commit).
+**Q&A**: *Rule-based non LLM?* Secrets detection = problema deterministico. LLM = latenza + rischio.
+
+---
+
+### Session 50 — COMPLETATA (2026-03-03)
+
+**Cosa**: Release PR #240 (7 PR, develop->main), deploy `7d4d0b2`, PAT rinnovati (scadenza 2026-06-01), secrets-registry.json, Qdrant key ruotata.
+**Perché**: PAT vicini a scadenza, rinnovo preventivo 90gg.
+**Come**: `Create-ReleasePR.ps1`, `Invoke-SecretsScan.ps1` per audit.
+**Q&A**: *Lesson*: PR creator richiede Code Read + PR Contribute, non solo PR Contribute.
+
+---
+
+### Session 51 — COMPLETATA (2026-03-03)
+
+**Cosa**: HALE-BOPP scaffolding completo (3 moduli, 31 test), ADO Epic #30 + PRD 1 + PBI #31-#37, Sprint 1 completato (PBI #31-#33 Done).
+**Perché**: "Brain vs Muscles" — HALE-BOPP = motori deterministici open-source. DB-HALE-BOPP = "Flyway killer".
+**Come**: TDD, Click CLI, Pydantic, SQLAlchemy. PBI creati via curl ADO REST (NTT blocca LLM).
+**Q&A**: *Sprint iterations?* PAT scrum-master manca "Create child nodes" -> setup manuale ADO UI.
+
+---
+
+### Session 52 — COMPLETATA (2026-03-03)
+
+**Cosa**
+- Wiki HALE-BOPP: 6 pagine sotto `Wiki/EasyWayData.wiki/hale-bopp/` (index, strategy, api-contracts, db/etl/argos)
+- Skill `wiki.publish` (`Publish-WikiPages.ps1`): pubblicazione wiki end-to-end in 1 comando
+- `scripts/source-env.sh`: loader bash canonico (esporta `PAT`, `B64`, `ADO_*` da `.env.local`)
+- DeepSeek API testato dal server OCI — funzionante (HTTP 200, `deepseek-chat`)
+- Skills registry v2.15.0 — 35 skill (+wiki.publish)
+- PR #241 (wiki HALE-BOPP -> develop), PR #242 (tooling -> develop)
+
+**Perché**
+- Wiki: documentare HALE-BOPP nella wiki EasyWay per RAG e team visibility
+- wiki.publish: eliminare 6 step manuali (branch+commit+push+PAT+curl+reindex) che costavano 15+ min e 2-3 errori/sessione
+- source-env.sh: `.env.local` usa `ADO_PR_CREATOR_PAT` ma script cercavano `$PAT` → errori ripetuti
+- DeepSeek: confermare che dal server funziona (per Convert-PrdToPbi e future automazioni)
+
+**Come**
+- Wiki: approccio ibrido (GEDI OODA: index sintetici + reference adattate), inglese (OSS), frontmatter standard con RAG chunk hints
+- Publish-WikiPages.ps1: rileva wiki changes -> branch docs/* -> commit -> push -> PR ADO -> opz. reindex. Pattern identico a Create-ReleasePR.ps1 (-WhatIf, -Json, PAT auto-load)
+- source-env.sh: legge `.env.local`, esporta alias `PAT` = `ADO_PR_CREATOR_PAT`, `B64` pre-calcolato
+- DeepSeek: SSH server -> `source .env.secrets && curl api.deepseek.com`
+
+**Q&A**
+- *Perché approccio ibrido wiki?* GEDI (Measure Twice): copia verbatim = due fonti di verita che driftano; riscrittura = spreco. Ibrido = index navigabili + reference adattate.
+- *Perché inglese?* HALE-BOPP e' open-source, inglese e' standard OSS.
+- *Cosa manca per flusso agentico completo?* (1) n8n post-merge hook per reindex, (2) RAG verify post-ingest, (3) session logging automatico.
+- *Come automatizzare il diario di bordo?* Skill `session.log` che a fine sessione raccoglie diff git + PR create + file toccati e genera il blocco Cosa/Perche/Come/Q&A.
+
+**File creati**: 6 wiki pages, Publish-WikiPages.ps1, source-env.sh, registry.json v2.15.0
+**PR**: #241 (wiki -> develop), #242 (tooling -> develop)
+
+**Backlog -> Session 53**
+- Merge PR #241+#242, Release PR develop->main, deploy, Qdrant reindex
+- n8n post-merge hook per reindex automatico
+- Skill `session.log` per diario di bordo automatico
+- Sprint iterations ADO (manuale UI)
+- HALE-BOPP Sprint 2: PBI #34 (test PostgreSQL), PBI #35 (pip packaging)
