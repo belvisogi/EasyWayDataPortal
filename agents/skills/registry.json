@@ -1,6 +1,6 @@
 {
-  "version": "2.14.0",
-  "last_updated": "2026-03-02T00:00:00Z",
+  "version": "2.15.0",
+  "last_updated": "2026-03-03T00:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -2983,6 +2983,85 @@
         "allowed_callers": [
           "agent_scrummaster",
           "agent_backlog_planner",
+          "*"
+        ]
+      }
+    },
+    {
+      "id": "wiki.publish",
+      "name": "Publish-WikiPages",
+      "domain": "wiki",
+      "file": "scripts/pwsh/Publish-WikiPages.ps1",
+      "version": "1.0.0",
+      "description": "End-to-end wiki publishing: detect changes under Wiki/, create branch, commit, push, create PR to develop, optionally reindex Qdrant. Replaces 6-step manual flow.",
+      "parameters": [
+        {
+          "name": "Slug",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "Branch suffix (auto-generated from changed directories if empty)"
+        },
+        {
+          "name": "CommitMsg",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "Custom commit message (auto-generated if empty)"
+        },
+        {
+          "name": "WikiPath",
+          "type": "string",
+          "required": false,
+          "default": "Wiki/EasyWayData.wiki",
+          "description": "Path to wiki directory relative to repo root"
+        },
+        {
+          "name": "BaseBranch",
+          "type": "string",
+          "required": false,
+          "default": "develop",
+          "description": "Branch to create PR against"
+        },
+        {
+          "name": "Reindex",
+          "type": "switch",
+          "required": false,
+          "default": false,
+          "description": "SSH to server and trigger Qdrant re-index after publishing"
+        },
+        {
+          "name": "WhatIf",
+          "type": "switch",
+          "required": false,
+          "default": false,
+          "description": "Show plan without executing"
+        },
+        {
+          "name": "Json",
+          "type": "switch",
+          "required": false,
+          "default": false,
+          "description": "Machine-readable JSON output"
+        }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Publishing result with branch, PR URL, file list, and optional reindex status"
+      },
+      "examples": [
+        "pwsh scripts/pwsh/Publish-WikiPages.ps1 -WhatIf",
+        "pwsh scripts/pwsh/Publish-WikiPages.ps1",
+        "pwsh scripts/pwsh/Publish-WikiPages.ps1 -Slug hale-bopp -Reindex",
+        "pwsh scripts/pwsh/Publish-WikiPages.ps1 -Json"
+      ],
+      "governance": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": false,
+        "allowed_callers": [
+          "agent_scrummaster",
+          "agent_valentino",
           "*"
         ]
       }
