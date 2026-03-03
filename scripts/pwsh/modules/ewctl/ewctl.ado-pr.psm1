@@ -252,6 +252,7 @@ function New-AdoPullRequest {
         [string]$TargetBranch,
         [string]$Description   = '',
         [int[]]$WorkItemIds    = @(),
+        [hashtable]$WorkItemHeaders,      # separate auth for WI PATCH (ADO_WORKITEMS_PAT)
         [switch]$IsDraft,
         [switch]$SkipConflictCheck,
         [string]$OrgUrl  = $script:DefaultOrgUrl,
@@ -308,6 +309,87 @@ function New-AdoPullRequest {
     catch {
         $errBody = $_.ErrorDetails.Message
         $result.Error = "$($_.Exception.Message) $errBody"
+        return $result
+    }
+
+    # ── Post-creation: create ArtifactLink on each work item ──────────────
+    # workItemRefs in the PR body is NOT sufficient for ADO branch policy
+    # "Work Items must be linked". The policy checks for ArtifactLink relations
+    # on the work item side pointing back to the PR. We must PATCH each WI.
+    # NOTE: WI PATCH often requires a different PAT (ADO_WORKITEMS_PAT / scrum-master)
+    # than the PR creator PAT. Use -WorkItemHeaders or auto-resolve from env.
+    if ($result.Success -and $WorkItemIds.Count -gt 0) {
+        # Resolve WI auth headers (separate identity governance)
+        $wiAuth = $WorkItemHeaders
+        if (-not $wiAuth) {
+            $wiPat = Resolve-AdoPat -EnvVarNames @('ADO_WORKITEMS_PAT', 'ADO_PR_CREATOR_PAT', 'AZURE_DEVOPS_EXT_PAT')
+            if ($wiPat) {
+                $wiAuth = New-AdoAuthHeaders -Pat $wiPat
+            } else {
+                Write-Warning "No PAT available for work item linking. PR created but WI ArtifactLink skipped."
+            }
+        }
+
+        if ($wiAuth) {
+            $projectId = $null
+            # Resolve project ID (needed for ArtifactLink URI)
+            try {
+                $projResp = Invoke-RestMethod -Uri "$OrgUrl/_apis/projects/$Project`?api-version=$($script:DefaultApiVer)" `
+                    -Headers $wiAuth -Method Get
+                $projectId = $projResp.id
+            } catch {
+                Write-Warning "Could not resolve project ID for ArtifactLink: $($_.Exception.Message)"
+            }
+
+            # Resolve repository GUID (RepoId param may be name, not GUID)
+            $repoGuid = $null
+            if ($projectId) {
+                try {
+                    $repoResp = Invoke-RestMethod -Uri "$repoBase`?api-version=$($script:DefaultApiVer)" `
+                        -Headers $wiAuth -Method Get
+                    $repoGuid = $repoResp.id
+                } catch {
+                    Write-Warning "Could not resolve repo GUID for ArtifactLink: $($_.Exception.Message)"
+                }
+            }
+
+            if ($projectId -and $repoGuid) {
+                $artifactUri = "vstfs:///Git/PullRequestId/${projectId}%2f${repoGuid}%2f$($result.PrId)"
+                $wiBaseUrl = "$OrgUrl/$Project/_apis/wit/workitems"
+
+                foreach ($wiId in $WorkItemIds) {
+                    $patchBody = @(
+                        @{
+                            op    = 'add'
+                            path  = '/relations/-'
+                            value = @{
+                                rel        = 'ArtifactLink'
+                                url        = $artifactUri
+                                attributes = @{ name = 'Pull Request' }
+                            }
+                        }
+                    ) | ConvertTo-Json -Depth 4
+
+                    # Work item PATCH requires application/json-patch+json
+                    $wiPatchHeaders = @{
+                        Authorization  = $wiAuth.Authorization
+                        'Content-Type' = 'application/json-patch+json'
+                    }
+                    try {
+                        Invoke-RestMethod -Uri "$wiBaseUrl/${wiId}?api-version=$($script:DefaultApiVer)" `
+                            -Headers $wiPatchHeaders -Method Patch -Body $patchBody | Out-Null
+                        Write-Verbose "Linked work item #$wiId to PR #$($result.PrId) via ArtifactLink"
+                    } catch {
+                        $errMsg = $_.Exception.Message
+                        if ($errMsg -match 'already exists') {
+                            Write-Verbose "Work item #$wiId already linked to PR #$($result.PrId)"
+                        } else {
+                            Write-Warning "Failed to link work item #$wiId to PR #$($result.PrId): $errMsg"
+                        }
+                    }
+                }
+            }
+        }
     }
 
     return $result
