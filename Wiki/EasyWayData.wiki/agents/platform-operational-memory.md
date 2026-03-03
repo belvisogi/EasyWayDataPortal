@@ -1968,4 +1968,77 @@ pwsh agents/skills/planning/Invoke-SDLCOrchestrator.ps1
 - Sostituire Wiki/ con submodule nel monorepo
 - Aggiornare CI/CD per submodule checkout
 - Commit session 54 changes sul monorepo (feat/session-54-fabbrica-sprint1 → develop)
+
+---
+
+### Session 56 — COMPLETATA (2026-03-03)
+
+**Cosa**
+- Modulo strutturale `scripts/pwsh/modules/ewctl/ewctl.ado-pr.psm1` v1.1.0 — 6 funzioni esportate
+- Refactoring 3 script PR: Create-ReleasePR, Publish-WikiPages, New-PbiBranch
+- Fix ArtifactLink bidirezionale: `workItemRefs` nel body PR non basta → aggiunto PATCH WI con ArtifactLink
+- Fix PAT identity governance: PR creator PAT per lookup, WI PAT (scrum-master) per PATCH
+- Fix `mergeStrategy` in New-PbiBranch: era fuori da `completionOptions` (bug silenzioso)
+- Publish-WikiPages multi-repo: auto-detect RepoId da git remote (easyway-wiki, EasyWayDataPortal)
+- Phase 1 La Fabbrica: agents extraction con `git-filter-repo` → easyway-agents (672 file, 236 commit)
+- Wiki sync: 24 file sincronizzati da monorepo a easyway-wiki
+- Guida wiki: `guides/ado-pr-structural-validation.md` — ArtifactLink, PAT governance, troubleshooting
+
+**Perche**
+- Ogni PR creata manualmente falliva per "Work Items must be linked" — 15-30 min/PR di fix manuale
+- 3 script duplicavano stessa logica (PAT, auth, REST) senza validazione pre-PR
+- La Fabbrica Phase 1 (agents extraction) era il prossimo step della migrazione polyrepo
+- La guida wiki documenta il meccanismo ArtifactLink per evitare che il problema si ripresenti
+
+**Come**
+- Modulo ewctl.ado-pr.psm1: `Resolve-AdoPat` + `New-AdoAuthHeaders` + `Invoke-AdoApi` + `Get-PrWorkItemIds` + `Test-MergeConflicts` + `New-AdoPullRequest`
+- ArtifactLink: dopo PR creation, PATCH su ogni WI con URI `vstfs:///Git/PullRequestId/{projId}%2f{repoGuid}%2f{prId}`
+- PAT split: `$Headers` (PR creator, Code Read) per lookup project/repo GUID, `$wiAuth` (scrum-master, WI R/W) per PATCH
+- Agents extraction: `git-filter-repo --path agents/ --path control-plane/ --path scripts/pwsh/ --path scripts/agents/ --path scripts/ai-agent/ --path scripts/gates/`
+- Wiki sync: robocopy /MIR da monorepo a easyway-wiki, preservando .git
+- Multi-repo: regex su `git remote get-url origin` per auto-detect RepoId
+
+**Q&A**
+- *Perche workItemRefs non basta?* ADO branch policy "Work Items must be linked" verifica ArtifactLink sul work item, non workItemRefs nel body PR. Servono entrambi.
+- *Perche PAT separati?* PR creator (ew-svc-pr-creator) ha Code Read + PR Contribute ma non WI Write. Scrum-master ha WI R/W ma non Code Read. Il modulo usa entrambi.
+- *Perche Content-Type json-patch+json?* PATCH su work items ADO richiede `application/json-patch+json`, non `application/json`. Errore 415 se sbagliato.
+- *Perche auto-detect RepoId?* Per supportare Publish-WikiPages sia dal monorepo (EasyWayDataPortal) che dal repo wiki (easyway-wiki) senza parametri manuali.
+
+**File creati/modificati**
+- `scripts/pwsh/modules/ewctl/ewctl.ado-pr.psm1` — NUOVO modulo condiviso (405 righe)
+- `scripts/pwsh/Create-ReleasePR.ps1` — refactored (usa modulo)
+- `scripts/pwsh/Publish-WikiPages.ps1` — refactored + multi-repo + WorkItemIds
+- `agents/skills/git/New-PbiBranch.ps1` — fix mergeStrategy nesting
+- `Wiki/EasyWayData.wiki/guides/ado-pr-structural-validation.md` — NUOVA guida
+- `Wiki/EasyWayData.wiki/chronicles/2026-03-03-phase-1-agents-extraction.md` — chronicle
+
+**ADO/GitHub**
+- PR #250: easyway-agents initial-import -> main (PBI #41)
+- PR #247: manifesto-dei-nomi + hale-bopp naming -> develop (PBI #39)
+- PR #248: session 54 fabbrica sprint -> develop (PBI #40, 3 conflitti risolti)
+- PR #251: Release Session 56 (prima) develop -> main (PBI #39,40,41)
+- PR #252: ewctl.ado-pr.psm1 module -> develop (PBI #41)
+- PR #253: Release Session 56 develop -> main (PBI #41)
+- PR #254: ArtifactLink PAT scope fix -> develop (PBI #41)
+- PR #255: wiki docs -> develop (PBI #41)
+- PR #256: wiki sync -> easyway-wiki main (PBI #41)
+- PR #257: Publish-WikiPages multi-repo -> develop (PBI #41) — DA APPROVARE
+
+**Lessons**
+- L1: `workItemRefs` nel body PR NON soddisfa branch policy — serve ArtifactLink bidirezionale
+- L2: ArtifactLink URI format: `vstfs:///Git/PullRequestId/{projectId}%2f{repoId}%2f{prId}`
+- L3: PATCH WI richiede `Content-Type: application/json-patch+json`
+- L4: PAT scrum-master non ha Code Read → usare PR creator PAT per lookup
+- L5: `mergeStrategy` deve stare DENTRO `completionOptions`, non top-level
+- L6: `git-filter-repo` supporta multi-path (a differenza di `git subtree split`)
+- L7: ADO SSH puo avere glitch temporanei — retry o usare HTTPS con PAT come fallback
+
+**Backlog -> Session 57**
+- Approvare PR #257 (Publish-WikiPages multi-repo) e merge
+- Phase 2 La Fabbrica: easyway-infra extraction (docker-compose, Caddyfile, azure-pipelines)
+- Sostituire Wiki/ con submodule nel monorepo
+- Aggiornare CI/CD per submodule checkout
+- Push easyway-wiki e easyway-agents su GitHub (easyway-data org)
+- Testare Publish-WikiPages end-to-end dal repo easyway-wiki con ArtifactLink atomico
+- Deploy server: git fetch + reset per Session 56 content
 - Release PR develop → main
