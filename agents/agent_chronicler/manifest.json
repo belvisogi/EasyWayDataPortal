@@ -28,7 +28,7 @@
   },
   "context_config": {
     "memory_files": [
-      "Wiki/EasyWayData.wiki/concept/history.md",
+      "Wiki/EasyWayData.wiki/chronicles/history.md",
       "Wiki/EasyWayData.wiki/concept/architectural-vision.md"
     ],
     "context_limit_tokens": 128000
@@ -49,11 +49,12 @@
       "agents/logs/**",
       "Wiki/EasyWayData.wiki/activity-log.md",
       "Wiki/EasyWayData.wiki/Runbooks/**",
-      "Wiki/EasyWayData.wiki/concept/history.md"
+      "Wiki/EasyWayData.wiki/chronicles/**"
     ],
     "write": [
       "agents/agent_chronicler/memory/",
-      "agents/logs/"
+      "agents/logs/",
+      "Wiki/EasyWayData.wiki/chronicles/"
     ]
   },
   "allowed_tools": [

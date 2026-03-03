@@ -191,6 +191,18 @@
       ],
       "learned_from": "Threat analysis 2026-01-26: antifragility applicata a security architecture"
     },
+    "revolutionary_minute": {
+      "description": "Ogni minuto che passa è un'occasione per rivoluzionare tutto completamente - Vanilla Sky (2001)",
+      "philosophy": "Non aspettare il momento perfetto. Ogni minuto è il momento perfetto. La trasformazione non è un evento singolo, è una scelta continua. Ogni commit, ogni refactor, ogni decisione architetturale è un'occasione per cambiare tutto. Chi aspetta il 'momento giusto' non inizia mai. Chi agisce adesso, rivoluziona.",
+      "checks": [
+        "Stiamo aspettando condizioni perfette o possiamo agire adesso?",
+        "Questo minuto lo stiamo usando per trasformare o per mantenere lo status quo?",
+        "Abbiamo il coraggio di rivoluzionare anche se il cambiamento fa paura?",
+        "Stiamo rimandando per prudenza reale o per inerzia mascherata da prudenza?",
+        "Se non ora, quando? E cosa perdiamo aspettando?"
+      ],
+      "learned_from": "Session 53 — La Fabbrica: il momento in cui il monorepo diventa ecosistema"
+    },
     "start_small_scale_when_needed": {
       "description": "Start small, scale when needed - Pragmatic Growth",
       "philosophy": "Non serve l'infrastruttura perfetta dal giorno uno. Inizia con il minimo che funziona, valida l'idea, poi scala quando hai evidenze reali. Over-engineering anticipato è spreco, under-provisioning con piano di crescita è saggezza.",
