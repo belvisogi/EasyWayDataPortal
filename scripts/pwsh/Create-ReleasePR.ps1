@@ -21,7 +21,7 @@ param(
     [string] $SourceBranch = "develop",
     [string] $TargetBranch = "main",
     [string] $SessionLabel = "",       # se vuoto → auto-detect dall'ultima Release PR su main
-    [string] $Pat          = $env:AZURE_DEVOPS_EXT_PAT,
+    [string] $Pat          = ($env:ADO_PR_CREATOR_PAT ?? $env:AZURE_DEVOPS_EXT_PAT),
     [switch] $WhatIf,                  # stampa titolo+descrizione senza creare la PR
     [switch] $Json                     # output JSON (per agent consumption)
 )
@@ -39,12 +39,17 @@ $RepoBase = "$ApiBase/git/repositories/$RepoId"
 if (-not $Pat) {
     $envFile = 'C:\old\.env.local'
     if (Test-Path $envFile) {
-        $line = Get-Content $envFile | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=' } | Select-Object -First 1
+        $lines = Get-Content $envFile
+        # Preferisce ADO_PR_CREATOR_PAT (svc-agent-pr-creator), fallback su AZURE_DEVOPS_EXT_PAT
+        $line = $lines | Where-Object { $_ -match '^ADO_PR_CREATOR_PAT=' } | Select-Object -First 1
+        if (-not $line) {
+            $line = $lines | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=' } | Select-Object -First 1
+        }
         if ($line) { $Pat = ($line -split '=', 2)[1].Trim().Trim('"') }
     }
 }
 if (-not $Pat) {
-    Write-Error "PAT non trovato. Impostare AZURE_DEVOPS_EXT_PAT o passare -Pat <token>."
+    Write-Error "PAT non trovato. Impostare ADO_PR_CREATOR_PAT (preferito) o AZURE_DEVOPS_EXT_PAT."
     exit 1
 }
 

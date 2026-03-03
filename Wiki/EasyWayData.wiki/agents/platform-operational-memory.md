@@ -150,6 +150,8 @@ networks: [easyway-net, qdrant-net]
 
 ## 3. Secrets Management
 
+> **Governance completa**: vedi [Secrets Governance Bible](../security/secrets-governance.md) — identity model, PAT matrix, lifecycle, violation classification.
+
 | Elemento | Dettaglio |
 |---|---|
 | File secrets | `/opt/easyway/.env.secrets` (chmod 600, owner ubuntu) |
@@ -178,7 +180,7 @@ networks: [easyway-net, qdrant-net]
 |---|---|
 | Versione | v1.16.2 |
 | Porta | 6333 (bloccata esternamente) |
-| API Key | `wgs6XqCt8qglELghWG6IE4kvzdDgh3Kk` |
+| API Key | (vedi `/opt/easyway/.env.secrets` sul server) |
 | Collection | `easyway_wiki` |
 | Dimensioni | ~130,558 chunk (post Session 28), 384 dim (MiniLM-L6-v2), cosine |
 | Text index | Campo `content` indicizzato (una-tantum, già creato) — richiesto per `GET /api/knowledge` |
@@ -191,7 +193,7 @@ networks: [easyway-net, qdrant-net]
 | Container | `easyway-gitea` (93 MB RAM) |
 | Image | `gitea/gitea:1.22-rootless` |
 | Porta | 3100 (bloccata esternamente) |
-| Admin | `easywayadmin` / `EasyWay2026!` |
+| Admin | `easywayadmin` / (vedi `/opt/easyway/.env.secrets` sul server) |
 | Compose | `docker-compose.gitea.yml` |
 | Push mirror | Azure DevOps (auto ogni 10min + on-commit) |
 | Note | GitLab: containers `Exited`, volumi preservati in `~/EasyWayDataPortal/gitlab/` |

@@ -30,7 +30,7 @@ Param(
     [string]  $PRId,
     [string]  $SourceBranch,
     [string]  $TargetBranch,
-    [string]  $Pat          = $env:AZURE_DEVOPS_EXT_PAT,
+    [string]  $Pat          = ($env:ADO_PR_CREATOR_PAT ?? $env:AZURE_DEVOPS_EXT_PAT),
     [string]  $OrgUrl       = 'https://dev.azure.com/EasyWayData',
     [string]  $Project      = 'EasyWay-DataPortal',
     [string]  $Repo         = 'EasyWayDataPortal',
@@ -44,12 +44,15 @@ $ErrorActionPreference = 'Stop'
 if (-not $Pat) {
     $envFile = 'C:\old\.env.local'
     if (Test-Path $envFile) {
-        Get-Content $envFile | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=' } | ForEach-Object {
-            $Pat = ($_ -split '=', 2)[1].Trim().Trim('"')
+        $lines = Get-Content $envFile
+        $line = $lines | Where-Object { $_ -match '^ADO_PR_CREATOR_PAT=' } | Select-Object -First 1
+        if (-not $line) {
+            $line = $lines | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=' } | Select-Object -First 1
         }
+        if ($line) { $Pat = ($line -split '=', 2)[1].Trim().Trim('"') }
     }
 }
-if (-not $Pat) { throw "PAT non trovato. Impostare AZURE_DEVOPS_EXT_PAT." }
+if (-not $Pat) { throw "PAT non trovato. Impostare ADO_PR_CREATOR_PAT (preferito) o AZURE_DEVOPS_EXT_PAT." }
 
 $bytes   = [System.Text.Encoding]::UTF8.GetBytes(":$Pat")
 $b64     = [System.Convert]::ToBase64String($bytes)

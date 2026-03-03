@@ -57,8 +57,9 @@ Param(
     [Parameter(Mandatory = $true)]
     [int]      $PbiId,
 
-    # PAT per PR creation (Code R/W + PR Contribute) — AZURE_DEVOPS_EXT_PAT
-    [string]   $Pat           = $env:AZURE_DEVOPS_EXT_PAT,
+    # PAT per PR creation (Code R/W + PR Contribute) — preferisce ADO_PR_CREATOR_PAT (svc-agent-pr-creator)
+    # fallback su AZURE_DEVOPS_EXT_PAT se non disponibile
+    [string]   $Pat           = ($env:ADO_PR_CREATOR_PAT ?? $env:AZURE_DEVOPS_EXT_PAT),
 
     # PAT per leggere/aggiornare Work Items (Work Items R/W) — ADO_WORKITEMS_PAT
     [string]   $WorkItemsPat  = $env:ADO_WORKITEMS_PAT,
@@ -364,7 +365,7 @@ $prUrl = $null
 
 if ($CreatePR) {
     if (-not $Pat) {
-        Write-Warn "-CreatePR richiede PAT. Imposta AZURE_DEVOPS_EXT_PAT o passa -Pat."
+        Write-Warn "-CreatePR richiede PAT. Imposta ADO_PR_CREATOR_PAT (preferito) o AZURE_DEVOPS_EXT_PAT."
     } else {
         Write-Step "Push branch su origin..."
         git push origin $branchName

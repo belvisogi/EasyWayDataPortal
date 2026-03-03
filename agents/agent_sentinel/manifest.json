@@ -1,0 +1,83 @@
+{
+  "id": "agent_sentinel",
+  "name": "Agent Sentinel (Secrets Guardian)",
+  "classification": "arm",
+  "version": "1.1.0",
+  "role": "secrets-scanner",
+  "owner": "team-platform",
+  "description": "Rule-based secrets scanner. Detects leaked credentials, governance violations, PAT misuse, and PAT expiry in git-tracked files. Reads secrets-registry.json for expiry dates. Produces structured JSON reports. Never accesses or logs actual secret values.",
+  "level": "L2",
+  "evolution_level": 2,
+  "llm_config": {
+    "model": "rule-based",
+    "temperature": 0.0,
+    "system_prompt": null,
+    "tools": ["pwsh", "git"]
+  },
+  "context_config": {
+    "memory_files": [
+      "agents/agent_sentinel/memory/context.json"
+    ],
+    "context_limit_tokens": 2000
+  },
+  "skills_required": [
+    "security.secrets-scan"
+  ],
+  "skills_optional": [],
+  "rag_config": {
+    "enabled": false
+  },
+  "actions": [
+    {
+      "name": "sentinel:scan",
+      "description": "Full secrets scan: leaked credentials, governance compliance, PAT identity mapping, PAT expiry check, hardcoded values in docker/n8n/config files.",
+      "uses_skills": ["security.secrets-scan"],
+      "params": {
+        "ScanPath": { "type": "string", "required": false, "default": "." },
+        "OutputFormat": { "type": "string", "enum": ["json", "markdown"], "default": "json" },
+        "Severity": { "type": "string", "enum": ["all", "critical", "high"], "default": "all" },
+        "RegistryPath": { "type": "string", "required": false, "default": "(auto-detect)" }
+      }
+    },
+    {
+      "name": "sentinel:compliance",
+      "description": "Check PAT governance compliance: verifies correct PAT per script against the Governance Bible.",
+      "uses_skills": ["security.secrets-scan"],
+      "params": {
+        "OutputFormat": { "type": "string", "enum": ["json", "markdown"], "default": "json" }
+      }
+    }
+  ],
+  "allowed_paths": {
+    "read": ["**/*"],
+    "write": [
+      "agents/agent_sentinel/memory/",
+      "agents/logs/"
+    ]
+  },
+  "allowed_tools": ["pwsh", "git"],
+  "required_gates": [],
+  "entry_point": "agents/skills/security/Invoke-SecretsScan.ps1",
+  "schedule": {
+    "cron": "0 2 * * *",
+    "timezone": "Europe/Rome",
+    "description": "Nightly at 2:00 AM"
+  },
+  "integrations": {
+    "n8n": {
+      "workflow_file": "agents/n8n/sentinel-secrets-scan.json",
+      "webhook_path": "/webhook/sentinel-secrets-scan"
+    }
+  },
+  "error_handling": {
+    "fallback_mode": "log_and_warn",
+    "alert_on_failure": true,
+    "retry_count": 0
+  },
+  "security": {
+    "blast_radius": "read-only",
+    "audit_log": true,
+    "human_gate_required_for": []
+  },
+  "antifragile": true
+}
