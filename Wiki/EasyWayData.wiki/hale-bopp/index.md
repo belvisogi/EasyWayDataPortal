@@ -22,9 +22,9 @@ llm:
 related:
   - '[[./strategy-and-architecture.md|Strategy & Architecture]]'
   - '[[./api-contracts.md|API Contracts]]'
-  - '[[./db-hale-bopp/index.md|DB-HALE-BOPP]]'
-  - '[[./etl-hale-bopp/index.md|ETL-HALE-BOPP]]'
-  - '[[./argos-hale-bopp/index.md|ARGOS-HALE-BOPP]]'
+  - '[[./hale-bopp-db/index.md|DB-HALE-BOPP]]'
+  - '[[./hale-bopp-etl/index.md|ETL-HALE-BOPP]]'
+  - '[[./hale-bopp-argos/index.md|ARGOS-HALE-BOPP]]'
   - '[[../architecture/sovereign-gap-fillers.md|Sovereign Gap Fillers]]'
 entities: []
 ---
@@ -56,7 +56,7 @@ The **flagship** module. A deterministic schema governance engine for PostgreSQL
 - REST API on port **8100**
 - Key capabilities: schema diff, transactional deploy with rollback, drift detection, baseline snapshots
 - Stack: Python, FastAPI, SQLAlchemy, Click
-- [[./db-hale-bopp/index.md|Full documentation]]
+- [[./hale-bopp-db/index.md|Full documentation]]
 
 ### ETL-HALE-BOPP — Data Orchestration
 Config-driven ETL orchestration. Currently built on Airflow scaffolding, planned to be rewritten as a lightweight custom runner (~300 lines).
@@ -64,7 +64,7 @@ Config-driven ETL orchestration. Currently built on Airflow scaffolding, planned
 - Pipeline definitions via YAML
 - DAG generation from configuration
 - Webhook integration for external automation
-- [[./etl-hale-bopp/index.md|Full documentation]]
+- [[./hale-bopp-etl/index.md|Full documentation]]
 
 ### ARGOS-HALE-BOPP — Policy & Gating Engine
 The governance control plane. Evaluates metadata (never touches raw data) to make pass/fail decisions on pipelines and schema changes.
@@ -73,7 +73,7 @@ The governance control plane. Evaluates metadata (never touches raw data) to mak
 - REST API on port **8200**
 - Rule engine with configurable policies
 - Strategic direction: will become a Python library (not a standalone HTTP service)
-- [[./argos-hale-bopp/index.md|Full documentation]]
+- [[./hale-bopp-argos/index.md|Full documentation]]
 
 ## Composable Architecture
 

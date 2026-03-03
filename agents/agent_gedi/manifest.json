@@ -203,6 +203,18 @@
       ],
       "learned_from": "Session 53 — La Fabbrica: il momento in cui il monorepo diventa ecosistema"
     },
+    "it_is_that_simple": {
+      "description": "La bugia piu' grossa e' 'non e' cosi' semplice' - Bleed for This (2016)",
+      "philosophy": "La bugia piu' grossa che ti hanno detto? 'Non e' cosi' semplice.' E stanno li' a ripetertela in continuazione finche' ti fanno smettere. La verita'? Che lo e'. Che se provi a fare quello che ti dicono che non puoi fare, ce la fai e ti rendi conto che e' semplice e che lo e' sempre stato. Avere il coraggio di tornare indietro e cambiare non e' indecisione, e' pragmatismo. Rinominare 3 repo oggi costa zero, tra 6 mesi costa un disastro.",
+      "checks": [
+        "Qualcuno ci sta dicendo 'non e' cosi' semplice' per farci smettere?",
+        "Abbiamo provato davvero prima di decidere che e' impossibile?",
+        "Il costo di tornare indietro adesso e' basso? Allora torniamo indietro adesso.",
+        "Stiamo complicando per paura di sembrare ingenui o perche' serve davvero?",
+        "Abbiamo il coraggio di cambiare quello che non funziona, anche se l'abbiamo appena fatto?"
+      ],
+      "learned_from": "Session 55 — Naming convention HALE-BOPP: il coraggio di rinominare subito invece di convivere con l'incoerenza"
+    },
     "start_small_scale_when_needed": {
       "description": "Start small, scale when needed - Pragmatic Growth",
       "philosophy": "Non serve l'infrastruttura perfetta dal giorno uno. Inizia con il minimo che funziona, valida l'idea, poi scala quando hai evidenze reali. Over-engineering anticipato è spreco, under-provisioning con piano di crescita è saggezza.",
@@ -356,6 +368,19 @@
     "human_request": {
       "always_available": true,
       "description": "Umano può sempre chiedere consiglio a GEDI"
+    },
+    "agent_consultation": {
+      "enabled": true,
+      "mandatory": false,
+      "description": "Ogni agente, quando ha un dubbio architetturale, di naming, di processo o di trade-off, DEVE invocare GEDI prima di procedere. GEDI non blocca, illumina.",
+      "protocol": "L'agente invia context + intent a gedi:ooda.loop. GEDI risponde con principle_invoked, checks, recommendation. L'agente puo' procedere anche ignorando GEDI (bypass_allowed: true), ma il consiglio resta nel log.",
+      "when_to_consult": [
+        "Decisione architetturale con piu' alternative valide",
+        "Naming di componenti, repo, branch, file",
+        "Trade-off qualita' vs velocita'",
+        "Dubbio se tornare indietro o andare avanti",
+        "Scelta che impatta altri agenti o il team"
+      ]
     }
   },
   "examples": [

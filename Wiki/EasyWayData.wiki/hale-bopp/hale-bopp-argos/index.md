@@ -4,7 +4,7 @@ id: ew-hale-bopp-argos
 status: active
 tags:
   - domain/hale-bopp
-  - module/argos-hale-bopp
+  - module/hale-bopp-argos
   - layer/reference
   - language/en
 owner: team-data-platform
@@ -23,7 +23,7 @@ llm:
 related:
   - '[[../index.md|HALE-BOPP Overview]]'
   - '[[../api-contracts.md|API Contracts]]'
-  - '[[../db-hale-bopp/index.md|DB-HALE-BOPP]]'
+  - '[[../hale-bopp-db/index.md|DB-HALE-BOPP]]'
   - '[[../../argos/argos-overview.md|ARGOS (EasyWay context)]]'
 entities: []
 ---

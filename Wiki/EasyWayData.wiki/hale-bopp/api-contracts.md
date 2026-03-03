@@ -20,9 +20,9 @@ llm:
   redaction: []
 related:
   - '[[./index.md|HALE-BOPP Overview]]'
-  - '[[./db-hale-bopp/index.md|DB-HALE-BOPP]]'
-  - '[[./etl-hale-bopp/index.md|ETL-HALE-BOPP]]'
-  - '[[./argos-hale-bopp/index.md|ARGOS-HALE-BOPP]]'
+  - '[[./hale-bopp-db/index.md|DB-HALE-BOPP]]'
+  - '[[./hale-bopp-etl/index.md|ETL-HALE-BOPP]]'
+  - '[[./hale-bopp-argos/index.md|ARGOS-HALE-BOPP]]'
 entities: []
 ---
 # HALE-BOPP — API Contracts v1.0.0
