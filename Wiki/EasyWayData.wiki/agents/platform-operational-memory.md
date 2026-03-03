@@ -1838,3 +1838,134 @@ pwsh agents/skills/planning/Invoke-SDLCOrchestrator.ps1
 - Backlog tecnico: **pre-PR conflict check** (dry-run merge in `New-PbiBranch.ps1` + `Create-ReleasePR.ps1`)
 - Backlog tecnico: Root folder cleanup (`chore/root-cleanup`) — ~200 file da riorganizzare
 - AI_DBA_Governance_MVP.md — quando pronto
+
+---
+
+### Session 48 — COMPLETATA (2026-03-02)
+
+**Cosa**: PAT governance alignment (3 PAT per 3 service account), n8n credentials configurate.
+**Perché**: Least privilege — ogni svc account ha solo gli scope necessari.
+**Come**: Credentials `Microsoft Azure DevOps API` nella UI n8n su server.
+**Q&A**: *3 PAT perché?* executor (Code R/W), scrum-master (Work Items), pr-creator (Code Read + PR Contribute).
+
+---
+
+### Session 49 — COMPLETATA (2026-03-02)
+
+**Cosa**: agent_sentinel v1.1.0 (secrets scanner rule-based), Iron Dome + secrets scan pre-commit, registry v2.14.0.
+**Perché**: Secrets committed = rischio #1. Scanner deterministico = zero false negatives.
+**Come**: `Invoke-SecretsScan.ps1` (regex patterns), `ewctl.secrets-scan.psm1` (hook pre-commit).
+**Q&A**: *Rule-based non LLM?* Secrets detection = problema deterministico. LLM = latenza + rischio.
+
+---
+
+### Session 50 — COMPLETATA (2026-03-03)
+
+**Cosa**: Release PR #240 (7 PR, develop->main), deploy `7d4d0b2`, PAT rinnovati (scadenza 2026-06-01), secrets-registry.json, Qdrant key ruotata.
+**Perché**: PAT vicini a scadenza, rinnovo preventivo 90gg.
+**Come**: `Create-ReleasePR.ps1`, `Invoke-SecretsScan.ps1` per audit.
+**Q&A**: *Lesson*: PR creator richiede Code Read + PR Contribute, non solo PR Contribute.
+
+---
+
+### Session 51 — COMPLETATA (2026-03-03)
+
+**Cosa**: HALE-BOPP scaffolding completo (3 moduli, 31 test), ADO Epic #30 + PRD 1 + PBI #31-#37, Sprint 1 completato (PBI #31-#33 Done).
+**Perché**: "Brain vs Muscles" — HALE-BOPP = motori deterministici open-source. DB-HALE-BOPP = "Flyway killer".
+**Come**: TDD, Click CLI, Pydantic, SQLAlchemy. PBI creati via curl ADO REST (NTT blocca LLM).
+**Q&A**: *Sprint iterations?* PAT scrum-master manca "Create child nodes" -> setup manuale ADO UI.
+
+---
+
+### Session 52 — COMPLETATA (2026-03-03)
+
+**Cosa**
+- Wiki HALE-BOPP: 6 pagine sotto `Wiki/EasyWayData.wiki/hale-bopp/` (index, strategy, api-contracts, db/etl/argos)
+- Skill `wiki.publish` (`Publish-WikiPages.ps1`): pubblicazione wiki end-to-end in 1 comando
+- `scripts/source-env.sh`: loader bash canonico (esporta `PAT`, `B64`, `ADO_*` da `.env.local`)
+- DeepSeek API testato dal server OCI — funzionante (HTTP 200, `deepseek-chat`)
+- Skills registry v2.15.0 — 35 skill (+wiki.publish)
+- PR #241 (wiki HALE-BOPP -> develop), PR #242 (tooling -> develop)
+
+**Perché**
+- Wiki: documentare HALE-BOPP nella wiki EasyWay per RAG e team visibility
+- wiki.publish: eliminare 6 step manuali (branch+commit+push+PAT+curl+reindex) che costavano 15+ min e 2-3 errori/sessione
+- source-env.sh: `.env.local` usa `ADO_PR_CREATOR_PAT` ma script cercavano `$PAT` → errori ripetuti
+- DeepSeek: confermare che dal server funziona (per Convert-PrdToPbi e future automazioni)
+
+**Come**
+- Wiki: approccio ibrido (GEDI OODA: index sintetici + reference adattate), inglese (OSS), frontmatter standard con RAG chunk hints
+- Publish-WikiPages.ps1: rileva wiki changes -> branch docs/* -> commit -> push -> PR ADO -> opz. reindex. Pattern identico a Create-ReleasePR.ps1 (-WhatIf, -Json, PAT auto-load)
+- source-env.sh: legge `.env.local`, esporta alias `PAT` = `ADO_PR_CREATOR_PAT`, `B64` pre-calcolato
+- DeepSeek: SSH server -> `source .env.secrets && curl api.deepseek.com`
+
+**Q&A**
+- *Perché approccio ibrido wiki?* GEDI (Measure Twice): copia verbatim = due fonti di verita che driftano; riscrittura = spreco. Ibrido = index navigabili + reference adattate.
+- *Perché inglese?* HALE-BOPP e' open-source, inglese e' standard OSS.
+- *Cosa manca per flusso agentico completo?* (1) n8n post-merge hook per reindex, (2) RAG verify post-ingest, (3) session logging automatico.
+- *Come automatizzare il diario di bordo?* Skill `session.log` che a fine sessione raccoglie diff git + PR create + file toccati e genera il blocco Cosa/Perche/Come/Q&A.
+
+**File creati**: 6 wiki pages, Publish-WikiPages.ps1, source-env.sh, registry.json v2.15.0
+**PR**: #241 (wiki -> develop), #242 (tooling -> develop)
+
+**Backlog -> Session 53**
+- Merge PR #241+#242, Release PR develop->main, deploy, Qdrant reindex
+- n8n post-merge hook per reindex automatico
+- Skill `session.log` per diario di bordo automatico
+- Sprint iterations ADO (manuale UI)
+- HALE-BOPP Sprint 2: PBI #34 (test PostgreSQL), PBI #35 (pip packaging)
+
+---
+
+### Session 54 — COMPLETATA (2026-03-03)
+
+**Cosa**
+- Manifesto dei Nomi: `Wiki/EasyWayData.wiki/manifesto-dei-nomi.md` — EasyWay, HALE-BOPP, ARGOS, La Fabbrica
+- Missione sociale documentata: scuole, biblioteche, logopedia, psicomotricita, enti non-profit
+- Fix PBI-linking: `New-PbiBranch.ps1` + `Create-ReleasePR.ps1` ora includono `workItemRefs` nell'API POST PR
+- GitHub strategy: 3 cerchi (open / source-available / privato), 2 org GitHub
+- GitHub org create: `easyway-data` (piattaforma) + `hale-bopp-data` (open source)
+- ADO repo create: `easyway-wiki` + `easyway-agents` (dentro progetto EasyWay-DataPortal)
+- HALE-BOPP governance: `CONTRIBUTING.md` + `CODE_OF_CONDUCT.md` (LICENSE Apache 2.0 gia esistente)
+- Phase 0 subtree split: `git subtree split -P Wiki/EasyWayData.wiki` — 618 commit processati, 199 wiki-specific, 683 file
+- Push `initial-import` su `easyway-wiki` ADO + PR #246 `initial-import -> main`
+
+**Perche**
+- Le PR venivano create senza work item linkati — policy "Work items must be linked" falliva ad ogni PR
+- Il progetto mancava di identita formale: naming, missione sociale, strategia open source
+- La migrazione polyrepo (La Fabbrica) richiede repo separati su ADO e GitHub prima del subtree split
+- HALE-BOPP pronto per open source ma mancava governance files (contributing, code of conduct)
+
+**Come**
+- PBI-linking: aggiunto `workItemRefs = @(@{id = "$PbiId"})` in `New-PbiBranch.ps1 -CreatePR` e raccolta automatica PBI IDs da pattern `[PBI-<id>]`/`AB#<id>` nei titoli PR mergeate in `Create-ReleasePR.ps1`
+- Naming: GEDI OODA loop per decidere strategia (non rinominare monorepo, focus sui nuovi repo)
+- GitHub: `easyway-data` per wiki/agents/archivio, `hale-bopp-data` per i 3 motori open source
+- Subtree split: `git subtree split -P Wiki/EasyWayData.wiki -b wiki-split` (8+ minuti, 618 commit rielaborati)
+- Push: force-push bloccato da branch policy → push su `initial-import` → PR ADO
+
+**Q&A**
+- *Perche non rinominare EasyWayDataPortal?* GEDI (Pragmatic Action + Start Small): rinominare ora ha costo alto (CI/CD, URLs, scripts) per beneficio basso — il monorepo viene archiviato a Phase 3
+- *Perche 2 org GitHub e non 1?* HALE-BOPP ha identita propria — un dev cerca "schema governance" e trova `hale-bopp-data`, non deve navigare dentro EasyWay
+- *Wiki senza develop?* Si — documentazione non ha build/staging. Solo main
+- *Perche Apache 2.0 e non MIT?* Permissiva come MIT ma protegge i marchi e include grant brevetti — enterprise-friendly
+
+**File creati/modificati**
+- `Wiki/EasyWayData.wiki/manifesto-dei-nomi.md` — nuovo
+- `agents/skills/git/New-PbiBranch.ps1` — +workItemRefs
+- `scripts/pwsh/Create-ReleasePR.ps1` — +workItemIds collection + workItemRefs
+- `C:\old\HALE-BOPP\CONTRIBUTING.md` — nuovo
+- `C:\old\HALE-BOPP\CODE_OF_CONDUCT.md` — nuovo
+
+**ADO/GitHub**
+- ADO: `easyway-wiki` repo (d055dfa8), `easyway-agents` repo (fa068c67)
+- GitHub: org `easyway-data`, org `hale-bopp-data`
+- PR #246: Phase 0 import wiki su easyway-wiki (initial-import -> main)
+
+**Backlog -> Session 55**
+- Completare PR #246 su easyway-wiki (rinominare initial-import -> main dopo merge)
+- Push easyway-wiki su GitHub (easyway-data/easyway-wiki)
+- Phase 1: subtree split agents/ + scripts/pwsh/ → easyway-agents
+- Sostituire Wiki/ con submodule nel monorepo
+- Aggiornare CI/CD per submodule checkout
+- Commit session 54 changes sul monorepo (feat/session-54-fabbrica-sprint1 → develop)
+- Release PR develop → main

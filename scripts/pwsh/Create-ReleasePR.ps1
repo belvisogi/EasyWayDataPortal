@@ -177,6 +177,21 @@ $prTable
 
 $prTitle = "[Release] $SessionLabel - ${SourceBranch}->${TargetBranch}"
 
+# ── Collect PBI IDs from merged PR titles ────────────────────────────────────
+# Patterns: [PBI-123], AB#123 — extracts all unique PBI/Work Item IDs
+$workItemIds = @()
+if ($developPRs.Count -gt 0) {
+    foreach ($pr in $developPRs) {
+        # Match [PBI-<id>] in title
+        if ($pr.title -match '\[PBI-(\d+)\]') { $workItemIds += $Matches[1] }
+        # Match AB#<id> in title or description
+        $textToScan = "$($pr.title) $($pr.description)"
+        $abMatches = [regex]::Matches($textToScan, 'AB#(\d+)')
+        foreach ($m in $abMatches) { $workItemIds += $m.Groups[1].Value }
+    }
+    $workItemIds = $workItemIds | Select-Object -Unique
+}
+
 # ── WhatIf mode ───────────────────────────────────────────────────────────────
 if ($WhatIf) {
     if ($Json) {
@@ -188,6 +203,7 @@ if ($WhatIf) {
             sourceSHA    = $sourceSHAShort
             targetSHA    = $targetSHAShort
             deltaCount   = $developPRs.Count
+            workItemIds  = $workItemIds
             description  = $description
         } | ConvertTo-Json -Depth 3
     } else {
@@ -200,6 +216,14 @@ if ($WhatIf) {
         Write-Host "  $prTitle"
         Write-Host ""
         Write-Host "DELTA: $($developPRs.Count) PR da $SourceBranch ($sourceSHAShort) → $TargetBranch ($targetSHAShort)" -ForegroundColor Yellow
+        if ($workItemIds.Count -gt 0) {
+            Write-Host ""
+            Write-Host "WORK ITEMS:" -ForegroundColor Yellow
+            Write-Host "  $($workItemIds -join ', ')"
+        } else {
+            Write-Host ""
+            Write-Host "WORK ITEMS: nessuno trovato nelle PR mergeate" -ForegroundColor DarkYellow
+        }
         Write-Host ""
         Write-Host "DESCRIZIONE:" -ForegroundColor Yellow
         Write-Host $description
@@ -209,7 +233,7 @@ if ($WhatIf) {
 }
 
 # ── POST PR su ADO ────────────────────────────────────────────────────────────
-$body = @{
+$bodyHash = @{
     title             = $prTitle
     description       = $description
     sourceRefName     = "refs/heads/$SourceBranch"
@@ -219,7 +243,11 @@ $body = @{
         squashMerge   = $false
         mergeStrategy = "noFastForward"
     }
-} | ConvertTo-Json -Depth 3
+}
+if ($workItemIds.Count -gt 0) {
+    $bodyHash.workItemRefs = $workItemIds | ForEach-Object { @{ id = "$_" } }
+}
+$body = $bodyHash | ConvertTo-Json -Depth 3
 
 try {
     $result = Invoke-RestMethod -Uri "$RepoBase/pullrequests?api-version=7.1" `
@@ -244,11 +272,15 @@ if ($Json) {
         sourceSHA   = $sourceSHAShort
         targetSHA   = $targetSHAShort
         deltaCount  = $developPRs.Count
+        workItemIds = $workItemIds
     } | ConvertTo-Json
 } else {
     Write-Host ""
     Write-Host "✔ PR #$prId creata: $prUrl" -ForegroundColor Green
     Write-Host "  Titolo : $prTitle"
     Write-Host "  Delta  : $($developPRs.Count) PR  |  $SourceBranch ($sourceSHAShort) → $TargetBranch ($targetSHAShort)"
+    if ($workItemIds.Count -gt 0) {
+        Write-Host "  PBI    : $($workItemIds -join ', ')" -ForegroundColor Cyan
+    }
     Write-Host ""
 }
