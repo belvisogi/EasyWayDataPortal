@@ -33,6 +33,8 @@ param(
     [string] $CommitMsg   = "",           # custom commit message; auto-generated if empty
     [string] $WikiPath    = "Wiki/EasyWayData.wiki",
     [string] $BaseBranch  = "develop",
+    [string] $RepoId      = "",           # ADO repo name/GUID; empty = auto-detect from git remote
+    [int[]]  $WorkItemIds = @(),          # PBI IDs to link via ArtifactLink (atomic)
     [string] $Pat         = "",
     [string] $SshKey      = "C:\old\Virtual-machine\ssh-key-2026-01-25.key",
     [string] $ServerHost  = "ubuntu@80.225.86.168",
@@ -72,6 +74,16 @@ if (-not $repoRoot) {
     exit 1
 }
 Push-Location $repoRoot
+
+# ── Auto-detect RepoId from git remote if not provided ─────────────────────
+if (-not $RepoId) {
+    $remoteUrl = git remote get-url origin 2>$null
+    if ($remoteUrl -match '/([^/]+?)(?:\.git)?$') {
+        $RepoId = $Matches[1]
+    } else {
+        $RepoId = 'EasyWayDataPortal'  # fallback
+    }
+}
 
 try {
     # ── Step 1: Detect wiki changes ──────────────────────────────────────────
@@ -202,9 +214,19 @@ try {
     $prUrl  = $null
     $prId   = $null
 
-    $prResult = New-AdoPullRequest -Headers $headers -Title $CommitMsg `
-        -SourceBranch $branchName -TargetBranch $BaseBranch `
-        -Description $prDescription -SkipConflictCheck
+    $prParams = @{
+        Headers          = $headers
+        Title            = $CommitMsg
+        SourceBranch     = $branchName
+        TargetBranch     = $BaseBranch
+        Description      = $prDescription
+        RepoId           = $RepoId
+        SkipConflictCheck = $true
+    }
+    if ($WorkItemIds.Count -gt 0) {
+        $prParams.WorkItemIds = $WorkItemIds
+    }
+    $prResult = New-AdoPullRequest @prParams
 
     if ($prResult.Success) {
         $prId  = $prResult.PrId
