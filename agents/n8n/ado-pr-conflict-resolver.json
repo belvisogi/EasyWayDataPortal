@@ -1,0 +1,293 @@
+{
+  "name": "ADO PR Conflict Resolver",
+  "nodes": [
+    {
+      "id": "webhook-trigger",
+      "name": "ADO Service Hook (PR Updated)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "ado-pr-conflict-resolver",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ado-pr-conflict-resolver",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "extract-pr-data",
+      "name": "Extract PR Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [460, 300],
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "prId",
+              "name": "prId",
+              "value": "={{ $json.body.resource.pullRequestId }}",
+              "type": "number"
+            },
+            {
+              "id": "mergeStatus",
+              "name": "mergeStatus",
+              "value": "={{ $json.body.resource.mergeStatus }}",
+              "type": "string"
+            },
+            {
+              "id": "sourceBranch",
+              "name": "sourceBranch",
+              "value": "={{ $json.body.resource.sourceRefName.replace('refs/heads/', '') }}",
+              "type": "string"
+            },
+            {
+              "id": "targetBranch",
+              "name": "targetBranch",
+              "value": "={{ $json.body.resource.targetRefName.replace('refs/heads/', '') }}",
+              "type": "string"
+            },
+            {
+              "id": "prTitle",
+              "name": "prTitle",
+              "value": "={{ $json.body.resource.title }}",
+              "type": "string"
+            },
+            {
+              "id": "eventType",
+              "name": "eventType",
+              "value": "={{ $json.body.eventType }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "check-conflicts",
+      "name": "Is mergeStatus = conflicts?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 300],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "conflict-check",
+              "leftValue": "={{ $json.mergeStatus }}",
+              "rightValue": "conflicts",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "run-resolver",
+      "name": "Run Resolve-PRConflicts.ps1",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [900, 220],
+      "parameters": {
+        "command": "=pwsh -NonInteractive -File /home/ubuntu/EasyWayDataPortal/agents/skills/git/Resolve-PRConflicts.ps1 -PRId {{ $json.prId }} -Json 2>&1; echo \"EXIT_CODE:$?\""
+      }
+    },
+    {
+      "id": "parse-result",
+      "name": "Parse Script Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 220],
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.stdout || '';\nconst exitMatch = raw.match(/EXIT_CODE:(\\d+)/);\nconst exitCode = exitMatch ? parseInt(exitMatch[1]) : 99;\n\n// Estrai JSON dal output dello script\nlet report = {};\ntry {\n  const jsonMatch = raw.match(/\\{[\\s\\S]*\\}/);\n  if (jsonMatch) report = JSON.parse(jsonMatch[0]);\n} catch(e) {\n  report = { error: e.message, raw };\n}\n\nreturn [{\n  json: {\n    exitCode,\n    resolved: report.resolved || [],\n    escalated: report.escalated || [],\n    status: report.status || (exitCode === 0 ? 'resolved' : 'escalated'),\n    prId: $('Extract PR Data').first().json.prId,\n    prTitle: $('Extract PR Data').first().json.prTitle,\n    sourceBranch: $('Extract PR Data').first().json.sourceBranch,\n    targetBranch: $('Extract PR Data').first().json.targetBranch,\n    raw\n  }\n}];"
+      }
+    },
+    {
+      "id": "check-escalation",
+      "name": "Fully Resolved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1340, 220],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "exit-check",
+              "leftValue": "={{ $json.exitCode }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "post-success-comment",
+      "name": "Post Success Comment (ADO)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1560, 140],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://dev.azure.com/EasyWayData/EasyWay-DataPortal/_apis/git/repositories/EasyWayDataPortal/pullRequests/{{ $json.prId }}/threads?api-version=7.1",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftAzureDevOpsApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "",
+              "value": "={\"comments\":[{\"parentCommentId\":0,\"content\":\"🤖 **agent_pr_conflict_resolver** — Conflitti risolti automaticamente\\n\\n**PR**: #{{ $json.prId }} — {{ $json.prTitle }}\\n**File risolti**: {{ $json.resolved.length }}\\n\\n✅ Branch pronto per review. Nessun intervento umano richiesto.\",\"commentType\":1}],\"status\":1}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "post-escalation-comment",
+      "name": "Post Escalation Comment (ADO)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1560, 320],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://dev.azure.com/EasyWayData/EasyWay-DataPortal/_apis/git/repositories/EasyWayDataPortal/pullRequests/{{ $json.prId }}/threads?api-version=7.1",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftAzureDevOpsApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "",
+              "value": "={\"comments\":[{\"parentCommentId\":0,\"content\":\"⚠️ **agent_pr_conflict_resolver** — Escalation richiesta\\n\\n**PR**: #{{ $json.prId }} — {{ $json.prTitle }}\\n**File risolti automaticamente**: {{ $json.resolved.length }}\\n**File non risolti (intervento umano)**: {{ $json.escalated.length }}\\n\\nFile da risolvere manualmente:\\n{{ $json.escalated.map(f => '- `' + f + '`').join('\\n') }}\\n\\n@giuseppe.belviso revisione richiesta.\",\"commentType\":1}],\"status\":1}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "log-escalation",
+      "name": "Log Escalation to File",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1560, 440],
+      "parameters": {
+        "command": "=echo '{{ JSON.stringify({ts: new Date().toISOString(), prId: $json.prId, prTitle: $json.prTitle, escalated: $json.escalated}) }}' >> /home/ubuntu/EasyWayDataPortal/logs/escalation-log.jsonl && mkdir -p /home/ubuntu/EasyWayDataPortal/logs"
+      }
+    },
+    {
+      "id": "respond-ok",
+      "name": "Respond 200 OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1780, 220],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"status\": \"ok\", \"prId\": {{ $('Parse Script Result').first().json.prId }}, \"resolved\": {{ $('Parse Script Result').first().json.resolved.length }}, \"escalated\": {{ $('Parse Script Result').first().json.escalated.length }} }",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    },
+    {
+      "id": "respond-skip",
+      "name": "Respond 200 Skipped",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 400],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"status\": \"skipped\", \"reason\": \"mergeStatus is not 'conflicts'\", \"mergeStatus\": \"{{ $('Extract PR Data').first().json.mergeStatus }}\" }",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    }
+  ],
+  "connections": {
+    "ADO Service Hook (PR Updated)": {
+      "main": [[{"node": "Extract PR Data", "type": "main", "index": 0}]]
+    },
+    "Extract PR Data": {
+      "main": [[{"node": "Is mergeStatus = conflicts?", "type": "main", "index": 0}]]
+    },
+    "Is mergeStatus = conflicts?": {
+      "main": [
+        [{"node": "Run Resolve-PRConflicts.ps1", "type": "main", "index": 0}],
+        [{"node": "Respond 200 Skipped", "type": "main", "index": 0}]
+      ]
+    },
+    "Run Resolve-PRConflicts.ps1": {
+      "main": [[{"node": "Parse Script Result", "type": "main", "index": 0}]]
+    },
+    "Parse Script Result": {
+      "main": [[{"node": "Fully Resolved?", "type": "main", "index": 0}]]
+    },
+    "Fully Resolved?": {
+      "main": [
+        [{"node": "Post Success Comment (ADO)", "type": "main", "index": 0}],
+        [
+          {"node": "Post Escalation Comment (ADO)", "type": "main", "index": 0},
+          {"node": "Log Escalation to File", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "Post Success Comment (ADO)": {
+      "main": [[{"node": "Respond 200 OK", "type": "main", "index": 0}]]
+    },
+    "Post Escalation Comment (ADO)": {
+      "main": [[{"node": "Respond 200 OK", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "description": "Riceve ADO Service Hook (PR Updated con mergeStatus=conflicts), esegue Resolve-PRConflicts.ps1, posta commento ADO con risultato. Escalate se ci sono file non noti.",
+    "pbi": "PBI-24,25,26,27,28",
+    "version": "1.0.0"
+  }
+}

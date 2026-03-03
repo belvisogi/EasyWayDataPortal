@@ -99,7 +99,7 @@ Invoke-LLMWithRAG → Invoke-RAGSearch → rag_search.py → Qdrant (HTTP + API 
 **A:** Dal server:
 ```bash
 cd ~/EasyWayDataPortal/scripts
-export QDRANT_API_KEY=wgs6XqCt8qglELghWG6IE4kvzdDgh3Kk
+source /opt/easyway/.env.secrets
 export WIKI_PATH=../Wiki/EasyWayData.wiki/<subfolder>
 node --experimental-vm-modules ingest_wiki.js
 ```

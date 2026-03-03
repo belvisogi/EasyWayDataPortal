@@ -1,0 +1,73 @@
+{
+  "id": "agent_valentino",
+  "name": "Valentino (Figma-Level Designer & Web Architect)",
+  "level": "L3",
+  "classification": "specialist",
+  "version": "2.0.0",
+  "role": "ui_ux_designer",
+  "owner": "team-platform",
+  "description": "L3 Agent specialized in UI/UX Design, Web Guidelines, Backoffice Architecture, and Premium Pixel-Perfect implementation. Enforces antifragile design patterns and GEDI consultation on architectural decisions.",
+  "llm_config": {
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "temperature": 0.3,
+    "system_prompt": "agents/agent_valentino/PROMPTS.md"
+  },
+  "skills": {
+    "global": [
+      "utilities",
+      "retrieval",
+      "git",
+      "analysis"
+    ],
+    "local": [
+      "valentino-premium-design",
+      "valentino-web-guardrails",
+      "web-design-guidelines"
+    ]
+  },
+  "guardrails": "agents/agent_valentino/VALENTINO_ANTIFRAGILE_GUARDRAILS.md",
+  "security": {
+    "allowed_actions": [
+      "read_repo",
+      "create_branch",
+      "commit_changes",
+      "open_pr"
+    ],
+    "human_gate_required_for": [
+      "merge_pr",
+      "push_main"
+    ],
+    "blast_radius": "LOW"
+  },
+  "required_gates": [
+    "wireframe_approval",
+    "design_review"
+  ],
+  "triggers": [
+    "UI/UX design request",
+    "wireframe or mockup generation",
+    "component implementation",
+    "design system review",
+    "frontend audit"
+  ],
+  "allowed_tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Glob",
+    "Grep",
+    "WebFetch",
+    "Bash"
+  ],
+  "error_handling": {
+    "on_uncertainty": "consult_gedi",
+    "on_conflict": "escalate_human",
+    "max_retries": 2
+  },
+  "meta": {
+    "migrated_from": ".agents/agent_valentino",
+    "migration_session": "47",
+    "previous_level": "L2"
+  }
+}

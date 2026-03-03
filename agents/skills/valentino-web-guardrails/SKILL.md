@@ -16,8 +16,8 @@ Run a combined review for `EasyWayDataPortal` using:
 
 ## Required Sources
 Read these first when they exist:
-- `docs/ops/VALENTINO_SITE_APP_CONSOLE_PLAYBOOK.md`
-- `docs/ops/VALENTINO_ANTIFRAGILE_GUARDRAILS.md`
+- `C:/old/EasyWayDataPortal/docs/ops/VALENTINO_SITE_APP_CONSOLE_PLAYBOOK.md`
+- `C:/old/EasyWayDataPortal/docs/ops/VALENTINO_ANTIFRAGILE_GUARDRAILS.md`
 
 Fetch latest UI guidelines before each review:
 - `https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md`
@@ -35,12 +35,16 @@ Fetch latest UI guidelines before each review:
 - `agent-console` remains ops-first (not a second product UI).
 - Routing/state structure is maintainable (no uncontrolled global logic growth).
 - Evidence of reliability hooks (`health`, `correlationId`, degraded handling) where relevant.
-- **AI Discoverability** (run `valentino-llm-seo` check): `llms.txt` Agent Instructions present, meta description set, Schema.org JSON-LD in `index.html`, `sitemap.xml` exists.
 
 ## Output Format
 - Findings first, with `file:line` references.
 - For each finding: severity, why it matters, minimal fix.
 - If no findings: explicitly state "No critical findings", then list residual risks/gaps.
+
+## Antigravity UI/UX Polish Checks (Figma-level Aesthetics)
+- **Visual Excellence**: Flag generic colors or basic default styling. Enforce modern palettes (e.g. HSL tailored colors, sleek dark modes) and modern typography (Inter, Roboto, Outfit).
+- **Dynamic Design & Micro-animations**: Ensure hover effects, subtle state transitions, and responsive interactions are present. UI must feel alive, not static.
+- **Modern Layouts**: Suggest glassmorphism, soft shadows, rounded corners, or proper negative space where it improves readability and premium feel.
 
 ## Notes
 - Prefer concrete, patchable recommendations over abstract style advice.

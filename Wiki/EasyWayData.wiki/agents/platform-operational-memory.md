@@ -150,6 +150,8 @@ networks: [easyway-net, qdrant-net]
 
 ## 3. Secrets Management
 
+> **Governance completa**: vedi [Secrets Governance Bible](../security/secrets-governance.md) — identity model, PAT matrix, lifecycle, violation classification.
+
 | Elemento | Dettaglio |
 |---|---|
 | File secrets | `/opt/easyway/.env.secrets` (chmod 600, owner ubuntu) |
@@ -178,7 +180,7 @@ networks: [easyway-net, qdrant-net]
 |---|---|
 | Versione | v1.16.2 |
 | Porta | 6333 (bloccata esternamente) |
-| API Key | `wgs6XqCt8qglELghWG6IE4kvzdDgh3Kk` |
+| API Key | (vedi `/opt/easyway/.env.secrets` sul server) |
 | Collection | `easyway_wiki` |
 | Dimensioni | ~130,558 chunk (post Session 28), 384 dim (MiniLM-L6-v2), cosine |
 | Text index | Campo `content` indicizzato (una-tantum, già creato) — richiesto per `GET /api/knowledge` |
@@ -191,7 +193,7 @@ networks: [easyway-net, qdrant-net]
 | Container | `easyway-gitea` (93 MB RAM) |
 | Image | `gitea/gitea:1.22-rootless` |
 | Porta | 3100 (bloccata esternamente) |
-| Admin | `easywayadmin` / `EasyWay2026!` |
+| Admin | `easywayadmin` / (vedi `/opt/easyway/.env.secrets` sul server) |
 | Compose | `docker-compose.gitea.yml` |
 | Push mirror | Azure DevOps (auto ogni 10min + on-commit) |
 | Note | GitLab: containers `Exited`, volumi preservati in `~/EasyWayDataPortal/gitlab/` |
@@ -668,9 +670,60 @@ silenziosamente quando n8n e' down. Il polling (Layer 0) fallisce
 esplicitamente: l'errore e' visibile e immediato. Failure silenzioso
 e' il caso peggiore in un sistema distribuito.
 
+### Aggiornamenti Layer 0 (Session 46)
+
+`Get-ADOBriefing.ps1` mostra ora anche i **PBI in stato "Approved"** (backlog pronto per sviluppo):
+- Richiede `ADO_WORKITEMS_PAT` (scope Work Items R/W) in `C:\old\.env.local`
+- Sezione "BACKLOG APPROVATO" appare solo se il token è presente
+- Legge PBIs via WIQL: `System.State = 'Approved'`
+
+```powershell
+# Token separazione (da .env.local):
+# AZURE_DEVOPS_EXT_PAT  → Code R/W + PR Contribute (git, PR ADO)
+# ADO_WORKITEMS_PAT     → Work Items R/W (PBI, Feature, Epic)
+```
+
 ### Riferimento completo
 - `Wiki/EasyWayData.wiki/guides/ado-session-awareness.md` — strategia completa + rationale
 - `scripts/pwsh/Get-ADOBriefing.ps1` — implementazione Layer 0
+
+---
+
+## 5f. GEDI Consultation Protocol (Session 46)
+
+### Regola operativa
+
+> **Claude DEVE invocare GEDI (OODA loop) ogni volta che ha un dubbio architetturale, di processo o di trade-off**, e presentare la valutazione all'utente PRIMA di procedere.
+
+GEDI non blocca mai l'esecuzione (`bypass_allowed: true`), ma illumina il percorso con i principi del Manifesto EasyWay.
+
+### Trigger obbligatori per invocazione GEDI
+1. Decisione architetturale (naming, pattern, struttura cartelle)
+2. Trade-off (pulire ora vs andare avanti)
+3. Scelta tra più approcci tecnici validi
+4. Richiesta esplicita dell'utente (`"cosa direbbe GEDI?"`)
+
+### Formato risposta GEDI
+```
+🦗 GEDI OODA Loop
+OBSERVE: [cosa sta succedendo]
+ORIENT:  [principi applicabili: Measure Twice | Quality>Speed | Journey Matters | Tangible Legacy | Pragmatic Action]
+DECIDE:  [severity: gentle | warning | gate]
+ACT:     [raccomandazione concreta]
+```
+
+### Principi GEDI (estratto da `agents/agent_gedi/manifest.json`)
+- **Measure Twice, Cut Once** — WhatIf/dry-run sempre prima di execution
+- **Quality > Speed** — timeline realistiche, no scorciatoie
+- **Journey Matters** — documenta il "perché"
+- **Tangible Legacy** — codice leggibile tra 10 anni
+- **Pragmatic Action** (Velasco) — "Non ne parliamo, risolviamo"
+- **Start Small, Scale When Needed** — minimo che funziona, poi scala
+- **Known Bug Over Chaos** — bug noto > fix affrettato non testato
+
+### Riferimento
+- `agents/agent_gedi/manifest.json` — principi completi + esempi
+- `agents/GEDI_INTEGRATION_PATTERN.md` — pattern di integrazione nei flussi agentic
 
 ---
 
@@ -1626,3 +1679,162 @@ Formato sezione auto-generata in `.cursorrules`:
 - Fix QDRANT_URL in `.env.local` (investigare riga duplicata/vuota) — test RAG con context wiki
 - n8n sessione dedicata: webhook ADO→n8n→Resolve-PRConflicts, levi-watchman, sentinel-ingestion (PLANNED da Session 42)
 - AI_DBA_Governance_MVP.md — quando l'utente è pronto
+
+---
+
+### Session 45 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- PR #227 mergiata → develop (conflitti `.cursorrules` + `platform-operational-memory.md` risolti via rebase)
+- Fix RAG vector search: PR #228 (`scripts/embed-query.js` + `Invoke-RAGSearch` aggiornata)
+- Fix diagnostico RAG: PR #229 (`$script:ragSkipReason` per ogni failure path)
+- Release PR #230: develop → main (Sessions 42-45), deploy server `2111dcf`
+- Meta-test SDLC live: orchestratore ha pianificato "n8n-webhook-integration" (7 PBI ADO) e "test-rag-verify" (6 PBI ADO) con RAG attivo
+- Tunnel Qdrant verificato: 167,970 vettori, `RAG usato: Sì` confermato end-to-end
+
+**Perché**
+- Il RAG v3 usava `Qdrant scroll + match.text` (keyword AND logic): query multi-parola restituivano 0 risultati perché i termini non co-occorrevano nello stesso chunk. I 167k vettori erano completamente inutilizzati.
+- Il messaggio di errore finale mostrava sempre "QDRANT_URL non configurato" indipendentemente dal vero motivo (tunnel giù, node non in PATH, embedding fallito) — impossibile diagnosticare.
+
+**Come**
+- **embed-query.js**: Node.js ES module (`"type":"module"` in `scripts/package.json`). `env.allowRemoteModels=false` (usa cache locale). Redirige log model-loading su stderr, emette solo JSON `{vector:[384 floats]}` su stdout. Modello: `Xenova/all-MiniLM-L6-v2` (stesso dell'ingest, pooling:mean, normalize:true). Cache già presente in `node_modules/@xenova/transformers/.cache/`.
+- **Invoke-RAGSearch**: sostituisce scroll con `POST /collections/easyway_wiki/points/search` con vettore cosine. Chiama `node embed-query.js <query>` per ogni query. Path `embed-query.js` calcolato via `Split-Path $PSScriptRoot` × 3 livelli (agents/skills/planning → repo root). Dedup invariato. Score cosine incluso nel chunk header `[score:X.XXX file]`.
+- **ragSkipReason**: `$script:ragSkipReason` traccia motivo preciso in ogni exit path. RAG phase mostra hint contestuale (tunnel vs env var). Summary finale mostra motivo reale invece di stringa generica.
+- **Risultato Evidence & Confidence**: con RAG attivo, il PM ora cita fonti wiki reali (es. `DOCKER_COMPOSE_TUTORIAL.md → High`, `TEST_PR_GUIDE.md → High`) invece di `N/A → Low`.
+
+**Q&A**
+- *Perché Node.js e non API embedding?* HuggingFace API è bloccata dalla rete NTT Data. Il modello è già in cache locale dall'ingest — zero dipendenze di rete.
+- *Perché il RAG era "No" nel primo test n8n?* Il tunnel Qdrant era caduto (processo SSH background morto). Ora c'è `ragSkipReason = "Qdrant non raggiungibile su ... — tunnel SSH attivo?"`.
+- *La "Nota RAG" su AND semantics è ancora valida?* No — con vector search le query multi-parola funzionano sempre (embedding semantico, non AND keyword). Il problema AND era specifico di `match.text`.
+
+**File creati/modificati**
+- `scripts/embed-query.js` — nuovo: embedding locale Node.js ESM
+- `agents/skills/planning/Invoke-SDLCOrchestrator.ps1` — Invoke-RAGSearch v3.1: vector search + ragSkipReason
+
+**PR**: #228, #229 develop; #230 Release → main
+
+**Workflow obbligatorio prima dell'orchestratore**:
+```powershell
+pwsh scripts/connect-qdrant-tunnel.ps1 -Verify
+pwsh agents/skills/planning/Invoke-SDLCOrchestrator.ps1
+```
+
+**Backlog rimasto → Session 46**
+- n8n implementation: 7 PBI su ADO (INIT-20260301-n8n-webhook-integration) — webhook ADO→n8n→Resolve-PRConflicts, levi-watchman, sentinel-ingestion
+- AI_DBA_Governance_MVP.md — quando l'utente è pronto
+
+---
+
+### Session 46 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- Handoff Session 45 → 46: briefing ADO (`Get-ADOBriefing.ps1`), PR #231 mergiata (docs Session 45)
+- Token ADO separato: `ADO_WORKITEMS_PAT` (Work Items R/W) aggiunto a `C:\old\.env.local`
+- Creazione Feature #22 + 7 PBI #23-29 su ADO (n8n ADO PR Conflict Resolver, tag `n8n; INIT-20260301-n8n-webhook-integration`)
+- Stato PBI impostato a `Approved` (stato Scrum ADO valido; "Business Approved" non configurato)
+- Fix `New-PbiBranch.ps1`: param `WorkItemsPat` separato da `Pat` + `AllowedStates` include `Approved`
+- Fix `Get-ADOBriefing.ps1`: sezione "BACKLOG APPROVATO" mostra PBI Approved a inizio sessione
+- GEDI Consultation Protocol: Rule 0b in `.cursorrules` + §5f in wiki — OODA loop obbligatorio su dubbi
+- Cleanup GEDI-approved: PR #232 abbandonata, 8 branch orfani eliminati, titoli PBI rinominati (rimosso prefisso `[PBI]`)
+- PR #233 creata: `feat/devops/ado-workitems-pat-gedi-briefing` → develop
+
+**Perché**
+- Il PAT `AZURE_DEVOPS_EXT_PAT` aveva scope solo "Code R/W + PR Contribute" → 401 su WIQL/work items. Necessario token dedicato per leggere/creare PBI.
+- I 7 PBI di Session 45 erano stati pianificati dall'orchestratore SDLC ma il POST ADO non era mai avvenuto (0 WI su ADO). Creati manualmente in Session 46.
+- `New-PbiBranch.ps1` falliva silenziosamente (401 su WI fetch) → ora usa `ADO_WORKITEMS_PAT`.
+- Branch pre-creati manualmente PRIMA del lavoro reale = rumore + violazione governance gate. GEDI ha correttamente consigliato cleanup.
+- Il briefing mancava della visibilità sul backlog → aggiunta sezione PBI Approved per orientamento a inizio sessione.
+
+**Come**
+- `Create-N8nPBIs.ps1`: crea Feature + 7 PBI via ADO REST API (POST `$Product%20Backlog%20Item`, link gerarchico con `Hierarchy-Reverse` su Epic #4)
+- `_set-pbi-approved.ps1`: PATCH `System.State = Approved` su lista PBI
+- `_cleanup-n8n-branches.ps1`: abandon PR #232, delete 8 branch, PATCH titoli PBI (remove `[PBI]` prefix)
+- `Get-ADOBriefing.ps1`: aggiunto `WorkItemsPat` param + step 5 WIQL query + sezione BACKLOG APPROVATO (human + JSON)
+- `New-PbiBranch.ps1`: `$wiPat = WorkItemsPat ?? Pat`; AllowedStates = `@('Approved','Business Approved')`
+- GEDI: `agents/agent_gedi/manifest.json` letto e integrato in `.cursorrules` Rule 0b + wiki §5f
+
+**Q&A**
+- *Perché "Approved" e non "Business Approved"?* ADO project usa stati Scrum standard. "Business Approved" non è configurato → 400 Bad Request. "Approved" è lo stato corrispondente nel template Scrum ADO.
+- *Perché PR #233 non è linkata a un PBI?* La PR description non conteneva `AB#<id>`. Tooling infrastrutturale trattato come non-PBI. **Lezione**: inserire sempre `AB#<id>` anche per PR infra — usare Feature #22 (`AB#22`) come parent quando applicabile.
+- *Perché i branch manuali erano sbagliati?* `New-PbiBranch.ps1` genera slug dal titolo ADO. Il titolo conteneva `[PBI]` → slug `pbi-setup-e-...` ≠ nome manuale. GEDI: branch vuoti pre-creati violano governance gate (branch = segnale che il lavoro è iniziato).
+- *Come funziona il GEDI protocol?* OODA loop: Observe (cosa succede) → Orient (principi Manifesto) → Decide (severity) → Act (raccomandazione). Non blocca, illumina. Trigger: dubbi architetturali, trade-off, richiesta esplicita utente.
+
+**File creati/modificati**
+- `.cursorrules` — Rule 0b GEDI Consultation Protocol + roster GEDI
+- `Wiki/EasyWayData.wiki/agents/platform-operational-memory.md` — §5e aggiornato + §5f GEDI Protocol
+- `agents/skills/git/New-PbiBranch.ps1` — WorkItemsPat param + AllowedStates
+- `scripts/pwsh/Get-ADOBriefing.ps1` — WorkItemsPat + BACKLOG APPROVATO section
+- `scripts/pwsh/Create-N8nPBIs.ps1` — crea Feature+PBI n8n su ADO
+- `scripts/pwsh/_cleanup-n8n-branches.ps1` — cleanup GEDI-approved
+- `scripts/pwsh/_set-pbi-approved.ps1` — batch PATCH stato PBI
+
+**PR**: #231 (docs S45→develop, mergiata), #232 (test, abbandonata), #233 (feat/devops→develop, da mergere)
+
+**Backlog rimasto → Session 47**
+- Approvare/mergere PR #233 (feat/devops: GEDI + ADO_WORKITEMS_PAT + briefing)
+- n8n implementation (7 PBI #23-29 Approved):
+  - PBI-23: Setup e verifica istanza n8n locale (`/c/old/n8n-workspace/`)
+  - PBI-24: Creare workflow `ado-pr-conflict-resolver.json` (webhook ADO→pwsh Resolve-PRConflicts.ps1)
+  - PBI-25: Parse payload ADO Service Hook (extract PRId, sourceBranch, targetBranch, mergeStatus=conflicts)
+  - PBI-26: Execute Resolve-PRConflicts.ps1 via n8n Execute Command node (-Json flag)
+  - PBI-27: Post ADO PR comment con resolution report (Markdown, REST API)
+  - PBI-28: Handle escalation — ADO comment @giuseppe.belviso + log in escalation-log.jsonl
+  - PBI-29: Configurare ADO Service Hook subscription (PR Updated → mergeStatus=conflicts → n8n webhook)
+- Ogni PBI → `New-PbiBranch.ps1 -PbiId <id> -CreatePR` (gate Approved ✅ + AB# link automatico)
+- Lesson da applicare in ogni PR futura: inserire `AB#<id>` anche per PR infra (usare Feature/Epic parent)
+- AI_DBA_Governance_MVP.md — quando pronto
+
+---
+
+### Session 47 — COMPLETATA (2026-03-01)
+
+**Cosa**
+- PR #233 già approvata (vote=10 da sessione precedente) → PR #234 aveva conflitto `editEdit` su `.cursorrules`
+- Conflitto PR #234 risolto: merge `origin/develop` in `docs/session-46-memory`, `.cursorrules` rebuilt (Rule 0b da develop + Session 46 notes da docs branch + timestamp aggiornato via Iron Dome sync); push + PR mergiata dall'utente
+- Nuova regola antifragilità: **max 2 tentativi API ADO per la stessa azione**, poi STOP e chiedi umano
+- Gap identificato: agenti che creano PR non verificano conflitti pre-apertura → messo in backlog (`New-PbiBranch.ps1` + `Create-ReleasePR.ps1`)
+- Agent Valentino: migrato da `.agents/agent_valentino/` (non-canonical, non tracked) a `agents/agent_valentino/` (L3, canonical) — PR #235 creata e mergiata
+
+**Perché**
+- PR #234 in conflitto perché PR #233 e PR #234 partivano dallo stesso base commit e modificavano entrambe `.cursorrules`. PR #233 è stata mergiata prima, develop è avanzato, PR #234 era in conflitto.
+- `.agents/` non è la posizione canonica degli agenti — tutti gli L3 vivono in `agents/`. Il manifest L2 era incompleto (niente `llm_config`, `level`, `classification`).
+- La regola "max 2 tentativi" nasce dall'osservazione che il PAT `AZURE_DEVOPS_EXT_PAT` appartiene a `svc-agent-ado-executor`, non a `giuseppe belviso` — il service account non può votare per l'utente umano. Brute-force sul problema non avrebbe mai funzionato.
+
+**Come**
+- Conflict resolution `.cursorrules`: `python3` legge `git show <commitHash>:.cursorrules` con encoding UTF-8 esplicito; base = develop (ha Rule 0b + GEDI roster + §5f); aggiunge blocco Session 46 COMPLETATA da docs branch; `git merge --continue` → Iron Dome re-sync automatico timestamp.
+- Valentino migration: `git checkout -b feat/design/valentino-l3-migration origin/develop`; crea `agents/agent_valentino/` con manifest L3, PROMPTS.md (L2→L3), VALENTINO_ANTIFRAGILE_GUARDRAILS.md, README.md; copia 3 SKILL.md da `.agents/agent_valentino/skills/` a `agents/skills/`; stage anche deletions utente (backoffice-architect, builder, llm-seo, memory-ledger); `git commit`; push; PR #235 + ArtifactLink WI#22.
+
+**Q&A**
+- *Perché il service account non può approvare la PR per giuseppe belviso?* ADO policy `TF401186`: non si può registrare un voto per un altro utente. Il PAT di `svc-agent-ado-executor` autentica solo quell'identità. L'approvazione da giuseppe belviso richiede il suo click manuale nel browser.
+- *Perché la conflict resolution di `.cursorrules` richiedeva un approccio Python e non `git checkout --ours/--theirs`?* La soluzione ottimale era ibrida: tenere le sezioni manuali (Rule 0b, GEDI roster) da `develop` E il blocco Session 46 COMPLETATA da `docs/session-46-memory`. Né `--ours` né `--theirs` puri erano corretti. Python legge entrambe le versioni e le combina con `rfind('# AUTO-SYNC-END')`.
+- *Perché le valentino skill erano duplicate?* Erano in `agents/skills/` (globale, versioni vecchie) E in `.agents/agent_valentino/skills/` (versioni nuove). L'utente stava già rimuovendo le vecchie; la migrazione ha portato le nuove nella posizione canonica.
+
+**File creati/modificati**
+- `agents/agent_valentino/manifest.json` — nuovo, L3 completo
+- `agents/agent_valentino/PROMPTS.md` — da .agents, label L2→L3
+- `agents/agent_valentino/VALENTINO_ANTIFRAGILE_GUARDRAILS.md` — da .agents
+- `agents/agent_valentino/README.md` — nuovo
+- `agents/skills/valentino-premium-design/SKILL.md` — nuovo (da .agents)
+- `agents/skills/valentino-web-guardrails/SKILL.md` — aggiornato (da .agents)
+- `agents/skills/valentino-backoffice-architect/SKILL.md` — eliminato
+- `agents/skills/valentino-backoffice-builder/SKILL.md` — eliminato
+- `agents/skills/valentino-llm-seo/SKILL.md` — eliminato
+- `agents/skills/valentino-memory-ledger/SKILL.md` — eliminato
+- `agents/skills/registry.json` — aggiornato (user)
+- `memory/MEMORY.md` — nuova regola: max 2 tentativi API ADO poi chiedi umano
+
+**PR**: #233 (mergiata), #234 (conflict risolto + mergiata), #235 (valentino L3, mergiata)
+
+**Backlog rimasto → Session 48**
+- n8n implementation (7 PBI #23-29, tutti `Approved`):
+  - PBI-23: Setup e verifica istanza n8n locale (`/c/old/n8n-workspace/`, porta 5678)
+  - PBI-24: Creare workflow `ado-pr-conflict-resolver.json` (webhook ADO → `Resolve-PRConflicts.ps1`)
+  - PBI-25: Parse payload ADO Service Hook (PRId, sourceBranch, targetBranch, mergeStatus=conflicts)
+  - PBI-26: Execute `Resolve-PRConflicts.ps1` via n8n Execute Command node (`-Json` flag)
+  - PBI-27: Post ADO PR comment con resolution report (Markdown, REST API)
+  - PBI-28: Handle escalation (ADO comment @giuseppe.belviso + escalation-log.jsonl)
+  - PBI-29: Configurare ADO Service Hook subscription (PR Updated → mergeStatus=conflicts → n8n webhook)
+- Ogni PBI → `New-PbiBranch.ps1 -PbiId <id> -CreatePR` (gate Approved ✅ + AB# link automatico)
+- Backlog tecnico: **pre-PR conflict check** (dry-run merge in `New-PbiBranch.ps1` + `Create-ReleasePR.ps1`)
+- Backlog tecnico: Root folder cleanup (`chore/root-cleanup`) — ~200 file da riorganizzare
+- AI_DBA_Governance_MVP.md — quando pronto

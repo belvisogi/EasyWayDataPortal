@@ -46,6 +46,15 @@
 		}
 
 		# --------------------------------------------------------------------
+		# N8N WEBHOOKS (No Authentication - ADO Service Hook access)
+		# Must be BEFORE the authenticated /n8n* block
+		# --------------------------------------------------------------------
+		handle /n8n/webhook/* {
+			uri strip_prefix /n8n
+			reverse_proxy n8n:5678
+		}
+
+		# --------------------------------------------------------------------
 		# N8N WORKFLOW AUTOMATION (Authentication + Path Stripping)
 		# --------------------------------------------------------------------
 		handle_path /n8n* {

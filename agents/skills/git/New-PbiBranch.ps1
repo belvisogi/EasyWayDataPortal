@@ -57,7 +57,13 @@ Param(
     [Parameter(Mandatory = $true)]
     [int]      $PbiId,
 
-    [string]   $Pat           = $env:AZURE_DEVOPS_EXT_PAT,
+    # PAT per PR creation (Code R/W + PR Contribute) — preferisce ADO_PR_CREATOR_PAT (svc-agent-pr-creator)
+    # fallback su AZURE_DEVOPS_EXT_PAT se non disponibile
+    [string]   $Pat           = ($env:ADO_PR_CREATOR_PAT ?? $env:AZURE_DEVOPS_EXT_PAT),
+
+    # PAT per leggere/aggiornare Work Items (Work Items R/W) — ADO_WORKITEMS_PAT
+    [string]   $WorkItemsPat  = $env:ADO_WORKITEMS_PAT,
+
     [string]   $OrgUrl        = 'https://dev.azure.com/EasyWayData',
     [string]   $Project       = 'EasyWay-DataPortal',
     [string]   $BaseBranch    = 'develop',
@@ -65,7 +71,8 @@ Param(
     # Stati ADO che autorizzano la creazione del branch.
     # Di default solo "Business Approved". Modificabile via parametro
     # per ambienti con naming diverso (es. "Approved", "Ready for Dev").
-    [string[]] $AllowedStates = @('Business Approved'),
+    # ADO Scrum default: "Approved". Aggiungere "Business Approved" se il processo lo prevede.
+    [string[]] $AllowedStates = @('Approved', 'Business Approved'),
 
     [switch]   $DryRun,
     [switch]   $CreatePR,
@@ -186,14 +193,16 @@ $pbiState   = ''
 $fetched    = $false
 $adoReached = $false
 
-if (-not $Pat -and -not $ForceOffline) {
-    Exit-Blocked "PAT non disponibile (AZURE_DEVOPS_EXT_PAT vuoto). Impossibile verificare stato del PBI. Imposta il PAT o usa -ForceOffline (solo in emergenza)."
+$wiPat = if ($WorkItemsPat) { $WorkItemsPat } elseif ($Pat) { $Pat } else { $null }
+
+if (-not $wiPat -and -not $ForceOffline) {
+    Exit-Blocked "PAT non disponibile (ADO_WORKITEMS_PAT e AZURE_DEVOPS_EXT_PAT vuoti). Impossibile verificare stato del PBI. Imposta il PAT o usa -ForceOffline (solo in emergenza)."
 }
 
-if ($Pat) {
+if ($wiPat) {
     Write-Step "Fetch work item $PbiId da ADO..."
     try {
-        $b64     = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$Pat"))
+        $b64     = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$wiPat"))
         $fields  = 'System.Title,System.State,Microsoft.VSTS.Common.AcceptanceCriteria'
         $uri     = "$OrgUrl/$Project/_apis/wit/workitems/$($PbiId)?`$fields=$fields&api-version=7.1"
         $headers = @{ Authorization = "Basic $b64"; Accept = 'application/json' }
@@ -356,7 +365,7 @@ $prUrl = $null
 
 if ($CreatePR) {
     if (-not $Pat) {
-        Write-Warn "-CreatePR richiede PAT. Imposta AZURE_DEVOPS_EXT_PAT o passa -Pat."
+        Write-Warn "-CreatePR richiede PAT. Imposta ADO_PR_CREATOR_PAT (preferito) o AZURE_DEVOPS_EXT_PAT."
     } else {
         Write-Step "Push branch su origin..."
         git push origin $branchName

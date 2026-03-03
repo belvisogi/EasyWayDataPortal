@@ -1,6 +1,6 @@
 {
-  "version": "2.13.0",
-  "last_updated": "2026-03-01T01:00:00Z",
+  "version": "2.14.0",
+  "last_updated": "2026-03-02T00:00:00Z",
   "skills": [
     {
       "id": "security.cve-scan",
@@ -200,6 +200,60 @@
         "allowed_callers": [
           "agent_security"
         ]
+      }
+    },
+    {
+      "id": "security.secrets-scan",
+      "name": "Invoke-SecretsScan",
+      "domain": "security",
+      "file": "skills/security/Invoke-SecretsScan.ps1",
+      "version": "1.0.0",
+      "description": "Scans git-tracked files for leaked secrets, governance violations, and PAT identity misuse. Rule-based (no LLM). Produces JSON report with findings and compliance status.",
+      "parameters": [
+        {
+          "name": "ScanPath",
+          "type": "string",
+          "required": false,
+          "default": ".",
+          "description": "Repository root to scan"
+        },
+        {
+          "name": "OutputFormat",
+          "type": "string",
+          "required": false,
+          "default": "json",
+          "enum": ["json", "markdown"]
+        },
+        {
+          "name": "Severity",
+          "type": "string",
+          "required": false,
+          "default": "all",
+          "enum": ["all", "critical", "high"]
+        },
+        {
+          "name": "Json",
+          "type": "switch",
+          "required": false,
+          "description": "Machine-readable JSON output"
+        }
+      ],
+      "returns": {
+        "type": "object",
+        "description": "Scan report with findings, compliance status, and summary",
+        "output_fields": [
+          { "name": "findings", "type": "array", "description": "List of detected secret leaks" },
+          { "name": "compliance", "type": "array", "description": "PAT governance compliance per script" },
+          { "name": "summary", "type": "object", "description": "Aggregate counts by severity" }
+        ]
+      },
+      "dependencies": ["git"],
+      "tags": ["security", "secrets", "scanning", "governance", "sentinel"],
+      "security": {
+        "requires_approval": false,
+        "blast_radius": "LOW",
+        "audit_log": true,
+        "allowed_callers": ["agent_sentinel", "agent_security", "agent_pr_gate"]
       }
     },
     {
@@ -1644,7 +1698,9 @@
           "name": "AllowedStates",
           "type": "array",
           "required": false,
-          "default": ["Business Approved"],
+          "default": [
+            "Business Approved"
+          ],
           "description": "Stati ADO che autorizzano la creazione del branch. Gate duro: exit 2 se lo stato non e' nella lista."
         },
         {
@@ -2363,32 +2419,102 @@
       "version": "1.0.0",
       "description": "Crea una Release PR da develop verso main su ADO con titolo/descrizione auto-generati (tabella PR mergeate + delta SHA + checklist deploy) e governance integrata. Merge strategy noFastForward.",
       "parameters": [
-        { "name": "SourceBranch", "type": "string",  "required": false, "default": "develop",  "description": "Branch sorgente (deve essere 'develop' o 'release/*')" },
-        { "name": "TargetBranch", "type": "string",  "required": false, "default": "main",     "description": "Branch destinazione (deve essere 'main')" },
-        { "name": "SessionLabel", "type": "string",  "required": false, "default": "",         "description": "Etichetta sessione (es. 'Session 37'). Se vuoto, auto-detect dall'ultima Release PR su main." },
-        { "name": "Pat",          "type": "string",  "required": false, "default": "",         "description": "ADO PAT. Fallback: env:AZURE_DEVOPS_EXT_PAT → C:\\old\\.env.local" },
-        { "name": "WhatIf",       "type": "switch",  "required": false,                        "description": "Dry-run: stampa titolo+descrizione senza creare la PR" },
-        { "name": "Json",         "type": "switch",  "required": false,                        "description": "Output JSON machine-readable per agent consumption" }
+        {
+          "name": "SourceBranch",
+          "type": "string",
+          "required": false,
+          "default": "develop",
+          "description": "Branch sorgente (deve essere 'develop' o 'release/*')"
+        },
+        {
+          "name": "TargetBranch",
+          "type": "string",
+          "required": false,
+          "default": "main",
+          "description": "Branch destinazione (deve essere 'main')"
+        },
+        {
+          "name": "SessionLabel",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "Etichetta sessione (es. 'Session 37'). Se vuoto, auto-detect dall'ultima Release PR su main."
+        },
+        {
+          "name": "Pat",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "ADO PAT. Fallback: env:AZURE_DEVOPS_EXT_PAT → C:\\old\\.env.local"
+        },
+        {
+          "name": "WhatIf",
+          "type": "switch",
+          "required": false,
+          "description": "Dry-run: stampa titolo+descrizione senza creare la PR"
+        },
+        {
+          "name": "Json",
+          "type": "switch",
+          "required": false,
+          "description": "Output JSON machine-readable per agent consumption"
+        }
       ],
       "returns": {
         "type": "object",
         "description": "PR creata con ID, URL e metadati delta",
         "output_fields": [
-          { "name": "id",         "type": "integer", "description": "ADO PR ID" },
-          { "name": "url",        "type": "string",  "description": "Link diretto alla PR" },
-          { "name": "title",      "type": "string",  "description": "Titolo generato" },
-          { "name": "sourceSHA",  "type": "string",  "description": "SHA breve del branch sorgente" },
-          { "name": "targetSHA",  "type": "string",  "description": "SHA breve del branch target" },
-          { "name": "deltaCount", "type": "integer", "description": "Numero di PR nel delta" }
+          {
+            "name": "id",
+            "type": "integer",
+            "description": "ADO PR ID"
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "description": "Link diretto alla PR"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "description": "Titolo generato"
+          },
+          {
+            "name": "sourceSHA",
+            "type": "string",
+            "description": "SHA breve del branch sorgente"
+          },
+          {
+            "name": "targetSHA",
+            "type": "string",
+            "description": "SHA breve del branch target"
+          },
+          {
+            "name": "deltaCount",
+            "type": "integer",
+            "description": "Numero di PR nel delta"
+          }
         ]
       },
-      "dependencies": ["Invoke-RestMethod"],
-      "tags": ["devops", "pr", "release", "ado", "governance"],
+      "dependencies": [
+        "Invoke-RestMethod"
+      ],
+      "tags": [
+        "devops",
+        "pr",
+        "release",
+        "ado",
+        "governance"
+      ],
       "security": {
         "requires_approval": true,
         "blast_radius": "MEDIUM",
         "audit_log": true,
-        "allowed_callers": ["agent_scrummaster", "agent_pr_gate", "*"]
+        "allowed_callers": [
+          "agent_scrummaster",
+          "agent_pr_gate",
+          "*"
+        ]
       }
     },
     {
@@ -2404,7 +2530,11 @@
           "type": "string",
           "required": false,
           "default": "product-brief",
-          "enum": ["product-brief", "brainstorm-project", "research"],
+          "enum": [
+            "product-brief",
+            "brainstorm-project",
+            "research"
+          ],
           "description": "Workflow da eseguire"
         },
         {
@@ -2435,13 +2565,23 @@
           }
         ]
       },
-      "dependencies": ["retrieval.rag-search"],
-      "tags": ["planning", "discovery", "requirements", "product-brief", "ba"],
+      "dependencies": [
+        "retrieval.rag-search"
+      ],
+      "tags": [
+        "planning",
+        "discovery",
+        "requirements",
+        "product-brief",
+        "ba"
+      ],
       "security": {
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -2457,7 +2597,11 @@
           "type": "string",
           "required": false,
           "default": "prd",
-          "enum": ["prd", "tech-spec", "prioritize"],
+          "enum": [
+            "prd",
+            "tech-spec",
+            "prioritize"
+          ],
           "description": "Workflow da eseguire"
         },
         {
@@ -2499,13 +2643,26 @@
           }
         ]
       },
-      "dependencies": ["planning.business-analyst", "retrieval.rag-search"],
-      "tags": ["planning", "prd", "requirements", "moscow", "rice", "epics", "pm"],
+      "dependencies": [
+        "planning.business-analyst",
+        "retrieval.rag-search"
+      ],
+      "tags": [
+        "planning",
+        "prd",
+        "requirements",
+        "moscow",
+        "rice",
+        "epics",
+        "pm"
+      ],
       "security": {
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["*"]
+        "allowed_callers": [
+          "*"
+        ]
       }
     },
     {
@@ -2587,13 +2744,27 @@
           }
         ]
       },
-      "dependencies": ["Invoke-RestMethod", "DEEPSEEK_API_KEY"],
-      "tags": ["planning", "prd", "pbi", "ado", "llm", "sdlc"],
+      "dependencies": [
+        "Invoke-RestMethod",
+        "DEEPSEEK_API_KEY"
+      ],
+      "tags": [
+        "planning",
+        "prd",
+        "pbi",
+        "ado",
+        "llm",
+        "sdlc"
+      ],
       "security": {
         "requires_approval": true,
         "blast_radius": "MEDIUM",
         "audit_log": true,
-        "allowed_callers": ["agent_scrummaster", "agent_pr_gate", "*"]
+        "allowed_callers": [
+          "agent_scrummaster",
+          "agent_pr_gate",
+          "*"
+        ]
       }
     },
     {
@@ -2604,37 +2775,141 @@
       "version": "1.0.0",
       "description": "Orchestratore interattivo SDLC EasyWay: guida l'utente attraverso BA→PM→PBI in 4 fasi. Genera product-brief e PRD via LLM (DeepSeek con fallback OpenRouter), poi crea PBI su ADO via Convert-PrdToPbi. Resume automatico se file esistono. 3 domande pre-PRD obbligatorie (Epic, Dominio, Pattern).",
       "parameters": [
-        { "name": "FeatureName",  "type": "string",  "required": false, "description": "Nome feature (slug wiki, es. 'agent-interactive-sdlc')" },
-        { "name": "Description",  "type": "string",  "required": false, "description": "Descrizione breve della feature. Chiesta interattivamente se omessa." },
-        { "name": "EpicId",       "type": "integer", "required": false, "default": -1, "description": "ID epica ADO da collegare. 0 = nessuna epica. -1 = chiesto interattivamente." },
-        { "name": "Domain",       "type": "string",  "required": false, "description": "Dominio EasyWay: Infra|AMS|Frontend|Logic|Reporting|Data|Governance" },
-        { "name": "PbiPattern",   "type": "string",  "required": false, "description": "Pattern PBI: 'Feature standard' | 'Task tecnico' | 'Improvement/Bug'" },
-        { "name": "SkipBrief",    "type": "boolean", "required": false, "default": false, "description": "Salta Fase 1: usa product-brief.md esistente" },
-        { "name": "SkipPrd",      "type": "boolean", "required": false, "default": false, "description": "Salta Fase 2: usa prd.md esistente" },
-        { "name": "NoBranch",     "type": "boolean", "required": false, "default": false, "description": "Non mostrare suggerimento New-PbiBranch a fine flusso" },
-        { "name": "NoConfirm",    "type": "boolean", "required": false, "default": false, "description": "Nessuna conferma interattiva — per agent use" },
-        { "name": "Json",         "type": "boolean", "required": false, "default": false, "description": "Output JSON strutturato per agent consumption" }
+        {
+          "name": "FeatureName",
+          "type": "string",
+          "required": false,
+          "description": "Nome feature (slug wiki, es. 'agent-interactive-sdlc')"
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "required": false,
+          "description": "Descrizione breve della feature. Chiesta interattivamente se omessa."
+        },
+        {
+          "name": "EpicId",
+          "type": "integer",
+          "required": false,
+          "default": -1,
+          "description": "ID epica ADO da collegare. 0 = nessuna epica. -1 = chiesto interattivamente."
+        },
+        {
+          "name": "Domain",
+          "type": "string",
+          "required": false,
+          "description": "Dominio EasyWay: Infra|AMS|Frontend|Logic|Reporting|Data|Governance"
+        },
+        {
+          "name": "PbiPattern",
+          "type": "string",
+          "required": false,
+          "description": "Pattern PBI: 'Feature standard' | 'Task tecnico' | 'Improvement/Bug'"
+        },
+        {
+          "name": "SkipBrief",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Salta Fase 1: usa product-brief.md esistente"
+        },
+        {
+          "name": "SkipPrd",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Salta Fase 2: usa prd.md esistente"
+        },
+        {
+          "name": "NoBranch",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Non mostrare suggerimento New-PbiBranch a fine flusso"
+        },
+        {
+          "name": "NoConfirm",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Nessuna conferma interattiva — per agent use"
+        },
+        {
+          "name": "Json",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Output JSON strutturato per agent consumption"
+        }
       ],
       "returns": {
         "type": "object",
         "description": "Risultato completo del flusso SDLC",
         "output_fields": [
-          { "name": "featureName", "type": "string",  "description": "Nome feature passato in input" },
-          { "name": "slug",        "type": "string",  "description": "Slug usato per i path wiki" },
-          { "name": "epicId",      "type": "integer", "description": "Epic ADO ID (0 se non collegato)" },
-          { "name": "domain",      "type": "string",  "description": "Dominio EasyWay selezionato" },
-          { "name": "briefPath",   "type": "string",  "description": "Path product-brief.md generato" },
-          { "name": "prdPath",     "type": "string",  "description": "Path prd.md generato" },
-          { "name": "pbiIds",      "type": "array",   "description": "Lista ID PBI creati su ADO" }
+          {
+            "name": "featureName",
+            "type": "string",
+            "description": "Nome feature passato in input"
+          },
+          {
+            "name": "slug",
+            "type": "string",
+            "description": "Slug usato per i path wiki"
+          },
+          {
+            "name": "epicId",
+            "type": "integer",
+            "description": "Epic ADO ID (0 se non collegato)"
+          },
+          {
+            "name": "domain",
+            "type": "string",
+            "description": "Dominio EasyWay selezionato"
+          },
+          {
+            "name": "briefPath",
+            "type": "string",
+            "description": "Path product-brief.md generato"
+          },
+          {
+            "name": "prdPath",
+            "type": "string",
+            "description": "Path prd.md generato"
+          },
+          {
+            "name": "pbiIds",
+            "type": "array",
+            "description": "Lista ID PBI creati su ADO"
+          }
         ]
       },
-      "dependencies": ["Invoke-RestMethod", "DEEPSEEK_API_KEY", "Convert-PrdToPbi.ps1"],
-      "tags": ["planning", "ba", "pm", "prd", "pbi", "ado", "llm", "sdlc", "orchestrator", "interactive"],
+      "dependencies": [
+        "Invoke-RestMethod",
+        "DEEPSEEK_API_KEY",
+        "Convert-PrdToPbi.ps1"
+      ],
+      "tags": [
+        "planning",
+        "ba",
+        "pm",
+        "prd",
+        "pbi",
+        "ado",
+        "llm",
+        "sdlc",
+        "orchestrator",
+        "interactive"
+      ],
       "security": {
         "requires_approval": false,
         "blast_radius": "MEDIUM",
         "audit_log": true,
-        "allowed_callers": ["agent_scrummaster", "agent_backlog_planner", "agent_pr_gate", "*"]
+        "allowed_callers": [
+          "agent_scrummaster",
+          "agent_backlog_planner",
+          "agent_pr_gate",
+          "*"
+        ]
       }
     },
     {
@@ -2645,27 +2920,71 @@
       "version": "1.0.0",
       "description": "Sprint planning agile EasyWay: scompone PBI in user story, sizing Fibonacci (1-13 SP), pianifica sprint da 2 settimane (40 SP capacity), genera sprint-plan.md. Fase 4 del flusso SDLC agentico. Promosso da staging skills (ADOPT).",
       "parameters": [
-        { "name": "FeatureName", "type": "string", "required": true,  "description": "Nome feature da pianificare" },
-        { "name": "PrdPath",     "type": "string", "required": true,  "description": "Path al PRD.md" },
-        { "name": "PbiIds",      "type": "array",  "required": false, "description": "Lista PBI ID ADO da includere nel piano sprint" }
+        {
+          "name": "FeatureName",
+          "type": "string",
+          "required": true,
+          "description": "Nome feature da pianificare"
+        },
+        {
+          "name": "PrdPath",
+          "type": "string",
+          "required": true,
+          "description": "Path al PRD.md"
+        },
+        {
+          "name": "PbiIds",
+          "type": "array",
+          "required": false,
+          "description": "Lista PBI ID ADO da includere nel piano sprint"
+        }
       ],
       "returns": {
         "type": "object",
         "description": "Sprint plan generato",
         "output_fields": [
-          { "name": "sprintPath",    "type": "string",  "description": "Path sprint-plan.md generato" },
-          { "name": "sprintCount",   "type": "integer", "description": "Numero di sprint pianificati" },
-          { "name": "totalSP",       "type": "integer", "description": "Story points totali stimati" },
-          { "name": "complexityLevel", "type": "string", "description": "Level 0-4 complessità feature" }
+          {
+            "name": "sprintPath",
+            "type": "string",
+            "description": "Path sprint-plan.md generato"
+          },
+          {
+            "name": "sprintCount",
+            "type": "integer",
+            "description": "Numero di sprint pianificati"
+          },
+          {
+            "name": "totalSP",
+            "type": "integer",
+            "description": "Story points totali stimati"
+          },
+          {
+            "name": "complexityLevel",
+            "type": "string",
+            "description": "Level 0-4 complessità feature"
+          }
         ]
       },
-      "dependencies": ["Invoke-SDLCOrchestrator.ps1"],
-      "tags": ["planning", "scrum", "sprint", "agile", "story-sizing", "sdlc"],
+      "dependencies": [
+        "Invoke-SDLCOrchestrator.ps1"
+      ],
+      "tags": [
+        "planning",
+        "scrum",
+        "sprint",
+        "agile",
+        "story-sizing",
+        "sdlc"
+      ],
       "security": {
         "requires_approval": false,
         "blast_radius": "LOW",
         "audit_log": false,
-        "allowed_callers": ["agent_scrummaster", "agent_backlog_planner", "*"]
+        "allowed_callers": [
+          "agent_scrummaster",
+          "agent_backlog_planner",
+          "*"
+        ]
       }
     }
   ]
