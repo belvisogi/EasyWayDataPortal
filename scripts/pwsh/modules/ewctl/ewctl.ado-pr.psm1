@@ -332,10 +332,11 @@ function New-AdoPullRequest {
 
         if ($wiAuth) {
             $projectId = $null
-            # Resolve project ID (needed for ArtifactLink URI)
+            # Resolve project ID and repo GUID using $Headers (PR creator PAT
+            # has Code Read scope). $wiAuth (scrum-master) may lack Code Read.
             try {
                 $projResp = Invoke-RestMethod -Uri "$OrgUrl/_apis/projects/$Project`?api-version=$($script:DefaultApiVer)" `
-                    -Headers $wiAuth -Method Get
+                    -Headers $Headers -Method Get
                 $projectId = $projResp.id
             } catch {
                 Write-Warning "Could not resolve project ID for ArtifactLink: $($_.Exception.Message)"
@@ -346,7 +347,7 @@ function New-AdoPullRequest {
             if ($projectId) {
                 try {
                     $repoResp = Invoke-RestMethod -Uri "$repoBase`?api-version=$($script:DefaultApiVer)" `
-                        -Headers $wiAuth -Method Get
+                        -Headers $Headers -Method Get
                     $repoGuid = $repoResp.id
                 } catch {
                     Write-Warning "Could not resolve repo GUID for ArtifactLink: $($_.Exception.Message)"
