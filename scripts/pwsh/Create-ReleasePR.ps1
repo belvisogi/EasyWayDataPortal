@@ -6,6 +6,8 @@
     - Descrizione auto-generata: tabella PR mergeate su develop + delta SHA + checklist deploy
     - Governance integrata: blocca source≠develop e target≠main
     - Merge strategy: noFastForward (coerente con policy branch protetti)
+    - Work item linking strutturale via API (non regex fragile)
+    - Conflict pre-check prima della creazione PR
 
   Registrata come skill "devops.create-release-pr" in agents/skills/registry.json.
   Chiamabile da agenti (agent_scrummaster, agent_pr_gate) o da umano.
@@ -21,54 +23,30 @@ param(
     [string] $SourceBranch = "develop",
     [string] $TargetBranch = "main",
     [string] $SessionLabel = "",       # se vuoto → auto-detect dall'ultima Release PR su main
-    [string] $Pat          = ($env:ADO_PR_CREATOR_PAT ?? $env:AZURE_DEVOPS_EXT_PAT),
+    [string] $Pat          = "",
+    [switch] $SkipConflictCheck,       # escape hatch per emergenze
     [switch] $WhatIf,                  # stampa titolo+descrizione senza creare la PR
     [switch] $Json                     # output JSON (per agent consumption)
 )
 
 $ErrorActionPreference = 'Stop'
 
-# ── Costanti ADO ─────────────────────────────────────────────────────────────
-$OrgUrl   = 'https://dev.azure.com/EasyWayData'
-$Project  = 'EasyWay-DataPortal'
-$RepoId   = 'EasyWayDataPortal'
-$ApiBase  = "$OrgUrl/$Project/_apis"
-$RepoBase = "$ApiBase/git/repositories/$RepoId"
+# ── Import shared module ─────────────────────────────────────────────────────
+Import-Module "$PSScriptRoot/modules/ewctl/ewctl.ado-pr.psm1" -Force
 
-# ── Load PAT ─────────────────────────────────────────────────────────────────
-if (-not $Pat) {
-    $envFile = 'C:\old\.env.local'
-    if (Test-Path $envFile) {
-        $lines = Get-Content $envFile
-        # Preferisce ADO_PR_CREATOR_PAT (svc-agent-pr-creator), fallback su AZURE_DEVOPS_EXT_PAT
-        $line = $lines | Where-Object { $_ -match '^ADO_PR_CREATOR_PAT=' } | Select-Object -First 1
-        if (-not $line) {
-            $line = $lines | Where-Object { $_ -match '^AZURE_DEVOPS_EXT_PAT=' } | Select-Object -First 1
-        }
-        if ($line) { $Pat = ($line -split '=', 2)[1].Trim().Trim('"') }
-    }
-}
+# ── Resolve PAT & Auth ───────────────────────────────────────────────────────
+$Pat = Resolve-AdoPat -Pat $Pat -EnvVarNames @('ADO_PR_CREATOR_PAT', 'AZURE_DEVOPS_EXT_PAT')
 if (-not $Pat) {
     Write-Error "PAT non trovato. Impostare ADO_PR_CREATOR_PAT (preferito) o AZURE_DEVOPS_EXT_PAT."
     exit 1
 }
+$headers = New-AdoAuthHeaders -Pat $Pat
 
-# ── Auth header ───────────────────────────────────────────────────────────────
-$bytes   = [System.Text.Encoding]::UTF8.GetBytes(":$Pat")
-$b64     = [System.Convert]::ToBase64String($bytes)
-$headers = @{ Authorization = "Basic $b64"; 'Content-Type' = 'application/json' }
-
-# ── Helper: GET ADO REST ──────────────────────────────────────────────────────
-function Invoke-ADO {
-    param([string]$Url)
-    try {
-        return Invoke-RestMethod -Uri $Url -Headers $headers -Method Get
-    } catch {
-        $code = $_.Exception.Response.StatusCode.value__
-        Write-Warning "ADO API error $code : $Url"
-        return $null
-    }
-}
+# ── Costanti ADO ─────────────────────────────────────────────────────────────
+$OrgUrl   = 'https://dev.azure.com/EasyWayData'
+$Project  = 'EasyWay-DataPortal'
+$RepoId   = 'EasyWayDataPortal'
+$RepoBase = "$OrgUrl/$Project/_apis/git/repositories/$RepoId"
 
 # ── Governance check ─────────────────────────────────────────────────────────
 if ($SourceBranch -notin @('develop') -and $SourceBranch -notmatch '^release/') {
@@ -83,7 +61,7 @@ if ($TargetBranch -ne 'main') {
 # ── Get SHA completi dei branch ───────────────────────────────────────────────
 function Get-BranchSHA {
     param([string]$Branch, [switch]$Full)
-    $r = Invoke-ADO "$RepoBase/refs?filter=heads/$Branch&api-version=7.1"
+    $r = Invoke-AdoApi -Url "$RepoBase/refs?filter=heads/$Branch&api-version=7.1" -Headers $headers
     if ($r -and $r.value.Count -gt 0) {
         $sha = $r.value[0].objectId
         if ($Full) { return $sha }
@@ -114,7 +92,7 @@ if ($sourceSHAFull -eq $targetSHAFull) {
 
 # ── Auto-detect SessionLabel dall'ultima Release PR su main ──────────────────
 if (-not $SessionLabel) {
-    $mainPRs = Invoke-ADO "$RepoBase/pullrequests?searchCriteria.status=completed&searchCriteria.targetRefName=refs/heads/main&`$top=10&api-version=7.1"
+    $mainPRs = Invoke-AdoApi -Url "$RepoBase/pullrequests?searchCriteria.status=completed&searchCriteria.targetRefName=refs/heads/main&`$top=10&api-version=7.1" -Headers $headers
     $lastSession = 0
     if ($mainPRs -and $mainPRs.value) {
         foreach ($pr in $mainPRs.value) {
@@ -129,15 +107,13 @@ if (-not $SessionLabel) {
 }
 
 # ── Get PR mergeate su develop dal ultimo release su main ─────────────────────
-# Trova la data dell'ultimo merge su main
 $lastMainMergeDate = $null
-$mainPRsAll = Invoke-ADO "$RepoBase/pullrequests?searchCriteria.status=completed&searchCriteria.targetRefName=refs/heads/main&`$top=5&api-version=7.1"
+$mainPRsAll = Invoke-AdoApi -Url "$RepoBase/pullrequests?searchCriteria.status=completed&searchCriteria.targetRefName=refs/heads/main&`$top=5&api-version=7.1" -Headers $headers
 if ($mainPRsAll -and $mainPRsAll.value.Count -gt 0) {
     $lastMainMergeDate = [datetime]$mainPRsAll.value[0].closedDate
 }
 
-# PR mergeate su develop (massimo 50, poi filtriamo per data)
-$developPRsRaw = Invoke-ADO "$RepoBase/pullrequests?searchCriteria.status=completed&searchCriteria.targetRefName=refs/heads/$SourceBranch&`$top=50&api-version=7.1"
+$developPRsRaw = Invoke-AdoApi -Url "$RepoBase/pullrequests?searchCriteria.status=completed&searchCriteria.targetRefName=refs/heads/$SourceBranch&`$top=50&api-version=7.1" -Headers $headers
 $developPRs = @()
 if ($developPRsRaw -and $developPRsRaw.value) {
     $developPRs = $developPRsRaw.value | Where-Object {
@@ -160,7 +136,7 @@ $prTable = if ($developPRs.Count -gt 0) {
     "_Nessuna PR trovata nel delta (o branch già allineati)._"
 }
 
-$bq = '`'  # backtick letterale (nei here-string @"..."@ il backtick e' escape char)
+$bq = '`'
 $description = @"
 ## Cosa
 $prTable
@@ -177,19 +153,12 @@ $prTable
 
 $prTitle = "[Release] $SessionLabel - ${SourceBranch}->${TargetBranch}"
 
-# ── Collect PBI IDs from merged PR titles ────────────────────────────────────
-# Patterns: [PBI-123], AB#123 — extracts all unique PBI/Work Item IDs
+# ── Discover work items via API (structural, not regex) ───────────────────────
 $workItemIds = @()
 if ($developPRs.Count -gt 0) {
-    foreach ($pr in $developPRs) {
-        # Match [PBI-<id>] in title
-        if ($pr.title -match '\[PBI-(\d+)\]') { $workItemIds += $Matches[1] }
-        # Match AB#<id> in title or description
-        $textToScan = "$($pr.title) $($pr.description)"
-        $abMatches = [regex]::Matches($textToScan, 'AB#(\d+)')
-        foreach ($m in $abMatches) { $workItemIds += $m.Groups[1].Value }
-    }
-    $workItemIds = $workItemIds | Select-Object -Unique
+    $prIds = $developPRs | ForEach-Object { [int]$_.pullRequestId }
+    $workItemIds = Get-PrWorkItemIds -Headers $headers -PrIds $prIds `
+        -PrObjects $developPRs -IncludeTitleFallback
 }
 
 # ── WhatIf mode ───────────────────────────────────────────────────────────────
@@ -218,8 +187,7 @@ if ($WhatIf) {
         Write-Host "DELTA: $($developPRs.Count) PR da $SourceBranch ($sourceSHAShort) → $TargetBranch ($targetSHAShort)" -ForegroundColor Yellow
         if ($workItemIds.Count -gt 0) {
             Write-Host ""
-            Write-Host "WORK ITEMS:" -ForegroundColor Yellow
-            Write-Host "  $($workItemIds -join ', ')"
+            Write-Host "WORK ITEMS: $($workItemIds -join ', ')" -ForegroundColor Green
         } else {
             Write-Host ""
             Write-Host "WORK ITEMS: nessuno trovato nelle PR mergeate" -ForegroundColor DarkYellow
@@ -232,40 +200,29 @@ if ($WhatIf) {
     exit 0
 }
 
-# ── POST PR su ADO ────────────────────────────────────────────────────────────
-$bodyHash = @{
-    title             = $prTitle
-    description       = $description
-    sourceRefName     = "refs/heads/$SourceBranch"
-    targetRefName     = "refs/heads/$TargetBranch"
-    isDraft           = $false
-    completionOptions = @{
-        squashMerge   = $false
-        mergeStrategy = "noFastForward"
-    }
-}
-if ($workItemIds.Count -gt 0) {
-    $bodyHash.workItemRefs = $workItemIds | ForEach-Object { @{ id = "$_" } }
-}
-$body = $bodyHash | ConvertTo-Json -Depth 3
+# ── Create PR via shared module ───────────────────────────────────────────────
+$prResult = New-AdoPullRequest -Headers $headers -Title $prTitle `
+    -SourceBranch $SourceBranch -TargetBranch $TargetBranch `
+    -Description $description -WorkItemIds $workItemIds `
+    -SkipConflictCheck:$SkipConflictCheck
 
-try {
-    $result = Invoke-RestMethod -Uri "$RepoBase/pullrequests?api-version=7.1" `
-        -Headers $headers -Method Post -Body $body
-} catch {
-    $errBody = $_.ErrorDetails.Message
-    Write-Error "Errore creazione PR: $($_.Exception.Message)`n$errBody"
+if (-not $prResult.Success) {
+    if ($prResult.Conflicts -and $prResult.Conflicts.HasConflicts) {
+        $files = $prResult.Conflicts.ConflictedFiles -join ', '
+        Write-Error "CONFLITTI RILEVATI: $files"
+        Write-Host "Risolvi con: pwsh agents/skills/git/Resolve-PRConflicts.ps1 -SourceBranch $SourceBranch -TargetBranch $TargetBranch" -ForegroundColor Yellow
+        Write-Host "Oppure usa -SkipConflictCheck per forzare." -ForegroundColor DarkYellow
+    } else {
+        Write-Error "Errore creazione PR: $($prResult.Error)"
+    }
     exit 1
 }
-
-$prId  = $result.pullRequestId
-$prUrl = "$OrgUrl/$Project/_git/$RepoId/pullrequest/$prId"
 
 # ── Output ────────────────────────────────────────────────────────────────────
 if ($Json) {
     @{
-        id          = $prId
-        url         = $prUrl
+        id          = $prResult.PrId
+        url         = $prResult.PrUrl
         title       = $prTitle
         source      = $SourceBranch
         target      = $TargetBranch
@@ -276,7 +233,7 @@ if ($Json) {
     } | ConvertTo-Json
 } else {
     Write-Host ""
-    Write-Host "✔ PR #$prId creata: $prUrl" -ForegroundColor Green
+    Write-Host "✔ PR #$($prResult.PrId) creata: $($prResult.PrUrl)" -ForegroundColor Green
     Write-Host "  Titolo : $prTitle"
     Write-Host "  Delta  : $($developPRs.Count) PR  |  $SourceBranch ($sourceSHAShort) → $TargetBranch ($targetSHAShort)"
     if ($workItemIds.Count -gt 0) {
