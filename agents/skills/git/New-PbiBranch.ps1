@@ -380,6 +380,7 @@ if ($CreatePR) {
                 sourceRefName = "refs/heads/$branchName"
                 targetRefName = "refs/heads/$BaseBranch"
                 mergeStrategy = 'noFastForward'
+                workItemRefs  = @( @{ id = "$PbiId" } )
             } | ConvertTo-Json -Depth 3
 
             $resp  = Invoke-RestMethod -Uri $apiUrl -Method Post -Body $body `
