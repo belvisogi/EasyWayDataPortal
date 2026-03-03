@@ -4,7 +4,7 @@ id: ew-hale-bopp-etl
 status: active
 tags:
   - domain/hale-bopp
-  - module/etl-hale-bopp
+  - module/hale-bopp-etl
   - layer/reference
   - language/en
 owner: team-data-platform
@@ -23,7 +23,7 @@ llm:
 related:
   - '[[../index.md|HALE-BOPP Overview]]'
   - '[[../api-contracts.md|API Contracts]]'
-  - '[[../argos-hale-bopp/index.md|ARGOS-HALE-BOPP]]'
+  - '[[../hale-bopp-argos/index.md|ARGOS-HALE-BOPP]]'
 entities: []
 ---
 # ETL-HALE-BOPP — Data Orchestration Engine
