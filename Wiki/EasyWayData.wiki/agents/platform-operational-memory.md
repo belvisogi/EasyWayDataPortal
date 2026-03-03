@@ -1914,3 +1914,50 @@ pwsh agents/skills/planning/Invoke-SDLCOrchestrator.ps1
 - Skill `session.log` per diario di bordo automatico
 - Sprint iterations ADO (manuale UI)
 - HALE-BOPP Sprint 2: PBI #34 (test PostgreSQL), PBI #35 (pip packaging)
+
+---
+
+### Session 55 — COMPLETATA (2026-03-03)
+
+**Cosa**
+1. Epic #38 "La Fabbrica - Polyrepo Migration" creato su ADO
+2. PBI #39 (Session 54) e PBI #40 (Session 55) creati sotto Epic #38, Sprint 1, Approved
+3. PBI #39 linkato a PR #247, PBI #40 linkato a PR #248
+4. Naming convention fix: `brand-caratterizzazione` (hale-bopp-db, non db-hale-bopp)
+5. Wiki dirs rinominati: db-hale-bopp/ -> hale-bopp-db/, etl-hale-bopp/ -> hale-bopp-etl/, argos-hale-bopp/ -> hale-bopp-argos/
+6. Tutti i riferimenti wiki aggiornati (index.md, api-contracts.md, manifesto-dei-nomi.md)
+7. factory.yml: GitHub mirror URLs corretti (easyway-data/hale-bopp-data orgs), aggiunto easyway-ado
+8. GEDI: nuovo principio `it_is_that_simple` (Bleed for This, 2016)
+9. GEDI: nuovo integration `agent_consultation` — ogni agente consulta GEDI in caso di dubbio
+10. GitHub repos rinominati (UI): db-hale-bopp -> hale-bopp-db, etl-hale-bopp -> hale-bopp-etl, argos-hale-bopp -> hale-bopp-argos
+11. Repo ADO `easyway-ado` creato (UI)
+
+**Perche'**
+- Naming: coerenza brand-first per raggruppamento alfabetico e leggibilita'. GEDI `it_is_that_simple`: rinominare adesso costa zero, tra 6 mesi costa un disastro.
+- Epic/PBI: PR #247 falliva check "Work items must be linked"; Sprint 1 Taskboard vuoto perche' aveva solo Epic, non PBI.
+- GEDI agent_consultation: design pattern per futuro — tutti gli agenti consulteranno GEDI sui dubbi.
+- easyway-ado: consolidare le operazioni ADO (WI, PR, briefing, state transitions) in un SDK/CLI riusabile, eliminando curl+base64+json ripetitivo.
+
+**Come**
+- ADO REST API con `ADO_WORKITEMS_PAT` (scope Work Items R/W) per creare Epic/PBI/link/state transitions
+- ADO REST API con `ADO_PR_CREATOR_PAT` (scope Code Read + PR Contribute) per creare PR
+- `git mv` per rename directory wiki, `sed` e `Edit` per replace nei file
+- GitHub rename via UI (PAT .env.github e .env.publish scaduti — 401)
+- Repo easyway-ado creato via ADO UI (PAT non ha scope "Manage repositories")
+
+**Q&A**
+- *Perche' brand-first?* `hale-bopp-*` si raggruppa in ogni lista; "hale-bopp-etl" si legge "il modulo ETL di HALE-BOPP" — soggetto poi attributo.
+- *Perche' easyway-ado e non hale-bopp-ado?* ADO e' infrastruttura Circle 3 (privato EasyWay), non Circle 1 (HALE-BOPP open source).
+- *GitHub PAT scaduti?* `GITHUB_TOKEN` in `.env.github` e `GITHUB_PAT` in `.env.publish` restituiscono 401. Rigenerare e aggiornare.
+- *ADO PAT "Manage repositories" mancante?* `AZURE_DEVOPS_EXT_PAT` ha Code R/W ma non puo' creare repo. Servrebbe scope aggiuntivo o creare da UI.
+
+**File modificati**: agent_gedi/manifest.json, manifesto-dei-nomi.md, factory.yml, hale-bopp/index.md, hale-bopp/api-contracts.md, 3 sub-index rinominati
+**PR**: #247 (Session 54 -> develop), #248 (Session 55 -> develop)
+**ADO WI**: Epic #38, PBI #39, PBI #40
+
+**Backlog -> Session 56**
+- Approvare e mergiare PR #247 e #248 su develop
+- Release PR develop -> main
+- Scaffolding easyway-ado: core module (auth, REST client), CLI entry point, primi comandi (wi create, wi approve, pr create, briefing)
+- Rigenerare GitHub PAT e aggiornare .env.github / .env.publish
+- Deploy su server + Qdrant reindex
