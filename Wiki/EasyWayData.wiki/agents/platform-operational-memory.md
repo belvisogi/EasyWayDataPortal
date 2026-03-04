@@ -2033,12 +2033,51 @@ pwsh agents/skills/planning/Invoke-SDLCOrchestrator.ps1
 - L6: `git-filter-repo` supporta multi-path (a differenza di `git subtree split`)
 - L7: ADO SSH puo avere glitch temporanei — retry o usare HTTPS con PAT come fallback
 
-**Backlog -> Session 57**
-- Approvare PR #257 (Publish-WikiPages multi-repo) e merge
-- Phase 2 La Fabbrica: easyway-infra extraction (docker-compose, Caddyfile, azure-pipelines)
-- Sostituire Wiki/ con submodule nel monorepo
-- Aggiornare CI/CD per submodule checkout
-- Push easyway-wiki e easyway-agents su GitHub (easyway-data org)
-- Testare Publish-WikiPages end-to-end dal repo easyway-wiki con ArtifactLink atomico
-- Deploy server: git fetch + reset per Session 56 content
+---
+
+### Session 57 — La Fabbrica Phase 2: easyway-infra extraction
+
+**Cosa**: Estratto repository `easyway-infra` dal monorepo con tutti i file infrastrutturali.
+
+**Perché**: Phase 2 della migrazione polyrepo La Fabbrica — separare infrastruttura dal codice applicativo.
+
+**Come**:
+1. PR #257 e #258 confermate merged
+2. Creato repo locale `C:\old\easyway\infra\` con 1434 file (224K+ righe):
+   - Docker Compose stacks (11 file: prod, dev, apps, cert, infra, rag, gitlab, restored)
+   - Caddyfile (reverse proxy)
+   - azure-pipelines.yml (CI/CD ADO)
+   - .github/workflows/sync-to-ado.yml (GitHub → ADO sync)
+   - scripts/infra/ (server setup, security audit, port management, deploy)
+   - scripts/ops/ (operational: restart, status, deploy-n8n)
+   - scripts/linux/ (git identity, wiki auto-ingest)
+   - scripts/ci/ (CI deploy-local)
+   - config/ (platform-config, schemas, state-machine, telemetry, environments)
+   - release/ (deployment package: deploy.sh, init.sql, nginx.conf, www)
+   - forgejo/ (Forgejo/Gitea config)
+   - terraform/ (IaC legacy)
+3. Aggiornato factory.yml con Phase 0/1/2 status
+
+**Q&A**:
+- Q: Perché non subtree split? A: File sparsi in 7+ directory root + file singoli — copia diretta più pulita
+- Q: Perché non moved (solo copied)? A: Monorepo ancora attivo per portal-api e CI; cleanup in Phase 3
+- Q: ADO repo? A: Nessun PAT locale ha scope "Create Repository" — serve creazione manuale da UI ADO
+
+**Blockers**:
+- ADO repo `easyway-infra` da creare manualmente (tutti i PAT locali → 401 su POST repositories)
+- `gh` CLI non disponibile → push su GitHub bloccato
+
+**PRs Session 57**:
+- PR #258: docs/session56-handoff → develop (merged)
+- PR #259: feat/session-57-fabbrica-phase2 → develop (DA CREARE)
+
+**Lessons**:
+- L1: Nessun PAT di servizio ha scope "Create Repository" — aggiungere scope o creare repo da UI
+- L2: `release/` contiene snapshot di deploy (agents, wiki, scripts, www, init.sql) — legittimo in infra
+
+**Backlog -> Session 58**
+- Creare repo ADO `easyway-infra` da UI e push contenuto
+- Push easyway-wiki e easyway-agents su GitHub (serve `gh` CLI o GitHub PAT locale)
+- Sostituire Wiki/ con submodule nel monorepo + aggiornare CI
 - Release PR develop → main
+- Deploy server
